@@ -1,0 +1,117 @@
+================================================================================
+Quiz Studio - Deployment Package Manifest
+================================================================================
+
+Package:        quiz-studio-1.0.0
+Created:        Fri Dec 19 12:28:38 +08 2025
+Archive:        quiz-studio-1.0.0.tar.gz
+Archive Size:   136K
+Checksum:       3439e925391e8773f199ceab8b6972ee6174bec1f48e0be9fa77dd6cbc819272  quiz-studio-1.0.0.tar.gz
+
+================================================================================
+CONTENTS
+================================================================================
+
+server/
+  ├── server.js              Main Express server
+  ├── models/database.js     SQLite database
+  └── routes/                API endpoints
+      ├── characters.js
+      ├── questions.js
+      └── quiz.js
+
+public/
+  ├── index.html             Quiz interface
+  ├── admin.html             Admin panel
+  ├── css/                   Stylesheets
+  └── js/                    JavaScript logic
+
+database/                    Empty directory (created at deployment)
+
+Configuration Files:
+  ├── package.json           Dependencies
+  ├── .env.example           Environment template
+  ├── .gitignore             Git ignore rules
+  └── deploy/                Deployment scripts
+
+Documentation:
+  ├── README.md              Full documentation
+  ├── QUICK_START.md         Quick start guide
+  ├── DEPLOYMENT.md          Deployment instructions
+  └── *other guides*
+
+================================================================================
+PREREQUISITES
+================================================================================
+
+Before deployment, ensure your server has:
+  ✓ Node.js 14+ (https://nodejs.org/)
+  ✓ npm (comes with Node.js)
+  ✓ bash shell
+  ✓ At least 200MB free disk space
+  ✓ Port 3000 available (or configure PORT env var)
+
+================================================================================
+DEPLOYMENT STEPS
+================================================================================
+
+1. Transfer Archive
+   scp quiz-studio-1.0.0.tar.gz user@server:/path/to/
+
+2. Extract Archive
+   tar -xzf quiz-studio-1.0.0.tar.gz
+   cd quiz-studio-1.0.0
+
+3. Install Dependencies
+   npm install
+
+4. Configure Environment
+   cp .env.example .env
+   nano .env  (Edit if needed)
+
+5. Start Server
+   npm start
+   
+   OR (for persistent background)
+   nohup npm start > app.log 2>&1 &
+
+6. Verify
+   curl http://localhost:3000/api/health
+
+7. (Optional) Setup as Service
+   See DEPLOYMENT.md for systemd setup
+
+================================================================================
+PORTS & FIREWALL
+================================================================================
+
+Default Port:   3000
+Configure with: PORT=3001 npm start
+
+If behind reverse proxy (nginx, Apache):
+  - Configure proxy to forward to localhost:3000
+  - Enable gzip compression
+  - Set appropriate timeouts
+
+================================================================================
+DATABASE
+================================================================================
+
+Location:       ./database/quiz.db
+Type:           SQLite3
+Size:           Auto-scales (typically < 1MB for thousands of questions)
+Backup:         Copy database/quiz.db file regularly
+Reset:          Delete quiz.db and restart (auto-recreates)
+
+================================================================================
+SUPPORT
+================================================================================
+
+For detailed instructions, see:
+- DEPLOYMENT.md              Deployment guide
+- README.md                  Full documentation
+- QUICK_START.md             Quick reference
+
+Questions? Check the documentation files included in the package.
+
+================================================================================

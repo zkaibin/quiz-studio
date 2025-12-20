@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "category": "Marvel",
+    "difficulty": "Easy",
+    "template": "Who is the real name of {CHARACTER_0}?",
+    "placeholders": ["Iron Man"],
+    "options": ["Peter Parker", "Tony Stark", "Bruce Banner", "Steve Rogers"],
+    "answer": 1
+  },
+  {
+    "id": 2,
+    "category": "Marvel",
+    "difficulty": "Easy",
+    "template": "Which character is known as the {DESCRIPTOR}?",
+    "placeholders": ["Wall-Crawler"],
+    "options": ["Black Panther", "Spider-Man", "Doctor Strange", "Ant-Man"],
+    "answer": 1
+  },
+  {
+    "id": 3,
+    "category": "DC",
+    "difficulty": "Easy",
+    "template": "What is the real name of {CHARACTER_0}?",
+    "placeholders": ["Batman"],
+    "options": ["Clark Kent", "Bruce Wayne", "Arthur Curry", "Barry Allen"],
+    "answer": 1
+  },
+  {
+    "id": 4,
+    "category": "DC",
+    "difficulty": "Medium",
+    "template": "Which of these is NOT a member of the Justice League?",
+    "placeholders": [],
+    "options": ["Wonder Woman", "Flash", "Green Goblin", "Aquaman"],
+    "answer": 2
+  },
+  {
+    "id": 5,
+    "category": "Star Wars",
+    "difficulty": "Easy",
+    "template": "What is {CHARACTER_0}'s lightsaber color?",
+    "placeholders": ["Luke Skywalker"],
+    "options": ["Red", "Green", "Blue", "Yellow"],
+    "answer": 2
+  },
+  {
+    "id": 6,
+    "category": "Marvel",
+    "difficulty": "Hard",
+    "template": "In which movie did {CHARACTER_0} first appear?",
+    "placeholders": ["Black Widow"],
+    "options": ["Iron Man 2", "The Avengers", "Winter Soldier", "Black Widow"],
+    "answer": 0
+  }
+]

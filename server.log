@@ -1,0 +1,9 @@
+
+> quiz-studio@1.0.0 start
+> node server/server.js
+
+Connected to SQLite database
+Database tables created/verified
+🚀 Quiz Studio server running on http://localhost:3000
+📚 Quiz interface: http://localhost:3000
+⚙️  Admin panel: http://localhost:3000/admin

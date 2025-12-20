@@ -1,0 +1,27 @@
+{
+  "name": "quiz-studio",
+  "version": "1.0.0",
+  "description": "Fun math quiz generator for primary students with cartoon characters",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js"
+  },
+  "keywords": [
+    "quiz",
+    "math",
+    "education",
+    "kids"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "sql.js": "^1.13.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
