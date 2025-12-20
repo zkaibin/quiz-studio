@@ -272,7 +272,7 @@ class QuizApp {
    * Show quiz section
    */
   showQuizSection() {
-    document.getElementById('startSection').style.display = 'none';
+    document.getElementById('setupSection').style.display = 'none';
     document.getElementById('quizSection').style.display = 'block';
     document.getElementById('resultsSection').style.display = 'none';
   }
@@ -319,7 +319,7 @@ class QuizApp {
     document.getElementById('difficulty').value = '';
 
     // Show start section
-    document.getElementById('startSection').style.display = 'block';
+    document.getElementById('setupSection').style.display = 'block';
     document.getElementById('quizSection').style.display = 'none';
     document.getElementById('resultsSection').style.display = 'none';
   }
