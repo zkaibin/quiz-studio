@@ -1,44 +1,58 @@
 [
   {
     "id": 1,
-    "name": "Iron Man",
+    "name": "Mickey Mouse",
     "universe_id": 1,
-    "emoji_icon": "🤖",
-    "image_url": "https://via.placeholder.com/150?text=Iron+Man"
+    "emoji_icon": "🐭",
+    "image_url": "https://via.placeholder.com/150?text=Mickey"
   },
   {
     "id": 2,
-    "name": "Captain America",
+    "name": "Minnie Mouse",
     "universe_id": 1,
-    "emoji_icon": "🛡️",
-    "image_url": "https://via.placeholder.com/150?text=Captain+America"
+    "emoji_icon": "🐭",
+    "image_url": "https://via.placeholder.com/150?text=Minnie"
   },
   {
     "id": 3,
-    "name": "Spider-Man",
+    "name": "Donald Duck",
     "universe_id": 1,
-    "emoji_icon": "🕷️",
-    "image_url": "https://via.placeholder.com/150?text=Spider+Man"
+    "emoji_icon": "🦆",
+    "image_url": "https://via.placeholder.com/150?text=Donald"
   },
   {
     "id": 4,
-    "name": "Batman",
+    "name": "Woody",
     "universe_id": 2,
-    "emoji_icon": "🦇",
-    "image_url": "https://via.placeholder.com/150?text=Batman"
+    "emoji_icon": "🤠",
+    "image_url": "https://via.placeholder.com/150?text=Woody"
   },
   {
     "id": 5,
-    "name": "Superman",
+    "name": "Buzz Lightyear",
     "universe_id": 2,
-    "emoji_icon": "🦸",
-    "image_url": "https://via.placeholder.com/150?text=Superman"
+    "emoji_icon": "🚀",
+    "image_url": "https://via.placeholder.com/150?text=Buzz"
   },
   {
     "id": 6,
-    "name": "Luke Skywalker",
+    "name": "SpongeBob",
     "universe_id": 3,
-    "emoji_icon": "⚔️",
-    "image_url": "https://via.placeholder.com/150?text=Luke+Skywalker"
+    "emoji_icon": "🧽",
+    "image_url": "https://via.placeholder.com/150?text=SpongeBob"
+  },
+  {
+    "id": 7,
+    "name": "Patrick Star",
+    "universe_id": 3,
+    "emoji_icon": "⭐",
+    "image_url": "https://via.placeholder.com/150?text=Patrick"
+  },
+  {
+    "id": 8,
+    "name": "Elsa",
+    "universe_id": 1,
+    "emoji_icon": "❄️",
+    "image_url": "https://via.placeholder.com/150?text=Elsa"
   }
 ]

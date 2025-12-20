@@ -1,56 +1,218 @@
 [
   {
     "id": 1,
-    "category": "Marvel",
+    "category": "Addition",
     "difficulty": "Easy",
-    "template": "Who is the real name of {CHARACTER_0}?",
-    "placeholders": ["Iron Man"],
-    "options": ["Peter Parker", "Tony Stark", "Bruce Banner", "Steve Rogers"],
-    "answer": 1
+    "template": "{CHARACTER_0} has 5 apples. If {CHARACTER_1} gives {CHARACTER_0} 3 more apples, how many apples does {CHARACTER_0} have in total?",
+    "placeholders": ["Mickey Mouse", "Minnie Mouse"],
+    "options": ["6", "7", "8", "9"],
+    "answer": 2
   },
   {
     "id": 2,
-    "category": "Marvel",
+    "category": "Addition",
     "difficulty": "Easy",
-    "template": "Which character is known as the {DESCRIPTOR}?",
-    "placeholders": ["Wall-Crawler"],
-    "options": ["Black Panther", "Spider-Man", "Doctor Strange", "Ant-Man"],
-    "answer": 1
+    "template": "{CHARACTER_0} collected 4 shiny rocks and {CHARACTER_1} collected 6 shiny rocks. How many rocks did they collect together?",
+    "placeholders": ["SpongeBob", "Patrick Star"],
+    "options": ["8", "9", "10", "11"],
+    "answer": 2
   },
   {
     "id": 3,
-    "category": "DC",
+    "category": "Addition",
     "difficulty": "Easy",
-    "template": "What is the real name of {CHARACTER_0}?",
-    "placeholders": ["Batman"],
-    "options": ["Clark Kent", "Bruce Wayne", "Arthur Curry", "Barry Allen"],
-    "answer": 1
+    "template": "{CHARACTER_0} baked 12 cookies in the morning and 8 cookies in the afternoon. How many cookies did {CHARACTER_0} bake in total?",
+    "placeholders": ["Elsa"],
+    "options": ["18", "19", "20", "21"],
+    "answer": 2
   },
   {
     "id": 4,
-    "category": "DC",
-    "difficulty": "Medium",
-    "template": "Which of these is NOT a member of the Justice League?",
-    "placeholders": [],
-    "options": ["Wonder Woman", "Flash", "Green Goblin", "Aquaman"],
+    "category": "Subtraction",
+    "difficulty": "Easy",
+    "template": "{CHARACTER_0} had 15 balloons but 5 of them flew away. How many balloons does {CHARACTER_0} have now?",
+    "placeholders": ["Donald Duck"],
+    "options": ["8", "9", "10", "11"],
     "answer": 2
   },
   {
     "id": 5,
-    "category": "Star Wars",
+    "category": "Subtraction",
     "difficulty": "Easy",
-    "template": "What is {CHARACTER_0}'s lightsaber color?",
-    "placeholders": ["Luke Skywalker"],
-    "options": ["Red", "Green", "Blue", "Yellow"],
+    "template": "{CHARACTER_0} had 20 toys and gave 7 to {CHARACTER_1}. How many toys does {CHARACTER_0} have left?",
+    "placeholders": ["Woody", "Buzz Lightyear"],
+    "options": ["11", "12", "13", "14"],
     "answer": 2
   },
   {
     "id": 6,
-    "category": "Marvel",
+    "category": "Multiplication",
+    "difficulty": "Easy",
+    "template": "{CHARACTER_0} has 3 bags with 4 candies in each bag. How many candies does {CHARACTER_0} have in total?",
+    "placeholders": ["Mickey Mouse"],
+    "options": ["10", "11", "12", "13"],
+    "answer": 2
+  },
+  {
+    "id": 7,
+    "category": "Multiplication",
+    "difficulty": "Easy",
+    "template": "If {CHARACTER_0} plants 5 flowers in each row and has 3 rows, how many flowers are planted in total?",
+    "placeholders": ["Minnie Mouse"],
+    "options": ["13", "14", "15", "16"],
+    "answer": 2
+  },
+  {
+    "id": 8,
+    "category": "Division",
+    "difficulty": "Easy",
+    "template": "{CHARACTER_0} has 12 cookies to share equally among 3 friends. How many cookies does each friend get?",
+    "placeholders": ["Elsa"],
+    "options": ["3", "4", "5", "6"],
+    "answer": 1
+  },
+  {
+    "id": 9,
+    "category": "Division",
+    "difficulty": "Easy",
+    "template": "{CHARACTER_0} has 20 starfish to distribute equally into 4 buckets. How many starfish go in each bucket?",
+    "placeholders": ["Patrick Star"],
+    "options": ["3", "4", "5", "6"],
+    "answer": 2
+  },
+  {
+    "id": 10,
+    "category": "Addition",
+    "difficulty": "Medium",
+    "template": "{CHARACTER_0} read 23 pages on Monday and 17 pages on Tuesday. {CHARACTER_1} read 19 pages. How many more pages did {CHARACTER_0} read than {CHARACTER_1}?",
+    "placeholders": ["Mickey Mouse", "Donald Duck"],
+    "options": ["19", "20", "21", "22"],
+    "answer": 2
+  },
+  {
+    "id": 11,
+    "category": "Subtraction",
+    "difficulty": "Medium",
+    "template": "{CHARACTER_0} starts with 85 marbles. After losing 23 marbles to {CHARACTER_1}, how many does {CHARACTER_0} have left?",
+    "placeholders": ["SpongeBob", "Patrick Star"],
+    "options": ["60", "61", "62", "63"],
+    "answer": 2
+  },
+  {
+    "id": 12,
+    "category": "Multiplication",
+    "difficulty": "Medium",
+    "template": "{CHARACTER_0} buys 7 boxes of crayons. Each box has 12 crayons. How many crayons does {CHARACTER_0} have in total?",
+    "placeholders": ["Elsa"],
+    "options": ["82", "83", "84", "85"],
+    "answer": 2
+  },
+  {
+    "id": 13,
+    "category": "Multiplication",
+    "difficulty": "Medium",
+    "template": "A toy factory where {CHARACTER_0} works produces 15 toys per hour. How many toys are produced in 8 hours?",
+    "placeholders": ["Woody"],
+    "options": ["118", "119", "120", "121"],
+    "answer": 2
+  },
+  {
+    "id": 14,
+    "category": "Division",
+    "difficulty": "Medium",
+    "template": "{CHARACTER_0} made 144 cookies and wants to pack them into 12 boxes equally. How many cookies go in each box?",
+    "placeholders": ["Minnie Mouse"],
+    "options": ["10", "11", "12", "13"],
+    "answer": 2
+  },
+  {
+    "id": 15,
+    "category": "Division",
+    "difficulty": "Medium",
+    "template": "{CHARACTER_0} has 256 coins to distribute equally among 8 friends. How many coins does each friend receive?",
+    "placeholders": ["Mickey Mouse"],
+    "options": ["30", "31", "32", "33"],
+    "answer": 2
+  },
+  {
+    "id": 16,
+    "category": "Mixed Operations",
+    "difficulty": "Medium",
+    "template": "{CHARACTER_0} had 50 apples. {CHARACTER_0} gave 15 to {CHARACTER_1} and bought 20 more. How many apples does {CHARACTER_0} have now?",
+    "placeholders": ["Elsa", "Anna"],
+    "options": ["53", "54", "55", "56"],
+    "answer": 3
+  },
+  {
+    "id": 17,
+    "category": "Addition",
     "difficulty": "Hard",
-    "template": "In which movie did {CHARACTER_0} first appear?",
-    "placeholders": ["Black Widow"],
-    "options": ["Iron Man 2", "The Avengers", "Winter Soldier", "Black Widow"],
-    "answer": 0
+    "template": "{CHARACTER_0} scored 87 points in the first game, 92 in the second, and 78 in the third. What is the total score across all three games?",
+    "placeholders": ["Buzz Lightyear"],
+    "options": ["255", "256", "257", "258"],
+    "answer": 2
+  },
+  {
+    "id": 18,
+    "category": "Subtraction",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has $500. After spending $123 on toys and $89 on books, how much money does {CHARACTER_0} have left?",
+    "placeholders": ["Donald Duck"],
+    "options": ["286", "287", "288", "289"],
+    "answer": 2
+  },
+  {
+    "id": 19,
+    "category": "Multiplication",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} works 25 days per month and earns $45 per day. How much money does {CHARACTER_0} earn in one month?",
+    "placeholders": ["SpongeBob"],
+    "options": ["1120", "1125", "1130", "1135"],
+    "answer": 1
+  },
+  {
+    "id": 20,
+    "category": "Division",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} travels 540 kilometers in 9 hours. What is {CHARACTER_0}'s average speed per hour?",
+    "placeholders": ["Woody"],
+    "options": ["58", "59", "60", "61"],
+    "answer": 2
+  },
+  {
+    "id": 21,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} buys 8 books at $15 each and receives a $20 discount. How much does {CHARACTER_0} spend in total?",
+    "placeholders": ["Minnie Mouse"],
+    "options": ["100", "120", "140", "150"],
+    "answer": 1
+  },
+  {
+    "id": 22,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "A library has 250 books. {CHARACTER_0} donates 50 books, and then 30 more books are donated. If the books are arranged into 8 shelves equally, how many books are on each shelf?",
+    "placeholders": ["Elsa"],
+    "options": ["30", "32", "35", "38"],
+    "answer": 1
+  },
+  {
+    "id": 23,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} scored 85 out of 100 on a test. What percentage did {CHARACTER_0} score?",
+    "placeholders": ["Mickey Mouse"],
+    "options": ["80%", "85%", "90%", "95%"],
+    "answer": 1
+  },
+  {
+    "id": 24,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "A store is selling items at a 25% discount. If an item originally costs $80, what is the discounted price?",
+    "placeholders": [],
+    "options": ["$50", "$55", "$60", "$65"],
+    "answer": 2
   }
 ]
