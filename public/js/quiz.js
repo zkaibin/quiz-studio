@@ -205,10 +205,21 @@ class QuizApp {
   calculateScore() {
     let score = 0;
     this.questions.forEach((question, index) => {
-      if (this.answers[index] === question.answer) {
+      const userAnswer = this.answers[index];
+      const correctAnswer = question.answer;
+      const isCorrect = userAnswer === correctAnswer;
+      
+      console.log(`Q${index + 1} (ID: ${question.id}): User=${userAnswer}, Correct=${correctAnswer}, Match=${isCorrect}`);
+      console.log(`  Template: ${question.template.substring(0, 50)}...`);
+      console.log(`  Options: ${JSON.stringify(question.options)}`);
+      console.log(`  User selected option: ${question.options[userAnswer] || 'none'}`);
+      console.log(`  Correct option: ${question.options[correctAnswer] || 'none'}`);
+      
+      if (isCorrect) {
         score++;
       }
     });
+    console.log(`Final score: ${score}/${this.questions.length}`);
     return score;
   }
 
