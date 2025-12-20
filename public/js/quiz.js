@@ -57,8 +57,14 @@ class QuizApp {
   setupEventListeners() {
     document.getElementById('startQuizBtn').addEventListener('click', () => this.startQuiz());
     document.getElementById('submitBtn').addEventListener('click', () => this.finishQuiz());
+    document.getElementById('reviewBtn').addEventListener('click', () => this.showReviewSection());
     document.getElementById('printBtn').addEventListener('click', () => this.printQuiz());
     document.getElementById('retakeQuizBtn').addEventListener('click', () => this.reset());
+    document.getElementById('backToResultsBtn').addEventListener('click', () => {
+      document.getElementById('resultsSection').style.display = 'block';
+      document.getElementById('reviewSection').style.display = 'none';
+    });
+    document.getElementById('retakeFromReviewBtn').addEventListener('click', () => this.reset());
     document.getElementById('adminBtn').addEventListener('click', () => {
       window.location.href = '/admin.html';
     });
@@ -240,6 +246,7 @@ class QuizApp {
   showResultsSection(percentage) {
     document.getElementById('quizSection').style.display = 'none';
     document.getElementById('resultsSection').style.display = 'block';
+    document.getElementById('reviewSection').style.display = 'none';
 
     document.getElementById('scoreDisplay').textContent = `${this.score} / ${this.questions.length}`;
     document.getElementById('percentageDisplay').textContent = `${percentage}%`;
@@ -251,6 +258,66 @@ class QuizApp {
       '💪 Try Again!';
 
     document.getElementById('resultText').textContent = resultText;
+  }
+
+  /**
+   * Show review section with detailed answers
+   */
+  showReviewSection() {
+    document.getElementById('resultsSection').style.display = 'none';
+    document.getElementById('reviewSection').style.display = 'block';
+    
+    const reviewContainer = document.getElementById('reviewContainer');
+    reviewContainer.innerHTML = '';
+
+    // Build review items for each question
+    this.questions.forEach((question, index) => {
+      const userAnswer = this.answers[index];
+      const correctAnswer = question.answer;
+      const isCorrect = userAnswer === correctAnswer;
+
+      // Build question text with placeholders filled
+      let questionText = question.template;
+      let placeholderIndex = 0;
+      questionText = questionText.replace(/\{CHARACTER_\d+\}|\{DESCRIPTOR_\d+\}|\{NUMBER_\d+\}/g, () => {
+        const value = question.placeholders[placeholderIndex];
+        placeholderIndex++;
+        return value;
+      });
+
+      // Get answer text
+      const userAnswerText = question.options[userAnswer] || 'Not answered';
+      const correctAnswerText = question.options[correctAnswer];
+
+      // Create review item HTML
+      const reviewItem = document.createElement('div');
+      reviewItem.className = `review-item ${isCorrect ? 'correct' : 'incorrect'}`;
+      
+      reviewItem.innerHTML = `
+        <div class="review-header">
+          <span class="review-question-num">Question ${index + 1}</span>
+          <span class="review-status ${isCorrect ? 'correct' : 'incorrect'}">
+            ${isCorrect ? '✓ Correct' : '✗ Incorrect'}
+          </span>
+        </div>
+        
+        <div class="review-question-text">${questionText}</div>
+        
+        <div class="review-answer-section">
+          <div class="review-answer-box user-answer ${isCorrect ? 'correct' : 'incorrect'}">
+            <div class="review-answer-label">Your Answer</div>
+            <div class="review-answer-value">${this.letters[userAnswer]} - ${userAnswerText}</div>
+          </div>
+          
+          <div class="review-answer-box correct-answer">
+            <div class="review-answer-label">Correct Answer</div>
+            <div class="review-answer-value">${this.letters[correctAnswer]} - ${correctAnswerText}</div>
+          </div>
+        </div>
+      `;
+
+      reviewContainer.appendChild(reviewItem);
+    });
   }
 
   /**
@@ -275,10 +342,11 @@ class QuizApp {
     document.getElementById('category').value = '';
     document.getElementById('difficulty').value = '';
 
-    // Show start section
+    // Show start section and hide all others
     document.getElementById('startSection').style.display = 'block';
     document.getElementById('quizSection').style.display = 'none';
     document.getElementById('resultsSection').style.display = 'none';
+    document.getElementById('reviewSection').style.display = 'none';
   }
 
   /**

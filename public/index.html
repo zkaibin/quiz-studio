@@ -100,8 +100,20 @@
                     <p id="resultMessage" class="result-message"></p>
                 </div>
 
-                <button id="retakeQuizBtn" class="btn btn-primary">Take Another Quiz</button>
+                <button id="reviewBtn" class="btn btn-primary">Review Answers</button>
+                <button id="retakeQuizBtn" class="btn btn-secondary">Take Another Quiz</button>
                 <button id="adminBtn" class="btn btn-secondary">Admin Panel</button>
+            </section>
+
+            <!-- Review Section -->
+            <section id="reviewSection" class="section hidden">
+                <h2>Quiz Review 📋</h2>
+                <div id="reviewContainer" class="review-container"></div>
+                
+                <div class="review-controls">
+                    <button id="backToResultsBtn" class="btn btn-secondary">Back to Results</button>
+                    <button id="retakeFromReviewBtn" class="btn btn-primary">Take Another Quiz</button>
+                </div>
             </section>
         </main>
 
