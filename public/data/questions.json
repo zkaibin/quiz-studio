@@ -192,10 +192,10 @@
     "id": 22,
     "category": "Mixed Operations",
     "difficulty": "Hard",
-    "template": "A library has 250 books. {CHARACTER_0} donates 50 books, and then 30 more books are donated. If the books are arranged into 8 shelves equally, how many books are on each shelf?",
+    "template": "A library has 250 books. After {CHARACTER_0} donates 30 more books, if the books are arranged into 8 shelves equally, how many books are on each shelf?",
     "placeholders": ["Elsa"],
     "options": ["30", "32", "35", "38"],
-    "answer": 1
+    "answer": 2
   },
   {
     "id": 23,
