@@ -17,14 +17,26 @@ class DataManager {
    * Load all data from JSON files
    */
   async loadData() {
-    if (this.loaded) return this.data;
+    console.log('📥 DataManager.loadData() called');
+    console.log('  Already loaded?', this.loaded);
+    
+    if (this.loaded) {
+      console.log('  ✓ Using cached data');
+      return this.data;
+    }
 
     try {
+      console.log('  🔗 Fetching JSON files...');
       const [universes, characters, questions] = await Promise.all([
         this.loadJSON('/quiz-studio/data/universes.json'),
         this.loadJSON('/quiz-studio/data/characters.json'),
         this.loadJSON('/quiz-studio/data/questions.json')
       ]);
+
+      console.log('  ✓ Fetches completed');
+      console.log('    - universes:', universes?.length || 0);
+      console.log('    - characters:', characters?.length || 0);
+      console.log('    - questions:', questions?.length || 0);
 
       this.data = {
         universes: universes || [],
@@ -34,9 +46,11 @@ class DataManager {
       };
 
       this.loaded = true;
+      console.log('  ✓ Data loaded successfully');
+      console.log('    Questions:', this.data.questions.length);
       return this.data;
     } catch (err) {
-      console.error('Error loading data:', err);
+      console.error('❌ Error loading data:', err);
       return this.data;
     }
   }

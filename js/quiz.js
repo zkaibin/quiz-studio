@@ -22,10 +22,20 @@ class QuizApp {
    */
   async initializeApp() {
     try {
+      console.log('🚀 initializeApp() starting');
+      console.log('📊 dataManager.loaded before:', dataManager.loaded);
+      console.log('❓ dataManager.data.questions.length before:', dataManager.data.questions.length);
+      
       await dataManager.loadData();
+      
+      console.log('📊 dataManager.loaded after:', dataManager.loaded);
+      console.log('❓ dataManager.data.questions.length after:', dataManager.data.questions.length);
+      console.log('📚 Questions:', JSON.stringify(dataManager.data.questions.slice(0, 2), null, 2));
+      
       this.populateDropdowns();
+      console.log('✓ populateDropdowns() completed');
     } catch (err) {
-      console.error('Error initializing app:', err);
+      console.error('❌ Error initializing app:', err);
     }
   }
 
@@ -33,14 +43,26 @@ class QuizApp {
    * Populate category and difficulty dropdowns
    */
   populateDropdowns() {
+    console.log('🔍 populateDropdowns() called');
+    
     // Populate categories
     const categorySelect = document.getElementById('category');
+    console.log('📋 categorySelect:', categorySelect);
+    console.log('📋 Initial options:', categorySelect.options.length);
+    
     // Remove hardcoded options except the "all" option
     const allOptions = categorySelect.querySelectorAll('option:not([value="all"])');
-    allOptions.forEach(opt => opt.remove());
+    console.log('🗑️ Removing', allOptions.length, 'hardcoded options');
+    allOptions.forEach(opt => {
+      console.log('  Removing option:', opt.value);
+      opt.remove();
+    });
     
     const categories = dataManager.getCategories();
+    console.log('✅ Categories from dataManager:', categories);
+    
     categories.forEach(category => {
+      console.log('➕ Adding category option:', category);
       const option = document.createElement('option');
       option.value = category;
       option.textContent = category;
@@ -49,12 +71,21 @@ class QuizApp {
 
     // Populate difficulties
     const difficultySelect = document.getElementById('difficulty');
+    console.log('📋 difficultySelect:', difficultySelect);
+    
     // Remove hardcoded options except the "all" option
     const diffOptions = difficultySelect.querySelectorAll('option:not([value="all"])');
-    diffOptions.forEach(opt => opt.remove());
+    console.log('🗑️ Removing', diffOptions.length, 'hardcoded difficulty options');
+    diffOptions.forEach(opt => {
+      console.log('  Removing option:', opt.value);
+      opt.remove();
+    });
     
     const difficulties = dataManager.getDifficulties();
+    console.log('✅ Difficulties from dataManager:', difficulties);
+    
     difficulties.forEach(difficulty => {
+      console.log('➕ Adding difficulty option:', difficulty);
       const option = document.createElement('option');
       option.value = difficulty;
       option.textContent = difficulty;
