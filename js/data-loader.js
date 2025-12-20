@@ -61,11 +61,11 @@ class DataManager {
   getQuestions(category = null, difficulty = null) {
     let questions = this.data.questions;
 
-    if (category) {
+    if (category && category !== 'all') {
       questions = questions.filter(q => q.category === category);
     }
 
-    if (difficulty) {
+    if (difficulty && difficulty !== 'all') {
       questions = questions.filter(q => q.difficulty === difficulty);
     }
 

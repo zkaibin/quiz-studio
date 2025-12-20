@@ -35,6 +35,10 @@ class QuizApp {
   populateDropdowns() {
     // Populate categories
     const categorySelect = document.getElementById('category');
+    // Remove hardcoded options except the "all" option
+    const allOptions = categorySelect.querySelectorAll('option:not([value="all"])');
+    allOptions.forEach(opt => opt.remove());
+    
     const categories = dataManager.getCategories();
     categories.forEach(category => {
       const option = document.createElement('option');
@@ -45,6 +49,10 @@ class QuizApp {
 
     // Populate difficulties
     const difficultySelect = document.getElementById('difficulty');
+    // Remove hardcoded options except the "all" option
+    const diffOptions = difficultySelect.querySelectorAll('option:not([value="all"])');
+    diffOptions.forEach(opt => opt.remove());
+    
     const difficulties = dataManager.getDifficulties();
     difficulties.forEach(difficulty => {
       const option = document.createElement('option');
