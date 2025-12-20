@@ -284,8 +284,9 @@ class QuizApp {
     document.getElementById('quizSection').style.display = 'none';
     document.getElementById('resultsSection').style.display = 'block';
 
-    document.getElementById('scoreDisplay').textContent = `${this.score} / ${this.questions.length}`;
-    document.getElementById('percentageDisplay').textContent = `${percentage}%`;
+    document.getElementById('finalScore').textContent = this.score;
+    document.getElementById('totalQuestions').textContent = this.questions.length;
+    document.getElementById('scorePercentage').textContent = `${percentage}%`;
 
     const resultText = 
       percentage >= 80 ? '🎉 Excellent!' :
@@ -293,7 +294,7 @@ class QuizApp {
       percentage >= 40 ? '📚 Keep Practicing!' :
       '💪 Try Again!';
 
-    document.getElementById('resultText').textContent = resultText;
+    document.getElementById('resultMessage').textContent = resultText;
   }
 
   /**
