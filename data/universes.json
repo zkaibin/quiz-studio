@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "universe_name": "Marvel",
+    "description": "Marvel Cinematic Universe characters"
+  },
+  {
+    "id": 2,
+    "universe_name": "DC",
+    "description": "DC Universe characters"
+  },
+  {
+    "id": 3,
+    "universe_name": "Star Wars",
+    "description": "Star Wars universe characters"
+  }
+]
