@@ -4,9 +4,10 @@
     <title>Debug Quiz Studio</title>
     <style>
         body { font-family: monospace; padding: 20px; background: #f5f5f5; }
-        pre { background: white; padding: 15px; border-radius: 5px; overflow-x: auto; }
-        .error { color: red; }
-        .success { color: green; }
+        pre { background: white; padding: 15px; border-radius: 5px; overflow-x: auto; margin: 10px 0; border-left: 4px solid #ccc; }
+        .success { border-left-color: green; }
+        .error { border-left-color: red; }
+        h2 { margin-top: 30px; }
     </style>
 </head>
 <body>
@@ -15,49 +16,78 @@
 
     <script>
         const output = document.getElementById('output');
+        const logs = [];
         
         function log(msg, isError = false) {
-            const p = document.createElement('pre');
-            p.className = isError ? 'error' : 'success';
-            p.textContent = msg;
-            output.appendChild(p);
+            logs.push({ msg, isError });
+            const pre = document.createElement('pre');
+            pre.className = isError ? 'error' : 'success';
+            pre.textContent = msg;
+            output.appendChild(pre);
+            console.log(msg);
         }
 
-        // Test 1: Check if scripts are loading
-        log('✓ Debug page loaded');
+        log('=== PAGE LOADED ===');
+        log(`Timestamp: ${new Date().toISOString()}`);
+        log(`URL: ${window.location.href}`);
+        
+        // Check 1: Scripts loaded
+        log('\n=== CHECK 1: Global Objects ===');
+        log(`typeof DataManager: ${typeof DataManager}`);
+        log(`typeof dataManager: ${typeof dataManager}`);
+        log(`typeof QuizApp: ${typeof QuizApp}`);
+        log(`typeof quizApp: ${typeof quizApp}`);
 
-        // Test 2: Check data paths
-        log('Testing fetch from /quiz-studio/data/questions.json...');
+        // Check 2: Data Manager contents
+        if (typeof dataManager !== 'undefined') {
+            log('\n=== CHECK 2: DataManager State ===');
+            log(`dataManager.loaded: ${dataManager.loaded}`);
+            log(`dataManager.data.questions.length: ${dataManager.data.questions.length}`);
+            log(`dataManager.data.categories: ${JSON.stringify(dataManager.getCategories())}`);
+            log(`dataManager.data.difficulties: ${JSON.stringify(dataManager.getDifficulties())}`);
+        }
+
+        // Check 3: Test fetching data directly
+        log('\n=== CHECK 3: Direct Fetch Test ===');
         fetch('/quiz-studio/data/questions.json')
             .then(r => {
-                log(`✓ Response status: ${r.status}`);
+                log(`Fetch response status: ${r.status} ${r.statusText}`);
                 return r.json();
             })
             .then(data => {
-                log(`✓ Successfully loaded ${data.length} questions`);
-                log(`Categories: ${Array.from(new Set(data.map(q => q.category))).join(', ')}`);
+                log(`✓ Direct fetch SUCCESS: ${data.length} questions loaded`);
+                log(`Categories found: ${Array.from(new Set(data.map(q => q.category))).join(', ')}`);
             })
             .catch(e => {
-                log(`✗ Failed to load questions: ${e.message}`, true);
+                log(`✗ Direct fetch FAILED: ${e.message}`, true);
             });
 
-        // Test 3: Check if data-loader will load
+        // Check 4: Test QuizApp
         setTimeout(() => {
-            log('\n--- Testing DataManager ---');
-            if (typeof DataManager !== 'undefined') {
-                log('✓ DataManager class exists');
-                if (typeof dataManager !== 'undefined') {
-                    log('✓ dataManager instance exists');
-                    log(`Questions loaded: ${dataManager.data.questions.length}`);
-                } else {
-                    log('✗ dataManager instance NOT found', true);
-                }
+            log('\n=== CHECK 4: QuizApp Status ===');
+            if (typeof quizApp !== 'undefined') {
+                log(`✓ quizApp instance exists`);
+                log(`quizApp.questions.length: ${quizApp.questions.length}`);
+                
+                // Test getting questions
+                const allQuestions = dataManager.getQuestions('all', 'all');
+                log(`getQuestions('all', 'all'): ${allQuestions.length} questions`);
+                
+                const marvelQuestions = dataManager.getQuestions('Marvel', 'all');
+                log(`getQuestions('Marvel', 'all'): ${marvelQuestions.length} questions`);
             } else {
-                log('✗ DataManager class NOT found', true);
+                log(`✗ quizApp instance NOT created`, true);
             }
-        }, 1000);
+        }, 2000);
+
+        // Check 5: Check for errors in console
+        window.addEventListener('error', (e) => {
+            log(`\n⚠️ JavaScript Error: ${e.message}`, true);
+            log(`At: ${e.filename}:${e.lineno}:${e.colno}`);
+        });
     </script>
 
     <script src="/quiz-studio/js/data-loader.js"></script>
+    <script src="/quiz-studio/js/quiz.js"></script>
 </body>
 </html>
