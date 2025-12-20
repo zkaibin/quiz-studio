@@ -60,7 +60,10 @@ class DataManager {
    */
   async loadJSON(url) {
     try {
-      const response = await fetch(url);
+      // Add cache-busting parameter to force fresh data
+      const cacheBuster = new Date().getTime();
+      const urlWithBuster = url.includes('?') ? `${url}&v=${cacheBuster}` : `${url}?v=${cacheBuster}`;
+      const response = await fetch(urlWithBuster);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return await response.json();
     } catch (err) {
