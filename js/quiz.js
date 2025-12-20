@@ -203,8 +203,11 @@ class QuizApp {
     let text = question.template;
     if (question.placeholders && question.placeholders.length > 0) {
       question.placeholders.forEach((placeholder, index) => {
-        text = text.replace(`{CHARACTER_${index}}`, `<strong>${placeholder}</strong>`);
-        text = text.replace(`{DESCRIPTOR_${index}}`, `<strong>${placeholder}</strong>`);
+        // Replace all occurrences of the placeholder (not just the first one)
+        const charRegex = new RegExp(`{CHARACTER_${index}}`, 'g');
+        const descRegex = new RegExp(`{DESCRIPTOR_${index}}`, 'g');
+        text = text.replace(charRegex, `<strong>${placeholder}</strong>`);
+        text = text.replace(descRegex, `<strong>${placeholder}</strong>`);
       });
     }
     return text;
