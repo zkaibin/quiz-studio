@@ -325,38 +325,91 @@ label {
 
 .options {
     display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+    margin-top: 15px;
 }
 
 .option {
-    padding: 12px 16px;
+    padding: 12px 14px;
     border: 2px solid var(--border-color);
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s ease;
     background: white;
     text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95em;
+}
+
+.option-letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--light-bg);
+    border: 2px solid var(--border-color);
+    font-weight: bold;
+    color: var(--primary-color);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.option-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 .option:hover {
     border-color: var(--primary-color);
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+    background: rgba(99, 102, 241, 0.05);
+}
+
+.option:hover .option-letter {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
 }
 
 .option.selected {
     border-color: var(--primary-color);
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
-    font-weight: 600;
+    background: rgba(99, 102, 241, 0.1);
+    font-weight: 500;
+}
+
+.option.selected .option-letter {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
 }
 
 .option.correct {
     border-color: var(--success-color);
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.option.correct .option-letter {
+    background: var(--success-color);
+    color: white;
+    border-color: var(--success-color);
 }
 
 .option.incorrect {
     border-color: var(--danger-color);
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.05) 100%);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.option.incorrect .option-letter {
+    background: var(--danger-color);
+    color: white;
+    border-color: var(--danger-color);
 }
 
 .characters-used {
@@ -449,8 +502,24 @@ label {
         padding: 20px;
     }
 
-    .option-item {
+    .options {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .option {
+        padding: 10px 10px;
         font-size: 0.9em;
+    }
+
+    .option-letter {
+        width: 22px;
+        height: 22px;
+        font-size: 0.9em;
+    }
+
+    .option-text {
+        font-size: 0.85em;
     }
 }
 
