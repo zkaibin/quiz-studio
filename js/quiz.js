@@ -60,7 +60,7 @@ class QuizApp {
     document.getElementById('printBtn').addEventListener('click', () => this.printQuiz());
     document.getElementById('retakeQuizBtn').addEventListener('click', () => this.reset());
     document.getElementById('adminBtn').addEventListener('click', () => {
-      window.location.href = '/admin.html';
+      window.location.href = '/quiz-studio/admin.html';
     });
   }
 
