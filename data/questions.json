@@ -212,7 +212,7 @@
     "difficulty": "Hard",
     "template": "A store is selling items at a 25% discount. If an item originally costs $80, what is the discounted price?",
     "placeholders": [],
-    "options": ["$50", "$55", "$60", "$65"],
+    "options": ["50", "55", "60", "65"],
     "answer": 2
   }
 ]
