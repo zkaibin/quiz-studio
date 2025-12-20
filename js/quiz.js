@@ -162,7 +162,7 @@ class QuizApp {
 
     // Generate HTML for all questions
     this.questions.forEach((question, index) => {
-      const options = this.generateOptions(question.answer);
+      const options = this.generateOptions(question.id);
       const selectedAnswer = this.answers[index];
 
       html += `
@@ -216,14 +216,10 @@ class QuizApp {
   /**
    * Generate shuffled options
    */
-  generateOptions(correctIndex) {
-    const allOptions = [
-      dataManager.getQuestion(this.questions[0].id)?.options[0] || 'Option A',
-      dataManager.getQuestion(this.questions[0].id)?.options[1] || 'Option B',
-      dataManager.getQuestion(this.questions[0].id)?.options[2] || 'Option C',
-      dataManager.getQuestion(this.questions[0].id)?.options[3] || 'Option D'
-    ];
-    return this.shuffleArray(allOptions);
+  generateOptions(questionId) {
+    const question = dataManager.getQuestion(questionId);
+    if (!question) return ['A', 'B', 'C', 'D'];
+    return question.options;
   }
 
   /**
