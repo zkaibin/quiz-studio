@@ -106,7 +106,7 @@ class QuizApp {
       startBtn.addEventListener('click', (e) => {
         console.log('🖱️ START QUIZ BUTTON CLICKED!', e);
         try {
-          this.startQuiz();
+          this.startQuiz(e);
         } catch (err) {
           console.error('❌ Error in startQuiz():', err);
         }
