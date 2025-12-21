@@ -1,58 +1,37 @@
 [
-  {
-    "id": 1,
-    "name": "Mickey Mouse",
-    "universe_id": 1,
-    "emoji_icon": "🐭",
-    "image_url": "https://via.placeholder.com/150?text=Mickey"
-  },
-  {
-    "id": 2,
-    "name": "Minnie Mouse",
-    "universe_id": 1,
-    "emoji_icon": "🐭",
-    "image_url": "https://via.placeholder.com/150?text=Minnie"
-  },
-  {
-    "id": 3,
-    "name": "Donald Duck",
-    "universe_id": 1,
-    "emoji_icon": "🦆",
-    "image_url": "https://via.placeholder.com/150?text=Donald"
-  },
-  {
-    "id": 4,
-    "name": "Woody",
-    "universe_id": 2,
-    "emoji_icon": "🤠",
-    "image_url": "https://via.placeholder.com/150?text=Woody"
-  },
-  {
-    "id": 5,
-    "name": "Buzz Lightyear",
-    "universe_id": 2,
-    "emoji_icon": "🚀",
-    "image_url": "https://via.placeholder.com/150?text=Buzz"
-  },
-  {
-    "id": 6,
-    "name": "SpongeBob",
-    "universe_id": 3,
-    "emoji_icon": "🧽",
-    "image_url": "https://via.placeholder.com/150?text=SpongeBob"
-  },
-  {
-    "id": 7,
-    "name": "Patrick Star",
-    "universe_id": 3,
-    "emoji_icon": "⭐",
-    "image_url": "https://via.placeholder.com/150?text=Patrick"
-  },
-  {
-    "id": 8,
-    "name": "Elsa",
-    "universe_id": 1,
-    "emoji_icon": "❄️",
-    "image_url": "https://via.placeholder.com/150?text=Elsa"
-  }
+  { "id": 1, "name": "Mickey Mouse", "universe_id": 1, "emoji_icon": "🐭", "image_url": "https://via.placeholder.com/150?text=Mickey" },
+  { "id": 2, "name": "Minnie Mouse", "universe_id": 1, "emoji_icon": "🐭", "image_url": "https://via.placeholder.com/150?text=Minnie" },
+  { "id": 3, "name": "Donald Duck", "universe_id": 1, "emoji_icon": "🦆", "image_url": "https://via.placeholder.com/150?text=Donald" },
+  { "id": 4, "name": "Woody", "universe_id": 2, "emoji_icon": "🤠", "image_url": "https://via.placeholder.com/150?text=Woody" },
+  { "id": 5, "name": "Buzz Lightyear", "universe_id": 2, "emoji_icon": "🚀", "image_url": "https://via.placeholder.com/150?text=Buzz" },
+  { "id": 6, "name": "SpongeBob", "universe_id": 3, "emoji_icon": "🧽", "image_url": "https://via.placeholder.com/150?text=SpongeBob" },
+  { "id": 7, "name": "Patrick Star", "universe_id": 3, "emoji_icon": "⭐", "image_url": "https://via.placeholder.com/150?text=Patrick" },
+  { "id": 8, "name": "Elsa", "universe_id": 1, "emoji_icon": "❄️", "image_url": "https://via.placeholder.com/150?text=Elsa" },
+  { "id": 9, "name": "Jungwon", "universe_id": 4, "emoji_icon": "🦊", "image_url": "https://via.placeholder.com/150?text=Jungwon" },
+  { "id": 10, "name": "Heeseung", "universe_id": 4, "emoji_icon": "🦌", "image_url": "https://via.placeholder.com/150?text=Heeseung" },
+  { "id": 11, "name": "Jay", "universe_id": 4, "emoji_icon": "🦅", "image_url": "https://via.placeholder.com/150?text=Jay" },
+  { "id": 12, "name": "Jake", "universe_id": 4, "emoji_icon": "🐶", "image_url": "https://via.placeholder.com/150?text=Jake" },
+  { "id": 13, "name": "Sunghoon", "universe_id": 4, "emoji_icon": "🐧", "image_url": "https://via.placeholder.com/150?text=Sunghoon" },
+  { "id": 14, "name": "Sunoo", "universe_id": 4, "emoji_icon": "🐻", "image_url": "https://via.placeholder.com/150?text=Sunoo" },
+  { "id": 15, "name": "Ni-ki", "universe_id": 4, "emoji_icon": "🐱", "image_url": "https://via.placeholder.com/150?text=Ni-ki" },
+  { "id": 16, "name": "Bang Chan", "universe_id": 5, "emoji_icon": "🐺", "image_url": "https://via.placeholder.com/150?text=Bang+Chan" },
+  { "id": 17, "name": "Lee Know", "universe_id": 5, "emoji_icon": "🐱", "image_url": "https://via.placeholder.com/150?text=Lee+Know" },
+  { "id": 18, "name": "Changbin", "universe_id": 5, "emoji_icon": "🐷", "image_url": "https://via.placeholder.com/150?text=Changbin" },
+  { "id": 19, "name": "Hyunjin", "universe_id": 5, "emoji_icon": "🐰", "image_url": "https://via.placeholder.com/150?text=Hyunjin" },
+  { "id": 20, "name": "Han", "universe_id": 5, "emoji_icon": "🐿️", "image_url": "https://via.placeholder.com/150?text=Han" },
+  { "id": 21, "name": "Felix", "universe_id": 5, "emoji_icon": "🐥", "image_url": "https://via.placeholder.com/150?text=Felix" },
+  { "id": 22, "name": "Seungmin", "universe_id": 5, "emoji_icon": "🐶", "image_url": "https://via.placeholder.com/150?text=Seungmin" },
+  { "id": 23, "name": "I.N", "universe_id": 5, "emoji_icon": "🐨", "image_url": "https://via.placeholder.com/150?text=I.N" },
+  { "id": 24, "name": "Rami", "universe_id": 6, "emoji_icon": "🦄", "image_url": "https://via.placeholder.com/150?text=Rami" },
+  { "id": 25, "name": "Ahyeon", "universe_id": 6, "emoji_icon": "🦋", "image_url": "https://via.placeholder.com/150?text=Ahyeon" },
+  { "id": 26, "name": "Chiquita", "universe_id": 6, "emoji_icon": "🐣", "image_url": "https://via.placeholder.com/150?text=Chiquita" },
+  { "id": 27, "name": "Asa", "universe_id": 6, "emoji_icon": "🐯", "image_url": "https://via.placeholder.com/150?text=Asa" },
+  { "id": 28, "name": "Rora", "universe_id": 6, "emoji_icon": "🦊", "image_url": "https://via.placeholder.com/150?text=Rora" },
+  { "id": 29, "name": "Pharita", "universe_id": 6, "emoji_icon": "🦢", "image_url": "https://via.placeholder.com/150?text=Pharita" },
+  { "id": 30, "name": "Haram", "universe_id": 6, "emoji_icon": "🦁", "image_url": "https://via.placeholder.com/150?text=Haram" },
+  { "id": 31, "name": "Yeji", "universe_id": 7, "emoji_icon": "🐱", "image_url": "https://via.placeholder.com/150?text=Yeji" },
+  { "id": 32, "name": "Lia", "universe_id": 7, "emoji_icon": "🦢", "image_url": "https://via.placeholder.com/150?text=Lia" },
+  { "id": 33, "name": "Ryujin", "universe_id": 7, "emoji_icon": "🐉", "image_url": "https://via.placeholder.com/150?text=Ryujin" },
+  { "id": 34, "name": "Chaeryeong", "universe_id": 7, "emoji_icon": "🦋", "image_url": "https://via.placeholder.com/150?text=Chaeryeong" },
+  { "id": 35, "name": "Yuna", "universe_id": 7, "emoji_icon": "🐰", "image_url": "https://via.placeholder.com/150?text=Yuna" }
 ]
