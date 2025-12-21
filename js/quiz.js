@@ -48,15 +48,27 @@ class QuizApp {
    * Populate category and difficulty dropdowns
    */
   populateDropdowns() {
-        // Populate themes
-        const themeSelect = document.getElementById('theme');
-        if (themeSelect) {
-          // Remove hardcoded options except the "all" option
-          const allThemeOptions = themeSelect.querySelectorAll('option:not([value="all"])');
-          allThemeOptions.forEach(opt => opt.remove());
-          // Add dynamic themes if needed (static for now)
-          // themeSelect.appendChild(...)
-        }
+    // Populate themes
+    const themeSelect = document.getElementById('theme');
+    if (themeSelect) {
+      // Remove all options except 'all'
+      const allThemeOptions = themeSelect.querySelectorAll('option:not([value="all"])');
+      allThemeOptions.forEach(opt => opt.remove());
+      // Add static theme options
+      const staticThemes = [
+        { value: 'kpop', text: 'KPOP' },
+        { value: 'disney', text: 'Disney' },
+        { value: 'pixar', text: 'Pixar' },
+        { value: 'cartoon', text: 'Cartoon Network' },
+        { value: 'avengers', text: 'Avengers' }
+      ];
+      staticThemes.forEach(theme => {
+        const option = document.createElement('option');
+        option.value = theme.value;
+        option.textContent = theme.text;
+        themeSelect.appendChild(option);
+      });
+    }
     console.log('🔍 populateDropdowns() called');
     
     // Populate categories
