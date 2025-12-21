@@ -368,13 +368,11 @@ class QuizApp {
       const correctAnswer = question.answer;
       const isCorrect = userAnswer === correctAnswer;
 
-      // Build question text with placeholders filled
+      // Build question text with placeholders filled (use correct index)
       let questionText = question.template;
-      let placeholderIndex = 0;
-      questionText = questionText.replace(/\{CHARACTER_\d+\}|\{DESCRIPTOR_\d+\}|\{NUMBER_\d+\}/g, () => {
-        const value = question.placeholders[placeholderIndex];
-        placeholderIndex++;
-        return value;
+      questionText = questionText.replace(/\{(CHARACTER|DESCRIPTOR|NUMBER)_(\d+)\}/g, (match, type, idx) => {
+        const value = question.placeholders && question.placeholders[parseInt(idx, 10)];
+        return value !== undefined ? value : match;
       });
       console.log('Final questionText:', questionText);
 
