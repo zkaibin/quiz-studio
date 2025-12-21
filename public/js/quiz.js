@@ -328,8 +328,12 @@ class QuizApp {
     const reviewContainer = document.getElementById('reviewContainer');
     reviewContainer.innerHTML = '';
 
+    console.log('🔎 showReviewSection() called');
     // Build review items for each question
     this.questions.forEach((question, index) => {
+      console.log(`\n--- Review Item ${index + 1} ---`);
+      console.log('Template:', question.template);
+      console.log('Placeholders:', question.placeholders);
       const userAnswer = this.answers[index];
       const correctAnswer = question.answer;
       const isCorrect = userAnswer === correctAnswer;
@@ -340,10 +344,13 @@ class QuizApp {
         const value = question.placeholders && question.placeholders[parseInt(idx, 10)];
         return value !== undefined ? value : match;
       });
+      console.log('Final questionText:', questionText);
 
       // Get answer text
       const userAnswerText = question.options[userAnswer] || 'Not answered';
       const correctAnswerText = question.options[correctAnswer];
+      console.log('User answer index:', userAnswer, 'text:', userAnswerText);
+      console.log('Correct answer index:', correctAnswer, 'text:', correctAnswerText);
 
       // Create review item HTML
       const reviewItem = document.createElement('div');
