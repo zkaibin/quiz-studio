@@ -141,7 +141,7 @@
     "template": "{CHARACTER_0} had 50 apples. {CHARACTER_0} gave 15 to {CHARACTER_1} and bought 20 more. How many apples does {CHARACTER_0} have now?",
     "placeholders": ["Elsa", "Anna"],
     "options": ["53", "54", "55", "56"],
-    "answer": 3
+    "answer": 2
   },
   {
     "id": 17,
