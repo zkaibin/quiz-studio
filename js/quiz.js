@@ -103,7 +103,14 @@ class QuizApp {
     const startBtn = document.getElementById('startQuizBtn');
     console.log('  startQuizBtn:', startBtn);
     if (startBtn) {
-      startBtn.addEventListener('click', () => this.startQuiz());
+      startBtn.addEventListener('click', (e) => {
+        console.log('🖱️ START QUIZ BUTTON CLICKED!', e);
+        try {
+          this.startQuiz();
+        } catch (err) {
+          console.error('❌ Error in startQuiz():', err);
+        }
+      });
       console.log('  ✓ startQuizBtn listener attached');
     } else {
       console.log('  ❌ startQuizBtn NOT FOUND!');
