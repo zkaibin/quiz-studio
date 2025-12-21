@@ -338,7 +338,10 @@ class QuizApp {
     document.getElementById('resultsSection').style.display = 'block';
     document.getElementById('reviewSection').style.display = 'none';
 
-    document.getElementById('finalScore').textContent = `${this.score} / ${this.questions.length}`;
+    // Set score and total
+    document.getElementById('finalScore').textContent = this.score;
+    document.getElementById('totalQuestions').textContent = this.questions.length;
+    document.getElementById('scorePercentage').textContent = `${isNaN(percentage) ? 0 : percentage}%`;
 
     let resultText = 
       percentage >= 80 ? '🎉 Excellent!' :
