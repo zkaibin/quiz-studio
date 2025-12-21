@@ -22,6 +22,10 @@ class QuizApp {
    */
   async initializeApp() {
     try {
+      // Clear out any old cached questions from localStorage
+      localStorage.removeItem('custom_questions');
+      localStorage.removeItem('custom_characters');
+      
       await dataManager.loadData();
       this.populateDropdowns();
     } catch (err) {
@@ -90,6 +94,12 @@ class QuizApp {
 
     // Get questions based on criteria
     let allQuestions = dataManager.getQuestions(category, difficulty);
+    
+    console.log('🎯 startQuiz()');
+    console.log('  Category:', category);
+    console.log('  Difficulty:', difficulty);
+    console.log('  Questions found:', allQuestions.length);
+    console.log('  First question:', JSON.stringify(allQuestions[0], null, 2));
 
     // Shuffle and select random questions
     allQuestions = this.shuffleArray(allQuestions);
@@ -119,6 +129,10 @@ class QuizApp {
       container.removeEventListener('click', this.optionClickHandler);
       this.optionClickHandler = null;
     }
+
+    console.log('📖 displayAllQuestions()');
+    console.log('  Total questions to display:', this.questions.length);
+    console.log('  First question:', JSON.stringify(this.questions[0], null, 2));
 
     // Update header info
     document.getElementById('studentNameDisplay').textContent = `Student: ${this.studentName}`;

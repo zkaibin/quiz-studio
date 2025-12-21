@@ -26,6 +26,10 @@ class QuizApp {
       console.log('📊 dataManager.loaded before:', dataManager.loaded);
       console.log('❓ dataManager.data.questions.length before:', dataManager.data.questions.length);
       
+      // Clear out any old cached questions from localStorage
+      localStorage.removeItem('custom_questions');
+      localStorage.removeItem('custom_characters');
+      
       await dataManager.loadData();
       
       console.log('📊 dataManager.loaded after:', dataManager.loaded);
