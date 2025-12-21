@@ -1,3 +1,7 @@
+.input-field, .input-field option {
+    background: #fff !important;
+    color: #1e293b !important;
+}
 * {
     margin: 0;
     padding: 0;
