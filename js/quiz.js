@@ -363,6 +363,7 @@ class QuizApp {
 
     // Build review items for each question
     this.questions.forEach((question, index) => {
+      console.log('🔎 showReviewSection() called');
       const userAnswer = this.answers[index];
       const correctAnswer = question.answer;
       const isCorrect = userAnswer === correctAnswer;
@@ -375,10 +376,13 @@ class QuizApp {
         placeholderIndex++;
         return value;
       });
+      console.log('Final questionText:', questionText);
 
       // Get answer text
       const userAnswerText = question.options[userAnswer] || 'Not answered';
       const correctAnswerText = question.options[correctAnswer];
+      console.log('User answer index:', userAnswer, 'text:', userAnswerText);
+      console.log('Correct answer index:', correctAnswer, 'text:', correctAnswerText);
 
       // Create review item HTML
       const reviewItem = document.createElement('div');
