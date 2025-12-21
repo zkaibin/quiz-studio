@@ -70,7 +70,10 @@ class DataManager {
   /**
    * Get all questions, optionally filtered by category and difficulty
    */
-  getQuestions(category = null, difficulty = null) {
+  /**
+   * Get all questions, optionally filtered by category, difficulty, and theme (universe)
+   */
+  getQuestions(category = null, difficulty = null, theme = null) {
     let questions = this.data.questions;
 
     if (category && category !== 'all') {
@@ -79,6 +82,28 @@ class DataManager {
 
     if (difficulty && difficulty !== 'all') {
       questions = questions.filter(q => q.difficulty === difficulty);
+    }
+
+    // Theme filter: map theme to universe_id(s) and filter by character placeholders
+    if (theme && theme !== 'all') {
+      const themeMap = {
+        kpop: [4,5,6,7],
+        disney: [1],
+        pixar: [2],
+        cartoon: [3],
+        avengers: [8] // Example, update as needed
+      };
+      const universeIds = themeMap[theme];
+      if (universeIds) {
+        // Only include questions where all placeholder characters are from the selected universe(s)
+        questions = questions.filter(q => {
+          if (!q.placeholders || q.placeholders.length === 0) return false;
+          // Find all character objects for placeholders
+          const chars = q.placeholders.map(name => this.data.characters.find(c => c.name === name));
+          // If any character is not found or not in the universe, exclude
+          return chars.every(c => c && universeIds.includes(c.universe_id));
+        });
+      }
     }
 
     return questions;
