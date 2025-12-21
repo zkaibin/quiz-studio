@@ -338,7 +338,7 @@ class QuizApp {
     document.getElementById('resultsSection').style.display = 'block';
     document.getElementById('reviewSection').style.display = 'none';
 
-    document.getElementById('finalScore').textContent = this.score;
+    document.getElementById('finalScore').textContent = `${this.score} / ${this.questions.length}`;
 
     let resultText = 
       percentage >= 80 ? '🎉 Excellent!' :
