@@ -59,19 +59,56 @@ class QuizApp {
   }
 
   setupEventListeners() {
-    document.getElementById('startQuizBtn').addEventListener('click', () => this.startQuiz());
-    document.getElementById('submitBtn').addEventListener('click', () => this.finishQuiz());
-    document.getElementById('reviewBtn').addEventListener('click', () => this.showReviewSection());
-    document.getElementById('printBtn').addEventListener('click', () => this.printQuiz());
-    document.getElementById('retakeQuizBtn').addEventListener('click', () => this.reset());
-    document.getElementById('backToResultsBtn').addEventListener('click', () => {
-      document.getElementById('resultsSection').style.display = 'block';
-      document.getElementById('reviewSection').style.display = 'none';
-    });
-    document.getElementById('retakeFromReviewBtn').addEventListener('click', () => this.reset());
-    document.getElementById('adminBtn').addEventListener('click', () => {
-      window.location.href = '/admin.html';
-    });
+    console.log('🔌 setupEventListeners() called');
+    
+    const startBtn = document.getElementById('startQuizBtn');
+    console.log('  startQuizBtn:', startBtn);
+    if (startBtn) {
+      startBtn.addEventListener('click', () => this.startQuiz());
+      console.log('  ✓ startQuizBtn listener attached');
+    } else {
+      console.log('  ❌ startQuizBtn NOT FOUND!');
+    }
+    
+    const submitBtn = document.getElementById('submitBtn');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', () => this.finishQuiz());
+    }
+    
+    const reviewBtn = document.getElementById('reviewBtn');
+    if (reviewBtn) {
+      reviewBtn.addEventListener('click', () => this.showReviewSection());
+    }
+    
+    const printBtn = document.getElementById('printBtn');
+    if (printBtn) {
+      printBtn.addEventListener('click', () => this.printQuiz());
+    }
+    
+    const retakeBtn = document.getElementById('retakeQuizBtn');
+    if (retakeBtn) {
+      retakeBtn.addEventListener('click', () => this.reset());
+    }
+    
+    const backToResultsBtn = document.getElementById('backToResultsBtn');
+    if (backToResultsBtn) {
+      backToResultsBtn.addEventListener('click', () => {
+        document.getElementById('resultsSection').style.display = 'block';
+        document.getElementById('reviewSection').style.display = 'none';
+      });
+    }
+    
+    const retakeFromReviewBtn = document.getElementById('retakeFromReviewBtn');
+    if (retakeFromReviewBtn) {
+      retakeFromReviewBtn.addEventListener('click', () => this.reset());
+    }
+    
+    const adminBtn = document.getElementById('adminBtn');
+    if (adminBtn) {
+      adminBtn.addEventListener('click', () => {
+        window.location.href = '/quiz-studio/admin.html';
+      });
+    }
   }
 
   /**
