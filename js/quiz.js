@@ -340,6 +340,12 @@ class QuizApp {
 
     document.getElementById('finalScore').textContent = this.score;
 
+    let resultText = 
+      percentage >= 80 ? '🎉 Excellent!' :
+      percentage >= 60 ? '👍 Good Job!' :
+      percentage >= 40 ? '📚 Keep Practicing!' :
+      '💪 Try Again!';
+
     document.getElementById('resultMessage').textContent = resultText;
   }
 
