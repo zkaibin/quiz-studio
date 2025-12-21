@@ -339,13 +339,6 @@ class QuizApp {
     document.getElementById('reviewSection').style.display = 'none';
 
     document.getElementById('finalScore').textContent = this.score;
-        // Build question text with placeholders filled (use correct index)
-        let questionText = question.template;
-        questionText = questionText.replace(/\{(CHARACTER|DESCRIPTOR|NUMBER)_(\d+)\}/g, (match, type, idx) => {
-          const value = question.placeholders && question.placeholders[parseInt(idx, 10)];
-          return value !== undefined ? value : match;
-        });
-      '💪 Try Again!';
 
     document.getElementById('resultMessage').textContent = resultText;
   }
