@@ -13,5 +13,25 @@
     "id": 3,
     "universe_name": "Cartoon Network",
     "description": "Cartoon Network characters"
+  },
+  {
+    "id": 4,
+    "universe_name": "ENHYPEN",
+    "description": "K-POP group ENHYPEN members"
+  },
+  {
+    "id": 5,
+    "universe_name": "Stray Kids",
+    "description": "K-POP group Stray Kids members"
+  },
+  {
+    "id": 6,
+    "universe_name": "BABYMONSTER",
+    "description": "K-POP group BABYMONSTER members"
+  },
+  {
+    "id": 7,
+    "universe_name": "ITZY",
+    "description": "K-POP group ITZY members"
   }
 ]

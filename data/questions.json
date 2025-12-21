@@ -23,4 +23,10 @@
   {"id":22,"category":"Mixed Operations","difficulty":"Hard","template":"A library has 250 books. After {CHARACTER_0} donates 30 more books, if the books are arranged into 8 shelves equally, how many books are on each shelf?","placeholders":["Elsa"],"options":["30","32","35","38"],"answer":2},
   {"id":23,"category":"Percentage","difficulty":"Hard","template":"{CHARACTER_0} scored 85 out of 100 on a test. What percentage did {CHARACTER_0} score?","placeholders":["Mickey Mouse"],"options":["80%","85%","90%","95%"],"answer":1},
   {"id":24,"category":"Percentage","difficulty":"Hard","template":"A store is selling items at a 25% discount. If an item originally costs $80, what is the discounted price?","placeholders":[],"options":["50","55","60","65"],"answer":2}
+  ,
+  {"id":25,"category":"Addition","difficulty":"Easy","template":"{CHARACTER_0} and {CHARACTER_1} collected 7 lightsticks each at the concert. How many lightsticks do they have together?","placeholders":["Jungwon","Heeseung"],"options":["12","13","14","15"],"answer":2},
+  {"id":26,"category":"Subtraction","difficulty":"Medium","template":"{CHARACTER_0} had 20 albums and gave 8 to {CHARACTER_1}. How many albums does {CHARACTER_0} have left?","placeholders":["Bang Chan","Felix"],"options":["10","11","12","13"],"answer":2},
+  {"id":27,"category":"Multiplication","difficulty":"Hard","template":"{CHARACTER_0} bought 5 tickets for each BABYMONSTER member. How many tickets did {CHARACTER_0} buy in total?","placeholders":["Rami"],"options":["30","35","40","45"],"answer":1},
+  {"id":28,"category":"Division","difficulty":"Easy","template":"{CHARACTER_0} has 24 posters to share equally among 6 ITZY members. How many posters does each member get?","placeholders":["Yeji"],"options":["3","4","5","6"],"answer":1},
+  {"id":29,"category":"Mixed Operations","difficulty":"Medium","template":"{CHARACTER_0} and {CHARACTER_1} together won 18 awards. If {CHARACTER_0} won 10, how many did {CHARACTER_1} win?","placeholders":["Sunghoon","Jay"],"options":["6","7","8","9"],"answer":2}
 ]
