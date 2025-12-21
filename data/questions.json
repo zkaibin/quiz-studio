@@ -186,7 +186,7 @@
     "template": "{CHARACTER_0} buys 8 books at $15 each and receives a $20 discount. How much does {CHARACTER_0} spend in total?",
     "placeholders": ["Minnie Mouse"],
     "options": ["100", "120", "140", "150"],
-    "answer": 1
+    "answer": 0
   },
   {
     "id": 22,
