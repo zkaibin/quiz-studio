@@ -18,12 +18,7 @@ class DataManager {
    */
   async loadData() {
     console.log('📥 DataManager.loadData() called');
-    console.log('  Already loaded?', this.loaded);
-    
-    if (this.loaded) {
-      console.log('  ✓ Using cached data');
-      return this.data;
-    }
+    console.log('  Forcing fresh reload (no cache)');
 
     try {
       console.log('  🔗 Fetching JSON files...');

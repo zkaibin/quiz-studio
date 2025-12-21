@@ -17,13 +17,12 @@ class DataManager {
    * Load all data from JSON files
    */
   async loadData() {
-    if (this.loaded) return this.data;
-
+    // Don't use cached data - always reload from JSON files
     try {
       const [universes, characters, questions] = await Promise.all([
-        this.loadJSON('/data/universes.json'),
-        this.loadJSON('/data/characters.json'),
-        this.loadJSON('/data/questions.json')
+        this.loadJSON('/quiz-studio/data/universes.json'),
+        this.loadJSON('/quiz-studio/data/characters.json'),
+        this.loadJSON('/quiz-studio/data/questions.json')
       ]);
 
       this.data = {
