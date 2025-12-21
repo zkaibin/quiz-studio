@@ -10,6 +10,7 @@ class QuizApp {
     this.score = 0;
     this.category = '';
     this.difficulty = '';
+    this.theme = '';
     this.letters = ['A', 'B', 'C', 'D'];
     this.optionClickHandler = null;
 
@@ -47,6 +48,15 @@ class QuizApp {
    * Populate category and difficulty dropdowns
    */
   populateDropdowns() {
+        // Populate themes
+        const themeSelect = document.getElementById('theme');
+        if (themeSelect) {
+          // Remove hardcoded options except the "all" option
+          const allThemeOptions = themeSelect.querySelectorAll('option:not([value="all"])');
+          allThemeOptions.forEach(opt => opt.remove());
+          // Add dynamic themes if needed (static for now)
+          // themeSelect.appendChild(...)
+        }
     console.log('🔍 populateDropdowns() called');
     
     // Populate categories
@@ -162,6 +172,7 @@ class QuizApp {
    */
   startQuiz() {
     const studentName = document.getElementById('studentName').value.trim();
+    const theme = document.getElementById('theme').value;
     const category = document.getElementById('category').value;
     const difficulty = document.getElementById('difficulty').value;
     const questionCount = parseInt(document.getElementById('questionCount').value);
@@ -172,11 +183,31 @@ class QuizApp {
     }
 
     this.studentName = studentName;
+    this.theme = theme;
     this.category = category;
     this.difficulty = difficulty;
 
-    // Get questions based on criteria
-    let allQuestions = dataManager.getQuestions(category, difficulty);
+    // Get questions based on criteria, now with theme filter
+    let allQuestions = dataManager.getQuestions(category, difficulty, theme);
+
+    // If dataManager.getQuestions does not support theme, filter here
+    if (theme && theme !== 'all') {
+      allQuestions = allQuestions.filter(q => {
+        if (q.theme) return q.theme === theme;
+        if (q.universe_id) {
+          // Map theme to universe_id
+          const themeMap = {
+            kpop: [4,5,6,7],
+            disney: [1],
+            pixar: [2],
+            cartoon: [3],
+            avengers: [8] // Example, update as needed
+          };
+          return themeMap[theme] && themeMap[theme].includes(q.universe_id);
+        }
+        return true;
+      });
+    }
 
     // Shuffle and select random questions
     allQuestions = this.shuffleArray(allQuestions);
@@ -213,6 +244,10 @@ class QuizApp {
       `Category: ${this.category || 'All Categories'}`;
     document.getElementById('quizDifficultyDisplay').textContent = 
       `Level: ${this.difficulty || 'All Levels'}`;
+    // Optionally show theme
+    if (document.getElementById('quizThemeDisplay')) {
+      document.getElementById('quizThemeDisplay').textContent = `Theme: ${this.theme || 'All Themes'}`;
+    }
 
     // Generate HTML for all questions
     this.questions.forEach((question, index) => {
