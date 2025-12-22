@@ -300,7 +300,7 @@ class QuizApp {
 
     // Generate HTML for all questions
     this.questions.forEach((question, index) => {
-      const options = this.generateOptions(question.id);
+      const options = question.options; // Use shuffled options from this.questions
       const selectedAnswer = this.answers[index];
 
       html += `
