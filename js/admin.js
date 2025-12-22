@@ -33,7 +33,7 @@ class AdminApp {
     document.getElementById('exportBtn')?.addEventListener('click', () => this.exportData());
     document.getElementById('importBtn')?.addEventListener('click', () => this.importData());
     document.getElementById('backBtn')?.addEventListener('click', () => {
-      window.location.href = '/quiz-studio/index.html';
+      window.location.href = 'index.html';
     });
   }
 

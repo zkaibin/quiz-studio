@@ -1,0 +1,2818 @@
+[
+  {
+    "id": 17,
+    "category": "Addition",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} scored 87 points in the first game, 92 in the second, and 78 in the third. What is the total score across all three games?",
+    "options": [
+      "255",
+      "256",
+      "257",
+      "258"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 18,
+    "category": "Subtraction",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has $500. After spending $123 on toys and $89 on books, how much money does {CHARACTER_0} have left?",
+    "options": [
+      "375",
+      "376",
+      "377",
+      "378"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 19,
+    "category": "Multiplication",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} works 25 days per month and earns $45 per day. How much money does {CHARACTER_0} earn in one month?",
+    "options": [
+      "1120",
+      "1125",
+      "1130",
+      "1135"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 20,
+    "category": "Division",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} travels 540 kilometers in 9 hours. What is {CHARACTER_0}'s average speed per hour?",
+    "options": [
+      "58",
+      "59",
+      "60",
+      "61"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 21,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} buys 8 books at $15 each and receives a $20 discount. How much does {CHARACTER_0} spend in total?",
+    "options": [
+      "95",
+      "100",
+      "105",
+      "110"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 22,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "A library has 250 books. After {CHARACTER_0} donates 30 more books, if the books are arranged into 8 shelves equally, how many books are on each shelf?",
+    "options": [
+      "275",
+      "280",
+      "285",
+      "290"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 23,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} scored 85 out of 100 on a test. What percentage did {CHARACTER_0} score?",
+    "options": [
+      "80",
+      "85",
+      "90",
+      "95"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 24,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "A store is selling items at a 25% discount. If an item originally costs $80, what is the discounted price?",
+    "placeholders": [],
+    "options": [
+      "50",
+      "55",
+      "60",
+      "65"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 68,
+    "category": "Addition",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} scored 78, 85, and 92 points in three games. What is the total score?",
+    "options": [
+      "245",
+      "255",
+      "265",
+      "275"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 69,
+    "category": "Subtraction",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 120 albums and gave 47 to {CHARACTER_1}. How many albums does {CHARACTER_0} have left?",
+    "options": [
+      "63",
+      "73",
+      "83",
+      "93"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 70,
+    "category": "Multiplication",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} bought 12 sets of posters with 13 posters in each set. How many posters did {CHARACTER_0} buy?",
+    "options": [
+      "146",
+      "156",
+      "166",
+      "176"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 71,
+    "category": "Division",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 144 snacks to share equally among 12 members. How many snacks does each member get?",
+    "options": [
+      "10",
+      "11",
+      "12",
+      "13"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 72,
+    "category": "Addition",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} and {CHARACTER_1} found 56 and 39 badges. How many badges in total?",
+    "options": [
+      "93",
+      "94",
+      "95",
+      "96"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 73,
+    "category": "Subtraction",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 95 snacks and ate 38. How many snacks are left?",
+    "options": [
+      "47",
+      "57",
+      "67",
+      "77"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 74,
+    "category": "Multiplication",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} bought 9 albums for each of 8 members. How many albums in total?",
+    "options": [
+      "62",
+      "72",
+      "82",
+      "92"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 75,
+    "category": "Division",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 180 candies to share equally among 15 members. How many candies does each member get?",
+    "options": [
+      "10",
+      "11",
+      "12",
+      "13"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 76,
+    "category": "Addition",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} and {CHARACTER_1} collected 67 and 54 lightsticks. How many lightsticks do they have together?",
+    "options": [
+      "120",
+      "121",
+      "122",
+      "123"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 77,
+    "category": "Subtraction",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 110 posters and gave 45 to {CHARACTER_1}. How many posters does {CHARACTER_0} have left?",
+    "options": [
+      "55",
+      "65",
+      "75",
+      "85"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 78,
+    "category": "Multiplication",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 11 albums in each of 7 boxes. How many albums in total?",
+    "options": [
+      "67",
+      "77",
+      "87",
+      "97"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 79,
+    "category": "Division",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 168 snacks to share equally among 14 members. How many snacks does each member get?",
+    "options": [
+      "10",
+      "11",
+      "12",
+      "13"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 80,
+    "category": "Addition",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} and {CHARACTER_1} found 49 and 38 badges. How many badges in total?",
+    "options": [
+      "86",
+      "87",
+      "88",
+      "89"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 81,
+    "category": "Subtraction",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 105 albums and lost 29. How many albums are left?",
+    "options": [
+      "66",
+      "76",
+      "86",
+      "96"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 82,
+    "category": "Multiplication",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} bought 8 sets of 14 posters. How many posters did {CHARACTER_0} buy?",
+    "options": [
+      "110",
+      "112",
+      "114",
+      "116"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 83,
+    "category": "Division",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 156 candies to share equally among 13 members. How many candies does each member get?",
+    "options": [
+      "10",
+      "11",
+      "12",
+      "13"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 84,
+    "category": "Addition",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} and {CHARACTER_1} found 61 and 58 snacks. How many snacks in total?",
+    "options": [
+      "118",
+      "119",
+      "120",
+      "121"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 85,
+    "category": "Subtraction",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 130 badges and gave 55 to {CHARACTER_1}. How many badges does {CHARACTER_0} have left?",
+    "options": [
+      "65",
+      "75",
+      "85",
+      "95"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 86,
+    "category": "Multiplication",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 13 albums in each of 6 boxes. How many albums in total?",
+    "options": [
+      "68",
+      "78",
+      "88",
+      "98"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 127,
+    "category": "Addition",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} defeated 78 enemies, {CHARACTER_1} defeated 65, and {CHARACTER_2} defeated 82. How many enemies defeated in total?",
+    "options": [
+      "223",
+      "224",
+      "225",
+      "226"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "helper"
+    ]
+  },
+  {
+    "id": 128,
+    "category": "Subtraction",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 145 web cartridges and used 67 in battle. How many cartridges are left?",
+    "options": [
+      "76",
+      "77",
+      "78",
+      "79"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 129,
+    "category": "Multiplication",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} lifts 15 tons per arm across 12 lifts. How many tons lifted in total?",
+    "options": [
+      "178",
+      "179",
+      "180",
+      "181"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 130,
+    "category": "Division",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 168 repulsor rays to fire equally in 14 directions. How many rays per direction?",
+    "options": [
+      "10",
+      "11",
+      "12",
+      "13"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 131,
+    "category": "Addition",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} trained for 87 hours and {CHARACTER_1} trained for 93 hours. How many hours in total?",
+    "options": [
+      "178",
+      "179",
+      "180",
+      "181"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 132,
+    "category": "Subtraction",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 234 lightning bolts and used 128 in a massive battle. How many bolts are left?",
+    "options": [
+      "104",
+      "105",
+      "106",
+      "107"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 133,
+    "category": "Multiplication",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} throws 13 shields per battle across 11 battles. How many shields thrown?",
+    "options": [
+      "141",
+      "142",
+      "143",
+      "144"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 134,
+    "category": "Division",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 195 arrows to distribute equally among 15 quivers. How many arrows per quiver?",
+    "options": [
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 135,
+    "category": "Addition",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} defeated 96 robots and {CHARACTER_1} defeated 89 robots. How many robots defeated in total?",
+    "options": [
+      "183",
+      "184",
+      "185",
+      "186"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 136,
+    "category": "Subtraction",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 312 spy gadgets and used 187 on missions. How many gadgets are left?",
+    "options": [
+      "123",
+      "124",
+      "125",
+      "126"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 137,
+    "category": "Multiplication",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} swings through 16 blocks per patrol for 14 patrols. How many blocks in total?",
+    "options": [
+      "222",
+      "223",
+      "224",
+      "225"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 138,
+    "category": "Division",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 216 hammer strikes to use equally in 18 battles. How many strikes per battle?",
+    "options": [
+      "10",
+      "11",
+      "12",
+      "13"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 139,
+    "category": "Addition",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} and {CHARACTER_1} found 127 and 118 infinity stones. How many stones in total?",
+    "options": [
+      "243",
+      "244",
+      "245",
+      "246"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 140,
+    "category": "Subtraction",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 456 nano particles and used 278 to build suits. How many particles are left?",
+    "options": [
+      "176",
+      "177",
+      "178",
+      "179"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 141,
+    "category": "Multiplication",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} completes 17 missions per month for 9 months. How many missions in total?",
+    "options": [
+      "151",
+      "152",
+      "153",
+      "154"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 142,
+    "category": "Division",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 273 punches to distribute equally across 13 enemies. How many punches per enemy?",
+    "options": [
+      "19",
+      "20",
+      "21",
+      "22"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 143,
+    "category": "Addition",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} scored 134 points and {CHARACTER_1} scored 156 points in training. How many points in total?",
+    "options": [
+      "288",
+      "289",
+      "290",
+      "291"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 144,
+    "category": "Subtraction",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 521 shields and gave 346 to {CHARACTER_1}. How many shields does {CHARACTER_0} have left?",
+    "options": [
+      "173",
+      "174",
+      "175",
+      "176"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 145,
+    "category": "Multiplication",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} fires 19 repulsor blasts per second for 8 seconds. How many blasts in total?",
+    "options": [
+      "150",
+      "151",
+      "152",
+      "153"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 146,
+    "category": "Division",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 364 web lines to attach to 14 buildings. How many lines per building?",
+    "options": [
+      "24",
+      "25",
+      "26",
+      "27"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 152,
+    "category": "Fractions",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} uses 2/3 of web fluid in battle, what fraction remains?",
+    "options": [
+      "1/6",
+      "1/4",
+      "1/3",
+      "2/3"
+    ],
+    "answer": 0,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 157,
+    "category": "Decimals",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} runs at 15.8 km/h and {CHARACTER_1} runs at 12.3 km/h. What is their combined speed?",
+    "options": [
+      "3.6",
+      "3.8",
+      "4.0",
+      "4.2"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 158,
+    "category": "Decimals",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} weighs 89.5 kg and loses 3.8 kg in training. What is {CHARACTER_0}'s new weight?",
+    "options": [
+      "85.5",
+      "85.7",
+      "85.9",
+      "86.1"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 163,
+    "category": "Averages",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} scored 78, 85, 92, 88, 91, and 84 in six tests. What is the average score?",
+    "options": [
+      "85",
+      "86",
+      "87",
+      "88"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 164,
+    "category": "Averages",
+    "difficulty": "Hard",
+    "template": "Over 8 battles, {CHARACTER_0} used 120, 135, 128, 142, 138, 125, 132, and 144 energy units. What is the average?",
+    "options": [
+      "117",
+      "118",
+      "119",
+      "120"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 169,
+    "category": "Ratios",
+    "difficulty": "Hard",
+    "template": "The ratio of {CHARACTER_0}'s training hours to {CHARACTER_1}'s is 7:5. If {CHARACTER_1} trained for 45 hours, how many hours did {CHARACTER_0} train?",
+    "options": [
+      "30",
+      "31",
+      "32",
+      "33"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 170,
+    "category": "Ratios",
+    "difficulty": "Hard",
+    "template": "In a team of heroes, the ratio of {CHARACTER_0}'s team to {CHARACTER_1}'s team is 4:5. If there are 54 heroes total, how many are on {CHARACTER_0}'s team?",
+    "options": [
+      "65",
+      "66",
+      "67",
+      "68"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 175,
+    "category": "Time",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} starts a 3-day mission at 9:00 AM Monday. If it lasts exactly 72 hours, when does it end?",
+    "options": [
+      "70",
+      "72",
+      "74",
+      "76"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 176,
+    "category": "Time",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} completes a task every 45 minutes starting at 8:15 AM, what time will the 5th task be completed?",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 181,
+    "category": "Money",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} spent 3/5 of $250 on equipment. How much money is left?",
+    "options": [
+      "145",
+      "150",
+      "155",
+      "160"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 181,
+    "category": "Money",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} invests $500 and it increases by 15%, what is the new amount?",
+    "options": [
+      "$550",
+      "$565",
+      "$575",
+      "$585"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 199,
+    "category": "Addition",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} sealed 87 dark portals, {CHARACTER_1} sealed 93, and {CHARACTER_2} sealed 76. How many portals sealed in total?",
+    "options": [
+      "254",
+      "255",
+      "256",
+      "257"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "helper"
+    ]
+  },
+  {
+    "id": 200,
+    "category": "Subtraction",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 234 shadow essences and used 156 in a great battle. How many essences are left?",
+    "options": [
+      "76",
+      "77",
+      "78",
+      "79"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 201,
+    "category": "Multiplication",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} guards 16 sacred locations for 13 hours each. How many total guard hours?",
+    "options": [
+      "206",
+      "207",
+      "208",
+      "209"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 202,
+    "category": "Division",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 195 ancient prophecies to study over 15 nights. How many prophecies per night?",
+    "options": [
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 205,
+    "category": "Addition",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 58 items. If {CHARACTER_1} gives {CHARACTER_0} 87 more items, how many items does {CHARACTER_0} have in total?",
+    "options": [
+      "143",
+      "144",
+      "145",
+      "146"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 206,
+    "category": "Addition",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} collected 52 items and {CHARACTER_1} collected 56 items. How many items did they collect together?",
+    "options": [
+      "106",
+      "107",
+      "108",
+      "109"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 207,
+    "category": "Addition",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} found 71 treasures on Monday and 33 treasures on Tuesday. How many treasures in total?",
+    "options": [
+      "102",
+      "103",
+      "104",
+      "105"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 210,
+    "category": "Subtraction",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 49 items and gave 40 to {CHARACTER_1}. How many items does {CHARACTER_0} have left?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 211,
+    "category": "Subtraction",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 81 items and used 63. How many items are left?",
+    "options": [
+      "16",
+      "17",
+      "18",
+      "19"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 215,
+    "category": "Multiplication",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} does 96 tasks per day for 76 days. How many tasks in total?",
+    "options": [
+      "7294",
+      "7295",
+      "7296",
+      "7297"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 216,
+    "category": "Multiplication",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} collects 70 items per hour for 78 hours. How many items collected?",
+    "options": [
+      "5458",
+      "5459",
+      "5460",
+      "5461"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 252,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 67 items, gave 65 to {CHARACTER_1}, and bought 97 more. How many items now?",
+    "options": [
+      "97",
+      "98",
+      "99",
+      "100"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 253,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} collected 96 items, {CHARACTER_1} collected 36, and they used 36. How many left?",
+    "options": [
+      "96",
+      "97",
+      "98",
+      "99"
+    ],
+    "answer": 0,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 254,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} earned 94 points, lost 35 points, then earned 30 more. Total points?",
+    "options": [
+      "87",
+      "88",
+      "89",
+      "90"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 255,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 52 items, gave 35 to {CHARACTER_1}, and bought 52 more. How many items now?",
+    "options": [
+      "67",
+      "68",
+      "69",
+      "70"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 256,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} collected 97 items, {CHARACTER_1} collected 44, and they used 50. How many left?",
+    "options": [
+      "89",
+      "90",
+      "91",
+      "92"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 257,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} earned 70 points, lost 65 points, then earned 34 more. Total points?",
+    "options": [
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 258,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 48 items, gave 26 to {CHARACTER_1}, and bought 23 more. How many items now?",
+    "options": [
+      "43",
+      "44",
+      "45",
+      "46"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 259,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} collected 25 items, {CHARACTER_1} collected 83, and they used 76. How many left?",
+    "options": [
+      "30",
+      "31",
+      "32",
+      "33"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 260,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} earned 22 points, lost 34 points, then earned 45 more. Total points?",
+    "options": [
+      "31",
+      "32",
+      "33",
+      "34"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 261,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 43 items, gave 47 to {CHARACTER_1}, and bought 49 more. How many items now?",
+    "options": [
+      "42",
+      "43",
+      "44",
+      "45"
+    ],
+    "answer": 3,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 262,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} collected 85 items, {CHARACTER_1} collected 29, and they used 56. How many left?",
+    "options": [
+      "56",
+      "57",
+      "58",
+      "59"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 263,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} earned 68 points, lost 20 points, then earned 40 more. Total points?",
+    "options": [
+      "86",
+      "87",
+      "88",
+      "89"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 264,
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} had 75 items, gave 80 to {CHARACTER_1}, and bought 68 more. How many items now?",
+    "options": [
+      "61",
+      "62",
+      "63",
+      "64"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 292,
+    "category": "Fractions",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 3/8 of a cake and gives 2/7 to {CHARACTER_1}. What fraction remains?",
+    "options": [
+      "6/56",
+      "5/56",
+      "2/7",
+      "3/8"
+    ],
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "correct_answer": "5/56",
+    "answer": 1
+  },
+  {
+    "id": 293,
+    "category": "Fractions",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} completes 5/9 of a task, what fraction remains?",
+    "options": [
+      "4/9",
+      "8",
+      "6",
+      "10"
+    ],
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "correct_answer": "4/9",
+    "answer": 0
+  },
+  {
+    "id": 295,
+    "category": "Fractions",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 5/8 of a cake and gives 5/9 to {CHARACTER_1}. What fraction remains?",
+    "options": [
+      "5/72",
+      "5/8",
+      "6/72",
+      "5/9"
+    ],
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "correct_answer": "5/72",
+    "answer": 0
+  },
+  {
+    "id": 296,
+    "category": "Fractions",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} completes 5/8 of a task, what fraction remains?",
+    "options": [
+      "2/8",
+      "4/8",
+      "5/8",
+      "3/8"
+    ],
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "correct_answer": "3/8",
+    "answer": 3
+  },
+  {
+    "id": 299,
+    "category": "Fractions",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} completes 2/7 of a task, what fraction remains?",
+    "options": [
+      "2/7",
+      "5/7",
+      "4/7",
+      "6/7"
+    ],
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "correct_answer": "5/7",
+    "answer": 1
+  },
+  {
+    "id": 301,
+    "category": "Fractions",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 2/7 of a cake and gives 1/7 to {CHARACTER_1}. What fraction remains?",
+    "options": [
+      "0/7",
+      "1/7",
+      "2/7",
+      "3/7"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 302,
+    "category": "Fractions",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} completes 5/9 of a task, what fraction remains?",
+    "options": [
+      "8",
+      "10",
+      "5",
+      "4/9"
+    ],
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "correct_answer": "4/9",
+    "answer": 3
+  },
+  {
+    "id": 330,
+    "category": "Decimals",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 12.0 meters of rope and {CHARACTER_1} has 61.0 meters. How many meters together?",
+    "options": [
+      "71",
+      "72",
+      "73",
+      "74"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 331,
+    "category": "Decimals",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} ran 43.0 kilometers and {CHARACTER_1} ran 36.0 kilometers. What is the total distance?",
+    "options": [
+      "77",
+      "78",
+      "79",
+      "80"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 332,
+    "category": "Decimals",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} bought items for $81.0 and $20.0. What is the total cost?",
+    "options": [
+      "99",
+      "100",
+      "101",
+      "102"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 333,
+    "category": "Decimals",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 40.0 meters of rope and {CHARACTER_1} has 61.0 meters. How many meters together?",
+    "options": [
+      "99",
+      "100",
+      "101",
+      "102"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 334,
+    "category": "Decimals",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} ran 87.0 kilometers and {CHARACTER_1} ran 44.0 kilometers. What is the total distance?",
+    "options": [
+      "129",
+      "130",
+      "131",
+      "132"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 335,
+    "category": "Decimals",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} bought items for $70.0 and $17.0. What is the total cost?",
+    "options": [
+      "85",
+      "86",
+      "87",
+      "88"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 336,
+    "category": "Decimals",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 54.0 meters of rope and {CHARACTER_1} has 99.0 meters. How many meters together?",
+    "options": [
+      "151",
+      "152",
+      "153",
+      "154"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 337,
+    "category": "Decimals",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} ran 38.0 kilometers and {CHARACTER_1} ran 22.0 kilometers. What is the total distance?",
+    "options": [
+      "58",
+      "59",
+      "60",
+      "61"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 338,
+    "category": "Decimals",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} bought items for $14.0 and $97.0. What is the total cost?",
+    "options": [
+      "109",
+      "110",
+      "111",
+      "112"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 339,
+    "category": "Decimals",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 24.0 meters of rope and {CHARACTER_1} has 47.0 meters. How many meters together?",
+    "options": [
+      "69",
+      "70",
+      "71",
+      "72"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 340,
+    "category": "Decimals",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} ran 37.0 kilometers and {CHARACTER_1} ran 23.0 kilometers. What is the total distance?",
+    "options": [
+      "58",
+      "59",
+      "60",
+      "61"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 341,
+    "category": "Decimals",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} bought items for $73.0 and $17.0. What is the total cost?",
+    "options": [
+      "88",
+      "89",
+      "90",
+      "91"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 342,
+    "category": "Decimals",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has 72.0 meters of rope and {CHARACTER_1} has 75.0 meters. How many meters together?",
+    "options": [
+      "145",
+      "146",
+      "147",
+      "148"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 373,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} answers 21% of 65 questions correctly, how many questions were answered correctly?",
+    "options": [
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 374,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} saves 34% of $86. How much money is saved?",
+    "options": [
+      "27",
+      "28",
+      "29",
+      "30"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 375,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "A store offers 21% discount on $33. What is the discounted price?",
+    "options": [
+      "23",
+      "24",
+      "25",
+      "26"
+    ],
+    "answer": 3,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 376,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} answers 31% of 32 questions correctly, how many questions were answered correctly?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 377,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} saves 42% of $20. How much money is saved?",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 378,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "A store offers 71% discount on $60. What is the discounted price?",
+    "options": [
+      "15",
+      "16",
+      "17",
+      "18"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 379,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} answers 71% of 60 questions correctly, how many questions were answered correctly?",
+    "options": [
+      "40",
+      "41",
+      "42",
+      "43"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 380,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} saves 95% of $27. How much money is saved?",
+    "options": [
+      "23",
+      "24",
+      "25",
+      "26"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 381,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "A store offers 40% discount on $33. What is the discounted price?",
+    "options": [
+      "18",
+      "19",
+      "20",
+      "21"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 382,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} answers 66% of 29 questions correctly, how many questions were answered correctly?",
+    "options": [
+      "17",
+      "18",
+      "19",
+      "20"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 383,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} saves 92% of $22. How much money is saved?",
+    "options": [
+      "18",
+      "19",
+      "20",
+      "21"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 384,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "A store offers 80% discount on $86. What is the discounted price?",
+    "options": [
+      "15",
+      "16",
+      "17",
+      "18"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 385,
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} answers 86% of 49 questions correctly, how many questions were answered correctly?",
+    "options": [
+      "40",
+      "41",
+      "42",
+      "43"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 412,
+    "category": "Averages",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} scored 80, 51, and 28 points. What is the average score?",
+    "options": [
+      "51",
+      "52",
+      "53",
+      "54"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 413,
+    "category": "Averages",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} walks 23 km, 40 km, and 52 km on three days, what is the average distance?",
+    "options": [
+      "36",
+      "37",
+      "38",
+      "39"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 414,
+    "category": "Averages",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} collected 53, 26, 77, and 84 items. What is the average?",
+    "options": [
+      "58",
+      "59",
+      "60",
+      "61"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 415,
+    "category": "Averages",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} scored 85, 30, and 90 points. What is the average score?",
+    "options": [
+      "66",
+      "67",
+      "68",
+      "69"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 416,
+    "category": "Averages",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} walks 69 km, 92 km, and 68 km on three days, what is the average distance?",
+    "options": [
+      "74",
+      "75",
+      "76",
+      "77"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 417,
+    "category": "Averages",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} collected 78, 72, 20, and 65 items. What is the average?",
+    "options": [
+      "56",
+      "57",
+      "58",
+      "59"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 418,
+    "category": "Averages",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} scored 60, 32, and 73 points. What is the average score?",
+    "options": [
+      "53",
+      "54",
+      "55",
+      "56"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 419,
+    "category": "Averages",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} walks 84 km, 38 km, and 48 km on three days, what is the average distance?",
+    "options": [
+      "54",
+      "55",
+      "56",
+      "57"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 420,
+    "category": "Averages",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} collected 25, 54, 96, and 95 items. What is the average?",
+    "options": [
+      "65",
+      "66",
+      "67",
+      "68"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 421,
+    "category": "Averages",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} scored 55, 66, and 92 points. What is the average score?",
+    "options": [
+      "69",
+      "70",
+      "71",
+      "72"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 422,
+    "category": "Averages",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} walks 24 km, 97 km, and 42 km on three days, what is the average distance?",
+    "options": [
+      "52",
+      "53",
+      "54",
+      "55"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 423,
+    "category": "Averages",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} collected 99, 58, 60, and 26 items. What is the average?",
+    "options": [
+      "58",
+      "59",
+      "60",
+      "61"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 424,
+    "category": "Averages",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} scored 86, 41, and 25 points. What is the average score?",
+    "options": [
+      "48",
+      "49",
+      "50",
+      "51"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 451,
+    "category": "Ratios",
+    "difficulty": "Hard",
+    "template": "The ratio of {CHARACTER_0}'s items to {CHARACTER_1}'s items is 62:29. If {CHARACTER_0} has 46, how many does {CHARACTER_1} have?",
+    "options": [
+      "19",
+      "20",
+      "21",
+      "22"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 452,
+    "category": "Ratios",
+    "difficulty": "Hard",
+    "template": "For every 34 items {CHARACTER_0} collects, {CHARACTER_1} collects 89. If {CHARACTER_0} collected 35, how many did {CHARACTER_1} collect?",
+    "options": [
+      "89",
+      "90",
+      "91",
+      "92"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 453,
+    "category": "Ratios",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} mixes items in a 71:47 ratio. If using 71 of the first item, how many of the second?",
+    "options": [
+      "45",
+      "46",
+      "47",
+      "48"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 454,
+    "category": "Ratios",
+    "difficulty": "Hard",
+    "template": "The ratio of {CHARACTER_0}'s items to {CHARACTER_1}'s items is 25:33. If {CHARACTER_0} has 62, how many does {CHARACTER_1} have?",
+    "options": [
+      "79",
+      "80",
+      "81",
+      "82"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 455,
+    "category": "Ratios",
+    "difficulty": "Hard",
+    "template": "For every 53 items {CHARACTER_0} collects, {CHARACTER_1} collects 89. If {CHARACTER_0} collected 92, how many did {CHARACTER_1} collect?",
+    "options": [
+      "152",
+      "153",
+      "154",
+      "155"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 456,
+    "category": "Ratios",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} mixes items in a 22:43 ratio. If using 96 of the first item, how many of the second?",
+    "options": [
+      "185",
+      "186",
+      "187",
+      "188"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 457,
+    "category": "Ratios",
+    "difficulty": "Hard",
+    "template": "The ratio of {CHARACTER_0}'s items to {CHARACTER_1}'s items is 55:47. If {CHARACTER_0} has 50, how many does {CHARACTER_1} have?",
+    "options": [
+      "40",
+      "41",
+      "42",
+      "43"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 458,
+    "category": "Ratios",
+    "difficulty": "Hard",
+    "template": "For every 78 items {CHARACTER_0} collects, {CHARACTER_1} collects 45. If {CHARACTER_0} collected 79, how many did {CHARACTER_1} collect?",
+    "options": [
+      "43",
+      "44",
+      "45",
+      "46"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 459,
+    "category": "Ratios",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} mixes items in a 26:46 ratio. If using 53 of the first item, how many of the second?",
+    "options": [
+      "91",
+      "92",
+      "93",
+      "94"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 460,
+    "category": "Ratios",
+    "difficulty": "Hard",
+    "template": "The ratio of {CHARACTER_0}'s items to {CHARACTER_1}'s items is 51:55. If {CHARACTER_0} has 35, how many does {CHARACTER_1} have?",
+    "options": [
+      "35",
+      "36",
+      "37",
+      "38"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 461,
+    "category": "Ratios",
+    "difficulty": "Hard",
+    "template": "For every 95 items {CHARACTER_0} collects, {CHARACTER_1} collects 88. If {CHARACTER_0} collected 66, how many did {CHARACTER_1} collect?",
+    "options": [
+      "59",
+      "60",
+      "61",
+      "62"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 462,
+    "category": "Ratios",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} mixes items in a 64:97 ratio. If using 37 of the first item, how many of the second?",
+    "options": [
+      "54",
+      "55",
+      "56",
+      "57"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 463,
+    "category": "Ratios",
+    "difficulty": "Hard",
+    "template": "The ratio of {CHARACTER_0}'s items to {CHARACTER_1}'s items is 52:30. If {CHARACTER_0} has 35, how many does {CHARACTER_1} have?",
+    "options": [
+      "18",
+      "19",
+      "20",
+      "21"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 490,
+    "category": "Time",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} starts a task at 8:00 and finishes at 7:00. How many hours did it take?",
+    "options": [
+      "72",
+      "73",
+      "74",
+      "75"
+    ],
+    "answer": 1,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 492,
+    "category": "Time",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} practices 60 minutes per day for 83 days. How many total minutes?",
+    "options": [
+      "4978",
+      "4979",
+      "4980",
+      "4981"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 493,
+    "category": "Time",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} starts a task at 8:00 and finishes at 6:00. How many hours did it take?",
+    "options": [
+      "53",
+      "54",
+      "55",
+      "56"
+    ],
+    "answer": 3,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 495,
+    "category": "Time",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} practices 23 minutes per day for 20 days. How many total minutes?",
+    "options": [
+      "458",
+      "459",
+      "460",
+      "461"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 496,
+    "category": "Time",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} starts a task at 1:00 and finishes at 7:00. How many hours did it take?",
+    "options": [
+      "33",
+      "34",
+      "35",
+      "36"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 497,
+    "category": "Time",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} needs 81 hours to complete a project and has already worked 63 hours, how many hours remain?",
+    "options": [
+      "16",
+      "17",
+      "18",
+      "19"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 498,
+    "category": "Time",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} practices 26 minutes per day for 33 days. How many total minutes?",
+    "options": [
+      "856",
+      "857",
+      "858",
+      "859"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 499,
+    "category": "Time",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} starts a task at 12:00 and finishes at 5:00. How many hours did it take?",
+    "options": [
+      "53",
+      "54",
+      "55",
+      "56"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 501,
+    "category": "Time",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} practices 34 minutes per day for 67 days. How many total minutes?",
+    "options": [
+      "2276",
+      "2277",
+      "2278",
+      "2279"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 502,
+    "category": "Time",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} starts a task at 6:00 and finishes at 6:00. How many hours did it take?",
+    "options": [
+      "74",
+      "75",
+      "76",
+      "77"
+    ],
+    "answer": 3,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 529,
+    "category": "Money",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has $26 and {CHARACTER_1} has $27. How much money do they have together?",
+    "options": [
+      "51",
+      "52",
+      "53",
+      "54"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 530,
+    "category": "Money",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} bought an item for $58 and paid with $81. How much change?",
+    "options": [
+      "21",
+      "22",
+      "23",
+      "24"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 531,
+    "category": "Money",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} earns $88 per hour for 61 hours, how much total?",
+    "options": [
+      "147",
+      "148",
+      "149",
+      "150"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 532,
+    "category": "Money",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has $66 and {CHARACTER_1} has $55. How much money do they have together?",
+    "options": [
+      "119",
+      "120",
+      "121",
+      "122"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 534,
+    "category": "Money",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} earns $32 per hour for 42 hours, how much total?",
+    "options": [
+      "72",
+      "73",
+      "74",
+      "75"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 535,
+    "category": "Money",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has $68 and {CHARACTER_1} has $55. How much money do they have together?",
+    "options": [
+      "121",
+      "122",
+      "123",
+      "124"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 536,
+    "category": "Money",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} bought an item for $25 and paid with $40. How much change?",
+    "options": [
+      "13",
+      "14",
+      "15",
+      "16"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 537,
+    "category": "Money",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} earns $35 per hour for 39 hours, how much total?",
+    "options": [
+      "72",
+      "73",
+      "74",
+      "75"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 538,
+    "category": "Money",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has $41 and {CHARACTER_1} has $71. How much money do they have together?",
+    "options": [
+      "110",
+      "111",
+      "112",
+      "113"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 540,
+    "category": "Money",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} earns $97 per hour for 44 hours, how much total?",
+    "options": [
+      "139",
+      "140",
+      "141",
+      "142"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist"
+    ]
+  },
+  {
+    "id": 541,
+    "category": "Money",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has $69 and {CHARACTER_1} has $33. How much money do they have together?",
+    "options": [
+      "100",
+      "101",
+      "102",
+      "103"
+    ],
+    "answer": 2,
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": "Q583",
+    "category": "Subtraction",
+    "template": "{CHARACTER_0} had 91 items and gave 28 to {CHARACTER_1}. How many items does {CHARACTER_0} have left?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "64",
+      "63",
+      "62",
+      "119"
+    ],
+    "correct_answer": "63",
+    "answer": 1
+  },
+  {
+    "id": "Q584",
+    "category": "Division",
+    "template": "{CHARACTER_0} has 96 coins to share equally among 4 friends. How many coins does each friend get?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "23",
+      "25",
+      "26",
+      "24"
+    ],
+    "correct_answer": "24",
+    "answer": 3
+  },
+  {
+    "id": "Q585",
+    "category": "Division",
+    "template": "{CHARACTER_0} has 80 coins to share equally among 2 friends. How many coins does each friend get?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "40",
+      "41",
+      "39",
+      "42"
+    ],
+    "correct_answer": "40",
+    "answer": 0
+  },
+  {
+    "id": "Q586",
+    "category": "Division",
+    "template": "{CHARACTER_0} has 171 coins to share equally among 9 friends. How many coins does each friend get?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "19",
+      "18",
+      "20",
+      "21"
+    ],
+    "correct_answer": "19",
+    "answer": 0
+  },
+  {
+    "id": "Q587",
+    "category": "Division",
+    "template": "{CHARACTER_0} has 144 coins to share equally among 8 friends. How many coins does each friend get?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "20",
+      "17",
+      "19",
+      "18"
+    ],
+    "correct_answer": "18",
+    "answer": 3
+  },
+  {
+    "id": "Q588",
+    "category": "Fractions",
+    "template": "{CHARACTER_0} has 5/3 of a pizza and gives 2/3 to {CHARACTER_1}. How much is left?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "2/3",
+      "3/3",
+      "4/3",
+      "7/3"
+    ],
+    "correct_answer": "3/3",
+    "answer": 1
+  },
+  {
+    "id": "Q590",
+    "category": "Fractions",
+    "template": "{CHARACTER_0} has 10/8 of a pizza and gives 6/8 to {CHARACTER_1}. How much is left?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "16/8",
+      "6/8",
+      "5/8",
+      "4/8"
+    ],
+    "correct_answer": "4/8",
+    "answer": 3
+  },
+  {
+    "id": "Q591",
+    "category": "Time",
+    "template": "If {CHARACTER_0} needs 3 hours to complete a project and has worked for 1 hours, how many hours remain?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "2",
+      "1",
+      "3",
+      "4"
+    ],
+    "correct_answer": "2",
+    "answer": 0
+  },
+  {
+    "id": "Q594",
+    "category": "Money",
+    "template": "{CHARACTER_0} bought an item for $47 and paid with $55. How much change did {CHARACTER_0} receive?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "47",
+      "8",
+      "11",
+      "14"
+    ],
+    "correct_answer": "8",
+    "answer": 1
+  },
+  {
+    "id": "Q595",
+    "category": "Money",
+    "template": "{CHARACTER_0} bought an item for $77 and paid with $95. How much change did {CHARACTER_0} receive?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "27",
+      "18",
+      "77",
+      "21"
+    ],
+    "correct_answer": "18",
+    "answer": 1
+  }
+]

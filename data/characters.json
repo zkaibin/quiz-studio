@@ -1,62 +1,714 @@
 [
-  { "id": 1, "name": "Mickey Mouse", "universe_id": 1, "emoji_icon": "🐭", "image_url": "https://via.placeholder.com/150?text=Mickey" },
-  { "id": 2, "name": "Minnie Mouse", "universe_id": 1, "emoji_icon": "🐭", "image_url": "https://via.placeholder.com/150?text=Minnie" },
-  { "id": 3, "name": "Donald Duck", "universe_id": 1, "emoji_icon": "🦆", "image_url": "https://via.placeholder.com/150?text=Donald" },
-  { "id": 4, "name": "Woody", "universe_id": 2, "emoji_icon": "🤠", "image_url": "https://via.placeholder.com/150?text=Woody" },
-  { "id": 5, "name": "Buzz Lightyear", "universe_id": 2, "emoji_icon": "🚀", "image_url": "https://via.placeholder.com/150?text=Buzz" },
-  { "id": 6, "name": "SpongeBob", "universe_id": 3, "emoji_icon": "🧽", "image_url": "https://via.placeholder.com/150?text=SpongeBob" },
-  { "id": 7, "name": "Patrick Star", "universe_id": 3, "emoji_icon": "⭐", "image_url": "https://via.placeholder.com/150?text=Patrick" },
-  { "id": 8, "name": "Elsa", "universe_id": 1, "emoji_icon": "❄️", "image_url": "https://via.placeholder.com/150?text=Elsa" },
-  { "id": 9, "name": "Jungwon", "universe_id": 4, "emoji_icon": "🦊", "image_url": "https://via.placeholder.com/150?text=Jungwon" },
-  { "id": 10, "name": "Heeseung", "universe_id": 4, "emoji_icon": "🦌", "image_url": "https://via.placeholder.com/150?text=Heeseung" },
-  { "id": 11, "name": "Jay", "universe_id": 4, "emoji_icon": "🦅", "image_url": "https://via.placeholder.com/150?text=Jay" },
-  { "id": 12, "name": "Jake", "universe_id": 4, "emoji_icon": "🐶", "image_url": "https://via.placeholder.com/150?text=Jake" },
-  { "id": 13, "name": "Sunghoon", "universe_id": 4, "emoji_icon": "🐧", "image_url": "https://via.placeholder.com/150?text=Sunghoon" },
-  { "id": 14, "name": "Sunoo", "universe_id": 4, "emoji_icon": "🐻", "image_url": "https://via.placeholder.com/150?text=Sunoo" },
-  { "id": 15, "name": "Ni-ki", "universe_id": 4, "emoji_icon": "🐱", "image_url": "https://via.placeholder.com/150?text=Ni-ki" },
-  { "id": 16, "name": "Bang Chan", "universe_id": 5, "emoji_icon": "🐺", "image_url": "https://via.placeholder.com/150?text=Bang+Chan" },
-  { "id": 17, "name": "Lee Know", "universe_id": 5, "emoji_icon": "🐱", "image_url": "https://via.placeholder.com/150?text=Lee+Know" },
-  { "id": 18, "name": "Changbin", "universe_id": 5, "emoji_icon": "🐷", "image_url": "https://via.placeholder.com/150?text=Changbin" },
-  { "id": 19, "name": "Hyunjin", "universe_id": 5, "emoji_icon": "🐰", "image_url": "https://via.placeholder.com/150?text=Hyunjin" },
-  { "id": 20, "name": "Han", "universe_id": 5, "emoji_icon": "🐿️", "image_url": "https://via.placeholder.com/150?text=Han" },
-  { "id": 21, "name": "Felix", "universe_id": 5, "emoji_icon": "🐥", "image_url": "https://via.placeholder.com/150?text=Felix" },
-  { "id": 22, "name": "Seungmin", "universe_id": 5, "emoji_icon": "🐶", "image_url": "https://via.placeholder.com/150?text=Seungmin" },
-  { "id": 23, "name": "I.N", "universe_id": 5, "emoji_icon": "🐨", "image_url": "https://via.placeholder.com/150?text=I.N" },
-  { "id": 24, "name": "Rami", "universe_id": 6, "emoji_icon": "🦄", "image_url": "https://via.placeholder.com/150?text=Rami" },
-  { "id": 25, "name": "Ahyeon", "universe_id": 6, "emoji_icon": "🦋", "image_url": "https://via.placeholder.com/150?text=Ahyeon" },
-  { "id": 26, "name": "Chiquita", "universe_id": 6, "emoji_icon": "🐣", "image_url": "https://via.placeholder.com/150?text=Chiquita" },
-  { "id": 27, "name": "Asa", "universe_id": 6, "emoji_icon": "🐯", "image_url": "https://via.placeholder.com/150?text=Asa" },
-  { "id": 28, "name": "Rora", "universe_id": 6, "emoji_icon": "🦊", "image_url": "https://via.placeholder.com/150?text=Rora" },
-  { "id": 29, "name": "Pharita", "universe_id": 6, "emoji_icon": "🦢", "image_url": "https://via.placeholder.com/150?text=Pharita" },
-  { "id": 30, "name": "Haram", "universe_id": 6, "emoji_icon": "🦁", "image_url": "https://via.placeholder.com/150?text=Haram" },
-  { "id": 31, "name": "Yeji", "universe_id": 7, "emoji_icon": "🐱", "image_url": "https://via.placeholder.com/150?text=Yeji" },
-  { "id": 32, "name": "Lia", "universe_id": 7, "emoji_icon": "🦢", "image_url": "https://via.placeholder.com/150?text=Lia" },
-  { "id": 33, "name": "Ryujin", "universe_id": 7, "emoji_icon": "🐉", "image_url": "https://via.placeholder.com/150?text=Ryujin" },
-  { "id": 34, "name": "Chaeryeong", "universe_id": 7, "emoji_icon": "🦋", "image_url": "https://via.placeholder.com/150?text=Chaeryeong" },
-  { "id": 35, "name": "Yuna", "universe_id": 7, "emoji_icon": "🐰", "image_url": "https://via.placeholder.com/150?text=Yuna" },
-  { "id": 36, "name": "Iron Man", "universe_id": 8, "emoji_icon": "🦾", "image_url": "https://via.placeholder.com/150?text=Iron+Man" },
-  { "id": 37, "name": "Captain America", "universe_id": 8, "emoji_icon": "🛡️", "image_url": "https://via.placeholder.com/150?text=Captain+America" },
-  { "id": 38, "name": "Thor", "universe_id": 8, "emoji_icon": "⚡", "image_url": "https://via.placeholder.com/150?text=Thor" },
-  { "id": 39, "name": "Hulk", "universe_id": 8, "emoji_icon": "💚", "image_url": "https://via.placeholder.com/150?text=Hulk" },
-  { "id": 40, "name": "Black Widow", "universe_id": 8, "emoji_icon": "🕷️", "image_url": "https://via.placeholder.com/150?text=Black+Widow" },
-  { "id": 41, "name": "Hawkeye", "universe_id": 8, "emoji_icon": "🏹", "image_url": "https://via.placeholder.com/150?text=Hawkeye" },
-  { "id": 42, "name": "Spider-Man", "universe_id": 8, "emoji_icon": "🕸️", "image_url": "https://via.placeholder.com/150?text=Spider-Man" },
-  { "id": 43, "name": "War Machine", "universe_id": 8, "emoji_icon": "🤖", "image_url": "https://via.placeholder.com/150?text=War+Machine" },
-  { "id": 44, "name": "Falcon", "universe_id": 8, "emoji_icon": "🦅", "image_url": "https://via.placeholder.com/150?text=Falcon" },
-  { "id": 45, "name": "Bucky", "universe_id": 8, "emoji_icon": "❄️", "image_url": "https://via.placeholder.com/150?text=Bucky" },
-  { "id": 46, "name": "Loki", "universe_id": 8, "emoji_icon": "🐍", "image_url": "https://via.placeholder.com/150?text=Loki" },
-  { "id": 47, "name": "Valkyrie", "universe_id": 8, "emoji_icon": "⚔️", "image_url": "https://via.placeholder.com/150?text=Valkyrie" },
-  { "id": 48, "name": "Kate Bishop", "universe_id": 8, "emoji_icon": "🎯", "image_url": "https://via.placeholder.com/150?text=Kate+Bishop" },
-  { "id": 49, "name": "She-Hulk", "universe_id": 8, "emoji_icon": "💪", "image_url": "https://via.placeholder.com/150?text=She-Hulk" },
-  { "id": 50, "name": "Shuri", "universe_id": 8, "emoji_icon": "🔬", "image_url": "https://via.placeholder.com/150?text=Shuri" },
-  { "id": 51, "name": "Thanos", "universe_id": 8, "emoji_icon": "💜", "image_url": "https://via.placeholder.com/150?text=Thanos" },
-  { "id": 52, "name": "Nebula", "universe_id": 8, "emoji_icon": "🤖", "image_url": "https://via.placeholder.com/150?text=Nebula" },
-  { "id": 53, "name": "Yelena", "universe_id": 8, "emoji_icon": "🔪", "image_url": "https://via.placeholder.com/150?text=Yelena" },
-  { "id": 54, "name": "Heli", "universe_id": 9, "emoji_icon": "🌙", "image_url": "https://via.placeholder.com/150?text=Heli" },
-  { "id": 55, "name": "Solon", "universe_id": 9, "emoji_icon": "⚔️", "image_url": "https://via.placeholder.com/150?text=Solon" },
-  { "id": 56, "name": "Jaan", "universe_id": 9, "emoji_icon": "🦇", "image_url": "https://via.placeholder.com/150?text=Jaan" },
-  { "id": 57, "name": "Jakah", "universe_id": 9, "emoji_icon": "🐺", "image_url": "https://via.placeholder.com/150?text=Jakah" },
-  { "id": 58, "name": "Shion", "universe_id": 9, "emoji_icon": "🌊", "image_url": "https://via.placeholder.com/150?text=Shion" },
-  { "id": 59, "name": "Noa", "universe_id": 9, "emoji_icon": "🔥", "image_url": "https://via.placeholder.com/150?text=Noa" },
-  { "id": 60, "name": "Jino", "universe_id": 9, "emoji_icon": "⚡", "image_url": "https://via.placeholder.com/150?text=Jino" }
+  {
+    "id": 1,
+    "name": "Mickey Mouse",
+    "universe_id": 1,
+    "emoji_icon": "🐭",
+    "image_url": "https://via.placeholder.com/150?text=Mickey",
+    "roles": [
+      "protagonist",
+      "helper",
+      "leader"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Minnie Mouse",
+    "universe_id": 1,
+    "emoji_icon": "🐭",
+    "image_url": "https://via.placeholder.com/150?text=Minnie",
+    "roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Donald Duck",
+    "universe_id": 1,
+    "emoji_icon": "🦆",
+    "image_url": "https://via.placeholder.com/150?text=Donald",
+    "roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Woody",
+    "universe_id": 2,
+    "emoji_icon": "🤠",
+    "image_url": "https://via.placeholder.com/150?text=Woody",
+    "roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Buzz Lightyear",
+    "universe_id": 2,
+    "emoji_icon": "🚀",
+    "image_url": "https://via.placeholder.com/150?text=Buzz",
+    "roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "SpongeBob",
+    "universe_id": 3,
+    "emoji_icon": "🧽",
+    "image_url": "https://via.placeholder.com/150?text=SpongeBob",
+    "roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Patrick Star",
+    "universe_id": 3,
+    "emoji_icon": "⭐",
+    "image_url": "https://via.placeholder.com/150?text=Patrick",
+    "roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Elsa",
+    "universe_id": 1,
+    "emoji_icon": "❄️",
+    "image_url": "https://via.placeholder.com/150?text=Elsa",
+    "roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Jungwon",
+    "universe_id": 4,
+    "emoji_icon": "🦊",
+    "image_url": "https://via.placeholder.com/150?text=Jungwon",
+    "roles": [
+      "protagonist",
+      "helper",
+      "leader",
+      "team_member"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Heeseung",
+    "universe_id": 4,
+    "emoji_icon": "🦌",
+    "image_url": "https://via.placeholder.com/150?text=Heeseung",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Jay",
+    "universe_id": 4,
+    "emoji_icon": "🦅",
+    "image_url": "https://via.placeholder.com/150?text=Jay",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Jake",
+    "universe_id": 4,
+    "emoji_icon": "🐶",
+    "image_url": "https://via.placeholder.com/150?text=Jake",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Sunghoon",
+    "universe_id": 4,
+    "emoji_icon": "🐧",
+    "image_url": "https://via.placeholder.com/150?text=Sunghoon",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Sunoo",
+    "universe_id": 4,
+    "emoji_icon": "🐻",
+    "image_url": "https://via.placeholder.com/150?text=Sunoo",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Ni-ki",
+    "universe_id": 4,
+    "emoji_icon": "🐱",
+    "image_url": "https://via.placeholder.com/150?text=Ni-ki",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Bang Chan",
+    "universe_id": 5,
+    "emoji_icon": "🐺",
+    "image_url": "https://via.placeholder.com/150?text=Bang+Chan",
+    "roles": [
+      "protagonist",
+      "helper",
+      "leader",
+      "team_member"
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Lee Know",
+    "universe_id": 5,
+    "emoji_icon": "🐱",
+    "image_url": "https://via.placeholder.com/150?text=Lee+Know",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Changbin",
+    "universe_id": 5,
+    "emoji_icon": "🐷",
+    "image_url": "https://via.placeholder.com/150?text=Changbin",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Hyunjin",
+    "universe_id": 5,
+    "emoji_icon": "🐰",
+    "image_url": "https://via.placeholder.com/150?text=Hyunjin",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Han",
+    "universe_id": 5,
+    "emoji_icon": "🐿️",
+    "image_url": "https://via.placeholder.com/150?text=Han",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Felix",
+    "universe_id": 5,
+    "emoji_icon": "🐥",
+    "image_url": "https://via.placeholder.com/150?text=Felix",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Seungmin",
+    "universe_id": 5,
+    "emoji_icon": "🐶",
+    "image_url": "https://via.placeholder.com/150?text=Seungmin",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 23,
+    "name": "I.N",
+    "universe_id": 5,
+    "emoji_icon": "🐨",
+    "image_url": "https://via.placeholder.com/150?text=I.N",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Rami",
+    "universe_id": 6,
+    "emoji_icon": "🦄",
+    "image_url": "https://via.placeholder.com/150?text=Rami",
+    "roles": [
+      "protagonist",
+      "helper",
+      "leader",
+      "team_member"
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Ahyeon",
+    "universe_id": 6,
+    "emoji_icon": "🦋",
+    "image_url": "https://via.placeholder.com/150?text=Ahyeon",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 26,
+    "name": "Chiquita",
+    "universe_id": 6,
+    "emoji_icon": "🐣",
+    "image_url": "https://via.placeholder.com/150?text=Chiquita",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Asa",
+    "universe_id": 6,
+    "emoji_icon": "🐯",
+    "image_url": "https://via.placeholder.com/150?text=Asa",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 28,
+    "name": "Rora",
+    "universe_id": 6,
+    "emoji_icon": "🦊",
+    "image_url": "https://via.placeholder.com/150?text=Rora",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Pharita",
+    "universe_id": 6,
+    "emoji_icon": "🦢",
+    "image_url": "https://via.placeholder.com/150?text=Pharita",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Haram",
+    "universe_id": 6,
+    "emoji_icon": "🦁",
+    "image_url": "https://via.placeholder.com/150?text=Haram",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 31,
+    "name": "Yeji",
+    "universe_id": 7,
+    "emoji_icon": "🐱",
+    "image_url": "https://via.placeholder.com/150?text=Yeji",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 32,
+    "name": "Lia",
+    "universe_id": 7,
+    "emoji_icon": "🦢",
+    "image_url": "https://via.placeholder.com/150?text=Lia",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Ryujin",
+    "universe_id": 7,
+    "emoji_icon": "🐉",
+    "image_url": "https://via.placeholder.com/150?text=Ryujin",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 34,
+    "name": "Chaeryeong",
+    "universe_id": 7,
+    "emoji_icon": "🦋",
+    "image_url": "https://via.placeholder.com/150?text=Chaeryeong",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 35,
+    "name": "Yuna",
+    "universe_id": 7,
+    "emoji_icon": "🐰",
+    "image_url": "https://via.placeholder.com/150?text=Yuna",
+    "roles": [
+      "protagonist",
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 36,
+    "name": "Iron Man",
+    "universe_id": 8,
+    "emoji_icon": "🦾",
+    "image_url": "https://via.placeholder.com/150?text=Iron+Man",
+    "roles": [
+      "protagonist",
+      "helper",
+      "leader",
+      "hero"
+    ]
+  },
+  {
+    "id": 37,
+    "name": "Captain America",
+    "universe_id": 8,
+    "emoji_icon": "🛡️",
+    "image_url": "https://via.placeholder.com/150?text=Captain+America",
+    "roles": [
+      "protagonist",
+      "helper",
+      "leader",
+      "hero"
+    ]
+  },
+  {
+    "id": 38,
+    "name": "Thor",
+    "universe_id": 8,
+    "emoji_icon": "⚡",
+    "image_url": "https://via.placeholder.com/150?text=Thor",
+    "roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ]
+  },
+  {
+    "id": 39,
+    "name": "Hulk",
+    "universe_id": 8,
+    "emoji_icon": "💚",
+    "image_url": "https://via.placeholder.com/150?text=Hulk",
+    "roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ]
+  },
+  {
+    "id": 40,
+    "name": "Black Widow",
+    "universe_id": 8,
+    "emoji_icon": "🕷️",
+    "image_url": "https://via.placeholder.com/150?text=Black+Widow",
+    "roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ]
+  },
+  {
+    "id": 41,
+    "name": "Hawkeye",
+    "universe_id": 8,
+    "emoji_icon": "🏹",
+    "image_url": "https://via.placeholder.com/150?text=Hawkeye",
+    "roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ]
+  },
+  {
+    "id": 42,
+    "name": "Spider-Man",
+    "universe_id": 8,
+    "emoji_icon": "🕸️",
+    "image_url": "https://via.placeholder.com/150?text=Spider-Man",
+    "roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ]
+  },
+  {
+    "id": 43,
+    "name": "War Machine",
+    "universe_id": 8,
+    "emoji_icon": "🤖",
+    "image_url": "https://via.placeholder.com/150?text=War+Machine",
+    "roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Falcon",
+    "universe_id": 8,
+    "emoji_icon": "🦅",
+    "image_url": "https://via.placeholder.com/150?text=Falcon",
+    "roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ]
+  },
+  {
+    "id": 45,
+    "name": "Bucky",
+    "universe_id": 8,
+    "emoji_icon": "❄️",
+    "image_url": "https://via.placeholder.com/150?text=Bucky",
+    "roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 46,
+    "name": "Loki",
+    "universe_id": 8,
+    "emoji_icon": "🐍",
+    "image_url": "https://via.placeholder.com/150?text=Loki",
+    "roles": [
+      "protagonist",
+      "helper",
+      "villain"
+    ]
+  },
+  {
+    "id": 47,
+    "name": "Valkyrie",
+    "universe_id": 8,
+    "emoji_icon": "⚔️",
+    "image_url": "https://via.placeholder.com/150?text=Valkyrie",
+    "roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Kate Bishop",
+    "universe_id": 8,
+    "emoji_icon": "🎯",
+    "image_url": "https://via.placeholder.com/150?text=Kate+Bishop",
+    "roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 49,
+    "name": "She-Hulk",
+    "universe_id": 8,
+    "emoji_icon": "💪",
+    "image_url": "https://via.placeholder.com/150?text=She-Hulk",
+    "roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Shuri",
+    "universe_id": 8,
+    "emoji_icon": "🔬",
+    "image_url": "https://via.placeholder.com/150?text=Shuri",
+    "roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 51,
+    "name": "Thanos",
+    "universe_id": 8,
+    "emoji_icon": "💜",
+    "image_url": "https://via.placeholder.com/150?text=Thanos",
+    "roles": [
+      "protagonist",
+      "helper",
+      "villain"
+    ]
+  },
+  {
+    "id": 52,
+    "name": "Nebula",
+    "universe_id": 8,
+    "emoji_icon": "🤖",
+    "image_url": "https://via.placeholder.com/150?text=Nebula",
+    "roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 53,
+    "name": "Yelena",
+    "universe_id": 8,
+    "emoji_icon": "🔪",
+    "image_url": "https://via.placeholder.com/150?text=Yelena",
+    "roles": [
+      "protagonist",
+      "helper"
+    ]
+  },
+  {
+    "id": 54,
+    "name": "Heli",
+    "universe_id": 9,
+    "emoji_icon": "🌙",
+    "image_url": "https://via.placeholder.com/150?text=Heli",
+    "roles": [
+      "protagonist",
+      "helper",
+      "leader",
+      "vampire"
+    ]
+  },
+  {
+    "id": 55,
+    "name": "Solon",
+    "universe_id": 9,
+    "emoji_icon": "⚔️",
+    "image_url": "https://via.placeholder.com/150?text=Solon",
+    "roles": [
+      "protagonist",
+      "helper",
+      "vampire"
+    ]
+  },
+  {
+    "id": 56,
+    "name": "Jaan",
+    "universe_id": 9,
+    "emoji_icon": "🦇",
+    "image_url": "https://via.placeholder.com/150?text=Jaan",
+    "roles": [
+      "protagonist",
+      "helper",
+      "vampire"
+    ]
+  },
+  {
+    "id": 57,
+    "name": "Jakah",
+    "universe_id": 9,
+    "emoji_icon": "🐺",
+    "image_url": "https://via.placeholder.com/150?text=Jakah",
+    "roles": [
+      "protagonist",
+      "helper",
+      "vampire"
+    ]
+  },
+  {
+    "id": 58,
+    "name": "Shion",
+    "universe_id": 9,
+    "emoji_icon": "🌊",
+    "image_url": "https://via.placeholder.com/150?text=Shion",
+    "roles": [
+      "protagonist",
+      "helper",
+      "vampire"
+    ]
+  },
+  {
+    "id": 59,
+    "name": "Noa",
+    "universe_id": 9,
+    "emoji_icon": "🔥",
+    "image_url": "https://via.placeholder.com/150?text=Noa",
+    "roles": [
+      "protagonist",
+      "helper",
+      "vampire"
+    ]
+  },
+  {
+    "id": 60,
+    "name": "Jino",
+    "universe_id": 9,
+    "emoji_icon": "⚡",
+    "image_url": "https://via.placeholder.com/150?text=Jino",
+    "roles": [
+      "protagonist",
+      "helper",
+      "vampire"
+    ]
+  }
 ]

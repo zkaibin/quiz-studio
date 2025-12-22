@@ -7,42 +7,44 @@ class DataManager {
     this.data = {
       universes: [],
       characters: [],
-      questions: [],
+      questions: [], // Will be populated on-demand by difficulty
       sessions: []
     };
     this.loaded = false;
+    this.loadedDifficulties = {
+      easy: false,
+      medium: false,
+      hard: false
+    };
   }
 
   /**
-   * Load all data from JSON files
+   * Load initial data (universes and characters only, skip questions)
    */
   async loadData() {
     console.log('📥 DataManager.loadData() called');
-    console.log('  Forcing fresh reload (no cache)');
+    console.log('  Loading universes and characters only (lazy-load questions)');
 
     try {
       console.log('  🔗 Fetching JSON files...');
-      const [universes, characters, questions] = await Promise.all([
-        this.loadJSON('/quiz-studio/data/universes.json'),
-        this.loadJSON('/quiz-studio/data/characters.json'),
-        this.loadJSON('/quiz-studio/data/questions.json')
+      const [universes, characters] = await Promise.all([
+        this.loadJSON('data/universes.json'),
+        this.loadJSON('data/characters.json')
       ]);
 
       console.log('  ✓ Fetches completed');
       console.log('    - universes:', universes?.length || 0);
       console.log('    - characters:', characters?.length || 0);
-      console.log('    - questions:', questions?.length || 0);
 
       this.data = {
         universes: universes || [],
         characters: characters || [],
-        questions: questions || [],
+        questions: [],
         sessions: this.loadSessions() // Load from localStorage
       };
 
       this.loaded = true;
       console.log('  ✓ Data loaded successfully');
-      console.log('    Questions:', this.data.questions.length);
       return this.data;
     } catch (err) {
       console.error('❌ Error loading data:', err);
@@ -64,6 +66,44 @@ class DataManager {
     } catch (err) {
       console.warn(`Could not load ${url}:`, err.message);
       return [];
+    }
+  }
+
+  /**
+   * Load questions for a specific difficulty level
+   */
+  async loadQuestionsByDifficulty(difficulty) {
+    const difficultyKey = difficulty.toLowerCase();
+    
+    if (this.loadedDifficulties[difficultyKey]) {
+      console.log(`  ✓ Questions for ${difficulty} already loaded`);
+      return;
+    }
+
+    console.log(`  📥 Loading ${difficulty} questions...`);
+    const questions = await this.loadJSON(`data/questions-${difficultyKey}.json`);
+    
+    // Add to questions array
+    this.data.questions = this.data.questions.concat(questions);
+    this.loadedDifficulties[difficultyKey] = true;
+    
+    console.log(`  ✓ Loaded ${questions.length} ${difficulty} questions`);
+  }
+
+  /**
+   * Ensure questions for the selected difficulty are loaded
+   */
+  async ensureDifficultyLoaded(difficulty) {
+    if (difficulty === 'all') {
+      // Load all difficulties
+      await Promise.all([
+        this.loadQuestionsByDifficulty('easy'),
+        this.loadQuestionsByDifficulty('medium'),
+        this.loadQuestionsByDifficulty('hard')
+      ]);
+    } else {
+      // Load specific difficulty
+      await this.loadQuestionsByDifficulty(difficulty);
     }
   }
 
@@ -134,19 +174,32 @@ class DataManager {
   }
 
   /**
-   * Get categories (unique from questions)
+   * Get categories (predefined list)
    */
   getCategories() {
-    const categories = new Set(this.data.questions.map(q => q.category));
-    return Array.from(categories).sort();
+    // Return predefined categories instead of scanning questions
+    return [
+      'Addition',
+      'Averages',
+      'Decimals',
+      'Division',
+      'Fractions',
+      'Mixed Operations',
+      'Money',
+      'Multiplication',
+      'Percentage',
+      'Ratios',
+      'Subtraction',
+      'Time'
+    ];
   }
 
   /**
-   * Get difficulties (unique from questions)
+   * Get difficulties (predefined list)
    */
   getDifficulties() {
-    const difficulties = new Set(this.data.questions.map(q => q.difficulty));
-    return Array.from(difficulties).sort();
+    // Return predefined difficulties instead of scanning questions
+    return ['Easy', 'Medium', 'Hard'];
   }
 
   /**

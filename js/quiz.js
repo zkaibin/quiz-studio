@@ -163,7 +163,7 @@ class QuizApp {
     const adminBtn = document.getElementById('adminBtn');
     if (adminBtn) {
       adminBtn.addEventListener('click', () => {
-        window.location.href = '/quiz-studio/admin.html';
+        window.location.href = 'admin.html';
       });
     }
   }
@@ -171,7 +171,7 @@ class QuizApp {
   /**
    * Start a new quiz
    */
-  startQuiz() {
+  async startQuiz() {
     const studentName = document.getElementById('studentName').value.trim();
     const theme = document.getElementById('theme').value;
     const category = document.getElementById('category').value;
@@ -188,27 +188,32 @@ class QuizApp {
     this.category = category;
     this.difficulty = difficulty;
 
-    // Get questions based on criteria
-    let allQuestions = dataManager.getQuestions(category, difficulty);
-    
-    // Filter by theme if selected
-    if (theme && theme !== 'all') {
-      const themeUniverseId = parseInt(theme);
-      const themeCharacters = dataManager.data.characters
-        .filter(c => c.universe_id === themeUniverseId)
-        .map(c => c.name);
-      
-      allQuestions = allQuestions.filter(q => {
-        if (!q.placeholders || q.placeholders.length === 0) return true;
-        return q.placeholders.some(p => themeCharacters.includes(p));
-      });
-    }
+    // Show loading message
+    const startBtn = document.getElementById('startQuizBtn');
+    const originalText = startBtn.textContent;
+    startBtn.textContent = 'Loading questions...';
+    startBtn.disabled = true;
 
+    try {
+      // Load questions for selected difficulty
+      await dataManager.ensureDifficultyLoaded(difficulty);
+      
+      // Get questions based on criteria
+      let allQuestions = dataManager.getQuestions(category, difficulty);
+    
     // Shuffle and select random questions
     allQuestions = this.shuffleArray(allQuestions);
     this.questions = allQuestions.slice(0, questionCount).map(q => {
       // Clone question object to avoid mutating global data
       const question = JSON.parse(JSON.stringify(q));
+      
+      // Assign characters dynamically based on theme and placeholder_roles
+      if (question.placeholder_roles && question.placeholder_roles.length > 0) {
+        question.placeholders = this.assignCharactersToRoles(
+          question.placeholder_roles,
+          theme
+        );
+      }
       
       // Shuffle options for each question and update answer index
       const shuffledData = this.shuffleOptions(question.options, question.answer);
@@ -220,14 +225,26 @@ class QuizApp {
 
     if (this.questions.length === 0) {
       alert('No questions available for this criteria');
+      startBtn.textContent = originalText;
+      startBtn.disabled = false;
       return;
     }
 
     this.answers = new Array(this.questions.length).fill(null);
     this.score = 0;
 
+    // Restore button state
+    startBtn.textContent = originalText;
+    startBtn.disabled = false;
+
     this.showQuizSection();
     this.displayAllQuestions();
+    } catch (error) {
+      console.error('Error starting quiz:', error);
+      alert('Failed to load questions. Please try again.');
+      startBtn.textContent = originalText;
+      startBtn.disabled = false;
+    }
   }
 
   /**
@@ -288,6 +305,39 @@ class QuizApp {
     // Attach new event listener
     this.optionClickHandler = (e) => this.selectAnswer(e);
     container.addEventListener('click', this.optionClickHandler);
+  }
+
+  /**
+   * Assign characters to placeholder roles based on theme
+   */
+  assignCharactersToRoles(roles, themeId) {
+    let availableCharacters;
+    
+    if (themeId && themeId !== 'all') {
+      // Filter characters by selected theme/universe
+      const themeUniverseId = parseInt(themeId);
+      availableCharacters = dataManager.data.characters.filter(
+        c => c.universe_id === themeUniverseId
+      );
+    } else {
+      // Use all characters if no theme selected
+      availableCharacters = dataManager.data.characters;
+    }
+    
+    // Assign characters to each role
+    return roles.map(role => {
+      // Find characters that have this role
+      const matchingChars = availableCharacters.filter(c => 
+        c.roles && c.roles.includes(role)
+      );
+      
+      // If no exact role match, use any character from the theme
+      const candidates = matchingChars.length > 0 ? matchingChars : availableCharacters;
+      
+      // Pick a random character
+      const randomIndex = Math.floor(Math.random() * candidates.length);
+      return candidates[randomIndex].name;
+    });
   }
 
   /**
