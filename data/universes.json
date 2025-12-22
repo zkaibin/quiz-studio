@@ -33,5 +33,10 @@
     "id": 7,
     "universe_name": "ITZY",
     "description": "K-POP group ITZY members"
+  },
+  {
+    "id": 8,
+    "universe_name": "Avengers",
+    "description": "Marvel Avengers superheroes"
   }
 ]
