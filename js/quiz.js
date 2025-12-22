@@ -209,33 +209,6 @@ class QuizApp {
     this.questions = allQuestions.slice(0, questionCount).map(q => {
       // Clone question object to avoid mutating global data
       const question = JSON.parse(JSON.stringify(q));
-      // Dynamically assign placeholders from theme
-      if (this.theme && this.theme !== 'all') {
-        // Map theme to universe_id(s)
-        const themeMap = {
-          kpop: [4,5,6,7],
-          disney: [1],
-          pixar: [2],
-          cartoon: [3],
-          avengers: [8] // Example, update as needed
-        };
-        const universeIds = themeMap[this.theme];
-        let themeChars = [];
-        if (universeIds) {
-          themeChars = dataManager.data.characters.filter(c => universeIds.includes(c.universe_id));
-        }
-        // If not enough theme characters, fallback to all characters
-        if (!themeChars.length) themeChars = dataManager.data.characters;
-        // Pick random characters for each placeholder
-        if (question.template) {
-          // Count how many placeholders are in the template
-          const matches = question.template.match(/\{CHARACTER_\d+\}/g);
-          const needed = matches ? matches.length : 1;
-          // Shuffle and pick needed characters
-          const shuffled = this.shuffleArray(themeChars);
-          question.placeholders = shuffled.slice(0, needed).map(c => c.name);
-        }
-      }
       
       // Shuffle options for each question and update answer index
       const shuffledData = this.shuffleOptions(question.options, question.answer);
