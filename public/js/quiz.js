@@ -10,6 +10,7 @@ class QuizApp {
     this.score = 0;
     this.category = '';
     this.difficulty = '';
+    this.theme = '';
     this.letters = ['A', 'B', 'C', 'D'];
     this.optionClickHandler = null;
 
@@ -56,6 +57,17 @@ class QuizApp {
       option.textContent = difficulty;
       difficultySelect.appendChild(option);
     });
+
+    // Populate themes (universes)
+    const themeSelect = document.getElementById('theme');
+    if (themeSelect && dataManager.data.universes) {
+      dataManager.data.universes.forEach(universe => {
+        const option = document.createElement('option');
+        option.value = universe.id;
+        option.textContent = universe.universe_name;
+        themeSelect.appendChild(option);
+      });
+    }
   }
 
   setupEventListeners() {
@@ -125,6 +137,7 @@ class QuizApp {
     const studentName = document.getElementById('studentName').value.trim();
     const category = document.getElementById('category').value;
     const difficulty = document.getElementById('difficulty').value;
+    const theme = document.getElementById('theme').value;
     const questionCount = parseInt(document.getElementById('questionCount').value);
 
     if (!studentName) {
@@ -135,13 +148,28 @@ class QuizApp {
     this.studentName = studentName;
     this.category = category;
     this.difficulty = difficulty;
+    this.theme = theme;
 
     // Get questions based on criteria
     let allQuestions = dataManager.getQuestions(category, difficulty);
     
+    // Filter by theme if selected
+    if (theme && theme !== 'all') {
+      const themeUniverseId = parseInt(theme);
+      const themeCharacters = dataManager.data.characters
+        .filter(c => c.universe_id === themeUniverseId)
+        .map(c => c.name);
+      
+      allQuestions = allQuestions.filter(q => {
+        if (!q.placeholders || q.placeholders.length === 0) return true;
+        return q.placeholders.some(p => themeCharacters.includes(p));
+      });
+    }
+    
     console.log('🎯 startQuiz()');
     console.log('  Category:', category);
     console.log('  Difficulty:', difficulty);
+    console.log('  Theme:', theme);
     console.log('  Questions found:', allQuestions.length);
     console.log('  First question:', JSON.stringify(allQuestions[0], null, 2));
 
@@ -414,6 +442,7 @@ class QuizApp {
     document.getElementById('studentName').value = '';
     document.getElementById('category').value = 'all';
     document.getElementById('difficulty').value = 'all';
+    document.getElementById('theme').value = 'all';
 
     // Show start section and hide all others
     document.getElementById('startSection').style.display = 'block';
