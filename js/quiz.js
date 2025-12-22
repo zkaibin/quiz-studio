@@ -511,8 +511,8 @@ class QuizApp {
 
     // Reset form
     document.getElementById('studentName').value = '';
-    document.getElementById('category').value = '';
-    document.getElementById('difficulty').value = '';
+    document.getElementById('category').value = 'all';
+    document.getElementById('difficulty').value = 'all';
 
     // Show start section and hide all others
     document.getElementById('setupSection').style.display = 'block';
