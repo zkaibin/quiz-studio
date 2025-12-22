@@ -51,5 +51,12 @@
   { "id": 50, "name": "Shuri", "universe_id": 8, "emoji_icon": "🔬", "image_url": "https://via.placeholder.com/150?text=Shuri" },
   { "id": 51, "name": "Thanos", "universe_id": 8, "emoji_icon": "💜", "image_url": "https://via.placeholder.com/150?text=Thanos" },
   { "id": 52, "name": "Nebula", "universe_id": 8, "emoji_icon": "🤖", "image_url": "https://via.placeholder.com/150?text=Nebula" },
-  { "id": 53, "name": "Yelena", "universe_id": 8, "emoji_icon": "🔪", "image_url": "https://via.placeholder.com/150?text=Yelena" }
+  { "id": 53, "name": "Yelena", "universe_id": 8, "emoji_icon": "🔪", "image_url": "https://via.placeholder.com/150?text=Yelena" },
+  { "id": 54, "name": "Heli", "universe_id": 9, "emoji_icon": "🌙", "image_url": "https://via.placeholder.com/150?text=Heli" },
+  { "id": 55, "name": "Solon", "universe_id": 9, "emoji_icon": "⚔️", "image_url": "https://via.placeholder.com/150?text=Solon" },
+  { "id": 56, "name": "Jaan", "universe_id": 9, "emoji_icon": "🦇", "image_url": "https://via.placeholder.com/150?text=Jaan" },
+  { "id": 57, "name": "Jakah", "universe_id": 9, "emoji_icon": "🐺", "image_url": "https://via.placeholder.com/150?text=Jakah" },
+  { "id": 58, "name": "Shion", "universe_id": 9, "emoji_icon": "🌊", "image_url": "https://via.placeholder.com/150?text=Shion" },
+  { "id": 59, "name": "Noa", "universe_id": 9, "emoji_icon": "🔥", "image_url": "https://via.placeholder.com/150?text=Noa" },
+  { "id": 60, "name": "Khan", "universe_id": 9, "emoji_icon": "⚡", "image_url": "https://via.placeholder.com/150?text=Khan" }
 ]

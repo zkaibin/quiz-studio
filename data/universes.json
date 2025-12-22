@@ -38,5 +38,10 @@
     "id": 8,
     "universe_name": "Avengers",
     "description": "Marvel Avengers superheroes"
+  },
+  {
+    "id": 9,
+    "universe_name": "DARK MOON: THE BLOOD ALTAR",
+    "description": "ENHYPEN DARK MOON webtoon universe"
   }
 ]
