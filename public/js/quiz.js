@@ -154,6 +154,16 @@ class QuizApp {
       return;
     }
 
+    // Shuffle options for each question and update answer indices
+    this.questions = this.questions.map(q => {
+      const shuffledData = this.shuffleOptions(q.options, q.answer);
+      return {
+        ...q,
+        options: shuffledData.options,
+        answer: shuffledData.answerIndex
+      };
+    });
+
     this.answers = new Array(this.questions.length).fill(null);
     this.score = 0;
 
@@ -417,6 +427,31 @@ class QuizApp {
    */
   printQuiz() {
     window.print();
+  }
+
+  /**
+   * Shuffle options and track the new correct answer index
+   */
+  shuffleOptions(options, correctAnswerIndex) {
+    // Create array of indices [0, 1, 2, 3]
+    const indices = options.map((_, i) => i);
+    
+    // Shuffle the indices
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+    
+    // Create new shuffled options array
+    const shuffledOptions = indices.map(i => options[i]);
+    
+    // Find where the correct answer moved to
+    const newAnswerIndex = indices.indexOf(correctAnswerIndex);
+    
+    return {
+      options: shuffledOptions,
+      answerIndex: newAnswerIndex
+    };
   }
 
   /**
