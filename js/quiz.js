@@ -48,24 +48,13 @@ class QuizApp {
    * Populate category and difficulty dropdowns
    */
   populateDropdowns() {
-    // Populate themes
+    // Populate themes (universes)
     const themeSelect = document.getElementById('theme');
-    if (themeSelect) {
-      // Remove all options except 'all'
-      const allThemeOptions = themeSelect.querySelectorAll('option:not([value="all"])');
-      allThemeOptions.forEach(opt => opt.remove());
-      // Add static theme options
-      const staticThemes = [
-        { value: 'kpop', text: 'KPOP' },
-        { value: 'disney', text: 'Disney' },
-        { value: 'pixar', text: 'Pixar' },
-        { value: 'cartoon', text: 'Cartoon Network' },
-        { value: 'avengers', text: 'Avengers' }
-      ];
-      staticThemes.forEach(theme => {
+    if (themeSelect && dataManager.data.universes) {
+      dataManager.data.universes.forEach(universe => {
         const option = document.createElement('option');
-        option.value = theme.value;
-        option.textContent = theme.text;
+        option.value = universe.id;
+        option.textContent = universe.universe_name;
         themeSelect.appendChild(option);
       });
     }
@@ -199,25 +188,19 @@ class QuizApp {
     this.category = category;
     this.difficulty = difficulty;
 
-    // Get questions based on criteria, now with theme filter
-    let allQuestions = dataManager.getQuestions(category, difficulty, theme);
-
-    // If dataManager.getQuestions does not support theme, filter here
+    // Get questions based on criteria
+    let allQuestions = dataManager.getQuestions(category, difficulty);
+    
+    // Filter by theme if selected
     if (theme && theme !== 'all') {
+      const themeUniverseId = parseInt(theme);
+      const themeCharacters = dataManager.data.characters
+        .filter(c => c.universe_id === themeUniverseId)
+        .map(c => c.name);
+      
       allQuestions = allQuestions.filter(q => {
-        if (q.theme) return q.theme === theme;
-        if (q.universe_id) {
-          // Map theme to universe_id
-          const themeMap = {
-            kpop: [4,5,6,7],
-            disney: [1],
-            pixar: [2],
-            cartoon: [3],
-            avengers: [8] // Example, update as needed
-          };
-          return themeMap[theme] && themeMap[theme].includes(q.universe_id);
-        }
-        return true;
+        if (!q.placeholders || q.placeholders.length === 0) return true;
+        return q.placeholders.some(p => themeCharacters.includes(p));
       });
     }
 
@@ -508,6 +491,7 @@ class QuizApp {
     this.score = 0;
     this.category = '';
     this.difficulty = '';
+    this.theme = '';
 
     // Clean up event listener
     if (this.optionClickHandler) {
@@ -519,6 +503,7 @@ class QuizApp {
     document.getElementById('studentName').value = '';
     document.getElementById('category').value = 'all';
     document.getElementById('difficulty').value = 'all';
+    document.getElementById('theme').value = 'all';
 
     // Show start section and hide all others
     document.getElementById('setupSection').style.display = 'block';
