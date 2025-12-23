@@ -2315,14 +2315,14 @@
     "id": 490,
     "category": "Time",
     "difficulty": "P5-P6",
-    "template": "{CHARACTER_0} starts a task at 8:00 and finishes at 7:00. How many hours did it take?",
+    "template": "{CHARACTER_0} starts a task at 8:00 AM and finishes at 7:00 PM. How many hours did it take?",
     "options": [
-      "72",
-      "73",
-      "74",
-      "75"
+      "9",
+      "10",
+      "11",
+      "12"
     ],
-    "answer": 1,
+    "answer": 2,
     "placeholder_roles": [
       "protagonist"
     ]
@@ -2347,12 +2347,12 @@
     "id": 493,
     "category": "Time",
     "difficulty": "P5-P6",
-    "template": "{CHARACTER_0} starts a task at 8:00 and finishes at 6:00. How many hours did it take?",
+    "template": "{CHARACTER_0} starts a task at 8:00 AM and finishes at 7:00 PM. How many hours did it take?",
     "options": [
-      "53",
-      "54",
-      "55",
-      "56"
+      "8",
+      "9",
+      "10",
+      "11"
     ],
     "answer": 3,
     "placeholder_roles": [
@@ -2379,12 +2379,12 @@
     "id": 496,
     "category": "Time",
     "difficulty": "P5-P6",
-    "template": "{CHARACTER_0} starts a task at 1:00 and finishes at 7:00. How many hours did it take?",
+    "template": "{CHARACTER_0} starts a task at 1:00 PM and finishes at 7:00 PM. How many hours did it take?",
     "options": [
-      "33",
-      "34",
-      "35",
-      "36"
+      "4",
+      "5",
+      "6",
+      "7"
     ],
     "answer": 2,
     "placeholder_roles": [
@@ -2427,12 +2427,12 @@
     "id": 499,
     "category": "Time",
     "difficulty": "P5-P6",
-    "template": "{CHARACTER_0} starts a task at 12:00 and finishes at 5:00. How many hours did it take?",
+    "template": "{CHARACTER_0} starts a task at 12:00 PM and finishes at 5:00 PM. How many hours did it take?",
     "options": [
-      "53",
-      "54",
-      "55",
-      "56"
+      "3",
+      "4",
+      "5",
+      "6"
     ],
     "answer": 2,
     "placeholder_roles": [
@@ -2459,14 +2459,14 @@
     "id": 502,
     "category": "Time",
     "difficulty": "P5-P6",
-    "template": "{CHARACTER_0} starts a task at 6:00 and finishes at 6:00. How many hours did it take?",
+    "template": "{CHARACTER_0} starts a task at 6:00 AM and finishes at 6:00 PM. How many hours did it take?",
     "options": [
-      "74",
-      "75",
-      "76",
-      "77"
+      "10",
+      "11",
+      "12",
+      "13"
     ],
-    "answer": 3,
+    "answer": 2,
     "placeholder_roles": [
       "protagonist"
     ]

@@ -2128,14 +2128,14 @@
     "id": 464,
     "category": "Time",
     "difficulty": "P1-P2",
-    "template": "{CHARACTER_0} starts a task at 9:00 and finishes at 8:00. How many hours did it take?",
+    "template": "{CHARACTER_0} starts a task at 9:00 AM and finishes at 8:00 PM. How many hours did it take?",
     "options": [
+      "9",
+      "10",
       "11",
-      "12",
-      "13",
-      "14"
+      "12"
     ],
-    "answer": 3,
+    "answer": 2,
     "placeholder_roles": [
       "protagonist"
     ]
@@ -2160,14 +2160,14 @@
     "id": 467,
     "category": "Time",
     "difficulty": "P1-P2",
-    "template": "{CHARACTER_0} starts a task at 2:00 and finishes at 2:00. How many hours did it take?",
+    "template": "{CHARACTER_0} starts a task at 2:00 PM and finishes at 8:00 PM. How many hours did it take?",
     "options": [
+      "4",
       "5",
       "6",
-      "7",
-      "8"
+      "7"
     ],
-    "answer": 0,
+    "answer": 2,
     "placeholder_roles": [
       "protagonist"
     ]
@@ -2192,7 +2192,7 @@
     "id": 470,
     "category": "Time",
     "difficulty": "P1-P2",
-    "template": "{CHARACTER_0} starts a task at 2:00 and finishes at 3:00. How many hours did it take?",
+    "template": "{CHARACTER_0} starts a task at 2:00 PM and finishes at 5:00 PM. How many hours did it take?",
     "options": [
       "3",
       "4",
@@ -2224,7 +2224,7 @@
     "id": 473,
     "category": "Time",
     "difficulty": "P1-P2",
-    "template": "{CHARACTER_0} starts a task at 2:00 and finishes at 9:00. How many hours did it take?",
+    "template": "{CHARACTER_0} starts a task at 2:00 PM and finishes at 10:00 PM. How many hours did it take?",
     "options": [
       "8",
       "9",
@@ -2272,7 +2272,7 @@
     "id": 476,
     "category": "Time",
     "difficulty": "P1-P2",
-    "template": "{CHARACTER_0} starts a task at 9:00 and finishes at 1:00. How many hours did it take?",
+    "template": "{CHARACTER_0} starts a task at 9:00 AM and finishes at 4:00 PM. How many hours did it take?",
     "options": [
       "7",
       "8",
