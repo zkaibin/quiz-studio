@@ -790,5 +790,95 @@
       "helper",
       "team_member"
     ]
+  },
+  {
+    "id": 96,
+    "name": "Nezha",
+    "universe_id": 11,
+    "emoji_icon": "🔥",
+    "image_url": "https://via.placeholder.com/150?text=Nezha",
+    "roles": [
+      "protagonist",
+      "hero",
+      "leader"
+    ]
+  },
+  {
+    "id": 97,
+    "name": "Ao Bing",
+    "universe_id": 11,
+    "emoji_icon": "🐉",
+    "image_url": "https://via.placeholder.com/150?text=AoBing",
+    "roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ]
+  },
+  {
+    "id": 98,
+    "name": "Taiyi",
+    "universe_id": 11,
+    "emoji_icon": "🧙",
+    "image_url": "https://via.placeholder.com/150?text=Taiyi",
+    "roles": [
+      "mentor",
+      "helper"
+    ]
+  },
+  {
+    "id": 99,
+    "name": "Li Jing",
+    "universe_id": 11,
+    "emoji_icon": "⚔️",
+    "image_url": "https://via.placeholder.com/150?text=LiJing",
+    "roles": [
+      "leader",
+      "helper"
+    ]
+  },
+  {
+    "id": 100,
+    "name": "Lady Yin",
+    "universe_id": 11,
+    "emoji_icon": "👩",
+    "image_url": "https://via.placeholder.com/150?text=LadyYin",
+    "roles": [
+      "helper",
+      "team_member"
+    ]
+  },
+  {
+    "id": 101,
+    "name": "Shen Gongbao",
+    "universe_id": 11,
+    "emoji_icon": "🐆",
+    "image_url": "https://via.placeholder.com/150?text=ShenGongbao",
+    "roles": [
+      "antagonist",
+      "villain"
+    ]
+  },
+  {
+    "id": 102,
+    "name": "Dragon King",
+    "universe_id": 11,
+    "emoji_icon": "🐲",
+    "image_url": "https://via.placeholder.com/150?text=DragonKing",
+    "roles": [
+      "leader",
+      "antagonist"
+    ]
+  },
+  {
+    "id": 103,
+    "name": "Primordial Heavenly Worthy",
+    "universe_id": 11,
+    "emoji_icon": "✨",
+    "image_url": "https://via.placeholder.com/150?text=PHW",
+    "roles": [
+      "mentor",
+      "leader"
+    ]
   }
 ]

@@ -48,5 +48,10 @@
     "id": 10,
     "universe_name": "Dragon Ball",
     "description": "Dragon Ball Z anime characters"
+  },
+  {
+    "id": 11,
+    "universe_name": "Nezha",
+    "description": "Chinese animated movie Nezha characters"
   }
 ]
