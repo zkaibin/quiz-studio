@@ -309,6 +309,7 @@ class QuizApp {
 
   /**
    * Assign characters to placeholder roles based on theme
+   * Ensures different characters are assigned to different roles
    */
   assignCharactersToRoles(roles, themeId) {
     let availableCharacters;
@@ -324,19 +325,32 @@ class QuizApp {
       availableCharacters = dataManager.data.characters;
     }
     
+    // Track already used characters to prevent duplicates
+    const usedCharacters = new Set();
+    
     // Assign characters to each role
     return roles.map(role => {
-      // Find characters that have this role
+      // Find characters that have this role and haven't been used yet
       const matchingChars = availableCharacters.filter(c => 
-        c.roles && c.roles.includes(role)
+        c.roles && c.roles.includes(role) && !usedCharacters.has(c.name)
       );
       
-      // If no exact role match, use any character from the theme
-      const candidates = matchingChars.length > 0 ? matchingChars : availableCharacters;
+      // If no exact role match, use any unused character from the theme
+      const candidates = matchingChars.length > 0 
+        ? matchingChars 
+        : availableCharacters.filter(c => !usedCharacters.has(c.name));
+      
+      // If all characters are used (shouldn't happen), reuse any character
+      const finalCandidates = candidates.length > 0 ? candidates : availableCharacters;
       
       // Pick a random character
-      const randomIndex = Math.floor(Math.random() * candidates.length);
-      return candidates[randomIndex].name;
+      const randomIndex = Math.floor(Math.random() * finalCandidates.length);
+      const selectedChar = finalCandidates[randomIndex].name;
+      
+      // Mark this character as used
+      usedCharacters.add(selectedChar);
+      
+      return selectedChar;
     });
   }
 
