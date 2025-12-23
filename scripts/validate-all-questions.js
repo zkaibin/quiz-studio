@@ -5,18 +5,24 @@
 const fs = require('fs');
 const path = require('path');
 
-const questionsEasyPath = path.join(__dirname, '../data/questions-easy.json');
-const questionsMediumPath = path.join(__dirname, '../data/questions-medium.json');
-const questionsHardPath = path.join(__dirname, '../data/questions-hard.json');
+const questionsP1P2Path = path.join(__dirname, '../data/questions-p1-p2.json');
+const questionsP3P4Path = path.join(__dirname, '../data/questions-p3-p4.json');
+const questionsP5P6Path = path.join(__dirname, '../data/questions-p5-p6.json');
+const questionsChallengingPath = path.join(__dirname, '../data/questions-challenging.json');
+const questionsPSLEPath = path.join(__dirname, '../data/questions-psle.json');
 
-const questionsEasy = JSON.parse(fs.readFileSync(questionsEasyPath, 'utf8'));
-const questionsMedium = JSON.parse(fs.readFileSync(questionsMediumPath, 'utf8'));
-const questionsHard = JSON.parse(fs.readFileSync(questionsHardPath, 'utf8'));
+const questionsP1P2 = JSON.parse(fs.readFileSync(questionsP1P2Path, 'utf8'));
+const questionsP3P4 = JSON.parse(fs.readFileSync(questionsP3P4Path, 'utf8'));
+const questionsP5P6 = JSON.parse(fs.readFileSync(questionsP5P6Path, 'utf8'));
+const questionsChallenging = JSON.parse(fs.readFileSync(questionsChallengingPath, 'utf8'));
+const questionsPSLE = JSON.parse(fs.readFileSync(questionsPSLEPath, 'utf8'));
 
 const allQuestions = [
-  ...questionsEasy.map(q => ({ ...q, difficulty: 'Easy' })),
-  ...questionsMedium.map(q => ({ ...q, difficulty: 'Medium' })),
-  ...questionsHard.map(q => ({ ...q, difficulty: 'Hard' }))
+  ...questionsP1P2,
+  ...questionsP3P4,
+  ...questionsP5P6,
+  ...questionsChallenging,
+  ...questionsPSLE
 ];
 
 console.log(`🔍 Validating ${allQuestions.length} questions...\n`);
@@ -286,9 +292,11 @@ if (issues.length === 0) {
   console.log('✅ All questions passed validation!');
   console.log(`\n📈 Summary:`);
   console.log(`  Total questions: ${allQuestions.length}`);
-  console.log(`  Easy: ${questionsEasy.length}`);
-  console.log(`  Medium: ${questionsMedium.length}`);
-  console.log(`  Hard: ${questionsHard.length}`);
+  console.log(`  P1-P2: ${questionsP1P2.length}`);
+  console.log(`  P3-P4: ${questionsP3P4.length}`);
+  console.log(`  P5-P6: ${questionsP5P6.length}`);
+  console.log(`  Challenging: ${questionsChallenging.length}`);
+  console.log(`  PSLE: ${questionsPSLE.length}`);
   console.log(`  Issues found: 0`);
 } else {
   console.log(`❌ Found ${issues.length} questions with issues:\n`);

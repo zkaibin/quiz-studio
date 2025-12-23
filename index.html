@@ -3,134 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Studio - Math Quiz Generator</title>
+    <title>Quiz Studio - PSLE Math Practice</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
-    <link rel="stylesheet" href="css/style.css?v=10">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .landing-container {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        .modes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .mode-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .mode-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+
+        .mode-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .mode-card h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .mode-card p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .mode-card .features {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .mode-card .features li {
+            color: #34495e;
+            margin-bottom: 8px;
+            list-style: none;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .mode-card .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-quiz {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-quiz:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-paper {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .btn-paper:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(240, 147, 251, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+            opacity: 0.8;
+            animation: fadeIn 1s ease-out 0.5s both;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+
+            .header p {
+                font-size: 1.1em;
+            }
+
+            .modes-container {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <div class="landing-container">
         <header class="header">
             <h1>🎓 Quiz Studio</h1>
-            <p>Fun Math Quizzes with Cartoon Characters</p>
+            <p>Singapore PSLE Math Practice Platform</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">590</span>
+                    <span class="stat-label">Questions</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">10</span>
+                    <span class="stat-label">Character Themes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">6</span>
+                    <span class="stat-label">PSLE Levels</span>
+                </div>
+            </div>
         </header>
 
-        <main>
-            <!-- Setup Section -->
-            <section id="setupSection" class="section">
-                <h2>Start Your Quiz</h2>
-                
-                <div class="form-group">
-                    <label for="studentName">Your Name:</label>
-                    <input type="text" id="studentName" placeholder="Enter your name" class="input-field">
-                </div>
+        <div class="modes-container">
+            <div class="mode-card" onclick="window.location.href='quiz.html'">
+                <span class="mode-icon">🎮</span>
+                <h2>Interactive Quiz</h2>
+                <p>Practice with instant feedback and fun character themes</p>
+                <ul class="features">
+                    <li>Real-time answer checking</li>
+                    <li>Character-themed questions</li>
+                    <li>Progress tracking</li>
+                    <li>Detailed review section</li>
+                </ul>
+                <a href="quiz.html" class="btn btn-quiz">Start Quiz</a>
+            </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="theme">Theme:</label>
-                        <select id="theme" class="input-field">
-                            <option value="all">All Themes</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="category">Category:</label>
-                        <select id="category" class="input-field">
-                            <option value="all">All Categories</option>
-                            <option value="addition">Addition</option>
-                            <option value="subtraction">Subtraction</option>
-                            <option value="multiplication">Multiplication</option>
-                            <option value="division">Division</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="difficulty">Difficulty (PSLE Level):</label>
-                        <select id="difficulty" class="input-field">
-                            <option value="all">All Levels</option>
-                            <option value="p1-p2">P1-P2 (Primary 1-2)</option>
-                            <option value="p3-p4">P3-P4 (Primary 3-4)</option>
-                            <option value="p5-p6">P5-P6 (Primary 5-6)</option>
-                            <option value="challenging">Challenging</option>
-                            <option value="psle">PSLE</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="questionCount">Questions:</label>
-                        <select id="questionCount" class="input-field">
-                            <option value="5">5 Questions</option>
-                            <option value="10">10 Questions</option>
-                            <option value="15">15 Questions</option>
-                        </select>
-                    </div>
-                </div>
-
-                <button id="startQuizBtn" class="btn btn-primary">Start Quiz</button>
-            </section>
-
-            <!-- Quiz Section -->
-            <section id="quizSection" class="section hidden">
-                <div class="quiz-header">
-                    <div class="quiz-info">
-                        <div class="quiz-title" id="quizTitle">Math Quiz</div>
-                        <div class="quiz-meta">
-                            <span id="studentNameDisplay"></span> | 
-                            <span id="quizCategoryDisplay"></span> | 
-                            <span id="quizDifficultyDisplay"></span> |
-                            <span id="quizThemeDisplay"></span>
-                        </div>
-                        <div class="quiz-instructions">
-                            Choose the correct answer for each question and select the letter (A, B, C, or D).
-                        </div>
-                    </div>
-                </div>
-
-                <div id="questionContainer" class="quiz-paper">
-                    <!-- Questions will be inserted here -->
-                </div>
-
-                <div class="quiz-controls">
-                    <button id="printBtn" class="btn btn-secondary">🖨️ Print Quiz</button>
-                    <button id="submitBtn" class="btn btn-primary">Submit Quiz</button>
-                </div>
-            </section>
-
-            <!-- Results Section -->
-            <section id="resultsSection" class="section hidden">
-                <h2>Quiz Complete! 🎉</h2>
-                <div class="results-card">
-                    <div class="score-display">
-                        <div class="score-circle">
-                            <span id="finalScore">0</span>/<span id="totalQuestions">0</span>
-                        </div>
-                        <p id="scorePercentage">0%</p>
-                    </div>
-                    <p id="resultMessage" class="result-message"></p>
-                </div>
-
-                <button id="reviewBtn" class="btn btn-primary">Review Answers</button>
-                <button id="retakeQuizBtn" class="btn btn-secondary">Take Another Quiz</button>
-                <button id="adminBtn" class="btn btn-secondary">Admin Panel</button>
-            </section>
-
-            <!-- Review Section -->
-            <section id="reviewSection" class="section hidden">
-                <h2>Quiz Review 📋</h2>
-                <div id="reviewContainer" class="review-container"></div>
-                
-                <div class="review-controls">
-                    <button id="backToResultsBtn" class="btn btn-secondary">Back to Results</button>
-                    <button id="retakeFromReviewBtn" class="btn btn-primary">Take Another Quiz</button>
-                </div>
-            </section>
-        </main>
+            <div class="mode-card" onclick="window.location.href='paper-generator.html'">
+                <span class="mode-icon">📝</span>
+                <h2>PSLE Practice Paper</h2>
+                <p>Generate printable exam-style practice papers</p>
+                <ul class="features">
+                    <li>PSLE exam format</li>
+                    <li>MCQ & Structured questions</li>
+                    <li>Printable with answer key</li>
+                    <li>Customizable difficulty mix</li>
+                </ul>
+                <a href="paper-generator.html" class="btn btn-paper">Generate Paper</a>
+            </div>
+        </div>
 
         <footer class="footer">
-            <p>Quiz Studio v1.0 | Learning Math is Fun! 📚</p>
+            <p>Built for Primary School students preparing for PSLE Math</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                <a href="admin.html" style="color: white; opacity: 0.7; text-decoration: none;">Admin Panel</a>
+            </p>
         </footer>
     </div>
-
-    <script src="js/data-loader.js?v=10"></script>
-    <script src="js/quiz.js?v=10"></script>
 </body>
 </html>

@@ -177,5 +177,682 @@
     ],
     "answer": 3,
     "correct_answer": "2250"
+  },
+  {
+    "id": "Q720",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} saved $120 in January. In February, {CHARACTER_0} saved 25% more than January. In March, {CHARACTER_0} spent $85. How much money does {CHARACTER_0} have in total?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "175",
+      "190",
+      "180",
+      "185"
+    ],
+    "answer": 3,
+    "correct_answer": "185"
+  },
+  {
+    "id": "Q721",
+    "category": "Money",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} bought 6 books at $8.50 each and 4 pens at $2.25 each. If {CHARACTER_0} paid with three $50 notes, how much change did {CHARACTER_0} receive?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "90",
+      "60",
+      "81",
+      "75"
+    ],
+    "answer": 0,
+    "correct_answer": "90"
+  },
+  {
+    "id": "Q722",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} had a collection of cards. After giving 1/5 to {CHARACTER_1} and 1/4 of the remainder to {CHARACTER_2}, {CHARACTER_0} had 30 cards left. How many cards did {CHARACTER_0} have at first?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ],
+    "options": [
+      "45",
+      "40",
+      "60",
+      "50"
+    ],
+    "answer": 3,
+    "correct_answer": "50"
+  },
+  {
+    "id": "Q723",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "A shop increased prices by 20%, then gave a 15% discount on the new price. {CHARACTER_0} paid $102 for an item. What was the original price?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "95",
+      "110",
+      "105",
+      "100"
+    ],
+    "answer": 3,
+    "correct_answer": "100"
+  },
+  {
+    "id": "Q724",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "The ratio of {CHARACTER_0}'s savings to {CHARACTER_1}'s savings is 7:5. If {CHARACTER_0} has $420, how much more does {CHARACTER_0} have than {CHARACTER_1}?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "140",
+      "120",
+      "100",
+      "180"
+    ],
+    "answer": 1,
+    "correct_answer": "120"
+  },
+  {
+    "id": "Q725",
+    "category": "Measurement",
+    "difficulty": "PSLE",
+    "template": "A rectangular field is 45m long and 28m wide. {CHARACTER_0} runs around the perimeter twice. What distance does {CHARACTER_0} run?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "292",
+      "146",
+      "260",
+      "300"
+    ],
+    "answer": 0,
+    "correct_answer": "292"
+  },
+  {
+    "id": "Q726",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} has a square garden with side 12m. {CHARACTER_0} wants to put a fence around it. If fencing costs $15 per meter, how much will it cost?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "720",
+      "600",
+      "180",
+      "900"
+    ],
+    "answer": 0,
+    "correct_answer": "720"
+  },
+  {
+    "id": "Q727",
+    "category": "Time",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} started homework at 3:45 PM and finished at 6:20 PM, with a 25-minute break. How many minutes did {CHARACTER_0} actually work?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "130",
+      "155",
+      "115",
+      "145"
+    ],
+    "answer": 0,
+    "correct_answer": "130"
+  },
+  {
+    "id": "Q728",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} and {CHARACTER_1} start from the same point. {CHARACTER_0} walks at 60m/min north, {CHARACTER_1} walks at 80m/min south. After 15 minutes, how far apart are they?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "2100",
+      "1500",
+      "2400",
+      "1800"
+    ],
+    "answer": 0,
+    "correct_answer": "2100"
+  },
+  {
+    "id": "Q729",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} filled 3/5 of a tank with water. After using 1/3 of the water, there were 40 liters left. What is the capacity of the tank?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "80",
+      "120",
+      "100",
+      "90"
+    ],
+    "answer": 2,
+    "correct_answer": "100"
+  },
+  {
+    "id": "Q730",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "A jar contains red and blue marbles in the ratio 3:2. {CHARACTER_0} adds 15 red marbles, making the ratio 2:1. How many blue marbles are there?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "20",
+      "30",
+      "35",
+      "25"
+    ],
+    "answer": 1,
+    "correct_answer": "30"
+  },
+  {
+    "id": "Q731",
+    "category": "Decimals",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} bought 2.5kg of apples at $3.60 per kg and 1.8kg of oranges at $4.20 per kg. What was the total cost?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "16.56",
+      "16.50",
+      "17",
+      "15.56"
+    ],
+    "answer": 0,
+    "correct_answer": "16.56"
+  },
+  {
+    "id": "Q732",
+    "category": "Money",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} shared $546 with {CHARACTER_1} and {CHARACTER_2} in ratio 4:3:2. How much did {CHARACTER_1} receive?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ],
+    "options": [
+      "182",
+      "243",
+      "200",
+      "121"
+    ],
+    "answer": 0,
+    "correct_answer": "182"
+  },
+  {
+    "id": "Q733",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} had some money. After spending 2/7 on books and $45 on games, {CHARACTER_0} had $80 left. How much money did {CHARACTER_0} have at first?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "175",
+      "150",
+      "180",
+      "200"
+    ],
+    "answer": 0,
+    "correct_answer": "175"
+  },
+  {
+    "id": "Q734",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} scored an average of 75 in 4 tests. If {CHARACTER_0} wants an average of 80 for 5 tests, what score is needed in the 5th test?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "90",
+      "100",
+      "95",
+      "105"
+    ],
+    "answer": 1,
+    "correct_answer": "100"
+  },
+  {
+    "id": "Q735",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "Initially, {CHARACTER_0} and {CHARACTER_1} had money in ratio 5:3. After {CHARACTER_0} gave $30 to {CHARACTER_1}, they had equal amounts. How much did {CHARACTER_0} have initially?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "150",
+      "160",
+      "180",
+      "120"
+    ],
+    "answer": 0,
+    "correct_answer": "150"
+  },
+  {
+    "id": "Q736",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "A box contains 180 chocolates. {CHARACTER_0} took 1/6, {CHARACTER_1} took 1/5 of the remainder, and {CHARACTER_2} took 20% of what was left. How many chocolates remain?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ],
+    "options": [
+      "96",
+      "100",
+      "80",
+      "90"
+    ],
+    "answer": 0,
+    "correct_answer": "96"
+  },
+  {
+    "id": "Q737",
+    "category": "Money",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} bought a bicycle for $450 and sold it at a loss of 20%. Then {CHARACTER_0} bought another bicycle for $500 and sold it at a profit of 25%. What was the total profit?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "125",
+      "75",
+      "45",
+      "35"
+    ],
+    "answer": 3,
+    "correct_answer": "35"
+  },
+  {
+    "id": "Q738",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "A tank is 2/3 full of water. After removing 40 liters, it is 1/2 full. What is the capacity of the tank?",
+    "placeholder_roles": [],
+    "options": [
+      "200",
+      "280",
+      "240",
+      "180"
+    ],
+    "answer": 2,
+    "correct_answer": "240"
+  },
+  {
+    "id": "Q739",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} invested $8000 at 5% interest per year. After 2 years, how much interest did {CHARACTER_0} earn?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "800",
+      "820",
+      "1000",
+      "400"
+    ],
+    "answer": 0,
+    "correct_answer": "800"
+  },
+  {
+    "id": "Q740",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} saves $5 in week 1, $8 in week 2, $11 in week 3, following this pattern. How much does {CHARACTER_0} save in week 10?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "30",
+      "29",
+      "35",
+      "32"
+    ],
+    "answer": 3,
+    "correct_answer": "32"
+  },
+  {
+    "id": "Q741",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "The first term of a sequence is 7. Each subsequent term is 4 more than the previous. What is the 15th term?",
+    "placeholder_roles": [],
+    "options": [
+      "60",
+      "67",
+      "59",
+      "63"
+    ],
+    "answer": 3,
+    "correct_answer": "63"
+  },
+  {
+    "id": "Q742",
+    "category": "Measurement",
+    "difficulty": "PSLE",
+    "template": "A rectangular container is 20cm long, 15cm wide, and 10cm high. How many liters of water can it hold? (1 liter = 1000 cm³)",
+    "placeholder_roles": [],
+    "options": [
+      "3.50",
+      "2.50",
+      "3",
+      "4"
+    ],
+    "answer": 2,
+    "correct_answer": "3"
+  },
+  {
+    "id": "Q743",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} filled 5 bottles with 3.5 liters of juice each. If {CHARACTER_0} distributes equally to 7 people, how many liters does each person get?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "3",
+      "2",
+      "2.80",
+      "2.50"
+    ],
+    "answer": 3,
+    "correct_answer": "2.50"
+  },
+  {
+    "id": "Q744",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "The ratio of boys to girls in a class is 3:4. If there are 12 more girls than boys, how many students are in the class?",
+    "placeholder_roles": [],
+    "options": [
+      "72",
+      "80",
+      "96",
+      "84"
+    ],
+    "answer": 3,
+    "correct_answer": "84"
+  },
+  {
+    "id": "Q745",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}, {CHARACTER_1}, and {CHARACTER_2} shared $720 in ratio 5:4:3. {CHARACTER_0} spent 1/4 of the money. How much does {CHARACTER_0} have left?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ],
+    "options": [
+      "225",
+      "300",
+      "180",
+      "270"
+    ],
+    "answer": 0,
+    "correct_answer": "225"
+  },
+  {
+    "id": "Q746",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "A shop sold an item at $480 after a 20% discount and still made a 20% profit. What was the cost price?",
+    "placeholder_roles": [],
+    "options": [
+      "420",
+      "450",
+      "384",
+      "400"
+    ],
+    "answer": 3,
+    "correct_answer": "400"
+  },
+  {
+    "id": "Q747",
+    "category": "Money",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} bought items at $960. After selling 3/4 at 25% profit and the rest at 10% loss, what was the total profit?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "180",
+      "156",
+      "144",
+      "200"
+    ],
+    "answer": 1,
+    "correct_answer": "156"
+  },
+  {
+    "id": "Q748",
+    "category": "Time",
+    "difficulty": "PSLE",
+    "template": "A movie started at 7:35 PM and ended at 10:15 PM. If there was a 15-minute intermission, how long was the actual movie?",
+    "placeholder_roles": [],
+    "options": [
+      "140",
+      "150",
+      "160",
+      "145"
+    ],
+    "answer": 3,
+    "correct_answer": "145"
+  },
+  {
+    "id": "Q749",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} takes 45 minutes to complete homework, {CHARACTER_1} takes 1 hour 15 minutes. If they both start at 3:30 PM, what time will {CHARACTER_1} finish?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "4:45 PM",
+      "4:15 PM",
+      "4:30 PM",
+      "5:00 PM"
+    ],
+    "answer": 0,
+    "correct_answer": "4:45 PM"
+  },
+  {
+    "id": "Q750",
+    "category": "Averages",
+    "difficulty": "PSLE",
+    "template": "The average of 5 numbers is 48. Four of them are 42, 50, 45, and 53. What is the 5th number?",
+    "placeholder_roles": [],
+    "options": [
+      "50",
+      "47",
+      "48",
+      "52"
+    ],
+    "answer": 0,
+    "correct_answer": "50"
+  },
+  {
+    "id": "Q751",
+    "category": "Averages",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} scored 78, 82, and 85 in 3 tests. What score is needed in the 4th test to have an average of 83?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "83",
+      "90",
+      "87",
+      "85"
+    ],
+    "answer": 2,
+    "correct_answer": "87"
+  },
+  {
+    "id": "Q752",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "A bag contains red and blue balls in ratio 2:3. After adding 10 red balls and removing 5 blue balls, the ratio becomes 3:2. How many red balls were there initially?",
+    "placeholder_roles": [],
+    "options": [
+      "30",
+      "25",
+      "15",
+      "20"
+    ],
+    "answer": 3,
+    "correct_answer": "20"
+  },
+  {
+    "id": "Q753",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} spent 3/8 of savings on a game console and 1/4 on games. If {CHARACTER_0} spent $450 in total, what were the initial savings?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "720",
+      "600",
+      "800",
+      "675"
+    ],
+    "answer": 0,
+    "correct_answer": "720"
+  },
+  {
+    "id": "Q754",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "A population of 8000 increased by 15% in year 1 and decreased by 10% in year 2. What is the population after 2 years?",
+    "placeholder_roles": [],
+    "options": [
+      "8400",
+      "8320",
+      "8280",
+      "8200"
+    ],
+    "answer": 2,
+    "correct_answer": "8280"
+  },
+  {
+    "id": "Q755",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "The ratio of {CHARACTER_0}'s age to {CHARACTER_1}'s age is 5:7. In 8 years, their ages will sum to 76. How old is {CHARACTER_0} now?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "25",
+      "15",
+      "18",
+      "20"
+    ],
+    "answer": 3,
+    "correct_answer": "20"
+  },
+  {
+    "id": "Q756",
+    "category": "Money",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} bought 15 notebooks at $2.80 each and got a 10% discount. How much did {CHARACTER_0} pay?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "37.80",
+      "35",
+      "42",
+      "38"
+    ],
+    "answer": 0,
+    "correct_answer": "37.80"
+  },
+  {
+    "id": "Q757",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "A box contains 240 items. {CHARACTER_0} took 25%, {CHARACTER_1} took 1/3 of the remainder, and {CHARACTER_2} took the rest. How many items did {CHARACTER_2} get?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ],
+    "options": [
+      "120",
+      "100",
+      "80",
+      "140"
+    ],
+    "answer": 0,
+    "correct_answer": "120"
+  },
+  {
+    "id": "Q758",
+    "category": "Decimals",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} ran 3.8 km on Monday, 4.5 km on Tuesday, and 5.2 km on Wednesday. What is the average distance per day?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "4.30",
+      "4.50",
+      "4.80",
+      "4.20"
+    ],
+    "answer": 1,
+    "correct_answer": "4.50"
+  },
+  {
+    "id": "Q759",
+    "category": "Measurement",
+    "difficulty": "PSLE",
+    "template": "A rectangular room is 8.5m long and 6.4m wide. {CHARACTER_0} wants to carpet the floor. If carpet costs $25 per square meter, what is the total cost?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "1500",
+      "1300",
+      "1400",
+      "1360"
+    ],
+    "answer": 3,
+    "correct_answer": "1360"
   }
 ]

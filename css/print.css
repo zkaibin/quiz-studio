@@ -1,0 +1,151 @@
+/**
+ * Print-specific styles for PSLE papers
+ */
+
+@media print {
+    /* Reset page margins */
+    @page {
+        size: A4;
+        margin: 20mm 15mm;
+    }
+    
+    /* Hide non-printable elements */
+    body > *:not(.preview-container) {
+        display: none !important;
+    }
+    
+    .preview-container {
+        display: block !important;
+    }
+    
+    /* General print styles */
+    body {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 12pt;
+        line-height: 1.6;
+        color: #000;
+        background: white;
+    }
+    
+    /* Paper header */
+    .paper-header h1 {
+        font-size: 18pt;
+        margin: 0 0 10px 0;
+        font-weight: bold;
+    }
+    
+    .paper-header h2 {
+        font-size: 14pt;
+        margin: 5px 0;
+        font-weight: normal;
+    }
+    
+    /* Paper info section */
+    .paper-info {
+        border: 2px solid #000;
+        padding: 15px;
+        margin: 20px 0;
+        background: white !important;
+        page-break-after: avoid;
+    }
+    
+    .paper-info div {
+        margin-bottom: 8px;
+    }
+    
+    .paper-info label {
+        font-weight: bold;
+        min-width: 80px;
+    }
+    
+    /* Instructions box */
+    .preview-container > div[style*="background: #fff3cd"] {
+        border: 2px solid #000;
+        background: white !important;
+        page-break-after: avoid;
+        padding: 15px;
+        margin: 20px 0;
+    }
+    
+    /* Question styling */
+    .question-item {
+        margin-bottom: 30px;
+        page-break-inside: avoid;
+    }
+    
+    .question-number {
+        font-size: 12pt;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+    
+    .question-text {
+        font-size: 12pt;
+        line-height: 1.8;
+        margin-bottom: 15px;
+    }
+    
+    /* MCQ options */
+    .mcq-options {
+        margin-left: 30px;
+    }
+    
+    .mcq-option {
+        margin-bottom: 10px;
+        line-height: 1.8;
+    }
+    
+    .option-label {
+        font-weight: bold;
+        margin-right: 10px;
+    }
+    
+    /* Answer spaces for structured questions */
+    .answer-space {
+        border-bottom: 1px solid #000;
+        min-height: 50px;
+        margin: 15px 0;
+    }
+    
+    /* Answer key styling (when showing answers) */
+    .preview-container strong[style*="color: #27ae60"],
+    .preview-container strong[style*="color: #155724"],
+    .preview-container div[style*="background: #d4edda"] {
+        color: #000 !important;
+        background: #f0f0f0 !important;
+        border: 2px solid #000 !important;
+    }
+    
+    /* Page breaks */
+    .question-item:nth-child(8n) {
+        page-break-after: always;
+    }
+    
+    /* Ensure proper spacing */
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+    
+    ul, ol {
+        page-break-inside: avoid;
+    }
+    
+    /* Remove any shadows, gradients in print */
+    * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+        background-image: none !important;
+    }
+}
+
+/* Screen-only styles for preview */
+@media screen {
+    .preview-container {
+        max-width: 210mm; /* A4 width */
+        margin: 40px auto;
+        padding: 20mm 15mm;
+        background: white;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        min-height: 297mm; /* A4 height */
+    }
+}
