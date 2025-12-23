@@ -2,7 +2,7 @@
   {
     "id": 1,
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 5 apples. If {CHARACTER_1} gives {CHARACTER_0} 3 more apples, how many apples does {CHARACTER_0} have in total?",
     "options": [
       "6",
@@ -19,7 +19,7 @@
   {
     "id": 2,
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} collected 4 shiny rocks and {CHARACTER_1} collected 6 shiny rocks. How many rocks did they collect together?",
     "options": [
       "8",
@@ -36,7 +36,7 @@
   {
     "id": 3,
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} baked 12 cookies in the morning and 8 cookies in the afternoon. How many cookies did {CHARACTER_0} bake in total?",
     "options": [
       "18",
@@ -52,7 +52,7 @@
   {
     "id": 4,
     "category": "Subtraction",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 15 balloons but 5 of them flew away. How many balloons does {CHARACTER_0} have now?",
     "options": [
       "8",
@@ -68,7 +68,7 @@
   {
     "id": 5,
     "category": "Subtraction",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 20 toys and gave 7 to {CHARACTER_1}. How many toys does {CHARACTER_0} have left?",
     "options": [
       "11",
@@ -85,7 +85,7 @@
   {
     "id": 6,
     "category": "Multiplication",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 3 bags with 4 candies in each bag. How many candies does {CHARACTER_0} have in total?",
     "options": [
       "10",
@@ -101,7 +101,7 @@
   {
     "id": 7,
     "category": "Multiplication",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} plants 5 flowers in each row and has 3 rows, how many flowers are planted in total?",
     "options": [
       "13",
@@ -117,7 +117,7 @@
   {
     "id": 8,
     "category": "Division",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 12 cookies to share equally among 3 friends. How many cookies does each friend get?",
     "options": [
       "3",
@@ -133,7 +133,7 @@
   {
     "id": 9,
     "category": "Division",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 20 starfish to distribute equally into 4 buckets. How many starfish go in each bucket?",
     "options": [
       "3",
@@ -149,7 +149,7 @@
   {
     "id": 25,
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} and {CHARACTER_1} collected 7 lightsticks each at the concert. How many lightsticks do they have together?",
     "options": [
       "5",
@@ -166,7 +166,7 @@
   {
     "id": 28,
     "category": "Division",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 24 posters to share equally among 6 ITZY members. How many posters does each member get?",
     "options": [
       "3",
@@ -182,7 +182,7 @@
   {
     "id": 30,
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 4 albums and {CHARACTER_1} has 5 albums. How many albums do they have together?",
     "options": [
       "7",
@@ -199,7 +199,7 @@
   {
     "id": 31,
     "category": "Subtraction",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 10 posters and gave 3 to {CHARACTER_1}. How many posters does {CHARACTER_0} have left?",
     "options": [
       "5",
@@ -216,7 +216,7 @@
   {
     "id": 33,
     "category": "Division",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 12 photocards to share equally among 3 friends. How many does each friend get?",
     "options": [
       "2",
@@ -232,7 +232,7 @@
   {
     "id": 34,
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} found 6 badges and {CHARACTER_1} found 7 badges. How many badges did they find in total?",
     "options": [
       "11",
@@ -249,7 +249,7 @@
   {
     "id": 35,
     "category": "Subtraction",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 9 snacks and ate 4. How many snacks are left?",
     "options": [
       "3",
@@ -265,7 +265,7 @@
   {
     "id": 36,
     "category": "Multiplication",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} bought 3 sets of stickers with 5 stickers in each set. How many stickers did {CHARACTER_0} buy?",
     "options": [
       "10",
@@ -281,7 +281,7 @@
   {
     "id": 37,
     "category": "Division",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 16 candies to share equally among 4 members. How many candies does each member get?",
     "options": [
       "2",
@@ -297,7 +297,7 @@
   {
     "id": 38,
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} and {CHARACTER_1} collected 8 and 5 lightsticks. How many lightsticks do they have together?",
     "options": [
       "11",
@@ -314,7 +314,7 @@
   {
     "id": 39,
     "category": "Subtraction",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 14 posters and gave 6 to {CHARACTER_1}. How many posters does {CHARACTER_0} have left?",
     "options": [
       "6",
@@ -331,7 +331,7 @@
   {
     "id": 40,
     "category": "Multiplication",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 4 albums in each of 2 boxes. How many albums in total?",
     "options": [
       "6",
@@ -347,7 +347,7 @@
   {
     "id": 41,
     "category": "Division",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 20 snacks to share equally among 5 members. How many snacks does each member get?",
     "options": [
       "3",
@@ -363,7 +363,7 @@
   {
     "id": 42,
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 3 badges and {CHARACTER_1} has 6 badges. How many badges do they have together?",
     "options": [
       "7",
@@ -380,7 +380,7 @@
   {
     "id": 43,
     "category": "Subtraction",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 11 albums and lost 2. How many albums are left?",
     "options": [
       "7",
@@ -396,7 +396,7 @@
   {
     "id": 44,
     "category": "Multiplication",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} bought 2 sets of 6 posters. How many posters did {CHARACTER_0} buy?",
     "options": [
       "10",
@@ -412,7 +412,7 @@
   {
     "id": 45,
     "category": "Division",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 18 candies to share equally among 6 members. How many candies does each member get?",
     "options": [
       "2",
@@ -428,7 +428,7 @@
   {
     "id": 46,
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} and {CHARACTER_1} found 5 and 9 snacks. How many snacks in total?",
     "options": [
       "12",
@@ -445,7 +445,7 @@
   {
     "id": 47,
     "category": "Subtraction",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 13 badges and gave 5 to {CHARACTER_1}. How many badges does {CHARACTER_0} have left?",
     "options": [
       "6",
@@ -462,7 +462,7 @@
   {
     "id": 48,
     "category": "Multiplication",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 3 albums in each of 4 boxes. How many albums in total?",
     "options": [
       "10",
@@ -478,7 +478,7 @@
   {
     "id": 87,
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 6 infinity stones and {CHARACTER_1} has 3 infinity stones. How many stones do they have together?",
     "options": [
       "7",
@@ -495,7 +495,7 @@
   {
     "id": 88,
     "category": "Subtraction",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 12 arrows and shot 5 at targets. How many arrows are left?",
     "options": [
       "5",
@@ -511,7 +511,7 @@
   {
     "id": 89,
     "category": "Multiplication",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} trains 3 times a day for 4 days. How many training sessions in total?",
     "options": [
       "10",
@@ -527,7 +527,7 @@
   {
     "id": 90,
     "category": "Division",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 16 web cartridges to split equally into 4 cases. How many in each case?",
     "options": [
       "3",
@@ -543,7 +543,7 @@
   {
     "id": 91,
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} defeated 8 enemies and {CHARACTER_1} defeated 7 enemies. How many enemies defeated in total?",
     "options": [
       "13",
@@ -560,7 +560,7 @@
   {
     "id": 92,
     "category": "Subtraction",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 15 shields and gave 6 to {CHARACTER_1}. How many shields does {CHARACTER_0} have left?",
     "options": [
       "7",
@@ -577,7 +577,7 @@
   {
     "id": 93,
     "category": "Multiplication",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 5 suits in each of 2 labs. How many suits in total?",
     "options": [
       "8",
@@ -593,7 +593,7 @@
   {
     "id": 94,
     "category": "Division",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 20 lightning bolts to distribute equally among 5 battles. How many per battle?",
     "options": [
       "3",
@@ -609,7 +609,7 @@
   {
     "id": 95,
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} collected 9 gadgets and {CHARACTER_1} collected 6 gadgets. How many gadgets in total?",
     "options": [
       "13",
@@ -626,7 +626,7 @@
   {
     "id": 96,
     "category": "Subtraction",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 18 web shooters and lost 7. How many web shooters are left?",
     "options": [
       "9",
@@ -642,7 +642,7 @@
   {
     "id": 98,
     "category": "Division",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 24 repulsor rays to fire equally in 6 directions. How many per direction?",
     "options": [
       "3",
@@ -658,7 +658,7 @@
   {
     "id": 99,
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} threw 7 shields and {CHARACTER_1} threw 5 shields. How many shields thrown in total?",
     "options": [
       "10",
@@ -675,7 +675,7 @@
   {
     "id": 100,
     "category": "Subtraction",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 14 hammers and gave 5 to {CHARACTER_1}. How many hammers does {CHARACTER_0} have left?",
     "options": [
       "7",
@@ -692,7 +692,7 @@
   {
     "id": 101,
     "category": "Multiplication",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} swings through 3 buildings on each of 5 patrols. How many buildings in total?",
     "options": [
       "13",
@@ -708,7 +708,7 @@
   {
     "id": 102,
     "category": "Division",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 18 spy gadgets to pack into 3 bags. How many gadgets per bag?",
     "options": [
       "4",
@@ -724,7 +724,7 @@
   {
     "id": 103,
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 8 arrows and {CHARACTER_1} has 9 arrows. How many arrows do they have together?",
     "options": [
       "15",
@@ -741,7 +741,7 @@
   {
     "id": 104,
     "category": "Subtraction",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 11 armor pieces and removed 4. How many armor pieces are left?",
     "options": [
       "5",
@@ -757,7 +757,7 @@
   {
     "id": 105,
     "category": "Multiplication",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} does 6 pushups per minute for 2 minutes. How many pushups in total?",
     "options": [
       "10",
@@ -773,7 +773,7 @@
   {
     "id": 106,
     "category": "Division",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 21 lightning strikes to use in 3 battles. How many strikes per battle?",
     "options": [
       "5",
@@ -789,7 +789,7 @@
   {
     "id": 147,
     "category": "Fractions",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} ate 1/4 of a pizza and {CHARACTER_1} ate 1/4 of the same pizza. What fraction of the pizza did they eat together?",
     "options": [
       "1/8",
@@ -806,7 +806,7 @@
   {
     "id": 148,
     "category": "Fractions",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 3/8 of a cake. If {CHARACTER_0} eats 1/8 more, what fraction of the cake has {CHARACTER_0} eaten?",
     "options": [
       "2/8",
@@ -822,7 +822,7 @@
   {
     "id": 153,
     "category": "Decimals",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 3.5 meters of rope and {CHARACTER_1} has 2.3 meters. How many meters do they have together?",
     "options": [
       "5.2",
@@ -839,7 +839,7 @@
   {
     "id": 154,
     "category": "Decimals",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} ran 4.7 kilometers and {CHARACTER_1} ran 3.2 kilometers. How much farther did {CHARACTER_0} run?",
     "options": [
       "7.7",
@@ -856,7 +856,7 @@
   {
     "id": 159,
     "category": "Averages",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} scored 8, 10, and 12 points in three games. What is the average score?",
     "options": [
       "8",
@@ -872,7 +872,7 @@
   {
     "id": 160,
     "category": "Averages",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} collected 5 stones, {CHARACTER_1} collected 7 stones, and {CHARACTER_2} collected 9 stones. What is the average?",
     "options": [
       "6",
@@ -890,7 +890,7 @@
   {
     "id": 165,
     "category": "Ratios",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "The ratio of {CHARACTER_0}'s shields to {CHARACTER_1}'s arrows is 2:3. If {CHARACTER_0} has 4 shields, how many arrows does {CHARACTER_1} have?",
     "options": [
       "4",
@@ -907,7 +907,7 @@
   {
     "id": 171,
     "category": "Time",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} starts training at 2:30 PM and trains for 45 minutes. What time does {CHARACTER_0} finish?",
     "options": [
       "30",
@@ -923,7 +923,7 @@
   {
     "id": 172,
     "category": "Time",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} sleeps for 8 hours starting at 10:00 PM, what time does {CHARACTER_0} wake up?",
     "options": [
       "5:00 AM",
@@ -939,7 +939,7 @@
   {
     "id": 177,
     "category": "Money",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has $15 and {CHARACTER_1} has $12. How much money do they have together?",
     "options": [
       "25",
@@ -956,7 +956,7 @@
   {
     "id": 178,
     "category": "Money",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} bought a toy for $8 and has $5 left. How much money did {CHARACTER_0} start with?",
     "options": [
       "11",
@@ -972,7 +972,7 @@
   {
     "id": 183,
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} found 6 ancient scrolls and {CHARACTER_1} found 8 scrolls. How many scrolls do they have together?",
     "options": [
       "12",
@@ -989,7 +989,7 @@
   {
     "id": 184,
     "category": "Subtraction",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 15 blood crystals and used 7 in a ritual. How many crystals are left?",
     "options": [
       "6",
@@ -1005,7 +1005,7 @@
   {
     "id": 185,
     "category": "Multiplication",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} guards 4 gates each night for 3 nights. How many gates guarded in total?",
     "options": [
       "10",
@@ -1021,7 +1021,7 @@
   {
     "id": 186,
     "category": "Division",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 20 moon stones to distribute equally among 5 vampires. How many stones does each vampire get?",
     "options": [
       "3",
@@ -1037,7 +1037,7 @@
   {
     "id": 187,
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} collected 9 ancient artifacts and {CHARACTER_1} collected 7 artifacts. How many artifacts in total?",
     "options": [
       "14",
@@ -1054,7 +1054,7 @@
   {
     "id": 188,
     "category": "Subtraction",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 18 dark powers and lost 6 in battle. How many powers are left?",
     "options": [
       "10",
@@ -1070,7 +1070,7 @@
   {
     "id": 189,
     "category": "Multiplication",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} trains with 5 weapons each day for 2 days. How many weapon sessions in total?",
     "options": [
       "8",
@@ -1086,7 +1086,7 @@
   {
     "id": 190,
     "category": "Division",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 24 spell books to organize into 6 shelves. How many books per shelf?",
     "options": [
       "3",
@@ -1102,7 +1102,7 @@
   {
     "id": 208,
     "category": "Subtraction",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 18 items and gave 14 to {CHARACTER_1}. How many items does {CHARACTER_0} have left?",
     "options": [
       "5",
@@ -1120,7 +1120,7 @@
   {
     "id": 213,
     "category": "Multiplication",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} does 12 tasks per day for 16 days. How many tasks in total?",
     "options": [
       "190",
@@ -1136,7 +1136,7 @@
   {
     "id": 224,
     "category": "Mixed Operations",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 19 items, gave 19 to {CHARACTER_1}, and bought 18 more. How many items now?",
     "options": [
       "16",
@@ -1153,7 +1153,7 @@
   {
     "id": 226,
     "category": "Mixed Operations",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} earned 1 points, lost 16 points, then earned 15 more. Total points?",
     "options": [
       "0",
@@ -1169,7 +1169,7 @@
   {
     "id": 227,
     "category": "Mixed Operations",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 15 items, gave 12 to {CHARACTER_1}, and bought 2 more. How many items now?",
     "options": [
       "8",
@@ -1186,7 +1186,7 @@
   {
     "id": 228,
     "category": "Mixed Operations",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} collected 16 items, {CHARACTER_1} collected 12, and they used 17. How many left?",
     "options": [
       "9",
@@ -1203,7 +1203,7 @@
   {
     "id": 229,
     "category": "Mixed Operations",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} earned 13 points, lost 5 points, then earned 16 more. Total points?",
     "options": [
       "22",
@@ -1219,7 +1219,7 @@
   {
     "id": 230,
     "category": "Mixed Operations",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 19 items, gave 8 to {CHARACTER_1}, and bought 5 more. How many items now?",
     "options": [
       "14",
@@ -1236,7 +1236,7 @@
   {
     "id": 232,
     "category": "Mixed Operations",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} earned 5 points, lost 8 points, then earned 9 more. Total points?",
     "options": [
       "4",
@@ -1252,7 +1252,7 @@
   {
     "id": 233,
     "category": "Mixed Operations",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 10 items, gave 10 to {CHARACTER_1}, and bought 12 more. How many items now?",
     "options": [
       "9",
@@ -1269,7 +1269,7 @@
   {
     "id": 234,
     "category": "Mixed Operations",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} collected 19 items, {CHARACTER_1} collected 9, and they used 2. How many left?",
     "options": [
       "24",
@@ -1286,7 +1286,7 @@
   {
     "id": 236,
     "category": "Mixed Operations",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 15 items, gave 3 to {CHARACTER_1}, and bought 17 more. How many items now?",
     "options": [
       "27",
@@ -1303,7 +1303,7 @@
   {
     "id": 237,
     "category": "Mixed Operations",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} collected 4 items, {CHARACTER_1} collected 18, and they used 10. How many left?",
     "options": [
       "10",
@@ -1320,7 +1320,7 @@
   {
     "id": 238,
     "category": "Mixed Operations",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} earned 5 points, lost 4 points, then earned 8 more. Total points?",
     "options": [
       "7",
@@ -1336,7 +1336,7 @@
   {
     "id": 265,
     "category": "Fractions",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} ate 3/4 of a pizza and {CHARACTER_1} ate 3/4. What fraction did they eat together?",
     "options": [
       "3/4",
@@ -1354,7 +1354,7 @@
   {
     "id": 270,
     "category": "Fractions",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} completes 1/8 of a task, what fraction remains?",
     "options": [
       "1/8",
@@ -1371,7 +1371,7 @@
   {
     "id": 272,
     "category": "Fractions",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 1/2 of a cake and gives 1/8 to {CHARACTER_1}. What fraction remains?",
     "options": [
       "1/2",
@@ -1389,7 +1389,7 @@
   {
     "id": 273,
     "category": "Fractions",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} completes 1/4 of a task, what fraction remains?",
     "options": [
       "2/4",
@@ -1406,7 +1406,7 @@
   {
     "id": 304,
     "category": "Decimals",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 7.0 meters of rope and {CHARACTER_1} has 7.0 meters. How many meters together?",
     "options": [
       "12",
@@ -1423,7 +1423,7 @@
   {
     "id": 305,
     "category": "Decimals",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} ran 5.0 kilometers and {CHARACTER_1} ran 6.0 kilometers. What is the total distance?",
     "options": [
       "9",
@@ -1440,7 +1440,7 @@
   {
     "id": 306,
     "category": "Decimals",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} bought items for $3.0 and $8.0. What is the total cost?",
     "options": [
       "9",
@@ -1456,7 +1456,7 @@
   {
     "id": 307,
     "category": "Decimals",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 4.0 meters of rope and {CHARACTER_1} has 8.0 meters. How many meters together?",
     "options": [
       "10",
@@ -1473,7 +1473,7 @@
   {
     "id": 308,
     "category": "Decimals",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} ran 3.0 kilometers and {CHARACTER_1} ran 10.0 kilometers. What is the total distance?",
     "options": [
       "11",
@@ -1490,7 +1490,7 @@
   {
     "id": 309,
     "category": "Decimals",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} bought items for $2.0 and $8.0. What is the total cost?",
     "options": [
       "8",
@@ -1506,7 +1506,7 @@
   {
     "id": 310,
     "category": "Decimals",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 10.0 meters of rope and {CHARACTER_1} has 10.0 meters. How many meters together?",
     "options": [
       "18",
@@ -1523,7 +1523,7 @@
   {
     "id": 311,
     "category": "Decimals",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} ran 1.0 kilometers and {CHARACTER_1} ran 10.0 kilometers. What is the total distance?",
     "options": [
       "9",
@@ -1540,7 +1540,7 @@
   {
     "id": 312,
     "category": "Decimals",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} bought items for $9.0 and $9.0. What is the total cost?",
     "options": [
       "16",
@@ -1556,7 +1556,7 @@
   {
     "id": 313,
     "category": "Decimals",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 2.0 meters of rope and {CHARACTER_1} has 7.0 meters. How many meters together?",
     "options": [
       "7",
@@ -1573,7 +1573,7 @@
   {
     "id": 314,
     "category": "Decimals",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} ran 7.0 kilometers and {CHARACTER_1} ran 6.0 kilometers. What is the total distance?",
     "options": [
       "11",
@@ -1590,7 +1590,7 @@
   {
     "id": 315,
     "category": "Decimals",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} bought items for $7.0 and $6.0. What is the total cost?",
     "options": [
       "11",
@@ -1606,7 +1606,7 @@
   {
     "id": 316,
     "category": "Decimals",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 6.0 meters of rope and {CHARACTER_1} has 5.0 meters. How many meters together?",
     "options": [
       "9",
@@ -1623,7 +1623,7 @@
   {
     "id": 345,
     "category": "Percentage",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "A store offers 19% discount on $13. What is the discounted price?",
     "options": [
       "9",
@@ -1639,7 +1639,7 @@
   {
     "id": 348,
     "category": "Percentage",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "A store offers 17% discount on $14. What is the discounted price?",
     "options": [
       "10",
@@ -1655,7 +1655,7 @@
   {
     "id": 349,
     "category": "Percentage",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} answers 17% of 17 questions correctly, how many questions were answered correctly?",
     "options": [
       "0",
@@ -1671,7 +1671,7 @@
   {
     "id": 351,
     "category": "Percentage",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "A store offers 13% discount on $17. What is the discounted price?",
     "options": [
       "12",
@@ -1687,7 +1687,7 @@
   {
     "id": 354,
     "category": "Percentage",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "A store offers 19% discount on $10. What is the discounted price?",
     "options": [
       "6",
@@ -1703,7 +1703,7 @@
   {
     "id": 356,
     "category": "Percentage",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} saves 18% of $16. How much money is saved?",
     "options": [
       "0",
@@ -1719,7 +1719,7 @@
   {
     "id": 357,
     "category": "Percentage",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "A store offers 5% discount on $7. What is the discounted price?",
     "options": [
       "4",
@@ -1735,7 +1735,7 @@
   {
     "id": 386,
     "category": "Averages",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} scored 3, 16, and 12 points. What is the average score?",
     "options": [
       "8",
@@ -1751,7 +1751,7 @@
   {
     "id": 387,
     "category": "Averages",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} walks 10 km, 7 km, and 15 km on three days, what is the average distance?",
     "options": [
       "10",
@@ -1767,7 +1767,7 @@
   {
     "id": 388,
     "category": "Averages",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} collected 11, 14, 8, and 3 items. What is the average?",
     "options": [
       "7",
@@ -1783,7 +1783,7 @@
   {
     "id": 389,
     "category": "Averages",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} scored 13, 18, and 2 points. What is the average score?",
     "options": [
       "9",
@@ -1799,7 +1799,7 @@
   {
     "id": 390,
     "category": "Averages",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} walks 9 km, 14 km, and 11 km on three days, what is the average distance?",
     "options": [
       "11",
@@ -1815,7 +1815,7 @@
   {
     "id": 391,
     "category": "Averages",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} collected 14, 1, 7, and 11 items. What is the average?",
     "options": [
       "6",
@@ -1831,7 +1831,7 @@
   {
     "id": 392,
     "category": "Averages",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} scored 15, 15, and 19 points. What is the average score?",
     "options": [
       "14",
@@ -1847,7 +1847,7 @@
   {
     "id": 393,
     "category": "Averages",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} walks 3 km, 10 km, and 2 km on three days, what is the average distance?",
     "options": [
       "4",
@@ -1863,7 +1863,7 @@
   {
     "id": 394,
     "category": "Averages",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} collected 10, 5, 15, and 5 items. What is the average?",
     "options": [
       "6",
@@ -1879,7 +1879,7 @@
   {
     "id": 395,
     "category": "Averages",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} scored 10, 2, and 13 points. What is the average score?",
     "options": [
       "6",
@@ -1895,7 +1895,7 @@
   {
     "id": 396,
     "category": "Averages",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} walks 2 km, 12 km, and 8 km on three days, what is the average distance?",
     "options": [
       "5",
@@ -1911,7 +1911,7 @@
   {
     "id": 397,
     "category": "Averages",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} collected 7, 6, 17, and 13 items. What is the average?",
     "options": [
       "10",
@@ -1927,7 +1927,7 @@
   {
     "id": 398,
     "category": "Averages",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} scored 11, 16, and 10 points. What is the average score?",
     "options": [
       "10",
@@ -1943,7 +1943,7 @@
   {
     "id": 425,
     "category": "Ratios",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "The ratio of {CHARACTER_0}'s items to {CHARACTER_1}'s items is 13:9. If {CHARACTER_0} has 16, how many does {CHARACTER_1} have?",
     "options": [
       "9",
@@ -1960,7 +1960,7 @@
   {
     "id": 427,
     "category": "Ratios",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} mixes items in a 9:19 ratio. If using 1 of the first item, how many of the second?",
     "options": [
       "0",
@@ -1976,7 +1976,7 @@
   {
     "id": 428,
     "category": "Ratios",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "The ratio of {CHARACTER_0}'s items to {CHARACTER_1}'s items is 12:5. If {CHARACTER_0} has 19, how many does {CHARACTER_1} have?",
     "options": [
       "5",
@@ -1993,7 +1993,7 @@
   {
     "id": 429,
     "category": "Ratios",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "For every 8 items {CHARACTER_0} collects, {CHARACTER_1} collects 8. If {CHARACTER_0} collected 8, how many did {CHARACTER_1} collect?",
     "options": [
       "6",
@@ -2010,7 +2010,7 @@
   {
     "id": 430,
     "category": "Ratios",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} mixes items in a 8:3 ratio. If using 10 of the first item, how many of the second?",
     "options": [
       "1",
@@ -2026,7 +2026,7 @@
   {
     "id": 431,
     "category": "Ratios",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "The ratio of {CHARACTER_0}'s items to {CHARACTER_1}'s items is 10:18. If {CHARACTER_0} has 8, how many does {CHARACTER_1} have?",
     "options": [
       "11",
@@ -2043,7 +2043,7 @@
   {
     "id": 432,
     "category": "Ratios",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "For every 11 items {CHARACTER_0} collects, {CHARACTER_1} collects 13. If {CHARACTER_0} collected 10, how many did {CHARACTER_1} collect?",
     "options": [
       "11",
@@ -2060,7 +2060,7 @@
   {
     "id": 433,
     "category": "Ratios",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} mixes items in a 5:11 ratio. If using 6 of the first item, how many of the second?",
     "options": [
       "11",
@@ -2076,7 +2076,7 @@
   {
     "id": 434,
     "category": "Ratios",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "The ratio of {CHARACTER_0}'s items to {CHARACTER_1}'s items is 10:4. If {CHARACTER_0} has 14, how many does {CHARACTER_1} have?",
     "options": [
       "3",
@@ -2093,7 +2093,7 @@
   {
     "id": 435,
     "category": "Ratios",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "For every 10 items {CHARACTER_0} collects, {CHARACTER_1} collects 2. If {CHARACTER_0} collected 13, how many did {CHARACTER_1} collect?",
     "options": [
       "0",
@@ -2110,7 +2110,7 @@
   {
     "id": 437,
     "category": "Ratios",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "The ratio of {CHARACTER_0}'s items to {CHARACTER_1}'s items is 5:11. If {CHARACTER_0} has 3, how many does {CHARACTER_1} have?",
     "options": [
       "5",
@@ -2127,7 +2127,7 @@
   {
     "id": 464,
     "category": "Time",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} starts a task at 9:00 and finishes at 8:00. How many hours did it take?",
     "options": [
       "11",
@@ -2143,7 +2143,7 @@
   {
     "id": 466,
     "category": "Time",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} practices 10 minutes per day for 14 days. How many total minutes?",
     "options": [
       "138",
@@ -2159,7 +2159,7 @@
   {
     "id": 467,
     "category": "Time",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} starts a task at 2:00 and finishes at 2:00. How many hours did it take?",
     "options": [
       "5",
@@ -2175,7 +2175,7 @@
   {
     "id": 469,
     "category": "Time",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} practices 10 minutes per day for 5 days. How many total minutes?",
     "options": [
       "48",
@@ -2191,7 +2191,7 @@
   {
     "id": 470,
     "category": "Time",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} starts a task at 2:00 and finishes at 3:00. How many hours did it take?",
     "options": [
       "3",
@@ -2207,7 +2207,7 @@
   {
     "id": 472,
     "category": "Time",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} practices 18 minutes per day for 4 days. How many total minutes?",
     "options": [
       "70",
@@ -2223,7 +2223,7 @@
   {
     "id": 473,
     "category": "Time",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} starts a task at 2:00 and finishes at 9:00. How many hours did it take?",
     "options": [
       "8",
@@ -2239,7 +2239,7 @@
   {
     "id": 474,
     "category": "Time",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} needs 16 hours to complete a project and has already worked 1 hours, how many hours remain?",
     "options": [
       "13",
@@ -2255,7 +2255,7 @@
   {
     "id": 475,
     "category": "Time",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} practices 5 minutes per day for 19 days. How many total minutes?",
     "options": [
       "93",
@@ -2271,7 +2271,7 @@
   {
     "id": 476,
     "category": "Time",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} starts a task at 9:00 and finishes at 1:00. How many hours did it take?",
     "options": [
       "7",
@@ -2287,7 +2287,7 @@
   {
     "id": 503,
     "category": "Money",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has $3 and {CHARACTER_1} has $9. How much money do they have together?",
     "options": [
       "10",
@@ -2304,7 +2304,7 @@
   {
     "id": 505,
     "category": "Money",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} earns $19 per hour for 14 hours, how much total?",
     "options": [
       "31",
@@ -2320,7 +2320,7 @@
   {
     "id": 506,
     "category": "Money",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has $12 and {CHARACTER_1} has $15. How much money do they have together?",
     "options": [
       "25",
@@ -2337,7 +2337,7 @@
   {
     "id": 508,
     "category": "Money",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} earns $14 per hour for 1 hours, how much total?",
     "options": [
       "15",
@@ -2353,7 +2353,7 @@
   {
     "id": 509,
     "category": "Money",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has $1 and {CHARACTER_1} has $8. How much money do they have together?",
     "options": [
       "7",
@@ -2370,7 +2370,7 @@
   {
     "id": 511,
     "category": "Money",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} earns $7 per hour for 4 hours, how much total?",
     "options": [
       "9",
@@ -2386,7 +2386,7 @@
   {
     "id": 512,
     "category": "Money",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has $17 and {CHARACTER_1} has $14. How much money do they have together?",
     "options": [
       "29",
@@ -2403,7 +2403,7 @@
   {
     "id": 514,
     "category": "Money",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} earns $17 per hour for 14 hours, how much total?",
     "options": [
       "29",
@@ -2419,7 +2419,7 @@
   {
     "id": 515,
     "category": "Money",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has $5 and {CHARACTER_1} has $17. How much money do they have together?",
     "options": [
       "20",
@@ -2447,7 +2447,8 @@
       "3"
     ],
     "correct_answer": "3",
-    "answer": 3
+    "answer": 3,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q543",
@@ -2464,7 +2465,8 @@
       "20"
     ],
     "correct_answer": "20",
-    "answer": 3
+    "answer": 3,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q544",
@@ -2481,7 +2483,8 @@
       "13"
     ],
     "correct_answer": "8",
-    "answer": 2
+    "answer": 2,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q545",
@@ -2498,7 +2501,8 @@
       "8"
     ],
     "correct_answer": "8",
-    "answer": 3
+    "answer": 3,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q546",
@@ -2515,7 +2519,8 @@
       "2/8"
     ],
     "correct_answer": "8/8",
-    "answer": 0
+    "answer": 0,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q547",
@@ -2532,7 +2537,8 @@
       "2/6"
     ],
     "correct_answer": "7/6",
-    "answer": 0
+    "answer": 0,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q548",
@@ -2549,7 +2555,8 @@
       "13/8"
     ],
     "correct_answer": "13/8",
-    "answer": 3
+    "answer": 3,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q549",
@@ -2566,7 +2573,8 @@
       "3/4"
     ],
     "correct_answer": "1/4",
-    "answer": 0
+    "answer": 0,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q551",
@@ -2583,7 +2591,8 @@
       "1/4"
     ],
     "correct_answer": "3/4",
-    "answer": 1
+    "answer": 1,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q552",
@@ -2599,7 +2608,8 @@
       "6"
     ],
     "correct_answer": "6",
-    "answer": 3
+    "answer": 3,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q553",
@@ -2615,7 +2625,8 @@
       "4"
     ],
     "correct_answer": "8",
-    "answer": 2
+    "answer": 2,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q554",
@@ -2631,7 +2642,8 @@
       "59"
     ],
     "correct_answer": "32",
-    "answer": 0
+    "answer": 0,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q555",
@@ -2647,7 +2659,8 @@
       "1"
     ],
     "correct_answer": "4",
-    "answer": 1
+    "answer": 1,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q556",
@@ -2663,7 +2676,8 @@
       "25"
     ],
     "correct_answer": "25",
-    "answer": 3
+    "answer": 3,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q559",
@@ -2679,7 +2693,8 @@
       "12"
     ],
     "correct_answer": "12",
-    "answer": 3
+    "answer": 3,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q563",
@@ -2695,7 +2710,8 @@
       "1"
     ],
     "correct_answer": "3",
-    "answer": 0
+    "answer": 0,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q564",
@@ -2711,7 +2727,8 @@
       "4"
     ],
     "correct_answer": "3",
-    "answer": 1
+    "answer": 1,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q566",
@@ -2727,7 +2744,8 @@
       "24"
     ],
     "correct_answer": "19",
-    "answer": 2
+    "answer": 2,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q567",
@@ -2743,7 +2761,8 @@
       "14"
     ],
     "correct_answer": "18",
-    "answer": 2
+    "answer": 2,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q568",
@@ -2759,7 +2778,8 @@
       "11"
     ],
     "correct_answer": "8",
-    "answer": 0
+    "answer": 0,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q569",
@@ -2775,12 +2795,13 @@
       "24"
     ],
     "correct_answer": "18",
-    "answer": 2
+    "answer": 2,
+    "difficulty": "P1-P2"
   },
   {
     "id": "Q596",
     "category": "Addition",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} collected 7 Dragon Balls and {CHARACTER_1} found 2 more. How many Dragon Balls do they have in total?",
     "placeholder_roles": [
       "protagonist",
@@ -2798,7 +2819,7 @@
   {
     "id": "Q597",
     "category": "Subtraction",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} had 100 Senzu Beans and gave 35 to {CHARACTER_1}. How many Senzu Beans does {CHARACTER_0} have left?",
     "placeholder_roles": [
       "protagonist",
@@ -2816,7 +2837,7 @@
   {
     "id": "Q598",
     "category": "Multiplication",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} trains for 3 hours a day for 7 days, how many hours of training in total?",
     "placeholder_roles": [
       "protagonist"
@@ -2833,7 +2854,7 @@
   {
     "id": "Q599",
     "category": "Division",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} has 48 Power Level points to distribute equally among 8 training sessions. How many points per session?",
     "placeholder_roles": [
       "protagonist"
@@ -2850,7 +2871,7 @@
   {
     "id": "Q600",
     "category": "Money",
-    "difficulty": "Easy",
+    "difficulty": "P1-P2",
     "template": "{CHARACTER_0} bought a capsule for $12 and paid with $20. How much change did {CHARACTER_0} receive?",
     "placeholder_roles": [
       "protagonist"

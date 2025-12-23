@@ -12,6 +12,12 @@ class DataManager {
     };
     this.loaded = false;
     this.loadedDifficulties = {
+      'p1-p2': false,
+      'p3-p4': false,
+      'p5-p6': false,
+      'challenging': false,
+      'psle': false,
+      // Legacy support
       easy: false,
       medium: false,
       hard: false
@@ -97,9 +103,11 @@ class DataManager {
     if (difficulty === 'all') {
       // Load all difficulties
       await Promise.all([
-        this.loadQuestionsByDifficulty('easy'),
-        this.loadQuestionsByDifficulty('medium'),
-        this.loadQuestionsByDifficulty('hard')
+        this.loadQuestionsByDifficulty('p1-p2'),
+        this.loadQuestionsByDifficulty('p3-p4'),
+        this.loadQuestionsByDifficulty('p5-p6'),
+        this.loadQuestionsByDifficulty('challenging'),
+        this.loadQuestionsByDifficulty('psle')
       ]);
     } else {
       // Load specific difficulty
@@ -198,8 +206,8 @@ class DataManager {
    * Get difficulties (predefined list)
    */
   getDifficulties() {
-    // Return predefined difficulties instead of scanning questions
-    return ['Easy', 'Medium', 'Hard'];
+    // Return PSLE-aligned difficulty levels
+    return ['P1-P2', 'P3-P4', 'P5-P6', 'Challenging', 'PSLE'];
   }
 
   /**

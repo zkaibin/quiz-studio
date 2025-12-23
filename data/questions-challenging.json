@@ -1,0 +1,180 @@
+[
+  {
+    "id": "Q700",
+    "category": "Mixed Operations",
+    "difficulty": "Challenging",
+    "template": "{CHARACTER_0} had some stickers. After giving 15 to {CHARACTER_1} and receiving 8 from {CHARACTER_2}, {CHARACTER_0} now has 23 stickers. How many stickers did {CHARACTER_0} have at first?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ],
+    "options": [
+      "32",
+      "30",
+      "26",
+      "28"
+    ],
+    "answer": 1,
+    "correct_answer": "30"
+  },
+  {
+    "id": "Q701",
+    "category": "Ratios",
+    "difficulty": "Challenging",
+    "template": "{CHARACTER_0} and {CHARACTER_1} share marbles in ratio 3:5. After {CHARACTER_1} gives 6 marbles to {CHARACTER_0}, they have equal amounts. How many marbles did {CHARACTER_0} have at first?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "21",
+      "15",
+      "18",
+      "24"
+    ],
+    "answer": 2,
+    "correct_answer": "18"
+  },
+  {
+    "id": "Q702",
+    "category": "Mixed Operations",
+    "difficulty": "Challenging",
+    "template": "{CHARACTER_0} spent 1/3 of money on lunch and 1/4 on snacks. If {CHARACTER_0} has $25 left, how much money did {CHARACTER_0} have at first?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "80",
+      "70",
+      "50",
+      "60"
+    ],
+    "answer": 3,
+    "correct_answer": "60"
+  },
+  {
+    "id": "Q703",
+    "category": "Percentage",
+    "difficulty": "Challenging",
+    "template": "{CHARACTER_0} scored 75% in a test. If {CHARACTER_0} got 5 more marks, the score would be 85%. How many questions were in the test?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "50",
+      "40",
+      "60",
+      "45"
+    ],
+    "answer": 0,
+    "correct_answer": "50"
+  },
+  {
+    "id": "Q704",
+    "category": "Mixed Operations",
+    "difficulty": "Challenging",
+    "template": "{CHARACTER_0}, {CHARACTER_1}, and {CHARACTER_2} have 180 cards. {CHARACTER_0} has twice as many as {CHARACTER_1}, and {CHARACTER_2} has 20 more than {CHARACTER_1}. How many cards does {CHARACTER_0} have?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ],
+    "options": [
+      "100",
+      "70",
+      "90",
+      "80"
+    ],
+    "answer": 3,
+    "correct_answer": "80"
+  },
+  {
+    "id": "Q705",
+    "category": "Averages",
+    "difficulty": "Challenging",
+    "template": "The average age of {CHARACTER_0}, {CHARACTER_1}, and {CHARACTER_2} is 12 years. If {CHARACTER_2} is 15 years old, what is the average age of {CHARACTER_0} and {CHARACTER_1}?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ],
+    "options": [
+      "11",
+      "9.50",
+      "10",
+      "10.50"
+    ],
+    "answer": 3,
+    "correct_answer": "10.50"
+  },
+  {
+    "id": "Q706",
+    "category": "Ratios",
+    "difficulty": "Challenging",
+    "template": "{CHARACTER_0} has coins in ratio of 2:3:5 for bronze, silver, and gold coins. If {CHARACTER_0} has 15 gold coins, how many coins does {CHARACTER_0} have in total?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "30",
+      "40",
+      "25",
+      "35"
+    ],
+    "answer": 0,
+    "correct_answer": "30"
+  },
+  {
+    "id": "Q707",
+    "category": "Mixed Operations",
+    "difficulty": "Challenging",
+    "template": "{CHARACTER_0} and {CHARACTER_1} start 120m apart and walk towards each other. {CHARACTER_0} walks at 4m/s and {CHARACTER_1} at 6m/s. After how many seconds will they meet?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "20",
+      "15",
+      "10",
+      "12"
+    ],
+    "answer": 3,
+    "correct_answer": "12"
+  },
+  {
+    "id": "Q708",
+    "category": "Mixed Operations",
+    "difficulty": "Challenging",
+    "template": "{CHARACTER_0} read 2/5 of a book on Monday and 1/3 of the remainder on Tuesday. If 24 pages are left, how many pages are in the book?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "80",
+      "72",
+      "50",
+      "60"
+    ],
+    "answer": 3,
+    "correct_answer": "60"
+  },
+  {
+    "id": "Q709",
+    "category": "Percentage",
+    "difficulty": "Challenging",
+    "template": "{CHARACTER_0} bought a game on sale at 20% discount for $64. What was the original price?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "72",
+      "80",
+      "76.80",
+      "84"
+    ],
+    "answer": 1,
+    "correct_answer": "80"
+  }
+]

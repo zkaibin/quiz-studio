@@ -2,7 +2,7 @@
   {
     "id": 17,
     "category": "Addition",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} scored 87 points in the first game, 92 in the second, and 78 in the third. What is the total score across all three games?",
     "options": [
       "255",
@@ -18,7 +18,7 @@
   {
     "id": 18,
     "category": "Subtraction",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has $500. After spending $123 on toys and $89 on books, how much money does {CHARACTER_0} have left?",
     "options": [
       "375",
@@ -34,7 +34,7 @@
   {
     "id": 19,
     "category": "Multiplication",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} works 25 days per month and earns $45 per day. How much money does {CHARACTER_0} earn in one month?",
     "options": [
       "1120",
@@ -50,7 +50,7 @@
   {
     "id": 20,
     "category": "Division",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} travels 540 kilometers in 9 hours. What is {CHARACTER_0}'s average speed per hour?",
     "options": [
       "58",
@@ -66,7 +66,7 @@
   {
     "id": 21,
     "category": "Mixed Operations",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} buys 8 books at $15 each and receives a $20 discount. How much does {CHARACTER_0} spend in total?",
     "options": [
       "95",
@@ -82,7 +82,7 @@
   {
     "id": 22,
     "category": "Mixed Operations",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "A library has 250 books. After {CHARACTER_0} donates 30 more books, if the books are arranged into 8 shelves equally, how many books are on each shelf?",
     "options": [
       "275",
@@ -98,7 +98,7 @@
   {
     "id": 23,
     "category": "Percentage",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} scored 85 out of 100 on a test. What percentage did {CHARACTER_0} score?",
     "options": [
       "80",
@@ -114,7 +114,7 @@
   {
     "id": 24,
     "category": "Percentage",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "A store is selling items at a 25% discount. If an item originally costs $80, what is the discounted price?",
     "placeholders": [],
     "options": [
@@ -128,7 +128,7 @@
   {
     "id": 68,
     "category": "Addition",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} scored 78, 85, and 92 points in three games. What is the total score?",
     "options": [
       "245",
@@ -144,7 +144,7 @@
   {
     "id": 69,
     "category": "Subtraction",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 120 albums and gave 47 to {CHARACTER_1}. How many albums does {CHARACTER_0} have left?",
     "options": [
       "63",
@@ -161,7 +161,7 @@
   {
     "id": 70,
     "category": "Multiplication",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} bought 12 sets of posters with 13 posters in each set. How many posters did {CHARACTER_0} buy?",
     "options": [
       "146",
@@ -177,7 +177,7 @@
   {
     "id": 71,
     "category": "Division",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 144 snacks to share equally among 12 members. How many snacks does each member get?",
     "options": [
       "10",
@@ -193,7 +193,7 @@
   {
     "id": 72,
     "category": "Addition",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} and {CHARACTER_1} found 56 and 39 badges. How many badges in total?",
     "options": [
       "93",
@@ -210,7 +210,7 @@
   {
     "id": 73,
     "category": "Subtraction",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 95 snacks and ate 38. How many snacks are left?",
     "options": [
       "47",
@@ -226,7 +226,7 @@
   {
     "id": 74,
     "category": "Multiplication",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} bought 9 albums for each of 8 members. How many albums in total?",
     "options": [
       "62",
@@ -242,7 +242,7 @@
   {
     "id": 75,
     "category": "Division",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 180 candies to share equally among 15 members. How many candies does each member get?",
     "options": [
       "10",
@@ -258,7 +258,7 @@
   {
     "id": 76,
     "category": "Addition",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} and {CHARACTER_1} collected 67 and 54 lightsticks. How many lightsticks do they have together?",
     "options": [
       "120",
@@ -275,7 +275,7 @@
   {
     "id": 77,
     "category": "Subtraction",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 110 posters and gave 45 to {CHARACTER_1}. How many posters does {CHARACTER_0} have left?",
     "options": [
       "55",
@@ -292,7 +292,7 @@
   {
     "id": 78,
     "category": "Multiplication",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 11 albums in each of 7 boxes. How many albums in total?",
     "options": [
       "67",
@@ -308,7 +308,7 @@
   {
     "id": 79,
     "category": "Division",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 168 snacks to share equally among 14 members. How many snacks does each member get?",
     "options": [
       "10",
@@ -324,7 +324,7 @@
   {
     "id": 80,
     "category": "Addition",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} and {CHARACTER_1} found 49 and 38 badges. How many badges in total?",
     "options": [
       "86",
@@ -341,7 +341,7 @@
   {
     "id": 81,
     "category": "Subtraction",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 105 albums and lost 29. How many albums are left?",
     "options": [
       "66",
@@ -357,7 +357,7 @@
   {
     "id": 82,
     "category": "Multiplication",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} bought 8 sets of 14 posters. How many posters did {CHARACTER_0} buy?",
     "options": [
       "110",
@@ -373,7 +373,7 @@
   {
     "id": 83,
     "category": "Division",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 156 candies to share equally among 13 members. How many candies does each member get?",
     "options": [
       "10",
@@ -389,7 +389,7 @@
   {
     "id": 84,
     "category": "Addition",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} and {CHARACTER_1} found 61 and 58 snacks. How many snacks in total?",
     "options": [
       "118",
@@ -406,7 +406,7 @@
   {
     "id": 85,
     "category": "Subtraction",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 130 badges and gave 55 to {CHARACTER_1}. How many badges does {CHARACTER_0} have left?",
     "options": [
       "65",
@@ -423,7 +423,7 @@
   {
     "id": 86,
     "category": "Multiplication",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 13 albums in each of 6 boxes. How many albums in total?",
     "options": [
       "68",
@@ -439,7 +439,7 @@
   {
     "id": 127,
     "category": "Addition",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} defeated 78 enemies, {CHARACTER_1} defeated 65, and {CHARACTER_2} defeated 82. How many enemies defeated in total?",
     "options": [
       "223",
@@ -457,7 +457,7 @@
   {
     "id": 128,
     "category": "Subtraction",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 145 web cartridges and used 67 in battle. How many cartridges are left?",
     "options": [
       "76",
@@ -473,7 +473,7 @@
   {
     "id": 129,
     "category": "Multiplication",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} lifts 15 tons per arm across 12 lifts. How many tons lifted in total?",
     "options": [
       "178",
@@ -489,7 +489,7 @@
   {
     "id": 130,
     "category": "Division",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 168 repulsor rays to fire equally in 14 directions. How many rays per direction?",
     "options": [
       "10",
@@ -505,7 +505,7 @@
   {
     "id": 131,
     "category": "Addition",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} trained for 87 hours and {CHARACTER_1} trained for 93 hours. How many hours in total?",
     "options": [
       "178",
@@ -522,7 +522,7 @@
   {
     "id": 132,
     "category": "Subtraction",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 234 lightning bolts and used 128 in a massive battle. How many bolts are left?",
     "options": [
       "104",
@@ -538,7 +538,7 @@
   {
     "id": 133,
     "category": "Multiplication",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} throws 13 shields per battle across 11 battles. How many shields thrown?",
     "options": [
       "141",
@@ -554,7 +554,7 @@
   {
     "id": 134,
     "category": "Division",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 195 arrows to distribute equally among 15 quivers. How many arrows per quiver?",
     "options": [
       "11",
@@ -570,7 +570,7 @@
   {
     "id": 135,
     "category": "Addition",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} defeated 96 robots and {CHARACTER_1} defeated 89 robots. How many robots defeated in total?",
     "options": [
       "183",
@@ -587,7 +587,7 @@
   {
     "id": 136,
     "category": "Subtraction",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 312 spy gadgets and used 187 on missions. How many gadgets are left?",
     "options": [
       "123",
@@ -603,7 +603,7 @@
   {
     "id": 137,
     "category": "Multiplication",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} swings through 16 blocks per patrol for 14 patrols. How many blocks in total?",
     "options": [
       "222",
@@ -619,7 +619,7 @@
   {
     "id": 138,
     "category": "Division",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 216 hammer strikes to use equally in 18 battles. How many strikes per battle?",
     "options": [
       "10",
@@ -635,7 +635,7 @@
   {
     "id": 139,
     "category": "Addition",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} and {CHARACTER_1} found 127 and 118 infinity stones. How many stones in total?",
     "options": [
       "243",
@@ -652,7 +652,7 @@
   {
     "id": 140,
     "category": "Subtraction",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 456 nano particles and used 278 to build suits. How many particles are left?",
     "options": [
       "176",
@@ -668,7 +668,7 @@
   {
     "id": 141,
     "category": "Multiplication",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} completes 17 missions per month for 9 months. How many missions in total?",
     "options": [
       "151",
@@ -684,7 +684,7 @@
   {
     "id": 142,
     "category": "Division",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 273 punches to distribute equally across 13 enemies. How many punches per enemy?",
     "options": [
       "19",
@@ -700,7 +700,7 @@
   {
     "id": 143,
     "category": "Addition",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} scored 134 points and {CHARACTER_1} scored 156 points in training. How many points in total?",
     "options": [
       "288",
@@ -717,7 +717,7 @@
   {
     "id": 144,
     "category": "Subtraction",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 521 shields and gave 346 to {CHARACTER_1}. How many shields does {CHARACTER_0} have left?",
     "options": [
       "173",
@@ -734,7 +734,7 @@
   {
     "id": 145,
     "category": "Multiplication",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} fires 19 repulsor blasts per second for 8 seconds. How many blasts in total?",
     "options": [
       "150",
@@ -750,7 +750,7 @@
   {
     "id": 146,
     "category": "Division",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 364 web lines to attach to 14 buildings. How many lines per building?",
     "options": [
       "24",
@@ -766,7 +766,7 @@
   {
     "id": 152,
     "category": "Fractions",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} uses 2/3 of web fluid in battle, what fraction remains?",
     "options": [
       "1/6",
@@ -782,7 +782,7 @@
   {
     "id": 157,
     "category": "Decimals",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} runs at 15.8 km/h and {CHARACTER_1} runs at 12.3 km/h. What is their combined speed?",
     "options": [
       "3.6",
@@ -799,7 +799,7 @@
   {
     "id": 158,
     "category": "Decimals",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} weighs 89.5 kg and loses 3.8 kg in training. What is {CHARACTER_0}'s new weight?",
     "options": [
       "85.5",
@@ -815,7 +815,7 @@
   {
     "id": 163,
     "category": "Averages",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} scored 78, 85, 92, 88, 91, and 84 in six tests. What is the average score?",
     "options": [
       "85",
@@ -831,7 +831,7 @@
   {
     "id": 164,
     "category": "Averages",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "Over 8 battles, {CHARACTER_0} used 120, 135, 128, 142, 138, 125, 132, and 144 energy units. What is the average?",
     "options": [
       "117",
@@ -847,7 +847,7 @@
   {
     "id": 169,
     "category": "Ratios",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "The ratio of {CHARACTER_0}'s training hours to {CHARACTER_1}'s is 7:5. If {CHARACTER_1} trained for 45 hours, how many hours did {CHARACTER_0} train?",
     "options": [
       "30",
@@ -864,7 +864,7 @@
   {
     "id": 170,
     "category": "Ratios",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "In a team of heroes, the ratio of {CHARACTER_0}'s team to {CHARACTER_1}'s team is 4:5. If there are 54 heroes total, how many are on {CHARACTER_0}'s team?",
     "options": [
       "65",
@@ -881,7 +881,7 @@
   {
     "id": 175,
     "category": "Time",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} starts a 3-day mission at 9:00 AM Monday. If it lasts exactly 72 hours, when does it end?",
     "options": [
       "70",
@@ -897,7 +897,7 @@
   {
     "id": 176,
     "category": "Time",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} completes a task every 45 minutes starting at 8:15 AM, what time will the 5th task be completed?",
     "options": [
       "6",
@@ -913,7 +913,7 @@
   {
     "id": 181,
     "category": "Money",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} spent 3/5 of $250 on equipment. How much money is left?",
     "options": [
       "145",
@@ -929,7 +929,7 @@
   {
     "id": 181,
     "category": "Money",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} invests $500 and it increases by 15%, what is the new amount?",
     "options": [
       "$550",
@@ -945,7 +945,7 @@
   {
     "id": 199,
     "category": "Addition",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} sealed 87 dark portals, {CHARACTER_1} sealed 93, and {CHARACTER_2} sealed 76. How many portals sealed in total?",
     "options": [
       "254",
@@ -963,7 +963,7 @@
   {
     "id": 200,
     "category": "Subtraction",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 234 shadow essences and used 156 in a great battle. How many essences are left?",
     "options": [
       "76",
@@ -979,7 +979,7 @@
   {
     "id": 201,
     "category": "Multiplication",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} guards 16 sacred locations for 13 hours each. How many total guard hours?",
     "options": [
       "206",
@@ -995,7 +995,7 @@
   {
     "id": 202,
     "category": "Division",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 195 ancient prophecies to study over 15 nights. How many prophecies per night?",
     "options": [
       "11",
@@ -1011,7 +1011,7 @@
   {
     "id": 205,
     "category": "Addition",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 58 items. If {CHARACTER_1} gives {CHARACTER_0} 87 more items, how many items does {CHARACTER_0} have in total?",
     "options": [
       "143",
@@ -1028,7 +1028,7 @@
   {
     "id": 206,
     "category": "Addition",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} collected 52 items and {CHARACTER_1} collected 56 items. How many items did they collect together?",
     "options": [
       "106",
@@ -1045,7 +1045,7 @@
   {
     "id": 207,
     "category": "Addition",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} found 71 treasures on Monday and 33 treasures on Tuesday. How many treasures in total?",
     "options": [
       "102",
@@ -1061,7 +1061,7 @@
   {
     "id": 210,
     "category": "Subtraction",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 49 items and gave 40 to {CHARACTER_1}. How many items does {CHARACTER_0} have left?",
     "options": [
       "7",
@@ -1078,7 +1078,7 @@
   {
     "id": 211,
     "category": "Subtraction",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 81 items and used 63. How many items are left?",
     "options": [
       "16",
@@ -1094,7 +1094,7 @@
   {
     "id": 215,
     "category": "Multiplication",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} does 96 tasks per day for 76 days. How many tasks in total?",
     "options": [
       "7294",
@@ -1110,7 +1110,7 @@
   {
     "id": 216,
     "category": "Multiplication",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} collects 70 items per hour for 78 hours. How many items collected?",
     "options": [
       "5458",
@@ -1126,7 +1126,7 @@
   {
     "id": 252,
     "category": "Mixed Operations",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 67 items, gave 65 to {CHARACTER_1}, and bought 97 more. How many items now?",
     "options": [
       "97",
@@ -1143,7 +1143,7 @@
   {
     "id": 253,
     "category": "Mixed Operations",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} collected 96 items, {CHARACTER_1} collected 36, and they used 36. How many left?",
     "options": [
       "96",
@@ -1160,7 +1160,7 @@
   {
     "id": 254,
     "category": "Mixed Operations",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} earned 94 points, lost 35 points, then earned 30 more. Total points?",
     "options": [
       "87",
@@ -1176,7 +1176,7 @@
   {
     "id": 255,
     "category": "Mixed Operations",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 52 items, gave 35 to {CHARACTER_1}, and bought 52 more. How many items now?",
     "options": [
       "67",
@@ -1193,7 +1193,7 @@
   {
     "id": 256,
     "category": "Mixed Operations",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} collected 97 items, {CHARACTER_1} collected 44, and they used 50. How many left?",
     "options": [
       "89",
@@ -1210,7 +1210,7 @@
   {
     "id": 257,
     "category": "Mixed Operations",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} earned 70 points, lost 65 points, then earned 34 more. Total points?",
     "options": [
       "37",
@@ -1226,7 +1226,7 @@
   {
     "id": 258,
     "category": "Mixed Operations",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 48 items, gave 26 to {CHARACTER_1}, and bought 23 more. How many items now?",
     "options": [
       "43",
@@ -1243,7 +1243,7 @@
   {
     "id": 259,
     "category": "Mixed Operations",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} collected 25 items, {CHARACTER_1} collected 83, and they used 76. How many left?",
     "options": [
       "30",
@@ -1260,7 +1260,7 @@
   {
     "id": 260,
     "category": "Mixed Operations",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} earned 22 points, lost 34 points, then earned 45 more. Total points?",
     "options": [
       "31",
@@ -1276,7 +1276,7 @@
   {
     "id": 261,
     "category": "Mixed Operations",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 43 items, gave 47 to {CHARACTER_1}, and bought 49 more. How many items now?",
     "options": [
       "42",
@@ -1293,7 +1293,7 @@
   {
     "id": 262,
     "category": "Mixed Operations",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} collected 85 items, {CHARACTER_1} collected 29, and they used 56. How many left?",
     "options": [
       "56",
@@ -1310,7 +1310,7 @@
   {
     "id": 263,
     "category": "Mixed Operations",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} earned 68 points, lost 20 points, then earned 40 more. Total points?",
     "options": [
       "86",
@@ -1326,7 +1326,7 @@
   {
     "id": 264,
     "category": "Mixed Operations",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} had 75 items, gave 80 to {CHARACTER_1}, and bought 68 more. How many items now?",
     "options": [
       "61",
@@ -1343,7 +1343,7 @@
   {
     "id": 292,
     "category": "Fractions",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 3/8 of a cake and gives 2/7 to {CHARACTER_1}. What fraction remains?",
     "options": [
       "6/56",
@@ -1361,7 +1361,7 @@
   {
     "id": 293,
     "category": "Fractions",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} completes 5/9 of a task, what fraction remains?",
     "options": [
       "4/9",
@@ -1378,7 +1378,7 @@
   {
     "id": 295,
     "category": "Fractions",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 5/8 of a cake and gives 5/9 to {CHARACTER_1}. What fraction remains?",
     "options": [
       "5/72",
@@ -1396,7 +1396,7 @@
   {
     "id": 296,
     "category": "Fractions",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} completes 5/8 of a task, what fraction remains?",
     "options": [
       "2/8",
@@ -1413,7 +1413,7 @@
   {
     "id": 299,
     "category": "Fractions",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} completes 2/7 of a task, what fraction remains?",
     "options": [
       "2/7",
@@ -1430,7 +1430,7 @@
   {
     "id": 301,
     "category": "Fractions",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 2/7 of a cake and gives 1/7 to {CHARACTER_1}. What fraction remains?",
     "options": [
       "0/7",
@@ -1447,7 +1447,7 @@
   {
     "id": 302,
     "category": "Fractions",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} completes 5/9 of a task, what fraction remains?",
     "options": [
       "8",
@@ -1464,7 +1464,7 @@
   {
     "id": 330,
     "category": "Decimals",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 12.0 meters of rope and {CHARACTER_1} has 61.0 meters. How many meters together?",
     "options": [
       "71",
@@ -1481,7 +1481,7 @@
   {
     "id": 331,
     "category": "Decimals",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} ran 43.0 kilometers and {CHARACTER_1} ran 36.0 kilometers. What is the total distance?",
     "options": [
       "77",
@@ -1498,7 +1498,7 @@
   {
     "id": 332,
     "category": "Decimals",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} bought items for $81.0 and $20.0. What is the total cost?",
     "options": [
       "99",
@@ -1514,7 +1514,7 @@
   {
     "id": 333,
     "category": "Decimals",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 40.0 meters of rope and {CHARACTER_1} has 61.0 meters. How many meters together?",
     "options": [
       "99",
@@ -1531,7 +1531,7 @@
   {
     "id": 334,
     "category": "Decimals",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} ran 87.0 kilometers and {CHARACTER_1} ran 44.0 kilometers. What is the total distance?",
     "options": [
       "129",
@@ -1548,7 +1548,7 @@
   {
     "id": 335,
     "category": "Decimals",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} bought items for $70.0 and $17.0. What is the total cost?",
     "options": [
       "85",
@@ -1564,7 +1564,7 @@
   {
     "id": 336,
     "category": "Decimals",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 54.0 meters of rope and {CHARACTER_1} has 99.0 meters. How many meters together?",
     "options": [
       "151",
@@ -1581,7 +1581,7 @@
   {
     "id": 337,
     "category": "Decimals",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} ran 38.0 kilometers and {CHARACTER_1} ran 22.0 kilometers. What is the total distance?",
     "options": [
       "58",
@@ -1598,7 +1598,7 @@
   {
     "id": 338,
     "category": "Decimals",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} bought items for $14.0 and $97.0. What is the total cost?",
     "options": [
       "109",
@@ -1614,7 +1614,7 @@
   {
     "id": 339,
     "category": "Decimals",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 24.0 meters of rope and {CHARACTER_1} has 47.0 meters. How many meters together?",
     "options": [
       "69",
@@ -1631,7 +1631,7 @@
   {
     "id": 340,
     "category": "Decimals",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} ran 37.0 kilometers and {CHARACTER_1} ran 23.0 kilometers. What is the total distance?",
     "options": [
       "58",
@@ -1648,7 +1648,7 @@
   {
     "id": 341,
     "category": "Decimals",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} bought items for $73.0 and $17.0. What is the total cost?",
     "options": [
       "88",
@@ -1664,7 +1664,7 @@
   {
     "id": 342,
     "category": "Decimals",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has 72.0 meters of rope and {CHARACTER_1} has 75.0 meters. How many meters together?",
     "options": [
       "145",
@@ -1681,7 +1681,7 @@
   {
     "id": 373,
     "category": "Percentage",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} answers 21% of 65 questions correctly, how many questions were answered correctly?",
     "options": [
       "11",
@@ -1697,7 +1697,7 @@
   {
     "id": 374,
     "category": "Percentage",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} saves 34% of $86. How much money is saved?",
     "options": [
       "27",
@@ -1713,7 +1713,7 @@
   {
     "id": 375,
     "category": "Percentage",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "A store offers 21% discount on $33. What is the discounted price?",
     "options": [
       "23",
@@ -1729,7 +1729,7 @@
   {
     "id": 376,
     "category": "Percentage",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} answers 31% of 32 questions correctly, how many questions were answered correctly?",
     "options": [
       "7",
@@ -1745,7 +1745,7 @@
   {
     "id": 377,
     "category": "Percentage",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} saves 42% of $20. How much money is saved?",
     "options": [
       "6",
@@ -1761,7 +1761,7 @@
   {
     "id": 378,
     "category": "Percentage",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "A store offers 71% discount on $60. What is the discounted price?",
     "options": [
       "15",
@@ -1777,7 +1777,7 @@
   {
     "id": 379,
     "category": "Percentage",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} answers 71% of 60 questions correctly, how many questions were answered correctly?",
     "options": [
       "40",
@@ -1793,7 +1793,7 @@
   {
     "id": 380,
     "category": "Percentage",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} saves 95% of $27. How much money is saved?",
     "options": [
       "23",
@@ -1809,7 +1809,7 @@
   {
     "id": 381,
     "category": "Percentage",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "A store offers 40% discount on $33. What is the discounted price?",
     "options": [
       "18",
@@ -1825,7 +1825,7 @@
   {
     "id": 382,
     "category": "Percentage",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} answers 66% of 29 questions correctly, how many questions were answered correctly?",
     "options": [
       "17",
@@ -1841,7 +1841,7 @@
   {
     "id": 383,
     "category": "Percentage",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} saves 92% of $22. How much money is saved?",
     "options": [
       "18",
@@ -1857,7 +1857,7 @@
   {
     "id": 384,
     "category": "Percentage",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "A store offers 80% discount on $86. What is the discounted price?",
     "options": [
       "15",
@@ -1873,7 +1873,7 @@
   {
     "id": 385,
     "category": "Percentage",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} answers 86% of 49 questions correctly, how many questions were answered correctly?",
     "options": [
       "40",
@@ -1889,7 +1889,7 @@
   {
     "id": 412,
     "category": "Averages",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} scored 80, 51, and 28 points. What is the average score?",
     "options": [
       "51",
@@ -1905,7 +1905,7 @@
   {
     "id": 413,
     "category": "Averages",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} walks 23 km, 40 km, and 52 km on three days, what is the average distance?",
     "options": [
       "36",
@@ -1921,7 +1921,7 @@
   {
     "id": 414,
     "category": "Averages",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} collected 53, 26, 77, and 84 items. What is the average?",
     "options": [
       "58",
@@ -1937,7 +1937,7 @@
   {
     "id": 415,
     "category": "Averages",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} scored 85, 30, and 90 points. What is the average score?",
     "options": [
       "66",
@@ -1953,7 +1953,7 @@
   {
     "id": 416,
     "category": "Averages",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} walks 69 km, 92 km, and 68 km on three days, what is the average distance?",
     "options": [
       "74",
@@ -1969,7 +1969,7 @@
   {
     "id": 417,
     "category": "Averages",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} collected 78, 72, 20, and 65 items. What is the average?",
     "options": [
       "56",
@@ -1985,7 +1985,7 @@
   {
     "id": 418,
     "category": "Averages",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} scored 60, 32, and 73 points. What is the average score?",
     "options": [
       "53",
@@ -2001,7 +2001,7 @@
   {
     "id": 419,
     "category": "Averages",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} walks 84 km, 38 km, and 48 km on three days, what is the average distance?",
     "options": [
       "54",
@@ -2017,7 +2017,7 @@
   {
     "id": 420,
     "category": "Averages",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} collected 25, 54, 96, and 95 items. What is the average?",
     "options": [
       "65",
@@ -2033,7 +2033,7 @@
   {
     "id": 421,
     "category": "Averages",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} scored 55, 66, and 92 points. What is the average score?",
     "options": [
       "69",
@@ -2049,7 +2049,7 @@
   {
     "id": 422,
     "category": "Averages",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} walks 24 km, 97 km, and 42 km on three days, what is the average distance?",
     "options": [
       "52",
@@ -2065,7 +2065,7 @@
   {
     "id": 423,
     "category": "Averages",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} collected 99, 58, 60, and 26 items. What is the average?",
     "options": [
       "58",
@@ -2081,7 +2081,7 @@
   {
     "id": 424,
     "category": "Averages",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} scored 86, 41, and 25 points. What is the average score?",
     "options": [
       "48",
@@ -2097,7 +2097,7 @@
   {
     "id": 451,
     "category": "Ratios",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "The ratio of {CHARACTER_0}'s items to {CHARACTER_1}'s items is 62:29. If {CHARACTER_0} has 46, how many does {CHARACTER_1} have?",
     "options": [
       "19",
@@ -2114,7 +2114,7 @@
   {
     "id": 452,
     "category": "Ratios",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "For every 34 items {CHARACTER_0} collects, {CHARACTER_1} collects 89. If {CHARACTER_0} collected 35, how many did {CHARACTER_1} collect?",
     "options": [
       "89",
@@ -2131,7 +2131,7 @@
   {
     "id": 453,
     "category": "Ratios",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} mixes items in a 71:47 ratio. If using 71 of the first item, how many of the second?",
     "options": [
       "45",
@@ -2147,7 +2147,7 @@
   {
     "id": 454,
     "category": "Ratios",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "The ratio of {CHARACTER_0}'s items to {CHARACTER_1}'s items is 25:33. If {CHARACTER_0} has 62, how many does {CHARACTER_1} have?",
     "options": [
       "79",
@@ -2164,7 +2164,7 @@
   {
     "id": 455,
     "category": "Ratios",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "For every 53 items {CHARACTER_0} collects, {CHARACTER_1} collects 89. If {CHARACTER_0} collected 92, how many did {CHARACTER_1} collect?",
     "options": [
       "152",
@@ -2181,7 +2181,7 @@
   {
     "id": 456,
     "category": "Ratios",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} mixes items in a 22:43 ratio. If using 96 of the first item, how many of the second?",
     "options": [
       "185",
@@ -2197,7 +2197,7 @@
   {
     "id": 457,
     "category": "Ratios",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "The ratio of {CHARACTER_0}'s items to {CHARACTER_1}'s items is 55:47. If {CHARACTER_0} has 50, how many does {CHARACTER_1} have?",
     "options": [
       "40",
@@ -2214,7 +2214,7 @@
   {
     "id": 458,
     "category": "Ratios",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "For every 78 items {CHARACTER_0} collects, {CHARACTER_1} collects 45. If {CHARACTER_0} collected 79, how many did {CHARACTER_1} collect?",
     "options": [
       "43",
@@ -2231,7 +2231,7 @@
   {
     "id": 459,
     "category": "Ratios",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} mixes items in a 26:46 ratio. If using 53 of the first item, how many of the second?",
     "options": [
       "91",
@@ -2247,7 +2247,7 @@
   {
     "id": 460,
     "category": "Ratios",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "The ratio of {CHARACTER_0}'s items to {CHARACTER_1}'s items is 51:55. If {CHARACTER_0} has 35, how many does {CHARACTER_1} have?",
     "options": [
       "35",
@@ -2264,7 +2264,7 @@
   {
     "id": 461,
     "category": "Ratios",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "For every 95 items {CHARACTER_0} collects, {CHARACTER_1} collects 88. If {CHARACTER_0} collected 66, how many did {CHARACTER_1} collect?",
     "options": [
       "59",
@@ -2281,7 +2281,7 @@
   {
     "id": 462,
     "category": "Ratios",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} mixes items in a 64:97 ratio. If using 37 of the first item, how many of the second?",
     "options": [
       "54",
@@ -2297,7 +2297,7 @@
   {
     "id": 463,
     "category": "Ratios",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "The ratio of {CHARACTER_0}'s items to {CHARACTER_1}'s items is 52:30. If {CHARACTER_0} has 35, how many does {CHARACTER_1} have?",
     "options": [
       "18",
@@ -2314,7 +2314,7 @@
   {
     "id": 490,
     "category": "Time",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} starts a task at 8:00 and finishes at 7:00. How many hours did it take?",
     "options": [
       "72",
@@ -2330,7 +2330,7 @@
   {
     "id": 492,
     "category": "Time",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} practices 60 minutes per day for 83 days. How many total minutes?",
     "options": [
       "4978",
@@ -2346,7 +2346,7 @@
   {
     "id": 493,
     "category": "Time",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} starts a task at 8:00 and finishes at 6:00. How many hours did it take?",
     "options": [
       "53",
@@ -2362,7 +2362,7 @@
   {
     "id": 495,
     "category": "Time",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} practices 23 minutes per day for 20 days. How many total minutes?",
     "options": [
       "458",
@@ -2378,7 +2378,7 @@
   {
     "id": 496,
     "category": "Time",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} starts a task at 1:00 and finishes at 7:00. How many hours did it take?",
     "options": [
       "33",
@@ -2394,7 +2394,7 @@
   {
     "id": 497,
     "category": "Time",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} needs 81 hours to complete a project and has already worked 63 hours, how many hours remain?",
     "options": [
       "16",
@@ -2410,7 +2410,7 @@
   {
     "id": 498,
     "category": "Time",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} practices 26 minutes per day for 33 days. How many total minutes?",
     "options": [
       "856",
@@ -2426,7 +2426,7 @@
   {
     "id": 499,
     "category": "Time",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} starts a task at 12:00 and finishes at 5:00. How many hours did it take?",
     "options": [
       "53",
@@ -2442,7 +2442,7 @@
   {
     "id": 501,
     "category": "Time",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} practices 34 minutes per day for 67 days. How many total minutes?",
     "options": [
       "2276",
@@ -2458,7 +2458,7 @@
   {
     "id": 502,
     "category": "Time",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} starts a task at 6:00 and finishes at 6:00. How many hours did it take?",
     "options": [
       "74",
@@ -2474,7 +2474,7 @@
   {
     "id": 529,
     "category": "Money",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has $26 and {CHARACTER_1} has $27. How much money do they have together?",
     "options": [
       "51",
@@ -2491,7 +2491,7 @@
   {
     "id": 530,
     "category": "Money",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} bought an item for $58 and paid with $81. How much change?",
     "options": [
       "21",
@@ -2507,7 +2507,7 @@
   {
     "id": 531,
     "category": "Money",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} earns $88 per hour for 61 hours, how much total?",
     "options": [
       "147",
@@ -2523,7 +2523,7 @@
   {
     "id": 532,
     "category": "Money",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has $66 and {CHARACTER_1} has $55. How much money do they have together?",
     "options": [
       "119",
@@ -2540,7 +2540,7 @@
   {
     "id": 534,
     "category": "Money",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} earns $32 per hour for 42 hours, how much total?",
     "options": [
       "72",
@@ -2556,7 +2556,7 @@
   {
     "id": 535,
     "category": "Money",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has $68 and {CHARACTER_1} has $55. How much money do they have together?",
     "options": [
       "121",
@@ -2573,7 +2573,7 @@
   {
     "id": 536,
     "category": "Money",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} bought an item for $25 and paid with $40. How much change?",
     "options": [
       "13",
@@ -2589,7 +2589,7 @@
   {
     "id": 537,
     "category": "Money",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} earns $35 per hour for 39 hours, how much total?",
     "options": [
       "72",
@@ -2605,7 +2605,7 @@
   {
     "id": 538,
     "category": "Money",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has $41 and {CHARACTER_1} has $71. How much money do they have together?",
     "options": [
       "110",
@@ -2622,7 +2622,7 @@
   {
     "id": 540,
     "category": "Money",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} earns $97 per hour for 44 hours, how much total?",
     "options": [
       "139",
@@ -2638,7 +2638,7 @@
   {
     "id": 541,
     "category": "Money",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has $69 and {CHARACTER_1} has $33. How much money do they have together?",
     "options": [
       "100",
@@ -2667,7 +2667,8 @@
       "119"
     ],
     "correct_answer": "63",
-    "answer": 1
+    "answer": 1,
+    "difficulty": "P5-P6"
   },
   {
     "id": "Q584",
@@ -2683,7 +2684,8 @@
       "24"
     ],
     "correct_answer": "24",
-    "answer": 3
+    "answer": 3,
+    "difficulty": "P5-P6"
   },
   {
     "id": "Q585",
@@ -2699,7 +2701,8 @@
       "42"
     ],
     "correct_answer": "40",
-    "answer": 0
+    "answer": 0,
+    "difficulty": "P5-P6"
   },
   {
     "id": "Q586",
@@ -2715,7 +2718,8 @@
       "21"
     ],
     "correct_answer": "19",
-    "answer": 0
+    "answer": 0,
+    "difficulty": "P5-P6"
   },
   {
     "id": "Q587",
@@ -2731,7 +2735,8 @@
       "18"
     ],
     "correct_answer": "18",
-    "answer": 3
+    "answer": 3,
+    "difficulty": "P5-P6"
   },
   {
     "id": "Q588",
@@ -2748,7 +2753,8 @@
       "7/3"
     ],
     "correct_answer": "3/3",
-    "answer": 1
+    "answer": 1,
+    "difficulty": "P5-P6"
   },
   {
     "id": "Q590",
@@ -2765,7 +2771,8 @@
       "4/8"
     ],
     "correct_answer": "4/8",
-    "answer": 3
+    "answer": 3,
+    "difficulty": "P5-P6"
   },
   {
     "id": "Q591",
@@ -2781,7 +2788,8 @@
       "4"
     ],
     "correct_answer": "2",
-    "answer": 0
+    "answer": 0,
+    "difficulty": "P5-P6"
   },
   {
     "id": "Q594",
@@ -2797,7 +2805,8 @@
       "14"
     ],
     "correct_answer": "8",
-    "answer": 1
+    "answer": 1,
+    "difficulty": "P5-P6"
   },
   {
     "id": "Q595",
@@ -2813,12 +2822,13 @@
       "21"
     ],
     "correct_answer": "18",
-    "answer": 1
+    "answer": 1,
+    "difficulty": "P5-P6"
   },
   {
     "id": "Q606",
     "category": "Mixed Operations",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} has a power level of 9000. After training it increases by 2500, then decreases by 800 in battle. What is the final power level?",
     "placeholder_roles": [
       "protagonist"
@@ -2835,7 +2845,7 @@
   {
     "id": "Q607",
     "category": "Multiplication",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} can perform 18 attacks per minute and fights for 12 minutes, how many total attacks?",
     "placeholder_roles": [
       "protagonist"
@@ -2852,7 +2862,7 @@
   {
     "id": "Q608",
     "category": "Division",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} needs to split 2400 Zeni equally among 16 fighters. How much does each fighter get?",
     "placeholder_roles": [
       "leader"
@@ -2869,7 +2879,7 @@
   {
     "id": "Q609",
     "category": "Percentage",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "If {CHARACTER_0} defeats 65% of 200 enemies, how many enemies were defeated?",
     "placeholder_roles": [
       "protagonist"
@@ -2886,7 +2896,7 @@
   {
     "id": "Q610",
     "category": "Ratios",
-    "difficulty": "Hard",
+    "difficulty": "P5-P6",
     "template": "{CHARACTER_0} and {CHARACTER_1} share 240 training hours in the ratio 5:3. How many hours does {CHARACTER_0} train?",
     "placeholder_roles": [
       "protagonist",
