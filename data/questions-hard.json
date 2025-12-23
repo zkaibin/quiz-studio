@@ -2814,5 +2814,91 @@
     ],
     "correct_answer": "18",
     "answer": 1
+  },
+  {
+    "id": "Q606",
+    "category": "Mixed Operations",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} has a power level of 9000. After training it increases by 2500, then decreases by 800 in battle. What is the final power level?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "10800",
+      "10700",
+      "10500",
+      "11000"
+    ],
+    "answer": 1,
+    "correct_answer": "10700"
+  },
+  {
+    "id": "Q607",
+    "category": "Multiplication",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} can perform 18 attacks per minute and fights for 12 minutes, how many total attacks?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "216",
+      "206",
+      "226",
+      "200"
+    ],
+    "answer": 0,
+    "correct_answer": "216"
+  },
+  {
+    "id": "Q608",
+    "category": "Division",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} needs to split 2400 Zeni equally among 16 fighters. How much does each fighter get?",
+    "placeholder_roles": [
+      "leader"
+    ],
+    "options": [
+      "145",
+      "150",
+      "140",
+      "160"
+    ],
+    "answer": 1,
+    "correct_answer": "150"
+  },
+  {
+    "id": "Q609",
+    "category": "Percentage",
+    "difficulty": "Hard",
+    "template": "If {CHARACTER_0} defeats 65% of 200 enemies, how many enemies were defeated?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "135",
+      "125",
+      "140",
+      "130"
+    ],
+    "answer": 3,
+    "correct_answer": "130"
+  },
+  {
+    "id": "Q610",
+    "category": "Ratios",
+    "difficulty": "Hard",
+    "template": "{CHARACTER_0} and {CHARACTER_1} share 240 training hours in the ratio 5:3. How many hours does {CHARACTER_0} train?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "140",
+      "150",
+      "90",
+      "160"
+    ],
+    "answer": 1,
+    "correct_answer": "150"
   }
 ]

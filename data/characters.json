@@ -710,5 +710,85 @@
       "helper",
       "vampire"
     ]
+  },
+  {
+    "id": 61,
+    "name": "Goku",
+    "universe_id": 10,
+    "emoji_icon": "🥋",
+    "image_url": "https://via.placeholder.com/150?text=Goku",
+    "roles": [
+      "protagonist",
+      "hero",
+      "leader"
+    ]
+  },
+  {
+    "id": 62,
+    "name": "Vegeta",
+    "universe_id": 10,
+    "emoji_icon": "👊",
+    "image_url": "https://via.placeholder.com/150?text=Vegeta",
+    "roles": [
+      "protagonist",
+      "hero",
+      "team_member"
+    ]
+  },
+  {
+    "id": 63,
+    "name": "Gohan",
+    "universe_id": 10,
+    "emoji_icon": "📚",
+    "image_url": "https://via.placeholder.com/150?text=Gohan",
+    "roles": [
+      "protagonist",
+      "hero",
+      "helper"
+    ]
+  },
+  {
+    "id": 64,
+    "name": "Piccolo",
+    "universe_id": 10,
+    "emoji_icon": "🧘",
+    "image_url": "https://via.placeholder.com/150?text=Piccolo",
+    "roles": [
+      "helper",
+      "hero",
+      "team_member"
+    ]
+  },
+  {
+    "id": 65,
+    "name": "Frieza",
+    "universe_id": 10,
+    "emoji_icon": "👾",
+    "image_url": "https://via.placeholder.com/150?text=Frieza",
+    "roles": [
+      "villain",
+      "leader"
+    ]
+  },
+  {
+    "id": 66,
+    "name": "Cell",
+    "universe_id": 10,
+    "emoji_icon": "🦗",
+    "image_url": "https://via.placeholder.com/150?text=Cell",
+    "roles": [
+      "villain"
+    ]
+  },
+  {
+    "id": 67,
+    "name": "Bulma",
+    "universe_id": 10,
+    "emoji_icon": "🔬",
+    "image_url": "https://via.placeholder.com/150?text=Bulma",
+    "roles": [
+      "helper",
+      "team_member"
+    ]
   }
 ]

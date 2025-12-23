@@ -2853,5 +2853,92 @@
     ],
     "correct_answer": "7",
     "answer": 3
+  },
+  {
+    "id": "Q601",
+    "category": "Mixed Operations",
+    "difficulty": "Medium",
+    "template": "{CHARACTER_0} defeated 25 enemies, {CHARACTER_1} defeated 18, and {CHARACTER_2} defeated 12. How many enemies were defeated in total?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ],
+    "options": [
+      "55",
+      "52",
+      "58",
+      "60"
+    ],
+    "answer": 0,
+    "correct_answer": "55"
+  },
+  {
+    "id": "Q602",
+    "category": "Multiplication",
+    "difficulty": "Medium",
+    "template": "If {CHARACTER_0}'s power level increases by 15 after each transformation and transforms 4 times, what is the total power increase?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "55",
+      "19",
+      "65",
+      "60"
+    ],
+    "answer": 3,
+    "correct_answer": "60"
+  },
+  {
+    "id": "Q603",
+    "category": "Division",
+    "difficulty": "Medium",
+    "template": "{CHARACTER_0} has 144 Ki points to distribute equally among 12 attacks. How many Ki points per attack?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "12",
+      "11",
+      "13",
+      "14"
+    ],
+    "answer": 0,
+    "correct_answer": "12"
+  },
+  {
+    "id": "Q604",
+    "category": "Percentage",
+    "difficulty": "Medium",
+    "template": "If {CHARACTER_0} uses 30% of 80 Ki points for a Kamehameha, how many Ki points were used?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "22",
+      "50",
+      "24",
+      "26"
+    ],
+    "answer": 2,
+    "correct_answer": "24"
+  },
+  {
+    "id": "Q605",
+    "category": "Averages",
+    "difficulty": "Medium",
+    "template": "{CHARACTER_0} scored 85, 90, and 88 points in three battles. What is the average score?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "86",
+      "87.67",
+      "88",
+      "87"
+    ],
+    "answer": 1,
+    "correct_answer": "87.67"
   }
 ]

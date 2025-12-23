@@ -2776,5 +2776,92 @@
     ],
     "correct_answer": "18",
     "answer": 2
+  },
+  {
+    "id": "Q596",
+    "category": "Addition",
+    "difficulty": "Easy",
+    "template": "{CHARACTER_0} collected 7 Dragon Balls and {CHARACTER_1} found 2 more. How many Dragon Balls do they have in total?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "9",
+      "11",
+      "8",
+      "10"
+    ],
+    "answer": 0,
+    "correct_answer": "9"
+  },
+  {
+    "id": "Q597",
+    "category": "Subtraction",
+    "difficulty": "Easy",
+    "template": "{CHARACTER_0} had 100 Senzu Beans and gave 35 to {CHARACTER_1}. How many Senzu Beans does {CHARACTER_0} have left?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "135",
+      "65",
+      "70",
+      "60"
+    ],
+    "answer": 1,
+    "correct_answer": "65"
+  },
+  {
+    "id": "Q598",
+    "category": "Multiplication",
+    "difficulty": "Easy",
+    "template": "If {CHARACTER_0} trains for 3 hours a day for 7 days, how many hours of training in total?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "10",
+      "18",
+      "24",
+      "21"
+    ],
+    "answer": 3,
+    "correct_answer": "21"
+  },
+  {
+    "id": "Q599",
+    "category": "Division",
+    "difficulty": "Easy",
+    "template": "{CHARACTER_0} has 48 Power Level points to distribute equally among 8 training sessions. How many points per session?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "6",
+      "8",
+      "7",
+      "5"
+    ],
+    "answer": 0,
+    "correct_answer": "6"
+  },
+  {
+    "id": "Q600",
+    "category": "Money",
+    "difficulty": "Easy",
+    "template": "{CHARACTER_0} bought a capsule for $12 and paid with $20. How much change did {CHARACTER_0} receive?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "32",
+      "9",
+      "7",
+      "8"
+    ],
+    "answer": 3,
+    "correct_answer": "8"
   }
 ]
