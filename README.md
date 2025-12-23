@@ -60,14 +60,9 @@ Visit the live site: `https://yourusername.github.io/quiz-studio`
 5. Answer questions and get instant feedback
 6. Review your results at the end
 
-### Managing Content (Admin Panel)
+### Question Library
 
-1. Open `admin.html`
-2. Add/edit:
-   - **Universes** - Character themes (e.g., "Nezha", "ENHYPEN")
-   - **Characters** - Individual characters with emojis and roles
-   - **Questions** - View and manage question library
-3. All changes are saved to localStorage
+The quiz uses pre-built question libraries stored in JSON files. All questions are carefully curated for the Singapore PSLE math curriculum with verified correct answers.
 
 ## 📁 Project Structure
 
@@ -75,15 +70,12 @@ Visit the live site: `https://yourusername.github.io/quiz-studio`
 quiz-studio/
 ├── index.html              # Landing page
 ├── quiz.html               # Quiz interface
-├── admin.html              # Admin panel
 ├── paper-generator.html    # Print quiz papers
 ├── css/
 │   ├── style.css           # Main styles
-│   ├── admin.css           # Admin panel styles
 │   └── print.css           # Print styles
 ├── js/
 │   ├── quiz.js             # Quiz logic & character substitution
-│   ├── admin.js            # Admin panel logic
 │   ├── data-loader.js      # JSON data loading & management
 │   └── paper-generator.js  # Quiz paper generation
 ├── data/
