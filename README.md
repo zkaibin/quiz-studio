@@ -1,247 +1,255 @@
-# Quiz Studio - Frontend Only Edition
+# 🎓 Quiz Studio
 
-A fun, interactive quiz application hosted entirely on GitHub Pages with no backend required! 🎓
+**Singapore PSLE Math Practice Platform** - A fun, interactive quiz application for Primary 1-6 and PSLE-level mathematics with character-themed questions!
 
-## Features
+[![Questions](https://img.shields.io/badge/Questions-812-blue)]()
+[![Themes](https://img.shields.io/badge/Character_Themes-11-purple)]()
+[![Levels](https://img.shields.io/badge/PSLE_Levels-6-green)]()
 
-✨ **Frontend Only** - No server or database needed
-📱 **Responsive Design** - Works on desktop, tablet, and mobile
-🎨 **Beautiful UI** - Clean and modern interface
-💾 **Data Persistence** - Quiz progress saved to browser localStorage
-📊 **Quiz Analytics** - View quiz history and statistics
-🔧 **Admin Panel** - Manage questions and track results
+## ✨ Features
 
-## Quick Start
+- **📚 812 Math Questions** - Comprehensive coverage from P1-P2 to PSLE level
+- **🎭 11 Character Themes** - Disney, Pixar, Cartoon Network, K-POP (ENHYPEN, Stray Kids, BABYMONSTER, ITZY), Marvel Avengers, Dragon Ball Z, DARK MOON, and Nezha
+- **📊 Multiple Categories** - Addition, Subtraction, Multiplication, Division, Fractions, Decimals, Percentages, Ratios, Speed, Time, Money, Measurement, Mixed Operations, and Averages
+- **🎯 6 Difficulty Levels** - P1-P2, P3-P4, P5-P6, PSLE, Challenging
+- **✨ Frontend Only** - No server or database needed, runs entirely in the browser
+- **💾 Local Storage** - Quiz progress and results saved locally
+- **📱 Responsive Design** - Works perfectly on desktop, tablet, and mobile
 
-1. **Clone**: `git clone https://github.com/yourusername/quiz-studio.git`
-2. **Open**: Open `public/index.html` in your browser
-3. **Deploy**: Push to GitHub, enable GitHub Pages with `/public` folder as source
+## 🚀 Quick Start
 
-👥 **Character-Based Questions**
-- Use cartoon characters, movie characters, KPOP stars in quiz questions
-- Randomly selected characters make each quiz unique and fun
-- Support for custom character universes (Disney, Marvel, Studio Ghibli, etc.)
+### Option 1: GitHub Pages (Recommended)
+Visit the live site: `https://yourusername.github.io/quiz-studio`
 
-📊 **Admin Panel**
-- Easily add new characters and universes
-- Create customizable question templates
-- View quiz statistics and student performance
-- No coding required!
+### Option 2: Local Development
 
-🏠 **Home Network Friendly**
-- Single Node.js server
-- SQLite database (no external DB needed)
-- Can run on Raspberry Pi or old laptop
-- Easy local IP access for family
-
-## Quick Start
-
-### Prerequisites
-- Node.js 14+ ([Download](https://nodejs.org/))
-- npm (comes with Node.js)
-
-### Installation
-
-1. **Clone or download the project**
+1. **Clone the repository**
    ```bash
+   git clone https://github.com/yourusername/quiz-studio.git
    cd quiz-studio
    ```
 
-2. **Install dependencies**
+2. **Open directly in browser**
    ```bash
-   npm install
+   # Mac/Linux
+   open index.html
+   
+   # Windows
+   start index.html
    ```
 
-3. **Start the server**
+3. **Or use a local server**
    ```bash
-   npm start
+   # Python 3
+   python -m http.server 8000
+   
+   # Then visit http://localhost:8000
    ```
 
-4. **Access the application**
-   - Quiz: http://localhost:3000
-   - Admin Panel: http://localhost:3000/admin
+## 🎮 How to Use
 
-### For Home Network Access
+### Taking a Quiz
 
-1. Find your computer's IP address:
-   - **Mac/Linux**: Run `ifconfig` in terminal, look for `inet` address (usually 192.168.x.x)
-   - **Windows**: Run `ipconfig` in terminal, look for IPv4 Address
-
-2. Access from other devices on your network:
-   - Quiz: http://YOUR_IP_ADDRESS:3000
-   - Admin: http://YOUR_IP_ADDRESS:3000/admin
-
-## Usage
-
-### Create Your Character Library
-
-1. Go to **Admin Panel** → **Universes**
-2. Add universes (e.g., "Disney", "Marvel", "KPOP Stars")
-3. Go to **Characters**
-4. Add characters to each universe
-5. Add emoji icons for visual appeal!
-
-### Create Math Questions
-
-1. Go to **Admin Panel** → **Questions**
-2. Create question templates using placeholders:
-   ```
-   {character1} has {num1} apples. 
-   {character2} gives them {num2} more. 
-   How many apples does {character1} have now?
-   ```
-3. List placeholders: `character1,character2,num1,num2`
-4. Enter the correct answer
-5. Save!
-
-### Take a Quiz
-
-1. Go to the main page
+1. Open `index.html` or visit the deployed site
 2. Enter your name
-3. Choose category and difficulty
-4. Start the quiz!
-5. Questions will automatically use random characters from your library
+3. Select:
+   - **Category** (e.g., Addition, Fractions, Mixed Operations)
+   - **Difficulty** (P1-P2, P3-P4, P5-P6, PSLE, Challenging)
+   - **Character Theme** (Disney, K-POP, Marvel, etc.)
+4. Click "Start Quiz"
+5. Answer questions and get instant feedback
+6. Review your results at the end
 
-## Architecture
+### Managing Content (Admin Panel)
+
+1. Open `admin.html`
+2. Add/edit:
+   - **Universes** - Character themes (e.g., "Nezha", "ENHYPEN")
+   - **Characters** - Individual characters with emojis and roles
+   - **Questions** - View and manage question library
+3. All changes are saved to localStorage
+
+## 📁 Project Structure
 
 ```
 quiz-studio/
-├── server/
-│   ├── server.js              # Main Express server
-│   ├── routes/
-│   │   ├── characters.js      # Character & universe API
-│   │   ├── questions.js       # Questions API
-│   │   └── quiz.js            # Quiz generation & scoring
-│   └── models/
-│       └── database.js        # SQLite database setup
-├── public/
-│   ├── index.html             # Main quiz interface
-│   ├── admin.html             # Admin panel
-│   ├── css/
-│   │   ├── style.css          # Main styles
-│   │   └── admin.css          # Admin panel styles
-│   └── js/
-│       ├── quiz.js            # Quiz logic
-│       └── admin.js           # Admin logic
-├── database/
-│   └── quiz.db                # SQLite database (auto-created)
-└── package.json
+├── index.html              # Landing page
+├── quiz.html               # Quiz interface
+├── admin.html              # Admin panel
+├── paper-generator.html    # Print quiz papers
+├── css/
+│   ├── style.css           # Main styles
+│   ├── admin.css           # Admin panel styles
+│   └── print.css           # Print styles
+├── js/
+│   ├── quiz.js             # Quiz logic & character substitution
+│   ├── admin.js            # Admin panel logic
+│   ├── data-loader.js      # JSON data loading & management
+│   └── paper-generator.js  # Quiz paper generation
+├── data/
+│   ├── questions-p1-p2.json       # 174 P1-P2 questions
+│   ├── questions-p3-p4.json       # 179 P3-P4 questions
+│   ├── questions-p5-p6.json       # 177 P5-P6 questions
+│   ├── questions-psle.json        # 70 PSLE questions
+│   ├── questions-challenging.json # 10 challenging questions
+│   ├── characters.json             # 103 characters
+│   └── universes.json              # 11 character universes
+├── scripts/
+│   └── generate-questions.js      # Question generation tool
+└── README.md
+
 ```
 
-## Database Schema
+## 🎭 Character Themes
 
-**character_universes**
-- Universe names and descriptions
+The quiz features **11 character universes** with **103 unique characters**:
 
-**characters**
-- Character names, emojis, images, and universe association
+1. **Disney** - Mickey Mouse, Minnie Mouse, Donald Duck
+2. **Pixar** - Woody, Buzz Lightyear, Nemo
+3. **Cartoon Network** - Finn, Jake, Ben 10
+4. **ENHYPEN** (K-POP) - Heeseung, Jay, Jake, Sunghoon, Sunoo, Jungwon, Ni-ki
+5. **Stray Kids** (K-POP) - Bang Chan, Lee Know, Changbin, Hyunjin, Han, Felix, Seungmin, I.N
+6. **BABYMONSTER** (K-POP) - Ruka, Pharita, Asa, Ahyeon, Rami, Rora, Chiquita
+7. **ITZY** (K-POP) - Yeji, Lia, Ryujin, Chaeryeong, Yuna
+8. **Avengers** - Iron Man, Captain America, Thor, Black Widow, Hulk, Hawkeye
+9. **DARK MOON** - Heli, Jaan, Solon, Shion, Jakah, Jino, Noa
+10. **Dragon Ball** - Goku, Vegeta, Gohan, Piccolo, Trunks, Krillin, Bulma
+11. **Nezha** - Nezha, Ao Bing, Taiyi, Li Jing, Lady Yin, Shen Gongbao, Dragon King
 
-**questions**
-- Question templates with placeholders, category, difficulty, answers
+Characters are randomly assigned to questions, making each quiz unique and engaging!
 
-**quiz_sessions**
-- Student names, scores, and quiz timestamps
+## 📚 Question Categories & Coverage
 
-## API Endpoints
+**812 Total Questions** across all difficulty levels:
 
-### Characters
-- `GET /api/characters` - Get all characters
-- `GET /api/characters/:universeId` - Get characters by universe
-- `POST /api/characters` - Add new character
-- `GET /api/characters/universes` - Get all universes
-- `POST /api/characters/universes` - Add new universe
+- **Addition** - Basic sums to complex multi-step problems
+- **Subtraction** - Simple differences to multi-level subtraction
+- **Multiplication** - Times tables to multi-digit multiplication
+- **Division** - Equal sharing to complex division with remainders
+- **Fractions** - Basic fractions to complex fraction operations
+- **Decimals** - Decimal operations and conversions
+- **Percentages** - Percentage calculations and real-world applications
+- **Ratios** - Simple ratios to complex ratio problems
+- **Speed** - Distance, time, and speed calculations
+- **Time** - Time duration and elapsed time (all with clear AM/PM)
+- **Money** - Currency calculations and word problems
+- **Measurement** - Area, perimeter, volume calculations
+- **Mixed Operations** - Multi-step problems combining operations
+- **Averages** - Mean, median, and average calculations
 
-### Questions
-- `GET /api/questions` - Get all questions
-- `GET /api/questions/:category` - Get by category
-- `POST /api/questions` - Add new question
+## 🔧 Technical Details
 
-### Quiz
-- `POST /api/quiz/generate` - Generate quiz with random characters
-- `POST /api/quiz/session` - Save quiz results
-- `GET /api/quiz/history` - Get quiz history
+### How Character Substitution Works
 
-## Example: Adding Disney Characters
+Questions use placeholders like `{CHARACTER_0}`, `{CHARACTER_1}` which are dynamically replaced with characters from your selected theme. The system ensures:
 
-### Step 1: Add Universe
-- Admin Panel → Universes
-- Name: `Disney`
-- Description: `Disney animated characters`
+- **No duplicate characters** in the same question
+- **Role-appropriate selection** (protagonist, helper, antagonist, etc.)
+- **Theme filtering** - only shows characters from selected universe
 
-### Step 2: Add Characters
-- Admin Panel → Characters
-- Add Elsa: 👸, Emoji: ❄️
-- Add Olaf: ☃️
-- Add Mickey: 🐭
+Example:
+```
+Template: "{CHARACTER_0} has {num1} apples. {CHARACTER_1} gives them {num2} more."
 
-### Step 3: Create Question Template
-- Admin Panel → Questions
-- Category: Addition
-- Difficulty: Easy
-- Template: `{character1} has {num1} apples. {character2} has {num2} apples. How many apples do they have together?`
-- Placeholders: `character1,character2,num1,num2`
-- Answer: (will be calculated by student)
+With Disney theme becomes:
+"Mickey Mouse has 5 apples. Minnie Mouse gives him 3 more."
 
-### Step 4: Take Quiz
-- Main page → Select "Addition" category
-- Quiz generates: `Elsa has 3 apples. Olaf has 2 apples. How many apples do they have together?`
-- Student answers and gets feedback!
-
-## Deployment
-
-### Running in Background (Mac/Linux)
-```bash
-nohup npm start > quiz.log 2>&1 &
+With Dragon Ball theme becomes:
+"Goku has 5 apples. Vegeta gives him 3 more."
 ```
 
-### Running on Startup
-Add to crontab or create a systemd service.
+### Data Format
 
-### Run on Raspberry Pi
-```bash
-# SSH into Pi
-ssh pi@raspberrypi.local
+All data is stored in JSON files:
 
-# Clone project and follow installation steps
-cd quiz-studio
-npm install
-npm start
+**Questions** (`data/questions-*.json`):
+```json
+{
+  "id": "Q760",
+  "category": "Fractions",
+  "difficulty": "PSLE",
+  "template": "{CHARACTER_0} has a bag of 120 marbles...",
+  "placeholder_roles": ["protagonist", "helper", "hero"],
+  "options": ["54", "48", "36", "60"],
+  "answer": 0,
+  "correct_answer": "54"
+}
 ```
 
-Then access from any device: `http://raspberrypi.local:3000`
-
-## Tips for Teachers/Parents
-
-1. **Theme-Based Quizzes**: Create universes around topics your students love
-2. **Difficulty Progression**: Start easy, increase difficulty as students improve
-3. **Celebrate Success**: Fun characters + instant feedback builds confidence
-4. **Customization**: Add local characters, pets, or family names for extra fun!
-5. **Multiple Sessions**: Track progress over time in the Statistics section
-
-## Troubleshooting
-
-**Port 3000 already in use?**
-```bash
-npm start -- --port 3001
-# Or set PORT environment variable
-PORT=3001 npm start
+**Characters** (`data/characters.json`):
+```json
+{
+  "id": 96,
+  "name": "Nezha",
+  "universe_id": 11,
+  "emoji_icon": "🔥",
+  "roles": ["protagonist", "hero", "leader"]
+}
 ```
 
-**Can't access from other devices?**
-- Check firewall settings
-- Verify IP address: `ifconfig` (Mac/Linux) or `ipconfig` (Windows)
-- Make sure on same network
+## 🚀 Deployment
 
-**Database errors?**
-- Delete `database/quiz.db` file
-- Server will recreate it on startup
+### GitHub Pages
 
-## License
+1. Push code to GitHub
+2. Go to Settings → Pages
+3. Set source to `main` branch and `/` (root) folder
+4. Your quiz will be live at `https://yourusername.github.io/quiz-studio`
 
-MIT
+### Local Network Access
 
-## Support
+1. Start a local server:
+   ```bash
+   python -m http.server 8000
+   ```
 
-For issues or suggestions, check the README or restart the server!
+2. Find your IP address:
+   ```bash
+   # Mac/Linux
+   ifconfig | grep "inet "
+   
+   # Windows
+   ipconfig
+   ```
 
-Happy quizzing! 🎉
+3. Access from other devices on the same network:
+   ```
+   http://YOUR_IP_ADDRESS:8000
+   ```
+
+## 🎯 Recent Updates
+
+- ✅ Fixed character duplication bug (no more "Gohan giving to Gohan")
+- ✅ Added AM/PM to all time questions for clarity
+- ✅ Added 20 new PSLE questions (70 total PSLE questions)
+- ✅ Added Nezha universe with 8 characters
+- ✅ Cleaned up documentation (36 redundant files removed)
+- ✅ All questions verified for mathematical correctness
+
+## 📖 Documentation
+
+- **README.md** - This file (overview and setup)
+- **GETTING_STARTED.md** - Detailed user guide
+- **PROJECT_SETUP.md** - Development setup instructions
+- **SAMPLE_QUESTIONS.md** - Question creation reference
+
+## 🤝 Contributing
+
+Questions are carefully curated for Singapore PSLE math curriculum. To add questions:
+
+1. Follow the format in existing `data/questions-*.json` files
+2. Ensure mathematical correctness
+3. Use appropriate difficulty level
+4. Test with character substitution
+
+## 📝 License
+
+MIT License - feel free to use for educational purposes!
+
+## 🎉 Credits
+
+Created for Singapore Primary School mathematics practice with a fun, character-based twist!
+
+---
+
+**Happy Learning! 🎓✨**
