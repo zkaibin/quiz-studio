@@ -182,24 +182,20 @@ class DataManager {
   }
 
   /**
-   * Get categories (predefined list)
+   * Get categories (dynamically from all questions)
    */
   getCategories() {
-    // Return predefined categories instead of scanning questions
-    return [
-      'Addition',
-      'Averages',
-      'Decimals',
-      'Division',
-      'Fractions',
-      'Mixed Operations',
-      'Money',
-      'Multiplication',
-      'Percentage',
-      'Ratios',
-      'Subtraction',
-      'Time'
+    // Extract unique categories from all questions
+    const allQuestions = [
+      ...this.data.questionsP1P2,
+      ...this.data.questionsP3P4,
+      ...this.data.questionsP5P6,
+      ...this.data.questionsChallenging,
+      ...this.data.questionsPSLE
     ];
+    
+    const categories = [...new Set(allQuestions.map(q => q.category))];
+    return categories.sort();
   }
 
   /**
