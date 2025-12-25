@@ -37,7 +37,7 @@ class QuizApp {
       console.log('❓ dataManager.data.questions.length after:', dataManager.data.questions.length);
       console.log('📚 Questions:', JSON.stringify(dataManager.data.questions.slice(0, 2), null, 2));
       
-      this.populateDropdowns();
+      await this.populateDropdowns();
       console.log('✓ populateDropdowns() completed');
     } catch (err) {
       console.error('❌ Error initializing app:', err);
@@ -47,7 +47,7 @@ class QuizApp {
   /**
    * Populate category and difficulty dropdowns
    */
-  populateDropdowns() {
+  async populateDropdowns() {
     // Populate themes (universes)
     const themeSelect = document.getElementById('theme');
     if (themeSelect && dataManager.data.universes) {
@@ -73,7 +73,7 @@ class QuizApp {
       opt.remove();
     });
     
-    const categories = dataManager.getCategories();
+    const categories = await dataManager.getCategories();
     console.log('✅ Categories from dataManager:', categories);
     
     categories.forEach(category => {

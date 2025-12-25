@@ -184,17 +184,14 @@ class DataManager {
   /**
    * Get categories (dynamically from all questions)
    */
-  getCategories() {
-    // Extract unique categories from all questions
-    const allQuestions = [
-      ...this.data.questionsP1P2,
-      ...this.data.questionsP3P4,
-      ...this.data.questionsP5P6,
-      ...this.data.questionsChallenging,
-      ...this.data.questionsPSLE
-    ];
+  async getCategories() {
+    // Ensure all questions are loaded first
+    if (this.data.questions.length === 0) {
+      await this.ensureDifficultyLoaded('all');
+    }
     
-    const categories = [...new Set(allQuestions.map(q => q.category))];
+    // Extract unique categories from all loaded questions
+    const categories = [...new Set(this.data.questions.map(q => q.category))];
     return categories.sort();
   }
 
