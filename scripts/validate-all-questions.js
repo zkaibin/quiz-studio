@@ -223,8 +223,15 @@ function validateFractions(template, answer) {
       return `Negative fraction: ${answer}`;
     }
   } else if (template.includes('/')) {
-    // Template has fractions but answer doesn't
-    return `Template has fractions but answer is not a fraction: ${answer}`;
+    // Check if it's a "fraction of remainder" problem - these often have whole number answers
+    const isFractionOfRemainder = template.toLowerCase().includes('remainder') || 
+                                   template.toLowerCase().includes('remaining') ||
+                                   template.toLowerCase().includes('left');
+    
+    // Only flag as error if it's NOT a fraction-of-remainder problem
+    if (!isFractionOfRemainder) {
+      return `Template has fractions but answer is not a fraction: ${answer}`;
+    }
   }
   
   return null;
