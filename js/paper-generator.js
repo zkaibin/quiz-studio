@@ -354,7 +354,8 @@ class PaperGenerator {
         let html = '';
         
         this.selectedQuestions.forEach((question, index) => {
-            const questionText = this.substituteCharacters(question);
+            // Use the pre-substituted questionText created by assignCharactersToQuestion
+            const questionText = question.questionText || question.template;
             
             html += `
                 <div class="question-item" style="border-bottom: 2px solid #e0e0e0; padding-bottom: 25px; margin-bottom: 25px;">
