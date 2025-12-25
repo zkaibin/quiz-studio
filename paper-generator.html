@@ -222,9 +222,21 @@
         <h1 style="text-align: center; margin-bottom: 30px;">📝 PSLE Paper Generator</h1>
         
         <div class="config-section">
-            <h3>Paper Configuration</h3>
+            <h3>Mode Selection</h3>
             
             <div class="form-group">
+                <label for="quizMode">Mode:</label>
+                <select id="quizMode" onchange="updateModeUI()">
+                    <option value="online">🎮 Online Quiz (Interactive)</option>
+                    <option value="print">📄 Print Paper (PDF)</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="config-section">
+            <h3>Paper Configuration</h3>
+            
+            <div class="form-group" id="paperTypeGroup">
                 <label for="paperType">Paper Type:</label>
                 <select id="paperType">
                     <option value="mcq">Paper 1 - Multiple Choice (MCQ)</option>
@@ -284,7 +296,7 @@
         </div>
         
         <div class="btn-group">
-            <button class="btn btn-primary" onclick="generatePaper()">Generate Paper</button>
+            <button class="btn btn-primary" onclick="generatePaper()" id="generateBtn">Generate Paper</button>
             <button class="btn btn-secondary" onclick="window.print()" id="printBtn" style="display: none;">Print Paper</button>
             <button class="btn btn-secondary" onclick="showAnswerKey()" id="answerBtn" style="display: none;">Show Answers</button>
         </div>
@@ -293,6 +305,25 @@
     <div class="preview-container" id="previewContainer">
         <!-- Generated paper will appear here -->
     </div>
+    
+    <!-- Online Quiz Section -->
+    <section id="onlineQuizSection" class="section hidden" style="max-width: 900px; margin: 40px auto; background: white; border-radius: 12px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div class="quiz-header" style="text-align: center; margin-bottom: 30px;">
+            <h2 style="color: #2c3e50; margin-bottom: 10px;">📝 PSLE Practice Test</h2>
+            <div class="quiz-meta" style="color: #7f8c8d; font-size: 14px;">
+                <span id="onlineQuizInfo"></span>
+            </div>
+        </div>
+        
+        <div id="onlineQuestionContainer" class="quiz-paper">
+            <!-- Online quiz questions will be inserted here -->
+        </div>
+        
+        <div class="quiz-actions" style="display: flex; justify-content: center; gap: 15px; margin-top: 30px;">
+            <button class="btn btn-primary" onclick="submitOnlineQuiz()" id="submitOnlineBtn">Submit Quiz</button>
+            <button class="btn btn-secondary" onclick="backToConfig()">Back to Configuration</button>
+        </div>
+    </section>
     
     <script src="js/data-loader.js?v=10"></script>
     <script src="js/paper-generator.js?v=1"></script>
