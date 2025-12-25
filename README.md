@@ -2,13 +2,13 @@
 
 **Singapore PSLE Math Practice Platform** - A fun, interactive quiz application for Primary 1-6 and PSLE-level mathematics with character-themed questions!
 
-[![Questions](https://img.shields.io/badge/Questions-812-blue)]()
+[![Questions](https://img.shields.io/badge/Questions-790-blue)]()
 [![Themes](https://img.shields.io/badge/Character_Themes-11-purple)]()
 [![Levels](https://img.shields.io/badge/PSLE_Levels-6-green)]()
 
 ## ✨ Features
 
-- **📚 812 Math Questions** - Comprehensive coverage from P1-P2 to PSLE level
+- **📚 790 Math Questions** - Comprehensive coverage from P1-P2 to PSLE level including 180 challenging problems across 18 specialized types
 - **🎭 11 Character Themes** - Disney, Pixar, Cartoon Network, K-POP (ENHYPEN, Stray Kids, BABYMONSTER, ITZY), Marvel Avengers, Dragon Ball Z, DARK MOON, and Nezha
 - **📊 Multiple Categories** - Addition, Subtraction, Multiplication, Division, Fractions, Decimals, Percentages, Ratios, Speed, Time, Money, Measurement, Mixed Operations, and Averages
 - **🎯 6 Difficulty Levels** - P1-P2, P3-P4, P5-P6, PSLE, Challenging
@@ -83,11 +83,15 @@ quiz-studio/
 │   ├── questions-p3-p4.json       # 179 P3-P4 questions
 │   ├── questions-p5-p6.json       # 177 P5-P6 questions
 │   ├── questions-psle.json        # 70 PSLE questions
-│   ├── questions-challenging.json # 10 challenging questions
-│   ├── characters.json             # 103 characters
-│   └── universes.json              # 11 character universes
+│   ├── questions-challenging.json # 190 challenging questions (Q750-Q929)
+│   ├── characters.json            # 103 characters
+│   └── universes.json             # 11 character universes
 ├── scripts/
-│   └── generate-questions.js      # Question generation tool
+│   ├── generate-questions.js      # Question generation tool
+│   ├── validate-all-questions.js  # Question validation
+│   └── check-distribution.js      # Distribution analysis
+├── count-questions.js             # Automated question counter
+├── CHALLENGING_PROBLEM_TYPES.md   # Problem type reference (18 types)
 └── README.md
 
 ```
@@ -112,8 +116,9 @@ Characters are randomly assigned to questions, making each quiz unique and engag
 
 ## 📚 Question Categories & Coverage
 
-**812 Total Questions** across all difficulty levels:
+**790 Total Questions** across all difficulty levels:
 
+### Standard Categories
 - **Addition** - Basic sums to complex multi-step problems
 - **Subtraction** - Simple differences to multi-level subtraction
 - **Multiplication** - Times tables to multi-digit multiplication
@@ -128,6 +133,30 @@ Characters are randomly assigned to questions, making each quiz unique and engag
 - **Measurement** - Area, perimeter, volume calculations
 - **Mixed Operations** - Multi-step problems combining operations
 - **Averages** - Mean, median, and average calculations
+
+### Challenging Problem Types (190 Questions)
+Advanced PSLE-level problems covering **18 specialized types**:
+
+1. **Chicken-Rabbit Problems** - Assumption method with different attributes
+2. **Excess-Shortage Problems** - Different grouping scenarios
+3. **Pattern Recognition** - Number sequences and figure patterns
+4. **Tree Planting Problems** - Interval and spacing calculations
+5. **Age Problems** - Before-after age relationships
+6. **Fraction of Remainder** - Multi-step fraction operations
+7. **Speed-Distance-Time** - Complex motion problems
+8. **Area-Perimeter** - Advanced geometry
+9. **Before-After Concept** - Quantity change scenarios
+10. **Advanced Ratios** - Multi-level ratio problems
+11. **Percentage Change** - Discount, profit, loss calculations
+12. **Volume-Capacity** - 3D measurement problems
+13. **Work Rate Problems** - Combined work and efficiency
+14. **Remainder Problems** - Modular arithmetic (Chinese Remainder Theorem)
+15. **Repeated Identity** - Equal quantities and relationships
+16. **Purchasing Problems** - Systems of equations
+17. **Logic & Reasoning** - Ordering, ranking, Venn diagrams
+18. **Unchanging Total** - Transfer problems with constant sum
+
+See **CHALLENGING_PROBLEM_TYPES.md** for detailed descriptions of each problem type.
 
 ## 🔧 Technical Details
 
@@ -211,28 +240,146 @@ All data is stored in JSON files:
 
 ## 🎯 Recent Updates
 
+- ✅ **Added 180 challenging questions** across 18 specialized problem types (Q750-Q929)
+- ✅ Created automated question counter (`count-questions.js`)
+- ✅ Added problem type reference guide (CHALLENGING_PROBLEM_TYPES.md)
+- ✅ Updated total questions: **790 questions** (was 610)
 - ✅ Fixed character duplication bug (no more "Gohan giving to Gohan")
 - ✅ Added AM/PM to all time questions for clarity
-- ✅ Added 20 new PSLE questions (70 total PSLE questions)
 - ✅ Added Nezha universe with 8 characters
-- ✅ Cleaned up documentation (36 redundant files removed)
 - ✅ All questions verified for mathematical correctness
+- ✅ Cleaned up temporary scripts and documentation
+
+## 🛠️ Development Guide
+
+### Adding New Questions
+
+1. **Choose the appropriate file** based on difficulty:
+   - `data/questions-p1-p2.json` - Primary 1-2
+   - `data/questions-p3-p4.json` - Primary 3-4
+   - `data/questions-p5-p6.json` - Primary 5-6
+   - `data/questions-psle.json` - PSLE level
+   - `data/questions-challenging.json` - Advanced challenging problems
+
+2. **Follow the question format**:
+   ```json
+   {
+     "id": "Q791",
+     "category": "Age Problems",
+     "difficulty": "Challenging",
+     "template": "{CHARACTER_0} is 3 times as old as {CHARACTER_1}...",
+     "placeholder_roles": ["protagonist", "helper"],
+     "options": ["24", "27", "21", "30"],
+     "answer": 1,
+     "correct_answer": "27"
+   }
+   ```
+
+3. **Key guidelines**:
+   - Use unique IDs (check highest existing ID)
+   - Use placeholders: `{CHARACTER_0}`, `{CHARACTER_1}`, `{CHARACTER_2}`
+   - Specify roles: `["protagonist", "helper", "antagonist", "hero"]`
+   - Provide 4 options with answer index (0-3)
+   - Include correct_answer as string for display
+   - Verify mathematical correctness
+
+4. **Update question count**:
+   ```bash
+   node count-questions.js
+   ```
+   This automatically updates the landing page (index.html) with the new total.
+
+5. **Reference guide**: See `CHALLENGING_PROBLEM_TYPES.md` for problem type examples and templates
+
+### Adding New Characters
+
+1. **Open** `data/characters.json`
+
+2. **Add character entry**:
+   ```json
+   {
+     "id": 104,
+     "name": "New Character",
+     "universe_id": 1,
+     "emoji_icon": "🎯",
+     "roles": ["protagonist", "hero"]
+   }
+   ```
+
+3. **Key fields**:
+   - `id` - Unique incrementing number
+   - `name` - Character name
+   - `universe_id` - Which universe (1-11)
+   - `emoji_icon` - Optional emoji representation
+   - `roles` - Array of roles: `protagonist`, `helper`, `antagonist`, `hero`, `mentor`, `leader`
+
+4. **Universe IDs**:
+   - 1: Disney
+   - 2: Pixar
+   - 3: Cartoon Network
+   - 4: ENHYPEN
+   - 5: Stray Kids
+   - 6: BABYMONSTER
+   - 7: ITZY
+   - 8: Avengers
+   - 9: DARK MOON
+   - 10: Dragon Ball
+   - 11: Nezha
+
+### Adding New Universe
+
+1. **Open** `data/universes.json`
+
+2. **Add universe entry**:
+   ```json
+   {
+     "id": 12,
+     "name": "New Universe",
+     "display_name": "New Universe",
+     "emoji_icon": "🌟",
+     "description": "Brief description"
+   }
+   ```
+
+3. **Add characters** to `characters.json` with the new `universe_id`
+
+4. **Update README** with the new universe and character count
+
+### Validating Questions
+
+Run validation scripts to check question integrity:
+
+```bash
+# Validate all questions
+node scripts/validate-all-questions.js
+
+# Check distribution across categories
+node scripts/check-distribution.js
+
+# Count total questions and update landing page
+node count-questions.js
+```
 
 ## 📖 Documentation
 
-- **README.md** - This file (overview and setup)
-- **GETTING_STARTED.md** - Detailed user guide
+- **README.md** - This file (overview, setup, and development guide)
+- **GETTING_STARTED.md** - Detailed user guide for taking quizzes
 - **PROJECT_SETUP.md** - Development setup instructions
-- **SAMPLE_QUESTIONS.md** - Question creation reference
+- **SAMPLE_QUESTIONS.md** - Question creation reference and examples
+- **CHALLENGING_PROBLEM_TYPES.md** - Reference guide for 18 challenging problem types
 
 ## 🤝 Contributing
 
-Questions are carefully curated for Singapore PSLE math curriculum. To add questions:
+Questions are carefully curated for Singapore PSLE math curriculum. To contribute:
 
-1. Follow the format in existing `data/questions-*.json` files
-2. Ensure mathematical correctness
-3. Use appropriate difficulty level
-4. Test with character substitution
+1. **Add questions** following the format in `data/questions-*.json`
+2. **Ensure mathematical correctness** - all answers must be verified
+3. **Use appropriate difficulty level** for the target audience
+4. **Test character substitution** works properly
+5. **Run validation** with `node scripts/validate-all-questions.js`
+6. **Update count** with `node count-questions.js`
+
+For major additions (e.g., new problem types), refer to `CHALLENGING_PROBLEM_TYPES.md` for examples and structure.
 
 ## 📝 License
 
