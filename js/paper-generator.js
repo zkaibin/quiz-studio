@@ -336,6 +336,9 @@ class PaperGenerator {
         quizSection.classList.remove('hidden');
         quizSection.style.display = 'block';
         
+        // Reset submit button visibility
+        document.getElementById('submitOnlineBtn').style.display = 'inline-block';
+        
         // Render online quiz
         this.renderOnlineQuiz();
         
