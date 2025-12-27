@@ -299,7 +299,7 @@
   {
     "id": "Q757",
     "category": "Chicken and Rabbit",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} has stamps worth either 50 cents or 80 cents each. There are 30 stamps worth $18 in total. How many 80-cent stamps does {CHARACTER_0} have?",
     "placeholder_roles": [
       "protagonist"
@@ -316,7 +316,7 @@
   {
     "id": "Q758",
     "category": "Chicken and Rabbit",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} bought pens at $2 each and erasers at $1 each. If {CHARACTER_0} bought 24 items for $38, how many pens were bought?",
     "placeholder_roles": [
       "protagonist"
@@ -333,7 +333,7 @@
   {
     "id": "Q759",
     "category": "Chicken and Rabbit",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} saw chickens and cows in a farm. There are 28 legs and 9 animals. How many chickens are there?",
     "placeholder_roles": [
       "protagonist"
@@ -435,7 +435,7 @@
   {
     "id": "Q765",
     "category": "Excess and Shortage",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} wants to seat people at tables. With 6 people per table, 2 people have no seats. With 7 people per table, there are 5 empty seats. How many people are there?",
     "placeholder_roles": [
       "protagonist"
@@ -452,7 +452,7 @@
   {
     "id": "Q766",
     "category": "Excess and Shortage",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} groups stickers into sets. Making sets of 8 leaves 3 stickers remaining. Making sets of 11 means the last set has only 6 stickers. How many stickers does {CHARACTER_0} have?",
     "placeholder_roles": [
       "protagonist"
@@ -469,7 +469,7 @@
   {
     "id": "Q767",
     "category": "Excess and Shortage",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} arranges chairs in rows. With 9 chairs per row, there are 4 chairs left over. With 10 chairs per row, {CHARACTER_0} needs 5 more chairs. How many chairs are there?",
     "placeholder_roles": [
       "protagonist"
@@ -486,7 +486,7 @@
   {
     "id": "Q768",
     "category": "Excess and Shortage",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} distributes cards to players. Giving 5 cards each leaves 8 cards unused. Giving 7 cards each means {CHARACTER_0} is short by 4 cards. How many players are there?",
     "placeholder_roles": [
       "protagonist"
@@ -503,7 +503,7 @@
   {
     "id": "Q769",
     "category": "Excess and Shortage",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} packs toys into bags. Using 6 toys per bag leaves 2 toys remaining. Using 8 toys per bag means the last bag has only 4 toys. How many toys are there?",
     "placeholder_roles": [
       "protagonist"
@@ -588,7 +588,7 @@
   {
     "id": "Q774",
     "category": "Pattern Recognition",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} sees the pattern: 5, 8, 14, 26, 50, ... What is the next number?",
     "placeholder_roles": [
       "protagonist"
@@ -605,7 +605,7 @@
   {
     "id": "Q775",
     "category": "Pattern Recognition",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} builds triangle patterns. Pattern 1 uses 3 sticks, Pattern 2 uses 5 sticks, Pattern 3 uses 7 sticks. How many sticks are needed for Pattern 12?",
     "placeholder_roles": [
       "protagonist"
@@ -622,7 +622,7 @@
   {
     "id": "Q776",
     "category": "Pattern Recognition",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} continues the sequence: 2, 6, 12, 20, 30, ... What is the 7th term?",
     "placeholder_roles": [
       "protagonist"
@@ -639,7 +639,7 @@
   {
     "id": "Q777",
     "category": "Pattern Recognition",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} notices: 1, 3, 7, 15, 31, 63, ... What is the next number?",
     "placeholder_roles": [
       "protagonist"
@@ -656,7 +656,7 @@
   {
     "id": "Q778",
     "category": "Pattern Recognition",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} counts dots in patterns: Pattern 1 has 4 dots, Pattern 2 has 7 dots, Pattern 3 has 10 dots. How many dots are in Pattern 15?",
     "placeholder_roles": [
       "protagonist"
@@ -673,7 +673,7 @@
   {
     "id": "Q779",
     "category": "Pattern Recognition",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} finds the pattern: 100, 94, 87, 79, 70, ... What comes next?",
     "placeholder_roles": [
       "protagonist"
@@ -758,7 +758,7 @@
   {
     "id": "Q784",
     "category": "Tree Planting",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} places poles along a 150m fence with poles 10m apart, including both ends. How many poles are needed?",
     "placeholder_roles": [
       "protagonist"
@@ -775,7 +775,7 @@
   {
     "id": "Q785",
     "category": "Tree Planting",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} plants trees in a straight line. The distance from the 1st tree to the 6th tree is 40m. What is the distance between consecutive trees?",
     "placeholder_roles": [
       "protagonist"
@@ -792,7 +792,7 @@
   {
     "id": "Q786",
     "category": "Tree Planting",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} strings lights around a square garden. Each side is 60m long. If lights are placed every 12m including corners, how many lights are needed?",
     "placeholder_roles": [
       "protagonist"
@@ -809,7 +809,7 @@
   {
     "id": "Q787",
     "category": "Tree Planting",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} cuts a log into 9 equal pieces. If each cut takes 2 minutes, how many minutes does {CHARACTER_0} take in total?",
     "placeholder_roles": [
       "protagonist"
@@ -826,7 +826,7 @@
   {
     "id": "Q788",
     "category": "Tree Planting",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} plants trees along a 300m road with trees 30m apart. If there is a tree at the start but NOT at the end, how many trees are planted?",
     "placeholder_roles": [
       "protagonist"
@@ -843,7 +843,7 @@
   {
     "id": "Q789",
     "category": "Tree Planting",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} places markers along a race track every 50m. The track is 400m long (circular). How many markers are placed?",
     "placeholder_roles": [
       "protagonist"
@@ -950,7 +950,7 @@
   {
     "id": "Q795",
     "category": "Age Problems",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} and {CHARACTER_1} are 28 years old together. {CHARACTER_0} is 4 years older than {CHARACTER_1}. How old is {CHARACTER_0}?",
     "placeholder_roles": [
       "protagonist",
@@ -968,7 +968,7 @@
   {
     "id": "Q796",
     "category": "Age Problems",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "In 3 years, {CHARACTER_0} will be twice as old as {CHARACTER_1}. If {CHARACTER_1} is 9 years old now, how old is {CHARACTER_0} now?",
     "placeholder_roles": [
       "protagonist",
@@ -986,7 +986,7 @@
   {
     "id": "Q797",
     "category": "Age Problems",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} is three times as old as {CHARACTER_1}. If their total age is 48, how old is {CHARACTER_1}?",
     "placeholder_roles": [
       "protagonist",
@@ -1004,7 +1004,7 @@
   {
     "id": "Q798",
     "category": "Age Problems",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "Four years ago, {CHARACTER_0} was 20 years old. In 6 years, {CHARACTER_1} will be 30. What is the sum of their current ages?",
     "placeholder_roles": [
       "protagonist",
@@ -1022,7 +1022,7 @@
   {
     "id": "Q799",
     "category": "Age Problems",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} is 6 years older than {CHARACTER_1}. In 4 years, {CHARACTER_0} will be 22. How old is {CHARACTER_1} now?",
     "placeholder_roles": [
       "protagonist",
@@ -1127,7 +1127,7 @@
   {
     "id": "Q805",
     "category": "Fraction of Remainder",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} spent 1/3 of money on books, then 1/2 of the remainder on games. If $20 is left, how much money did {CHARACTER_0} have originally?",
     "placeholder_roles": [
       "protagonist"
@@ -1144,7 +1144,7 @@
   {
     "id": "Q806",
     "category": "Fraction of Remainder",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} gave 2/5 of marbles to friends, then lost 1/3 of the remainder. If {CHARACTER_0} has 18 marbles left, how many marbles did {CHARACTER_0} start with?",
     "placeholder_roles": [
       "protagonist"
@@ -1161,7 +1161,7 @@
   {
     "id": "Q807",
     "category": "Fraction of Remainder",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} drank 1/4 of juice, then {CHARACTER_1} drank 1/3 of what remained. If 300ml is left, how much juice was there at first?",
     "placeholder_roles": [
       "protagonist",
@@ -1179,7 +1179,7 @@
   {
     "id": "Q808",
     "category": "Fraction of Remainder",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} completed 3/10 of homework, then 1/2 of the remainder before dinner. If 21 questions are left, how many homework questions are there in total?",
     "placeholder_roles": [
       "protagonist"
@@ -1196,7 +1196,7 @@
   {
     "id": "Q809",
     "category": "Fraction of Remainder",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} ate 1/6 of a cake, {CHARACTER_1} ate 1/5 of the remainder, and {CHARACTER_2} ate 1/4 of what was left. If 9 pieces remain, how many pieces were in the original cake?",
     "placeholder_roles": [
       "protagonist",
@@ -1215,7 +1215,7 @@
   {
     "id": "Q810",
     "category": "Speed Distance Time",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} and {CHARACTER_1} are 120km apart. They travel towards each other at 30km/h and 40km/h respectively. How many hours until they meet?",
     "placeholder_roles": [
       "protagonist",
@@ -1233,7 +1233,7 @@
   {
     "id": "Q811",
     "category": "Speed Distance Time",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} travels 45km in 3 hours, then 60km in 2 hours. What is {CHARACTER_0}'s average speed for the entire journey?",
     "placeholder_roles": [
       "protagonist"
@@ -1286,7 +1286,7 @@
   {
     "id": "Q814",
     "category": "Speed Distance Time",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} walks to school at 4km/h and takes 30 minutes. If {CHARACTER_0} cycles at 12km/h instead, how many minutes will it take?",
     "placeholder_roles": [
       "protagonist"
@@ -1338,7 +1338,7 @@
   {
     "id": "Q817",
     "category": "Speed Distance Time",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} drives 240km at 80km/h. If {CHARACTER_0} wants to reduce travel time by 1 hour, what should the new speed be?",
     "placeholder_roles": [
       "protagonist"
@@ -1372,7 +1372,7 @@
   {
     "id": "Q819",
     "category": "Speed Distance Time",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} cycles at 15km/h from home to school. The return journey at 10km/h takes 15 minutes longer. How far is school from home?",
     "placeholder_roles": [
       "protagonist"
@@ -1423,7 +1423,7 @@
   {
     "id": "Q822",
     "category": "Area and Perimeter",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} has a rectangular garden 15m by 10m. A path 1m wide runs around the inside edge. What is the area of the path?",
     "placeholder_roles": [
       "protagonist"
@@ -1457,7 +1457,7 @@
   {
     "id": "Q824",
     "category": "Area and Perimeter",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} has a square field with side 20m. If {CHARACTER_0} increases the side by 25%, what is the increase in area?",
     "placeholder_roles": [
       "protagonist"
@@ -1491,7 +1491,7 @@
   {
     "id": "Q826",
     "category": "Area and Perimeter",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} has a rectangular plot 16m by 12m. A concrete path 2m wide surrounds it on the outside. What is the area of the path?",
     "placeholder_roles": [
       "protagonist"
@@ -1525,7 +1525,7 @@
   {
     "id": "Q828",
     "category": "Area and Perimeter",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} increases the length of a rectangle by 20% and decreases the width by 20%. The original area was 100cm². What is the new area?",
     "placeholder_roles": [
       "protagonist"
@@ -1595,7 +1595,7 @@
   {
     "id": "Q832",
     "category": "Before-After",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} and {CHARACTER_1} have stickers in ratio 7:5. After {CHARACTER_1} receives 8 stickers from {CHARACTER_2}, the ratio becomes 7:6. How many stickers did {CHARACTER_1} have at first?",
     "placeholder_roles": [
       "protagonist",
@@ -1632,7 +1632,7 @@
   {
     "id": "Q834",
     "category": "Before-After",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} and {CHARACTER_1} have cards in ratio 4:3. After {CHARACTER_0} gives 7 cards to {CHARACTER_1}, the ratio becomes 3:4. How many cards do they have in total?",
     "placeholder_roles": [
       "protagonist",
@@ -1668,7 +1668,7 @@
   {
     "id": "Q836",
     "category": "Before-After",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} has twice as many books as {CHARACTER_1}. After {CHARACTER_1} buys 15 more books, they have the same number. How many books did {CHARACTER_0} have?",
     "placeholder_roles": [
       "protagonist",
@@ -1705,7 +1705,7 @@
   {
     "id": "Q838",
     "category": "Before-After",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} and {CHARACTER_1} have stamps in ratio 3:7. After {CHARACTER_0} receives 20 stamps, the ratio becomes 1:1. How many stamps did {CHARACTER_0} have at first?",
     "placeholder_roles": [
       "protagonist",
@@ -1779,7 +1779,7 @@
   {
     "id": "Q842",
     "category": "Advanced Ratios",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} and {CHARACTER_1} have marbles in ratio 5:7. {CHARACTER_1} and {CHARACTER_2} have marbles in ratio 3:2. If {CHARACTER_0} has 30 marbles, how many does {CHARACTER_2} have?",
     "placeholder_roles": [
       "protagonist",
@@ -1815,7 +1815,7 @@
   {
     "id": "Q844",
     "category": "Advanced Ratios",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0}, {CHARACTER_1}, and {CHARACTER_2} have ages in ratio 3:4:5. If their total age is 72, how old is {CHARACTER_1}?",
     "placeholder_roles": [
       "protagonist",
@@ -1851,7 +1851,7 @@
   {
     "id": "Q846",
     "category": "Advanced Ratios",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0}, {CHARACTER_1}, and {CHARACTER_2} share money in ratio 4:3:2. After {CHARACTER_1} gives $6 to {CHARACTER_2}, {CHARACTER_1} and {CHARACTER_2} have equal amounts. What was the total money shared?",
     "placeholder_roles": [
       "protagonist",
@@ -1889,7 +1889,7 @@
   {
     "id": "Q848",
     "category": "Advanced Ratios",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0}, {CHARACTER_1}, and {CHARACTER_2} share 240 cards in ratio 3:5:8. How many more cards does {CHARACTER_2} have than {CHARACTER_0}?",
     "placeholder_roles": [
       "protagonist",
@@ -1923,7 +1923,7 @@
   {
     "id": "Q850",
     "category": "Percentage Change",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} bought a toy at $80 with a 20% discount. What was the original price?",
     "placeholder_roles": [
       "protagonist"
@@ -1974,7 +1974,7 @@
   {
     "id": "Q853",
     "category": "Percentage Change",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} got 75% in Test 1 and 80% in Test 2. If Test 1 had 40 questions and Test 2 had 50 questions, what percentage did {CHARACTER_0} get overall?",
     "placeholder_roles": [
       "protagonist"
@@ -2009,7 +2009,7 @@
   {
     "id": "Q855",
     "category": "Percentage Change",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} increased savings by 40% from last year to have $420 now. How much did {CHARACTER_0} have last year?",
     "placeholder_roles": [
       "protagonist"
@@ -2043,7 +2043,7 @@
   {
     "id": "Q857",
     "category": "Percentage Change",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} scored 60 marks out of 80 in Test 1 and 45 marks out of 60 in Test 2. Which test had a better percentage?",
     "placeholder_roles": [
       "protagonist"
@@ -2077,7 +2077,7 @@
   {
     "id": "Q859",
     "category": "Percentage Change",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} bought an item for $200 and wants to make a 30% profit after giving a 20% discount. What should be the marked price?",
     "placeholder_roles": [
       "protagonist"
@@ -2094,7 +2094,7 @@
   {
     "id": "Q860",
     "category": "Volume and Capacity",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} has a rectangular tank 20cm by 15cm by 10cm filled with water. If {CHARACTER_0} pours it into a tank with base 25cm by 12cm, what is the water level?",
     "placeholder_roles": [
       "protagonist"
@@ -2128,7 +2128,7 @@
   {
     "id": "Q862",
     "category": "Volume and Capacity",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} has a cube with side 6cm. If it's melted and recast into a cuboid 9cm by 4cm, what is the height?",
     "placeholder_roles": [
       "protagonist"
@@ -2162,7 +2162,7 @@
   {
     "id": "Q864",
     "category": "Volume and Capacity",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} has two identical cubes each with volume 64cm³. If they are joined to form a cuboid, what is the surface area of the cuboid?",
     "placeholder_roles": [
       "protagonist"
@@ -2196,7 +2196,7 @@
   {
     "id": "Q866",
     "category": "Volume and Capacity",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} has a container 40cm long, 25cm wide with water 12cm deep. After adding a stone, water rises to 15cm. What is the volume of the stone?",
     "placeholder_roles": [
       "protagonist"
@@ -2230,7 +2230,7 @@
   {
     "id": "Q868",
     "category": "Volume and Capacity",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} has a tank with base area 600cm². If 18 liters of water are poured in, what is the water level in cm?",
     "placeholder_roles": [
       "protagonist"
@@ -2300,7 +2300,7 @@
   {
     "id": "Q872",
     "category": "Work Rate",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} fills a pool in 5 hours. A drain empties it in 15 hours. If both operate together, how long to fill the empty pool?",
     "placeholder_roles": [
       "protagonist"
@@ -2336,7 +2336,7 @@
   {
     "id": "Q874",
     "category": "Work Rate",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} types 40 pages in 2 hours. {CHARACTER_1} types 50 pages in 2 hours. Working together, how many pages can they type in 3 hours?",
     "placeholder_roles": [
       "protagonist",
@@ -2372,7 +2372,7 @@
   {
     "id": "Q876",
     "category": "Work Rate",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} makes 24 toys in 6 hours. At this rate, how many hours to make 60 toys?",
     "placeholder_roles": [
       "protagonist"
@@ -2404,7 +2404,7 @@
   {
     "id": "Q878",
     "category": "Work Rate",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} reads 30 pages per hour. {CHARACTER_1} reads 40 pages per hour. Starting together, after how many hours will {CHARACTER_1} be 20 pages ahead?",
     "placeholder_roles": [
       "protagonist",
@@ -2473,7 +2473,7 @@
   {
     "id": "Q882",
     "category": "Remainder",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} has candies. Grouping by 6 leaves 4 remaining. Grouping by 8 leaves 6 remaining. What is the smallest number of candies?",
     "placeholder_roles": [
       "protagonist"
@@ -2507,7 +2507,7 @@
   {
     "id": "Q884",
     "category": "Remainder",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} shares stickers among friends. Groups of 6 leave 2 extra. Groups of 8 leave 4 extra. If there are between 50 and 80 stickers, how many are there?",
     "placeholder_roles": [
       "protagonist"
@@ -2541,7 +2541,7 @@
   {
     "id": "Q886",
     "category": "Remainder",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} arranges books in rows of 12 with 7 left over. In rows of 15, there are 10 left over. How many books if there are fewer than 100?",
     "placeholder_roles": [
       "protagonist"
@@ -2575,7 +2575,7 @@
   {
     "id": "Q888",
     "category": "Remainder",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} has coins. When counted by 8s, 5 remain. When counted by 12s, 9 remain. What is the smallest number of coins?",
     "placeholder_roles": [
       "protagonist"
@@ -2645,7 +2645,7 @@
   {
     "id": "Q892",
     "category": "Repeated Identity",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} has $50 more than {CHARACTER_1}. {CHARACTER_0} has twice as much as {CHARACTER_1}. How much does {CHARACTER_1} have?",
     "placeholder_roles": [
       "protagonist",
@@ -2678,7 +2678,7 @@
   {
     "id": "Q894",
     "category": "Repeated Identity",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} has 5 times as many stamps as {CHARACTER_1}. If {CHARACTER_0} has 45 more stamps than {CHARACTER_1}, how many does {CHARACTER_1} have?",
     "placeholder_roles": [
       "protagonist",
@@ -2714,7 +2714,7 @@
   {
     "id": "Q896",
     "category": "Repeated Identity",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "A number is 7 more than twice another number. Their sum is 40. What is the larger number?",
     "placeholder_roles": [],
     "options": [
@@ -2747,7 +2747,7 @@
   {
     "id": "Q898",
     "category": "Repeated Identity",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "The sum of two numbers is 84. One number is 3 times the other. What is the smaller number?",
     "placeholder_roles": [],
     "options": [
@@ -2816,7 +2816,7 @@
   {
     "id": "Q902",
     "category": "Purchasing",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "4 books and 2 pens cost $37. 2 books and 3 pens cost $23.50. How much does 1 book cost?",
     "placeholder_roles": [],
     "options": [
@@ -2848,7 +2848,7 @@
   {
     "id": "Q904",
     "category": "Purchasing",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "3 chairs and 2 tables cost $250. 2 chairs and 1 table cost $140. What is the cost of 1 table?",
     "placeholder_roles": [],
     "options": [
@@ -2881,7 +2881,7 @@
   {
     "id": "Q906",
     "category": "Purchasing",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "2 kg of rice and 3 kg of sugar cost $16. 4 kg of rice and 2 kg of sugar cost $24. What is the cost of 1 kg of rice?",
     "placeholder_roles": [],
     "options": [
@@ -2913,7 +2913,7 @@
   {
     "id": "Q908",
     "category": "Purchasing",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "3 markers and 4 crayons cost $20.50. 4 markers and 2 crayons cost $19. What is the cost of 1 marker?",
     "placeholder_roles": [],
     "options": [
@@ -2982,7 +2982,7 @@
   {
     "id": "Q912",
     "category": "Logic and Reasoning",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "Three friends scored 150 points total. {CHARACTER_0} scored 10 more than {CHARACTER_1}. {CHARACTER_1} scored 10 more than {CHARACTER_2}. What did {CHARACTER_1} score?",
     "placeholder_roles": [
       "protagonist",
@@ -3019,7 +3019,7 @@
   {
     "id": "Q914",
     "category": "Logic and Reasoning",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} is taller than {CHARACTER_1}. {CHARACTER_2} is shorter than {CHARACTER_1}. {CHARACTER_3} is taller than {CHARACTER_0}. Who is the tallest?",
     "placeholder_roles": [
       "protagonist",
@@ -3054,7 +3054,7 @@
   {
     "id": "Q916",
     "category": "Logic and Reasoning",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} has red, blue, and green marbles. Half are red, 1/3 are blue. If there are 12 green marbles, how many marbles in total?",
     "placeholder_roles": [
       "protagonist"
@@ -3086,7 +3086,7 @@
   {
     "id": "Q918",
     "category": "Logic and Reasoning",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} ranks 7th from the top and 15th from the bottom in class. How many students are in the class?",
     "placeholder_roles": [
       "protagonist"
@@ -3156,7 +3156,7 @@
   {
     "id": "Q922",
     "category": "Unchanging Total",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "Two boxes contain 80 balls total. After moving 12 balls from Box A to Box B, they have equal amounts. How many balls were in Box A originally?",
     "placeholder_roles": [],
     "options": [
@@ -3190,7 +3190,7 @@
   {
     "id": "Q924",
     "category": "Unchanging Total",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} and {CHARACTER_1} have 120 marbles total. After {CHARACTER_0} loses 10 marbles, they have equal amounts. How many marbles did {CHARACTER_0} have at first?",
     "placeholder_roles": [
       "protagonist",
@@ -3223,7 +3223,7 @@
   {
     "id": "Q926",
     "category": "Unchanging Total",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "{CHARACTER_0} and {CHARACTER_1} have 90 stamps together. After {CHARACTER_1} receives 8 from {CHARACTER_2}, {CHARACTER_0} and {CHARACTER_1} have equal amounts. How many stamps does {CHARACTER_0} have?",
     "placeholder_roles": [
       "protagonist",
@@ -3261,7 +3261,7 @@
   {
     "id": "Q928",
     "category": "Unchanging Total",
-    "difficulty": "PSLE",
+    "difficulty": "Challenging",
     "template": "Two bags contain 150 coins total. After transferring 12 coins from Bag X to Bag Y, Bag X has 30 more than Bag Y. How many coins were in Bag X originally?",
     "placeholder_roles": [],
     "options": [
