@@ -359,29 +359,22 @@ class PaperGenerator {
         this.selectedQuestions.forEach((question, index) => {
             // Use the pre-substituted questionText created by assignCharactersToQuestion
             const questionText = question.questionText || question.template;
+            const selectedAnswer = null; // Track if user selected this
             
             html += `
-                <div class="question-item" style="border-bottom: 2px solid #e0e0e0; padding-bottom: 25px; margin-bottom: 25px;">
-                    <div class="question-number" style="font-weight: bold; font-size: 16px; color: #2c3e50; margin-bottom: 10px;">
-                        Question ${index + 1}
-                    </div>
-                    <div class="question-text" style="font-size: 15px; line-height: 1.8; margin-bottom: 20px;">
-                        ${questionText}
-                    </div>
-                    <div class="mcq-options" style="display: grid; gap: 12px;">
+                <div class="question-item" data-question-index="${index}">
+                    <div class="question-number">Question ${index + 1}</div>
+                    <div class="question-text">${questionText}</div>
+                    <div class="options">
             `;
             
-            question.options.forEach((option, i) => {
-                const label = String.fromCharCode(65 + i);
+            question.options.forEach((option, optIndex) => {
+                const letter = String.fromCharCode(65 + optIndex); // A, B, C, D
                 html += `
-                    <label style="display: flex; align-items: center; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: all 0.2s;" 
-                           onmouseover="this.style.borderColor='#3498db'" 
-                           onmouseout="if(!this.querySelector('input').checked) this.style.borderColor='#e0e0e0'"
-                           onclick="selectOption(${index}, ${i}, this)">
-                        <input type="radio" name="q${index}" value="${i}" style="margin-right: 12px; width: 18px; height: 18px;">
-                        <span style="font-weight: 600; margin-right: 12px; min-width: 30px;">(${label})</span>
-                        <span style="flex: 1;">${option}</span>
-                    </label>
+                    <div class="option" data-question="${index}" data-option="${optIndex}">
+                        <span class="option-letter">${letter}</span>
+                        <span class="option-text">${option}</span>
+                    </div>
                 `;
             });
             
@@ -393,6 +386,21 @@ class PaperGenerator {
         });
         
         container.innerHTML = html;
+        
+        // Add click handlers to options
+        container.querySelectorAll('.option').forEach(optionEl => {
+            optionEl.addEventListener('click', (e) => {
+                const questionIndex = parseInt(optionEl.getAttribute('data-question'));
+                const optionIndex = parseInt(optionEl.getAttribute('data-option'));
+                
+                // Remove selected class from all options in this question
+                const questionDiv = optionEl.closest('.question-item');
+                questionDiv.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selected class to clicked option
+                optionEl.classList.add('selected');
+            });
+        });
     }
     
     /**
@@ -403,21 +411,29 @@ class PaperGenerator {
         let answered = 0;
         
         this.selectedQuestions.forEach((question, index) => {
-            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const questionDiv = document.querySelector(`[data-question-index="${index}"]`);
+            const selectedOption = questionDiv.querySelector('.option.selected');
             const feedbackDiv = document.getElementById(`feedback-${index}`);
             
-            if (selected) {
+            if (selectedOption) {
                 answered++;
-                const userAnswer = parseInt(selected.value);
+                const userAnswer = parseInt(selectedOption.getAttribute('data-option'));
                 const isCorrect = userAnswer === question.answer;
                 
                 if (isCorrect) {
                     correct++;
+                    selectedOption.classList.add('correct');
                     feedbackDiv.style.display = 'block';
                     feedbackDiv.style.background = '#d4edda';
                     feedbackDiv.style.color = '#155724';
                     feedbackDiv.innerHTML = '✓ Correct!';
                 } else {
+                    selectedOption.classList.add('incorrect');
+                    // Also highlight the correct answer
+                    const correctOption = questionDiv.querySelector(`.option[data-option="${question.answer}"]`);
+                    if (correctOption) {
+                        correctOption.classList.add('correct');
+                    }
                     feedbackDiv.style.display = 'block';
                     feedbackDiv.style.background = '#f8d7da';
                     feedbackDiv.style.color = '#721c24';
@@ -429,7 +445,17 @@ class PaperGenerator {
                 feedbackDiv.style.background = '#fff3cd';
                 feedbackDiv.style.color = '#856404';
                 feedbackDiv.innerHTML = '⚠ Not answered';
+                // Highlight correct answer
+                const correctOption = questionDiv.querySelector(`.option[data-option="${question.answer}"]`);
+                if (correctOption) {
+                    correctOption.classList.add('correct');
+                }
             }
+            
+            // Disable further clicks on options
+            questionDiv.querySelectorAll('.option').forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
         });
         
         // Show summary
@@ -471,18 +497,6 @@ function updateModeUI() {
         paperTypeGroup.style.display = 'block';
         generateBtn.textContent = 'Generate Paper';
     }
-}
-
-function selectOption(questionIndex, optionIndex, labelElement) {
-    // Update visual styling
-    const allLabels = labelElement.parentElement.querySelectorAll('label');
-    allLabels.forEach(label => {
-        label.style.borderColor = '#e0e0e0';
-        label.style.background = 'white';
-    });
-    
-    labelElement.style.borderColor = '#3498db';
-    labelElement.style.background = '#e3f2fd';
 }
 
 function generatePaper() {
