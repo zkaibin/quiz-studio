@@ -241,8 +241,7 @@ class PaperGenerator {
         
         let html = `
             <div class="question-item">
-                <div class="question-number">${number}.</div>
-                <div class="question-text">${question.questionText}</div>
+                <div class="question-text"><span class="question-number">${number}.</span> ${question.questionText}</div>
         `;
         
         if (isMCQ) {
