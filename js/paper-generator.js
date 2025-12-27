@@ -241,7 +241,7 @@ class PaperGenerator {
         
         let html = `
             <div class="question-item">
-                <div class="question-number">${number}. [${question.category}]</div>
+                <div class="question-number">${number}.</div>
                 <div class="question-text">${question.questionText}</div>
         `;
         
