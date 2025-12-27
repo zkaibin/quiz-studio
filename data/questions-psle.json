@@ -1188,5 +1188,514 @@
     ],
     "answer": 1,
     "correct_answer": "120"
+  },
+  {
+    "id": "Q780",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} and {CHARACTER_1} had money in ratio 7:5. After {CHARACTER_0} spent $84 and {CHARACTER_1} spent $36, they had equal amounts. How much money did {CHARACTER_0} have at first?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "168",
+      "140",
+      "196",
+      "224"
+    ],
+    "answer": 0,
+    "correct_answer": "168"
+  },
+  {
+    "id": "Q781",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "The ratio of {CHARACTER_0}'s savings to {CHARACTER_1}'s savings was 3:4. After both saved an additional $120, the ratio became 5:6. How much did {CHARACTER_0} have at first?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "180",
+      "240",
+      "300",
+      "360"
+    ],
+    "answer": 0,
+    "correct_answer": "180"
+  },
+  {
+    "id": "Q782",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}, {CHARACTER_1}, and {CHARACTER_2} share stickers in ratio 2:3:5. If {CHARACTER_2} has 24 more stickers than {CHARACTER_0}, how many stickers does {CHARACTER_1} have?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ],
+    "options": [
+      "24",
+      "32",
+      "40",
+      "48"
+    ],
+    "answer": 0,
+    "correct_answer": "24"
+  },
+  {
+    "id": "Q783",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "The ratio of boys to girls in a class is 3:2. If 3 boys leave and 3 girls join, the ratio becomes 1:1. How many students were there originally?",
+    "placeholder_roles": [],
+    "options": [
+      "25",
+      "30",
+      "35",
+      "40"
+    ],
+    "answer": 1,
+    "correct_answer": "30"
+  },
+  {
+    "id": "Q784",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} and {CHARACTER_1} had stamps in ratio 5:3. {CHARACTER_0} gave 28 stamps to {CHARACTER_1} and now the ratio is 3:5. How many stamps did {CHARACTER_1} have at first?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "42",
+      "56",
+      "63",
+      "70"
+    ],
+    "answer": 0,
+    "correct_answer": "42"
+  },
+  {
+    "id": "Q785",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} spent 2/7 of money on books, 1/3 of remainder on food, and had $80 left. How much money did {CHARACTER_0} have at first?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "168",
+      "140",
+      "196",
+      "224"
+    ],
+    "answer": 0,
+    "correct_answer": "168"
+  },
+  {
+    "id": "Q786",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} read 3/8 of a book on Monday, 2/5 of the remaining pages on Tuesday, and 48 pages on Wednesday to finish. How many pages is the book?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "100",
+      "120",
+      "128",
+      "140"
+    ],
+    "answer": 2,
+    "correct_answer": "128"
+  },
+  {
+    "id": "Q787",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} had some marbles. After giving 1/4 to {CHARACTER_1}, 1/3 of remainder to {CHARACTER_2}, {CHARACTER_0} had 60 left. How many marbles at first?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "hero"
+    ],
+    "options": [
+      "100",
+      "120",
+      "144",
+      "180"
+    ],
+    "answer": 1,
+    "correct_answer": "120"
+  },
+  {
+    "id": "Q788",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} spent 3/7 of savings on a game, then 2/3 of what was left on books. If {CHARACTER_0} has $24 left, how much was saved originally?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "126",
+      "144",
+      "168",
+      "189"
+    ],
+    "answer": 0,
+    "correct_answer": "126"
+  },
+  {
+    "id": "Q789",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "A tank was 5/8 full. After removing 45 liters, the remaining capacity became 1/4 full. What is the tank's full capacity in liters?",
+    "placeholder_roles": [],
+    "options": [
+      "96",
+      "108",
+      "120",
+      "144"
+    ],
+    "answer": 2,
+    "correct_answer": "120"
+  },
+  {
+    "id": "Q790",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} bought an item at 20% discount and sold it at 25% profit on the discounted price. If the profit was $60, what was the original price?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "400",
+      "360",
+      "320",
+      "300"
+    ],
+    "answer": 3,
+    "correct_answer": "300"
+  },
+  {
+    "id": "Q791",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "A shop increased prices by 20%, then decreased by 20%. If an item now costs $480, what was its original price?",
+    "placeholder_roles": [],
+    "options": [
+      "480",
+      "500",
+      "520",
+      "540"
+    ],
+    "answer": 1,
+    "correct_answer": "500"
+  },
+  {
+    "id": "Q792",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} scored 75% in Math and 80% in Science. If each test was worth 120 marks, what is the overall percentage?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "77.5%",
+      "78%",
+      "77%",
+      "76.5%"
+    ],
+    "answer": 0,
+    "correct_answer": "77.5%"
+  },
+  {
+    "id": "Q793",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} invested $2000. In the first year it grew by 15%, in the second year it decreased by 10%. What is the final amount?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "2070",
+      "2100",
+      "2050",
+      "2080"
+    ],
+    "answer": 0,
+    "correct_answer": "2070"
+  },
+  {
+    "id": "Q794",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "A store marks up items by 40% then offers 25% discount. If an item costs $315 after discount, what was the cost price?",
+    "placeholder_roles": [],
+    "options": [
+      "280",
+      "300",
+      "320",
+      "350"
+    ],
+    "answer": 1,
+    "correct_answer": "300"
+  },
+  {
+    "id": "Q795",
+    "category": "Speed",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} runs at 8 km/h and {CHARACTER_1} cycles at 20 km/h. They start from same point in opposite directions. After how many minutes are they 21 km apart?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "40",
+      "45",
+      "50",
+      "60"
+    ],
+    "answer": 1,
+    "correct_answer": "45"
+  },
+  {
+    "id": "Q796",
+    "category": "Speed",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} drives 180 km at 60 km/h, then another 240 km at 80 km/h. What is the average speed for the whole journey?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "70 km/h",
+      "72 km/h",
+      "68 km/h",
+      "75 km/h"
+    ],
+    "answer": 0,
+    "correct_answer": "70 km/h"
+  },
+  {
+    "id": "Q797",
+    "category": "Speed",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} walks to school at 4 km/h and returns by bus at 20 km/h. If the total time is 2 hours, how far is the school?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "6 km",
+      "6.67 km",
+      "7 km",
+      "8 km"
+    ],
+    "answer": 1,
+    "correct_answer": "6.67 km"
+  },
+  {
+    "id": "Q798",
+    "category": "Speed",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} and {CHARACTER_1} are 150 km apart. They drive towards each other at 50 km/h and 40 km/h. After how many hours do they meet?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "1.5",
+      "1.67",
+      "2",
+      "2.5"
+    ],
+    "answer": 1,
+    "correct_answer": "1.67"
+  },
+  {
+    "id": "Q799",
+    "category": "Speed",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} runs 100 meters in 15 seconds. At this speed, how many kilometers can {CHARACTER_0} run in 30 minutes?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "10",
+      "12",
+      "15",
+      "18"
+    ],
+    "answer": 1,
+    "correct_answer": "12"
+  },
+  {
+    "id": "Q800",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} bought 15 items at $8 each. After selling 2/3 at $12 each and the rest at $10 each, what was the total profit?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "50",
+      "60",
+      "70",
+      "80"
+    ],
+    "answer": 0,
+    "correct_answer": "50"
+  },
+  {
+    "id": "Q801",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} has $500. After buying 3 books at $35 each and 4 pens at $8 each, how much money is left?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "363",
+      "367",
+      "373",
+      "377"
+    ],
+    "answer": 0,
+    "correct_answer": "363"
+  },
+  {
+    "id": "Q802",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "A rectangular garden is 24m long and 15m wide. If {CHARACTER_0} plants flowers in 2/3 of the area at $5 per square meter, how much is the total cost?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "1200",
+      "1500",
+      "1800",
+      "2000"
+    ],
+    "answer": 0,
+    "correct_answer": "1200"
+  },
+  {
+    "id": "Q803",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} has 3 times as many cards as {CHARACTER_1}. After {CHARACTER_0} gives 12 to {CHARACTER_1}, {CHARACTER_0} has twice as many. How many cards does {CHARACTER_1} have now?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "36",
+      "42",
+      "48",
+      "54"
+    ],
+    "answer": 2,
+    "correct_answer": "48"
+  },
+  {
+    "id": "Q804",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} bought fruits: 5 apples at $2 each, 8 oranges at $1.50 each, and 3 mangoes at $4 each. If {CHARACTER_0} paid with two $50 notes, how much change?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "58",
+      "60",
+      "64",
+      "66"
+    ],
+    "answer": 3,
+    "correct_answer": "66"
+  },
+  {
+    "id": "Q805",
+    "category": "Averages",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} scored an average of 78 in 4 tests. What must {CHARACTER_0} score in the 5th test to achieve an average of 80?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "86",
+      "88",
+      "90",
+      "92"
+    ],
+    "answer": 1,
+    "correct_answer": "88"
+  },
+  {
+    "id": "Q806",
+    "category": "Averages",
+    "difficulty": "PSLE",
+    "template": "The average of 5 numbers is 32. If one number is removed, the average becomes 30. What was the removed number?",
+    "placeholder_roles": [],
+    "options": [
+      "36",
+      "38",
+      "40",
+      "42"
+    ],
+    "answer": 2,
+    "correct_answer": "40"
+  },
+  {
+    "id": "Q807",
+    "category": "Averages",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} has average of 85 in 3 subjects. {CHARACTER_1} has average of 90 in 2 subjects. What is their combined average?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "86",
+      "87",
+      "87.5",
+      "88"
+    ],
+    "answer": 1,
+    "correct_answer": "87"
+  },
+  {
+    "id": "Q808",
+    "category": "Averages",
+    "difficulty": "PSLE",
+    "template": "The average age of 6 children is 10 years. If a 7th child joins, the average becomes 11 years. What is the 7th child's age?",
+    "placeholder_roles": [],
+    "options": [
+      "15",
+      "16",
+      "17",
+      "18"
+    ],
+    "answer": 2,
+    "correct_answer": "17"
+  },
+  {
+    "id": "Q809",
+    "category": "Averages",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} bought 4 items averaging $25 each and 6 items averaging $15 each. What is the average price of all 10 items?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "18",
+      "19",
+      "20",
+      "21"
+    ],
+    "answer": 1,
+    "correct_answer": "19"
   }
 ]
