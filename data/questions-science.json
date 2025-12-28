@@ -1,0 +1,1282 @@
+[
+  {
+    "id": "SCI001",
+    "category": "Living Things",
+    "difficulty": "P3-P4",
+    "template": "Which of the following is NOT a characteristic of living things?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "They need food",
+      "They can grow",
+      "They can make their own light",
+      "They can reproduce"
+    ],
+    "answer": 2,
+    "correct_answer": "They can make their own light"
+  },
+  {
+    "id": "SCI002",
+    "category": "Living Things",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} is studying a butterfly that goes through complete metamorphosis. What is the correct order of its life cycle?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Egg → Larva → Pupa → Adult",
+      "Egg → Pupa → Larva → Adult",
+      "Egg → Adult → Larva → Pupa",
+      "Larva → Egg → Pupa → Adult"
+    ],
+    "answer": 0,
+    "correct_answer": "Egg → Larva → Pupa → Adult"
+  },
+  {
+    "id": "SCI003",
+    "category": "Living Things",
+    "difficulty": "P3-P4",
+    "template": "Which part of a plant makes food for the plant?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Roots",
+      "Stem",
+      "Leaves",
+      "Flowers"
+    ],
+    "answer": 2,
+    "correct_answer": "Leaves"
+  },
+  {
+    "id": "SCI004",
+    "category": "Materials",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} wants to make a raincoat. Which material is waterproof and would be best?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Cotton",
+      "Paper",
+      "Plastic",
+      "Wood"
+    ],
+    "answer": 2,
+    "correct_answer": "Plastic"
+  },
+  {
+    "id": "SCI005",
+    "category": "Materials",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} is testing materials with a magnet. Which of the following materials can be attracted by the magnet?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Aluminum can",
+      "Iron nail",
+      "Copper wire",
+      "Plastic ruler"
+    ],
+    "answer": 1,
+    "correct_answer": "Iron nail"
+  },
+  {
+    "id": "SCI006",
+    "category": "Cycles",
+    "difficulty": "P3-P4",
+    "template": "What happens to water when it is heated to 100°C?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "It freezes",
+      "It evaporates",
+      "It melts",
+      "It condenses"
+    ],
+    "answer": 1,
+    "correct_answer": "It evaporates"
+  },
+  {
+    "id": "SCI007",
+    "category": "Cycles",
+    "difficulty": "P3-P4",
+    "template": "In the water cycle, what process changes water vapor back into liquid water?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Evaporation",
+      "Precipitation",
+      "Condensation",
+      "Melting"
+    ],
+    "answer": 2,
+    "correct_answer": "Condensation"
+  },
+  {
+    "id": "SCI008",
+    "category": "Living Things",
+    "difficulty": "P5-P6",
+    "template": "Which system in the human body is responsible for transporting oxygen and nutrients to all body cells?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Respiratory system",
+      "Digestive system",
+      "Circulatory system",
+      "Nervous system"
+    ],
+    "answer": 2,
+    "correct_answer": "Circulatory system"
+  },
+  {
+    "id": "SCI009",
+    "category": "Living Things",
+    "difficulty": "P5-P6",
+    "template": "What is the function of the stomata in a leaf?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "To absorb sunlight",
+      "To store water",
+      "To allow gas exchange",
+      "To produce chlorophyll"
+    ],
+    "answer": 2,
+    "correct_answer": "To allow gas exchange"
+  },
+  {
+    "id": "SCI010",
+    "category": "Living Things",
+    "difficulty": "P5-P6",
+    "template": "In a food chain: Grass → Grasshopper → Frog → Snake → Hawk. Which organism is the secondary consumer?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Grass",
+      "Grasshopper",
+      "Frog",
+      "Snake"
+    ],
+    "answer": 2,
+    "correct_answer": "Frog"
+  },
+  {
+    "id": "SCI011",
+    "category": "Energy",
+    "difficulty": "P5-P6",
+    "template": "Which of the following is an example of potential energy being converted to kinetic energy?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "A battery powering a toy car",
+      "A stretched rubber band being released",
+      "A light bulb producing light",
+      "Water boiling on a stove"
+    ],
+    "answer": 1,
+    "correct_answer": "A stretched rubber band being released"
+  },
+  {
+    "id": "SCI012",
+    "category": "Energy",
+    "difficulty": "P5-P6",
+    "template": "What type of energy is stored in food?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Light energy",
+      "Chemical energy",
+      "Heat energy",
+      "Sound energy"
+    ],
+    "answer": 1,
+    "correct_answer": "Chemical energy"
+  },
+  {
+    "id": "SCI013",
+    "category": "Forces",
+    "difficulty": "P5-P6",
+    "template": "A book is placed on a table. What force prevents it from falling through the table?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Gravitational force",
+      "Magnetic force",
+      "Normal force",
+      "Frictional force"
+    ],
+    "answer": 2,
+    "correct_answer": "Normal force"
+  },
+  {
+    "id": "SCI014",
+    "category": "Forces",
+    "difficulty": "P5-P6",
+    "template": "Which of the following surfaces would produce the LEAST friction?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Rough concrete",
+      "Smooth ice",
+      "Grass",
+      "Sandpaper"
+    ],
+    "answer": 1,
+    "correct_answer": "Smooth ice"
+  },
+  {
+    "id": "SCI015",
+    "category": "Electricity",
+    "difficulty": "P5-P6",
+    "template": "In an electric circuit, what is the purpose of a switch?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "To increase voltage",
+      "To store electricity",
+      "To control the flow of current",
+      "To produce light"
+    ],
+    "answer": 2,
+    "correct_answer": "To control the flow of current"
+  },
+  {
+    "id": "SCI016",
+    "category": "Electricity",
+    "difficulty": "P5-P6",
+    "template": "Which of the following materials is a good conductor of electricity?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Rubber",
+      "Plastic",
+      "Copper",
+      "Wood"
+    ],
+    "answer": 2,
+    "correct_answer": "Copper"
+  },
+  {
+    "id": "SCI017",
+    "category": "Matter",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} dissolved salt in water. What type of mixture did {CHARACTER_0} form?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Suspension",
+      "Solution",
+      "Emulsion",
+      "Compound"
+    ],
+    "answer": 1,
+    "correct_answer": "Solution"
+  },
+  {
+    "id": "SCI018",
+    "category": "Matter",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} needs to separate sand from water. Which method would be best?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Evaporation",
+      "Filtration",
+      "Condensation",
+      "Magnetism"
+    ],
+    "answer": 1,
+    "correct_answer": "Filtration"
+  },
+  {
+    "id": "SCI019",
+    "category": "Light",
+    "difficulty": "P5-P6",
+    "template": "What happens to light when it passes from air into water?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "It speeds up",
+      "It slows down and bends",
+      "It stops completely",
+      "It turns into heat"
+    ],
+    "answer": 1,
+    "correct_answer": "It slows down and bends"
+  },
+  {
+    "id": "SCI020",
+    "category": "Light",
+    "difficulty": "P5-P6",
+    "template": "A rainbow is formed by the dispersion of white light. This occurs because:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Different colors of light travel at different speeds in water",
+      "Water changes the color of light",
+      "Light bounces off water molecules",
+      "Water absorbs some colors of light"
+    ],
+    "answer": 0,
+    "correct_answer": "Different colors of light travel at different speeds in water"
+  },
+  {
+    "id": "SCI021",
+    "category": "Adaptations",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} is studying cacti and wonders why they have thorns instead of broad leaves. What is the reason?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "To attract insects",
+      "To reduce water loss",
+      "To produce more oxygen",
+      "To absorb more sunlight"
+    ],
+    "answer": 1,
+    "correct_answer": "To reduce water loss"
+  },
+  {
+    "id": "SCI022",
+    "category": "Adaptations",
+    "difficulty": "P5-P6",
+    "template": "Polar bears have thick fur and a layer of fat. These are adaptations for:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Swimming faster",
+      "Catching prey",
+      "Staying warm in cold environments",
+      "Camouflage in the forest"
+    ],
+    "answer": 2,
+    "correct_answer": "Staying warm in cold environments"
+  },
+  {
+    "id": "SCI023",
+    "category": "Cells",
+    "difficulty": "P5-P6",
+    "template": "What is the basic unit of life?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Tissue",
+      "Organ",
+      "Cell",
+      "System"
+    ],
+    "answer": 2,
+    "correct_answer": "Cell"
+  },
+  {
+    "id": "SCI024",
+    "category": "Cells",
+    "difficulty": "P5-P6",
+    "template": "Which part of a plant cell contains chlorophyll for photosynthesis?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Cell wall",
+      "Nucleus",
+      "Chloroplast",
+      "Vacuole"
+    ],
+    "answer": 2,
+    "correct_answer": "Chloroplast"
+  },
+  {
+    "id": "SCI025",
+    "category": "Reproduction",
+    "difficulty": "P5-P6",
+    "template": "What is the main function of flowers in flowering plants?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "To make food",
+      "To absorb water",
+      "To reproduce",
+      "To support the plant"
+    ],
+    "answer": 2,
+    "correct_answer": "To reproduce"
+  },
+  {
+    "id": "SCI026",
+    "category": "Reproduction",
+    "difficulty": "P5-P6",
+    "template": "Which part of the flower becomes the fruit after fertilization?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Petal",
+      "Stamen",
+      "Ovary",
+      "Sepal"
+    ],
+    "answer": 2,
+    "correct_answer": "Ovary"
+  },
+  {
+    "id": "SCI027",
+    "category": "Human Body",
+    "difficulty": "P5-P6",
+    "template": "Which organ pumps blood throughout the body?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Lungs",
+      "Heart",
+      "Liver",
+      "Kidneys"
+    ],
+    "answer": 1,
+    "correct_answer": "Heart"
+  },
+  {
+    "id": "SCI028",
+    "category": "Human Body",
+    "difficulty": "P5-P6",
+    "template": "Where does digestion begin in the human body?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Stomach",
+      "Small intestine",
+      "Mouth",
+      "Large intestine"
+    ],
+    "answer": 2,
+    "correct_answer": "Mouth"
+  },
+  {
+    "id": "SCI029",
+    "category": "Heat",
+    "difficulty": "P5-P6",
+    "template": "Which method of heat transfer does NOT require a medium (can occur in a vacuum)?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Conduction",
+      "Convection",
+      "Radiation",
+      "Insulation"
+    ],
+    "answer": 2,
+    "correct_answer": "Radiation"
+  },
+  {
+    "id": "SCI030",
+    "category": "Heat",
+    "difficulty": "P5-P6",
+    "template": "Why are metals good conductors of heat?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "They are heavy",
+      "They are shiny",
+      "They have free electrons that move easily",
+      "They are hard"
+    ],
+    "answer": 2,
+    "correct_answer": "They have free electrons that move easily"
+  },
+  {
+    "id": "SCI031",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} placed a plant in a dark cupboard for three days. What would most likely happen to the plant?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "It would grow faster",
+      "It would turn yellow and become weak",
+      "It would produce more flowers",
+      "It would grow more leaves"
+    ],
+    "answer": 1,
+    "correct_answer": "It would turn yellow and become weak"
+  },
+  {
+    "id": "SCI032",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "In an experiment, {CHARACTER_0} placed equal amounts of water in four identical cups and left them in different locations for 24 hours. In which location would the water evaporate the FASTEST?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "In a cool, shady area",
+      "In a warm, windy area",
+      "In a cool, enclosed area",
+      "In a warm, enclosed area"
+    ],
+    "answer": 1,
+    "correct_answer": "In a warm, windy area"
+  },
+  {
+    "id": "SCI033",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} observed that when she added more weights to a spring, it stretched more. What can {CHARACTER_0} conclude?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "The spring becomes lighter with more weight",
+      "The amount of stretch is related to the weight added",
+      "The spring will break immediately",
+      "The spring length does not change"
+    ],
+    "answer": 1,
+    "correct_answer": "The amount of stretch is related to the weight added"
+  },
+  {
+    "id": "SCI034",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "Which of the following adaptations helps a bird to fly?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Heavy bones",
+      "Hollow bones and feathers",
+      "Thick fur",
+      "Long tail"
+    ],
+    "answer": 1,
+    "correct_answer": "Hollow bones and feathers"
+  },
+  {
+    "id": "SCI035",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "In a simple electric circuit with a bulb, battery, and wires, what would happen if one wire is disconnected?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "The bulb will shine brighter",
+      "The bulb will not light up",
+      "The battery will explode",
+      "Nothing will change"
+    ],
+    "answer": 1,
+    "correct_answer": "The bulb will not light up"
+  },
+  {
+    "id": "SCI036",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} is a farmer who wants to increase the yield of crops. Which of the following would be MOST effective?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Adding fertilizers to the soil",
+      "Planting seeds deeper",
+      "Reducing watering frequency",
+      "Keeping plants in complete darkness"
+    ],
+    "answer": 0,
+    "correct_answer": "Adding fertilizers to the soil"
+  },
+  {
+    "id": "SCI037",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "Water flows downhill because of:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Air pressure",
+      "Gravity",
+      "Magnetic force",
+      "Electric force"
+    ],
+    "answer": 1,
+    "correct_answer": "Gravity"
+  },
+  {
+    "id": "SCI038",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "Which of these activities would help conserve water?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Taking long showers",
+      "Leaving taps running while brushing teeth",
+      "Fixing leaking taps immediately",
+      "Washing cars daily"
+    ],
+    "answer": 2,
+    "correct_answer": "Fixing leaking taps immediately"
+  },
+  {
+    "id": "SCI039",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} notices that ice cream melts faster on a hot day than on a cool day. This is because:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Ice cream absorbs more heat on a hot day",
+      "The sun's light makes ice cream melt",
+      "Ice cream is lighter on hot days",
+      "The air on hot days contains more water"
+    ],
+    "answer": 0,
+    "correct_answer": "Ice cream absorbs more heat on a hot day"
+  },
+  {
+    "id": "SCI040",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "In a food chain, energy flows from:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Consumers to producers",
+      "Producers to consumers",
+      "Decomposers to producers",
+      "Top consumers to bottom consumers"
+    ],
+    "answer": 1,
+    "correct_answer": "Producers to consumers"
+  },
+  {
+    "id": "SCI041",
+    "category": "Living Things",
+    "difficulty": "P3-P4",
+    "template": "What do plants need to make food through photosynthesis?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Water, sunlight, and carbon dioxide",
+      "Water, sunlight, and oxygen",
+      "Soil, water, and air",
+      "Fertilizer, water, and sunlight"
+    ],
+    "answer": 0,
+    "correct_answer": "Water, sunlight, and carbon dioxide"
+  },
+  {
+    "id": "SCI042",
+    "category": "Living Things",
+    "difficulty": "P3-P4",
+    "template": "Which animal lays eggs?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Dog",
+      "Cat",
+      "Bird",
+      "Rabbit"
+    ],
+    "answer": 2,
+    "correct_answer": "Bird"
+  },
+  {
+    "id": "SCI043",
+    "category": "Living Things",
+    "difficulty": "P3-P4",
+    "template": "What is the main function of roots in a plant?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "To make food",
+      "To absorb water and nutrients from soil",
+      "To produce flowers",
+      "To release oxygen"
+    ],
+    "answer": 1,
+    "correct_answer": "To absorb water and nutrients from soil"
+  },
+  {
+    "id": "SCI044",
+    "category": "Materials",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} wants to build a table that is strong and durable. Which material would be best?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Paper",
+      "Wood",
+      "Cloth",
+      "Foam"
+    ],
+    "answer": 1,
+    "correct_answer": "Wood"
+  },
+  {
+    "id": "SCI045",
+    "category": "Materials",
+    "difficulty": "P3-P4",
+    "template": "Which property describes how shiny a material is?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Hardness",
+      "Flexibility",
+      "Luster",
+      "Transparency"
+    ],
+    "answer": 2,
+    "correct_answer": "Luster"
+  },
+  {
+    "id": "SCI046",
+    "category": "Cycles",
+    "difficulty": "P3-P4",
+    "template": "What is the process called when water vapor turns into liquid water drops on a cold surface?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Evaporation",
+      "Condensation",
+      "Melting",
+      "Freezing"
+    ],
+    "answer": 1,
+    "correct_answer": "Condensation"
+  },
+  {
+    "id": "SCI047",
+    "category": "Cycles",
+    "difficulty": "P3-P4",
+    "template": "At what temperature does water freeze?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "0°C",
+      "10°C",
+      "50°C",
+      "100°C"
+    ],
+    "answer": 0,
+    "correct_answer": "0°C"
+  },
+  {
+    "id": "SCI048",
+    "category": "Energy",
+    "difficulty": "P5-P6",
+    "template": "Solar panels convert light energy into which form of energy?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Heat energy",
+      "Sound energy",
+      "Electrical energy",
+      "Chemical energy"
+    ],
+    "answer": 2,
+    "correct_answer": "Electrical energy"
+  },
+  {
+    "id": "SCI049",
+    "category": "Energy",
+    "difficulty": "P5-P6",
+    "template": "Which of the following is NOT a renewable source of energy?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Solar power",
+      "Wind power",
+      "Coal",
+      "Hydroelectric power"
+    ],
+    "answer": 2,
+    "correct_answer": "Coal"
+  },
+  {
+    "id": "SCI050",
+    "category": "Forces",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} pushes a toy car on different surfaces. On which surface will the car travel the farthest?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Rough carpet",
+      "Smooth tile floor",
+      "Grass",
+      "Sand"
+    ],
+    "answer": 1,
+    "correct_answer": "Smooth tile floor"
+  },
+  {
+    "id": "SCI051",
+    "category": "Forces",
+    "difficulty": "P5-P6",
+    "template": "What force pulls objects toward the center of the Earth?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Magnetic force",
+      "Gravitational force",
+      "Frictional force",
+      "Elastic force"
+    ],
+    "answer": 1,
+    "correct_answer": "Gravitational force"
+  },
+  {
+    "id": "SCI052",
+    "category": "Electricity",
+    "difficulty": "P5-P6",
+    "template": "What happens when you connect batteries in series in a circuit?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "The voltage decreases",
+      "The voltage increases",
+      "Nothing changes",
+      "The circuit breaks"
+    ],
+    "answer": 1,
+    "correct_answer": "The voltage increases"
+  },
+  {
+    "id": "SCI053",
+    "category": "Electricity",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} is making a simple circuit. Which material should {CHARACTER_0} use to connect the battery to the bulb?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Plastic rod",
+      "Wooden stick",
+      "Copper wire",
+      "Rubber band"
+    ],
+    "answer": 2,
+    "correct_answer": "Copper wire"
+  },
+  {
+    "id": "SCI054",
+    "category": "Matter",
+    "difficulty": "P5-P6",
+    "template": "Which change is reversible?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Burning paper",
+      "Melting ice",
+      "Cooking an egg",
+      "Rusting of iron"
+    ],
+    "answer": 1,
+    "correct_answer": "Melting ice"
+  },
+  {
+    "id": "SCI055",
+    "category": "Matter",
+    "difficulty": "P5-P6",
+    "template": "What is the process of changing a solid directly to a gas called?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Melting",
+      "Evaporation",
+      "Sublimation",
+      "Condensation"
+    ],
+    "answer": 2,
+    "correct_answer": "Sublimation"
+  },
+  {
+    "id": "SCI056",
+    "category": "Light",
+    "difficulty": "P5-P6",
+    "template": "Which type of surface reflects light the best?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Rough, dark surface",
+      "Smooth, shiny surface",
+      "Transparent surface",
+      "Porous surface"
+    ],
+    "answer": 1,
+    "correct_answer": "Smooth, shiny surface"
+  },
+  {
+    "id": "SCI057",
+    "category": "Light",
+    "difficulty": "P5-P6",
+    "template": "Why do we see our reflection in a mirror?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Light passes through the mirror",
+      "Light is absorbed by the mirror",
+      "Light is reflected by the mirror",
+      "Light bends around the mirror"
+    ],
+    "answer": 2,
+    "correct_answer": "Light is reflected by the mirror"
+  },
+  {
+    "id": "SCI058",
+    "category": "Adaptations",
+    "difficulty": "P5-P6",
+    "template": "Fish have gills to help them:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Swim faster",
+      "Breathe underwater",
+      "Find food",
+      "Stay warm"
+    ],
+    "answer": 1,
+    "correct_answer": "Breathe underwater"
+  },
+  {
+    "id": "SCI059",
+    "category": "Adaptations",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} observed that chameleons can change color. This adaptation helps them to:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Attract mates only",
+      "Regulate body temperature",
+      "Camouflage and communicate",
+      "Digest food better"
+    ],
+    "answer": 2,
+    "correct_answer": "Camouflage and communicate"
+  },
+  {
+    "id": "SCI060",
+    "category": "Cells",
+    "difficulty": "P5-P6",
+    "template": "What is the control center of a cell that contains genetic material?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Cell membrane",
+      "Cytoplasm",
+      "Nucleus",
+      "Cell wall"
+    ],
+    "answer": 2,
+    "correct_answer": "Nucleus"
+  },
+  {
+    "id": "SCI061",
+    "category": "Cells",
+    "difficulty": "P5-P6",
+    "template": "Which structure is found in plant cells but NOT in animal cells?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Nucleus",
+      "Cell membrane",
+      "Cell wall",
+      "Cytoplasm"
+    ],
+    "answer": 2,
+    "correct_answer": "Cell wall"
+  },
+  {
+    "id": "SCI062",
+    "category": "Reproduction",
+    "difficulty": "P5-P6",
+    "template": "What is pollination?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "The growth of roots",
+      "The transfer of pollen from stamen to pistil",
+      "The falling of leaves",
+      "The germination of seeds"
+    ],
+    "answer": 1,
+    "correct_answer": "The transfer of pollen from stamen to pistil"
+  },
+  {
+    "id": "SCI063",
+    "category": "Reproduction",
+    "difficulty": "P5-P6",
+    "template": "Which part of the flower attracts insects for pollination?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Roots",
+      "Petals",
+      "Stem",
+      "Leaves"
+    ],
+    "answer": 1,
+    "correct_answer": "Petals"
+  },
+  {
+    "id": "SCI064",
+    "category": "Human Body",
+    "difficulty": "P5-P6",
+    "template": "Which gas do we breathe in that our body needs?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Carbon dioxide",
+      "Nitrogen",
+      "Oxygen",
+      "Hydrogen"
+    ],
+    "answer": 2,
+    "correct_answer": "Oxygen"
+  },
+  {
+    "id": "SCI065",
+    "category": "Human Body",
+    "difficulty": "P5-P6",
+    "template": "What is the main function of the stomach?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "To pump blood",
+      "To digest food",
+      "To filter waste",
+      "To breathe"
+    ],
+    "answer": 1,
+    "correct_answer": "To digest food"
+  },
+  {
+    "id": "SCI066",
+    "category": "Heat",
+    "difficulty": "P5-P6",
+    "template": "Which material is the best insulator of heat?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Metal",
+      "Wood",
+      "Glass",
+      "Air"
+    ],
+    "answer": 3,
+    "correct_answer": "Air"
+  },
+  {
+    "id": "SCI067",
+    "category": "Heat",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} wants to keep a drink cold for a long time. What should {CHARACTER_0} use?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Metal container",
+      "Glass container",
+      "Insulated flask",
+      "Plastic bag"
+    ],
+    "answer": 2,
+    "correct_answer": "Insulated flask"
+  },
+  {
+    "id": "SCI068",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} and {CHARACTER_1} are testing how temperature affects the rate of dissolving. They placed equal amounts of salt in two cups of water - one hot and one cold. What would they observe?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist", "helper"],
+    "options": [
+      "Salt dissolves faster in cold water",
+      "Salt dissolves faster in hot water",
+      "Salt dissolves at the same rate in both",
+      "Salt does not dissolve in hot water"
+    ],
+    "answer": 1,
+    "correct_answer": "Salt dissolves faster in hot water"
+  },
+  {
+    "id": "SCI069",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "A plant is placed near a window. After a few days, the plant bends toward the window. This is because:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Plants need darkness to grow",
+      "Plants grow toward light",
+      "The wind pushes the plant",
+      "Plants need cold air"
+    ],
+    "answer": 1,
+    "correct_answer": "Plants grow toward light"
+  },
+  {
+    "id": "SCI070",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "Which of the following is an example of a physical change?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Burning wood",
+      "Rusting of iron",
+      "Boiling water",
+      "Digesting food"
+    ],
+    "answer": 2,
+    "correct_answer": "Boiling water"
+  },
+  {
+    "id": "SCI071",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} wants to separate a mixture of sand and salt. What is the best method?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Use a magnet",
+      "Dissolve in water, filter, then evaporate",
+      "Use tweezers",
+      "Shake the mixture"
+    ],
+    "answer": 1,
+    "correct_answer": "Dissolve in water, filter, then evaporate"
+  },
+  {
+    "id": "SCI072",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "In a food web, which organism is usually at the top?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Producer",
+      "Primary consumer",
+      "Secondary consumer",
+      "Apex predator"
+    ],
+    "answer": 3,
+    "correct_answer": "Apex predator"
+  },
+  {
+    "id": "SCI073",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "What would happen if all the plants in an ecosystem disappeared?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Animals would have more space",
+      "Animals would find other food sources easily",
+      "The entire food chain would collapse",
+      "Nothing would change"
+    ],
+    "answer": 2,
+    "correct_answer": "The entire food chain would collapse"
+  },
+  {
+    "id": "SCI074",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} observes that a balloon filled with air shrinks when placed in a refrigerator. This is because:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Cold air enters the balloon",
+      "The air particles inside move slower and take up less space",
+      "The balloon material contracts",
+      "Air escapes from the balloon"
+    ],
+    "answer": 1,
+    "correct_answer": "The air particles inside move slower and take up less space"
+  },
+  {
+    "id": "SCI075",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "A thermometer shows that the temperature of boiling water is 100°C at sea level. What would happen to this temperature on a high mountain?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "It would be higher than 100°C",
+      "It would be lower than 100°C",
+      "It would remain exactly 100°C",
+      "Water cannot boil on mountains"
+    ],
+    "answer": 1,
+    "correct_answer": "It would be lower than 100°C"
+  },
+  {
+    "id": "SCI076",
+    "category": "Living Things",
+    "difficulty": "P5-P6",
+    "template": "What is the role of decomposers in an ecosystem?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "To produce food",
+      "To eat plants",
+      "To break down dead organisms and return nutrients to soil",
+      "To provide oxygen"
+    ],
+    "answer": 2,
+    "correct_answer": "To break down dead organisms and return nutrients to soil"
+  },
+  {
+    "id": "SCI077",
+    "category": "Living Things",
+    "difficulty": "P5-P6",
+    "template": "Mammals are characterized by having:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Scales and cold blood",
+      "Feathers and beaks",
+      "Hair and mammary glands",
+      "Shells and antennae"
+    ],
+    "answer": 2,
+    "correct_answer": "Hair and mammary glands"
+  },
+  {
+    "id": "SCI078",
+    "category": "Materials",
+    "difficulty": "P5-P6",
+    "template": "Which property makes rubber useful for making tires?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "It is transparent",
+      "It is elastic and flexible",
+      "It conducts electricity",
+      "It is very hard"
+    ],
+    "answer": 1,
+    "correct_answer": "It is elastic and flexible"
+  },
+  {
+    "id": "SCI079",
+    "category": "Cycles",
+    "difficulty": "P5-P6",
+    "template": "In the water cycle, water from oceans, lakes, and rivers turns into water vapor. This process is called:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Precipitation",
+      "Condensation",
+      "Evaporation",
+      "Collection"
+    ],
+    "answer": 2,
+    "correct_answer": "Evaporation"
+  },
+  {
+    "id": "SCI080",
+    "category": "Energy",
+    "difficulty": "PSLE",
+    "template": "A pendulum swinging back and forth demonstrates the conversion between:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Light energy and heat energy",
+      "Kinetic energy and potential energy",
+      "Chemical energy and electrical energy",
+      "Sound energy and light energy"
+    ],
+    "answer": 1,
+    "correct_answer": "Kinetic energy and potential energy"
+  }
+]
