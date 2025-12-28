@@ -148,6 +148,16 @@ class PaperGenerator {
             questionText = questionText.replace(regex, assignedCharacters[placeholder]);
         });
         
+        // Replace placeholders in diagram if present
+        if (question.diagram) {
+            let diagram = question.diagram;
+            Object.keys(assignedCharacters).forEach(placeholder => {
+                const regex = new RegExp(`\\{${placeholder}\\}`, 'g');
+                diagram = diagram.replace(regex, assignedCharacters[placeholder]);
+            });
+            question.diagramSubstituted = diagram;
+        }
+        
         question.questionText = questionText;
         question.universeName = universe ? universe.universe_name : 'General';
     }
@@ -241,7 +251,14 @@ class PaperGenerator {
         
         let html = `
             <div class="question-item">
-                <div class="question-text"><span class="question-number">${number}.</span> ${question.questionText}</div>
+        `;
+        
+        // Add diagram if present
+        if (question.diagramSubstituted) {
+            html += `<div class="question-diagram">${question.diagramSubstituted}</div>`;
+        }
+        
+        html += `<div class="question-text"><span class="question-number">${number}.</span> ${question.questionText}</div>
         `;
         
         if (isMCQ) {
@@ -362,8 +379,14 @@ class PaperGenerator {
             
             html += `
                 <div class="question-item" data-question-index="${index}">
-                    <div class="question-number">Question ${index + 1}</div>
-                    <div class="question-text">${questionText}</div>
+                    <div class="question-number">Question ${index + 1}</div>`;
+            
+            // Add diagram if present
+            if (question.diagramSubstituted) {
+                html += `<div class="question-diagram">${question.diagramSubstituted}</div>`;
+            }
+            
+            html += `<div class="question-text">${questionText}</div>
                     <div class="options">
             `;
             

@@ -358,6 +358,22 @@ class QuizApp {
    * Build question text with placeholders substituted
    */
   buildQuestionText(question) {
+    let html = '';
+    
+    // Add diagram if present
+    if (question.diagram) {
+      let diagram = question.diagram;
+      // Substitute character placeholders in SVG text elements
+      if (question.placeholders && question.placeholders.length > 0) {
+        question.placeholders.forEach((placeholder, index) => {
+          const charRegex = new RegExp(`{CHARACTER_${index}}`, 'g');
+          diagram = diagram.replace(charRegex, placeholder);
+        });
+      }
+      html += `<div class="question-diagram">${diagram}</div>`;
+    }
+    
+    // Build question text
     let text = question.template;
     if (question.placeholders && question.placeholders.length > 0) {
       question.placeholders.forEach((placeholder, index) => {
@@ -368,7 +384,9 @@ class QuizApp {
         text = text.replace(descRegex, `<strong>${placeholder}</strong>`);
       });
     }
-    return text;
+    
+    html += text;
+    return html;
   }
 
   /**

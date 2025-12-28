@@ -1,5 +1,175 @@
 [
   {
+    "id": "Q810",
+    "category": "Angles",
+    "difficulty": "PSLE",
+    "template": "In the diagram, lines AB and CD are parallel. If angle x = 65°, find angle y.",
+    "diagram": "<svg width=\"380\" height=\"250\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"30\" y1=\"80\" x2=\"350\" y2=\"80\" stroke=\"black\" stroke-width=\"3\"/><line x1=\"30\" y1=\"170\" x2=\"350\" y2=\"170\" stroke=\"black\" stroke-width=\"3\"/><line x1=\"159\" y1=\"35\" x2=\"243\" y2=\"215\" stroke=\"black\" stroke-width=\"3\"/><text x=\"20\" y=\"75\" font-size=\"18\" font-weight=\"bold\">A</text><text x=\"355\" y=\"75\" font-size=\"18\" font-weight=\"bold\">B</text><text x=\"20\" y=\"165\" font-size=\"18\" font-weight=\"bold\">C</text><text x=\"355\" y=\"165\" font-size=\"18\" font-weight=\"bold\">D</text><circle cx=\"180\" cy=\"80\" r=\"3\" fill=\"black\"/><circle cx=\"222\" cy=\"170\" r=\"3\" fill=\"black\"/><path d=\"M 205,80 A 25,25 0 0,1 191,103\" fill=\"none\" stroke=\"blue\" stroke-width=\"2.5\"/><text x=\"200\" y=\"100\" font-size=\"20\" fill=\"blue\" font-weight=\"bold\">x</text><path d=\"M 211,147 A 25,25 0 0,1 247,170\" fill=\"none\" stroke=\"red\" stroke-width=\"2.5\"/><text x=\"248\" y=\"165\" font-size=\"20\" fill=\"red\" font-weight=\"bold\">y</text><text x=\"210\" y=\"50\" font-size=\"16\" fill=\"blue\" font-weight=\"bold\">x = 65°</text><text x=\"250\" y=\"195\" font-size=\"16\" fill=\"red\" font-weight=\"bold\">y = ?</text></svg>",
+    "placeholder_roles": [],
+    "options": [
+      "65°",
+      "115°",
+      "125°",
+      "55°"
+    ],
+    "answer": 1,
+    "correct_answer": "115°"
+  },
+  {
+    "id": "Q811",
+    "category": "Area and Perimeter",
+    "difficulty": "PSLE",
+    "template": "The diagram shows a rectangle with a triangle cut out. Find the area of the shaded region. (Rectangle: 12 cm × 8 cm, Triangle base: 6 cm, Triangle height: 4 cm)",
+    "diagram": "<svg width=\"300\" height=\"220\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"50\" y=\"50\" width=\"200\" height=\"133.33\" fill=\"#e3f2fd\" stroke=\"black\" stroke-width=\"2\"/><polygon points=\"150,50 180,103.33 120,103.33\" fill=\"white\" stroke=\"black\" stroke-width=\"2\"/><text x=\"145\" y=\"30\" font-size=\"14\" font-weight=\"bold\">12 cm</text><text x=\"20\" y=\"120\" font-size=\"14\" font-weight=\"bold\">8 cm</text><text x=\"135\" y=\"80\" font-size=\"12\" fill=\"red\">6 cm</text><line x1=\"120\" y1=\"103.33\" x2=\"120\" y2=\"50\" stroke=\"red\" stroke-width=\"1\" stroke-dasharray=\"3,3\"/><text x=\"95\" y=\"80\" font-size=\"12\" fill=\"red\">4 cm</text><line x1=\"50\" y1=\"45\" x2=\"250\" y2=\"45\" stroke=\"black\" stroke-width=\"1\" marker-start=\"url(#arrowhead)\" marker-end=\"url(#arrowhead)\"/><line x1=\"15\" y1=\"50\" x2=\"15\" y2=\"183.33\" stroke=\"black\" stroke-width=\"1\" marker-start=\"url(#arrowhead)\" marker-end=\"url(#arrowhead)\"/></svg>",
+    "placeholder_roles": [],
+    "options": [
+      "84 cm²",
+      "96 cm²",
+      "72 cm²",
+      "90 cm²"
+    ],
+    "answer": 0,
+    "correct_answer": "84 cm²"
+  },
+  {
+    "id": "Q812",
+    "category": "Data Analysis",
+    "difficulty": "PSLE",
+    "template": "The bar chart shows the number of books read by {CHARACTER_0}, {CHARACTER_1}, and {CHARACTER_2} in a month. How many more books did {CHARACTER_0} read than {CHARACTER_2}?",
+    "diagram": "<svg width=\"350\" height=\"250\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"50\" y1=\"200\" x2=\"320\" y2=\"200\" stroke=\"black\" stroke-width=\"2\"/><line x1=\"50\" y1=\"200\" x2=\"50\" y2=\"50\" stroke=\"black\" stroke-width=\"2\"/><rect x=\"70\" y=\"80\" width=\"60\" height=\"120\" fill=\"#4caf50\"/><rect x=\"150\" y=\"110\" width=\"60\" height=\"90\" fill=\"#2196f3\"/><rect x=\"230\" y=\"140\" width=\"60\" height=\"60\" fill=\"#ff9800\"/><text x=\"85\" y=\"220\" font-size=\"14\" font-weight=\"bold\">{CHARACTER_0}</text><text x=\"160\" y=\"220\" font-size=\"14\" font-weight=\"bold\">{CHARACTER_1}</text><text x=\"245\" y=\"220\" font-size=\"14\" font-weight=\"bold\">{CHARACTER_2}</text><text x=\"85\" y=\"75\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">12</text><text x=\"170\" y=\"105\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">9</text><text x=\"250\" y=\"135\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">6</text><text x=\"15\" y=\"205\" font-size=\"12\">0</text><text x=\"15\" y=\"175\" font-size=\"12\">3</text><text x=\"15\" y=\"145\" font-size=\"12\">6</text><text x=\"15\" y=\"115\" font-size=\"12\">9</text><text x=\"10\" y=\"85\" font-size=\"12\">12</text><text x=\"10\" y=\"55\" font-size=\"12\">15</text><text x=\"120\" y=\"240\" font-size=\"14\" font-weight=\"bold\">Books Read</text><text x=\"10\" y=\"30\" font-size=\"12\" font-weight=\"bold\">Number</text></svg>",
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "friend"
+    ],
+    "options": [
+      "3",
+      "6",
+      "9",
+      "12"
+    ],
+    "answer": 1,
+    "correct_answer": "6"
+  },
+  {
+    "id": "Q813",
+    "category": "Angles",
+    "difficulty": "PSLE",
+    "template": "In the diagram, lines AB and CD are parallel. If angle x = 55°, find angle y. (Alternate angles)",
+    "diagram": "<svg width=\"380\" height=\"250\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"30\" y1=\"80\" x2=\"350\" y2=\"80\" stroke=\"black\" stroke-width=\"3\"/><line x1=\"30\" y1=\"170\" x2=\"350\" y2=\"170\" stroke=\"black\" stroke-width=\"3\"/><line x1=\"151\" y1=\"39\" x2=\"272\" y2=\"211\" stroke=\"black\" stroke-width=\"3\"/><text x=\"20\" y=\"75\" font-size=\"18\" font-weight=\"bold\">A</text><text x=\"355\" y=\"75\" font-size=\"18\" font-weight=\"bold\">B</text><text x=\"20\" y=\"165\" font-size=\"18\" font-weight=\"bold\">C</text><text x=\"355\" y=\"165\" font-size=\"18\" font-weight=\"bold\">D</text><circle cx=\"180\" cy=\"80\" r=\"3\" fill=\"black\"/><circle cx=\"243\" cy=\"170\" r=\"3\" fill=\"black\"/><path d=\"M 205,80 A 25,25 0 0,1 194,100\" fill=\"none\" stroke=\"blue\" stroke-width=\"2.5\"/><text x=\"200\" y=\"98\" font-size=\"20\" fill=\"blue\" font-weight=\"bold\">x</text><path d=\"M 229,150 A 25,25 0 0,1 218,170\" fill=\"none\" stroke=\"red\" stroke-width=\"2.5\"/><text x=\"215\" y=\"165\" font-size=\"20\" fill=\"red\" font-weight=\"bold\">y</text><text x=\"210\" y=\"50\" font-size=\"16\" fill=\"blue\" font-weight=\"bold\">x = 55°</text><text x=\"250\" y=\"145\" font-size=\"16\" fill=\"red\" font-weight=\"bold\">y = ?</text></svg>",
+    "placeholder_roles": [],
+    "options": [
+      "55°",
+      "125°",
+      "35°",
+      "145°"
+    ],
+    "answer": 0,
+    "correct_answer": "55°"
+  },
+  {
+    "id": "Q814",
+    "category": "Angles",
+    "difficulty": "PSLE",
+    "template": "In the diagram, lines AB and CD are parallel. If angle x = 72°, find angle y. (Corresponding angles)",
+    "diagram": "<svg width=\"380\" height=\"250\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"30\" y1=\"80\" x2=\"350\" y2=\"80\" stroke=\"black\" stroke-width=\"3\"/><line x1=\"30\" y1=\"170\" x2=\"350\" y2=\"170\" stroke=\"black\" stroke-width=\"3\"/><line x1=\"165\" y1=\"32\" x2=\"225\" y2=\"218\" stroke=\"black\" stroke-width=\"3\"/><text x=\"20\" y=\"75\" font-size=\"18\" font-weight=\"bold\">A</text><text x=\"355\" y=\"75\" font-size=\"18\" font-weight=\"bold\">B</text><text x=\"20\" y=\"165\" font-size=\"18\" font-weight=\"bold\">C</text><text x=\"355\" y=\"165\" font-size=\"18\" font-weight=\"bold\">D</text><circle cx=\"180\" cy=\"80\" r=\"3\" fill=\"black\"/><circle cx=\"209\" cy=\"170\" r=\"3\" fill=\"black\"/><path d=\"M 205,80 A 25,25 0 0,1 188,104\" fill=\"none\" stroke=\"blue\" stroke-width=\"2.5\"/><text x=\"200\" y=\"102\" font-size=\"20\" fill=\"blue\" font-weight=\"bold\">x</text><path d=\"M 234,170 A 25,25 0 0,1 217,194\" fill=\"none\" stroke=\"red\" stroke-width=\"2.5\"/><text x=\"227\" y=\"192\" font-size=\"20\" fill=\"red\" font-weight=\"bold\">y</text><text x=\"210\" y=\"55\" font-size=\"16\" fill=\"blue\" font-weight=\"bold\">x = 72°</text><text x=\"240\" y=\"150\" font-size=\"16\" fill=\"red\" font-weight=\"bold\">y = ?</text></svg>",
+    "placeholder_roles": [],
+    "options": [
+      "108°",
+      "72°",
+      "18°",
+      "162°"
+    ],
+    "answer": 1,
+    "correct_answer": "72°"
+  },
+  {
+    "id": "Q815",
+    "category": "Angles",
+    "difficulty": "PSLE",
+    "template": "In the diagram, two straight lines intersect. If angle x = 70°, find angle y. (Vertically opposite angles)",
+    "diagram": "<svg width=\"380\" height=\"250\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"149\" y1=\"64\" x2=\"251\" y2=\"186\" stroke=\"black\" stroke-width=\"3\"/><line x1=\"240\" y1=\"56\" x2=\"160\" y2=\"194\" stroke=\"black\" stroke-width=\"3\"/><circle cx=\"200\" cy=\"125\" r=\"3\" fill=\"black\"/><path d=\"M 216,144 A 25,25 0 0,1 188,147\" fill=\"none\" stroke=\"blue\" stroke-width=\"2.5\"/><text x=\"190\" y=\"156\" font-size=\"20\" fill=\"blue\" font-weight=\"bold\">x</text><path d=\"M 184,106 A 25,25 0 0,0 212,103\" fill=\"none\" stroke=\"red\" stroke-width=\"2.5\"/><text x=\"208\" y=\"96\" font-size=\"20\" fill=\"red\" font-weight=\"bold\">y</text><text x=\"220\" y=\"155\" font-size=\"16\" fill=\"blue\" font-weight=\"bold\">x = 70°</text><text x=\"170\" y=\"95\" font-size=\"16\" fill=\"red\" font-weight=\"bold\">y = ?</text></svg>",
+    "placeholder_roles": [],
+    "options": [
+      "110°",
+      "70°",
+      "90°",
+      "20°"
+    ],
+    "answer": 1,
+    "correct_answer": "70°"
+  },
+  {
+    "id": "Q816",
+    "category": "Data Analysis",
+    "difficulty": "PSLE",
+    "template": "The bar chart shows the scores of three students in a test. What is the total score of all three students?",
+    "diagram": "<svg width=\"350\" height=\"250\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"50\" y1=\"200\" x2=\"320\" y2=\"200\" stroke=\"black\" stroke-width=\"2\"/><line x1=\"50\" y1=\"200\" x2=\"50\" y2=\"50\" stroke=\"black\" stroke-width=\"2\"/><rect x=\"70\" y=\"90\" width=\"60\" height=\"110\" fill=\"#e91e63\"/><rect x=\"150\" y=\"60\" width=\"60\" height=\"140\" fill=\"#9c27b0\"/><rect x=\"230\" y=\"110\" width=\"60\" height=\"90\" fill=\"#3f51b5\"/><text x=\"75\" y=\"220\" font-size=\"14\" font-weight=\"bold\">Student A</text><text x=\"155\" y=\"220\" font-size=\"14\" font-weight=\"bold\">Student B</text><text x=\"235\" y=\"220\" font-size=\"14\" font-weight=\"bold\">Student C</text><text x=\"90\" y=\"85\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">55</text><text x=\"170\" y=\"55\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">70</text><text x=\"250\" y=\"105\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">45</text><text x=\"15\" y=\"205\" font-size=\"12\">0</text><text x=\"10\" y=\"185\" font-size=\"12\">10</text><text x=\"10\" y=\"165\" font-size=\"12\">20</text><text x=\"10\" y=\"145\" font-size=\"12\">30</text><text x=\"10\" y=\"125\" font-size=\"12\">40</text><text x=\"10\" y=\"105\" font-size=\"12\">50</text><text x=\"10\" y=\"85\" font-size=\"12\">60</text><text x=\"10\" y=\"65\" font-size=\"12\">70</text><text x=\"10\" y=\"45\" font-size=\"12\">80</text><text x=\"135\" y=\"240\" font-size=\"14\" font-weight=\"bold\">Test Scores</text><text x=\"10\" y=\"30\" font-size=\"12\" font-weight=\"bold\">Score</text></svg>",
+    "placeholder_roles": [],
+    "options": [
+      "160",
+      "170",
+      "180",
+      "150"
+    ],
+    "answer": 1,
+    "correct_answer": "170"
+  },
+  {
+    "id": "Q817",
+    "category": "Data Analysis",
+    "difficulty": "PSLE",
+    "template": "The bar chart shows the number of cars sold by {CHARACTER_0} over 4 months. How many cars did {CHARACTER_0} sell in total?",
+    "diagram": "<svg width=\"380\" height=\"250\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"50\" y1=\"200\" x2=\"350\" y2=\"200\" stroke=\"black\" stroke-width=\"2\"/><line x1=\"50\" y1=\"200\" x2=\"50\" y2=\"50\" stroke=\"black\" stroke-width=\"2\"/><rect x=\"70\" y=\"150\" width=\"55\" height=\"50\" fill=\"#ff5722\"/><rect x=\"140\" y=\"130\" width=\"55\" height=\"70\" fill=\"#ff9800\"/><rect x=\"210\" y=\"110\" width=\"55\" height=\"90\" fill=\"#ffc107\"/><rect x=\"280\" y=\"120\" width=\"55\" height=\"80\" fill=\"#ffeb3b\"/><text x=\"82\" y=\"220\" font-size=\"14\" font-weight=\"bold\">Jan</text><text x=\"152\" y=\"220\" font-size=\"14\" font-weight=\"bold\">Feb</text><text x=\"222\" y=\"220\" font-size=\"14\" font-weight=\"bold\">Mar</text><text x=\"292\" y=\"220\" font-size=\"14\" font-weight=\"bold\">Apr</text><text x=\"85\" y=\"145\" font-size=\"14\" font-weight=\"bold\">5</text><text x=\"155\" y=\"125\" font-size=\"14\" font-weight=\"bold\">7</text><text x=\"225\" y=\"105\" font-size=\"14\" font-weight=\"bold\">9</text><text x=\"295\" y=\"115\" font-size=\"14\" font-weight=\"bold\">8</text><text x=\"15\" y=\"205\" font-size=\"12\">0</text><text x=\"15\" y=\"185\" font-size=\"12\">1</text><text x=\"15\" y=\"165\" font-size=\"12\">3</text><text x=\"15\" y=\"145\" font-size=\"12\">5</text><text x=\"15\" y=\"125\" font-size=\"12\">7</text><text x=\"15\" y=\"105\" font-size=\"12\">9</text><text x=\"10\" y=\"85\" font-size=\"12\">11</text><text x=\"150\" y=\"240\" font-size=\"14\" font-weight=\"bold\">Cars Sold by {CHARACTER_0}</text><text x=\"5\" y=\"30\" font-size=\"12\" font-weight=\"bold\">Number</text></svg>",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "28",
+      "29",
+      "30",
+      "27"
+    ],
+    "answer": 1,
+    "correct_answer": "29"
+  },
+  {
+    "id": "Q818",
+    "category": "Data Analysis",
+    "difficulty": "PSLE",
+    "template": "The bar chart shows the number of points scored by three teams. Team B scored how many more points than Team C?",
+    "diagram": "<svg width=\"350\" height=\"250\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"50\" y1=\"200\" x2=\"320\" y2=\"200\" stroke=\"black\" stroke-width=\"2\"/><line x1=\"50\" y1=\"200\" x2=\"50\" y2=\"40\" stroke=\"black\" stroke-width=\"2\"/><rect x=\"70\" y=\"80\" width=\"60\" height=\"120\" fill=\"#00bcd4\"/><rect x=\"150\" y=\"100\" width=\"60\" height=\"100\" fill=\"#009688\"/><rect x=\"230\" y=\"140\" width=\"60\" height=\"60\" fill=\"#4caf50\"/><text x=\"80\" y=\"220\" font-size=\"14\" font-weight=\"bold\">Team A</text><text x=\"160\" y=\"220\" font-size=\"14\" font-weight=\"bold\">Team B</text><text x=\"240\" y=\"220\" font-size=\"14\" font-weight=\"bold\">Team C</text><text x=\"90\" y=\"75\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">60</text><text x=\"170\" y=\"95\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">50</text><text x=\"250\" y=\"135\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">30</text><text x=\"15\" y=\"205\" font-size=\"11\">0</text><text x=\"10\" y=\"185\" font-size=\"11\">10</text><text x=\"10\" y=\"165\" font-size=\"11\">20</text><text x=\"10\" y=\"145\" font-size=\"11\">30</text><text x=\"10\" y=\"125\" font-size=\"11\">40</text><text x=\"10\" y=\"105\" font-size=\"11\">50</text><text x=\"10\" y=\"85\" font-size=\"11\">60</text><text x=\"10\" y=\"65\" font-size=\"11\">70</text><text x=\"140\" y=\"240\" font-size=\"14\" font-weight=\"bold\">Points Scored</text><text x=\"5\" y=\"30\" font-size=\"12\" font-weight=\"bold\">Points</text></svg>",
+    "placeholder_roles": [],
+    "options": [
+      "15",
+      "20",
+      "25",
+      "30"
+    ],
+    "answer": 1,
+    "correct_answer": "20"
+  },
+  {
+    "id": "Q819",
+    "category": "Data Analysis",
+    "difficulty": "PSLE",
+    "template": "The bar chart shows the number of hours {CHARACTER_0}, {CHARACTER_1}, and {CHARACTER_2} spent studying in a week. What is the average number of hours they spent studying?",
+    "diagram": "<svg width=\"350\" height=\"250\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"50\" y1=\"200\" x2=\"320\" y2=\"200\" stroke=\"black\" stroke-width=\"2\"/><line x1=\"50\" y1=\"200\" x2=\"50\" y2=\"50\" stroke=\"black\" stroke-width=\"2\"/><rect x=\"70\" y=\"100\" width=\"60\" height=\"100\" fill=\"#673ab7\"/><rect x=\"150\" y=\"80\" width=\"60\" height=\"120\" fill=\"#3f51b5\"/><rect x=\"230\" y=\"120\" width=\"60\" height=\"80\" fill=\"#2196f3\"/><text x=\"77\" y=\"220\" font-size=\"13\" font-weight=\"bold\">{CHARACTER_0}</text><text x=\"157\" y=\"220\" font-size=\"13\" font-weight=\"bold\">{CHARACTER_1}</text><text x=\"237\" y=\"220\" font-size=\"13\" font-weight=\"bold\">{CHARACTER_2}</text><text x=\"90\" y=\"95\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">10</text><text x=\"170\" y=\"75\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">12</text><text x=\"252\" y=\"115\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">8</text><text x=\"15\" y=\"205\" font-size=\"11\">0</text><text x=\"15\" y=\"185\" font-size=\"11\">2</text><text x=\"15\" y=\"165\" font-size=\"11\">4</text><text x=\"15\" y=\"145\" font-size=\"11\">6</text><text x=\"15\" y=\"125\" font-size=\"11\">8</text><text x=\"10\" y=\"105\" font-size=\"11\">10</text><text x=\"10\" y=\"85\" font-size=\"11\">12</text><text x=\"10\" y=\"65\" font-size=\"11\">14</text><text x=\"115\" y=\"240\" font-size=\"14\" font-weight=\"bold\">Study Hours Per Week</text><text x=\"10\" y=\"30\" font-size=\"12\" font-weight=\"bold\">Hours</text></svg>",
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "friend"
+    ],
+    "options": [
+      "9",
+      "10",
+      "11",
+      "8"
+    ],
+    "answer": 1,
+    "correct_answer": "10"
+  },
+  {
     "id": "Q710",
     "category": "Mixed Operations",
     "difficulty": "PSLE",

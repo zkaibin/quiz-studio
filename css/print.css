@@ -85,6 +85,21 @@
         margin-bottom: 15px;
     }
     
+    .question-diagram {
+        margin: 15px 0;
+        padding: 10px;
+        border: 1px solid #ccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        page-break-inside: avoid;
+    }
+    
+    .question-diagram svg {
+        max-width: 100%;
+        height: auto;
+    }
+    
     /* MCQ options */
     .mcq-options {
         margin-left: 30px;

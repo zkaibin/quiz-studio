@@ -250,6 +250,22 @@ label {
     line-height: 1.6;
 }
 
+.question-diagram {
+    margin: 15px 0;
+    padding: 15px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.question-diagram svg {
+    max-width: 100%;
+    height: auto;
+}
+
 .question-options {
     display: grid;
     gap: 10px;
