@@ -1,20 +1,31 @@
 # 🎓 Quiz Studio
 
-**Singapore PSLE Math Practice Platform** - A fun, interactive quiz application for Primary 1-6 and PSLE-level mathematics with character-themed questions!
+**Singapore Primary School Practice Platform** - A comprehensive learning platform for Mathematics and Science with interactive quizzes, character-themed questions, and visual concept maps!
 
-[![Questions](https://img.shields.io/badge/Questions-790-blue)]()
+[![Questions](https://img.shields.io/badge/Questions-870+-blue)]()
+[![Subjects](https://img.shields.io/badge/Subjects-2-green)]()
 [![Themes](https://img.shields.io/badge/Character_Themes-11-purple)]()
-[![Levels](https://img.shields.io/badge/PSLE_Levels-6-green)]()
+[![Levels](https://img.shields.io/badge/Levels-6-orange)]()
 
 ## ✨ Features
 
-- **📚 790 Math Questions** - Comprehensive coverage from P1-P2 to PSLE level including 180 challenging problems across 18 specialized types
+### Mathematics
+- **📚 790 Math Questions** - Comprehensive coverage from P1-P2 to PSLE level including 190 challenging problems across 18 specialized types
 - **🎭 11 Character Themes** - Disney, Pixar, Cartoon Network, K-POP (ENHYPEN, Stray Kids, BABYMONSTER, ITZY), Marvel Avengers, Dragon Ball Z, DARK MOON, and Nezha
 - **📊 Multiple Categories** - Addition, Subtraction, Multiplication, Division, Fractions, Decimals, Percentages, Ratios, Speed, Time, Money, Measurement, Mixed Operations, and Averages
 - **🎯 6 Difficulty Levels** - P1-P2, P3-P4, P5-P6, PSLE, Challenging
+
+### Science
+- **🔬 80 Science Questions** - Covering all major topics for P3-P6 levels
+- **📚 13 Interactive Concept Maps** - Visual learning tool for key science concepts
+- **🎨 Character Theme Support** - Same character themes available for science questions
+- **📖 14 Science Topics** - Living Things, Materials, Cycles, Energy, Forces, Electricity, Matter, Light, Heat, Adaptations, Cells, Reproduction, Human Body, PSLE
+
+### General Features
 - **✨ Frontend Only** - No server or database needed, runs entirely in the browser
 - **💾 Local Storage** - Quiz progress and results saved locally
 - **📱 Responsive Design** - Works perfectly on desktop, tablet, and mobile
+- **📝 Print Mode** - Generate printable practice papers
 
 ## 🚀 Quick Start
 
@@ -48,52 +59,83 @@ Visit the live site: `https://yourusername.github.io/quiz-studio`
 
 ## 🎮 How to Use
 
-### Taking a Quiz
+### Math Quiz
 
 1. Open `index.html` or visit the deployed site
-2. Enter your name
-3. Select:
+2. Click on "Math Quiz"
+3. Enter your name
+4. Select:
    - **Category** (e.g., Addition, Fractions, Mixed Operations)
    - **Difficulty** (P1-P2, P3-P4, P5-P6, PSLE, Challenging)
    - **Character Theme** (Disney, K-POP, Marvel, etc.)
-4. Click "Start Quiz"
-5. Answer questions and get instant feedback
-6. Review your results at the end
+5. Click "Start Quiz"
+6. Answer questions and get instant feedback
+7. Review your results at the end
 
-### Question Library
+### Science Quiz
 
-The quiz uses pre-built question libraries stored in JSON files. All questions are carefully curated for the Singapore PSLE math curriculum with verified correct answers.
+1. Open `index.html` or visit the deployed site
+2. Click on "Science Quiz"
+3. Enter your name
+4. Select:
+   - **Topic** (e.g., Living Things, Energy, Forces)
+   - **Level** (P3-P4, P5-P6, PSLE)
+   - **Character Theme** (Optional - for themed questions)
+5. Click "Start Quiz"
+6. Answer questions with detailed explanations
+7. Review your performance
+
+### Science Concept Maps
+
+1. Click on "Study Concept Maps" from the homepage or science quiz page
+2. Select a topic from the dropdown menu
+3. Study the visual concept maps with:
+   - Key concepts and definitions
+   - Examples and explanations
+   - Color-coded sections for easy learning
+   - Comprehensive coverage of each topic
+4. Use as a study guide before taking quizzes
+
+### Paper Generator
+
+1. Click on "PSLE Practice Paper"
+2. Configure your custom practice paper
+3. Print or download for offline practice
 
 ## 📁 Project Structure
 
 ```
 quiz-studio/
-├── index.html              # Landing page
-├── quiz.html               # Quiz interface
-├── paper-generator.html    # Print quiz papers
+├── index.html                      # Landing page
+├── quiz.html                       # Math quiz interface
+├── science-quiz.html               # Science quiz interface
+├── science-concepts.html           # Science concept maps
+├── paper-generator.html            # Print quiz papers
 ├── css/
-│   ├── style.css           # Main styles
-│   └── print.css           # Print styles
+│   ├── style.css                   # Main styles
+│   └── print.css                   # Print styles
 ├── js/
-│   ├── quiz.js             # Quiz logic & character substitution
-│   ├── data-loader.js      # JSON data loading & management
-│   └── paper-generator.js  # Quiz paper generation
+│   ├── quiz.js                     # Math quiz logic & character substitution
+│   ├── science-quiz.js             # Science quiz logic
+│   ├── science-concepts.js         # Concept map data & interactions
+│   ├── data-loader.js              # JSON data loading & management
+│   └── paper-generator.js          # Quiz paper generation
 ├── data/
-│   ├── questions-p1-p2.json       # 174 P1-P2 questions
-│   ├── questions-p3-p4.json       # 179 P3-P4 questions
-│   ├── questions-p5-p6.json       # 177 P5-P6 questions
-│   ├── questions-psle.json        # 70 PSLE questions
-│   ├── questions-challenging.json # 190 challenging questions (Q750-Q929)
-│   ├── characters.json            # 103 characters
-│   └── universes.json             # 11 character universes
+│   ├── questions-p1-p2.json        # 174 P1-P2 math questions
+│   ├── questions-p3-p4.json        # 179 P3-P4 math questions
+│   ├── questions-p5-p6.json        # 177 P5-P6 math questions
+│   ├── questions-psle.json         # 70 PSLE math questions
+│   ├── questions-challenging.json  # 190 challenging math questions
+│   ├── questions-science.json      # 80 science questions
+│   ├── characters.json             # 103 characters
+│   └── universes.json              # 11 character universes
 ├── scripts/
-│   ├── generate-questions.js      # Question generation tool
-│   ├── validate-all-questions.js  # Question validation
-│   └── check-distribution.js      # Distribution analysis
-├── count-questions.js             # Automated question counter
-├── CHALLENGING_PROBLEM_TYPES.md   # Problem type reference (18 types)
+│   ├── generate-questions.js       # Question generation tool
+│   ├── validate-all-questions.js   # Question validation
+│   └── check-distribution.js       # Distribution analysis
+├── count-questions.js              # Automated question counter
+├── CHALLENGING_PROBLEM_TYPES.md    # Problem type reference (18 types)
 └── README.md
-
 ```
 
 ## 🎭 Character Themes
@@ -116,9 +158,11 @@ Characters are randomly assigned to questions, making each quiz unique and engag
 
 ## 📚 Question Categories & Coverage
 
-**790 Total Questions** across all difficulty levels:
+**870+ Total Questions** across Math and Science:
 
-### Standard Categories
+### Mathematics (790 Questions)
+
+#### Standard Categories
 - **Addition** - Basic sums to complex multi-step problems
 - **Subtraction** - Simple differences to multi-level subtraction
 - **Multiplication** - Times tables to multi-digit multiplication
@@ -134,7 +178,7 @@ Characters are randomly assigned to questions, making each quiz unique and engag
 - **Mixed Operations** - Multi-step problems combining operations
 - **Averages** - Mean, median, and average calculations
 
-### Challenging Problem Types (190 Questions)
+#### Challenging Problem Types (190 Questions)
 Advanced PSLE-level problems covering **18 specialized types**:
 
 1. **Chicken-Rabbit Problems** - Assumption method with different attributes
@@ -157,6 +201,38 @@ Advanced PSLE-level problems covering **18 specialized types**:
 18. **Unchanging Total** - Transfer problems with constant sum
 
 See **CHALLENGING_PROBLEM_TYPES.md** for detailed descriptions of each problem type.
+
+### Science (80 Questions)
+
+Comprehensive coverage across **14 topics** for P3-P6:
+
+1. **Living Things** (10 questions) - MRS GREN, life cycles, plant functions
+2. **Materials** (5 questions) - Properties, magnetic materials
+3. **Cycles** (5 questions) - Water cycle, evaporation
+4. **Energy** (4 questions) - Forms of energy, energy conversion
+5. **Forces** (4 questions) - Types of forces, friction
+6. **Electricity** (4 questions) - Circuits, conductors, insulators
+7. **Matter** (4 questions) - States of matter, changes
+8. **Light** (4 questions) - Properties, reflection, refraction
+9. **Heat** (4 questions) - Transfer methods, conductors, insulators
+10. **Adaptations** (4 questions) - Plant and animal adaptations
+11. **Cells** (4 questions) - Cell structure, plant vs animal cells
+12. **Reproduction** (4 questions) - Plant reproduction, pollination
+13. **Human Body** (4 questions) - Body systems, organs
+14. **PSLE** (18 questions) - Mixed challenging questions
+
+### Science Concept Maps (13 Topics)
+
+Interactive visual learning materials covering:
+- Living Things, Materials, Cycles, Energy, Forces
+- Electricity, Matter, Light, Heat, Adaptations
+- Cells, Reproduction, Human Body Systems
+
+Each concept map includes:
+- Key concepts and definitions
+- Visual diagrams and examples
+- Color-coded sections for easy understanding
+- Comprehensive explanations for exam preparation
 
 ## 🔧 Technical Details
 
