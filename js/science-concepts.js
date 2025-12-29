@@ -896,8 +896,13 @@ const conceptMaps = {
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('Science Concepts: DOM loaded');
   const topicSelect = document.getElementById('topicSelect');
   const container = document.getElementById('conceptMapsContainer');
+  
+  console.log('Topic select:', topicSelect);
+  console.log('Container:', container);
+  console.log('ConceptMaps keys:', Object.keys(conceptMaps));
 
   // Generate all concept map HTML
   Object.keys(conceptMaps).forEach(topicId => {
@@ -923,11 +928,15 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     
     container.appendChild(mapDiv);
+    console.log('Created map:', topicId);
   });
+  
+  console.log('Total maps created:', document.querySelectorAll('.concept-map').length);
 
   // Handle topic selection
   topicSelect.addEventListener('change', (e) => {
     const selectedTopic = e.target.value;
+    console.log('Selected topic:', selectedTopic);
     
     // Hide all concept maps
     document.querySelectorAll('.concept-map').forEach(map => {
@@ -937,8 +946,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Show selected concept map
     if (selectedTopic) {
       const selectedMap = document.getElementById(`map-${selectedTopic}`);
+      console.log('Found map element:', selectedMap);
       if (selectedMap) {
         selectedMap.classList.add('active');
+        console.log('Added active class');
         selectedMap.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }

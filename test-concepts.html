@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Concept Maps</title>
+    <style>
+        .concept-map {
+            border: 2px solid #ccc;
+            padding: 20px;
+            margin: 20px;
+            display: none;
+        }
+        .concept-map.active {
+            display: block;
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Science Concept Maps</h1>
+    
+    <select id="topicSelect">
+        <option value="">Select a topic</option>
+        <option value="diversity-living">Living Things</option>
+        <option value="cycles-water">Water Cycle</option>
+        <option value="energy-forms">Energy Forms</option>
+    </select>
+    
+    <div id="conceptMapsContainer"></div>
+    
+    <script src="js/science-concepts.js"></script>
+    <script>
+        // Debug: Log when page loads
+        console.log('Page loaded');
+        setTimeout(() => {
+            console.log('Container:', document.getElementById('conceptMapsContainer'));
+            console.log('Number of concept maps:', document.querySelectorAll('.concept-map').length);
+            console.log('ConceptMaps object keys:', Object.keys(conceptMaps));
+        }, 1000);
+    </script>
+</body>
+</html>
