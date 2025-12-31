@@ -350,7 +350,14 @@ class ScienceQuizApp {
     
     // Add experiment data if present
     if (question.experiment_data) {
-      html += `<div class="experiment-data">${question.experiment_data}</div>`;
+      let data = question.experiment_data;
+      if (question.placeholders && question.placeholders.length > 0) {
+        question.placeholders.forEach((placeholder, index) => {
+          const charRegex = new RegExp(`{CHARACTER_${index}}`, 'g');
+          data = data.replace(charRegex, `<strong>${placeholder}</strong>`);
+        });
+      }
+      html += `<div class="experiment-data">${data}</div>`;
     }
     
     // Build question text
