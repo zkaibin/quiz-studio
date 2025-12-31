@@ -5636,5 +5636,383 @@
     ],
     "answer": 1,
     "correct_answer": "To reduce water loss through evaporation"
+  },
+  {
+    "id": "SCI-EXP021",
+    "category": "Experiment",
+    "difficulty": "P5-P6",
+    "template": "<strong>Question:</strong> Based on the results, which bird beak shape is BEST adapted for eating insects from tree bark?",
+    "experiment_setup": "{CHARACTER_0} tests different bird beak models to see which is best for picking up different types of food.<br>• Beak A: Long, thin (tweezers)<br>• Beak B: Short, thick (clothespin)<br>• Beak C: Spoon-shaped (spoon)<br><br>{CHARACTER_0} times how long it takes each 'beak' to pick up 10 small items from cracks in wood.",
+    "experiment_data": "<strong>📊 Results:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Beak Type</th><th style='padding:8px'>Time taken</th></tr><tr><td style='padding:8px'>Long, thin (A)</td><td style='padding:8px'>30 seconds</td></tr><tr><td style='padding:8px'>Short, thick (B)</td><td style='padding:8px'>90 seconds</td></tr><tr><td style='padding:8px'>Spoon-shaped (C)</td><td style='padding:8px'>120 seconds</td></tr></table>",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Short, thick beak (B)",
+      "Long, thin beak (A)",
+      "Spoon-shaped beak (C)",
+      "All beaks work equally well"
+    ],
+    "answer": 1,
+    "correct_answer": "Long, thin beak (A)"
+  },
+  {
+    "id": "SCI-EXP022",
+    "category": "Experiment",
+    "difficulty": "P5-P6",
+    "template": "<strong>Question:</strong> What can {CHARACTER_0} conclude about camouflage?",
+    "experiment_setup": "{CHARACTER_0} tests how camouflage helps animals hide by placing colored paper 'insects' on different backgrounds and timing how long it takes a partner to find them.",
+    "experiment_data": "<strong>📊 Results:</strong><br>• Green insects on green paper: Average 45 seconds to find<br>• Green insects on brown paper: Average 8 seconds to find<br>• Brown insects on brown paper: Average 50 seconds to find<br>• Brown insects on green paper: Average 6 seconds to find",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Color doesn't affect how easy it is to spot prey",
+      "Animals that match their background are harder to spot",
+      "Bright colors help animals hide better",
+      "All animals have the same chance of being spotted"
+    ],
+    "answer": 1,
+    "correct_answer": "Animals that match their background are harder to spot"
+  },
+  {
+    "id": "SCI-EXP023",
+    "category": "Experiment",
+    "difficulty": "PSLE",
+    "template": "<strong>Question:</strong> What is the function of root hairs based on this experiment?",
+    "experiment_setup": "{CHARACTER_0} compares two model 'roots':<br>• Root A: Smooth cylinder<br>• Root B: Cylinder covered with tiny threads (like root hairs)<br><br>Both models are dipped in colored water for 1 minute.",
+    "experiment_data": "<strong>📊 Observations:</strong><br>• Root A absorbed small amount of water<br>• Root B absorbed much more water (5 times more)<br><br><strong>Measurement:</strong> Root B has 20 times more surface area than Root A.",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Root hairs make roots look pretty",
+      "Root hairs increase surface area for better water absorption",
+      "Root hairs reduce water absorption",
+      "Root hairs are only for support"
+    ],
+    "answer": 1,
+    "correct_answer": "Root hairs increase surface area for better water absorption"
+  },
+  {
+    "id": "SCI-EXP024",
+    "category": "Experiment",
+    "difficulty": "P5-P6",
+    "template": "<strong>Question:</strong> What can {CHARACTER_0} conclude about plant cells from this observation?",
+    "experiment_setup": "{CHARACTER_0} prepares microscope slides of onion skin and observes them under a microscope at 400x magnification.",
+    "experiment_data": "<strong>📊 Observations:</strong><br>• Clear rectangular shapes arranged in a pattern<br>• Each shape has a dark dot in the center (nucleus)<br>• Thick walls around each shape (cell wall)<br>• Shapes fit together like bricks in a wall",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Plant cells have irregular shapes and no walls",
+      "Plant cells have rectangular shapes with cell walls",
+      "Plants have no cells",
+      "All cells look the same under a microscope"
+    ],
+    "answer": 1,
+    "correct_answer": "Plant cells have rectangular shapes with cell walls"
+  },
+  {
+    "id": "SCI-EXP025",
+    "category": "Experiment",
+    "difficulty": "P5-P6",
+    "template": "<strong>Question:</strong> What structure can {CHARACTER_0} observe in BOTH types of cells?",
+    "experiment_setup": "{CHARACTER_0} prepares two microscope slides:<br>• Slide A: Cheek cells (animal cells)<br>• Slide B: Elodea leaf (plant cells)",
+    "experiment_data": "<strong>📊 Observations:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Feature</th><th style='padding:8px'>Cheek cells</th><th style='padding:8px'>Elodea cells</th></tr><tr><td style='padding:8px'>Cell wall</td><td style='padding:8px'>No</td><td style='padding:8px'>Yes</td></tr><tr><td style='padding:8px'>Cell membrane</td><td style='padding:8px'>Yes</td><td style='padding:8px'>Yes</td></tr><tr><td style='padding:8px'>Nucleus</td><td style='padding:8px'>Yes</td><td style='padding:8px'>Yes</td></tr><tr><td style='padding:8px'>Chloroplasts</td><td style='padding:8px'>No</td><td style='padding:8px'>Yes</td></tr></table>",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Cell wall and chloroplasts",
+      "Cell membrane and nucleus",
+      "Only chloroplasts",
+      "Only cell wall"
+    ],
+    "answer": 1,
+    "correct_answer": "Cell membrane and nucleus"
+  },
+  {
+    "id": "SCI-EXP026",
+    "category": "Experiment",
+    "difficulty": "PSLE",
+    "template": "<strong>Question:</strong> What conclusion can {CHARACTER_0} make about the water cycle?",
+    "experiment_setup": "{CHARACTER_0} creates a mini water cycle model:<br>• Clear plastic container with water at the bottom<br>• Small cup in the center<br>• Plastic wrap covering the top<br>• Small weight on the plastic wrap above the cup<br>• Placed in sunlight",
+    "experiment_data": "<strong>📊 Observations after 3 hours:</strong><br>• Water droplets form on the underside of the plastic wrap<br>• Droplets slide down and drip into the center cup<br>• Water level in the container decreased slightly<br>• Cup now contains clean water",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Water disappears and never comes back",
+      "Water evaporates, condenses, and falls as 'rain' in a continuous cycle",
+      "Water only moves in one direction",
+      "Heat destroys water"
+    ],
+    "answer": 1,
+    "correct_answer": "Water evaporates, condenses, and falls as 'rain' in a continuous cycle"
+  },
+  {
+    "id": "SCI-EXP027",
+    "category": "Experiment",
+    "difficulty": "P5-P6",
+    "template": "<strong>Question:</strong> What process is demonstrated when the purple color spreads?",
+    "experiment_setup": "{CHARACTER_0} places a drop of purple food coloring in a glass of still water and observes what happens over time without stirring.",
+    "experiment_data": "<strong>📊 Observations:</strong><br>• 0 minutes: Purple color only at the drop point<br>• 5 minutes: Purple color starts spreading slowly<br>• 30 minutes: Purple color spread throughout half the glass<br>• 2 hours: Entire glass is evenly purple",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Boiling",
+      "Diffusion - particles move from high to low concentration",
+      "Condensation",
+      "Melting"
+    ],
+    "answer": 1,
+    "correct_answer": "Diffusion - particles move from high to low concentration"
+  },
+  {
+    "id": "SCI-EXP028",
+    "category": "Experiment",
+    "difficulty": "P5-P6",
+    "template": "<strong>Question:</strong> What happens to air when it is heated?",
+    "experiment_setup": "{CHARACTER_0} tests what happens to air when heated by placing a balloon over the mouth of an empty bottle, then placing the bottle in hot water.",
+    "experiment_data": "<strong>📊 Observations:</strong><br>• Before heating: Balloon is flat<br>• After 2 minutes in hot water: Balloon inflates<br>• When bottle removed from hot water: Balloon slowly deflates again",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Hot water creates new air",
+      "Air expands when heated and contracts when cooled",
+      "Air disappears when heated",
+      "Balloons always inflate in water"
+    ],
+    "answer": 1,
+    "correct_answer": "Air expands when heated and contracts when cooled"
+  },
+  {
+    "id": "SCI-EXP029",
+    "category": "Experiment",
+    "difficulty": "PSLE",
+    "template": "<strong>Question:</strong> What can {CHARACTER_0} conclude about the states of matter?",
+    "experiment_setup": "{CHARACTER_0} investigates whether different materials can change their shape and volume:<br>• Water poured into different shaped containers<br>• Air from a balloon released<br>• Ice cube in a container<br>• Stone in different containers",
+    "experiment_data": "<strong>📊 Results:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Material</th><th style='padding:8px'>Shape</th><th style='padding:8px'>Volume</th></tr><tr><td style='padding:8px'>Water (liquid)</td><td style='padding:8px'>Changes</td><td style='padding:8px'>Fixed</td></tr><tr><td style='padding:8px'>Air (gas)</td><td style='padding:8px'>Changes</td><td style='padding:8px'>Changes</td></tr><tr><td style='padding:8px'>Ice/Stone (solid)</td><td style='padding:8px'>Fixed</td><td style='padding:8px'>Fixed</td></tr></table>",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "All materials have the same properties",
+      "Liquids take the shape of containers but keep fixed volume; gases change both",
+      "Only solids can change shape",
+      "Liquids have no volume"
+    ],
+    "answer": 1,
+    "correct_answer": "Liquids take the shape of containers but keep fixed volume; gases change both"
+  },
+  {
+    "id": "SCI-EXP030",
+    "category": "Experiment",
+    "difficulty": "PSLE",
+    "template": "<strong>Question:</strong> What process converts water to ice?",
+    "experiment_setup": "{CHARACTER_0} observes water changing states by placing a container of water in the freezer and measuring temperature every 15 minutes.",
+    "experiment_data": "<strong>📊 Observations:</strong><br>• Start: Water at 20°C (liquid)<br>• 15 min: Water at 5°C (still liquid)<br>• 30 min: Water at 0°C (turning slushy)<br>• 45 min: Water at 0°C (completely solid ice)<br>• 60 min: Ice at -5°C (solid)",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Evaporation",
+      "Freezing - liquid changes to solid when cooled below 0°C",
+      "Melting",
+      "Condensation"
+    ],
+    "answer": 1,
+    "correct_answer": "Freezing - liquid changes to solid when cooled below 0°C"
+  },
+  {
+    "id": "SCI-EXP031",
+    "category": "Experiment",
+    "difficulty": "P5-P6",
+    "template": "<strong>Question:</strong> What energy form is stored in the wound-up rubber band?",
+    "experiment_setup": "{CHARACTER_0} investigates energy in a rubber band powered toy car by winding up the rubber band different numbers of turns and measuring how far the car travels.",
+    "experiment_data": "<strong>📊 Results:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Turns</th><th style='padding:8px'>Distance traveled</th></tr><tr><td style='padding:8px'>5 turns</td><td style='padding:8px'>1 meter</td></tr><tr><td style='padding:8px'>10 turns</td><td style='padding:8px'>3 meters</td></tr><tr><td style='padding:8px'>15 turns</td><td style='padding:8px'>5 meters</td></tr></table>",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Light energy",
+      "Elastic potential energy (stored in the stretched rubber band)",
+      "Sound energy",
+      "Chemical energy"
+    ],
+    "answer": 1,
+    "correct_answer": "Elastic potential energy (stored in the stretched rubber band)"
+  },
+  {
+    "id": "SCI-EXP032",
+    "category": "Experiment",
+    "difficulty": "PSLE",
+    "template": "<strong>Question:</strong> Why do dark-colored objects heat up faster?",
+    "experiment_setup": "{CHARACTER_0} wraps three identical bottles of water in different colored paper (white, gray, black) and places them in direct sunlight for 30 minutes.",
+    "experiment_data": "<strong>📊 Temperature increase:</strong><br>• White paper bottle: +5°C<br>• Gray paper bottle: +8°C<br>• Black paper bottle: +12°C",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Dark colors reflect more light energy",
+      "Dark colors absorb more light energy and convert it to heat",
+      "Color has no effect on temperature",
+      "White colors absorb the most heat"
+    ],
+    "answer": 1,
+    "correct_answer": "Dark colors absorb more light energy and convert it to heat"
+  },
+  {
+    "id": "SCI-EXP033",
+    "category": "Experiment",
+    "difficulty": "P5-P6",
+    "template": "<strong>Question:</strong> What can {CHARACTER_0} conclude about decomposition?",
+    "experiment_setup": "{CHARACTER_0} buries different items in soil to test which decompose:<br>• Item 1: Apple core<br>• Item 2: Plastic bag<br>• Item 3: Paper<br>• Item 4: Aluminum can<br><br>All items marked and checked every 2 weeks.",
+    "experiment_data": "<strong>📊 After 8 weeks:</strong><br>• Apple core: Completely decomposed<br>• Paper: Partially decomposed (60% gone)<br>• Plastic bag: No change<br>• Aluminum can: No change",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "All materials decompose at the same rate",
+      "Natural materials decompose faster than synthetic materials",
+      "Plastic decomposes faster than food",
+      "Nothing can decompose"
+    ],
+    "answer": 1,
+    "correct_answer": "Natural materials decompose faster than synthetic materials"
+  },
+  {
+    "id": "SCI-EXP034",
+    "category": "Experiment",
+    "difficulty": "PSLE",
+    "template": "<strong>Question:</strong> What is the relationship between producers and oxygen?",
+    "experiment_setup": "{CHARACTER_0} sets up two bottles with pond water and small aquatic animals:<br>• Bottle A: Animals + pond plants<br>• Bottle B: Animals only (no plants)<br><br>Both bottles sealed and placed in sunlight.",
+    "experiment_data": "<strong>📊 After 24 hours:</strong><br>• Bottle A: Animals active and healthy<br>• Bottle B: Animals sluggish or dead<br><br><strong>Oxygen test:</strong><br>• Bottle A: High oxygen level<br>• Bottle B: Very low oxygen level",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Plants use up all the oxygen",
+      "Plants produce oxygen through photosynthesis that animals need",
+      "Animals don't need oxygen",
+      "Sunlight produces oxygen directly"
+    ],
+    "answer": 1,
+    "correct_answer": "Plants produce oxygen through photosynthesis that animals need"
+  },
+  {
+    "id": "SCI-EXP035",
+    "category": "Experiment",
+    "difficulty": "P5-P6",
+    "template": "<strong>Question:</strong> What effect does pollution have on plant growth?",
+    "experiment_setup": "{CHARACTER_0} grows identical bean plants in different conditions:<br>• Plant A: Clean water<br>• Plant B: Water with detergent<br>• Plant C: Water with vinegar (acid rain simulation)<br>• Plant D: Water with oil",
+    "experiment_data": "<strong>📊 After 3 weeks:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Plant</th><th style='padding:8px'>Height</th><th style='padding:8px'>Condition</th></tr><tr><td style='padding:8px'>A (clean)</td><td style='padding:8px'>20 cm</td><td style='padding:8px'>Healthy, green</td></tr><tr><td style='padding:8px'>B (detergent)</td><td style='padding:8px'>8 cm</td><td style='padding:8px'>Yellow, weak</td></tr><tr><td style='padding:8px'>C (vinegar)</td><td style='padding:8px'>6 cm</td><td style='padding:8px'>Brown spots, dying</td></tr><tr><td style='padding:8px'>D (oil)</td><td style='padding:8px'>4 cm</td><td style='padding:8px'>Nearly dead</td></tr></table>",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Pollution helps plants grow better",
+      "Pollution harms plant growth and health",
+      "All pollutants help plants equally",
+      "Plants are not affected by water quality"
+    ],
+    "answer": 1,
+    "correct_answer": "Pollution harms plant growth and health"
+  },
+  {
+    "id": "SCI-EXP036",
+    "category": "Experiment",
+    "difficulty": "PSLE",
+    "template": "<strong>Question:</strong> Why does heart rate increase during exercise?",
+    "experiment_setup": "{CHARACTER_0} measures heart rate and breathing rate during different activities using a heart rate monitor.",
+    "experiment_data": "<strong>📊 Results:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Activity</th><th style='padding:8px'>Heart rate (bpm)</th><th style='padding:8px'>Breathing rate</th></tr><tr><td style='padding:8px'>Resting</td><td style='padding:8px'>70</td><td style='padding:8px'>12 breaths/min</td></tr><tr><td style='padding:8px'>Walking</td><td style='padding:8px'>100</td><td style='padding:8px'>18 breaths/min</td></tr><tr><td style='padding:8px'>Jogging</td><td style='padding:8px'>140</td><td style='padding:8px'>28 breaths/min</td></tr><tr><td style='padding:8px'>Running</td><td style='padding:8px'>165</td><td style='padding:8px'>35 breaths/min</td></tr></table>",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "To waste energy",
+      "To pump more oxygen-rich blood to working muscles faster",
+      "Exercise makes the heart beat irregularly",
+      "To make you tired"
+    ],
+    "answer": 1,
+    "correct_answer": "To pump more oxygen-rich blood to working muscles faster"
+  },
+  {
+    "id": "SCI-EXP037",
+    "category": "Experiment",
+    "difficulty": "P5-P6",
+    "template": "<strong>Question:</strong> Which sense is MOST important for identifying food?",
+    "experiment_setup": "{CHARACTER_0} conducts a test where a blindfolded volunteer tries to identify different foods while holding their nose closed, then with nose open.",
+    "experiment_data": "<strong>📊 Results:</strong><br><strong>With nose held closed:</strong><br>• Apple vs Potato: Could not tell the difference (identified 2/10 correctly)<br>• Lemon vs Orange juice: Could only tell sour vs sweet (5/10 correct)<br><br><strong>With nose open:</strong><br>• Identified correctly: 9/10 foods",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Touch is most important for tasting",
+      "Smell is crucial for identifying flavors - taste and smell work together",
+      "Vision is the only sense needed",
+      "Temperature is most important"
+    ],
+    "answer": 1,
+    "correct_answer": "Smell is crucial for identifying flavors - taste and smell work together"
+  },
+  {
+    "id": "SCI-EXP038",
+    "category": "Experiment",
+    "difficulty": "PSLE",
+    "template": "<strong>Question:</strong> What does this demonstrate about digestion?",
+    "experiment_setup": "{CHARACTER_0} models the action of saliva in digestion:<br>• Test tube A: Bread + water<br>• Test tube B: Bread + saliva<br><br>Both kept at body temperature (37°C) for 10 minutes, then iodine solution added to test for starch.",
+    "experiment_data": "<strong>📊 Observations:</strong><br>• Test tube A: Iodine turns blue-black (starch present)<br>• Test tube B: Iodine stays brown (no starch - it was broken down)<br><br><strong>Taste test before iodine:</strong> Test tube B liquid tastes slightly sweet.",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Saliva has no effect on food",
+      "Saliva contains enzymes that break down starch into sugars",
+      "Water breaks down starch better than saliva",
+      "Iodine creates sugars"
+    ],
+    "answer": 1,
+    "correct_answer": "Saliva contains enzymes that break down starch into sugars"
+  },
+  {
+    "id": "SCI-EXP039",
+    "category": "Experiment",
+    "difficulty": "P5-P6",
+    "template": "<strong>Question:</strong> What conditions are needed for mold growth?",
+    "experiment_setup": "{CHARACTER_0} places pieces of bread in different conditions to observe mold growth:<br>• Bread A: In a sealed bag, moist, warm place<br>• Bread B: In open air, dry, warm place<br>• Bread C: In a sealed bag, dry, warm place<br>• Bread D: In refrigerator, sealed bag, moist",
+    "experiment_data": "<strong>📊 After 1 week:</strong><br>• Bread A: Heavy mold growth (green and black)<br>• Bread B: Slight mold, mostly dried out<br>• Bread C: Very little mold<br>• Bread D: Minimal mold",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Mold grows best in cold, dry conditions",
+      "Mold grows best in warm, moist conditions",
+      "Mold only grows in light",
+      "Mold needs dry conditions to grow"
+    ],
+    "answer": 1,
+    "correct_answer": "Mold grows best in warm, moist conditions"
+  },
+  {
+    "id": "SCI-EXP040",
+    "category": "Experiment",
+    "difficulty": "PSLE",
+    "template": "<strong>Question:</strong> What is the role of pollen in reproduction?",
+    "experiment_setup": "{CHARACTER_0} sets up an experiment with identical flowering plants:<br>• Plant Group A: Pollen allowed to reach stigma naturally<br>• Plant Group B: Stigma covered with bag to prevent pollen from reaching it<br>• Plant Group C: Pollen manually transferred to stigma with brush",
+    "experiment_data": "<strong>📊 After 4 weeks:</strong><br>• Plant A: Developed seeds and fruits<br>• Plant B: No seeds or fruits developed, flower died<br>• Plant C: Developed seeds and fruits (similar to A)",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Pollen is not needed for plant reproduction",
+      "Pollen must reach the stigma for fertilization and seed formation",
+      "Only Group A can make seeds",
+      "Seeds form without flowers"
+    ],
+    "answer": 1,
+    "correct_answer": "Pollen must reach the stigma for fertilization and seed formation"
+  },
+  {
+    "id": "SCI-EXP041",
+    "category": "Experiment",
+    "difficulty": "P5-P6",
+    "template": "<strong>Question:</strong> What conclusion can {CHARACTER_0} make about the life cycle?",
+    "experiment_setup": "{CHARACTER_0} observes the complete life cycle of mealworms (beetle larvae) over several weeks, documenting each stage with photos and measurements.",
+    "experiment_data": "<strong>📊 Life cycle observed:</strong><br>• Week 0-2: Tiny eggs → larvae hatched<br>• Week 2-6: Larvae grew larger, molted several times<br>• Week 6-8: Larvae → pupae (non-moving stage)<br>• Week 8-10: Pupae → adult beetles emerged<br>• Week 10+: Adult beetles laid new eggs",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Insects are born as adults",
+      "Insects undergo complete metamorphosis: egg→larva→pupa→adult",
+      "Mealworms stay as larvae forever",
+      "Insects don't change form"
+    ],
+    "answer": 1,
+    "correct_answer": "Insects undergo complete metamorphosis: egg→larva→pupa→adult"
   }
 ]
