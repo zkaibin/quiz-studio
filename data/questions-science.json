@@ -481,7 +481,7 @@
   },
   {
     "id": "SCI031",
-    "category": "PSLE",
+    "category": "Living Things",
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} placed a plant in a dark cupboard for three days. What would most likely happen to the plant?",
     "diagram": "",
@@ -497,7 +497,7 @@
   },
   {
     "id": "SCI032",
-    "category": "PSLE",
+    "category": "Cycles",
     "difficulty": "PSLE",
     "template": "In an experiment, {CHARACTER_0} placed equal amounts of water in four identical cups and left them in different locations for 24 hours. In which location would the water evaporate the FASTEST?",
     "diagram": "",
@@ -513,7 +513,7 @@
   },
   {
     "id": "SCI033",
-    "category": "PSLE",
+    "category": "Forces",
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} observed that when she added more weights to a spring, it stretched more. What can {CHARACTER_0} conclude?",
     "diagram": "",
@@ -529,7 +529,7 @@
   },
   {
     "id": "SCI034",
-    "category": "PSLE",
+    "category": "Adaptations",
     "difficulty": "PSLE",
     "template": "Which of the following adaptations helps a bird to fly?",
     "diagram": "",
@@ -545,7 +545,7 @@
   },
   {
     "id": "SCI035",
-    "category": "PSLE",
+    "category": "Electricity",
     "difficulty": "PSLE",
     "template": "In a simple electric circuit with a bulb, battery, and wires, what would happen if one wire is disconnected?",
     "diagram": "",
@@ -561,7 +561,7 @@
   },
   {
     "id": "SCI036",
-    "category": "PSLE",
+    "category": "Living Things",
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} is a farmer who wants to increase the yield of crops. Which of the following would be MOST effective?",
     "diagram": "",
@@ -577,7 +577,7 @@
   },
   {
     "id": "SCI037",
-    "category": "PSLE",
+    "category": "Forces",
     "difficulty": "PSLE",
     "template": "Water flows downhill because of:",
     "diagram": "",
@@ -593,7 +593,7 @@
   },
   {
     "id": "SCI038",
-    "category": "PSLE",
+    "category": "Environment",
     "difficulty": "PSLE",
     "template": "Which of these activities would help conserve water?",
     "diagram": "",
@@ -609,7 +609,7 @@
   },
   {
     "id": "SCI039",
-    "category": "PSLE",
+    "category": "Heat",
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} notices that ice cream melts faster on a hot day than on a cool day. This is because:",
     "diagram": "",
@@ -625,7 +625,7 @@
   },
   {
     "id": "SCI040",
-    "category": "PSLE",
+    "category": "Cycles",
     "difficulty": "PSLE",
     "template": "In a food chain, energy flows from:",
     "diagram": "",
@@ -1073,7 +1073,7 @@
   },
   {
     "id": "SCI068",
-    "category": "PSLE",
+    "category": "Matter",
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} and {CHARACTER_1} are testing how temperature affects the rate of dissolving. They placed equal amounts of salt in two cups of water - one hot and one cold. What would they observe?",
     "diagram": "",
@@ -1089,7 +1089,7 @@
   },
   {
     "id": "SCI069",
-    "category": "PSLE",
+    "category": "Living Things",
     "difficulty": "PSLE",
     "template": "A plant is placed near a window. After a few days, the plant bends toward the window. This is because:",
     "diagram": "",
@@ -1105,7 +1105,7 @@
   },
   {
     "id": "SCI070",
-    "category": "PSLE",
+    "category": "Matter",
     "difficulty": "PSLE",
     "template": "Which of the following is an example of a physical change?",
     "diagram": "",
@@ -1121,7 +1121,7 @@
   },
   {
     "id": "SCI071",
-    "category": "PSLE",
+    "category": "Matter",
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} wants to separate a mixture of sand and salt. What is the best method?",
     "diagram": "",
@@ -1137,7 +1137,7 @@
   },
   {
     "id": "SCI072",
-    "category": "PSLE",
+    "category": "Cycles",
     "difficulty": "PSLE",
     "template": "In a food web, which organism is usually at the top?",
     "diagram": "",
@@ -1153,7 +1153,7 @@
   },
   {
     "id": "SCI073",
-    "category": "PSLE",
+    "category": "Environment",
     "difficulty": "PSLE",
     "template": "What would happen if all the plants in an ecosystem disappeared?",
     "diagram": "",
@@ -1169,7 +1169,7 @@
   },
   {
     "id": "SCI074",
-    "category": "PSLE",
+    "category": "Matter",
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} observes that a balloon filled with air shrinks when placed in a refrigerator. This is because:",
     "diagram": "",
@@ -1185,7 +1185,7 @@
   },
   {
     "id": "SCI075",
-    "category": "PSLE",
+    "category": "Heat",
     "difficulty": "PSLE",
     "template": "A thermometer shows that the temperature of boiling water is 100°C at sea level. What would happen to this temperature on a high mountain?",
     "diagram": "",
@@ -1905,7 +1905,7 @@
   },
   {
     "id": "SCI120",
-    "category": "PSLE",
+    "category": "Living Things",
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} set up an experiment with two plants. Plant A received sunlight and water. Plant B received only water, no sunlight. After one week, what would {CHARACTER_0} observe?",
     "diagram": "",
@@ -1921,7 +1921,7 @@
   },
   {
     "id": "SCI121",
-    "category": "PSLE",
+    "category": "Heat",
     "difficulty": "PSLE",
     "template": "A thermometer is placed in ice water (0°C) and then in boiling water (100°C). What property of the liquid in the thermometer changes?",
     "diagram": "",
@@ -1937,7 +1937,7 @@
   },
   {
     "id": "SCI122",
-    "category": "PSLE",
+    "category": "Materials",
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} and {CHARACTER_1} want to test which paper towel absorbs the most water. What should they keep the same?",
     "diagram": "",
@@ -1953,7 +1953,7 @@
   },
   {
     "id": "SCI123",
-    "category": "PSLE",
+    "category": "Electricity",
     "difficulty": "PSLE",
     "template": "In a parallel circuit with three bulbs, if one bulb burns out:",
     "diagram": "",
@@ -1969,7 +1969,7 @@
   },
   {
     "id": "SCI124",
-    "category": "PSLE",
+    "category": "Cycles",
     "difficulty": "PSLE",
     "template": "Which organism would be classified as a decomposer?",
     "diagram": "",
@@ -1985,7 +1985,7 @@
   },
   {
     "id": "SCI125",
-    "category": "PSLE",
+    "category": "Heat",
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} observes that ice cubes melt faster in a metal bowl than in a plastic bowl. This is because:",
     "diagram": "",
@@ -2001,7 +2001,7 @@
   },
   {
     "id": "SCI126",
-    "category": "PSLE",
+    "category": "Forces",
     "difficulty": "PSLE",
     "template": "A student wants to investigate how the length of a pendulum affects its swing. What should be kept constant?",
     "diagram": "",
@@ -2017,7 +2017,7 @@
   },
   {
     "id": "SCI127",
-    "category": "PSLE",
+    "category": "Light",
     "difficulty": "PSLE",
     "template": "Which statement about shadows is correct?",
     "diagram": "",
@@ -2033,7 +2033,7 @@
   },
   {
     "id": "SCI128",
-    "category": "PSLE",
+    "category": "Cycles",
     "difficulty": "PSLE",
     "template": "If all producers in a food web were removed, what would happen?",
     "diagram": "",
@@ -2049,7 +2049,7 @@
   },
   {
     "id": "SCI129",
-    "category": "PSLE",
+    "category": "Materials",
     "difficulty": "PSLE",
     "template": "A nail is attracted to a magnet. What can we conclude?",
     "diagram": "",
@@ -2065,7 +2065,7 @@
   },
   {
     "id": "SCI130",
-    "category": "PSLE",
+    "category": "Heat",
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} wants to make ice cream freeze faster. What should {CHARACTER_0} do?",
     "diagram": "",
