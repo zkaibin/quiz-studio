@@ -360,6 +360,23 @@ class QuizApp {
   buildQuestionText(question) {
     let html = '';
     
+    // Add experiment setup section if present
+    if (question.experiment_setup) {
+      let setup = question.experiment_setup;
+      if (question.placeholders && question.placeholders.length > 0) {
+        question.placeholders.forEach((placeholder, index) => {
+          const charRegex = new RegExp(`{CHARACTER_${index}}`, 'g');
+          setup = setup.replace(charRegex, `<strong>${placeholder}</strong>`);
+        });
+      }
+      html += `<div class="experiment-setup"><strong>🧪 Experiment Setup:</strong><br>${setup}</div>`;
+    }
+    
+    // Add experiment data if present
+    if (question.experiment_data) {
+      html += `<div class="experiment-data">${question.experiment_data}</div>`;
+    }
+    
     // Add diagram if present
     if (question.diagram) {
       let diagram = question.diagram;

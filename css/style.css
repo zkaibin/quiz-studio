@@ -300,6 +300,57 @@ label {
     height: auto;
 }
 
+/* Experiment question styles */
+.experiment-setup {
+    background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+    border-left: 4px solid #0284c7;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    font-size: 0.98em;
+    line-height: 1.6;
+}
+
+.experiment-setup strong {
+    color: #0369a1;
+    font-size: 1.05em;
+}
+
+.experiment-data {
+    background: #f8fafc;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+.experiment-data table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.experiment-data th,
+.experiment-data td {
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    text-align: left;
+}
+
+.experiment-data th {
+    background: #e2e8f0;
+    font-weight: 600;
+    color: #475569;
+}
+
+.experiment-data tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+.experiment-data tr:hover {
+    background: #f1f5f9;
+}
+
 .question-options {
     display: grid;
     gap: 10px;
