@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment Questions Preview</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .preview-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .experiment-preview {
+            margin: 30px 0;
+            padding: 25px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+        }
+        .question-id {
+            color: #6366f1;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .category-badge {
+            background: #6366f1;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        table {
+            margin: 10px 0 !important;
+            width: 100% !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <h1>🧪 Experiment Questions Preview</h1>
+        <p style="color: #64748b; margin-bottom: 30px;">Testing HTML-formatted experiment questions with existing architecture</p>
+        
+        <div id="questions-container"></div>
+    </div>
+
+    <script>
+        // Sample experiment questions to preview
+        const sampleQuestions = [
+            {
+                "id": "SCI-EXP001",
+                "category": "Heat",
+                "difficulty": "PSLE",
+                "template": "<strong>Experiment:</strong> Student sets up 4 identical beakers with hot water at 80°C. Each beaker is wrapped differently:<br>• Beaker 1: No wrapping<br>• Beaker 2: Aluminum foil<br>• Beaker 3: Newspaper<br>• Beaker 4: Cotton wool<br><br><strong>Procedure:</strong> Student measures the temperature of water in each beaker after 30 minutes.<br><br><strong>Question:</strong> Which beaker will have the LOWEST temperature after 30 minutes?",
+                "options": [
+                    "Beaker 1 (no wrapping)",
+                    "Beaker 2 (aluminum foil)",
+                    "Beaker 3 (newspaper)",
+                    "Beaker 4 (cotton wool)"
+                ],
+                "answer": 0,
+                "correct_answer": "Beaker 1 (no wrapping)"
+            },
+            {
+                "id": "SCI-EXP003",
+                "category": "Matter",
+                "difficulty": "P5-P6",
+                "template": "<strong>Experiment:</strong> Student tests how fast sugar dissolves in water at different temperatures.<br><br><strong>Results:</strong><br><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Temperature</th><th style='padding:8px'>Time to dissolve</th></tr><tr><td style='padding:8px'>Cold (10°C)</td><td style='padding:8px'>3 minutes</td></tr><tr><td style='padding:8px'>Room (25°C)</td><td style='padding:8px'>1.5 minutes</td></tr><tr><td style='padding:8px'>Hot (60°C)</td><td style='padding:8px'>30 seconds</td></tr></table><br><strong>Question:</strong> What conclusion can Student make from this experiment?",
+                "options": [
+                    "Temperature has no effect on dissolving",
+                    "Sugar dissolves faster at higher temperatures",
+                    "Sugar dissolves faster in cold water",
+                    "Sugar doesn't dissolve in hot water"
+                ],
+                "answer": 1,
+                "correct_answer": "Sugar dissolves faster at higher temperatures"
+            },
+            {
+                "id": "SCI-EXP008",
+                "category": "Forces",
+                "difficulty": "P5-P6",
+                "template": "<strong>Experiment:</strong> Student releases a toy car from the top of ramps at different heights and measures how far the car travels on a flat surface.<br><br><strong>Results:</strong><br><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Ramp Height</th><th style='padding:8px'>Distance traveled</th></tr><tr><td style='padding:8px'>10 cm</td><td style='padding:8px'>50 cm</td></tr><tr><td style='padding:8px'>20 cm</td><td style='padding:8px'>100 cm</td></tr><tr><td style='padding:8px'>30 cm</td><td style='padding:8px'>150 cm</td></tr></table><br><strong>Question:</strong> What can Student conclude?",
+                "options": [
+                    "Ramp height has no effect on distance traveled",
+                    "Higher ramps give the car more speed and energy",
+                    "Lower ramps make the car travel farther",
+                    "The car's color affects the distance"
+                ],
+                "answer": 1,
+                "correct_answer": "Higher ramps give the car more speed and energy"
+            }
+        ];
+
+        // Render questions
+        const container = document.getElementById('questions-container');
+        const letters = ['A', 'B', 'C', 'D'];
+        
+        sampleQuestions.forEach(q => {
+            const div = document.createElement('div');
+            div.className = 'experiment-preview';
+            
+            let optionsHtml = '';
+            q.options.forEach((opt, i) => {
+                const isCorrect = i === q.answer;
+                const correctClass = isCorrect ? 'style="background:#d1fae5; border-color:#10b981"' : '';
+                optionsHtml += `
+                    <div class="option" ${correctClass}>
+                        <span class="option-letter">${letters[i]}</span>
+                        <span class="option-text">${opt}</span>
+                        ${isCorrect ? '<span style="color:#10b981; margin-left:10px">✓ Correct</span>' : ''}
+                    </div>
+                `;
+            });
+            
+            div.innerHTML = `
+                <div class="question-id">
+                    ${q.id}
+                    <span class="category-badge">${q.category}</span>
+                    <span class="category-badge" style="background:#ec4899">${q.difficulty}</span>
+                </div>
+                <div class="question-text">${q.template}</div>
+                <div class="options" style="margin-top:20px">
+                    ${optionsHtml}
+                </div>
+            `;
+            
+            container.appendChild(div);
+        });
+    </script>
+</body>
+</html>
