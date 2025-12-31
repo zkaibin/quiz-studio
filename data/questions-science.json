@@ -1278,5 +1278,805 @@
     ],
     "answer": 1,
     "correct_answer": "Kinetic energy and potential energy"
+  },
+  {
+    "id": "SCI081",
+    "category": "Living Things",
+    "difficulty": "P3-P4",
+    "template": "Animals that eat only plants are called:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Carnivores",
+      "Herbivores",
+      "Omnivores",
+      "Decomposers"
+    ],
+    "answer": 1,
+    "correct_answer": "Herbivores"
+  },
+  {
+    "id": "SCI082",
+    "category": "Living Things",
+    "difficulty": "P3-P4",
+    "template": "Which of these animals is an insect?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Spider",
+      "Butterfly",
+      "Snail",
+      "Worm"
+    ],
+    "answer": 1,
+    "correct_answer": "Butterfly"
+  },
+  {
+    "id": "SCI083",
+    "category": "Living Things",
+    "difficulty": "P5-P6",
+    "template": "Which life process allows organisms to respond to changes in their environment?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Nutrition",
+      "Respiration",
+      "Sensitivity",
+      "Excretion"
+    ],
+    "answer": 2,
+    "correct_answer": "Sensitivity"
+  },
+  {
+    "id": "SCI084",
+    "category": "Living Things",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} observed that woodlice prefer dark, damp places. This is an example of:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Feeding",
+      "Response to environment",
+      "Growth",
+      "Reproduction"
+    ],
+    "answer": 1,
+    "correct_answer": "Response to environment"
+  },
+  {
+    "id": "SCI085",
+    "category": "Materials",
+    "difficulty": "P3-P4",
+    "template": "Which material is the best conductor of heat?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Plastic",
+      "Wood",
+      "Metal",
+      "Cloth"
+    ],
+    "answer": 2,
+    "correct_answer": "Metal"
+  },
+  {
+    "id": "SCI086",
+    "category": "Materials",
+    "difficulty": "P3-P4",
+    "template": "Glass is transparent. This means:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "It can be bent easily",
+      "Light can pass through it clearly",
+      "It conducts electricity",
+      "It floats on water"
+    ],
+    "answer": 1,
+    "correct_answer": "Light can pass through it clearly"
+  },
+  {
+    "id": "SCI087",
+    "category": "Materials",
+    "difficulty": "P5-P6",
+    "template": "Which material would be best for making cooking pot handles?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Steel (good conductor)",
+      "Plastic (poor conductor)",
+      "Copper (excellent conductor)",
+      "Aluminum (good conductor)"
+    ],
+    "answer": 1,
+    "correct_answer": "Plastic (poor conductor)"
+  },
+  {
+    "id": "SCI088",
+    "category": "Materials",
+    "difficulty": "P5-P6",
+    "template": "Which of the following is NOT a magnetic material?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Iron",
+      "Nickel",
+      "Copper",
+      "Cobalt"
+    ],
+    "answer": 2,
+    "correct_answer": "Copper"
+  },
+  {
+    "id": "SCI089",
+    "category": "Cycles",
+    "difficulty": "P3-P4",
+    "template": "When does water change from liquid to solid?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "When heated to 100°C",
+      "When cooled to 0°C",
+      "When left in the sun",
+      "When poured into a container"
+    ],
+    "answer": 1,
+    "correct_answer": "When cooled to 0°C"
+  },
+  {
+    "id": "SCI090",
+    "category": "Cycles",
+    "difficulty": "P5-P6",
+    "template": "Which factor does NOT affect the rate of evaporation?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Temperature",
+      "Wind speed",
+      "Surface area",
+      "Color of container"
+    ],
+    "answer": 3,
+    "correct_answer": "Color of container"
+  },
+  {
+    "id": "SCI091",
+    "category": "Cycles",
+    "difficulty": "P5-P6",
+    "template": "In a food chain: Grass → Rabbit → Fox, what would happen if all the rabbits died?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Fox population would increase",
+      "Fox population would decrease",
+      "Grass would die",
+      "Nothing would change"
+    ],
+    "answer": 1,
+    "correct_answer": "Fox population would decrease"
+  },
+  {
+    "id": "SCI092",
+    "category": "Cells",
+    "difficulty": "P5-P6",
+    "template": "Which cell part controls what enters and leaves the cell?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Nucleus",
+      "Cell membrane",
+      "Cytoplasm",
+      "Vacuole"
+    ],
+    "answer": 1,
+    "correct_answer": "Cell membrane"
+  },
+  {
+    "id": "SCI093",
+    "category": "Cells",
+    "difficulty": "P5-P6",
+    "template": "Plant cells have a large vacuole that:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Controls cell activities",
+      "Stores water and keeps cell firm",
+      "Makes food for the cell",
+      "Protects the cell"
+    ],
+    "answer": 1,
+    "correct_answer": "Stores water and keeps cell firm"
+  },
+  {
+    "id": "SCI094",
+    "category": "Human Body",
+    "difficulty": "P5-P6",
+    "template": "Which organ filters waste products from the blood?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Liver",
+      "Kidneys",
+      "Heart",
+      "Stomach"
+    ],
+    "answer": 1,
+    "correct_answer": "Kidneys"
+  },
+  {
+    "id": "SCI095",
+    "category": "Human Body",
+    "difficulty": "P5-P6",
+    "template": "What is the main function of red blood cells?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Fight disease",
+      "Carry oxygen",
+      "Digest food",
+      "Produce hormones"
+    ],
+    "answer": 1,
+    "correct_answer": "Carry oxygen"
+  },
+  {
+    "id": "SCI096",
+    "category": "Reproduction",
+    "difficulty": "P5-P6",
+    "template": "Seeds that are dispersed by wind usually have:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Hooks to attach to animals",
+      "Wings or feathery structures",
+      "Sweet, fleshy fruits",
+      "Heavy, waterproof coats"
+    ],
+    "answer": 1,
+    "correct_answer": "Wings or feathery structures"
+  },
+  {
+    "id": "SCI097",
+    "category": "Reproduction",
+    "difficulty": "P5-P6",
+    "template": "What conditions does a seed need to germinate?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Water, air, and suitable temperature",
+      "Only water",
+      "Only sunlight",
+      "Only soil"
+    ],
+    "answer": 0,
+    "correct_answer": "Water, air, and suitable temperature"
+  },
+  {
+    "id": "SCI098",
+    "category": "Energy",
+    "difficulty": "P5-P6",
+    "template": "Which form of energy is produced when we clap our hands?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Light energy",
+      "Sound energy",
+      "Electrical energy",
+      "Chemical energy"
+    ],
+    "answer": 1,
+    "correct_answer": "Sound energy"
+  },
+  {
+    "id": "SCI099",
+    "category": "Energy",
+    "difficulty": "P5-P6",
+    "template": "A battery converts _____ energy to _____ energy.",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Light, electrical",
+      "Chemical, electrical",
+      "Electrical, light",
+      "Heat, chemical"
+    ],
+    "answer": 1,
+    "correct_answer": "Chemical, electrical"
+  },
+  {
+    "id": "SCI100",
+    "category": "Energy",
+    "difficulty": "PSLE",
+    "template": "Which of the following is an example of energy conservation?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "A swinging pendulum gradually slows down",
+      "A ball rolling uphill",
+      "A falling ball speeds up indefinitely",
+      "Energy disappears when used"
+    ],
+    "answer": 0,
+    "correct_answer": "A swinging pendulum gradually slows down"
+  },
+  {
+    "id": "SCI101",
+    "category": "Heat",
+    "difficulty": "P5-P6",
+    "template": "Heat transfer by conduction occurs when:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Hot liquid rises and cold liquid sinks",
+      "Heat travels through empty space",
+      "Heat passes through a material by direct contact",
+      "Heat bounces off a surface"
+    ],
+    "answer": 2,
+    "correct_answer": "Heat passes through a material by direct contact"
+  },
+  {
+    "id": "SCI102",
+    "category": "Heat",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} notices that soup at the top of a pot gets hot even though heat is applied at the bottom. This is due to:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Conduction",
+      "Convection",
+      "Radiation",
+      "Evaporation"
+    ],
+    "answer": 1,
+    "correct_answer": "Convection"
+  },
+  {
+    "id": "SCI103",
+    "category": "Light",
+    "difficulty": "P5-P6",
+    "template": "Which material is translucent?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Clear glass window",
+      "Wooden door",
+      "Frosted glass",
+      "Metal sheet"
+    ],
+    "answer": 2,
+    "correct_answer": "Frosted glass"
+  },
+  {
+    "id": "SCI104",
+    "category": "Light",
+    "difficulty": "P5-P6",
+    "template": "A straw in a glass of water appears bent at the water surface. This is because of:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Reflection",
+      "Refraction",
+      "Absorption",
+      "Transmission"
+    ],
+    "answer": 1,
+    "correct_answer": "Refraction"
+  },
+  {
+    "id": "SCI105",
+    "category": "Light",
+    "difficulty": "PSLE",
+    "template": "Light travels fastest in:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Water",
+      "Glass",
+      "Vacuum (empty space)",
+      "Diamond"
+    ],
+    "answer": 2,
+    "correct_answer": "Vacuum (empty space)"
+  },
+  {
+    "id": "SCI106",
+    "category": "Sound",
+    "difficulty": "P5-P6",
+    "template": "Sound is produced by:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Light waves",
+      "Vibrations",
+      "Heat",
+      "Magnetism"
+    ],
+    "answer": 1,
+    "correct_answer": "Vibrations"
+  },
+  {
+    "id": "SCI107",
+    "category": "Sound",
+    "difficulty": "P5-P6",
+    "template": "Sound travels fastest through:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Air",
+      "Water",
+      "Steel",
+      "Vacuum"
+    ],
+    "answer": 2,
+    "correct_answer": "Steel"
+  },
+  {
+    "id": "SCI108",
+    "category": "Sound",
+    "difficulty": "P5-P6",
+    "template": "Pitch of a sound depends on:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Amplitude of vibration",
+      "Frequency of vibration",
+      "Speed of sound",
+      "Distance from source"
+    ],
+    "answer": 1,
+    "correct_answer": "Frequency of vibration"
+  },
+  {
+    "id": "SCI109",
+    "category": "Electricity",
+    "difficulty": "P5-P6",
+    "template": "In a series circuit with three bulbs, if one bulb is removed:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "The other two bulbs will shine brighter",
+      "All bulbs will go out",
+      "The other two bulbs will work normally",
+      "Only one other bulb will go out"
+    ],
+    "answer": 1,
+    "correct_answer": "All bulbs will go out"
+  },
+  {
+    "id": "SCI110",
+    "category": "Electricity",
+    "difficulty": "P5-P6",
+    "template": "Which safety rule is MOST important when dealing with electricity?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Use colorful wires",
+      "Never touch electrical appliances with wet hands",
+      "Always use the brightest bulbs",
+      "Connect as many devices as possible"
+    ],
+    "answer": 1,
+    "correct_answer": "Never touch electrical appliances with wet hands"
+  },
+  {
+    "id": "SCI111",
+    "category": "Forces",
+    "difficulty": "P5-P6",
+    "template": "Which force causes a ball thrown upward to slow down and eventually fall back?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Frictional force",
+      "Magnetic force",
+      "Gravitational force",
+      "Elastic force"
+    ],
+    "answer": 2,
+    "correct_answer": "Gravitational force"
+  },
+  {
+    "id": "SCI112",
+    "category": "Forces",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} rubs two sticks together and they become warm. This demonstrates that friction produces:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Light",
+      "Heat",
+      "Sound",
+      "Magnetism"
+    ],
+    "answer": 1,
+    "correct_answer": "Heat"
+  },
+  {
+    "id": "SCI113",
+    "category": "Forces",
+    "difficulty": "PSLE",
+    "template": "To increase friction between car tires and the road, we should:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Make tires smoother",
+      "Add treads (grooves) to tires",
+      "Reduce tire pressure",
+      "Use smaller tires"
+    ],
+    "answer": 1,
+    "correct_answer": "Add treads (grooves) to tires"
+  },
+  {
+    "id": "SCI114",
+    "category": "Adaptations",
+    "difficulty": "P5-P6",
+    "template": "Mangrove trees have breathing roots that stick out of water. This adaptation helps them:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Get more sunlight",
+      "Get oxygen from the air",
+      "Attract animals",
+      "Absorb more water"
+    ],
+    "answer": 1,
+    "correct_answer": "Get oxygen from the air"
+  },
+  {
+    "id": "SCI115",
+    "category": "Adaptations",
+    "difficulty": "P5-P6",
+    "template": "Desert animals like camels have thick eyelashes and can close their nostrils. This helps them:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "See better in darkness",
+      "Protect from sandstorms",
+      "Find water",
+      "Regulate body temperature"
+    ],
+    "answer": 1,
+    "correct_answer": "Protect from sandstorms"
+  },
+  {
+    "id": "SCI116",
+    "category": "Adaptations",
+    "difficulty": "PSLE",
+    "template": "Monarch butterflies migrate thousands of kilometers to escape cold weather. This is an example of:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Structural adaptation",
+      "Behavioral adaptation",
+      "Physical adaptation only",
+      "Camouflage"
+    ],
+    "answer": 1,
+    "correct_answer": "Behavioral adaptation"
+  },
+  {
+    "id": "SCI117",
+    "category": "Environment",
+    "difficulty": "P5-P6",
+    "template": "Which human activity contributes MOST to deforestation?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Swimming in rivers",
+      "Planting gardens",
+      "Cutting down trees for timber and farmland",
+      "Building bird houses"
+    ],
+    "answer": 2,
+    "correct_answer": "Cutting down trees for timber and farmland"
+  },
+  {
+    "id": "SCI118",
+    "category": "Environment",
+    "difficulty": "P5-P6",
+    "template": "The 3Rs stand for:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Read, Run, Recycle",
+      "Reduce, Reuse, Recycle",
+      "Remove, Replace, Repair",
+      "Rest, Relax, Recover"
+    ],
+    "answer": 1,
+    "correct_answer": "Reduce, Reuse, Recycle"
+  },
+  {
+    "id": "SCI119",
+    "category": "Environment",
+    "difficulty": "PSLE",
+    "template": "Which action would BEST help reduce plastic pollution in oceans?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Use more plastic bags",
+      "Throw plastic in rivers",
+      "Use reusable bags and bottles",
+      "Burn all plastic waste"
+    ],
+    "answer": 2,
+    "correct_answer": "Use reusable bags and bottles"
+  },
+  {
+    "id": "SCI120",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} set up an experiment with two plants. Plant A received sunlight and water. Plant B received only water, no sunlight. After one week, what would {CHARACTER_0} observe?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Both plants grow equally well",
+      "Plant A grows well, Plant B turns yellow and weak",
+      "Plant B grows better than Plant A",
+      "Both plants die"
+    ],
+    "answer": 1,
+    "correct_answer": "Plant A grows well, Plant B turns yellow and weak"
+  },
+  {
+    "id": "SCI121",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "A thermometer is placed in ice water (0°C) and then in boiling water (100°C). What property of the liquid in the thermometer changes?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Color",
+      "Volume",
+      "Taste",
+      "Weight"
+    ],
+    "answer": 1,
+    "correct_answer": "Volume"
+  },
+  {
+    "id": "SCI122",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} and {CHARACTER_1} want to test which paper towel absorbs the most water. What should they keep the same?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist", "helper"],
+    "options": [
+      "Brand of paper towel",
+      "Amount of water and time allowed to absorb",
+      "Color of paper towel",
+      "Person doing the test"
+    ],
+    "answer": 1,
+    "correct_answer": "Amount of water and time allowed to absorb"
+  },
+  {
+    "id": "SCI123",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "In a parallel circuit with three bulbs, if one bulb burns out:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "All bulbs go out",
+      "The other two bulbs continue to work",
+      "The remaining bulbs get brighter",
+      "The battery dies immediately"
+    ],
+    "answer": 1,
+    "correct_answer": "The other two bulbs continue to work"
+  },
+  {
+    "id": "SCI124",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "Which organism would be classified as a decomposer?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Rabbit",
+      "Grass",
+      "Mushroom",
+      "Fox"
+    ],
+    "answer": 2,
+    "correct_answer": "Mushroom"
+  },
+  {
+    "id": "SCI125",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} observes that ice cubes melt faster in a metal bowl than in a plastic bowl. This is because:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Metal is heavier than plastic",
+      "Metal conducts heat better than plastic",
+      "Plastic is smoother than metal",
+      "Metal reflects more light"
+    ],
+    "answer": 1,
+    "correct_answer": "Metal conducts heat better than plastic"
+  },
+  {
+    "id": "SCI126",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "A student wants to investigate how the length of a pendulum affects its swing. What should be kept constant?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Length of pendulum",
+      "Weight of pendulum bob and angle of release",
+      "Time of day",
+      "Color of string"
+    ],
+    "answer": 1,
+    "correct_answer": "Weight of pendulum bob and angle of release"
+  },
+  {
+    "id": "SCI127",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "Which statement about shadows is correct?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Shadows are always the same size as the object",
+      "Shadows form when light is blocked by an opaque object",
+      "Transparent objects cast dark shadows",
+      "Shadows can form without a light source"
+    ],
+    "answer": 1,
+    "correct_answer": "Shadows form when light is blocked by an opaque object"
+  },
+  {
+    "id": "SCI128",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "If all producers in a food web were removed, what would happen?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Only carnivores would survive",
+      "Herbivores would find other food",
+      "All consumers would eventually die",
+      "Nothing would change"
+    ],
+    "answer": 2,
+    "correct_answer": "All consumers would eventually die"
+  },
+  {
+    "id": "SCI129",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "A nail is attracted to a magnet. What can we conclude?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "The nail is made of plastic",
+      "The nail contains iron or steel",
+      "The nail is wooden",
+      "The nail is made of copper"
+    ],
+    "answer": 1,
+    "correct_answer": "The nail contains iron or steel"
+  },
+  {
+    "id": "SCI130",
+    "category": "PSLE",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} wants to make ice cream freeze faster. What should {CHARACTER_0} do?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Add salt to the ice around the container",
+      "Add sugar to the ice cream",
+      "Put it in a warmer place",
+      "Stir it continuously"
+    ],
+    "answer": 0,
+    "correct_answer": "Add salt to the ice around the container"
   }
 ]
