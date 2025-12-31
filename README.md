@@ -2,7 +2,7 @@
 
 **Singapore Primary School Practice Platform** - A comprehensive learning platform for Mathematics and Science with interactive quizzes, character-themed questions, and visual concept maps!
 
-[![Questions](https://img.shields.io/badge/Questions-870+-blue)]()
+[![Questions](https://img.shields.io/badge/Questions-1200+-blue)]()
 [![Subjects](https://img.shields.io/badge/Subjects-2-green)]()
 [![Themes](https://img.shields.io/badge/Character_Themes-11-purple)]()
 [![Levels](https://img.shields.io/badge/Levels-6-orange)]()
@@ -10,16 +10,19 @@
 ## ✨ Features
 
 ### Mathematics
-- **📚 790 Math Questions** - Comprehensive coverage from P1-P2 to PSLE level including 190 challenging problems across 18 specialized types
+- **📚 830 Math Questions** - Comprehensive coverage from P1-P2 to PSLE level including 190 challenging problems across 18 specialized types
 - **🎭 11 Character Themes** - Disney, Pixar, Cartoon Network, K-POP (ENHYPEN, Stray Kids, BABYMONSTER, ITZY), Marvel Avengers, Dragon Ball Z, DARK MOON, and Nezha
 - **📊 Multiple Categories** - Addition, Subtraction, Multiplication, Division, Fractions, Decimals, Percentages, Ratios, Speed, Time, Money, Measurement, Mixed Operations, and Averages
 - **🎯 6 Difficulty Levels** - P1-P2, P3-P4, P5-P6, PSLE, Challenging
 
 ### Science
-- **🔬 80 Science Questions** - Covering all major topics for P3-P6 levels
+- **🔬 371 Science Questions** - Covering all major topics for P3-P6 levels
+  - **330 Regular Questions** across 15 core topics
+  - **41 Experiment Questions** with structured setup, data, and analysis
 - **📚 13 Interactive Concept Maps** - Visual learning tool for key science concepts
 - **🎨 Character Theme Support** - Same character themes available for science questions
-- **📖 14 Science Topics** - Living Things, Materials, Cycles, Energy, Forces, Electricity, Matter, Light, Heat, Adaptations, Cells, Reproduction, Human Body, PSLE
+- **🧪 Hands-on Experiments** - Real experiment scenarios with observations and conclusions
+- **📖 15 Science Topics** - Living Things, Materials, Cycles, Energy, Forces, Electricity, Matter, Light, Heat, Adaptations, Cells, Reproduction, Human Body, Environment, Sound
 
 ### General Features
 - **✨ Frontend Only** - No server or database needed, runs entirely in the browser
@@ -158,9 +161,9 @@ Characters are randomly assigned to questions, making each quiz unique and engag
 
 ## 📚 Question Categories & Coverage
 
-**870+ Total Questions** across Math and Science:
+**1200+ Total Questions** across Math and Science:
 
-### Mathematics (790 Questions)
+### Mathematics (830 Questions)
 
 #### Standard Categories
 - **Addition** - Basic sums to complex multi-step problems
@@ -202,24 +205,36 @@ Advanced PSLE-level problems covering **18 specialized types**:
 
 See **CHALLENGING_PROBLEM_TYPES.md** for detailed descriptions of each problem type.
 
-### Science (80 Questions)
+### Science (371 Questions)
 
-Comprehensive coverage across **14 topics** for P3-P6:
+Comprehensive coverage across **16 categories** for P3-P6:
 
-1. **Living Things** (10 questions) - MRS GREN, life cycles, plant functions
-2. **Materials** (5 questions) - Properties, magnetic materials
-3. **Cycles** (5 questions) - Water cycle, evaporation
-4. **Energy** (4 questions) - Forms of energy, energy conversion
-5. **Forces** (4 questions) - Types of forces, friction
-6. **Electricity** (4 questions) - Circuits, conductors, insulators
-7. **Matter** (4 questions) - States of matter, changes
-8. **Light** (4 questions) - Properties, reflection, refraction
-9. **Heat** (4 questions) - Transfer methods, conductors, insulators
-10. **Adaptations** (4 questions) - Plant and animal adaptations
-11. **Cells** (4 questions) - Cell structure, plant vs animal cells
-12. **Reproduction** (4 questions) - Plant reproduction, pollination
-13. **Human Body** (4 questions) - Body systems, organs
-14. **PSLE** (18 questions) - Mixed challenging questions
+#### Regular Questions (330 Questions)
+20+ questions per topic covering:
+1. **Living Things** - MRS GREN, life cycles, plant functions
+2. **Materials** - Properties, magnetic materials, absorbency
+3. **Cycles** - Water cycle, evaporation, condensation
+4. **Energy** - Forms of energy, energy conversion
+5. **Forces** - Types of forces, friction, motion
+6. **Electricity** - Circuits, conductors, insulators
+7. **Matter** - States of matter, changes, properties
+8. **Light** - Properties, reflection, refraction, shadows
+9. **Heat** - Transfer methods, conductors, insulators
+10. **Adaptations** - Plant and animal adaptations
+11. **Cells** - Cell structure, plant vs animal cells
+12. **Reproduction** - Plant reproduction, pollination
+13. **Human Body** - Body systems, organs, functions
+14. **Environment** - Ecosystems, pollution, conservation
+15. **Sound** - Vibrations, pitch, volume
+
+#### Experiment Questions (41 Questions)
+Hands-on experiment scenarios with:
+- **🧪 Structured Setup** - Clear experimental procedures
+- **📊 Data & Observations** - Tables, measurements, results
+- **🎯 Analysis Questions** - Conclusions and scientific reasoning
+- **Topics covered**: All 15 core topics plus cross-topic investigations
+- **Visual formatting**: Blue-tinted setup boxes, gray data tables
+- **Character integration**: Dynamic character placeholders in experiments
 
 ### Science Concept Maps (13 Topics)
 
