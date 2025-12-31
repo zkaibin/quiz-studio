@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Experiment Questions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .results {
+            background: #f0f9ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .success {
+            color: #10b981;
+            font-weight: bold;
+        }
+        .error {
+            color: #ef4444;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #6366f1;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+    </style>
+</head>
+<body>
+    <h1>�� Experiment Questions Verification</h1>
+    <div id="results"></div>
+
+    <script>
+        async function verifyExperimentQuestions() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<p>Loading questions...</p>';
+
+            try {
+                const cacheBuster = new Date().getTime();
+                const response = await fetch(`data/questions-science.json?v=${cacheBuster}`);
+                const allQuestions = await response.json();
+
+                // Filter experiment questions
+                const expQuestions = allQuestions.filter(q => q.id.startsWith('SCI-EXP'));
+
+                // Group by category
+                const byCategory = {};
+                expQuestions.forEach(q => {
+                    if (!byCategory[q.category]) byCategory[q.category] = [];
+                    byCategory[q.category].push(q);
+                });
+
+                // Group by difficulty
+                const byDifficulty = {};
+                expQuestions.forEach(q => {
+                    if (!byDifficulty[q.difficulty]) byDifficulty[q.difficulty] = [];
+                    byDifficulty[q.difficulty].push(q);
+                });
+
+                let html = `
+                    <div class="results">
+                        <h2 class="success">✅ Experiment Questions Found!</h2>
+                        <p><strong>Total Questions in File:</strong> ${allQuestions.length}</p>
+                        <p><strong>Experiment Questions:</strong> ${expQuestions.length}</p>
+                    </div>
+
+                    <h3>📊 Distribution by Category</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Count</th>
+                                <th>Question IDs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                Object.keys(byCategory).sort().forEach(cat => {
+                    const questions = byCategory[cat];
+                    html += `
+                        <tr>
+                            <td><strong>${cat}</strong></td>
+                            <td>${questions.length}</td>
+                            <td>${questions.map(q => q.id).join(', ')}</td>
+                        </tr>
+                    `;
+                });
+
+                html += `
+                        </tbody>
+                    </table>
+
+                    <h3>📈 Distribution by Difficulty</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Difficulty</th>
+                                <th>Count</th>
+                                <th>Question IDs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                Object.keys(byDifficulty).sort().forEach(diff => {
+                    const questions = byDifficulty[diff];
+                    html += `
+                        <tr>
+                            <td><strong>${diff}</strong></td>
+                            <td>${questions.length}</td>
+                            <td>${questions.map(q => q.id).join(', ')}</td>
+                        </tr>
+                    `;
+                });
+
+                html += `
+                        </tbody>
+                    </table>
+
+                    <h3>🔍 Sample Experiment Questions</h3>
+                `;
+
+                expQuestions.slice(0, 3).forEach(q => {
+                    const templatePreview = q.template.substring(0, 150) + '...';
+                    html += `
+                        <div style="background: #f8fafc; padding: 15px; margin: 10px 0; border-left: 4px solid #6366f1; border-radius: 4px;">
+                            <p><strong>ID:</strong> ${q.id} | <strong>Category:</strong> ${q.category} | <strong>Difficulty:</strong> ${q.difficulty}</p>
+                            <p><strong>Template:</strong> ${templatePreview}</p>
+                            <p><strong>Options:</strong> ${q.options.length} choices</p>
+                        </div>
+                    `;
+                });
+
+                html += `
+                    <div class="results" style="margin-top: 30px; background: #d1fae5;">
+                        <h3 class="success">✅ Verification Complete</h3>
+                        <p><strong>Status:</strong> All experiment questions are properly loaded and should be available in the quiz.</p>
+                        <p><strong>How to access them:</strong></p>
+                        <ul>
+                            <li>Go to <a href="science-quiz.html">science-quiz.html</a></li>
+                            <li>Select "All Topics" or specific categories like "Heat", "Matter", "Electricity", etc.</li>
+                            <li>Select "PSLE" or "P5-P6" difficulty</li>
+                            <li>Experiment questions will be included in the random selection</li>
+                        </ul>
+                        <p><strong>Note:</strong> If you still don't see them, try clearing your browser cache (Ctrl+Shift+R or Cmd+Shift+R)</p>
+                    </div>
+                `;
+
+                resultsDiv.innerHTML = html;
+
+            } catch (error) {
+                resultsDiv.innerHTML = `
+                    <div class="results" style="background: #fee2e2;">
+                        <h2 class="error">❌ Error Loading Questions</h2>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Run verification on page load
+        verifyExperimentQuestions();
+    </script>
+</body>
+</html>

@@ -5281,7 +5281,7 @@
   },
   {
     "id": "SCI-EXP001",
-    "category": "Heat",
+    "category": "Experiment",
     "difficulty": "PSLE",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} sets up 4 identical beakers with hot water at 80°C. Each beaker is wrapped differently:<br>• Beaker 1: No wrapping<br>• Beaker 2: Aluminum foil<br>• Beaker 3: Newspaper<br>• Beaker 4: Cotton wool<br><br><strong>Procedure:</strong> {CHARACTER_0} measures the temperature of water in each beaker after 30 minutes.<br><br><strong>Question:</strong> Which beaker will have the LOWEST temperature after 30 minutes?",
     "diagram": "",
@@ -5297,7 +5297,7 @@
   },
   {
     "id": "SCI-EXP002",
-    "category": "Heat",
+    "category": "Experiment",
     "difficulty": "PSLE",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} tests which material is the best heat conductor by placing metal, wood, and plastic spoons in hot water.<br><br><strong>Observation:</strong> After 2 minutes, {CHARACTER_0} touches the handles of each spoon.<br><br><strong>Question:</strong> Which spoon handle will feel the HOTTEST?",
     "diagram": "",
@@ -5313,7 +5313,7 @@
   },
   {
     "id": "SCI-EXP003",
-    "category": "Matter",
+    "category": "Experiment",
     "difficulty": "P5-P6",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} tests how fast sugar dissolves in water at different temperatures.<br><br><strong>Results:</strong><br><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Temperature</th><th style='padding:8px'>Time to dissolve</th></tr><tr><td style='padding:8px'>Cold (10°C)</td><td style='padding:8px'>3 minutes</td></tr><tr><td style='padding:8px'>Room (25°C)</td><td style='padding:8px'>1.5 minutes</td></tr><tr><td style='padding:8px'>Hot (60°C)</td><td style='padding:8px'>30 seconds</td></tr></table><br><strong>Question:</strong> What conclusion can {CHARACTER_0} make from this experiment?",
     "diagram": "",
@@ -5329,7 +5329,7 @@
   },
   {
     "id": "SCI-EXP004",
-    "category": "Electricity",
+    "category": "Experiment",
     "difficulty": "P5-P6",
     "template": "<strong>Experiment Setup:</strong> {CHARACTER_0} wants to find out how the length of wire affects the brightness of a bulb. {CHARACTER_0} sets up circuits with wires of different lengths (10cm, 20cm, 30cm) but keeps everything else the same: same battery, same bulb, same wire thickness.<br><br><strong>Question:</strong> What is the independent variable (what {CHARACTER_0} changes) in this experiment?",
     "diagram": "",
@@ -5345,7 +5345,7 @@
   },
   {
     "id": "SCI-EXP005",
-    "category": "Electricity",
+    "category": "Experiment",
     "difficulty": "PSLE",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} sets up two circuits with 2 bulbs each:<br>• Circuit A: Bulbs connected in series<br>• Circuit B: Bulbs connected in parallel<br><br><strong>Observation:</strong> In Circuit A, when one bulb is removed, the other bulb goes out. In Circuit B, when one bulb is removed, the other bulb stays lit.<br><br><strong>Question:</strong> Why does the bulb stay lit in Circuit B?",
     "diagram": "",
@@ -5361,7 +5361,7 @@
   },
   {
     "id": "SCI-EXP006",
-    "category": "Light",
+    "category": "Experiment",
     "difficulty": "P5-P6",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} places an object between a light source and a screen. {CHARACTER_0} moves the light source to different heights while keeping the object in the same position.<br><br><strong>Results:</strong><br>• Light directly overhead → Shadow is short<br>• Light at medium height → Shadow is medium<br>• Light at low angle → Shadow is very long<br><br><strong>Question:</strong> What conclusion can {CHARACTER_0} make about shadow length?",
     "diagram": "",
@@ -5377,7 +5377,7 @@
   },
   {
     "id": "SCI-EXP007",
-    "category": "Light",
+    "category": "Experiment",
     "difficulty": "P5-P6",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} shines a light at a flat mirror and measures the angle of the incoming light ray and the reflected light ray from the mirror surface.<br><br><strong>Results:</strong><br><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Angle of incoming ray</th><th style='padding:8px'>Angle of reflected ray</th></tr><tr><td style='padding:8px'>30°</td><td style='padding:8px'>30°</td></tr><tr><td style='padding:8px'>45°</td><td style='padding:8px'>45°</td></tr><tr><td style='padding:8px'>60°</td><td style='padding:8px'>60°</td></tr></table><br><strong>Question:</strong> What pattern does {CHARACTER_0} observe?",
     "diagram": "",
@@ -5393,7 +5393,7 @@
   },
   {
     "id": "SCI-EXP008",
-    "category": "Forces",
+    "category": "Experiment",
     "difficulty": "P5-P6",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} releases a toy car from the top of ramps at different heights and measures how far the car travels on a flat surface.<br><br><strong>Results:</strong><br><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Ramp Height</th><th style='padding:8px'>Distance traveled</th></tr><tr><td style='padding:8px'>10 cm</td><td style='padding:8px'>50 cm</td></tr><tr><td style='padding:8px'>20 cm</td><td style='padding:8px'>100 cm</td></tr><tr><td style='padding:8px'>30 cm</td><td style='padding:8px'>150 cm</td></tr></table><br><strong>Question:</strong> What can {CHARACTER_0} conclude?",
     "diagram": "",
@@ -5409,7 +5409,7 @@
   },
   {
     "id": "SCI-EXP009",
-    "category": "Forces",
+    "category": "Experiment",
     "difficulty": "PSLE",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} tests friction by pulling a wooden block across different surfaces using a spring scale to measure the force needed.<br><br><strong>Results:</strong><br>• Smooth tile: 2 Newtons<br>• Rough carpet: 8 Newtons<br>• Sandpaper: 12 Newtons<br><br><strong>Question:</strong> What is the relationship between surface texture and friction?",
     "diagram": "",
@@ -5425,7 +5425,7 @@
   },
   {
     "id": "SCI-EXP010",
-    "category": "Sound",
+    "category": "Experiment",
     "difficulty": "P5-P6",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} plucks a ruler hanging over the edge of a desk. {CHARACTER_0} varies the length of ruler hanging over the edge and observes the sound.<br><br><strong>Observations:</strong><br>• Short length: High-pitched sound, fast vibration<br>• Medium length: Medium-pitched sound<br>• Long length: Low-pitched sound, slow vibration<br><br><strong>Question:</strong> What is the relationship between vibration speed and pitch?",
     "diagram": "",
@@ -5441,7 +5441,7 @@
   },
   {
     "id": "SCI-EXP011",
-    "category": "Sound",
+    "category": "Experiment",
     "difficulty": "PSLE",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} places a ringing phone in a bell jar and gradually pumps out the air while listening to the sound.<br><br><strong>Observations:</strong><br>• Full air: Loud ringing heard clearly<br>• Half air removed: Softer ringing<br>• Most air removed: Very faint sound<br>• Complete vacuum: No sound heard<br><br><strong>Question:</strong> What does this experiment prove about sound?",
     "diagram": "",
@@ -5457,7 +5457,7 @@
   },
   {
     "id": "SCI-EXP012",
-    "category": "Cycles",
+    "category": "Experiment",
     "difficulty": "P5-P6",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} sets up 3 identical containers with equal amounts of water and places them in different conditions:<br>• Container A: In the sun<br>• Container B: In the shade<br>• Container C: In the refrigerator<br><br><strong>After 24 hours:</strong> Container A has the least water remaining, Container C has almost all water remaining.<br><br><strong>Question:</strong> What factor affects the rate of evaporation?",
     "diagram": "",
@@ -5473,7 +5473,7 @@
   },
   {
     "id": "SCI-EXP013",
-    "category": "Cycles",
+    "category": "Experiment",
     "difficulty": "PSLE",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} sets up 4 containers with equal amounts of water:<br>• Container 1: Covered with lid<br>• Container 2: Uncovered<br>• Container 3: Uncovered with fan blowing<br>• Container 4: Uncovered, wide surface area<br><br><strong>After 48 hours, water remaining:</strong><br>Container 1 > Container 2 > Container 4 > Container 3<br><br><strong>Question:</strong> Which TWO factors increase evaporation rate?",
     "diagram": "",
@@ -5489,7 +5489,7 @@
   },
   {
     "id": "SCI-EXP014",
-    "category": "Materials",
+    "category": "Experiment",
     "difficulty": "P5-P6",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} tests the absorbency of different materials by dropping 10 ml of water on each material and measuring how much water is absorbed.<br><br><strong>Results:</strong><br><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Material</th><th style='padding:8px'>Water absorbed</th></tr><tr><td style='padding:8px'>Cotton cloth</td><td style='padding:8px'>9 ml</td></tr><tr><td style='padding:8px'>Paper towel</td><td style='padding:8px'>8 ml</td></tr><tr><td style='padding:8px'>Plastic sheet</td><td style='padding:8px'>0 ml</td></tr><tr><td style='padding:8px'>Sponge</td><td style='padding:8px'>10 ml</td></tr></table><br><strong>Question:</strong> Which material would be BEST for a raincoat?",
     "diagram": "",
@@ -5505,7 +5505,7 @@
   },
   {
     "id": "SCI-EXP015",
-    "category": "Energy",
+    "category": "Experiment",
     "difficulty": "PSLE",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} investigates energy conversions by observing different devices:<br><br><strong>Observations:</strong><br>• Solar panel: Light → Electrical energy<br>• Light bulb: Electrical → Light + Heat<br>• Electric motor: Electrical → Kinetic (movement)<br>• Generator: Kinetic → Electrical<br><br><strong>Question:</strong> {CHARACTER_0} uses a hand-crank flashlight. What energy conversions occur?",
     "diagram": "",
@@ -5521,7 +5521,7 @@
   },
   {
     "id": "SCI-EXP016",
-    "category": "Living Things",
+    "category": "Experiment",
     "difficulty": "P5-P6",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} sets up 4 plant seedlings in identical conditions except for one variable:<br>• Plant A: Sunlight + water<br>• Plant B: No sunlight + water<br>• Plant C: Sunlight + no water<br>• Plant D: No sunlight + no water<br><br><strong>After 2 weeks:</strong> Only Plant A is green and healthy. Plant B is pale and weak. Plants C and D are dead.<br><br><strong>Question:</strong> What can {CHARACTER_0} conclude?",
     "diagram": "",
@@ -5537,7 +5537,7 @@
   },
   {
     "id": "SCI-EXP017",
-    "category": "Human Body",
+    "category": "Experiment",
     "difficulty": "P5-P6",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} measures breathing rate before and after exercise:<br><br><strong>Results:</strong><br><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Condition</th><th style='padding:8px'>Breaths per minute</th></tr><tr><td style='padding:8px'>Resting</td><td style='padding:8px'>12</td></tr><tr><td style='padding:8px'>After light walking</td><td style='padding:8px'>18</td></tr><tr><td style='padding:8px'>After running</td><td style='padding:8px'>30</td></tr></table><br><strong>Question:</strong> Why does breathing rate increase during exercise?",
     "diagram": "",
@@ -5553,7 +5553,7 @@
   },
   {
     "id": "SCI-EXP018",
-    "category": "Reproduction",
+    "category": "Experiment",
     "difficulty": "P5-P6",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} plants bean seeds in different conditions to test germination:<br><br><strong>Setup:</strong><br>• Seeds 1: Warm, moist, with air<br>• Seeds 2: Cold, moist, with air<br>• Seeds 3: Warm, dry, with air<br>• Seeds 4: Warm, moist, no air (underwater)<br><br><strong>After 5 days:</strong> Only Seeds 1 germinated successfully.<br><br><strong>Question:</strong> What THREE conditions are needed for germination?",
     "diagram": "",
@@ -5569,7 +5569,7 @@
   },
   {
     "id": "SCI-EXP019",
-    "category": "Environment",
+    "category": "Experiment",
     "difficulty": "PSLE",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} sets up two model ecosystems in bottles:<br><br><strong>Ecosystem A:</strong> Plants, snails, water, sealed bottle<br><strong>Ecosystem B:</strong> Only snails, water, sealed bottle<br><br><strong>After 1 week:</strong><br>• Ecosystem A: Plants and snails alive and healthy<br>• Ecosystem B: Snails died<br><br><strong>Question:</strong> Why did the snails in Ecosystem B die?",
     "diagram": "",
@@ -5585,7 +5585,7 @@
   },
   {
     "id": "SCI-EXP020",
-    "category": "Adaptations",
+    "category": "Experiment",
     "difficulty": "PSLE",
     "template": "<strong>Experiment:</strong> {CHARACTER_0} compares water loss from two model 'plants':<br><br><strong>Model A:</strong> Leaves with waxy coating<br><strong>Model B:</strong> Leaves without waxy coating<br><br><strong>Both placed in warm, sunny conditions. After 24 hours:</strong><br>• Model A lost 5 ml of water<br>• Model B lost 20 ml of water<br><br><strong>Question:</strong> What is the purpose of the waxy coating on leaves?",
     "diagram": "",
