@@ -2078,5 +2078,3205 @@
     ],
     "answer": 0,
     "correct_answer": "Add salt to the ice around the container"
+  },
+  {
+    "id": "SCI131",
+    "category": "Living Things",
+    "difficulty": "P5-P6",
+    "template": "Which of the following shows the correct sequence from smallest to largest level of organization?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Cell → Tissue → System → Organ",
+      "Cell → Tissue → Organ → System",
+      "Tissue → Cell → Organ → System",
+      "Organ → Tissue → Cell → System"
+    ],
+    "answer": 1,
+    "correct_answer": "Cell → Tissue → Organ → System"
+  },
+  {
+    "id": "SCI132",
+    "category": "Living Things",
+    "difficulty": "P5-P6",
+    "template": "What is excretion?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Taking in food",
+      "Removing waste products from the body",
+      "Producing offspring",
+      "Moving from place to place"
+    ],
+    "answer": 1,
+    "correct_answer": "Removing waste products from the body"
+  },
+  {
+    "id": "SCI133",
+    "category": "Living Things",
+    "difficulty": "P5-P6",
+    "template": "Animals are classified into vertebrates and invertebrates based on:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Whether they can fly",
+      "Whether they have a backbone",
+      "What they eat",
+      "Where they live"
+    ],
+    "answer": 1,
+    "correct_answer": "Whether they have a backbone"
+  },
+  {
+    "id": "SCI134",
+    "category": "Living Things",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} places a potted plant in a dark room for several days. What life process will be affected first?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Reproduction",
+      "Photosynthesis (Nutrition)",
+      "Movement",
+      "Excretion"
+    ],
+    "answer": 1,
+    "correct_answer": "Photosynthesis (Nutrition)"
+  },
+  {
+    "id": "SCI135",
+    "category": "Living Things",
+    "difficulty": "PSLE",
+    "template": "In a forest ecosystem, which organisms return nutrients to the soil?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Producers",
+      "Primary consumers",
+      "Decomposers",
+      "Top predators"
+    ],
+    "answer": 2,
+    "correct_answer": "Decomposers"
+  },
+  {
+    "id": "SCI136",
+    "category": "Materials",
+    "difficulty": "P3-P4",
+    "template": "Which state of matter has a definite shape and volume?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Solid",
+      "Liquid",
+      "Gas",
+      "Plasma"
+    ],
+    "answer": 0,
+    "correct_answer": "Solid"
+  },
+  {
+    "id": "SCI137",
+    "category": "Materials",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} wants to test if a material floats or sinks. What property is {CHARACTER_0} testing?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Hardness",
+      "Density (ability to float)",
+      "Transparency",
+      "Magnetism"
+    ],
+    "answer": 1,
+    "correct_answer": "Density (ability to float)"
+  },
+  {
+    "id": "SCI138",
+    "category": "Materials",
+    "difficulty": "P5-P6",
+    "template": "Why are metals used for making cooking pots?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "They are transparent",
+      "They are good conductors of heat",
+      "They are magnetic",
+      "They are light"
+    ],
+    "answer": 1,
+    "correct_answer": "They are good conductors of heat"
+  },
+  {
+    "id": "SCI139",
+    "category": "Materials",
+    "difficulty": "P5-P6",
+    "template": "Which material would be best for making electrical wires?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Plastic",
+      "Rubber",
+      "Copper",
+      "Wood"
+    ],
+    "answer": 2,
+    "correct_answer": "Copper"
+  },
+  {
+    "id": "SCI140",
+    "category": "Materials",
+    "difficulty": "P5-P6",
+    "template": "Steel is attracted to magnets, but aluminum is not. This shows that:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "All metals are magnetic",
+      "Only some metals are magnetic",
+      "Aluminum is not a metal",
+      "Steel is lighter than aluminum"
+    ],
+    "answer": 1,
+    "correct_answer": "Only some metals are magnetic"
+  },
+  {
+    "id": "SCI141",
+    "category": "Materials",
+    "difficulty": "P5-P6",
+    "template": "When water changes from liquid to gas, it is called:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Melting",
+      "Freezing",
+      "Evaporation",
+      "Condensation"
+    ],
+    "answer": 2,
+    "correct_answer": "Evaporation"
+  },
+  {
+    "id": "SCI142",
+    "category": "Materials",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} observes that butter melts when heated but chocolate hardens when cooled. Both are examples of:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Chemical changes",
+      "Reversible physical changes",
+      "Irreversible changes",
+      "Decomposition"
+    ],
+    "answer": 1,
+    "correct_answer": "Reversible physical changes"
+  },
+  {
+    "id": "SCI143",
+    "category": "Materials",
+    "difficulty": "PSLE",
+    "template": "Why do we use insulators to cover the handles of cooking utensils?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "To make them look colorful",
+      "To prevent heat from reaching our hands",
+      "To make them heavier",
+      "To conduct electricity"
+    ],
+    "answer": 1,
+    "correct_answer": "To prevent heat from reaching our hands"
+  },
+  {
+    "id": "SCI144",
+    "category": "Materials",
+    "difficulty": "PSLE",
+    "template": "Which property is most important when choosing material for a window?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Magnetic",
+      "Transparent",
+      "Flexible",
+      "Waterproof"
+    ],
+    "answer": 1,
+    "correct_answer": "Transparent"
+  },
+  {
+    "id": "SCI145",
+    "category": "Materials",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} needs to separate iron filings from sand. What should {CHARACTER_0} use?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Filter",
+      "Magnet",
+      "Sieve",
+      "Tweezers"
+    ],
+    "answer": 1,
+    "correct_answer": "Magnet"
+  },
+  {
+    "id": "SCI146",
+    "category": "Cycles",
+    "difficulty": "P3-P4",
+    "template": "What happens during precipitation in the water cycle?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Water evaporates",
+      "Water vapor condenses",
+      "Rain, snow, or hail falls",
+      "Water is absorbed by soil"
+    ],
+    "answer": 2,
+    "correct_answer": "Rain, snow, or hail falls"
+  },
+  {
+    "id": "SCI147",
+    "category": "Cycles",
+    "difficulty": "P3-P4",
+    "template": "Which process in the water cycle requires heat from the sun?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Condensation",
+      "Precipitation",
+      "Evaporation",
+      "Collection"
+    ],
+    "answer": 2,
+    "correct_answer": "Evaporation"
+  },
+  {
+    "id": "SCI148",
+    "category": "Cycles",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} hangs wet clothes in the sun with wind blowing. They dry faster because:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Wind prevents evaporation",
+      "Sun and wind both increase evaporation rate",
+      "Wind makes clothes wetter",
+      "Sun blocks evaporation"
+    ],
+    "answer": 1,
+    "correct_answer": "Sun and wind both increase evaporation rate"
+  },
+  {
+    "id": "SCI149",
+    "category": "Cycles",
+    "difficulty": "P5-P6",
+    "template": "In a food chain, energy flows from:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Consumers to producers",
+      "Sun to producers to consumers",
+      "Decomposers to producers",
+      "Carnivores to herbivores"
+    ],
+    "answer": 1,
+    "correct_answer": "Sun to producers to consumers"
+  },
+  {
+    "id": "SCI150",
+    "category": "Cycles",
+    "difficulty": "P5-P6",
+    "template": "What is the role of producers in a food chain?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "To eat other animals",
+      "To make their own food using sunlight",
+      "To break down dead matter",
+      "To hunt for prey"
+    ],
+    "answer": 1,
+    "correct_answer": "To make their own food using sunlight"
+  },
+  {
+    "id": "SCI151",
+    "category": "Cycles",
+    "difficulty": "P5-P6",
+    "template": "Which factor would NOT affect how fast puddles dry up?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Temperature",
+      "Humidity",
+      "Wind speed",
+      "Color of the ground"
+    ],
+    "answer": 3,
+    "correct_answer": "Color of the ground"
+  },
+  {
+    "id": "SCI152",
+    "category": "Cycles",
+    "difficulty": "PSLE",
+    "template": "Clouds form when water vapor:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Evaporates in the sky",
+      "Condenses around dust particles",
+      "Freezes immediately",
+      "Mixes with oxygen"
+    ],
+    "answer": 1,
+    "correct_answer": "Condenses around dust particles"
+  },
+  {
+    "id": "SCI153",
+    "category": "Cycles",
+    "difficulty": "PSLE",
+    "template": "Why do we see water droplets on the outside of a cold drink can?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Water leaks from the can",
+      "Water vapor in air condenses on the cold surface",
+      "The can sweats",
+      "Water evaporates from the drink"
+    ],
+    "answer": 1,
+    "correct_answer": "Water vapor in air condenses on the cold surface"
+  },
+  {
+    "id": "SCI154",
+    "category": "Cycles",
+    "difficulty": "PSLE",
+    "template": "In a food web, removing one species would:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Have no effect",
+      "Affect multiple other species",
+      "Only affect its predator",
+      "Only affect its prey"
+    ],
+    "answer": 1,
+    "correct_answer": "Affect multiple other species"
+  },
+  {
+    "id": "SCI155",
+    "category": "Cycles",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} observes that grass in a field grows back after being eaten by rabbits. This shows:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Energy is recycled in food chains",
+      "Matter cycles but energy flows through",
+      "Animals create energy",
+      "Plants don't need energy"
+    ],
+    "answer": 1,
+    "correct_answer": "Matter cycles but energy flows through"
+  },
+  {
+    "id": "SCI156",
+    "category": "Cells",
+    "difficulty": "P5-P6",
+    "template": "The jelly-like substance inside a cell where chemical reactions occur is called:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Nucleus",
+      "Cell membrane",
+      "Cytoplasm",
+      "Cell wall"
+    ],
+    "answer": 2,
+    "correct_answer": "Cytoplasm"
+  },
+  {
+    "id": "SCI157",
+    "category": "Cells",
+    "difficulty": "P5-P6",
+    "template": "Which cell structure is found ONLY in plant cells?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Nucleus",
+      "Cell wall and chloroplasts",
+      "Cell membrane",
+      "Mitochondria"
+    ],
+    "answer": 1,
+    "correct_answer": "Cell wall and chloroplasts"
+  },
+  {
+    "id": "SCI158",
+    "category": "Cells",
+    "difficulty": "P5-P6",
+    "template": "The cell membrane functions to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Control cell activities",
+      "Make food for the cell",
+      "Control what enters and exits the cell",
+      "Store water"
+    ],
+    "answer": 2,
+    "correct_answer": "Control what enters and exits the cell"
+  },
+  {
+    "id": "SCI159",
+    "category": "Cells",
+    "difficulty": "P5-P6",
+    "template": "What gives plant cells their rigid, box-like shape?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Cell membrane",
+      "Cell wall",
+      "Cytoplasm",
+      "Vacuole"
+    ],
+    "answer": 1,
+    "correct_answer": "Cell wall"
+  },
+  {
+    "id": "SCI160",
+    "category": "Cells",
+    "difficulty": "PSLE",
+    "template": "A group of similar cells working together forms:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "An organ",
+      "A tissue",
+      "A system",
+      "An organism"
+    ],
+    "answer": 1,
+    "correct_answer": "A tissue"
+  },
+  {
+    "id": "SCI161",
+    "category": "Cells",
+    "difficulty": "PSLE",
+    "template": "Which organelle is known as the 'powerhouse of the cell' because it produces energy?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Nucleus",
+      "Chloroplast",
+      "Mitochondria",
+      "Vacuole"
+    ],
+    "answer": 2,
+    "correct_answer": "Mitochondria"
+  },
+  {
+    "id": "SCI162",
+    "category": "Cells",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} looks at plant cells under a microscope and sees large spaces filled with liquid. These are:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Nuclei",
+      "Vacuoles",
+      "Chloroplasts",
+      "Mitochondria"
+    ],
+    "answer": 1,
+    "correct_answer": "Vacuoles"
+  },
+  {
+    "id": "SCI163",
+    "category": "Cells",
+    "difficulty": "PSLE",
+    "template": "Chloroplasts in plant cells contain chlorophyll which:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Stores water",
+      "Absorbs light for photosynthesis",
+      "Protects the cell",
+      "Controls cell division"
+    ],
+    "answer": 1,
+    "correct_answer": "Absorbs light for photosynthesis"
+  },
+  {
+    "id": "SCI164",
+    "category": "Human Body",
+    "difficulty": "P5-P6",
+    "template": "The main function of the respiratory system is to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Pump blood",
+      "Digest food",
+      "Take in oxygen and remove carbon dioxide",
+      "Filter waste"
+    ],
+    "answer": 2,
+    "correct_answer": "Take in oxygen and remove carbon dioxide"
+  },
+  {
+    "id": "SCI165",
+    "category": "Human Body",
+    "difficulty": "P5-P6",
+    "template": "Which organ is part of BOTH the respiratory and digestive systems?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Stomach",
+      "Throat/Pharynx",
+      "Heart",
+      "Kidneys"
+    ],
+    "answer": 1,
+    "correct_answer": "Throat/Pharynx"
+  },
+  {
+    "id": "SCI166",
+    "category": "Human Body",
+    "difficulty": "P5-P6",
+    "template": "The small intestine is important for:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Storing urine",
+      "Pumping blood",
+      "Absorbing nutrients from digested food",
+      "Breathing"
+    ],
+    "answer": 2,
+    "correct_answer": "Absorbing nutrients from digested food"
+  },
+  {
+    "id": "SCI167",
+    "category": "Human Body",
+    "difficulty": "P5-P6",
+    "template": "Which blood vessels carry blood away from the heart?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Veins",
+      "Arteries",
+      "Capillaries",
+      "Nerves"
+    ],
+    "answer": 1,
+    "correct_answer": "Arteries"
+  },
+  {
+    "id": "SCI168",
+    "category": "Human Body",
+    "difficulty": "PSLE",
+    "template": "The brain is part of which body system?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Circulatory system",
+      "Digestive system",
+      "Nervous system",
+      "Respiratory system"
+    ],
+    "answer": 2,
+    "correct_answer": "Nervous system"
+  },
+  {
+    "id": "SCI169",
+    "category": "Human Body",
+    "difficulty": "PSLE",
+    "template": "What is the main function of white blood cells?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Carry oxygen",
+      "Fight infections and disease",
+      "Help blood clot",
+      "Digest food"
+    ],
+    "answer": 1,
+    "correct_answer": "Fight infections and disease"
+  },
+  {
+    "id": "SCI170",
+    "category": "Human Body",
+    "difficulty": "PSLE",
+    "template": "The liver produces bile which helps to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Digest fats",
+      "Pump blood",
+      "Breathe",
+      "Think"
+    ],
+    "answer": 0,
+    "correct_answer": "Digest fats"
+  },
+  {
+    "id": "SCI171",
+    "category": "Human Body",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} exercises and notices their heart beats faster. This is because:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "The heart is tired",
+      "Muscles need more oxygen and nutrients",
+      "The heart is broken",
+      "Exercise slows blood flow"
+    ],
+    "answer": 1,
+    "correct_answer": "Muscles need more oxygen and nutrients"
+  },
+  {
+    "id": "SCI172",
+    "category": "Reproduction",
+    "difficulty": "P5-P6",
+    "template": "The male part of a flower is called the:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Pistil",
+      "Stamen",
+      "Petal",
+      "Sepal"
+    ],
+    "answer": 1,
+    "correct_answer": "Stamen"
+  },
+  {
+    "id": "SCI173",
+    "category": "Reproduction",
+    "difficulty": "P5-P6",
+    "template": "Which part of the flower contains pollen?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Stigma",
+      "Anther",
+      "Ovary",
+      "Style"
+    ],
+    "answer": 1,
+    "correct_answer": "Anther"
+  },
+  {
+    "id": "SCI174",
+    "category": "Reproduction",
+    "difficulty": "P5-P6",
+    "template": "Seeds with hooks or spines are most likely dispersed by:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Wind",
+      "Water",
+      "Animals (on fur)",
+      "Explosion"
+    ],
+    "answer": 2,
+    "correct_answer": "Animals (on fur)"
+  },
+  {
+    "id": "SCI175",
+    "category": "Reproduction",
+    "difficulty": "P5-P6",
+    "template": "What happens during fertilization in plants?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Pollen lands on stigma",
+      "Male and female sex cells join",
+      "Seeds are dispersed",
+      "Flower opens"
+    ],
+    "answer": 1,
+    "correct_answer": "Male and female sex cells join"
+  },
+  {
+    "id": "SCI176",
+    "category": "Reproduction",
+    "difficulty": "PSLE",
+    "template": "Fruits like coconuts that float are dispersed by:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Wind",
+      "Water",
+      "Animals eating them",
+      "Explosion"
+    ],
+    "answer": 1,
+    "correct_answer": "Water"
+  },
+  {
+    "id": "SCI177",
+    "category": "Reproduction",
+    "difficulty": "PSLE",
+    "template": "Why do plants produce sweet fruits?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "To attract insects for pollination",
+      "To attract animals to eat and disperse seeds",
+      "To store food",
+      "To protect seeds"
+    ],
+    "answer": 1,
+    "correct_answer": "To attract animals to eat and disperse seeds"
+  },
+  {
+    "id": "SCI178",
+    "category": "Reproduction",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} plants bean seeds in soil. For germination to occur, the seeds need:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Only water",
+      "Water, air, and suitable temperature",
+      "Only sunlight",
+      "Only fertile soil"
+    ],
+    "answer": 1,
+    "correct_answer": "Water, air, and suitable temperature"
+  },
+  {
+    "id": "SCI179",
+    "category": "Reproduction",
+    "difficulty": "PSLE",
+    "template": "After fertilization, which part of the flower develops into the fruit?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Petals",
+      "Ovary",
+      "Stamen",
+      "Stigma"
+    ],
+    "answer": 1,
+    "correct_answer": "Ovary"
+  },
+  {
+    "id": "SCI180",
+    "category": "Energy",
+    "difficulty": "P5-P6",
+    "template": "A light bulb converts electrical energy into:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Only light energy",
+      "Light and heat energy",
+      "Sound energy",
+      "Chemical energy"
+    ],
+    "answer": 1,
+    "correct_answer": "Light and heat energy"
+  },
+  {
+    "id": "SCI181",
+    "category": "Energy",
+    "difficulty": "P5-P6",
+    "template": "Which form of energy is stored in a stretched rubber band?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Kinetic energy",
+      "Potential (elastic) energy",
+      "Chemical energy",
+      "Light energy"
+    ],
+    "answer": 1,
+    "correct_answer": "Potential (elastic) energy"
+  },
+  {
+    "id": "SCI182",
+    "category": "Energy",
+    "difficulty": "P5-P6",
+    "template": "Wind energy is converted to electrical energy using:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Solar panels",
+      "Wind turbines",
+      "Batteries",
+      "Dams"
+    ],
+    "answer": 1,
+    "correct_answer": "Wind turbines"
+  },
+  {
+    "id": "SCI183",
+    "category": "Energy",
+    "difficulty": "PSLE",
+    "template": "Which energy source is renewable?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Coal",
+      "Natural gas",
+      "Solar energy",
+      "Petroleum"
+    ],
+    "answer": 2,
+    "correct_answer": "Solar energy"
+  },
+  {
+    "id": "SCI184",
+    "category": "Energy",
+    "difficulty": "PSLE",
+    "template": "According to the law of conservation of energy:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Energy can be created from nothing",
+      "Energy can be destroyed",
+      "Energy can be transformed but not created or destroyed",
+      "Energy always stays the same form"
+    ],
+    "answer": 2,
+    "correct_answer": "Energy can be transformed but not created or destroyed"
+  },
+  {
+    "id": "SCI185",
+    "category": "Energy",
+    "difficulty": "PSLE",
+    "template": "When you rub your hands together, kinetic energy is converted to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Light energy",
+      "Heat energy",
+      "Sound energy",
+      "Chemical energy"
+    ],
+    "answer": 1,
+    "correct_answer": "Heat energy"
+  },
+  {
+    "id": "SCI186",
+    "category": "Energy",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} uses a solar calculator. What energy conversion occurs?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Light to electrical to display",
+      "Heat to light to electrical",
+      "Chemical to electrical",
+      "Sound to electrical"
+    ],
+    "answer": 0,
+    "correct_answer": "Light to electrical to display"
+  },
+  {
+    "id": "SCI187",
+    "category": "Heat",
+    "difficulty": "P5-P6",
+    "template": "Heat always flows from:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Cold to hot objects",
+      "Hot to cold objects",
+      "Large to small objects",
+      "Small to large objects"
+    ],
+    "answer": 1,
+    "correct_answer": "Hot to cold objects"
+  },
+  {
+    "id": "SCI188",
+    "category": "Heat",
+    "difficulty": "P5-P6",
+    "template": "The sun's heat reaches Earth through:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Conduction",
+      "Convection",
+      "Radiation",
+      "Insulation"
+    ],
+    "answer": 2,
+    "correct_answer": "Radiation"
+  },
+  {
+    "id": "SCI189",
+    "category": "Heat",
+    "difficulty": "P5-P6",
+    "template": "Hot air rises because it is:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Heavier than cold air",
+      "Less dense than cold air",
+      "More dense than cold air",
+      "The same density as cold air"
+    ],
+    "answer": 1,
+    "correct_answer": "Less dense than cold air"
+  },
+  {
+    "id": "SCI190",
+    "category": "Heat",
+    "difficulty": "PSLE",
+    "template": "Which material is the best insulator?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Copper",
+      "Steel",
+      "Styrofoam",
+      "Aluminum"
+    ],
+    "answer": 2,
+    "correct_answer": "Styrofoam"
+  },
+  {
+    "id": "SCI191",
+    "category": "Heat",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} touches a metal spoon and wooden spoon left in hot soup. The metal spoon feels hotter because:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Metal absorbs more heat",
+      "Metal conducts heat better to the hand",
+      "Wood is colder than metal",
+      "Metal is lighter"
+    ],
+    "answer": 1,
+    "correct_answer": "Metal conducts heat better to the hand"
+  },
+  {
+    "id": "SCI192",
+    "category": "Heat",
+    "difficulty": "PSLE",
+    "template": "Wearing light-colored clothes in hot weather helps because:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Light colors absorb heat",
+      "Light colors reflect heat",
+      "Light colors conduct heat",
+      "Light colors trap heat"
+    ],
+    "answer": 1,
+    "correct_answer": "Light colors reflect heat"
+  },
+  {
+    "id": "SCI193",
+    "category": "Heat",
+    "difficulty": "PSLE",
+    "template": "A double-walled vacuum flask keeps liquids hot/cold because:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Vacuum allows heat to pass through",
+      "Vacuum prevents heat transfer by conduction and convection",
+      "Vacuum creates more heat",
+      "Vacuum absorbs heat"
+    ],
+    "answer": 1,
+    "correct_answer": "Vacuum prevents heat transfer by conduction and convection"
+  },
+  {
+    "id": "SCI194",
+    "category": "Light",
+    "difficulty": "P5-P6",
+    "template": "Light travels in:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Curved lines",
+      "Straight lines",
+      "Zigzag patterns",
+      "Circles"
+    ],
+    "answer": 1,
+    "correct_answer": "Straight lines"
+  },
+  {
+    "id": "SCI195",
+    "category": "Light",
+    "difficulty": "P5-P6",
+    "template": "An opaque object is one that:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Allows all light to pass through",
+      "Allows some light to pass through",
+      "Does not allow light to pass through",
+      "Bends light"
+    ],
+    "answer": 2,
+    "correct_answer": "Does not allow light to pass through"
+  },
+  {
+    "id": "SCI196",
+    "category": "Light",
+    "difficulty": "P5-P6",
+    "template": "When light bounces off a surface, it is called:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Refraction",
+      "Reflection",
+      "Absorption",
+      "Transmission"
+    ],
+    "answer": 1,
+    "correct_answer": "Reflection"
+  },
+  {
+    "id": "SCI197",
+    "category": "Light",
+    "difficulty": "PSLE",
+    "template": "A pencil appears bent when placed in water because of:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Reflection",
+      "Refraction (bending of light)",
+      "Absorption",
+      "Dispersion"
+    ],
+    "answer": 1,
+    "correct_answer": "Refraction (bending of light)"
+  },
+  {
+    "id": "SCI198",
+    "category": "Light",
+    "difficulty": "PSLE",
+    "template": "Which surface would produce the clearest reflection?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Rough wood",
+      "Smooth mirror",
+      "Crumpled paper",
+      "Fabric"
+    ],
+    "answer": 1,
+    "correct_answer": "Smooth mirror"
+  },
+  {
+    "id": "SCI199",
+    "category": "Light",
+    "difficulty": "PSLE",
+    "template": "White light passing through a prism splits into different colors because:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "The prism adds colors",
+      "Different colors bend by different amounts",
+      "White light has no colors",
+      "The prism creates colors"
+    ],
+    "answer": 1,
+    "correct_answer": "Different colors bend by different amounts"
+  },
+  {
+    "id": "SCI200",
+    "category": "Light",
+    "difficulty": "PSLE",
+    "template": "We can see objects because:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Objects produce their own light",
+      "Light from sources reflects off objects into our eyes",
+      "Our eyes send out light",
+      "Objects absorb all light"
+    ],
+    "answer": 1,
+    "correct_answer": "Light from sources reflects off objects into our eyes"
+  },
+  {
+    "id": "SCI201",
+    "category": "Sound",
+    "difficulty": "P5-P6",
+    "template": "Sound cannot travel through:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Air",
+      "Water",
+      "Vacuum (empty space)",
+      "Steel"
+    ],
+    "answer": 2,
+    "correct_answer": "Vacuum (empty space)"
+  },
+  {
+    "id": "SCI202",
+    "category": "Sound",
+    "difficulty": "P5-P6",
+    "template": "A high-pitched sound has:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Low frequency vibrations",
+      "High frequency vibrations",
+      "Large amplitude",
+      "No vibrations"
+    ],
+    "answer": 1,
+    "correct_answer": "High frequency vibrations"
+  },
+  {
+    "id": "SCI203",
+    "category": "Sound",
+    "difficulty": "P5-P6",
+    "template": "Volume (loudness) of sound depends on:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Frequency of vibration",
+      "Amplitude of vibration",
+      "Speed of sound",
+      "Type of material"
+    ],
+    "answer": 1,
+    "correct_answer": "Amplitude of vibration"
+  },
+  {
+    "id": "SCI204",
+    "category": "Sound",
+    "difficulty": "PSLE",
+    "template": "Sound travels fastest through:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Air (340 m/s)",
+      "Water (1500 m/s)",
+      "Steel (5000 m/s)",
+      "Vacuum"
+    ],
+    "answer": 2,
+    "correct_answer": "Steel (5000 m/s)"
+  },
+  {
+    "id": "SCI205",
+    "category": "Sound",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} strikes a tuning fork and places it in water. What happens?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Nothing",
+      "Water splashes because of vibrations",
+      "Water freezes",
+      "Sound stops"
+    ],
+    "answer": 1,
+    "correct_answer": "Water splashes because of vibrations"
+  },
+  {
+    "id": "SCI206",
+    "category": "Sound",
+    "difficulty": "PSLE",
+    "template": "The loudness of sound is measured in:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Meters",
+      "Hertz",
+      "Decibels",
+      "Watts"
+    ],
+    "answer": 2,
+    "correct_answer": "Decibels"
+  },
+  {
+    "id": "SCI207",
+    "category": "Sound",
+    "difficulty": "PSLE",
+    "template": "When you pluck a guitar string harder, what changes?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Pitch gets higher",
+      "Volume gets louder",
+      "Sound travels slower",
+      "Frequency decreases"
+    ],
+    "answer": 1,
+    "correct_answer": "Volume gets louder"
+  },
+  {
+    "id": "SCI208",
+    "category": "Electricity",
+    "difficulty": "P5-P6",
+    "template": "A battery has two terminals labeled:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Plus and minus",
+      "Positive and negative",
+      "Up and down",
+      "In and out"
+    ],
+    "answer": 1,
+    "correct_answer": "Positive and negative"
+  },
+  {
+    "id": "SCI209",
+    "category": "Electricity",
+    "difficulty": "P5-P6",
+    "template": "For electricity to flow, a circuit must be:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Open",
+      "Closed (complete loop)",
+      "Broken",
+      "Short"
+    ],
+    "answer": 1,
+    "correct_answer": "Closed (complete loop)"
+  },
+  {
+    "id": "SCI210",
+    "category": "Electricity",
+    "difficulty": "P5-P6",
+    "template": "Why are electrical wires covered with plastic?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "To make them colorful",
+      "Plastic conducts electricity better",
+      "Plastic is an insulator for safety",
+      "To make them heavier"
+    ],
+    "answer": 2,
+    "correct_answer": "Plastic is an insulator for safety"
+  },
+  {
+    "id": "SCI211",
+    "category": "Electricity",
+    "difficulty": "PSLE",
+    "template": "In a parallel circuit, if one bulb burns out:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "All bulbs stop working",
+      "Other bulbs continue to work",
+      "The battery explodes",
+      "All bulbs get dimmer"
+    ],
+    "answer": 1,
+    "correct_answer": "Other bulbs continue to work"
+  },
+  {
+    "id": "SCI212",
+    "category": "Electricity",
+    "difficulty": "PSLE",
+    "template": "Which electrical safety rule is MOST important?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Use bright colored wires",
+      "Never touch electrical appliances with wet hands",
+      "Always use the longest wires",
+      "Connect many devices to one socket"
+    ],
+    "answer": 1,
+    "correct_answer": "Never touch electrical appliances with wet hands"
+  },
+  {
+    "id": "SCI213",
+    "category": "Electricity",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} adds more batteries in series to a circuit. What happens to the bulb?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Bulb gets dimmer",
+      "Bulb gets brighter",
+      "Nothing changes",
+      "Bulb stops working"
+    ],
+    "answer": 1,
+    "correct_answer": "Bulb gets brighter"
+  },
+  {
+    "id": "SCI214",
+    "category": "Electricity",
+    "difficulty": "PSLE",
+    "template": "What energy conversion occurs in a light bulb?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Chemical to light",
+      "Electrical to light and heat",
+      "Mechanical to light",
+      "Sound to light"
+    ],
+    "answer": 1,
+    "correct_answer": "Electrical to light and heat"
+  },
+  {
+    "id": "SCI215",
+    "category": "Forces",
+    "difficulty": "P5-P6",
+    "template": "What is a force?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "A type of energy",
+      "A push or a pull",
+      "A form of light",
+      "A state of matter"
+    ],
+    "answer": 1,
+    "correct_answer": "A push or a pull"
+  },
+  {
+    "id": "SCI216",
+    "category": "Forces",
+    "difficulty": "P5-P6",
+    "template": "Friction acts in the direction:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Same as motion",
+      "Opposite to motion",
+      "Perpendicular to motion",
+      "Random"
+    ],
+    "answer": 1,
+    "correct_answer": "Opposite to motion"
+  },
+  {
+    "id": "SCI217",
+    "category": "Forces",
+    "difficulty": "P5-P6",
+    "template": "Which force keeps us on the ground?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Magnetic force",
+      "Gravitational force",
+      "Frictional force",
+      "Elastic force"
+    ],
+    "answer": 1,
+    "correct_answer": "Gravitational force"
+  },
+  {
+    "id": "SCI218",
+    "category": "Forces",
+    "difficulty": "PSLE",
+    "template": "To reduce friction when moving furniture, you should:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Add more weight",
+      "Use wheels or place on smooth surface",
+      "Push harder",
+      "Make surface rougher"
+    ],
+    "answer": 1,
+    "correct_answer": "Use wheels or place on smooth surface"
+  },
+  {
+    "id": "SCI219",
+    "category": "Forces",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} stretches a spring. When released, the spring returns to its original shape due to:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Gravity",
+      "Elastic force",
+      "Friction",
+      "Magnetism"
+    ],
+    "answer": 1,
+    "correct_answer": "Elastic force"
+  },
+  {
+    "id": "SCI220",
+    "category": "Forces",
+    "difficulty": "PSLE",
+    "template": "Car brakes use friction to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Make the car go faster",
+      "Slow down and stop the car",
+      "Turn the car",
+      "Start the engine"
+    ],
+    "answer": 1,
+    "correct_answer": "Slow down and stop the car"
+  },
+  {
+    "id": "SCI221",
+    "category": "Forces",
+    "difficulty": "PSLE",
+    "template": "Two magnets with like poles (N-N or S-S) facing each other will:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Attract",
+      "Repel",
+      "Not affect each other",
+      "Stick together"
+    ],
+    "answer": 1,
+    "correct_answer": "Repel"
+  },
+  {
+    "id": "SCI222",
+    "category": "Adaptations",
+    "difficulty": "P5-P6",
+    "template": "Adaptations help organisms to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Look pretty",
+      "Survive in their environment",
+      "Grow taller",
+      "Change color randomly"
+    ],
+    "answer": 1,
+    "correct_answer": "Survive in their environment"
+  },
+  {
+    "id": "SCI223",
+    "category": "Adaptations",
+    "difficulty": "P5-P6",
+    "template": "Water lily leaves float on water because they have:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Heavy stems",
+      "Air spaces in stems and leaves",
+      "No chlorophyll",
+      "Very thick leaves"
+    ],
+    "answer": 1,
+    "correct_answer": "Air spaces in stems and leaves"
+  },
+  {
+    "id": "SCI224",
+    "category": "Adaptations",
+    "difficulty": "P5-P6",
+    "template": "Birds have hollow bones to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Make them heavier",
+      "Make them lighter for flight",
+      "Store water",
+      "Protect from predators"
+    ],
+    "answer": 1,
+    "correct_answer": "Make them lighter for flight"
+  },
+  {
+    "id": "SCI225",
+    "category": "Adaptations",
+    "difficulty": "PSLE",
+    "template": "Hibernation is an example of:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Structural adaptation",
+      "Behavioral adaptation",
+      "Physical change",
+      "Camouflage"
+    ],
+    "answer": 1,
+    "correct_answer": "Behavioral adaptation"
+  },
+  {
+    "id": "SCI226",
+    "category": "Adaptations",
+    "difficulty": "PSLE",
+    "template": "Eagles have sharp talons (claws) to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Walk on ice",
+      "Catch and hold prey",
+      "Dig burrows",
+      "Swim faster"
+    ],
+    "answer": 1,
+    "correct_answer": "Catch and hold prey"
+  },
+  {
+    "id": "SCI227",
+    "category": "Adaptations",
+    "difficulty": "PSLE",
+    "template": "Camels can survive in deserts because they:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Drink very little water and store fat in humps",
+      "Need lots of water daily",
+      "Cannot close their nostrils",
+      "Have thin fur"
+    ],
+    "answer": 0,
+    "correct_answer": "Drink very little water and store fat in humps"
+  },
+  {
+    "id": "SCI228",
+    "category": "Adaptations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} observes that fish have streamlined bodies. This helps them to:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Look beautiful",
+      "Swim faster with less resistance",
+      "Float better",
+      "Breathe easier"
+    ],
+    "answer": 1,
+    "correct_answer": "Swim faster with less resistance"
+  },
+  {
+    "id": "SCI229",
+    "category": "Environment",
+    "difficulty": "P5-P6",
+    "template": "Deforestation causes:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "More trees to grow",
+      "Loss of animal habitats and soil erosion",
+      "Cleaner air",
+      "More rainfall"
+    ],
+    "answer": 1,
+    "correct_answer": "Loss of animal habitats and soil erosion"
+  },
+  {
+    "id": "SCI230",
+    "category": "Environment",
+    "difficulty": "P5-P6",
+    "template": "Which of the following helps conserve the environment?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Leaving taps running",
+      "Using plastic bags once and throwing away",
+      "Reducing, reusing, and recycling",
+      "Cutting down trees"
+    ],
+    "answer": 2,
+    "correct_answer": "Reducing, reusing, and recycling"
+  },
+  {
+    "id": "SCI231",
+    "category": "Environment",
+    "difficulty": "P5-P6",
+    "template": "Air pollution is mainly caused by:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Planting trees",
+      "Vehicle exhaust and factory smoke",
+      "Recycling",
+      "Saving water"
+    ],
+    "answer": 1,
+    "correct_answer": "Vehicle exhaust and factory smoke"
+  },
+  {
+    "id": "SCI232",
+    "category": "Environment",
+    "difficulty": "PSLE",
+    "template": "The 3Rs are in order of importance. Which should we do FIRST?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Recycle",
+      "Reuse",
+      "Reduce",
+      "All are equally important"
+    ],
+    "answer": 2,
+    "correct_answer": "Reduce"
+  },
+  {
+    "id": "SCI233",
+    "category": "Environment",
+    "difficulty": "PSLE",
+    "template": "Plastic waste is harmful because it:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Decomposes quickly",
+      "Takes hundreds of years to decompose and harms animals",
+      "Is good for the environment",
+      "Provides food for animals"
+    ],
+    "answer": 1,
+    "correct_answer": "Takes hundreds of years to decompose and harms animals"
+  },
+  {
+    "id": "SCI234",
+    "category": "Environment",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} wants to reduce carbon footprint. What should {CHARACTER_0} do?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Drive alone to school",
+      "Leave lights on all day",
+      "Use public transport or walk",
+      "Use more plastic bags"
+    ],
+    "answer": 2,
+    "correct_answer": "Use public transport or walk"
+  },
+  {
+    "id": "SCI235",
+    "category": "Environment",
+    "difficulty": "PSLE",
+    "template": "Planting trees helps the environment because trees:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Use up oxygen",
+      "Absorb carbon dioxide and produce oxygen",
+      "Increase air pollution",
+      "Cause soil erosion"
+    ],
+    "answer": 1,
+    "correct_answer": "Absorb carbon dioxide and produce oxygen"
+  },
+  {
+    "id": "SCI236",
+    "category": "Matter",
+    "difficulty": "P5-P6",
+    "template": "A solution is formed when:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Two solids are mixed",
+      "A solute dissolves completely in a solvent",
+      "Oil is added to water",
+      "Sand is added to water"
+    ],
+    "answer": 1,
+    "correct_answer": "A solute dissolves completely in a solvent"
+  },
+  {
+    "id": "SCI237",
+    "category": "Matter",
+    "difficulty": "P5-P6",
+    "template": "Which method can separate a mixture of salt and water?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Filtration",
+      "Evaporation",
+      "Magnetism",
+      "Sieving"
+    ],
+    "answer": 1,
+    "correct_answer": "Evaporation"
+  },
+  {
+    "id": "SCI238",
+    "category": "Matter",
+    "difficulty": "P5-P6",
+    "template": "When sugar dissolves in water, it:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Disappears completely",
+      "Forms a solution - sugar particles spread evenly",
+      "Sinks to the bottom forever",
+      "Floats on top"
+    ],
+    "answer": 1,
+    "correct_answer": "Forms a solution - sugar particles spread evenly"
+  },
+  {
+    "id": "SCI239",
+    "category": "Matter",
+    "difficulty": "PSLE",
+    "template": "Which change is irreversible?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Melting ice",
+      "Dissolving salt",
+      "Burning paper",
+      "Boiling water"
+    ],
+    "answer": 2,
+    "correct_answer": "Burning paper"
+  },
+  {
+    "id": "SCI240",
+    "category": "Matter",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} wants to speed up dissolving. What should {CHARACTER_0} do?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Use cold water",
+      "Use hot water and stir",
+      "Leave it alone",
+      "Add more solid"
+    ],
+    "answer": 1,
+    "correct_answer": "Use hot water and stir"
+  },
+  {
+    "id": "SCI241",
+    "category": "Matter",
+    "difficulty": "PSLE",
+    "template": "Condensation is the process of:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Liquid changing to gas",
+      "Gas changing to liquid",
+      "Solid changing to liquid",
+      "Liquid changing to solid"
+    ],
+    "answer": 1,
+    "correct_answer": "Gas changing to liquid"
+  },
+  {
+    "id": "SCI242",
+    "category": "Sound",
+    "difficulty": "P5-P6",
+    "template": "When you shout in an empty room, you hear an echo. This is due to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Sound absorption",
+      "Sound reflection",
+      "Sound refraction",
+      "Sound creation"
+    ],
+    "answer": 1,
+    "correct_answer": "Sound reflection"
+  },
+  {
+    "id": "SCI243",
+    "category": "Sound",
+    "difficulty": "PSLE",
+    "template": "Which statement about sound is correct?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Sound can travel through vacuum",
+      "Sound needs a medium to travel",
+      "Sound travels faster than light",
+      "Sound travels in straight lines only"
+    ],
+    "answer": 1,
+    "correct_answer": "Sound needs a medium to travel"
+  },
+  {
+    "id": "SCI244",
+    "category": "Sound",
+    "difficulty": "PSLE",
+    "template": "To produce a higher pitch on a guitar string, you should:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Pluck it harder",
+      "Make the string tighter or shorter",
+      "Pluck it softer",
+      "Make the string longer"
+    ],
+    "answer": 1,
+    "correct_answer": "Make the string tighter or shorter"
+  },
+  {
+    "id": "SCI245",
+    "category": "Sound",
+    "difficulty": "P5-P6",
+    "template": "Musical instruments produce sound through:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Light waves",
+      "Vibrations",
+      "Heat",
+      "Magnetism"
+    ],
+    "answer": 1,
+    "correct_answer": "Vibrations"
+  },
+  {
+    "id": "SCI246",
+    "category": "Sound",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} hears thunder 3 seconds after seeing lightning. This shows that:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Sound travels faster than light",
+      "Light travels faster than sound",
+      "They travel at the same speed",
+      "Sound doesn't travel through air"
+    ],
+    "answer": 1,
+    "correct_answer": "Light travels faster than sound"
+  },
+  {
+    "id": "SCI247",
+    "category": "Sound",
+    "difficulty": "PSLE",
+    "template": "Astronauts in space cannot hear each other without radios because:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Sound is too loud in space",
+      "Space is a vacuum with no medium for sound",
+      "Sound travels too fast",
+      "Their helmets block sound"
+    ],
+    "answer": 1,
+    "correct_answer": "Space is a vacuum with no medium for sound"
+  },
+  {
+    "id": "SCI248",
+    "category": "Sound",
+    "difficulty": "PSLE",
+    "template": "A drum makes a loud sound when hit hard because:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "The frequency increases",
+      "The amplitude of vibration increases",
+      "The pitch gets higher",
+      "Sound travels faster"
+    ],
+    "answer": 1,
+    "correct_answer": "The amplitude of vibration increases"
+  },
+  {
+    "id": "SCI249",
+    "category": "Sound",
+    "difficulty": "PSLE",
+    "template": "Soft materials like curtains and carpets help reduce echo in a room because they:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Reflect sound",
+      "Absorb sound",
+      "Create sound",
+      "Speed up sound"
+    ],
+    "answer": 1,
+    "correct_answer": "Absorb sound"
+  },
+  {
+    "id": "SCI250",
+    "category": "Sound",
+    "difficulty": "PSLE",
+    "template": "Which produces the lowest pitch sound?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Fast vibrating object",
+      "Slow vibrating object",
+      "Loud vibrating object",
+      "Small vibrating object"
+    ],
+    "answer": 1,
+    "correct_answer": "Slow vibrating object"
+  },
+  {
+    "id": "SCI251",
+    "category": "Matter",
+    "difficulty": "P5-P6",
+    "template": "Particles in a solid are:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Far apart and move freely",
+      "Close together and vibrate in fixed positions",
+      "Far apart and vibrate",
+      "Not moving at all"
+    ],
+    "answer": 1,
+    "correct_answer": "Close together and vibrate in fixed positions"
+  },
+  {
+    "id": "SCI252",
+    "category": "Matter",
+    "difficulty": "P5-P6",
+    "template": "Particles in a gas are:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Fixed in position",
+      "Very close together",
+      "Far apart and move freely in all directions",
+      "Only move up and down"
+    ],
+    "answer": 2,
+    "correct_answer": "Far apart and move freely in all directions"
+  },
+  {
+    "id": "SCI253",
+    "category": "Matter",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} observes ice melting. This is an example of:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Chemical change",
+      "Reversible physical change",
+      "Irreversible change",
+      "No change"
+    ],
+    "answer": 1,
+    "correct_answer": "Reversible physical change"
+  },
+  {
+    "id": "SCI254",
+    "category": "Matter",
+    "difficulty": "PSLE",
+    "template": "Which process changes water directly from solid to gas?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Melting",
+      "Evaporation",
+      "Sublimation",
+      "Condensation"
+    ],
+    "answer": 2,
+    "correct_answer": "Sublimation"
+  },
+  {
+    "id": "SCI255",
+    "category": "Matter",
+    "difficulty": "PSLE",
+    "template": "Oil and water do not mix because:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Oil is lighter and less dense than water",
+      "Water is colder",
+      "Oil is magnetic",
+      "Water is heavier than oil"
+    ],
+    "answer": 0,
+    "correct_answer": "Oil is lighter and less dense than water"
+  },
+  {
+    "id": "SCI256",
+    "category": "Matter",
+    "difficulty": "PSLE",
+    "template": "To separate a mixture of sand and salt, the best method is:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Use magnet",
+      "Dissolve salt in water, filter sand, evaporate water",
+      "Pick them apart",
+      "Burn them"
+    ],
+    "answer": 1,
+    "correct_answer": "Dissolve salt in water, filter sand, evaporate water"
+  },
+  {
+    "id": "SCI257",
+    "category": "Environment",
+    "difficulty": "P5-P6",
+    "template": "Which gas do plants absorb from the air during photosynthesis?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Oxygen",
+      "Nitrogen",
+      "Carbon dioxide",
+      "Hydrogen"
+    ],
+    "answer": 2,
+    "correct_answer": "Carbon dioxide"
+  },
+  {
+    "id": "SCI258",
+    "category": "Environment",
+    "difficulty": "P5-P6",
+    "template": "Overfishing causes:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "More fish in the ocean",
+      "Fish population decline and disrupted food chains",
+      "Cleaner water",
+      "More coral reefs"
+    ],
+    "answer": 1,
+    "correct_answer": "Fish population decline and disrupted food chains"
+  },
+  {
+    "id": "SCI259",
+    "category": "Environment",
+    "difficulty": "PSLE",
+    "template": "Global warming is caused by:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Too many plants",
+      "Greenhouse gases trapping heat",
+      "Too much rain",
+      "Cold weather"
+    ],
+    "answer": 1,
+    "correct_answer": "Greenhouse gases trapping heat"
+  },
+  {
+    "id": "SCI260",
+    "category": "Environment",
+    "difficulty": "PSLE",
+    "template": "Which action helps save energy at home?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Leaving lights on all day",
+      "Using air conditioning constantly",
+      "Turning off devices when not in use",
+      "Opening refrigerator frequently"
+    ],
+    "answer": 2,
+    "correct_answer": "Turning off devices when not in use"
+  },
+  {
+    "id": "SCI261",
+    "category": "Environment",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} sees plastic bottles in the ocean. This is harmful because:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Plastic provides food for fish",
+      "Plastic helps water quality",
+      "Plastic takes centuries to decompose and harms marine life",
+      "Plastic makes water cleaner"
+    ],
+    "answer": 2,
+    "correct_answer": "Plastic takes centuries to decompose and harms marine life"
+  },
+  {
+    "id": "SCI262",
+    "category": "Environment",
+    "difficulty": "PSLE",
+    "template": "Composting helps the environment by:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Creating more garbage",
+      "Turning food waste into useful soil nutrients",
+      "Increasing pollution",
+      "Wasting water"
+    ],
+    "answer": 1,
+    "correct_answer": "Turning food waste into useful soil nutrients"
+  },
+  {
+    "id": "SCI263",
+    "category": "Energy",
+    "difficulty": "P5-P6",
+    "template": "Hydroelectric power converts _____ energy to electrical energy.",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Light",
+      "Moving water (kinetic)",
+      "Chemical",
+      "Sound"
+    ],
+    "answer": 1,
+    "correct_answer": "Moving water (kinetic)"
+  },
+  {
+    "id": "SCI264",
+    "category": "Energy",
+    "difficulty": "PSLE",
+    "template": "Which energy source will eventually run out?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Solar energy",
+      "Wind energy",
+      "Fossil fuels (coal, oil, gas)",
+      "Hydroelectric energy"
+    ],
+    "answer": 2,
+    "correct_answer": "Fossil fuels (coal, oil, gas)"
+  },
+  {
+    "id": "SCI265",
+    "category": "Energy",
+    "difficulty": "PSLE",
+    "template": "When a ball falls from a height:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Potential energy converts to kinetic energy",
+      "Kinetic energy converts to potential energy",
+      "Energy is created",
+      "Energy disappears"
+    ],
+    "answer": 0,
+    "correct_answer": "Potential energy converts to kinetic energy"
+  },
+  {
+    "id": "SCI266",
+    "category": "Energy",
+    "difficulty": "PSLE",
+    "template": "A microphone converts _____ energy to _____ energy.",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Sound to electrical",
+      "Electrical to sound",
+      "Light to electrical",
+      "Heat to sound"
+    ],
+    "answer": 0,
+    "correct_answer": "Sound to electrical"
+  },
+  {
+    "id": "SCI267",
+    "category": "Energy",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} uses a hair dryer. What energy conversions occur?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Electrical to heat and kinetic (fan motion)",
+      "Heat to electrical",
+      "Kinetic to heat",
+      "Chemical to electrical"
+    ],
+    "answer": 0,
+    "correct_answer": "Electrical to heat and kinetic (fan motion)"
+  },
+  {
+    "id": "SCI268",
+    "category": "Heat",
+    "difficulty": "PSLE",
+    "template": "A metal spoon left in hot tea becomes hot throughout. This is due to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Convection",
+      "Radiation",
+      "Conduction",
+      "Evaporation"
+    ],
+    "answer": 2,
+    "correct_answer": "Conduction"
+  },
+  {
+    "id": "SCI269",
+    "category": "Electricity",
+    "difficulty": "PSLE",
+    "template": "Which appliance converts electrical energy to kinetic energy?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Light bulb",
+      "Heater",
+      "Fan",
+      "Kettle"
+    ],
+    "answer": 2,
+    "correct_answer": "Fan"
+  },
+  {
+    "id": "SCI270",
+    "category": "Matter",
+    "difficulty": "PSLE",
+    "template": "When water boils, bubbles form because:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Air enters the water",
+      "Water vapor forms inside the liquid",
+      "Water creates new gas",
+      "Water becomes solid"
+    ],
+    "answer": 1,
+    "correct_answer": "Water vapor forms inside the liquid"
+  },
+  {
+    "id": "SCI271",
+    "category": "Matter",
+    "difficulty": "PSLE",
+    "template": "Dry ice (solid carbon dioxide) disappears without forming a liquid. This is:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Melting",
+      "Evaporation",
+      "Sublimation",
+      "Condensation"
+    ],
+    "answer": 2,
+    "correct_answer": "Sublimation"
+  },
+  {
+    "id": "SCI272",
+    "category": "Matter",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} stirs sugar in cold water and hot water. What difference would {CHARACTER_0} notice?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Sugar dissolves equally fast in both",
+      "Sugar dissolves faster in hot water",
+      "Sugar doesn't dissolve in hot water",
+      "Sugar turns into salt"
+    ],
+    "answer": 1,
+    "correct_answer": "Sugar dissolves faster in hot water"
+  },
+  {
+    "id": "SCI273",
+    "category": "Environment",
+    "difficulty": "PSLE",
+    "template": "Acid rain is caused by:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Too much oxygen",
+      "Air pollution mixing with rain",
+      "Too much water",
+      "Clean air"
+    ],
+    "answer": 1,
+    "correct_answer": "Air pollution mixing with rain"
+  },
+  {
+    "id": "SCI274",
+    "category": "Environment",
+    "difficulty": "PSLE",
+    "template": "Which material can be recycled?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Food waste",
+      "Glass bottles",
+      "Tissue paper",
+      "Styrofoam"
+    ],
+    "answer": 1,
+    "correct_answer": "Glass bottles"
+  },
+  {
+    "id": "SCI275",
+    "category": "Environment",
+    "difficulty": "PSLE",
+    "template": "Using LED bulbs instead of regular bulbs helps because they:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Are prettier",
+      "Use less energy and last longer",
+      "Are more expensive",
+      "Produce less light"
+    ],
+    "answer": 1,
+    "correct_answer": "Use less energy and last longer"
+  },
+  {
+    "id": "SCI276",
+    "category": "Environment",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} brings a reusable water bottle instead of buying plastic bottles. This is an example of:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Recycling",
+      "Reducing and reusing",
+      "Wasting",
+      "Polluting"
+    ],
+    "answer": 1,
+    "correct_answer": "Reducing and reusing"
+  },
+  {
+    "id": "SCI277",
+    "category": "Cycles",
+    "difficulty": "PSLE",
+    "template": "Water vapor in the air becomes visible when it:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Evaporates",
+      "Condenses into tiny water droplets",
+      "Freezes immediately",
+      "Disappears"
+    ],
+    "answer": 1,
+    "correct_answer": "Condenses into tiny water droplets"
+  },
+  {
+    "id": "SCI278",
+    "category": "Cycles",
+    "difficulty": "PSLE",
+    "template": "In the water cycle, which process returns water from land back to the atmosphere?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Precipitation",
+      "Evaporation and transpiration",
+      "Condensation",
+      "Infiltration"
+    ],
+    "answer": 1,
+    "correct_answer": "Evaporation and transpiration"
+  },
+  {
+    "id": "SCI279",
+    "category": "Reproduction",
+    "difficulty": "PSLE",
+    "template": "Insect pollination occurs when:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Wind carries pollen",
+      "Insects transfer pollen while feeding on nectar",
+      "Water carries pollen",
+      "Seeds are dispersed"
+    ],
+    "answer": 1,
+    "correct_answer": "Insects transfer pollen while feeding on nectar"
+  },
+  {
+    "id": "SCI280",
+    "category": "Reproduction",
+    "difficulty": "PSLE",
+    "template": "Brightly colored and scented flowers are usually pollinated by:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Wind",
+      "Water",
+      "Insects and birds",
+      "Themselves"
+    ],
+    "answer": 2,
+    "correct_answer": "Insects and birds"
+  },
+  {
+    "id": "SCI281",
+    "category": "Reproduction",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} observes dandelion seeds floating in the wind. This is an example of seed dispersal by:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Animals",
+      "Wind",
+      "Water",
+      "Explosion"
+    ],
+    "answer": 1,
+    "correct_answer": "Wind"
+  },
+  {
+    "id": "SCI282",
+    "category": "Reproduction",
+    "difficulty": "PSLE",
+    "template": "The embryo (baby plant) is found inside the:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Petal",
+      "Seed",
+      "Stem",
+      "Leaf"
+    ],
+    "answer": 1,
+    "correct_answer": "Seed"
+  },
+  {
+    "id": "SCI283",
+    "category": "Reproduction",
+    "difficulty": "PSLE",
+    "template": "Mammals give birth to live young and:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Lay eggs",
+      "Feed milk to their babies",
+      "Abandon their young",
+      "Live in water only"
+    ],
+    "answer": 1,
+    "correct_answer": "Feed milk to their babies"
+  },
+  {
+    "id": "SCI284",
+    "category": "Reproduction",
+    "difficulty": "PSLE",
+    "template": "Why do animals provide parental care?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "For fun",
+      "To increase offspring survival",
+      "To attract mates",
+      "Because they have nothing else to do"
+    ],
+    "answer": 1,
+    "correct_answer": "To increase offspring survival"
+  },
+  {
+    "id": "SCI285",
+    "category": "Light",
+    "difficulty": "PSLE",
+    "template": "Shadows are formed when:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Light passes through transparent objects",
+      "Opaque objects block light",
+      "Light bends",
+      "Objects produce darkness"
+    ],
+    "answer": 1,
+    "correct_answer": "Opaque objects block light"
+  },
+  {
+    "id": "SCI286",
+    "category": "Light",
+    "difficulty": "PSLE",
+    "template": "A shadow is longer when the light source is:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Directly above",
+      "At a low angle",
+      "Very bright",
+      "Turned off"
+    ],
+    "answer": 1,
+    "correct_answer": "At a low angle"
+  },
+  {
+    "id": "SCI287",
+    "category": "Light",
+    "difficulty": "PSLE",
+    "template": "Translucent materials:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Block all light",
+      "Allow all light to pass clearly",
+      "Allow some light but objects can't be seen clearly",
+      "Produce their own light"
+    ],
+    "answer": 2,
+    "correct_answer": "Allow some light but objects can't be seen clearly"
+  },
+  {
+    "id": "SCI288",
+    "category": "Light",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} shines light at a mirror. The angle of reflection equals:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Zero degrees",
+      "The angle of incidence",
+      "90 degrees",
+      "180 degrees"
+    ],
+    "answer": 1,
+    "correct_answer": "The angle of incidence"
+  },
+  {
+    "id": "SCI289",
+    "category": "Light",
+    "difficulty": "PSLE",
+    "template": "A periscope uses _____ to see around corners.",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Refraction",
+      "Two mirrors and reflection",
+      "Absorption",
+      "Dispersion"
+    ],
+    "answer": 1,
+    "correct_answer": "Two mirrors and reflection"
+  },
+  {
+    "id": "SCI290",
+    "category": "Light",
+    "difficulty": "PSLE",
+    "template": "The seven colors of the rainbow in order are:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Random colors",
+      "Red, Orange, Yellow, Green, Blue, Indigo, Violet",
+      "Black, White, Gray",
+      "Only three primary colors"
+    ],
+    "answer": 1,
+    "correct_answer": "Red, Orange, Yellow, Green, Blue, Indigo, Violet"
+  },
+  {
+    "id": "SCI291",
+    "category": "Human Body",
+    "difficulty": "PSLE",
+    "template": "The windpipe (trachea) carries air to the:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Stomach",
+      "Lungs",
+      "Heart",
+      "Brain"
+    ],
+    "answer": 1,
+    "correct_answer": "Lungs"
+  },
+  {
+    "id": "SCI292",
+    "category": "Human Body",
+    "difficulty": "PSLE",
+    "template": "Blood vessels that carry blood back to the heart are called:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Arteries",
+      "Veins",
+      "Nerves",
+      "Tubes"
+    ],
+    "answer": 1,
+    "correct_answer": "Veins"
+  },
+  {
+    "id": "SCI293",
+    "category": "Human Body",
+    "difficulty": "PSLE",
+    "template": "The stomach produces acid to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Pump blood",
+      "Help digest food",
+      "Breathe",
+      "Think"
+    ],
+    "answer": 1,
+    "correct_answer": "Help digest food"
+  },
+  {
+    "id": "SCI294",
+    "category": "Human Body",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} eats a sandwich. Which system breaks down the food?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Respiratory system",
+      "Digestive system",
+      "Circulatory system",
+      "Nervous system"
+    ],
+    "answer": 1,
+    "correct_answer": "Digestive system"
+  },
+  {
+    "id": "SCI295",
+    "category": "Human Body",
+    "difficulty": "PSLE",
+    "template": "Platelets in blood help to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Carry oxygen",
+      "Fight germs",
+      "Clot blood and stop bleeding",
+      "Digest food"
+    ],
+    "answer": 2,
+    "correct_answer": "Clot blood and stop bleeding"
+  },
+  {
+    "id": "SCI296",
+    "category": "Human Body",
+    "difficulty": "PSLE",
+    "template": "The spinal cord is part of the:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Skeletal system",
+      "Nervous system",
+      "Muscular system",
+      "Digestive system"
+    ],
+    "answer": 1,
+    "correct_answer": "Nervous system"
+  },
+  {
+    "id": "SCI297",
+    "category": "Heat",
+    "difficulty": "PSLE",
+    "template": "Sea breeze occurs because:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Land heats up faster than sea, warm air rises, cool air from sea moves in",
+      "Sea is always windy",
+      "Land is always cold",
+      "Water evaporates"
+    ],
+    "answer": 0,
+    "correct_answer": "Land heats up faster than sea, warm air rises, cool air from sea moves in"
+  },
+  {
+    "id": "SCI298",
+    "category": "Heat",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} wears white clothes in summer and dark clothes in winter because:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "White reflects heat, dark absorbs heat",
+      "Dark reflects heat, white absorbs heat",
+      "Color doesn't matter",
+      "It's just fashion"
+    ],
+    "answer": 0,
+    "correct_answer": "White reflects heat, dark absorbs heat"
+  },
+  {
+    "id": "SCI299",
+    "category": "Forces",
+    "difficulty": "PSLE",
+    "template": "When you press on a sponge, you are applying:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Magnetic force",
+      "A force that changes shape",
+      "Gravitational force",
+      "Frictional force"
+    ],
+    "answer": 1,
+    "correct_answer": "A force that changes shape"
+  },
+  {
+    "id": "SCI300",
+    "category": "Forces",
+    "difficulty": "PSLE",
+    "template": "Streamlined shapes reduce:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Gravity",
+      "Magnetism",
+      "Air and water resistance (friction)",
+      "Weight"
+    ],
+    "answer": 2,
+    "correct_answer": "Air and water resistance (friction)"
+  },
+  {
+    "id": "SCI301",
+    "category": "Electricity",
+    "difficulty": "PSLE",
+    "template": "A fuse or circuit breaker protects a circuit by:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Making electricity flow faster",
+      "Breaking the circuit if too much current flows",
+      "Storing electricity",
+      "Producing more electricity"
+    ],
+    "answer": 1,
+    "correct_answer": "Breaking the circuit if too much current flows"
+  },
+  {
+    "id": "SCI302",
+    "category": "Cells",
+    "difficulty": "PSLE",
+    "template": "Red blood cells have no nucleus to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Make them colorful",
+      "Leave more space for carrying oxygen",
+      "Make them swim faster",
+      "Help them fight disease"
+    ],
+    "answer": 1,
+    "correct_answer": "Leave more space for carrying oxygen"
+  },
+  {
+    "id": "SCI303",
+    "category": "Adaptations",
+    "difficulty": "PSLE",
+    "template": "Warning colors on poisonous animals help by:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Attracting predators",
+      "Signaling danger to predators - don't eat me!",
+      "Making them invisible",
+      "Helping them blend in"
+    ],
+    "answer": 1,
+    "correct_answer": "Signaling danger to predators - don't eat me!"
+  },
+  {
+    "id": "SCI304",
+    "category": "Materials",
+    "difficulty": "PSLE",
+    "template": "Sponge can be compressed because:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "It is hard",
+      "It has air spaces inside",
+      "It is magnetic",
+      "It conducts electricity"
+    ],
+    "answer": 1,
+    "correct_answer": "It has air spaces inside"
+  },
+  {
+    "id": "SCI305",
+    "category": "Sound",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} places a ringing phone in a jar and pumps out the air. What happens to the sound?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Gets louder",
+      "Gets softer and eventually can't be heard",
+      "Stays the same",
+      "Changes pitch"
+    ],
+    "answer": 1,
+    "correct_answer": "Gets softer and eventually can't be heard"
+  },
+  {
+    "id": "SCI306",
+    "category": "Energy",
+    "difficulty": "PSLE",
+    "template": "Geothermal energy comes from:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "The sun",
+      "Heat from inside the Earth",
+      "The wind",
+      "Waterfalls"
+    ],
+    "answer": 1,
+    "correct_answer": "Heat from inside the Earth"
+  },
+  {
+    "id": "SCI307",
+    "category": "Matter",
+    "difficulty": "PSLE",
+    "template": "A solution is formed when a solute _____ in a solvent.",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Floats",
+      "Dissolves completely",
+      "Sinks",
+      "Evaporates"
+    ],
+    "answer": 1,
+    "correct_answer": "Dissolves completely"
+  },
+  {
+    "id": "SCI308",
+    "category": "Heat",
+    "difficulty": "PSLE",
+    "template": "Materials with air pockets (like wool) are good heat insulators because:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Air is heavy",
+      "Air is a poor heat conductor",
+      "Air produces heat",
+      "Air reflects heat"
+    ],
+    "answer": 1,
+    "correct_answer": "Air is a poor heat conductor"
+  },
+  {
+    "id": "SCI309",
+    "category": "Heat",
+    "difficulty": "PSLE",
+    "template": "When metal expands on heating, it is used in:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Fire alarms with bimetallic strips",
+      "Refrigerators only",
+      "Nothing useful",
+      "Lights"
+    ],
+    "answer": 0,
+    "correct_answer": "Fire alarms with bimetallic strips"
+  },
+  {
+    "id": "SCI310",
+    "category": "Heat",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} uses a double-walled vacuum flask to keep drinks hot because:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "It looks nice",
+      "The vacuum prevents heat loss by conduction and convection",
+      "It produces heat",
+      "It is very heavy"
+    ],
+    "answer": 1,
+    "correct_answer": "The vacuum prevents heat loss by conduction and convection"
+  },
+  {
+    "id": "SCI311",
+    "category": "Heat",
+    "difficulty": "PSLE",
+    "template": "A cooking pot is made of metal at the bottom but has a plastic handle because:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Metal is an insulator, plastic is a conductor",
+      "Metal conducts heat well for cooking, plastic insulates to prevent burns",
+      "Plastic looks better",
+      "They cost the same"
+    ],
+    "answer": 1,
+    "correct_answer": "Metal conducts heat well for cooking, plastic insulates to prevent burns"
+  },
+  {
+    "id": "SCI312",
+    "category": "Forces",
+    "difficulty": "PSLE",
+    "template": "Elastic force is used in:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Rubber bands and springs",
+      "Magnets",
+      "Batteries",
+      "Light bulbs"
+    ],
+    "answer": 0,
+    "correct_answer": "Rubber bands and springs"
+  },
+  {
+    "id": "SCI313",
+    "category": "Forces",
+    "difficulty": "PSLE",
+    "template": "Tension force is the pulling force in:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "A rope or string",
+      "A magnet",
+      "Water",
+      "Air"
+    ],
+    "answer": 0,
+    "correct_answer": "A rope or string"
+  },
+  {
+    "id": "SCI314",
+    "category": "Forces",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} rides a bicycle. Friction between the tires and road helps by:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Making the bike slip",
+      "Providing grip for movement and stopping",
+      "Slowing the bike down only",
+      "Making noise"
+    ],
+    "answer": 1,
+    "correct_answer": "Providing grip for movement and stopping"
+  },
+  {
+    "id": "SCI315",
+    "category": "Forces",
+    "difficulty": "PSLE",
+    "template": "When a spring is compressed and released, it stores and releases:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Chemical energy",
+      "Elastic potential energy",
+      "Light energy",
+      "Sound energy"
+    ],
+    "answer": 1,
+    "correct_answer": "Elastic potential energy"
+  },
+  {
+    "id": "SCI316",
+    "category": "Electricity",
+    "difficulty": "PSLE",
+    "template": "A battery provides:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Water",
+      "Chemical energy converted to electrical energy",
+      "Magnetic force",
+      "Heat only"
+    ],
+    "answer": 1,
+    "correct_answer": "Chemical energy converted to electrical energy"
+  },
+  {
+    "id": "SCI317",
+    "category": "Electricity",
+    "difficulty": "PSLE",
+    "template": "In a parallel circuit, if one bulb burns out:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "All bulbs go out",
+      "Other bulbs stay lit",
+      "The battery explodes",
+      "Nothing happens"
+    ],
+    "answer": 1,
+    "correct_answer": "Other bulbs stay lit"
+  },
+  {
+    "id": "SCI318",
+    "category": "Electricity",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} notices Christmas lights stay on even when one bulb is removed. This is a:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Series circuit",
+      "Parallel circuit",
+      "Broken circuit",
+      "Short circuit"
+    ],
+    "answer": 1,
+    "correct_answer": "Parallel circuit"
+  },
+  {
+    "id": "SCI319",
+    "category": "Electricity",
+    "difficulty": "PSLE",
+    "template": "A buzzer in a circuit converts electrical energy to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Light energy",
+      "Sound energy",
+      "Chemical energy",
+      "Magnetic energy"
+    ],
+    "answer": 1,
+    "correct_answer": "Sound energy"
+  },
+  {
+    "id": "SCI320",
+    "category": "Electricity",
+    "difficulty": "PSLE",
+    "template": "Why should we never touch electrical appliances with wet hands?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Water makes things dirty",
+      "Water conducts electricity and can cause electric shock",
+      "Water improves conductivity safely",
+      "It saves electricity"
+    ],
+    "answer": 1,
+    "correct_answer": "Water conducts electricity and can cause electric shock"
+  },
+  {
+    "id": "SCI321",
+    "category": "Cells",
+    "difficulty": "PSLE",
+    "template": "The function of the cell membrane is to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Produce energy",
+      "Control what enters and leaves the cell",
+      "Store water only",
+      "Make proteins"
+    ],
+    "answer": 1,
+    "correct_answer": "Control what enters and leaves the cell"
+  },
+  {
+    "id": "SCI322",
+    "category": "Cells",
+    "difficulty": "PSLE",
+    "template": "The nucleus contains:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Water",
+      "DNA/genetic information that controls the cell",
+      "Food",
+      "Air"
+    ],
+    "answer": 1,
+    "correct_answer": "DNA/genetic information that controls the cell"
+  },
+  {
+    "id": "SCI323",
+    "category": "Cells",
+    "difficulty": "PSLE",
+    "template": "Cytoplasm is the jelly-like substance where:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Nothing happens",
+      "Chemical reactions and life processes occur",
+      "Only waste is stored",
+      "Light is produced"
+    ],
+    "answer": 1,
+    "correct_answer": "Chemical reactions and life processes occur"
+  },
+  {
+    "id": "SCI324",
+    "category": "Cells",
+    "difficulty": "PSLE",
+    "template": "Mitochondria are known as the powerhouse of the cell because they:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Store water",
+      "Produce energy through respiration",
+      "Make the cell move",
+      "Control the cell"
+    ],
+    "answer": 1,
+    "correct_answer": "Produce energy through respiration"
+  },
+  {
+    "id": "SCI325",
+    "category": "Cells",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} examines onion cells under a microscope and sees rectangular shapes. This is because of the:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Cell membrane",
+      "Rigid cell wall in plant cells",
+      "Nucleus",
+      "Chloroplasts"
+    ],
+    "answer": 1,
+    "correct_answer": "Rigid cell wall in plant cells"
+  },
+  {
+    "id": "SCI326",
+    "category": "Adaptations",
+    "difficulty": "PSLE",
+    "template": "Camels store fat in their humps to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Look bigger",
+      "Provide energy and water when food is scarce",
+      "Keep them cool",
+      "Help them run faster"
+    ],
+    "answer": 1,
+    "correct_answer": "Provide energy and water when food is scarce"
+  },
+  {
+    "id": "SCI327",
+    "category": "Adaptations",
+    "difficulty": "PSLE",
+    "template": "Birds have hollow bones to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Store food",
+      "Reduce weight for flight",
+      "Make them colorful",
+      "Help them swim"
+    ],
+    "answer": 1,
+    "correct_answer": "Reduce weight for flight"
+  },
+  {
+    "id": "SCI328",
+    "category": "Adaptations",
+    "difficulty": "PSLE",
+    "template": "Owls have large eyes and excellent night vision as an adaptation for:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Swimming",
+      "Hunting at night (nocturnal behavior)",
+      "Flying during day",
+      "Escaping predators"
+    ],
+    "answer": 1,
+    "correct_answer": "Hunting at night (nocturnal behavior)"
+  },
+  {
+    "id": "SCI329",
+    "category": "Adaptations",
+    "difficulty": "PSLE",
+    "template": "Playing dead when threatened is an example of:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Structural adaptation",
+      "Behavioral adaptation",
+      "Physical adaptation",
+      "Color adaptation"
+    ],
+    "answer": 1,
+    "correct_answer": "Behavioral adaptation"
+  },
+  {
+    "id": "SCI330",
+    "category": "Adaptations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} observes a chameleon changing color to match its surroundings. This is:",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Migration",
+      "Camouflage for protection",
+      "Hibernation",
+      "Reproduction"
+    ],
+    "answer": 1,
+    "correct_answer": "Camouflage for protection"
   }
 ]
