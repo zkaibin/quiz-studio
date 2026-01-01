@@ -125,24 +125,10 @@ class PaperGenerator {
         const shuffled = filteredQuestions.sort(() => Math.random() - 0.5);
         const selected = shuffled.slice(0, Math.min(numQuestions, shuffled.length));
         
-        // Assign characters from selected universes (for math only)
-        if (subject === 'math') {
-            selected.forEach(question => {
-                this.assignCharactersToQuestion(question, universeIds);
-            });
-        } else {
-            // For science, still process character placeholders if they exist
-            selected.forEach(question => {
-                if (question.placeholder_roles && question.placeholder_roles.length > 0) {
-                    this.assignCharactersToQuestion(question, universeIds);
-                } else {
-                    question.questionText = question.template;
-                    if (question.diagram) {
-                        question.diagramSubstituted = question.diagram;
-                    }
-                }
-            });
-        }
+        // Assign characters from selected universes
+        selected.forEach(question => {
+            this.assignCharactersToQuestion(question, universeIds);
+        });
         
         return selected;
     }
@@ -219,9 +205,8 @@ class PaperGenerator {
             return;
         }
         
-        // For math, need universes; for science, they're optional
         const universeIds = this.getSelectedUniverses();
-        if (subject === 'math' && universeIds.length === 0) {
+        if (universeIds.length === 0) {
             alert('Please select at least one character universe.');
             return;
         }
@@ -381,9 +366,8 @@ class PaperGenerator {
             return;
         }
         
-        // For math, need universes; for science, they're optional
         const universeIds = this.getSelectedUniverses();
-        if (subject === 'math' && universeIds.length === 0) {
+        if (universeIds.length === 0) {
             alert('Please select at least one character universe.');
             return;
         }
@@ -574,16 +558,13 @@ function updateSubjectUI() {
     const subject = document.getElementById('subject').value;
     const mathDifficulties = document.getElementById('mathDifficulties');
     const scienceDifficulties = document.getElementById('scienceDifficulties');
-    const characterSection = document.getElementById('characterSection');
     
     if (subject === 'science') {
         mathDifficulties.style.display = 'none';
         scienceDifficulties.style.display = 'block';
-        characterSection.style.display = 'none';
     } else {
         mathDifficulties.style.display = 'block';
         scienceDifficulties.style.display = 'none';
-        characterSection.style.display = 'block';
     }
 }
 
