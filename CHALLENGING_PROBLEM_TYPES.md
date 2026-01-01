@@ -193,11 +193,44 @@ Problems where total remains constant while parts change.
 - **Difficulty:** Challenging
 - **Number of questions to create:** 6-8
 
+### 19. **Unit Conversions (Complex Multi-Step)**
+Problems involving complex conversions between multiple units with word problems.
+- **Examples:**
+  - Converting km/h to m/s
+  - Mixed unit conversions (km, m, cm in same problem)
+  - Time conversions with complex scenarios
+  - Mass/volume conversions with problem-solving
+- **Skills:** Unit understanding, multi-step conversions, attention to detail
+- **Difficulty:** PSLE
+- **Number of questions to create:** 6-8
+
+### 20. **Nets and 3D Visualization**
+Problems involving unfolding 3D shapes and spatial reasoning.
+- **Examples:**
+  - Identifying correct nets for cubes/prisms
+  - Determining opposite faces on a cube
+  - Counting faces/edges/vertices with reasoning
+  - Visualizing 3D shapes from 2D representations
+- **Skills:** Spatial reasoning, 3D visualization, pattern recognition
+- **Difficulty:** PSLE
+- **Number of questions to create:** 6-8
+
+### 21. **Coordinate Geometry (Introductory)**
+Problems involving points on a coordinate plane and simple geometric properties.
+- **Examples:**
+  - Finding coordinates of points
+  - Distance between points (horizontal/vertical)
+  - Plotting shapes on coordinate plane
+  - Finding area using coordinates
+- **Skills:** Coordinate understanding, distance calculation, geometric reasoning
+- **Difficulty:** PSLE
+- **Number of questions to create:** 6-8
+
 ## Summary Statistics
 
-**Total New Problem Types:** 18
-**Estimated New Questions:** 130-160
-**Difficulty Levels:** Challenging (60%), PSLE (40%)
+**Total New Problem Types:** 21
+**Estimated New Questions:** 148-184
+**Difficulty Levels:** Challenging (57%), PSLE (43%)
 
 ## Implementation Priority
 
@@ -224,6 +257,9 @@ Problems where total remains constant while parts change.
 16. Purchasing Problems
 17. Logic & Reasoning
 18. Unchanging Total
+19. Unit Conversions (Complex Multi-Step)
+20. Nets and 3D Visualization
+21. Coordinate Geometry (Introductory)
 
 ## Notes for Implementation
 
