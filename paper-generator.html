@@ -236,6 +236,14 @@
         <div class="config-section">
             <h3>Paper Configuration</h3>
             
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <select id="subject" onchange="updateSubjectUI()">
+                    <option value="math">Mathematics</option>
+                    <option value="science">Science</option>
+                </select>
+            </div>
+            
             <div class="form-group" id="paperTypeGroup">
                 <label for="paperType">Paper Type:</label>
                 <select id="paperType">
@@ -261,32 +269,50 @@
             </div>
         </div>
         
-        <div class="config-section">
+        <div class="config-section" id="difficultySection">
             <h3>Difficulty Distribution</h3>
             
-            <div class="form-group">
-                <label>
-                    <input type="checkbox" id="includeP5P6" checked>
-                    Include P5-P6 Level Questions
-                </label>
+            <div id="mathDifficulties">
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="includeP5P6" checked>
+                        Include P5-P6 Level Questions
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="includeChallenging" checked>
+                        Include Challenging Level Questions
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="includePSLE" checked>
+                        Include PSLE Level Questions
+                    </label>
+                </div>
             </div>
             
-            <div class="form-group">
-                <label>
-                    <input type="checkbox" id="includeChallenging" checked>
-                    Include Challenging Level Questions
-                </label>
-            </div>
-            
-            <div class="form-group">
-                <label>
-                    <input type="checkbox" id="includePSLE" checked>
-                    Include PSLE Level Questions
-                </label>
+            <div id="scienceDifficulties" style="display: none;">
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="includeP3P4" checked>
+                        Include P3-P4 Level Questions
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="includeP5P6Sci" checked>
+                        Include P5-P6 Level Questions
+                    </label>
+                </div>
             </div>
         </div>
         
-        <div class="config-section">
+        <div class="config-section" id="characterSection">
             <h3>Character Themes</h3>
             <p style="color: #7f8c8d; margin-bottom: 15px;">Select universes to include in questions:</p>
             

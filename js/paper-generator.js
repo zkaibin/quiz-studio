@@ -9,8 +9,10 @@ class PaperGenerator {
         this.universes = [];
         this.characters = [];
         this.allQuestions = [];
+        this.scienceQuestions = [];
         this.selectedQuestions = [];
         this.showingAnswers = false;
+        this.currentSubject = 'math';
         
         this.init();
     }
@@ -25,20 +27,36 @@ class PaperGenerator {
             console.log('📊 Universes loaded:', this.universes);
             console.log('📊 Characters loaded:', this.characters.length);
             
-            // Load all difficulty levels
+            // Load all math difficulty levels
             await this.dataManager.ensureDifficultyLoaded('P5-P6');
             await this.dataManager.ensureDifficultyLoaded('Challenging');
             await this.dataManager.ensureDifficultyLoaded('PSLE');
             
             this.allQuestions = this.dataManager.data.questions;
             
+            // Load science questions
+            await this.loadScienceQuestions();
+            
             // Populate universe checkboxes
             this.populateUniverseSelection();
             
-            console.log(`📚 Loaded ${this.allQuestions.length} questions from ${this.universes.length} universes`);
+            console.log(`📚 Loaded ${this.allQuestions.length} math questions from ${this.universes.length} universes`);
+            console.log(`🔬 Loaded ${this.scienceQuestions.length} science questions`);
         } catch (error) {
             console.error('Error initializing paper generator:', error);
             alert('Error loading data. Please refresh the page.');
+        }
+    }
+    
+    async loadScienceQuestions() {
+        try {
+            const response = await fetch('data/questions-science.json');
+            if (response.ok) {
+                this.scienceQuestions = await response.json();
+            }
+        } catch (error) {
+            console.error('Error loading science questions:', error);
+            this.scienceQuestions = [];
         }
     }
     
@@ -74,16 +92,27 @@ class PaperGenerator {
     }
     
     getSelectedDifficulties() {
+        const subject = document.getElementById('subject').value;
         const difficulties = [];
-        if (document.getElementById('includeP5P6').checked) difficulties.push('P5-P6');
-        if (document.getElementById('includeChallenging').checked) difficulties.push('Challenging');
-        if (document.getElementById('includePSLE').checked) difficulties.push('PSLE');
+        
+        if (subject === 'math') {
+            if (document.getElementById('includeP5P6').checked) difficulties.push('P5-P6');
+            if (document.getElementById('includeChallenging').checked) difficulties.push('Challenging');
+            if (document.getElementById('includePSLE').checked) difficulties.push('PSLE');
+        } else {
+            if (document.getElementById('includeP3P4').checked) difficulties.push('P3-P4');
+            if (document.getElementById('includeP5P6Sci').checked) difficulties.push('P5-P6');
+        }
+        
         return difficulties;
     }
     
     selectQuestions(numQuestions, difficulties, universeIds) {
+        const subject = document.getElementById('subject').value;
+        const questionPool = subject === 'science' ? this.scienceQuestions : this.allQuestions;
+        
         // Filter questions by difficulty
-        let filteredQuestions = this.allQuestions.filter(q => 
+        let filteredQuestions = questionPool.filter(q => 
             difficulties.includes(q.difficulty)
         );
         
@@ -96,10 +125,24 @@ class PaperGenerator {
         const shuffled = filteredQuestions.sort(() => Math.random() - 0.5);
         const selected = shuffled.slice(0, Math.min(numQuestions, shuffled.length));
         
-        // Assign characters from selected universes
-        selected.forEach(question => {
-            this.assignCharactersToQuestion(question, universeIds);
-        });
+        // Assign characters from selected universes (for math only)
+        if (subject === 'math') {
+            selected.forEach(question => {
+                this.assignCharactersToQuestion(question, universeIds);
+            });
+        } else {
+            // For science, still process character placeholders if they exist
+            selected.forEach(question => {
+                if (question.placeholder_roles && question.placeholder_roles.length > 0) {
+                    this.assignCharactersToQuestion(question, universeIds);
+                } else {
+                    question.questionText = question.template;
+                    if (question.diagram) {
+                        question.diagramSubstituted = question.diagram;
+                    }
+                }
+            });
+        }
         
         return selected;
     }
@@ -163,20 +206,22 @@ class PaperGenerator {
     }
     
     generatePaper() {
+        const subject = document.getElementById('subject').value;
         const paperType = document.getElementById('paperType').value;
         const numQuestions = parseInt(document.getElementById('numQuestions').value);
         const schoolName = document.getElementById('schoolName').value || 'School Name';
         const examDate = document.getElementById('examDate').value || new Date().toLocaleDateString('en-SG');
         
         const difficulties = this.getSelectedDifficulties();
-        const universeIds = this.getSelectedUniverses();
         
         if (difficulties.length === 0) {
             alert('Please select at least one difficulty level.');
             return;
         }
         
-        if (universeIds.length === 0) {
+        // For math, need universes; for science, they're optional
+        const universeIds = this.getSelectedUniverses();
+        if (subject === 'math' && universeIds.length === 0) {
             alert('Please select at least one character universe.');
             return;
         }
@@ -187,7 +232,7 @@ class PaperGenerator {
             return;
         }
         
-        this.renderPaper(paperType, schoolName, examDate);
+        this.renderPaper(paperType, schoolName, examDate, subject);
         
         // Show print and answer buttons
         document.getElementById('printBtn').style.display = 'inline-block';
@@ -197,7 +242,8 @@ class PaperGenerator {
         document.getElementById('previewContainer').scrollIntoView({ behavior: 'smooth' });
     }
     
-    renderPaper(paperType, schoolName, examDate) {
+    renderPaper(paperType, schoolName, examDate, subject) {
+        const subjectName = subject === 'science' ? 'Science' : 'Mathematics';
         const container = document.getElementById('previewContainer');
         container.style.display = 'block';
         
@@ -205,7 +251,7 @@ class PaperGenerator {
             <div class="paper-header">
                 <h1>${schoolName}</h1>
                 <h2>Primary School Leaving Examination</h2>
-                <h2>Mathematics ${paperType === 'mcq' ? 'Paper 1' : paperType === 'structured' ? 'Paper 2' : 'Practice Paper'}</h2>
+                <h2>${subjectName} ${paperType === 'mcq' ? 'Paper 1' : paperType === 'structured' ? 'Paper 2' : 'Practice Paper'}</h2>
             </div>
             
             <div class="paper-info">
@@ -311,11 +357,12 @@ class PaperGenerator {
     
     showAnswerKey() {
         this.showingAnswers = !this.showingAnswers;
+        const subject = document.getElementById('subject').value;
         const paperType = document.getElementById('paperType').value;
         const schoolName = document.getElementById('schoolName').value || 'School Name';
         const examDate = document.getElementById('examDate').value || new Date().toLocaleDateString('en-SG');
         
-        this.renderPaper(paperType, schoolName, examDate);
+        this.renderPaper(paperType, schoolName, examDate, subject);
         
         const btn = document.getElementById('answerBtn');
         btn.textContent = this.showingAnswers ? 'Hide Answers' : 'Show Answers';
@@ -325,16 +372,18 @@ class PaperGenerator {
      * Start online quiz mode
      */
     startOnlineQuiz() {
+        const subject = document.getElementById('subject').value;
         const numQuestions = parseInt(document.getElementById('numQuestions').value);
         const difficulties = this.getSelectedDifficulties();
-        const universeIds = this.getSelectedUniverses();
         
         if (difficulties.length === 0) {
             alert('Please select at least one difficulty level.');
             return;
         }
         
-        if (universeIds.length === 0) {
+        // For math, need universes; for science, they're optional
+        const universeIds = this.getSelectedUniverses();
+        if (subject === 'math' && universeIds.length === 0) {
             alert('Please select at least one character universe.');
             return;
         }
@@ -518,6 +567,23 @@ function updateModeUI() {
     } else {
         paperTypeGroup.style.display = 'block';
         generateBtn.textContent = 'Generate Paper';
+    }
+}
+
+function updateSubjectUI() {
+    const subject = document.getElementById('subject').value;
+    const mathDifficulties = document.getElementById('mathDifficulties');
+    const scienceDifficulties = document.getElementById('scienceDifficulties');
+    const characterSection = document.getElementById('characterSection');
+    
+    if (subject === 'science') {
+        mathDifficulties.style.display = 'none';
+        scienceDifficulties.style.display = 'block';
+        characterSection.style.display = 'none';
+    } else {
+        mathDifficulties.style.display = 'block';
+        scienceDifficulties.style.display = 'none';
+        characterSection.style.display = 'block';
     }
 }
 
