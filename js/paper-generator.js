@@ -187,6 +187,26 @@ class PaperGenerator {
             question.diagramSubstituted = diagram;
         }
         
+        // Replace placeholders in experiment_setup if present
+        if (question.experiment_setup) {
+            let setup = question.experiment_setup;
+            Object.keys(assignedCharacters).forEach(placeholder => {
+                const regex = new RegExp(`\\{${placeholder}\\}`, 'g');
+                setup = setup.replace(regex, assignedCharacters[placeholder]);
+            });
+            question.experimentSetupSubstituted = setup;
+        }
+        
+        // Replace placeholders in experiment_data if present
+        if (question.experiment_data) {
+            let data = question.experiment_data;
+            Object.keys(assignedCharacters).forEach(placeholder => {
+                const regex = new RegExp(`\\{${placeholder}\\}`, 'g');
+                data = data.replace(regex, assignedCharacters[placeholder]);
+            });
+            question.experimentDataSubstituted = data;
+        }
+        
         question.questionText = questionText;
         question.universeName = universe ? universe.universe_name : 'General';
     }
@@ -287,6 +307,16 @@ class PaperGenerator {
         // Add diagram if present
         if (question.diagramSubstituted) {
             html += `<div class="question-diagram">${question.diagramSubstituted}</div>`;
+        }
+        
+        // Add experiment setup if present
+        if (question.experimentSetupSubstituted) {
+            html += `<div class="experiment-setup" style="background: #e8f4f8; padding: 15px; margin-bottom: 15px; border-radius: 6px; border-left: 4px solid #2196F3;"><strong>🧪 Experiment Setup:</strong><br>${question.experimentSetupSubstituted}</div>`;
+        }
+        
+        // Add experiment data if present
+        if (question.experimentDataSubstituted) {
+            html += `<div class="experiment-data" style="background: #f0f4f8; padding: 15px; margin-bottom: 15px; border-radius: 6px; border-left: 4px solid #607D8B;">${question.experimentDataSubstituted}</div>`;
         }
         
         html += `<div class="question-text"><span class="question-number">${number}.</span> ${question.questionText}</div>
@@ -417,6 +447,16 @@ class PaperGenerator {
             // Add diagram if present
             if (question.diagramSubstituted) {
                 html += `<div class="question-diagram">${question.diagramSubstituted}</div>`;
+            }
+            
+            // Add experiment setup if present
+            if (question.experimentSetupSubstituted) {
+                html += `<div class="experiment-setup" style="background: #e8f4f8; padding: 15px; margin-bottom: 15px; border-radius: 6px; border-left: 4px solid #2196F3;"><strong>🧪 Experiment Setup:</strong><br>${question.experimentSetupSubstituted}</div>`;
+            }
+            
+            // Add experiment data if present
+            if (question.experimentDataSubstituted) {
+                html += `<div class="experiment-data" style="background: #f0f4f8; padding: 15px; margin-bottom: 15px; border-radius: 6px; border-left: 4px solid #607D8B;">${question.experimentDataSubstituted}</div>`;
             }
             
             html += `<div class="question-text">${questionText}</div>
