@@ -62,8 +62,10 @@ function initGame(gameId) {
 }
 
 function cleanupGame(gameId) {
-    if (gameId === 'snake' && window.snakeInterval) {
-        clearInterval(window.snakeInterval);
+    if (gameId === 'snake') {
+        if (window.snakeInterval) clearInterval(window.snakeInterval);
+        document.removeEventListener('keydown', snakeKey);
+        snakeRunning = false;
     }
     if (gameId === 'whack' && window.whackInterval) {
         clearInterval(window.whackInterval);
@@ -346,16 +348,27 @@ function makeGuess() {
 }
 
 // ============= SNAKE GAME =============
-let snakeCanvas, snakeCtx, snake, snakeFood, snakeDirection, snakeScore;
+let snakeCanvas, snakeCtx, snake, snakeFood, snakeDirection, snakeNextDirection, snakeScore, snakeRunning;
 
 function initSnake() {
     const container = document.getElementById('game-snake');
     container.innerHTML = `
-        <div class="snake-info">Use Arrow Keys to move</div>
-        <div class="status-text" id="snake-status">Score: 0</div>
+        <div class="snake-info">Use Arrow Keys or buttons below to move</div>
+        <div class="status-text" id="snake-status">Press Start to play!</div>
         <canvas id="snake-canvas" class="snake-canvas" width="400" height="400"></canvas>
         <div class="snake-controls">
             <button class="btn" onclick="startSnake()">Start Game</button>
+        </div>
+        <div class="snake-dpad">
+            <div></div>
+            <button class="dpad-btn" onclick="snakeBtnDir('up')">▲</button>
+            <div></div>
+            <button class="dpad-btn" onclick="snakeBtnDir('left')">◀</button>
+            <div></div>
+            <button class="dpad-btn" onclick="snakeBtnDir('right')">▶</button>
+            <div></div>
+            <button class="dpad-btn" onclick="snakeBtnDir('down')">▼</button>
+            <div></div>
         </div>
         <div class="score-display">High Score: <span id="snake-best">${localStorage.getItem('snake-best') || '0'}</span></div>
     `;
@@ -368,38 +381,57 @@ function startSnake() {
     snake = [{x: 200, y: 200}];
     snakeFood = {x: 0, y: 0};
     snakeDirection = {x: 0, y: 0};
+    snakeNextDirection = {x: 0, y: 0};
     snakeScore = 0;
+    snakeRunning = true;
     
     placeSnakeFood();
-    document.getElementById('snake-status').textContent = 'Score: 0';
+    document.getElementById('snake-status').textContent = 'Score: 0 — press an arrow key to start!';
     
+    document.removeEventListener('keydown', snakeKey);
     document.addEventListener('keydown', snakeKey);
     
     if (window.snakeInterval) clearInterval(window.snakeInterval);
-    window.snakeInterval = setInterval(updateSnake, 100);
+    window.snakeInterval = setInterval(updateSnake, 120);
+    drawSnake();
 }
 
 function snakeKey(e) {
     const key = e.key;
-    if (key === 'ArrowUp' && snakeDirection.y === 0) snakeDirection = {x: 0, y: -20};
-    else if (key === 'ArrowDown' && snakeDirection.y === 0) snakeDirection = {x: 0, y: 20};
-    else if (key === 'ArrowLeft' && snakeDirection.x === 0) snakeDirection = {x: -20, y: 0};
-    else if (key === 'ArrowRight' && snakeDirection.x === 0) snakeDirection = {x: 20, y: 0};
+    if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(key)) e.preventDefault();
+    if (key === 'ArrowUp' && snakeDirection.y === 0) snakeNextDirection = {x: 0, y: -20};
+    else if (key === 'ArrowDown' && snakeDirection.y === 0) snakeNextDirection = {x: 0, y: 20};
+    else if (key === 'ArrowLeft' && snakeDirection.x === 0) snakeNextDirection = {x: -20, y: 0};
+    else if (key === 'ArrowRight' && snakeDirection.x === 0) snakeNextDirection = {x: 20, y: 0};
+}
+
+function snakeBtnDir(dir) {
+    if (!snakeRunning) return;
+    if (dir === 'up' && snakeDirection.y === 0) snakeNextDirection = {x: 0, y: -20};
+    else if (dir === 'down' && snakeDirection.y === 0) snakeNextDirection = {x: 0, y: 20};
+    else if (dir === 'left' && snakeDirection.x === 0) snakeNextDirection = {x: -20, y: 0};
+    else if (dir === 'right' && snakeDirection.x === 0) snakeNextDirection = {x: 20, y: 0};
 }
 
 function updateSnake() {
+    // Wait for first key press before moving
+    if (snakeNextDirection.x === 0 && snakeNextDirection.y === 0) return;
+    snakeDirection = snakeNextDirection;
+
     const head = {x: snake[0].x + snakeDirection.x, y: snake[0].y + snakeDirection.y};
     
     // Check collision
     if (head.x < 0 || head.x >= 400 || head.y < 0 || head.y >= 400 ||
         snake.some(seg => seg.x === head.x && seg.y === head.y)) {
+        snakeRunning = false;
         clearInterval(window.snakeInterval);
+        document.removeEventListener('keydown', snakeKey);
         const best = parseInt(localStorage.getItem('snake-best') || '0');
         if (snakeScore > best) {
             localStorage.setItem('snake-best', snakeScore);
             document.getElementById('snake-best').textContent = snakeScore;
         }
-        document.getElementById('snake-status').textContent = `Game Over! Score: ${snakeScore}`;
+        document.getElementById('snake-status').textContent = `💀 Game Over! Score: ${snakeScore} — press Start to retry`;
         return;
     }
     
