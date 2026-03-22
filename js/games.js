@@ -7,7 +7,10 @@ const gameModals = {
     snake: { title: '🐍 Snake Game', subtitle: 'Eat and grow!' },
     simon: { title: '🎵 Simon Says', subtitle: 'Remember the sequence!' },
     whack: { title: '🔨 Whack-a-Mole', subtitle: 'Click the moles!' },
-    '2048': { title: '🔢 2048', subtitle: 'Reach 2048!' }
+    '2048': { title: '🔢 2048', subtitle: 'Reach 2048!' },
+    scramble: { title: '🔤 Word Scramble', subtitle: 'Unscramble the letters!' },
+    mathchallenge: { title: '➕ Math Challenge', subtitle: 'Answer as many as you can!' },
+    hangman: { title: '🪢 Hangman', subtitle: 'Guess the word!' }
 };
 
 function openGame(gameId) {
@@ -58,6 +61,9 @@ function initGame(gameId) {
         case 'simon': initSimon(); break;
         case 'whack': initWhack(); break;
         case '2048': init2048(); break;
+        case 'scramble': initScramble(); break;
+        case 'mathchallenge': initMathChallenge(); break;
+        case 'hangman': initHangman(); break;
     }
 }
 
@@ -69,6 +75,9 @@ function cleanupGame(gameId) {
     }
     if (gameId === 'whack' && window.whackInterval) {
         clearInterval(window.whackInterval);
+    }
+    if (gameId === 'mathchallenge' && window.mathTimer) {
+        clearInterval(window.mathTimer);
     }
 }
 
@@ -758,4 +767,398 @@ function slide2048(direction) {
     }
     
     return moved;
+}
+
+// ============= WORD SCRAMBLE =============
+const scrambleWords = [
+    { word: 'apple', hint: 'A red or green fruit' },
+    { word: 'planet', hint: 'Earth is one of these' },
+    { word: 'school', hint: 'Where you go to learn' },
+    { word: 'jungle', hint: 'A dense tropical forest' },
+    { word: 'bridge', hint: 'Connects two sides across water' },
+    { word: 'castle', hint: 'A large medieval stone building' },
+    { word: 'dragon', hint: 'A mythical fire-breathing creature' },
+    { word: 'flower', hint: 'A blooming plant' },
+    { word: 'winter', hint: 'The coldest season' },
+    { word: 'bottle', hint: 'A container for liquids' },
+    { word: 'candle', hint: 'Gives light when lit' },
+    { word: 'spider', hint: 'An eight-legged creature' },
+    { word: 'button', hint: 'You press it or sew it on' },
+    { word: 'garden', hint: 'A place where plants grow' },
+    { word: 'rocket', hint: 'Flies to outer space' },
+    { word: 'pencil', hint: 'You write with it' },
+    { word: 'mirror', hint: 'You see your reflection in it' },
+    { word: 'camera', hint: 'Takes photographs' },
+    { word: 'pillow', hint: 'You rest your head on it' },
+    { word: 'stream', hint: 'A small flowing body of water' }
+];
+
+let scrambleCurrentWord, scrambleScore, scrambleTotal;
+
+function scrambleWord(word) {
+    const arr = word.split('');
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    // Re-shuffle if result happens to equal the original
+    const shuffled = arr.join('');
+    return shuffled === word ? scrambleWord(word) : shuffled;
+}
+
+function initScramble() {
+    scrambleScore = 0;
+    scrambleTotal = 0;
+    const container = document.getElementById('game-scramble');
+    container.innerHTML = `
+        <div class="score-display" id="scramble-score">Score: 0</div>
+        <div class="scramble-word" id="scramble-display"></div>
+        <p class="scramble-hint" id="scramble-hint"></p>
+        <input class="scramble-input" id="scramble-input" type="text" maxlength="20" placeholder="Type your answer…" autocomplete="off">
+        <div style="text-align:center; margin-top: 12px; display: flex; gap: 10px; justify-content: center;">
+            <button class="btn" onclick="checkScramble()">Submit</button>
+            <button class="btn" style="background: linear-gradient(135deg,#f59e0b,#d97706);" onclick="skipScramble()">Skip</button>
+        </div>
+        <div class="status-text" id="scramble-status" style="margin-top:15px;"></div>
+    `;
+    document.getElementById('scramble-input').addEventListener('keydown', e => {
+        if (e.key === 'Enter') checkScramble();
+    });
+    nextScramble();
+}
+
+function nextScramble() {
+    const entry = scrambleWords[Math.floor(Math.random() * scrambleWords.length)];
+    scrambleCurrentWord = entry.word;
+    document.getElementById('scramble-display').textContent = scrambleWord(entry.word).toUpperCase();
+    document.getElementById('scramble-hint').textContent = '💡 Hint: ' + entry.hint;
+    const input = document.getElementById('scramble-input');
+    if (input) { input.value = ''; input.focus(); }
+    document.getElementById('scramble-status').textContent = '';
+}
+
+function checkScramble() {
+    const input = document.getElementById('scramble-input');
+    if (!input) return;
+    const answer = input.value.trim().toLowerCase();
+    scrambleTotal++;
+    const statusEl = document.getElementById('scramble-status');
+    if (answer === scrambleCurrentWord) {
+        scrambleScore++;
+        statusEl.textContent = '✅ Correct!';
+        statusEl.style.color = '#10b981';
+    } else {
+        statusEl.textContent = `❌ The word was: ${scrambleCurrentWord.toUpperCase()}`;
+        statusEl.style.color = '#ef4444';
+    }
+    document.getElementById('scramble-score').textContent = `Score: ${scrambleScore} / ${scrambleTotal}`;
+    setTimeout(nextScramble, 1500);
+}
+
+function skipScramble() {
+    scrambleTotal++;
+    const statusEl = document.getElementById('scramble-status');
+    statusEl.textContent = `⏭️ Skipped! The word was: ${scrambleCurrentWord.toUpperCase()}`;
+    statusEl.style.color = '#f59e0b';
+    document.getElementById('scramble-score').textContent = `Score: ${scrambleScore} / ${scrambleTotal}`;
+    setTimeout(nextScramble, 1500);
+}
+
+// ============= MATH CHALLENGE =============
+let mathScore, mathQuestionCount, mathTimeLeft, mathCorrectAnswer;
+
+function generateMathQuestion(level) {
+    const ops = level < 5 ? ['+', '-'] : level < 10 ? ['+', '-', '*'] : ['+', '-', '*', '/'];
+    const op = ops[Math.floor(Math.random() * ops.length)];
+    let a, b, answer;
+    if (op === '+') { a = Math.floor(Math.random() * (10 * level)) + 1; b = Math.floor(Math.random() * (10 * level)) + 1; answer = a + b; }
+    else if (op === '-') { a = Math.floor(Math.random() * (10 * level)) + 1; b = Math.floor(Math.random() * a) + 1; answer = a - b; }
+    else if (op === '*') { a = Math.floor(Math.random() * 12) + 1; b = Math.floor(Math.random() * 12) + 1; answer = a * b; }
+    else { b = Math.floor(Math.random() * 11) + 2; answer = Math.floor(Math.random() * 11) + 1; a = b * answer; }
+    return { question: `${a} ${op} ${b}`, answer };
+}
+
+function initMathChallenge() {
+    mathScore = 0;
+    mathQuestionCount = 0;
+    mathTimeLeft = 60;
+    if (window.mathTimer) clearInterval(window.mathTimer);
+
+    const container = document.getElementById('game-mathchallenge');
+    container.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <div class="score-display" id="math-score" style="margin:0; border:none; padding:0;">Score: 0</div>
+            <div class="math-timer" id="math-timer">⏱ 60s</div>
+        </div>
+        <div class="math-problem" id="math-problem"></div>
+        <div class="math-options" id="math-options"></div>
+        <div class="status-text" id="math-status" style="min-height:28px;"></div>
+    `;
+
+    nextMathQuestion();
+
+    window.mathTimer = setInterval(() => {
+        mathTimeLeft--;
+        const timerEl = document.getElementById('math-timer');
+        if (timerEl) {
+            timerEl.textContent = `⏱ ${mathTimeLeft}s`;
+            timerEl.className = 'math-timer' + (mathTimeLeft <= 10 ? ' urgent' : '');
+        }
+        if (mathTimeLeft <= 0) {
+            clearInterval(window.mathTimer);
+            endMathChallenge();
+        }
+    }, 1000);
+}
+
+function nextMathQuestion() {
+    mathQuestionCount++;
+    const level = Math.min(Math.ceil(mathScore / 3) + 1, 10);
+    const { question, answer } = generateMathQuestion(level);
+    mathCorrectAnswer = answer;
+
+    const problemEl = document.getElementById('math-problem');
+    const optionsEl = document.getElementById('math-options');
+    const statusEl = document.getElementById('math-status');
+    if (!problemEl) return;
+
+    problemEl.textContent = question + ' = ?';
+    statusEl.textContent = '';
+
+    // Generate 3 wrong answers
+    const wrongSet = new Set();
+    while (wrongSet.size < 3) {
+        const offset = Math.floor(Math.random() * 20) - 10;
+        const w = answer + offset;
+        if (offset !== 0 && w > 0) wrongSet.add(w);
+    }
+    const choices = [answer, ...wrongSet].sort(() => Math.random() - 0.5);
+
+    optionsEl.innerHTML = '';
+    choices.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.className = 'math-option-btn';
+        btn.textContent = choice;
+        btn.onclick = () => answerMath(choice, btn);
+        optionsEl.appendChild(btn);
+    });
+}
+
+function answerMath(choice, btn) {
+    const optionsEl = document.getElementById('math-options');
+    // Disable all buttons
+    optionsEl.querySelectorAll('.math-option-btn').forEach(b => { b.disabled = true; });
+
+    const statusEl = document.getElementById('math-status');
+    if (choice === mathCorrectAnswer) {
+        btn.classList.add('correct');
+        mathScore++;
+        document.getElementById('math-score').textContent = `Score: ${mathScore}`;
+        statusEl.textContent = '✅ Correct!';
+        statusEl.style.color = '#10b981';
+        setTimeout(nextMathQuestion, 700);
+    } else {
+        btn.classList.add('wrong');
+        // Highlight correct answer
+        optionsEl.querySelectorAll('.math-option-btn').forEach(b => {
+            if (parseInt(b.textContent) === mathCorrectAnswer) b.classList.add('correct');
+        });
+        statusEl.textContent = `❌ The answer was ${mathCorrectAnswer}`;
+        statusEl.style.color = '#ef4444';
+        setTimeout(nextMathQuestion, 1200);
+    }
+}
+
+function endMathChallenge() {
+    const container = document.getElementById('game-mathchallenge');
+    if (!container) return;
+    container.innerHTML = `
+        <div style="text-align:center; padding: 30px;">
+            <div style="font-size:4em; margin-bottom:15px;">🏆</div>
+            <h3 style="font-size:1.8em; color:#2c3e50; margin-bottom:10px;">Time's Up!</h3>
+            <p style="font-size:1.3em; color:#7f8c8d; margin-bottom:20px;">You scored <strong style="color:#667eea;">${mathScore}</strong> out of <strong>${mathQuestionCount - 1}</strong> questions.</p>
+            <button class="btn" onclick="initMathChallenge()">Play Again</button>
+        </div>
+    `;
+}
+
+// ============= HANGMAN =============
+const hangmanWords = [
+    { word: 'rainbow', hint: 'Appears after rain' },
+    { word: 'volcano', hint: 'Erupts with lava' },
+    { word: 'compass', hint: 'Shows direction' },
+    { word: 'penguin', hint: 'A flightless bird' },
+    { word: 'lantern', hint: 'A portable light source' },
+    { word: 'diamond', hint: 'A precious gemstone' },
+    { word: 'pyramid', hint: 'Ancient Egyptian structure' },
+    { word: 'tsunami', hint: 'A giant ocean wave' },
+    { word: 'cactus', hint: 'Desert plant with spines' },
+    { word: 'leopard', hint: 'A spotted big cat' },
+    { word: 'dolphin', hint: 'A clever sea mammal' },
+    { word: 'tornado', hint: 'A spinning wind storm' },
+    { word: 'blanket', hint: 'Keeps you warm in bed' },
+    { word: 'kitchen', hint: 'Room where food is cooked' },
+    { word: 'bicycle', hint: 'A two-wheeled vehicle' },
+    { word: 'captain', hint: 'Leader of a ship or team' },
+    { word: 'compass', hint: 'Shows you which way is north' },
+    { word: 'library', hint: 'A place full of books' },
+    { word: 'magnet', hint: 'Attracts iron objects' },
+    { word: 'pirate', hint: 'Sails the sea looking for treasure' }
+];
+
+const hangmanStages = [
+    `
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========`,
+    `
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========`,
+    `
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========`,
+    `
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========`,
+    `
+  +---+
+  |   |
+  O   |
+ /|\\  |
+      |
+      |
+=========`,
+    `
+  +---+
+  |   |
+  O   |
+ /|\\  |
+ /    |
+      |
+=========`,
+    `
+  +---+
+  |   |
+  O   |
+ /|\\  |
+ / \\  |
+      |
+=========`
+];
+
+let hangmanWord, hangmanGuessed, hangmanWrong;
+
+function initHangman() {
+    const entry = hangmanWords[Math.floor(Math.random() * hangmanWords.length)];
+    hangmanWord = entry.word;
+    hangmanGuessed = new Set();
+    hangmanWrong = 0;
+
+    const container = document.getElementById('game-hangman');
+    container.innerHTML = `
+        <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap; justify-content:center;">
+            <pre class="hangman-drawing" id="hangman-drawing"></pre>
+            <div style="flex:1; min-width:200px;">
+                <p class="scramble-hint" id="hangman-hint">💡 ${entry.hint}</p>
+                <div class="hangman-word" id="hangman-word"></div>
+                <div class="status-text" id="hangman-status" style="min-height:28px;"></div>
+                <div class="hangman-keyboard" id="hangman-keyboard"></div>
+            </div>
+        </div>
+        <div style="text-align:center; margin-top:15px;">
+            <button class="btn" onclick="initHangman()">New Word</button>
+        </div>
+    `;
+
+    renderHangman();
+    buildHangmanKeyboard();
+}
+
+function renderHangman() {
+    const drawEl = document.getElementById('hangman-drawing');
+    const wordEl = document.getElementById('hangman-word');
+    if (!drawEl || !wordEl) return;
+
+    drawEl.textContent = hangmanStages[hangmanWrong];
+
+    wordEl.innerHTML = '';
+    hangmanWord.split('').forEach(letter => {
+        const span = document.createElement('div');
+        span.className = 'hangman-letter';
+        span.textContent = hangmanGuessed.has(letter) ? letter.toUpperCase() : '';
+        wordEl.appendChild(span);
+    });
+}
+
+function buildHangmanKeyboard() {
+    const kb = document.getElementById('hangman-keyboard');
+    if (!kb) return;
+    kb.innerHTML = '';
+    'abcdefghijklmnopqrstuvwxyz'.split('').forEach(letter => {
+        const btn = document.createElement('button');
+        btn.className = 'hangman-key';
+        btn.id = `hkey-${letter}`;
+        btn.textContent = letter.toUpperCase();
+        btn.onclick = () => guessHangman(letter);
+        kb.appendChild(btn);
+    });
+}
+
+function guessHangman(letter) {
+    if (hangmanGuessed.has(letter)) return;
+    hangmanGuessed.add(letter);
+
+    const btn = document.getElementById(`hkey-${letter}`);
+    const statusEl = document.getElementById('hangman-status');
+
+    if (hangmanWord.includes(letter)) {
+        if (btn) btn.classList.add('right-key');
+        // Check win
+        const allRevealed = hangmanWord.split('').every(l => hangmanGuessed.has(l));
+        if (allRevealed) {
+            renderHangman();
+            if (btn) btn.disabled = true;
+            disableHangmanKeyboard();
+            if (statusEl) { statusEl.textContent = '🎉 You won!'; statusEl.style.color = '#10b981'; }
+            return;
+        }
+    } else {
+        hangmanWrong++;
+        if (btn) btn.classList.add('wrong-key');
+        if (hangmanWrong >= hangmanStages.length - 1) {
+            renderHangman();
+            if (btn) btn.disabled = true;
+            disableHangmanKeyboard();
+            if (statusEl) {
+                statusEl.textContent = `💀 Game over! The word was: ${hangmanWord.toUpperCase()}`;
+                statusEl.style.color = '#ef4444';
+            }
+            return;
+        }
+    }
+    if (btn) btn.disabled = true;
+    renderHangman();
+}
+
+function disableHangmanKeyboard() {
+    document.querySelectorAll('.hangman-key').forEach(b => { b.disabled = true; });
 }
