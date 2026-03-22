@@ -71,8 +71,6 @@
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
         }
 
         .game-title {
@@ -89,142 +87,209 @@
             margin-bottom: 20px;
         }
 
-        /* Tic Tac Toe Styles */
-        .ttt-container {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .status {
-            text-align: center;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            color: #2c3e50;
+        /* Common button styles */
+        .btn {
+            padding: 12px 30px;
+            font-size: 1em;
             font-weight: 600;
-            min-height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
         }
 
-        .board {
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Tic Tac Toe */
+        .ttt-board {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .cell {
+        .ttt-cell {
             aspect-ratio: 1;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             border: none;
-            border-radius: 15px;
-            font-size: 3em;
+            border-radius: 10px;
+            font-size: 2.5em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .cell:hover:not(:disabled) {
+        .ttt-cell:hover:not(:disabled) {
             transform: scale(1.05);
             background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
         }
 
-        .cell:disabled {
-            cursor: not-allowed;
+        .ttt-cell.x { color: #667eea; }
+        .ttt-cell.o { color: #764ba2; }
+        .ttt-cell.winner { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white !important; }
+
+        /* Rock Paper Scissors */
+        .rps-choices {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
         }
 
-        .cell.x {
-            color: #667eea;
-        }
-
-        .cell.o {
-            color: #764ba2;
-        }
-
-        .cell.winner {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white !important;
-            animation: pulse 0.5s ease-in-out;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .controls {
-            text-align: center;
-        }
-
-        .reset-btn {
-            padding: 15px 40px;
-            font-size: 1.1em;
-            font-weight: 600;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 12px;
+        .rps-btn {
+            width: 80px;
+            height: 80px;
+            font-size: 2.5em;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 3px solid #dee2e6;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
-        }
-
-        .reset-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .stats-container {
             display: flex;
-            justify-content: space-around;
-            margin-top: 30px;
-            padding-top: 30px;
-            border-top: 2px solid #e9ecef;
+            align-items: center;
+            justify-content: center;
         }
 
-        .stat {
+        .rps-btn:hover {
+            transform: scale(1.1);
+            border-color: #667eea;
+        }
+
+        .rps-result {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .rps-result h3 {
+            font-size: 1.3em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .rps-result p {
+            font-size: 1em;
+            color: #7f8c8d;
+        }
+
+        /* Memory Game */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 10px;
+            font-size: 2em;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .memory-card.flipped {
+            background: white;
+            border: 2px solid #667eea;
+        }
+
+        .memory-card.matched {
+            background: #10b981;
+            color: white;
+            cursor: default;
+        }
+
+        .memory-card:not(.flipped) {
+            color: transparent;
+        }
+
+        /* Number Guessing Game */
+        .guess-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1em;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            margin-bottom: 15px;
             text-align: center;
         }
 
-        .stat-label {
-            font-size: 0.9em;
-            color: #7f8c8d;
-            margin-bottom: 5px;
+        .guess-input:focus {
+            outline: none;
+            border-color: #667eea;
         }
 
-        .stat-value {
-            font-size: 2em;
-            font-weight: bold;
+        .guess-hint {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.1em;
             color: #2c3e50;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .stat-value.x {
-            color: #667eea;
+        .status-text {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.1em;
+            font-weight: 500;
+            min-height: 30px;
         }
 
-        .stat-value.o {
-            color: #764ba2;
+        .score-display {
+            text-align: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #e9ecef;
+            color: #7f8c8d;
         }
 
-        .stat-value.draw {
-            color: #f59e0b;
-        }
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
 
-        @media (max-width: 600px) {
             .header h1 {
                 font-size: 2em;
             }
 
             .game-card {
                 padding: 20px;
-            }
-
-            .cell {
-                font-size: 2em;
-            }
-
-            .status {
-                font-size: 1.2em;
             }
         }
     </style>
@@ -234,113 +299,143 @@
         <a href="index.html" class="back-btn">← Back to Home</a>
         
         <div class="header">
-            <h1>🎮 Games</h1>
-            <p>Take a break and play some fun games!</p>
+            <h1>🎮 Fun Games</h1>
+            <p>Take a break and play some games!</p>
         </div>
 
-        <div class="game-card">
-            <h2 class="game-title">Tic-Tac-Toe</h2>
-            <p class="game-subtitle">Classic game for two players</p>
-
-            <div class="ttt-container">
-                <div class="status" id="status">Player X's turn</div>
-                
-                <div class="board" id="board">
-                    <button class="cell" data-index="0"></button>
-                    <button class="cell" data-index="1"></button>
-                    <button class="cell" data-index="2"></button>
-                    <button class="cell" data-index="3"></button>
-                    <button class="cell" data-index="4"></button>
-                    <button class="cell" data-index="5"></button>
-                    <button class="cell" data-index="6"></button>
-                    <button class="cell" data-index="7"></button>
-                    <button class="cell" data-index="8"></button>
+        <div class="games-grid">
+            <!-- Tic-Tac-Toe Game -->
+            <div class="game-card">
+                <h2 class="game-title">❌⭕ Tic-Tac-Toe</h2>
+                <p class="game-subtitle">Classic two-player game</p>
+                <div class="status-text" id="ttt-status">Player X's turn</div>
+                <div class="ttt-board" id="ttt-board"></div>
+                <div style="text-align: center;">
+                    <button class="btn" id="ttt-reset">New Game</button>
                 </div>
-
-                <div class="controls">
-                    <button class="reset-btn" id="resetBtn">New Game</button>
+                <div class="score-display">
+                    X: <span id="ttt-x-score">0</span> | 
+                    Draw: <span id="ttt-draw-score">0</span> | 
+                    O: <span id="ttt-o-score">0</span>
                 </div>
+            </div>
 
-                <div class="stats-container">
-                    <div class="stat">
-                        <div class="stat-label">Player X Wins</div>
-                        <div class="stat-value x" id="xWins">0</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-label">Draws</div>
-                        <div class="stat-value draw" id="draws">0</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-label">Player O Wins</div>
-                        <div class="stat-value o" id="oWins">0</div>
-                    </div>
+            <!-- Rock Paper Scissors -->
+            <div class="game-card">
+                <h2 class="game-title">✊✋✌️ Rock Paper Scissors</h2>
+                <p class="game-subtitle">Beat the computer!</p>
+                <div class="rps-choices">
+                    <button class="rps-btn" data-choice="rock">✊</button>
+                    <button class="rps-btn" data-choice="paper">✋</button>
+                    <button class="rps-btn" data-choice="scissors">✌️</button>
+                </div>
+                <div class="rps-result" id="rps-result">
+                    <h3>Choose your move!</h3>
+                </div>
+                <div class="score-display">
+                    You: <span id="rps-player-score">0</span> | 
+                    Computer: <span id="rps-comp-score">0</span> | 
+                    Ties: <span id="rps-tie-score">0</span>
+                </div>
+            </div>
+
+            <!-- Memory Match Game -->
+            <div class="game-card">
+                <h2 class="game-title">🧠 Memory Match</h2>
+                <p class="game-subtitle">Find all the pairs!</p>
+                <div class="status-text" id="memory-status">Moves: 0 | Pairs: 0/8</div>
+                <div class="memory-grid" id="memory-grid"></div>
+                <div style="text-align: center;">
+                    <button class="btn" id="memory-reset">New Game</button>
+                </div>
+            </div>
+
+            <!-- Number Guessing Game -->
+            <div class="game-card">
+                <h2 class="game-title">🎯 Guess the Number</h2>
+                <p class="game-subtitle">Guess between 1 and 100</p>
+                <div class="status-text" id="guess-status">Make your first guess!</div>
+                <input type="number" class="guess-input" id="guess-input" placeholder="Enter a number" min="1" max="100">
+                <div style="text-align: center;">
+                    <button class="btn" id="guess-submit">Guess</button>
+                    <button class="btn" id="guess-reset" style="margin-left: 10px;">New Game</button>
+                </div>
+                <div class="guess-hint" id="guess-hint">🎲 I'm thinking of a number...</div>
+                <div class="score-display">
+                    Attempts: <span id="guess-attempts">0</span> | 
+                    Best: <span id="guess-best">-</span>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Tic-Tac-Toe Game
         class TicTacToe {
             constructor() {
                 this.board = Array(9).fill(null);
                 this.currentPlayer = 'X';
                 this.gameActive = true;
-                this.stats = {
-                    xWins: parseInt(localStorage.getItem('ttt-xWins') || '0'),
-                    oWins: parseInt(localStorage.getItem('ttt-oWins') || '0'),
-                    draws: parseInt(localStorage.getItem('ttt-draws') || '0')
+                this.scores = {
+                    x: parseInt(localStorage.getItem('ttt-x') || '0'),
+                    o: parseInt(localStorage.getItem('ttt-o') || '0'),
+                    draw: parseInt(localStorage.getItem('ttt-draw') || '0')
                 };
-
                 this.winPatterns = [
-                    [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-                    [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-                    [0, 4, 8], [2, 4, 6]              // Diagonals
+                    [0,1,2], [3,4,5], [6,7,8], // rows
+                    [0,3,6], [1,4,7], [2,5,8], // cols
+                    [0,4,8], [2,4,6] // diagonals
                 ];
-
                 this.init();
             }
 
             init() {
-                this.cells = document.querySelectorAll('.cell');
-                this.statusDisplay = document.getElementById('status');
-                this.resetBtn = document.getElementById('resetBtn');
-
-                this.cells.forEach(cell => {
-                    cell.addEventListener('click', (e) => this.handleCellClick(e));
-                });
-
-                this.resetBtn.addEventListener('click', () => this.resetGame());
-                this.updateStats();
+                const boardEl = document.getElementById('ttt-board');
+                boardEl.innerHTML = '';
+                for (let i = 0; i < 9; i++) {
+                    const cell = document.createElement('button');
+                    cell.className = 'ttt-cell';
+                    cell.dataset.index = i;
+                    cell.addEventListener('click', () => this.makeMove(i));
+                    boardEl.appendChild(cell);
+                }
+                document.getElementById('ttt-reset').addEventListener('click', () => this.reset());
+                this.updateScores();
+                this.updateStatus();
             }
 
-            handleCellClick(e) {
-                const cell = e.target;
-                const index = parseInt(cell.dataset.index);
-
-                if (this.board[index] || !this.gameActive) {
-                    return;
-                }
-
+            makeMove(index) {
+                if (!this.gameActive || this.board[index]) return;
+                
                 this.board[index] = this.currentPlayer;
-                cell.textContent = this.currentPlayer;
-                cell.classList.add(this.currentPlayer.toLowerCase());
-                cell.disabled = true;
+                const cells = document.querySelectorAll('.ttt-cell');
+                cells[index].textContent = this.currentPlayer;
+                cells[index].classList.add(this.currentPlayer.toLowerCase());
+                cells[index].disabled = true;
 
                 if (this.checkWin()) {
-                    this.handleWin();
-                } else if (this.checkDraw()) {
-                    this.handleDraw();
+                    this.gameActive = false;
+                    this.scores[this.currentPlayer.toLowerCase()]++;
+                    localStorage.setItem(`ttt-${this.currentPlayer.toLowerCase()}`, this.scores[this.currentPlayer.toLowerCase()]);
+                    document.getElementById('ttt-status').textContent = `🎉 Player ${this.currentPlayer} wins!`;
+                    this.highlightWinningCells();
+                    this.updateScores();
+                } else if (this.board.every(cell => cell)) {
+                    this.gameActive = false;
+                    this.scores.draw++;
+                    localStorage.setItem('ttt-draw', this.scores.draw);
+                    document.getElementById('ttt-status').textContent = "🤝 It's a draw!";
+                    this.updateScores();
                 } else {
-                    this.switchPlayer();
+                    this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
+                    this.updateStatus();
                 }
             }
 
             checkWin() {
-                return this.winPatterns.find(pattern => {
+                return this.winPatterns.some(pattern => {
                     const [a, b, c] = pattern;
-                    if (this.board[a] && 
-                        this.board[a] === this.board[b] && 
-                        this.board[a] === this.board[c]) {
+                    if (this.board[a] && this.board[a] === this.board[b] && this.board[a] === this.board[c]) {
                         this.winningPattern = pattern;
                         return true;
                     }
@@ -348,66 +443,260 @@
                 });
             }
 
-            checkDraw() {
-                return this.board.every(cell => cell !== null);
+            highlightWinningCells() {
+                const cells = document.querySelectorAll('.ttt-cell');
+                this.winningPattern.forEach(index => cells[index].classList.add('winner'));
             }
 
-            handleWin() {
-                this.gameActive = false;
-                this.statusDisplay.textContent = `🎉 Player ${this.currentPlayer} wins!`;
-                
-                // Highlight winning cells
-                this.winningPattern.forEach(index => {
-                    this.cells[index].classList.add('winner');
-                });
-
-                // Update stats
-                if (this.currentPlayer === 'X') {
-                    this.stats.xWins++;
-                    localStorage.setItem('ttt-xWins', this.stats.xWins);
-                } else {
-                    this.stats.oWins++;
-                    localStorage.setItem('ttt-oWins', this.stats.oWins);
-                }
-                this.updateStats();
+            updateStatus() {
+                document.getElementById('ttt-status').textContent = `Player ${this.currentPlayer}'s turn`;
             }
 
-            handleDraw() {
-                this.gameActive = false;
-                this.statusDisplay.textContent = "🤝 It's a draw!";
-                this.stats.draws++;
-                localStorage.setItem('ttt-draws', this.stats.draws);
-                this.updateStats();
+            updateScores() {
+                document.getElementById('ttt-x-score').textContent = this.scores.x;
+                document.getElementById('ttt-o-score').textContent = this.scores.o;
+                document.getElementById('ttt-draw-score').textContent = this.scores.draw;
             }
 
-            switchPlayer() {
-                this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
-                this.statusDisplay.textContent = `Player ${this.currentPlayer}'s turn`;
-            }
-
-            resetGame() {
+            reset() {
                 this.board = Array(9).fill(null);
                 this.currentPlayer = 'X';
                 this.gameActive = true;
                 this.winningPattern = null;
-                this.statusDisplay.textContent = "Player X's turn";
-
-                this.cells.forEach(cell => {
+                const cells = document.querySelectorAll('.ttt-cell');
+                cells.forEach(cell => {
                     cell.textContent = '';
                     cell.disabled = false;
                     cell.classList.remove('x', 'o', 'winner');
                 });
-            }
-
-            updateStats() {
-                document.getElementById('xWins').textContent = this.stats.xWins;
-                document.getElementById('oWins').textContent = this.stats.oWins;
-                document.getElementById('draws').textContent = this.stats.draws;
+                this.updateStatus();
             }
         }
 
-        // Initialize the game
-        const game = new TicTacToe();
+        // Rock Paper Scissors Game
+        class RockPaperScissors {
+            constructor() {
+                this.choices = ['rock', 'paper', 'scissors'];
+                this.emojis = { rock: '✊', paper: '✋', scissors: '✌️' };
+                this.scores = {
+                    player: parseInt(localStorage.getItem('rps-player') || '0'),
+                    computer: parseInt(localStorage.getItem('rps-computer') || '0'),
+                    tie: parseInt(localStorage.getItem('rps-tie') || '0')
+                };
+                this.init();
+            }
+
+            init() {
+                document.querySelectorAll('.rps-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.play(btn.dataset.choice));
+                });
+                this.updateScores();
+            }
+
+            play(playerChoice) {
+                const computerChoice = this.choices[Math.floor(Math.random() * 3)];
+                const result = this.getResult(playerChoice, computerChoice);
+                
+                const resultDiv = document.getElementById('rps-result');
+                resultDiv.innerHTML = `
+                    <h3>${result.message}</h3>
+                    <p>You: ${this.emojis[playerChoice]} vs Computer: ${this.emojis[computerChoice]}</p>
+                `;
+
+                if (result.winner === 'player') {
+                    this.scores.player++;
+                    localStorage.setItem('rps-player', this.scores.player);
+                } else if (result.winner === 'computer') {
+                    this.scores.computer++;
+                    localStorage.setItem('rps-computer', this.scores.computer);
+                } else {
+                    this.scores.tie++;
+                    localStorage.setItem('rps-tie', this.scores.tie);
+                }
+                this.updateScores();
+            }
+
+            getResult(player, computer) {
+                if (player === computer) return { winner: 'tie', message: "It's a tie!" };
+                if (
+                    (player === 'rock' && computer === 'scissors') ||
+                    (player === 'paper' && computer === 'rock') ||
+                    (player === 'scissors' && computer === 'paper')
+                ) {
+                    return { winner: 'player', message: '🎉 You win!' };
+                }
+                return { winner: 'computer', message: '😔 Computer wins!' };
+            }
+
+            updateScores() {
+                document.getElementById('rps-player-score').textContent = this.scores.player;
+                document.getElementById('rps-comp-score').textContent = this.scores.computer;
+                document.getElementById('rps-tie-score').textContent = this.scores.tie;
+            }
+        }
+
+        // Memory Match Game
+        class MemoryGame {
+            constructor() {
+                this.emojis = ['🎮', '🎯', '🎲', '🎪', '🎨', '🎭', '🎺', '🎸'];
+                this.cards = [];
+                this.flippedCards = [];
+                this.matchedPairs = 0;
+                this.moves = 0;
+                this.init();
+            }
+
+            init() {
+                this.reset();
+                document.getElementById('memory-reset').addEventListener('click', () => this.reset());
+            }
+
+            reset() {
+                this.cards = [...this.emojis, ...this.emojis].sort(() => Math.random() - 0.5);
+                this.flippedCards = [];
+                this.matchedPairs = 0;
+                this.moves = 0;
+                this.locked = false;
+                
+                const grid = document.getElementById('memory-grid');
+                grid.innerHTML = '';
+                this.cards.forEach((emoji, index) => {
+                    const card = document.createElement('button');
+                    card.className = 'memory-card';
+                    card.dataset.index = index;
+                    card.dataset.emoji = emoji;
+                    card.textContent = emoji;
+                    card.addEventListener('click', () => this.flipCard(index));
+                    grid.appendChild(card);
+                });
+                this.updateStatus();
+            }
+
+            flipCard(index) {
+                if (this.locked || this.flippedCards.includes(index)) return;
+                
+                const cards = document.querySelectorAll('.memory-card');
+                const card = cards[index];
+                
+                if (card.classList.contains('matched') || card.classList.contains('flipped')) return;
+                
+                card.classList.add('flipped');
+                this.flippedCards.push(index);
+
+                if (this.flippedCards.length === 2) {
+                    this.moves++;
+                    this.locked = true;
+                    this.checkMatch(cards);
+                }
+            }
+
+            checkMatch(cards) {
+                const [first, second] = this.flippedCards;
+                const firstEmoji = cards[first].dataset.emoji;
+                const secondEmoji = cards[second].dataset.emoji;
+
+                setTimeout(() => {
+                    if (firstEmoji === secondEmoji) {
+                        cards[first].classList.add('matched');
+                        cards[second].classList.add('matched');
+                        this.matchedPairs++;
+                        
+                        if (this.matchedPairs === this.emojis.length) {
+                            document.getElementById('memory-status').textContent = `🎉 You won in ${this.moves} moves!`;
+                        }
+                    } else {
+                        cards[first].classList.remove('flipped');
+                        cards[second].classList.remove('flipped');
+                    }
+                    this.flippedCards = [];
+                    this.locked = false;
+                    this.updateStatus();
+                }, 800);
+            }
+
+            updateStatus() {
+                document.getElementById('memory-status').textContent = 
+                    `Moves: ${this.moves} | Pairs: ${this.matchedPairs}/${this.emojis.length}`;
+            }
+        }
+
+        // Number Guessing Game
+        class GuessGame {
+            constructor() {
+                this.reset();
+                this.bestScore = parseInt(localStorage.getItem('guess-best') || '0');
+                this.init();
+            }
+
+            init() {
+                document.getElementById('guess-submit').addEventListener('click', () => this.guess());
+                document.getElementById('guess-reset').addEventListener('click', () => this.reset());
+                document.getElementById('guess-input').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.guess();
+                });
+                this.updateDisplay();
+            }
+
+            reset() {
+                this.target = Math.floor(Math.random() * 100) + 1;
+                this.attempts = 0;
+                this.gameActive = true;
+                document.getElementById('guess-input').value = '';
+                document.getElementById('guess-input').disabled = false;
+                document.getElementById('guess-submit').disabled = false;
+                document.getElementById('guess-status').textContent = 'Make your first guess!';
+                document.getElementById('guess-hint').textContent = '🎲 I\'m thinking of a number...';
+                this.updateDisplay();
+            }
+
+            guess() {
+                if (!this.gameActive) return;
+                
+                const input = document.getElementById('guess-input');
+                const guess = parseInt(input.value);
+                
+                if (!guess || guess < 1 || guess > 100) {
+                    document.getElementById('guess-hint').textContent = '⚠️ Please enter a number between 1 and 100';
+                    return;
+                }
+
+                this.attempts++;
+                
+                if (guess === this.target) {
+                    this.gameActive = false;
+                    document.getElementById('guess-status').textContent = `🎉 Correct! You won in ${this.attempts} attempts!`;
+                    document.getElementById('guess-hint').textContent = `The number was ${this.target}!`;
+                    input.disabled = true;
+                    document.getElementById('guess-submit').disabled = true;
+                    
+                    if (!this.bestScore || this.attempts < this.bestScore) {
+                        this.bestScore = this.attempts;
+                        localStorage.setItem('guess-best', this.bestScore);
+                        document.getElementById('guess-hint').textContent += ' 🏆 New best score!';
+                    }
+                } else if (guess < this.target) {
+                    document.getElementById('guess-status').textContent = `Attempt ${this.attempts}`;
+                    document.getElementById('guess-hint').textContent = '📈 Too low! Try higher.';
+                } else {
+                    document.getElementById('guess-status').textContent = `Attempt ${this.attempts}`;
+                    document.getElementById('guess-hint').textContent = '📉 Too high! Try lower.';
+                }
+                
+                input.value = '';
+                this.updateDisplay();
+            }
+
+            updateDisplay() {
+                document.getElementById('guess-attempts').textContent = this.attempts;
+                document.getElementById('guess-best').textContent = this.bestScore || '-';
+            }
+        }
+
+        // Initialize all games
+        const ttt = new TicTacToe();
+        const rps = new RockPaperScissors();
+        const memory = new MemoryGame();
+        const guessGame = new GuessGame();
     </script>
 </body>
 </html>
