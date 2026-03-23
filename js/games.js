@@ -12,7 +12,8 @@ const gameModals = {
     mathchallenge: { title: '➕ Math Challenge', subtitle: 'Answer as many as you can!' },
     hangman: { title: '🪢 Hangman', subtitle: 'Guess the word!' },
     kpopemoji: { title: '🎤 K-POP Emoji Quiz', subtitle: 'Guess the group from the emojis!' },
-    kpopidol: { title: '🌟 K-POP Idol Quiz', subtitle: 'Guess the idol from the emojis!' }
+    kpopidol: { title: '🌟 K-POP Idol Quiz', subtitle: 'Guess the idol from the emojis!' },
+    chengyu: { title: '🀄 成语游戏', subtitle: '猜猜成语的意思！' }
 };
 
 function openGame(gameId) {
@@ -68,6 +69,7 @@ function initGame(gameId) {
         case 'hangman': initHangman(); break;
         case 'kpopemoji': initKpopEmoji(); break;
         case 'kpopidol': initKpopIdol(); break;
+        case 'chengyu': initChengyu(); break;
     }
 }
 
@@ -1474,6 +1476,318 @@ function endKpopIdol() {
         <style>
             .idol-result { text-align:center; padding:20px; }
             .idol-result .big-emoji { font-size:4em; margin-bottom:12px; }
+        </style>
+    `;
+}
+
+// ============= 成语游戏 (CHENGYU QUIZ) =============
+const chengyuList = [
+    {
+        chengyu: '一石二鸟',
+        pinyin: 'yī shí èr niǎo',
+        emoji: '🪨🐦🐦',
+        meaning: 'Accomplish two things with a single action',
+        meaning_cn: '一个行动，达到两个目的',
+        story: 'Like throwing one stone and hitting two birds at the same time!'
+    },
+    {
+        chengyu: '马到成功',
+        pinyin: 'mǎ dào chéng gōng',
+        emoji: '🐎🏆',
+        meaning: 'Instant success as soon as you start',
+        meaning_cn: '开始就立刻取得成功',
+        story: 'When the horse arrives, success follows immediately — wish someone good luck!'
+    },
+    {
+        chengyu: '画蛇添足',
+        pinyin: 'huà shé tiān zú',
+        emoji: '🐍🦶',
+        meaning: 'Do something unnecessary that ruins the result',
+        meaning_cn: '多此一举，反而坏事',
+        story: 'Someone finished drawing a snake first, then added feet — snakes don\'t have feet!'
+    },
+    {
+        chengyu: '守株待兔',
+        pinyin: 'shǒu zhū dài tù',
+        emoji: '🌳🐇⏳',
+        meaning: 'Wait passively for luck instead of working hard',
+        meaning_cn: '坐等机会，不主动努力',
+        story: 'A farmer saw a rabbit run into a tree stump and die, so he stopped farming and waited by the stump forever!'
+    },
+    {
+        chengyu: '亡羊补牢',
+        pinyin: 'wáng yáng bǔ láo',
+        emoji: '🐑🔧',
+        meaning: 'Fix a problem after a loss — better late than never',
+        meaning_cn: '出了问题再补救，亡羊补牢，未为迟也',
+        story: 'After losing a sheep through a broken fence, mending the fence prevents further loss.'
+    },
+    {
+        chengyu: '狐假虎威',
+        pinyin: 'hú jiǎ hǔ wēi',
+        emoji: '🦊🐯',
+        meaning: 'Bully others by borrowing someone else\'s power',
+        meaning_cn: '借别人的威势欺负人',
+        story: 'A fox walked with a tiger and all animals fled — they feared the tiger, but the fox pretended they feared him!'
+    },
+    {
+        chengyu: '掩耳盗铃',
+        pinyin: 'yǎn ěr dào líng',
+        emoji: '👂🔔🙈',
+        meaning: 'Deceive yourself by ignoring obvious facts',
+        meaning_cn: '自欺欺人',
+        story: 'A thief covered his own ears while stealing a bell, thinking no one could hear it if he couldn\'t!'
+    },
+    {
+        chengyu: '井底之蛙',
+        pinyin: 'jǐng dǐ zhī wā',
+        emoji: '🐸🪣',
+        meaning: 'A narrow-minded person with limited knowledge',
+        meaning_cn: '见识狭窄，眼界有限的人',
+        story: 'A frog living at the bottom of a well thinks the little circle of sky above is the whole world.'
+    },
+    {
+        chengyu: '对牛弹琴',
+        pinyin: 'duì niú tán qín',
+        emoji: '🐄🎵',
+        meaning: 'Talk to someone who cannot understand you',
+        meaning_cn: '说话不看对象，白费口舌',
+        story: 'Playing a beautiful melody to a cow — the cow doesn\'t appreciate the music at all!'
+    },
+    {
+        chengyu: '塞翁失马',
+        pinyin: 'sài wēng shī mǎ',
+        emoji: '🐎🔄',
+        meaning: 'A seeming misfortune may turn out to be a blessing',
+        meaning_cn: '祸兮福所倚，坏事可能变好事',
+        story: 'An old man\'s horse ran away — neighbours said bad luck. Later the horse returned with more horses!'
+    },
+    {
+        chengyu: '半途而废',
+        pinyin: 'bàn tú ér fèi',
+        emoji: '🏃💨❌',
+        meaning: 'Give up halfway before finishing a task',
+        meaning_cn: '做事做到一半就放弃',
+        story: 'A student stopped studying halfway — he wasted all his earlier effort!'
+    },
+    {
+        chengyu: '刻舟求剑',
+        pinyin: 'kè zhōu qiú jiàn',
+        emoji: '🚢🗡️',
+        meaning: 'Try to solve a new problem with outdated thinking',
+        meaning_cn: '用一成不变的方法应对变化的情况',
+        story: 'A man dropped his sword from a boat, carved a mark on the boat\'s side, and looked for it there after landing!'
+    },
+    {
+        chengyu: '南辕北辙',
+        pinyin: 'nán yuán běi zhé',
+        emoji: '🧭↕️',
+        meaning: 'Act in the opposite way from what you intend',
+        meaning_cn: '行动与目的相反',
+        story: 'Wanting to go south but driving north — no matter how good the horses or how much food, you\'ll never arrive!'
+    },
+    {
+        chengyu: '愚公移山',
+        pinyin: 'yú gōng yí shān',
+        emoji: '⛰️💪',
+        meaning: 'Persevere despite enormous difficulty',
+        meaning_cn: '坚持不懈，不畏艰难',
+        story: 'An old man started moving two mountains blocking his village, saying his children and grandchildren would continue until done!'
+    },
+    {
+        chengyu: '叶公好龙',
+        pinyin: 'yè gōng hào lóng',
+        emoji: '🐉😱',
+        meaning: 'Pretend to love something you actually fear',
+        meaning_cn: '表面上爱好某事，实际上并不真正喜欢',
+        story: 'Lord Ye claimed to love dragons and decorated his home with them — when a real dragon appeared, he ran away in terror!'
+    },
+    {
+        chengyu: '虎头蛇尾',
+        pinyin: 'hǔ tóu shé wěi',
+        emoji: '🐯🐍',
+        meaning: 'Start strong but finish weakly',
+        meaning_cn: '开始声势大，结尾草草了事',
+        story: 'Like a creature with a fierce tiger\'s head but a thin, weak snake\'s tail — all bark at the start, nothing at the end!'
+    },
+    {
+        chengyu: '滥竽充数',
+        pinyin: 'làn yú chōng shù',
+        emoji: '🎵😶',
+        meaning: 'Pretend to have a skill you lack to make up the numbers',
+        meaning_cn: '没有真才实学，混在行家里充数',
+        story: 'A king liked his musicians to play together; one man who couldn\'t play hid among them. When the next king asked each to play solo, the fraud fled!'
+    },
+    {
+        chengyu: '杯弓蛇影',
+        pinyin: 'bēi gōng shé yǐng',
+        emoji: '🍵🐍👁️',
+        meaning: 'Be full of unnecessary suspicion and fear',
+        meaning_cn: '疑神疑鬼，自寻烦恼',
+        story: 'A man saw a snake\'s shadow in his wine cup, fell ill from fear, then realised it was just a reflection of a bow on the wall!'
+    },
+    {
+        chengyu: '班门弄斧',
+        pinyin: 'bān mén nòng fǔ',
+        emoji: '🪓🧑‍🎨',
+        meaning: 'Show off skills in front of an expert',
+        meaning_cn: '在行家面前卖弄自己',
+        story: 'Showing off your axe skills in front of Lu Ban — the greatest carpenter in ancient China — is embarrassing!'
+    },
+    {
+        chengyu: '一箭双雕',
+        pinyin: 'yī jiàn shuāng diāo',
+        emoji: '🏹🦅🦅',
+        meaning: 'Achieve two goals with a single effort',
+        meaning_cn: '一举两得',
+        story: 'A legendary archer shot one arrow and hit two eagles flying together — the origin of "kill two birds with one stone"!'
+    }
+];
+
+let chengyuScore, chengyuTotal, chengyuCurrentIndex, chengyuAnswered;
+
+function initChengyu() {
+    const shuffled = [...chengyuList].sort(() => Math.random() - 0.5);
+    chengyuScore = 0;
+    chengyuTotal = 0;
+    chengyuCurrentIndex = 0;
+    chengyuAnswered = false;
+    window._chengyuQueue = shuffled;
+
+    const container = document.getElementById('game-chengyu');
+    container.innerHTML = `
+        <style>
+            .cy-score { text-align:center; font-size:1.1em; font-weight:600; color:#e74c3c; margin-bottom:8px; }
+            .cy-progress { text-align:center; font-size:0.9em; color:#7f8c8d; margin-bottom:14px; }
+            .cy-card { text-align:center; background:linear-gradient(135deg,#fff5f5 0%,#fff 100%); border:2px solid #fca5a5; border-radius:16px; padding:20px 16px 14px; margin-bottom:16px; }
+            .cy-characters { font-size:3.2em; font-weight:900; color:#c0392b; letter-spacing:6px; margin-bottom:6px; line-height:1.2; font-family:'Noto Sans SC','SimSun','STSong',sans-serif; }
+            .cy-pinyin { font-size:1em; color:#7f8c8d; letter-spacing:2px; margin-bottom:8px; }
+            .cy-emoji { font-size:2.4em; margin-bottom:4px; }
+            .cy-question-label { font-size:0.95em; color:#555; font-weight:600; }
+            .cy-options { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+            .cy-opt-btn { padding:14px 10px; font-size:0.92em; font-weight:600; background:#f8f9fa; color:#2c3e50; border:2px solid #e9ecef; border-radius:12px; cursor:pointer; transition:all 0.2s; line-height:1.4; }
+            .cy-opt-btn:hover:not(:disabled) { background:#e74c3c; color:white; border-color:#e74c3c; transform:translateY(-2px); }
+            .cy-opt-btn.cy-correct { background:#10b981 !important; color:white !important; border-color:#10b981 !important; }
+            .cy-opt-btn.cy-wrong { background:#ef4444 !important; color:white !important; border-color:#ef4444 !important; }
+            .cy-status { text-align:center; font-size:1em; font-weight:600; min-height:24px; margin-bottom:6px; }
+            .cy-story { text-align:center; font-size:0.88em; color:#7f8c8d; font-style:italic; min-height:20px; margin-bottom:10px; padding:0 8px; }
+            .cy-next-btn { display:block; margin:0 auto; }
+            .cy-result { text-align:center; padding:20px; }
+            .cy-result .big-emoji { font-size:4em; margin-bottom:12px; }
+        </style>
+        <div class="cy-score" id="cy-score">得分 Score: 0</div>
+        <div class="cy-progress" id="cy-progress">第 1 题，共 ${window._chengyuQueue.length} 题</div>
+        <div class="cy-card">
+            <div class="cy-emoji" id="cy-emoji"></div>
+            <div class="cy-characters" id="cy-characters"></div>
+            <div class="cy-pinyin" id="cy-pinyin"></div>
+            <div class="cy-question-label">这个成语是什么意思？ What does it mean?</div>
+        </div>
+        <div class="cy-options" id="cy-options"></div>
+        <div class="cy-status" id="cy-status"></div>
+        <div class="cy-story" id="cy-story"></div>
+        <button class="btn cy-next-btn" id="cy-next-btn" style="display:none;" onclick="nextChengyuQuestion()">下一题 Next ➡️</button>
+    `;
+
+    renderChengyuQuestion();
+}
+
+function renderChengyuQuestion() {
+    const queue = window._chengyuQueue;
+    const item = queue[chengyuCurrentIndex];
+    chengyuAnswered = false;
+
+    document.getElementById('cy-score').textContent = `得分 Score: ${chengyuScore}`;
+    document.getElementById('cy-progress').textContent = `第 ${chengyuCurrentIndex + 1} 题，共 ${queue.length} 题`;
+    document.getElementById('cy-emoji').textContent = item.emoji;
+    document.getElementById('cy-characters').textContent = item.chengyu;
+    document.getElementById('cy-pinyin').textContent = item.pinyin;
+    document.getElementById('cy-status').textContent = '';
+    document.getElementById('cy-story').textContent = '';
+    const nextBtn = document.getElementById('cy-next-btn');
+    if (nextBtn) nextBtn.style.display = 'none';
+
+    // Build 4 options: the correct answer + 3 random wrong answers
+    const wrongPool = queue.filter((_, i) => i !== chengyuCurrentIndex);
+    const wrongs = wrongPool.sort(() => Math.random() - 0.5).slice(0, 3);
+    const options = [item, ...wrongs].sort(() => Math.random() - 0.5);
+
+    const optionsEl = document.getElementById('cy-options');
+    optionsEl.innerHTML = '';
+    options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'cy-opt-btn';
+        btn.dataset.chengyu = opt.chengyu;
+        btn.innerHTML = `${opt.meaning}<br><small style="font-weight:400;color:inherit;opacity:0.85">${opt.meaning_cn}</small>`;
+        btn.onclick = () => answerChengyu(opt.chengyu, btn, item.chengyu, item.story);
+        optionsEl.appendChild(btn);
+    });
+}
+
+function answerChengyu(chosen, btn, correct, story) {
+    if (chengyuAnswered) return;
+    chengyuAnswered = true;
+    chengyuTotal++;
+
+    const statusEl = document.getElementById('cy-status');
+    const storyEl = document.getElementById('cy-story');
+    const optionsEl = document.getElementById('cy-options');
+    optionsEl.querySelectorAll('.cy-opt-btn').forEach(b => { b.disabled = true; });
+
+    if (chosen === correct) {
+        btn.classList.add('cy-correct');
+        chengyuScore++;
+        document.getElementById('cy-score').textContent = `得分 Score: ${chengyuScore}`;
+        statusEl.textContent = '✅ 答对了！Correct! 🎉';
+        statusEl.style.color = '#10b981';
+    } else {
+        btn.classList.add('cy-wrong');
+        const correctItem = window._chengyuQueue.find(c => c.chengyu === correct);
+        optionsEl.querySelectorAll('.cy-opt-btn').forEach(b => {
+            if (b.dataset.chengyu === correct) b.classList.add('cy-correct');
+        });
+        const correctMeaning = correctItem ? ` — ${correctItem.meaning}` : '';
+        statusEl.textContent = `❌ 答错了！The answer was: ${correct}${correctMeaning}`;
+        statusEl.style.color = '#ef4444';
+    }
+
+    storyEl.textContent = `📖 ${story}`;
+
+    const nextBtn = document.getElementById('cy-next-btn');
+    if (nextBtn) {
+        const isLast = chengyuCurrentIndex >= window._chengyuQueue.length - 1;
+        nextBtn.textContent = isLast ? '查看结果 See Results 🏁' : '下一题 Next ➡️';
+        nextBtn.style.display = 'block';
+    }
+}
+
+function nextChengyuQuestion() {
+    chengyuCurrentIndex++;
+    if (chengyuCurrentIndex >= window._chengyuQueue.length) {
+        endChengyu();
+    } else {
+        renderChengyuQuestion();
+    }
+}
+
+function endChengyu() {
+    const container = document.getElementById('game-chengyu');
+    if (!container) return;
+    const pct = Math.round((chengyuScore / chengyuTotal) * 100);
+    let medal = pct === 100 ? '🥇' : pct >= 80 ? '🥈' : pct >= 60 ? '🥉' : '📚';
+    let msg = pct === 100 ? '成语大师！Chengyu Master!' : pct >= 80 ? '非常棒！Excellent!' : pct >= 60 ? '还不错！Good job!' : '继续加油！Keep practising!';
+    container.innerHTML = `
+        <div class="cy-result">
+            <div class="big-emoji">${medal}</div>
+            <h3 style="font-size:1.8em; color:#2c3e50; margin-bottom:10px;">${msg}</h3>
+            <p style="font-size:1.3em; color:#7f8c8d; margin-bottom:20px;">
+                你答对了 <strong style="color:#e74c3c;">${chengyuScore}</strong> / <strong>${chengyuTotal}</strong> 题！
+            </p>
+            <button class="btn" onclick="initChengyu()">再玩一次 Play Again 🔁</button>
+        </div>
+        <style>
+            .cy-result { text-align:center; padding:20px; }
+            .cy-result .big-emoji { font-size:4em; margin-bottom:12px; }
         </style>
     `;
 }
