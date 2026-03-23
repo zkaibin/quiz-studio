@@ -1346,7 +1346,32 @@ const kpopIdols = [
     { idol: 'Hanni', emojis: '🐱🎀💗🌸', hint: 'NewJeans Vietnamese-Australian member' },
     { idol: 'Kai', emojis: '🐆🕺🌙🌊', hint: "EXO's main dancer, powerful & sensual performer" },
     { idol: 'Taemin', emojis: '🌙🌹🕊️💎', hint: 'SHINee member, legendary solo performer' },
-    { idol: 'Chungha', emojis: '💃🌺🔥🏆', hint: "Former I.O.I member, powerful solo dancer known for 'Gotta Go'" }
+    { idol: 'Chungha', emojis: '💃🌺🔥🏆', hint: "Former I.O.I member, powerful solo dancer known for 'Gotta Go'" },
+    // ENHYPEN
+    { idol: 'Jungwon', emojis: '🐱🌙✨🎵', hint: 'ENHYPEN leader with cat-like features and charismatic stage presence' },
+    { idol: 'Heeseung', emojis: '🎸🌟🎤💪', hint: 'ENHYPEN multi-talented main vocalist, dancer and rapper' },
+    { idol: 'Jay', emojis: '🌏😄🇺🇸🎤', hint: 'ENHYPEN trilingual member raised in Seattle' },
+    { idol: 'Jake', emojis: '🇦🇺🌺💙🎵', hint: 'ENHYPEN Australian member with warm, melodic vocals' },
+    { idol: 'Sunghoon', emojis: '⛸️❄️🤍👑', hint: 'ENHYPEN former figure skater known as the ice prince' },
+    { idol: 'Sunoo', emojis: '☀️😊🌻💛', hint: "ENHYPEN's sunshine member, famous for his bright crescent-eye smile" },
+    { idol: 'Ni-ki', emojis: '🇯🇵💃🔥🐍', hint: 'ENHYPEN youngest member, Japanese main dancer with explosive stage presence' },
+    // Stray Kids
+    { idol: 'Bang Chan', emojis: '🇦🇺🎵🌙💪', hint: 'Stray Kids leader, Australian-born producer of 3RACHA' },
+    { idol: 'Lee Know', emojis: '🐱💃🌟🔥', hint: 'Stray Kids main dancer and cat lover' },
+    { idol: 'Changbin', emojis: '🎤💥🔥⚡', hint: 'Stray Kids rapper renowned for rapid-fire deep-voice delivery' },
+    { idol: 'Hyunjin', emojis: '🎨🌹🌊👑', hint: 'Stray Kids visual, painter and artistic performer' },
+    { idol: 'Han', emojis: '🌧️🎵💔✍️', hint: 'Stray Kids rapper and emotional lyricist of 3RACHA' },
+    { idol: 'Felix', emojis: '🇦🇺🌙💛✨', hint: 'Stray Kids Australian member with a surprisingly deep voice and freckles' },
+    { idol: 'Seungmin', emojis: '⚾🐶🎤🌸', hint: 'Stray Kids vocalist and passionate baseball fan' },
+    { idol: 'I.N', emojis: '🐣🌟😊🎵', hint: 'Stray Kids youngest member (maknae) with bright, youthful energy' },
+    // BABYMONSTER
+    { idol: 'Rora', emojis: '🌟💙🎤✨', hint: 'BABYMONSTER Korean main vocalist with powerful stage presence' },
+    { idol: 'Pharita', emojis: '🌺🇹🇭💃🌸', hint: 'BABYMONSTER Thai member known for graceful dancing' },
+    { idol: 'Asa', emojis: '🇯🇵🌙🎵💫', hint: 'BABYMONSTER Japanese member with a captivating charisma' },
+    { idol: 'Ahyeon', emojis: '🔥💪🎤👑', hint: 'BABYMONSTER Korean rapper and vocalist with fierce energy' },
+    { idol: 'Rami', emojis: '🌹🎤💗🌟', hint: 'BABYMONSTER Korean member with a sweet, melodic voice' },
+    { idol: 'Chiquita', emojis: '🇹🇭💛🌺🎵', hint: 'BABYMONSTER Thai member with vibrant, joyful performances' },
+    { idol: 'Ruka', emojis: '🇯🇵🌊💙✨', hint: 'BABYMONSTER Japanese member with sharp dance skills' }
 ];
 
 let kpopIdolScore, kpopIdolTotal, kpopIdolCurrentIndex, kpopIdolAnswered;
