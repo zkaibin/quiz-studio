@@ -30,6 +30,7 @@
 - **🀄 Chengyu Quiz** - 600+ idioms in the question library with 20 random questions per game session
 - **🧭 Chengyu Category Filters** - Switch between All, Beginner, Intermediate, and Advanced sets
 - **🎤 K-POP Quizzes** - Group and idol emoji quiz modes
+- **🎧 K-POP Quiz Banks** - Emoji group and idol quizzes now run from JSON banks with 20 random questions per session
 - **🧩 Variety Pack** - Includes Tic-Tac-Toe, Rock Paper Scissors, Memory Match, Guess the Number, Snake, Simon Says, Whack-a-Mole, 2048, Word Scramble, Math Challenge, and Hangman
 - **🔤 Expanded Word Banks** - Word Scramble and Hangman now use larger JSON libraries and 20-question random rounds
 
@@ -122,7 +123,11 @@ Visit the live site: `https://yourusername.github.io/quiz-studio`
    - Questions are drawn from JSON word libraries in `data/`
    - Each run is capped at **20 random questions**
    - Click **New 20** to reshuffle a fresh set
-5. Click **Play Again** to get a fresh random set
+5. For **K-POP Emoji** and **K-POP Idol** quizzes:
+   - Questions are loaded from JSON banks in `data/`
+   - Each run is capped at **20 random questions**
+   - Click **New 20** for another random set
+6. Click **Play Again** to get a fresh random set
 
 ### Paper Generator
 
@@ -160,6 +165,8 @@ quiz-studio/
 │   ├── chengyu-library.json        # 600+ Chengyu idioms for random quiz sets
 │   ├── word-scramble-library.json  # Word Scramble library
 │   ├── hangman-library.json        # Hangman library
+│   ├── kpop-emoji-library.json     # K-POP group emoji quiz library
+│   ├── kpop-idol-library.json      # K-POP idol emoji quiz library
 │   ├── characters.json             # 103 characters
 │   └── universes.json              # 11 character universes
 ├── scripts/

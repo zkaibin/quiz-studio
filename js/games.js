@@ -1404,17 +1404,56 @@ const kpopEmojiGroups = [
     { group: 'Girls\' Generation', emojis: '👧🍬🎵🏃', hint: 'SNSD, iconic girl group, "Gee"' }
 ];
 
+const KPOP_QUIZ_SIZE = 20;
+let kpopEmojiLibraryCache = null;
+
+function normalizeKpopEmojiEntry(entry) {
+    if (!entry || typeof entry.group !== 'string' || typeof entry.emojis !== 'string') return null;
+    return {
+        group: entry.group.trim(),
+        emojis: entry.emojis.trim(),
+        hint: entry.hint && typeof entry.hint === 'string' ? entry.hint.trim() : 'Guess the group from emoji clues'
+    };
+}
+
+async function loadKpopEmojiLibrary() {
+    if (kpopEmojiLibraryCache) return kpopEmojiLibraryCache;
+
+    const fallback = kpopEmojiGroups.map(normalizeKpopEmojiEntry).filter(Boolean);
+    try {
+        const res = await fetch('data/kpop-emoji-library.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const raw = await res.json();
+        const parsed = Array.isArray(raw) ? raw.map(normalizeKpopEmojiEntry).filter(Boolean) : [];
+        kpopEmojiLibraryCache = parsed.length ? parsed : fallback;
+    } catch (error) {
+        console.warn('Failed to load K-POP emoji library, using fallback list.', error);
+        kpopEmojiLibraryCache = fallback;
+    }
+
+    return kpopEmojiLibraryCache;
+}
+
 let kpopScore, kpopTotal, kpopCurrentIndex, kpopAnswered;
 
-function initKpopEmoji() {
+async function initKpopEmoji() {
+    const library = await loadKpopEmojiLibrary();
+    const shuffled = [...library].sort(() => Math.random() - 0.5);
+
     kpopScore = 0;
     kpopTotal = 0;
     kpopAnswered = false;
-    const shuffled = [...kpopEmojiGroups].sort(() => Math.random() - 0.5);
     kpopCurrentIndex = 0;
-    window._kpopQueue = shuffled;
+    window._kpopQueue = shuffled.slice(0, Math.min(KPOP_QUIZ_SIZE, shuffled.length));
 
     const container = document.getElementById('game-kpopemoji');
+    if (!container) return;
+
+    if (!window._kpopQueue.length) {
+        container.innerHTML = '<p style="text-align:center; color:#ef4444; font-weight:600;">No K-POP emoji questions available right now.</p>';
+        return;
+    }
+
     container.innerHTML = `
         <style>
             .kpop-score { text-align:center; font-size:1.1em; font-weight:600; color:#667eea; margin-bottom:12px; }
@@ -1437,7 +1476,10 @@ function initKpopEmoji() {
         <div class="kpop-hint" id="kpop-hint"></div>
         <div class="kpop-options" id="kpop-options"></div>
         <div class="kpop-status" id="kpop-status"></div>
-        <button class="btn kpop-next-btn" id="kpop-next-btn" style="display:none;" onclick="nextKpopQuestion()">Next ➡️</button>
+        <div style="display:flex; gap:10px; justify-content:center;">
+            <button class="btn kpop-next-btn" id="kpop-next-btn" style="display:none;" onclick="nextKpopQuestion()">Next ➡️</button>
+            <button class="btn" style="background: linear-gradient(135deg,#334155,#0f172a);" onclick="initKpopEmoji()">New 20</button>
+        </div>
     `;
 
     renderKpopQuestion();
@@ -1518,7 +1560,7 @@ function endKpopEmoji() {
     const container = document.getElementById('game-kpopemoji');
     if (!container) return;
     const pct = Math.round((kpopScore / kpopTotal) * 100);
-    let medal = pct === 100 ? '🥇' : pct >= 80 ? '🥈' : pct >= 60 ? '��' : '🎤';
+    let medal = pct === 100 ? '🥇' : pct >= 80 ? '🥈' : pct >= 60 ? '🥉' : '🎤';
     let msg = pct === 100 ? 'Perfect K-POP Fan!' : pct >= 80 ? 'Amazing K-POP Knowledge!' : pct >= 60 ? 'Pretty Good Kpoppy!' : 'Keep stanning!';
     container.innerHTML = `
         <div class="kpop-result">
@@ -1585,17 +1627,55 @@ const kpopIdols = [
     { idol: 'Ruka', emojis: '🇯🇵🌊💙✨', hint: 'BABYMONSTER Japanese member with sharp dance skills' }
 ];
 
+let kpopIdolLibraryCache = null;
+
+function normalizeKpopIdolEntry(entry) {
+    if (!entry || typeof entry.idol !== 'string' || typeof entry.emojis !== 'string') return null;
+    return {
+        idol: entry.idol.trim(),
+        emojis: entry.emojis.trim(),
+        hint: entry.hint && typeof entry.hint === 'string' ? entry.hint.trim() : 'Guess the idol from emoji clues'
+    };
+}
+
+async function loadKpopIdolLibrary() {
+    if (kpopIdolLibraryCache) return kpopIdolLibraryCache;
+
+    const fallback = kpopIdols.map(normalizeKpopIdolEntry).filter(Boolean);
+    try {
+        const res = await fetch('data/kpop-idol-library.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const raw = await res.json();
+        const parsed = Array.isArray(raw) ? raw.map(normalizeKpopIdolEntry).filter(Boolean) : [];
+        kpopIdolLibraryCache = parsed.length ? parsed : fallback;
+    } catch (error) {
+        console.warn('Failed to load K-POP idol library, using fallback list.', error);
+        kpopIdolLibraryCache = fallback;
+    }
+
+    return kpopIdolLibraryCache;
+}
+
 let kpopIdolScore, kpopIdolTotal, kpopIdolCurrentIndex, kpopIdolAnswered;
 
-function initKpopIdol() {
+async function initKpopIdol() {
+    const library = await loadKpopIdolLibrary();
+    const shuffled = [...library].sort(() => Math.random() - 0.5);
+
     kpopIdolScore = 0;
     kpopIdolTotal = 0;
     kpopIdolAnswered = false;
-    const shuffled = [...kpopIdols].sort(() => Math.random() - 0.5);
     kpopIdolCurrentIndex = 0;
-    window._kpopIdolQueue = shuffled;
+    window._kpopIdolQueue = shuffled.slice(0, Math.min(KPOP_QUIZ_SIZE, shuffled.length));
 
     const container = document.getElementById('game-kpopidol');
+    if (!container) return;
+
+    if (!window._kpopIdolQueue.length) {
+        container.innerHTML = '<p style="text-align:center; color:#ef4444; font-weight:600;">No K-POP idol questions available right now.</p>';
+        return;
+    }
+
     container.innerHTML = `
         <style>
             .idol-score { text-align:center; font-size:1.1em; font-weight:600; color:#e91e8c; margin-bottom:12px; }
@@ -1618,7 +1698,10 @@ function initKpopIdol() {
         <div class="idol-hint" id="idol-hint"></div>
         <div class="idol-options" id="idol-options"></div>
         <div class="idol-status" id="idol-status"></div>
-        <button class="btn idol-next-btn" id="idol-next-btn" style="display:none;" onclick="nextKpopIdolQuestion()">Next ➡️</button>
+        <div style="display:flex; gap:10px; justify-content:center;">
+            <button class="btn idol-next-btn" id="idol-next-btn" style="display:none;" onclick="nextKpopIdolQuestion()">Next ➡️</button>
+            <button class="btn" style="background: linear-gradient(135deg,#334155,#0f172a);" onclick="initKpopIdol()">New 20</button>
+        </div>
     `;
 
     renderKpopIdolQuestion();
