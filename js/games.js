@@ -10,7 +10,8 @@ const gameModals = {
     '2048': { title: '🔢 2048', subtitle: 'Reach 2048!' },
     scramble: { title: '🔤 Word Scramble', subtitle: 'Unscramble the letters!' },
     mathchallenge: { title: '➕ Math Challenge', subtitle: 'Answer as many as you can!' },
-    hangman: { title: '🪢 Hangman', subtitle: 'Guess the word!' }
+    hangman: { title: '🪢 Hangman', subtitle: 'Guess the word!' },
+    kpopemoji: { title: '🎤 K-POP Emoji Quiz', subtitle: 'Guess the group from the emojis!' }
 };
 
 function openGame(gameId) {
@@ -64,6 +65,7 @@ function initGame(gameId) {
         case 'scramble': initScramble(); break;
         case 'mathchallenge': initMathChallenge(); break;
         case 'hangman': initHangman(); break;
+        case 'kpopemoji': initKpopEmoji(); break;
     }
 }
 
@@ -1161,4 +1163,160 @@ function guessHangman(letter) {
 
 function disableHangmanKeyboard() {
     document.querySelectorAll('.hangman-key').forEach(b => { b.disabled = true; });
+}
+
+// ============= K-POP EMOJI QUIZ =============
+const kpopEmojiGroups = [
+    { group: 'BTS', emojis: '💜🎤🌍✨', hint: '7-member boy group, massive global fanbase' },
+    { group: 'BLACKPINK', emojis: '🌹🖤💗💅', hint: 'Girl group with rose, black & pink vibes' },
+    { group: 'EXO', emojis: '🌌⭐🔵🌠', hint: 'Stars from a galaxy, Korean-Chinese group' },
+    { group: 'TWICE', emojis: '🦋🌈🎀✌️', hint: '9-member girl group, colorful & cheerful' },
+    { group: 'SEVENTEEN', emojis: '1️⃣7️⃣💎🎪🎭', hint: '13 members, 3 units, 1 team' },
+    { group: 'GOT7', emojis: '🦅7️⃣✈️🌟', hint: 'International 7-member boy group' },
+    { group: 'Stray Kids', emojis: '🗝️🌀🎸🔥', hint: 'Self-produced boy group, known for intense concepts' },
+    { group: 'RED VELVET', emojis: '🔴🍓🎪🌹', hint: 'Dual concept: red (bold) & velvet (soft)' },
+    { group: 'NCT', emojis: '🔷💚🧩♾️', hint: 'Neo Culture Technology, unlimited members concept' },
+    { group: 'ENHYPEN', emojis: '🌙🧛🗡️🌑', hint: 'Dark vampire-inspired debut concepts' },
+    { group: 'aespa', emojis: '🤖🌸💫🪞', hint: 'AI avatars & real members coexist' },
+    { group: 'IVE', emojis: '👑💙🌺🏆', hint: 'Regal girl group with crown imagery' },
+    { group: 'LE SSERAFIM', emojis: '🪶🌊💛🔱', hint: 'Fearless concept, "I\'m the revolution"' },
+    { group: 'ATEEZ', emojis: '🏴‍☠️🗺️⚓🔮', hint: 'Pirate concept, "Treasure" series' },
+    { group: 'MONSTA X', emojis: '👾🔥🕶️💪', hint: 'Monster-themed powerful boy group' },
+    { group: 'SHINee', emojis: '💎✨🕺🌟', hint: 'Shinee world, iconic SM boy group' },
+    { group: 'f(x)', emojis: '⚗️🔬💜🌀', hint: 'Experimental girl group, named after a function' },
+    { group: 'MAMAMOO', emojis: '🎷🌻🎤🌙', hint: 'Powerful vocal girl group with retro vibes' },
+    { group: 'Super Junior', emojis: '👔🎩🕺🌏', hint: 'Large veteran boy group, pioneers of Hallyu' },
+    { group: 'Girls\' Generation', emojis: '👧🍬🎵🏃', hint: 'SNSD, iconic girl group, "Gee"' }
+];
+
+let kpopScore, kpopTotal, kpopCurrentIndex, kpopAnswered;
+
+function initKpopEmoji() {
+    kpopScore = 0;
+    kpopTotal = 0;
+    kpopAnswered = false;
+    const shuffled = [...kpopEmojiGroups].sort(() => Math.random() - 0.5);
+    kpopCurrentIndex = 0;
+    window._kpopQueue = shuffled;
+
+    const container = document.getElementById('game-kpopemoji');
+    container.innerHTML = `
+        <style>
+            .kpop-score { text-align:center; font-size:1.1em; font-weight:600; color:#667eea; margin-bottom:12px; }
+            .kpop-progress { text-align:center; font-size:0.9em; color:#7f8c8d; margin-bottom:18px; }
+            .kpop-emojis { text-align:center; font-size:3.5em; letter-spacing:8px; margin-bottom:14px; line-height:1.3; }
+            .kpop-hint { text-align:center; color:#7f8c8d; font-size:0.92em; font-style:italic; margin-bottom:22px; min-height:22px; }
+            .kpop-options { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px; }
+            .kpop-opt-btn { padding:14px 10px; font-size:1em; font-weight:600; background:#f8f9fa; color:#2c3e50; border:2px solid #e9ecef; border-radius:12px; cursor:pointer; transition:all 0.2s; }
+            .kpop-opt-btn:hover:not(:disabled) { background:#667eea; color:white; border-color:#667eea; transform:translateY(-2px); }
+            .kpop-opt-btn.kpop-correct { background:#10b981 !important; color:white !important; border-color:#10b981 !important; }
+            .kpop-opt-btn.kpop-wrong { background:#ef4444 !important; color:white !important; border-color:#ef4444 !important; }
+            .kpop-status { text-align:center; font-size:1.05em; font-weight:600; min-height:28px; margin-bottom:10px; }
+            .kpop-next-btn { display:block; margin:0 auto; }
+            .kpop-result { text-align:center; padding:20px; }
+            .kpop-result .big-emoji { font-size:4em; margin-bottom:12px; }
+        </style>
+        <div class="kpop-score" id="kpop-score">Score: 0</div>
+        <div class="kpop-progress" id="kpop-progress">Question 1 of ${window._kpopQueue.length}</div>
+        <div class="kpop-emojis" id="kpop-emojis"></div>
+        <div class="kpop-hint" id="kpop-hint"></div>
+        <div class="kpop-options" id="kpop-options"></div>
+        <div class="kpop-status" id="kpop-status"></div>
+        <button class="btn kpop-next-btn" id="kpop-next-btn" style="display:none;" onclick="nextKpopQuestion()">Next ➡️</button>
+    `;
+
+    renderKpopQuestion();
+}
+
+function renderKpopQuestion() {
+    const queue = window._kpopQueue;
+    const item = queue[kpopCurrentIndex];
+    kpopAnswered = false;
+
+    document.getElementById('kpop-score').textContent = `Score: ${kpopScore}`;
+    document.getElementById('kpop-progress').textContent = `Question ${kpopCurrentIndex + 1} of ${queue.length}`;
+    document.getElementById('kpop-emojis').textContent = item.emojis;
+    document.getElementById('kpop-hint').textContent = `💡 ${item.hint}`;
+    document.getElementById('kpop-status').textContent = '';
+    const nextBtn = document.getElementById('kpop-next-btn');
+    if (nextBtn) nextBtn.style.display = 'none';
+
+    // Build 4 options: the correct answer + 3 random wrong answers
+    const wrongPool = queue.filter((_, i) => i !== kpopCurrentIndex);
+    const wrongs = wrongPool.sort(() => Math.random() - 0.5).slice(0, 3);
+    const options = [item, ...wrongs].sort(() => Math.random() - 0.5);
+
+    const optionsEl = document.getElementById('kpop-options');
+    optionsEl.innerHTML = '';
+    options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'kpop-opt-btn';
+        btn.textContent = opt.group;
+        btn.onclick = () => answerKpop(opt.group, btn, item.group);
+        optionsEl.appendChild(btn);
+    });
+}
+
+function answerKpop(chosen, btn, correct) {
+    if (kpopAnswered) return;
+    kpopAnswered = true;
+    kpopTotal++;
+
+    const statusEl = document.getElementById('kpop-status');
+    const optionsEl = document.getElementById('kpop-options');
+    optionsEl.querySelectorAll('.kpop-opt-btn').forEach(b => { b.disabled = true; });
+
+    if (chosen === correct) {
+        btn.classList.add('kpop-correct');
+        kpopScore++;
+        document.getElementById('kpop-score').textContent = `Score: ${kpopScore}`;
+        statusEl.textContent = '✅ Correct! 🎉';
+        statusEl.style.color = '#10b981';
+    } else {
+        btn.classList.add('kpop-wrong');
+        // Highlight correct answer
+        optionsEl.querySelectorAll('.kpop-opt-btn').forEach(b => {
+            if (b.textContent === correct) b.classList.add('kpop-correct');
+        });
+        statusEl.textContent = `❌ It was ${correct}`;
+        statusEl.style.color = '#ef4444';
+    }
+
+    const nextBtn = document.getElementById('kpop-next-btn');
+    if (nextBtn) {
+        const isLast = kpopCurrentIndex >= window._kpopQueue.length - 1;
+        nextBtn.textContent = isLast ? 'See Results 🏁' : 'Next ➡️';
+        nextBtn.style.display = 'block';
+    }
+}
+
+function nextKpopQuestion() {
+    kpopCurrentIndex++;
+    if (kpopCurrentIndex >= window._kpopQueue.length) {
+        endKpopEmoji();
+    } else {
+        renderKpopQuestion();
+    }
+}
+
+function endKpopEmoji() {
+    const container = document.getElementById('game-kpopemoji');
+    if (!container) return;
+    const pct = Math.round((kpopScore / kpopTotal) * 100);
+    let medal = pct === 100 ? '🥇' : pct >= 80 ? '🥈' : pct >= 60 ? '��' : '🎤';
+    let msg = pct === 100 ? 'Perfect K-POP Fan!' : pct >= 80 ? 'Amazing K-POP Knowledge!' : pct >= 60 ? 'Pretty Good Kpoppy!' : 'Keep stanning!';
+    container.innerHTML = `
+        <div class="kpop-result">
+            <div class="big-emoji">${medal}</div>
+            <h3 style="font-size:1.8em; color:#2c3e50; margin-bottom:10px;">${msg}</h3>
+            <p style="font-size:1.3em; color:#7f8c8d; margin-bottom:20px;">
+                You got <strong style="color:#667eea;">${kpopScore}</strong> out of <strong>${kpopTotal}</strong> correct!
+            </p>
+            <button class="btn" onclick="initKpopEmoji()">Play Again 🔁</button>
+        </div>
+        <style>
+            .kpop-result { text-align:center; padding:20px; }
+            .kpop-result .big-emoji { font-size:4em; margin-bottom:12px; }
+        </style>
+    `;
 }
