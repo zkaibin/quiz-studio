@@ -11,7 +11,8 @@ const gameModals = {
     scramble: { title: '🔤 Word Scramble', subtitle: 'Unscramble the letters!' },
     mathchallenge: { title: '➕ Math Challenge', subtitle: 'Answer as many as you can!' },
     hangman: { title: '🪢 Hangman', subtitle: 'Guess the word!' },
-    kpopemoji: { title: '🎤 K-POP Emoji Quiz', subtitle: 'Guess the group from the emojis!' }
+    kpopemoji: { title: '🎤 K-POP Emoji Quiz', subtitle: 'Guess the group from the emojis!' },
+    kpopidol: { title: '🌟 K-POP Idol Quiz', subtitle: 'Guess the idol from the emojis!' }
 };
 
 function openGame(gameId) {
@@ -66,6 +67,7 @@ function initGame(gameId) {
         case 'mathchallenge': initMathChallenge(); break;
         case 'hangman': initHangman(); break;
         case 'kpopemoji': initKpopEmoji(); break;
+        case 'kpopidol': initKpopIdol(); break;
     }
 }
 
@@ -1317,6 +1319,161 @@ function endKpopEmoji() {
         <style>
             .kpop-result { text-align:center; padding:20px; }
             .kpop-result .big-emoji { font-size:4em; margin-bottom:12px; }
+        </style>
+    `;
+}
+
+// ============= K-POP IDOL QUIZ =============
+const kpopIdols = [
+    { idol: 'IU', emojis: '🌸🎵🌙🦋', hint: "Korea's national sweetheart, actress & soloist" },
+    { idol: 'G-Dragon', emojis: '👑💎🎨🔥', hint: 'BIGBANG leader, fashion icon & pioneer' },
+    { idol: 'Taeyang', emojis: '☀️🌊💪🎤', hint: "BIGBANG member, known for 'Eyes, Nose, Lips'" },
+    { idol: 'BoA', emojis: '👸🌟💃🎤', hint: 'Queen of K-pop, trailblazer of the Hallyu wave' },
+    { idol: 'Taeyeon', emojis: '🌙🤍🎵✨', hint: "Girls' Generation leader, beloved soloist" },
+    { idol: 'Sunmi', emojis: '🌙🎭💋🌊', hint: "Former Wonder Girls member, known for 'Gashina'" },
+    { idol: 'Hwasa', emojis: '🔥💄👑🌹', hint: 'MAMAMOO member, fierce & confident soloist' },
+    { idol: 'Jimin', emojis: '🌸💜🕊️🩰', hint: 'BTS member celebrated for graceful dancing' },
+    { idol: 'V', emojis: '🐻🎨🌌💜', hint: 'BTS member with a deep voice & artistic soul' },
+    { idol: 'Jennie', emojis: '💅🐝🌹👑', hint: 'BLACKPINK member & solo artist, effortlessly chic' },
+    { idol: 'Lisa', emojis: '🦋💛🔥👸', hint: 'BLACKPINK main dancer from Thailand' },
+    { idol: 'Rosé', emojis: '🌹🎸🍷🌷', hint: 'BLACKPINK member known for her airy, husky vocals' },
+    { idol: 'Karina', emojis: '🤖🖤💙🪞', hint: 'aespa leader with sharp visuals & strong stage presence' },
+    { idol: 'Seulgi', emojis: '🐻🌊🎤💃', hint: 'Red Velvet main dancer, bear-like cuteness' },
+    { idol: 'Yeji', emojis: '🦊🔥💫🎯', hint: 'ITZY leader with fierce, charismatic performances' },
+    { idol: 'Wonyoung', emojis: '👑🌸🤍🌟', hint: 'IVE center, known for elegant tall visuals' },
+    { idol: 'Hanni', emojis: '🐱🎀💗🌸', hint: 'NewJeans Vietnamese-Australian member' },
+    { idol: 'Kai', emojis: '🐆🕺🌙🌊', hint: "EXO's main dancer, powerful & sensual performer" },
+    { idol: 'Taemin', emojis: '🌙🌹🕊️💎', hint: 'SHINee member, legendary solo performer' },
+    { idol: 'Chungha', emojis: '💃🌺🔥🏆', hint: "Former I.O.I member, powerful solo dancer known for 'Gotta Go'" }
+];
+
+let kpopIdolScore, kpopIdolTotal, kpopIdolCurrentIndex, kpopIdolAnswered;
+
+function initKpopIdol() {
+    kpopIdolScore = 0;
+    kpopIdolTotal = 0;
+    kpopIdolAnswered = false;
+    const shuffled = [...kpopIdols].sort(() => Math.random() - 0.5);
+    kpopIdolCurrentIndex = 0;
+    window._kpopIdolQueue = shuffled;
+
+    const container = document.getElementById('game-kpopidol');
+    container.innerHTML = `
+        <style>
+            .idol-score { text-align:center; font-size:1.1em; font-weight:600; color:#e91e8c; margin-bottom:12px; }
+            .idol-progress { text-align:center; font-size:0.9em; color:#7f8c8d; margin-bottom:18px; }
+            .idol-emojis { text-align:center; font-size:3.5em; letter-spacing:8px; margin-bottom:14px; line-height:1.3; }
+            .idol-hint { text-align:center; color:#7f8c8d; font-size:0.92em; font-style:italic; margin-bottom:22px; min-height:22px; }
+            .idol-options { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px; }
+            .idol-opt-btn { padding:14px 10px; font-size:1em; font-weight:600; background:#f8f9fa; color:#2c3e50; border:2px solid #e9ecef; border-radius:12px; cursor:pointer; transition:all 0.2s; }
+            .idol-opt-btn:hover:not(:disabled) { background:#e91e8c; color:white; border-color:#e91e8c; transform:translateY(-2px); }
+            .idol-opt-btn.idol-correct { background:#10b981 !important; color:white !important; border-color:#10b981 !important; }
+            .idol-opt-btn.idol-wrong { background:#ef4444 !important; color:white !important; border-color:#ef4444 !important; }
+            .idol-status { text-align:center; font-size:1.05em; font-weight:600; min-height:28px; margin-bottom:10px; }
+            .idol-next-btn { display:block; margin:0 auto; }
+            .idol-result { text-align:center; padding:20px; }
+            .idol-result .big-emoji { font-size:4em; margin-bottom:12px; }
+        </style>
+        <div class="idol-score" id="idol-score">Score: 0</div>
+        <div class="idol-progress" id="idol-progress">Question 1 of ${window._kpopIdolQueue.length}</div>
+        <div class="idol-emojis" id="idol-emojis"></div>
+        <div class="idol-hint" id="idol-hint"></div>
+        <div class="idol-options" id="idol-options"></div>
+        <div class="idol-status" id="idol-status"></div>
+        <button class="btn idol-next-btn" id="idol-next-btn" style="display:none;" onclick="nextKpopIdolQuestion()">Next ➡️</button>
+    `;
+
+    renderKpopIdolQuestion();
+}
+
+function renderKpopIdolQuestion() {
+    const queue = window._kpopIdolQueue;
+    const item = queue[kpopIdolCurrentIndex];
+    kpopIdolAnswered = false;
+
+    document.getElementById('idol-score').textContent = `Score: ${kpopIdolScore}`;
+    document.getElementById('idol-progress').textContent = `Question ${kpopIdolCurrentIndex + 1} of ${queue.length}`;
+    document.getElementById('idol-emojis').textContent = item.emojis;
+    document.getElementById('idol-hint').textContent = `💡 ${item.hint}`;
+    document.getElementById('idol-status').textContent = '';
+    const nextBtn = document.getElementById('idol-next-btn');
+    if (nextBtn) nextBtn.style.display = 'none';
+
+    // Build 4 options: the correct answer + 3 random wrong answers
+    const wrongPool = queue.filter((_, i) => i !== kpopIdolCurrentIndex);
+    const wrongs = wrongPool.sort(() => Math.random() - 0.5).slice(0, 3);
+    const options = [item, ...wrongs].sort(() => Math.random() - 0.5);
+
+    const optionsEl = document.getElementById('idol-options');
+    optionsEl.innerHTML = '';
+    options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'idol-opt-btn';
+        btn.textContent = opt.idol;
+        btn.onclick = () => answerKpopIdol(opt.idol, btn, item.idol);
+        optionsEl.appendChild(btn);
+    });
+}
+
+function answerKpopIdol(chosen, btn, correct) {
+    if (kpopIdolAnswered) return;
+    kpopIdolAnswered = true;
+    kpopIdolTotal++;
+
+    const statusEl = document.getElementById('idol-status');
+    const optionsEl = document.getElementById('idol-options');
+    optionsEl.querySelectorAll('.idol-opt-btn').forEach(b => { b.disabled = true; });
+
+    if (chosen === correct) {
+        btn.classList.add('idol-correct');
+        kpopIdolScore++;
+        document.getElementById('idol-score').textContent = `Score: ${kpopIdolScore}`;
+        statusEl.textContent = '✅ Correct! 🎉';
+        statusEl.style.color = '#10b981';
+    } else {
+        btn.classList.add('idol-wrong');
+        optionsEl.querySelectorAll('.idol-opt-btn').forEach(b => {
+            if (b.textContent === correct) b.classList.add('idol-correct');
+        });
+        statusEl.textContent = `❌ It was ${correct}`;
+        statusEl.style.color = '#ef4444';
+    }
+
+    const nextBtn = document.getElementById('idol-next-btn');
+    if (nextBtn) {
+        const isLast = kpopIdolCurrentIndex >= window._kpopIdolQueue.length - 1;
+        nextBtn.textContent = isLast ? 'See Results 🏁' : 'Next ➡️';
+        nextBtn.style.display = 'block';
+    }
+}
+
+function nextKpopIdolQuestion() {
+    kpopIdolCurrentIndex++;
+    if (kpopIdolCurrentIndex >= window._kpopIdolQueue.length) {
+        endKpopIdol();
+    } else {
+        renderKpopIdolQuestion();
+    }
+}
+
+function endKpopIdol() {
+    const container = document.getElementById('game-kpopidol');
+    if (!container) return;
+    const pct = Math.round((kpopIdolScore / kpopIdolTotal) * 100);
+    let medal = pct === 100 ? '🥇' : pct >= 80 ? '🥈' : pct >= 60 ? '🥉' : '🌟';
+    let msg = pct === 100 ? 'Ultimate Idol Expert!' : pct >= 80 ? 'Impressive Idol Knowledge!' : pct >= 60 ? 'Pretty Good Idol Fan!' : 'Keep stanning your faves!';
+    container.innerHTML = `
+        <div class="idol-result">
+            <div class="big-emoji">${medal}</div>
+            <h3 style="font-size:1.8em; color:#2c3e50; margin-bottom:10px;">${msg}</h3>
+            <p style="font-size:1.3em; color:#7f8c8d; margin-bottom:20px;">
+                You got <strong style="color:#e91e8c;">${kpopIdolScore}</strong> out of <strong>${kpopIdolTotal}</strong> correct!
+            </p>
+            <button class="btn" onclick="initKpopIdol()">Play Again 🔁</button>
+        </div>
+        <style>
+            .idol-result { text-align:center; padding:20px; }
+            .idol-result .big-emoji { font-size:4em; margin-bottom:12px; }
         </style>
     `;
 }
