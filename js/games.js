@@ -1466,7 +1466,7 @@ async function initKpopEmoji() {
             .kpop-opt-btn.kpop-correct { background:#10b981 !important; color:white !important; border-color:#10b981 !important; }
             .kpop-opt-btn.kpop-wrong { background:#ef4444 !important; color:white !important; border-color:#ef4444 !important; }
             .kpop-status { text-align:center; font-size:1.05em; font-weight:600; min-height:28px; margin-bottom:10px; }
-            .kpop-next-btn { display:block; margin:0 auto; }
+            .kpop-next-btn { display:inline-block; }
             .kpop-result { text-align:center; padding:20px; }
             .kpop-result .big-emoji { font-size:4em; margin-bottom:12px; }
         </style>
@@ -1476,7 +1476,7 @@ async function initKpopEmoji() {
         <div class="kpop-hint" id="kpop-hint"></div>
         <div class="kpop-options" id="kpop-options"></div>
         <div class="kpop-status" id="kpop-status"></div>
-        <div style="display:flex; gap:10px; justify-content:center;">
+        <div style="display:flex; gap:10px; justify-content:center; margin-top:15px;">
             <button class="btn kpop-next-btn" id="kpop-next-btn" style="display:none;" onclick="nextKpopQuestion()">Next ➡️</button>
             <button class="btn" style="background: linear-gradient(135deg,#334155,#0f172a);" onclick="initKpopEmoji()">New 20</button>
         </div>
@@ -1688,7 +1688,7 @@ async function initKpopIdol() {
             .idol-opt-btn.idol-correct { background:#10b981 !important; color:white !important; border-color:#10b981 !important; }
             .idol-opt-btn.idol-wrong { background:#ef4444 !important; color:white !important; border-color:#ef4444 !important; }
             .idol-status { text-align:center; font-size:1.05em; font-weight:600; min-height:28px; margin-bottom:10px; }
-            .idol-next-btn { display:block; margin:0 auto; }
+            .idol-next-btn { display:inline-block; }
             .idol-result { text-align:center; padding:20px; }
             .idol-result .big-emoji { font-size:4em; margin-bottom:12px; }
         </style>
@@ -1698,7 +1698,7 @@ async function initKpopIdol() {
         <div class="idol-hint" id="idol-hint"></div>
         <div class="idol-options" id="idol-options"></div>
         <div class="idol-status" id="idol-status"></div>
-        <div style="display:flex; gap:10px; justify-content:center;">
+        <div style="display:flex; gap:10px; justify-content:center; margin-top:15px;">
             <button class="btn idol-next-btn" id="idol-next-btn" style="display:none;" onclick="nextKpopIdolQuestion()">Next ➡️</button>
             <button class="btn" style="background: linear-gradient(135deg,#334155,#0f172a);" onclick="initKpopIdol()">New 20</button>
         </div>
