@@ -6,6 +6,7 @@
 [![Subjects](https://img.shields.io/badge/Subjects-2-green)]()
 [![Themes](https://img.shields.io/badge/Character_Themes-11-purple)]()
 [![Levels](https://img.shields.io/badge/Levels-6-orange)]()
+[![Games](https://img.shields.io/badge/Fun_Games-14-red)]()
 
 ## ✨ Features
 
@@ -24,11 +25,19 @@
 - **🧪 Hands-on Experiments** - Real experiment scenarios with observations and conclusions
 - **📖 15 Science Topics** - Living Things, Materials, Cycles, Energy, Forces, Electricity, Matter, Light, Heat, Adaptations, Cells, Reproduction, Human Body, Environment, Sound
 
+### Fun Games
+- **🎮 14 Playable Games** - Arcade, word, and quiz-style mini games on one page
+- **🀄 Chengyu Quiz** - 600+ idioms in the question library with 20 random questions per game session
+- **🧭 Chengyu Category Filters** - Switch between All, Beginner, Intermediate, and Advanced sets
+- **🎤 K-POP Quizzes** - Group and idol emoji quiz modes
+- **🧩 Variety Pack** - Includes Tic-Tac-Toe, Rock Paper Scissors, Memory Match, Guess the Number, Snake, Simon Says, Whack-a-Mole, 2048, Word Scramble, Math Challenge, and Hangman
+
 ### General Features
 - **✨ Frontend Only** - No server or database needed, runs entirely in the browser
 - **💾 Local Storage** - Quiz progress and results saved locally
 - **📱 Responsive Design** - Works perfectly on desktop, tablet, and mobile
 - **📝 Print Mode** - Generate printable practice papers
+- **🎯 Randomized Replayability** - Games and quizzes reshuffle questions and prompts for each run
 
 ## 🚀 Quick Start
 
@@ -99,6 +108,17 @@ Visit the live site: `https://yourusername.github.io/quiz-studio`
    - Comprehensive coverage of each topic
 4. Use as a study guide before taking quizzes
 
+### Fun Games Hub
+
+1. Open `games.html` from the homepage
+2. Pick any game card to launch the modal
+3. For **成语游戏 Chengyu Quiz**:
+   - Questions are randomly selected from a **600+ idiom library**
+   - Each round contains **20 questions**
+   - Use **Category** filters to focus practice by level
+   - Meanings include both English and Chinese
+4. Click **Play Again** to get a fresh random set
+
 ### Paper Generator
 
 1. Click on "PSLE Practice Paper"
@@ -110,6 +130,7 @@ Visit the live site: `https://yourusername.github.io/quiz-studio`
 ```
 quiz-studio/
 ├── index.html                      # Landing page
+├── games.html                      # Fun games hub
 ├── quiz.html                       # Math quiz interface
 ├── science-quiz.html               # Science quiz interface
 ├── science-concepts.html           # Science concept maps
@@ -119,6 +140,7 @@ quiz-studio/
 │   └── print.css                   # Print styles
 ├── js/
 │   ├── quiz.js                     # Math quiz logic & character substitution
+│   ├── games.js                    # Mini games and Chengyu quiz logic
 │   ├── science-quiz.js             # Science quiz logic
 │   ├── science-concepts.js         # Concept map data & interactions
 │   ├── data-loader.js              # JSON data loading & management
@@ -130,6 +152,7 @@ quiz-studio/
 │   ├── questions-psle.json         # 70 PSLE math questions
 │   ├── questions-challenging.json  # 190 challenging math questions
 │   ├── questions-science.json      # 80 science questions
+│   ├── chengyu-library.json        # 600+ Chengyu idioms for random quiz sets
 │   ├── characters.json             # 103 characters
 │   └── universes.json              # 11 character universes
 ├── scripts/

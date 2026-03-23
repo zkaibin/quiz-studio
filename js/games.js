@@ -1670,16 +1670,134 @@ const chengyuList = [
 ];
 
 let chengyuScore, chengyuTotal, chengyuCurrentIndex, chengyuAnswered;
+const CHENGYU_QUIZ_SIZE = 20;
+let chengyuLibraryCache = null;
+let chengyuActiveCategory = 'all';
 
-function initChengyu() {
-    const shuffled = [...chengyuList].sort(() => Math.random() - 0.5);
+const CHENGYU_CATEGORY_META = {
+    all: { label: '全部 All' },
+    beginner: { label: '基础 Beginner' },
+    intermediate: { label: '进阶 Intermediate' },
+    advanced: { label: '挑战 Advanced' }
+};
+
+function normalizeChengyuCategory(rawCategory) {
+    if (!rawCategory || typeof rawCategory !== 'string') return null;
+    const key = rawCategory.trim().toLowerCase();
+    return CHENGYU_CATEGORY_META[key] ? key : null;
+}
+
+function inferChengyuCategory(entry) {
+    const hint = `${entry.meaning_cn || ''}${entry.meaning || ''}`;
+    const complexity = hint.length;
+    if (complexity <= 18) return 'beginner';
+    if (complexity <= 32) return 'intermediate';
+    return 'advanced';
+}
+
+function normalizeChengyuEntry(entry) {
+    const fallbackLabel = 'Classic Chinese idiom';
+    const fallbackLabelCn = '常用成语';
+    const normalized = {
+        chengyu: entry.chengyu,
+        pinyin: entry.pinyin || '—',
+        emoji: entry.emoji || '📚',
+        meaning: entry.meaning || fallbackLabel,
+        meaning_cn: entry.meaning_cn || fallbackLabelCn,
+        story: entry.story || `${entry.chengyu}：${entry.meaning_cn || fallbackLabelCn}`
+    };
+    const explicitCategory = normalizeChengyuCategory(entry.category);
+    return {
+        ...normalized,
+        category: explicitCategory || inferChengyuCategory(normalized)
+    };
+}
+
+function buildChengyuQueue(categoryKey) {
+    const fullLibrary = window._chengyuLibrary || [];
+    const pool = categoryKey === 'all'
+        ? fullLibrary
+        : fullLibrary.filter(item => item.category === categoryKey);
+    const shuffled = [...pool].sort(() => Math.random() - 0.5);
+    const quizSize = Math.min(CHENGYU_QUIZ_SIZE, shuffled.length);
+
+    window._chengyuPool = pool;
+    window._chengyuQueue = shuffled.slice(0, quizSize);
+
     chengyuScore = 0;
     chengyuTotal = 0;
     chengyuCurrentIndex = 0;
     chengyuAnswered = false;
-    window._chengyuQueue = shuffled;
+}
+
+function startChengyuRound() {
+    const categorySelect = document.getElementById('cy-category');
+    chengyuActiveCategory = categorySelect ? categorySelect.value : 'all';
+    buildChengyuQueue(chengyuActiveCategory);
+
+    const emptyEl = document.getElementById('cy-empty');
+    const panelEl = document.getElementById('cy-main-panel');
+    if (!emptyEl || !panelEl) return;
+
+    if (!window._chengyuQueue.length) {
+        panelEl.style.display = 'none';
+        emptyEl.style.display = 'block';
+        emptyEl.textContent = 'This category has no Chengyu entries yet.';
+        return;
+    }
+
+    panelEl.style.display = 'block';
+    emptyEl.style.display = 'none';
+    renderChengyuQuestion();
+}
+
+async function loadChengyuLibrary() {
+    if (chengyuLibraryCache) {
+        return chengyuLibraryCache;
+    }
+
+    const localLibrary = chengyuList.map(normalizeChengyuEntry);
+
+    try {
+        const response = await fetch('data/chengyu-library.json');
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const remoteLibraryRaw = await response.json();
+        const remoteLibrary = Array.isArray(remoteLibraryRaw)
+            ? remoteLibraryRaw
+                .filter(item => item && typeof item.chengyu === 'string' && item.chengyu.trim())
+                .map(normalizeChengyuEntry)
+            : [];
+
+        const merged = [...localLibrary, ...remoteLibrary];
+        const seen = new Set();
+        chengyuLibraryCache = merged.filter(item => {
+            if (seen.has(item.chengyu)) return false;
+            seen.add(item.chengyu);
+            return true;
+        });
+    } catch (error) {
+        console.warn('Failed to load external Chengyu library, using built-in list only.', error);
+        chengyuLibraryCache = localLibrary;
+    }
+
+    return chengyuLibraryCache;
+}
+
+async function initChengyu() {
+    const fullLibrary = await loadChengyuLibrary();
+    window._chengyuLibrary = fullLibrary;
 
     const container = document.getElementById('game-chengyu');
+    if (!container) return;
+
+    if (!window._chengyuLibrary.length) {
+        container.innerHTML = '<p style="text-align:center; color:#ef4444; font-weight:600;">No Chengyu questions available right now.</p>';
+        return;
+    }
+
     container.innerHTML = `
         <style>
             .cy-score { text-align:center; font-size:1.1em; font-weight:600; color:#e74c3c; margin-bottom:8px; }
@@ -1697,33 +1815,55 @@ function initChengyu() {
             .cy-status { text-align:center; font-size:1em; font-weight:600; min-height:24px; margin-bottom:6px; }
             .cy-story { text-align:center; font-size:0.88em; color:#7f8c8d; font-style:italic; min-height:20px; margin-bottom:10px; padding:0 8px; }
             .cy-next-btn { display:block; margin:0 auto; }
+            .cy-toolbar { display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom:14px; flex-wrap:wrap; }
+            .cy-filter-label { font-size:0.95em; color:#555; font-weight:600; }
+            .cy-filter-select { padding:10px 12px; border:2px solid #e9ecef; border-radius:10px; background:white; color:#2c3e50; font-size:0.95em; font-weight:600; }
+            .cy-filter-btn { padding:10px 14px; font-size:0.9em; }
+            .cy-empty { text-align:center; color:#ef4444; font-weight:600; margin:12px 0 16px; }
             .cy-result { text-align:center; padding:20px; }
             .cy-result .big-emoji { font-size:4em; margin-bottom:12px; }
         </style>
-        <div class="cy-score" id="cy-score">得分 Score: 0</div>
-        <div class="cy-progress" id="cy-progress">第 1 题，共 ${window._chengyuQueue.length} 题</div>
-        <div class="cy-card">
-            <div class="cy-emoji" id="cy-emoji"></div>
-            <div class="cy-characters" id="cy-characters"></div>
-            <div class="cy-pinyin" id="cy-pinyin"></div>
-            <div class="cy-question-label">这个成语是什么意思？ What does it mean?</div>
+        <div class="cy-toolbar">
+            <span class="cy-filter-label">分类 Category:</span>
+            <select id="cy-category" class="cy-filter-select" onchange="startChengyuRound()">
+                <option value="all">${CHENGYU_CATEGORY_META.all.label}</option>
+                <option value="beginner">${CHENGYU_CATEGORY_META.beginner.label}</option>
+                <option value="intermediate">${CHENGYU_CATEGORY_META.intermediate.label}</option>
+                <option value="advanced">${CHENGYU_CATEGORY_META.advanced.label}</option>
+            </select>
+            <button class="btn cy-filter-btn" onclick="startChengyuRound()">随机新题 New 20</button>
         </div>
-        <div class="cy-options" id="cy-options"></div>
-        <div class="cy-status" id="cy-status"></div>
-        <div class="cy-story" id="cy-story"></div>
-        <button class="btn cy-next-btn" id="cy-next-btn" style="display:none;" onclick="nextChengyuQuestion()">下一题 Next ➡️</button>
+        <div id="cy-empty" class="cy-empty" style="display:none;"></div>
+        <div id="cy-main-panel">
+            <div class="cy-score" id="cy-score">得分 Score: 0</div>
+            <div class="cy-progress" id="cy-progress"></div>
+            <div class="cy-card">
+                <div class="cy-emoji" id="cy-emoji"></div>
+                <div class="cy-characters" id="cy-characters"></div>
+                <div class="cy-pinyin" id="cy-pinyin"></div>
+                <div class="cy-question-label">这个成语是什么意思？ What does it mean?</div>
+            </div>
+            <div class="cy-options" id="cy-options"></div>
+            <div class="cy-status" id="cy-status"></div>
+            <div class="cy-story" id="cy-story"></div>
+            <button class="btn cy-next-btn" id="cy-next-btn" style="display:none;" onclick="nextChengyuQuestion()">下一题 Next ➡️</button>
+        </div>
     `;
 
-    renderChengyuQuestion();
+    const categorySelect = document.getElementById('cy-category');
+    if (categorySelect) categorySelect.value = chengyuActiveCategory;
+    startChengyuRound();
 }
 
 function renderChengyuQuestion() {
     const queue = window._chengyuQueue;
     const item = queue[chengyuCurrentIndex];
+    if (!item) return;
     chengyuAnswered = false;
 
     document.getElementById('cy-score').textContent = `得分 Score: ${chengyuScore}`;
-    document.getElementById('cy-progress').textContent = `第 ${chengyuCurrentIndex + 1} 题，共 ${queue.length} 题`;
+    const categoryLabel = CHENGYU_CATEGORY_META[chengyuActiveCategory]?.label || CHENGYU_CATEGORY_META.all.label;
+    document.getElementById('cy-progress').textContent = `第 ${chengyuCurrentIndex + 1} 题，共 ${queue.length} 题（${categoryLabel}，随机抽题）`;
     document.getElementById('cy-emoji').textContent = item.emoji;
     document.getElementById('cy-characters').textContent = item.chengyu;
     document.getElementById('cy-pinyin').textContent = item.pinyin;
@@ -1733,7 +1873,8 @@ function renderChengyuQuestion() {
     if (nextBtn) nextBtn.style.display = 'none';
 
     // Build 4 options: the correct answer + 3 random wrong answers
-    const wrongPool = queue.filter((_, i) => i !== chengyuCurrentIndex);
+    const optionPool = (window._chengyuPool && window._chengyuPool.length >= 4) ? window._chengyuPool : queue;
+    const wrongPool = optionPool.filter(entry => entry.chengyu !== item.chengyu);
     const wrongs = wrongPool.sort(() => Math.random() - 0.5).slice(0, 3);
     const options = [item, ...wrongs].sort(() => Math.random() - 0.5);
 
