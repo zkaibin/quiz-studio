@@ -799,7 +799,37 @@ const scrambleWords = [
     { word: 'stream', hint: 'A small flowing body of water' }
 ];
 
-let scrambleCurrentWord, scrambleScore, scrambleTotal;
+const SCRAMBLE_QUIZ_SIZE = 20;
+let scrambleCurrentWord, scrambleScore, scrambleTotal, scrambleIndex, scrambleLocked;
+let scrambleLibraryCache = null;
+
+function normalizeScrambleEntry(entry) {
+    if (!entry || typeof entry.word !== 'string') return null;
+    const word = entry.word.trim().toLowerCase();
+    if (!word || word.length < 4 || word.length > 12 || !/^[a-z]+$/.test(word)) return null;
+    return {
+        word,
+        hint: entry.hint && typeof entry.hint === 'string' ? entry.hint.trim() : 'A common English word'
+    };
+}
+
+async function loadScrambleLibrary() {
+    if (scrambleLibraryCache) return scrambleLibraryCache;
+
+    const fallback = scrambleWords.map(normalizeScrambleEntry).filter(Boolean);
+    try {
+        const res = await fetch('data/word-scramble-library.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const raw = await res.json();
+        const parsed = Array.isArray(raw) ? raw.map(normalizeScrambleEntry).filter(Boolean) : [];
+        scrambleLibraryCache = parsed.length ? parsed : fallback;
+    } catch (error) {
+        console.warn('Failed to load word scramble library, using fallback list.', error);
+        scrambleLibraryCache = fallback;
+    }
+
+    return scrambleLibraryCache;
+}
 
 function scrambleWord(word) {
     const arr = word.split('');
@@ -812,18 +842,34 @@ function scrambleWord(word) {
     return shuffled === word ? scrambleWord(word) : shuffled;
 }
 
-function initScramble() {
+async function initScramble() {
+    const library = await loadScrambleLibrary();
+    const queue = [...library].sort(() => Math.random() - 0.5).slice(0, Math.min(SCRAMBLE_QUIZ_SIZE, library.length));
+    window._scrambleQueue = queue;
+
+    scrambleIndex = 0;
+    scrambleLocked = false;
     scrambleScore = 0;
     scrambleTotal = 0;
+
     const container = document.getElementById('game-scramble');
+    if (!container) return;
+
+    if (!queue.length) {
+        container.innerHTML = '<p style="text-align:center; color:#ef4444; font-weight:600;">No scramble words available right now.</p>';
+        return;
+    }
+
     container.innerHTML = `
-        <div class="score-display" id="scramble-score">Score: 0</div>
+        <div class="score-display" id="scramble-score">Score: 0 / 0</div>
+        <div class="status-text" id="scramble-progress">Question 1 of ${queue.length}</div>
         <div class="scramble-word" id="scramble-display"></div>
         <p class="scramble-hint" id="scramble-hint"></p>
         <input class="scramble-input" id="scramble-input" type="text" maxlength="20" placeholder="Type your answer…" autocomplete="off">
         <div style="text-align:center; margin-top: 12px; display: flex; gap: 10px; justify-content: center;">
             <button class="btn" onclick="checkScramble()">Submit</button>
             <button class="btn" style="background: linear-gradient(135deg,#f59e0b,#d97706);" onclick="skipScramble()">Skip</button>
+            <button class="btn" style="background: linear-gradient(135deg,#334155,#0f172a);" onclick="initScramble()">New 20</button>
         </div>
         <div class="status-text" id="scramble-status" style="margin-top:15px;"></div>
     `;
@@ -834,8 +880,16 @@ function initScramble() {
 }
 
 function nextScramble() {
-    const entry = scrambleWords[Math.floor(Math.random() * scrambleWords.length)];
+    const queue = window._scrambleQueue || [];
+    const entry = queue[scrambleIndex];
+    if (!entry) {
+        endScramble();
+        return;
+    }
+
     scrambleCurrentWord = entry.word;
+    scrambleLocked = false;
+    document.getElementById('scramble-progress').textContent = `Question ${scrambleIndex + 1} of ${queue.length}`;
     document.getElementById('scramble-display').textContent = scrambleWord(entry.word).toUpperCase();
     document.getElementById('scramble-hint').textContent = '💡 Hint: ' + entry.hint;
     const input = document.getElementById('scramble-input');
@@ -844,8 +898,10 @@ function nextScramble() {
 }
 
 function checkScramble() {
+    if (scrambleLocked) return;
     const input = document.getElementById('scramble-input');
     if (!input) return;
+    scrambleLocked = true;
     const answer = input.value.trim().toLowerCase();
     scrambleTotal++;
     const statusEl = document.getElementById('scramble-status');
@@ -858,16 +914,38 @@ function checkScramble() {
         statusEl.style.color = '#ef4444';
     }
     document.getElementById('scramble-score').textContent = `Score: ${scrambleScore} / ${scrambleTotal}`;
-    setTimeout(nextScramble, 1500);
+    setTimeout(advanceScramble, 1200);
 }
 
 function skipScramble() {
+    if (scrambleLocked) return;
+    scrambleLocked = true;
     scrambleTotal++;
     const statusEl = document.getElementById('scramble-status');
     statusEl.textContent = `⏭️ Skipped! The word was: ${scrambleCurrentWord.toUpperCase()}`;
     statusEl.style.color = '#f59e0b';
     document.getElementById('scramble-score').textContent = `Score: ${scrambleScore} / ${scrambleTotal}`;
-    setTimeout(nextScramble, 1500);
+    setTimeout(advanceScramble, 1200);
+}
+
+function advanceScramble() {
+    scrambleIndex++;
+    nextScramble();
+}
+
+function endScramble() {
+    const container = document.getElementById('game-scramble');
+    if (!container) return;
+    const pct = scrambleTotal ? Math.round((scrambleScore / scrambleTotal) * 100) : 0;
+    const badge = pct >= 90 ? '🏅' : pct >= 70 ? '🎯' : '🧩';
+    container.innerHTML = `
+        <div style="text-align:center; padding: 25px;">
+            <div style="font-size:4em; margin-bottom:12px;">${badge}</div>
+            <h3 style="font-size:1.8em; color:#2c3e50; margin-bottom:10px;">Word Scramble Complete!</h3>
+            <p style="font-size:1.2em; color:#7f8c8d; margin-bottom:20px;">You scored <strong style="color:#667eea;">${scrambleScore}</strong> out of <strong>${scrambleTotal}</strong>.</p>
+            <button class="btn" onclick="initScramble()">Play New 20 🔁</button>
+        </div>
+    `;
 }
 
 // ============= MATH CHALLENGE =============
@@ -1006,11 +1084,13 @@ const hangmanWords = [
     { word: 'kitchen', hint: 'Room where food is cooked' },
     { word: 'bicycle', hint: 'A two-wheeled vehicle' },
     { word: 'captain', hint: 'Leader of a ship or team' },
-    { word: 'compass', hint: 'Shows you which way is north' },
     { word: 'library', hint: 'A place full of books' },
     { word: 'magnet', hint: 'Attracts iron objects' },
     { word: 'pirate', hint: 'Sails the sea looking for treasure' }
 ];
+
+const HANGMAN_QUIZ_SIZE = 20;
+let hangmanLibraryCache = null;
 
 const hangmanStages = [
     `
@@ -1071,32 +1151,116 @@ const hangmanStages = [
 =========`
 ];
 
-let hangmanWord, hangmanGuessed, hangmanWrong;
+let hangmanWord, hangmanHint, hangmanGuessed, hangmanWrong;
+let hangmanAnswered, hangmanScore, hangmanTotal, hangmanIndex;
 
-function initHangman() {
-    const entry = hangmanWords[Math.floor(Math.random() * hangmanWords.length)];
+function normalizeHangmanEntry(entry) {
+    if (!entry || typeof entry.word !== 'string') return null;
+    const word = entry.word.trim().toLowerCase();
+    if (!word || word.length < 4 || word.length > 12 || !/^[a-z]+$/.test(word)) return null;
+    return {
+        word,
+        hint: entry.hint && typeof entry.hint === 'string' ? entry.hint.trim() : 'A common English word'
+    };
+}
+
+async function loadHangmanLibrary() {
+    if (hangmanLibraryCache) return hangmanLibraryCache;
+
+    const fallback = hangmanWords.map(normalizeHangmanEntry).filter(Boolean);
+    try {
+        const res = await fetch('data/hangman-library.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const raw = await res.json();
+        const parsed = Array.isArray(raw) ? raw.map(normalizeHangmanEntry).filter(Boolean) : [];
+        hangmanLibraryCache = parsed.length ? parsed : fallback;
+    } catch (error) {
+        console.warn('Failed to load hangman library, using fallback list.', error);
+        hangmanLibraryCache = fallback;
+    }
+
+    return hangmanLibraryCache;
+}
+
+function startHangmanRound() {
+    const queue = window._hangmanQueue || [];
+    const entry = queue[hangmanIndex];
+    if (!entry) {
+        endHangmanQuiz();
+        return;
+    }
+
     hangmanWord = entry.word;
+    hangmanHint = entry.hint;
     hangmanGuessed = new Set();
     hangmanWrong = 0;
+    hangmanAnswered = false;
+
+    const progressEl = document.getElementById('hangman-progress');
+    if (progressEl) {
+        progressEl.textContent = `Question ${hangmanIndex + 1} of ${queue.length}`;
+    }
+
+    const scoreEl = document.getElementById('hangman-score');
+    if (scoreEl) {
+        scoreEl.textContent = `Score: ${hangmanScore} / ${hangmanTotal}`;
+    }
+
+    const hintEl = document.getElementById('hangman-hint');
+    if (hintEl) {
+        hintEl.textContent = `💡 ${hangmanHint}`;
+    }
+
+    const statusEl = document.getElementById('hangman-status');
+    if (statusEl) {
+        statusEl.textContent = '';
+    }
+
+    const nextBtn = document.getElementById('hangman-next-btn');
+    if (nextBtn) {
+        nextBtn.style.display = 'none';
+    }
+
+    buildHangmanKeyboard();
+    renderHangman();
+}
+
+async function initHangman() {
+    const library = await loadHangmanLibrary();
+    const queue = [...library].sort(() => Math.random() - 0.5).slice(0, Math.min(HANGMAN_QUIZ_SIZE, library.length));
+    window._hangmanQueue = queue;
+
+    hangmanIndex = 0;
+    hangmanScore = 0;
+    hangmanTotal = 0;
 
     const container = document.getElementById('game-hangman');
+    if (!container) return;
+
+    if (!queue.length) {
+        container.innerHTML = '<p style="text-align:center; color:#ef4444; font-weight:600;">No hangman words available right now.</p>';
+        return;
+    }
+
     container.innerHTML = `
+        <div class="score-display" id="hangman-score" style="margin-bottom:10px;">Score: 0 / 0</div>
+        <div class="status-text" id="hangman-progress" style="margin-bottom:12px;">Question 1 of ${queue.length}</div>
         <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap; justify-content:center;">
             <pre class="hangman-drawing" id="hangman-drawing"></pre>
             <div style="flex:1; min-width:200px;">
-                <p class="scramble-hint" id="hangman-hint">💡 ${entry.hint}</p>
+                <p class="scramble-hint" id="hangman-hint"></p>
                 <div class="hangman-word" id="hangman-word"></div>
                 <div class="status-text" id="hangman-status" style="min-height:28px;"></div>
                 <div class="hangman-keyboard" id="hangman-keyboard"></div>
             </div>
         </div>
-        <div style="text-align:center; margin-top:15px;">
-            <button class="btn" onclick="initHangman()">New Word</button>
+        <div style="text-align:center; margin-top:15px; display:flex; gap:10px; justify-content:center;">
+            <button class="btn" id="hangman-next-btn" style="display:none;" onclick="nextHangmanQuestion()">Next ➡️</button>
+            <button class="btn" style="background: linear-gradient(135deg,#334155,#0f172a);" onclick="initHangman()">New 20</button>
         </div>
     `;
 
-    renderHangman();
-    buildHangmanKeyboard();
+    startHangmanRound();
 }
 
 function renderHangman() {
@@ -1130,6 +1294,7 @@ function buildHangmanKeyboard() {
 }
 
 function guessHangman(letter) {
+    if (hangmanAnswered) return;
     if (hangmanGuessed.has(letter)) return;
     hangmanGuessed.add(letter);
 
@@ -1143,7 +1308,7 @@ function guessHangman(letter) {
         if (allRevealed) {
             renderHangman();
             if (btn) btn.disabled = true;
-            disableHangmanKeyboard();
+            completeHangmanRound(true);
             if (statusEl) { statusEl.textContent = '🎉 You won!'; statusEl.style.color = '#10b981'; }
             return;
         }
@@ -1151,9 +1316,10 @@ function guessHangman(letter) {
         hangmanWrong++;
         if (btn) btn.classList.add('wrong-key');
         if (hangmanWrong >= hangmanStages.length - 1) {
+            hangmanGuessed = new Set(hangmanWord.split(''));
             renderHangman();
             if (btn) btn.disabled = true;
-            disableHangmanKeyboard();
+            completeHangmanRound(false);
             if (statusEl) {
                 statusEl.textContent = `💀 Game over! The word was: ${hangmanWord.toUpperCase()}`;
                 statusEl.style.color = '#ef4444';
@@ -1163,6 +1329,51 @@ function guessHangman(letter) {
     }
     if (btn) btn.disabled = true;
     renderHangman();
+}
+
+function completeHangmanRound(won) {
+    if (hangmanAnswered) return;
+    hangmanAnswered = true;
+    hangmanTotal++;
+    if (won) hangmanScore++;
+
+    const scoreEl = document.getElementById('hangman-score');
+    if (scoreEl) {
+        scoreEl.textContent = `Score: ${hangmanScore} / ${hangmanTotal}`;
+    }
+
+    disableHangmanKeyboard();
+
+    const nextBtn = document.getElementById('hangman-next-btn');
+    if (nextBtn) {
+        const isLast = hangmanIndex >= (window._hangmanQueue.length - 1);
+        nextBtn.textContent = isLast ? 'See Results 🏁' : 'Next ➡️';
+        nextBtn.style.display = 'inline-block';
+    }
+}
+
+function nextHangmanQuestion() {
+    hangmanIndex++;
+    if (hangmanIndex >= window._hangmanQueue.length) {
+        endHangmanQuiz();
+    } else {
+        startHangmanRound();
+    }
+}
+
+function endHangmanQuiz() {
+    const container = document.getElementById('game-hangman');
+    if (!container) return;
+    const pct = hangmanTotal ? Math.round((hangmanScore / hangmanTotal) * 100) : 0;
+    const badge = pct >= 90 ? '🏅' : pct >= 70 ? '🎯' : '🪢';
+    container.innerHTML = `
+        <div style="text-align:center; padding: 25px;">
+            <div style="font-size:4em; margin-bottom:12px;">${badge}</div>
+            <h3 style="font-size:1.8em; color:#2c3e50; margin-bottom:10px;">Hangman Complete!</h3>
+            <p style="font-size:1.2em; color:#7f8c8d; margin-bottom:20px;">You solved <strong style="color:#667eea;">${hangmanScore}</strong> out of <strong>${hangmanTotal}</strong> words.</p>
+            <button class="btn" onclick="initHangman()">Play New 20 🔁</button>
+        </div>
+    `;
 }
 
 function disableHangmanKeyboard() {

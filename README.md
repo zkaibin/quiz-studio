@@ -31,6 +31,7 @@
 - **🧭 Chengyu Category Filters** - Switch between All, Beginner, Intermediate, and Advanced sets
 - **🎤 K-POP Quizzes** - Group and idol emoji quiz modes
 - **🧩 Variety Pack** - Includes Tic-Tac-Toe, Rock Paper Scissors, Memory Match, Guess the Number, Snake, Simon Says, Whack-a-Mole, 2048, Word Scramble, Math Challenge, and Hangman
+- **🔤 Expanded Word Banks** - Word Scramble and Hangman now use larger JSON libraries and 20-question random rounds
 
 ### General Features
 - **✨ Frontend Only** - No server or database needed, runs entirely in the browser
@@ -117,7 +118,11 @@ Visit the live site: `https://yourusername.github.io/quiz-studio`
    - Each round contains **20 questions**
    - Use **Category** filters to focus practice by level
    - Meanings include both English and Chinese
-4. Click **Play Again** to get a fresh random set
+4. For **Word Scramble** and **Hangman**:
+   - Questions are drawn from JSON word libraries in `data/`
+   - Each run is capped at **20 random questions**
+   - Click **New 20** to reshuffle a fresh set
+5. Click **Play Again** to get a fresh random set
 
 ### Paper Generator
 
@@ -153,6 +158,8 @@ quiz-studio/
 │   ├── questions-challenging.json  # 190 challenging math questions
 │   ├── questions-science.json      # 80 science questions
 │   ├── chengyu-library.json        # 600+ Chengyu idioms for random quiz sets
+│   ├── word-scramble-library.json  # Word Scramble library
+│   ├── hangman-library.json        # Hangman library
 │   ├── characters.json             # 103 characters
 │   └── universes.json              # 11 character universes
 ├── scripts/
