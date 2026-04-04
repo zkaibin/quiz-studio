@@ -2409,7 +2409,7 @@
     "id": "Q952",
     "category": "Fractions",
     "difficulty": "PSLE",
-    "template": "The fraction of boys in a class is 5/9. There are 45 students in the class. How many girls are left in the class?",
+    "template": "In a class of 45 students, 5 out of every 9 students are boys. How many girls are in the class?",
     "placeholder_roles": [],
     "options": [
       "20",
