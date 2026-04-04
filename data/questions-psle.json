@@ -2263,5 +2263,1643 @@
     ],
     "answer": 0,
     "correct_answer": "(6, 7)"
+  },
+  {
+    "id": "Q944",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} had 3/4 of a pizza. {CHARACTER_1} ate 1/3 of {CHARACTER_0}'s share. What fraction of the whole pizza did {CHARACTER_1} eat?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "1/4",
+      "1/3",
+      "1/2",
+      "3/8"
+    ],
+    "answer": 0,
+    "correct_answer": "1/4"
+  },
+  {
+    "id": "Q945",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} spent 2/5 of his savings on a book and 1/4 of his savings on a game. What fraction of his savings did he spend altogether?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "13/20",
+      "3/20",
+      "7/20",
+      "3/9"
+    ],
+    "answer": 0,
+    "correct_answer": "13/20"
+  },
+  {
+    "id": "Q946",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} had $360. She spent 5/9 of it on clothes and gave 1/4 of the remainder to {CHARACTER_1}. How much did {CHARACTER_0} have left?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "$120",
+      "$100",
+      "$140",
+      "$160"
+    ],
+    "answer": 0,
+    "correct_answer": "$120"
+  },
+  {
+    "id": "Q947",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} collected 72 stamps. He gave 1/3 to {CHARACTER_1} and 2/9 to {CHARACTER_2}. How many stamps were left with {CHARACTER_0}?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "friend"
+    ],
+    "options": [
+      "32",
+      "40",
+      "28",
+      "36"
+    ],
+    "answer": 0,
+    "correct_answer": "32"
+  },
+  {
+    "id": "Q948",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "A water tank is 7/8 full. {CHARACTER_0} uses 3/8 of the tank. What fraction of the tank remains?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "1/2",
+      "5/8",
+      "3/4",
+      "1/4"
+    ],
+    "answer": 0,
+    "correct_answer": "1/2"
+  },
+  {
+    "id": "Q949",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} had 90 apples. She sold 2/3 of them in the morning and 1/5 of the remainder in the afternoon. How many apples were left?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "24",
+      "30",
+      "18",
+      "20"
+    ],
+    "answer": 0,
+    "correct_answer": "24"
+  },
+  {
+    "id": "Q950",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} had some money. After spending 3/7 of it, he had $56 left. How much money did {CHARACTER_0} have at first?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "$98",
+      "$84",
+      "$112",
+      "$70"
+    ],
+    "answer": 0,
+    "correct_answer": "$98"
+  },
+  {
+    "id": "Q951",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} baked 48 cookies. She gave 1/3 of them to {CHARACTER_1} and ate 1/4 of the remaining cookies. How many cookies are left?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "24",
+      "20",
+      "28",
+      "16"
+    ],
+    "answer": 0,
+    "correct_answer": "24"
+  },
+  {
+    "id": "Q952",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "In a class of 45 students, 5 out of every 9 students are boys. How many girls are in the class?",
+    "placeholder_roles": [],
+    "options": [
+      "20",
+      "25",
+      "15",
+      "18"
+    ],
+    "answer": 0,
+    "correct_answer": "20"
+  },
+  {
+    "id": "Q953",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} had 3/5 of a metre of ribbon. She cut off 1/4 of it to tie a gift. How many centimetres of ribbon does she have left?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "45 cm",
+      "40 cm",
+      "50 cm",
+      "30 cm"
+    ],
+    "answer": 0,
+    "correct_answer": "45 cm"
+  },
+  {
+    "id": "Q954",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} finished 2/5 of a project on Monday and 1/3 on Tuesday. What fraction of the project did {CHARACTER_0} complete on Wednesday to finish it?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "4/15",
+      "2/15",
+      "3/15",
+      "5/15"
+    ],
+    "answer": 0,
+    "correct_answer": "4/15"
+  },
+  {
+    "id": "Q955",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} had $120. He spent 3/4 of it on a pair of shoes and received $18 from {CHARACTER_1}. How much money does {CHARACTER_0} have left?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "$48",
+      "$50",
+      "$42",
+      "$60"
+    ],
+    "answer": 0,
+    "correct_answer": "$48"
+  },
+  {
+    "id": "Q956",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} and {CHARACTER_1} share $240 in the ratio 3:5. How much does {CHARACTER_0} receive?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "$90",
+      "$100",
+      "$80",
+      "$120"
+    ],
+    "answer": 0,
+    "correct_answer": "$90"
+  },
+  {
+    "id": "Q957",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "The ratio of {CHARACTER_0}'s savings to {CHARACTER_1}'s savings is 4:7. {CHARACTER_0} has $48. How much do they have altogether?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "$132",
+      "$120",
+      "$144",
+      "$108"
+    ],
+    "answer": 0,
+    "correct_answer": "$132"
+  },
+  {
+    "id": "Q958",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}, {CHARACTER_1}, and {CHARACTER_2} have marbles in the ratio 2:3:5. There are 80 marbles in total. How many marbles does {CHARACTER_1} have?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper",
+      "friend"
+    ],
+    "options": [
+      "24",
+      "16",
+      "40",
+      "20"
+    ],
+    "answer": 0,
+    "correct_answer": "24"
+  },
+  {
+    "id": "Q959",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "The ratio of red balls to blue balls is 3:4. After adding 6 more red balls, the ratio becomes 3:2. How many blue balls are there?",
+    "placeholder_roles": [],
+    "options": [
+      "8",
+      "6",
+      "12",
+      "10"
+    ],
+    "answer": 0,
+    "correct_answer": "8"
+  },
+  {
+    "id": "Q960",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "The ratio of {CHARACTER_0}'s stickers to {CHARACTER_1}'s stickers is 5:3. After {CHARACTER_0} gives 10 stickers to {CHARACTER_1}, the ratio becomes 1:1. How many stickers did {CHARACTER_0} have at first?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "50",
+      "40",
+      "60",
+      "30"
+    ],
+    "answer": 0,
+    "correct_answer": "50"
+  },
+  {
+    "id": "Q961",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} mixes orange juice and water in the ratio 2:5 to make a drink. If {CHARACTER_0} makes 560 ml of the drink, how much orange juice is used?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "160 ml",
+      "140 ml",
+      "200 ml",
+      "80 ml"
+    ],
+    "answer": 0,
+    "correct_answer": "160 ml"
+  },
+  {
+    "id": "Q962",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "The ratio of boys to girls in a school is 7:5. There are 420 boys. How many students are there in total?",
+    "placeholder_roles": [],
+    "options": [
+      "720",
+      "600",
+      "840",
+      "780"
+    ],
+    "answer": 0,
+    "correct_answer": "720"
+  },
+  {
+    "id": "Q963",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} and {CHARACTER_1} have a total of $150 in the ratio 2:3. After {CHARACTER_0} gives {CHARACTER_1} $15, what is the new ratio of {CHARACTER_0}'s money to {CHARACTER_1}'s money?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "3:7",
+      "1:3",
+      "2:5",
+      "1:2"
+    ],
+    "answer": 0,
+    "correct_answer": "3:7"
+  },
+  {
+    "id": "Q964",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} had 3 times as many stamps as {CHARACTER_1}. After {CHARACTER_0} gave {CHARACTER_1} 30 stamps, they had an equal number. How many stamps did {CHARACTER_1} have at first?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "30",
+      "60",
+      "90",
+      "45"
+    ],
+    "answer": 0,
+    "correct_answer": "30"
+  },
+  {
+    "id": "Q965",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "A recipe uses flour and sugar in the ratio 5:2. If 350 g of flour is used, how much sugar is needed?",
+    "placeholder_roles": [],
+    "options": [
+      "140 g",
+      "70 g",
+      "175 g",
+      "100 g"
+    ],
+    "answer": 0,
+    "correct_answer": "140 g"
+  },
+  {
+    "id": "Q966",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} scored 72 out of 90 in a test. What percentage did {CHARACTER_0} score?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "80%",
+      "72%",
+      "75%",
+      "85%"
+    ],
+    "answer": 0,
+    "correct_answer": "80%"
+  },
+  {
+    "id": "Q967",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "The price of a shirt was $45. It was increased by 20%. What is the new price?",
+    "placeholder_roles": [],
+    "options": [
+      "$54",
+      "$50",
+      "$48",
+      "$55"
+    ],
+    "answer": 0,
+    "correct_answer": "$54"
+  },
+  {
+    "id": "Q968",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} had $200. He spent 35% on food and 25% on transport. How much money did he have left?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "$80",
+      "$70",
+      "$90",
+      "$100"
+    ],
+    "answer": 0,
+    "correct_answer": "$80"
+  },
+  {
+    "id": "Q969",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "A shop offered a 15% discount on a jacket priced at $120. What is the discounted price?",
+    "placeholder_roles": [],
+    "options": [
+      "$102",
+      "$108",
+      "$100",
+      "$110"
+    ],
+    "answer": 0,
+    "correct_answer": "$102"
+  },
+  {
+    "id": "Q970",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} saves 40% of his monthly allowance of $250. How much does {CHARACTER_0} save each month?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "$100",
+      "$80",
+      "$120",
+      "$150"
+    ],
+    "answer": 0,
+    "correct_answer": "$100"
+  },
+  {
+    "id": "Q971",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "After a 25% price increase, a toy costs $75. What was the original price?",
+    "placeholder_roles": [],
+    "options": [
+      "$60",
+      "$50",
+      "$55",
+      "$65"
+    ],
+    "answer": 0,
+    "correct_answer": "$60"
+  },
+  {
+    "id": "Q972",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} invested $500. After a year, the investment grew by 12%. How much does {CHARACTER_0} have now?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "$560",
+      "$550",
+      "$600",
+      "$512"
+    ],
+    "answer": 0,
+    "correct_answer": "$560"
+  },
+  {
+    "id": "Q973",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "In a class of 40 students, 60% are girls. How many boys are in the class?",
+    "placeholder_roles": [],
+    "options": [
+      "16",
+      "24",
+      "18",
+      "14"
+    ],
+    "answer": 0,
+    "correct_answer": "16"
+  },
+  {
+    "id": "Q974",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}'s salary was $3,000. She received a 15% raise. What is her new salary?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "$3,450",
+      "$3,400",
+      "$3,500",
+      "$3,600"
+    ],
+    "answer": 0,
+    "correct_answer": "$3,450"
+  },
+  {
+    "id": "Q975",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "A bag originally cost $80. After a sale, it costs $68. What is the percentage discount?",
+    "placeholder_roles": [],
+    "options": [
+      "15%",
+      "12%",
+      "10%",
+      "20%"
+    ],
+    "answer": 0,
+    "correct_answer": "15%"
+  },
+  {
+    "id": "Q976",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} answered 45 out of 60 questions correctly. {CHARACTER_1} answered 35 out of 50 correctly. Who scored a higher percentage?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "{CHARACTER_0}",
+      "{CHARACTER_1}",
+      "Both equal",
+      "Cannot determine"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}"
+  },
+  {
+    "id": "Q977",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "A shop has 200 items. 45% are sold on Monday. How many items remain?",
+    "placeholder_roles": [],
+    "options": [
+      "110",
+      "90",
+      "100",
+      "120"
+    ],
+    "answer": 0,
+    "correct_answer": "110"
+  },
+  {
+    "id": "Q978",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}'s test score increased from 60 to 75. What is the percentage increase?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "25%",
+      "15%",
+      "20%",
+      "30%"
+    ],
+    "answer": 0,
+    "correct_answer": "25%"
+  },
+  {
+    "id": "Q979",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "A store buys an item for $40 and sells it at a 30% profit. What is the selling price?",
+    "placeholder_roles": [],
+    "options": [
+      "$52",
+      "$50",
+      "$56",
+      "$48"
+    ],
+    "answer": 0,
+    "correct_answer": "$52"
+  },
+  {
+    "id": "Q980",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} spent 80% of his $250 savings on a trip. How much does he have left?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "$50",
+      "$40",
+      "$60",
+      "$20"
+    ],
+    "answer": 0,
+    "correct_answer": "$50"
+  },
+  {
+    "id": "Q981",
+    "category": "Speed",
+    "difficulty": "PSLE",
+    "template": "A car travels at 80 km/h. How far does it travel in 2.5 hours?",
+    "placeholder_roles": [],
+    "options": [
+      "200 km",
+      "160 km",
+      "240 km",
+      "180 km"
+    ],
+    "answer": 0,
+    "correct_answer": "200 km"
+  },
+  {
+    "id": "Q982",
+    "category": "Speed",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} cycled 36 km in 3 hours. What was {CHARACTER_0}'s average speed?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "12 km/h",
+      "10 km/h",
+      "15 km/h",
+      "9 km/h"
+    ],
+    "answer": 0,
+    "correct_answer": "12 km/h"
+  },
+  {
+    "id": "Q983",
+    "category": "Speed",
+    "difficulty": "PSLE",
+    "template": "A bus left Town A at 8:30 a.m. and arrived at Town B at 11:00 a.m. The distance between the towns is 150 km. What was the average speed of the bus?",
+    "placeholder_roles": [],
+    "options": [
+      "60 km/h",
+      "50 km/h",
+      "75 km/h",
+      "55 km/h"
+    ],
+    "answer": 0,
+    "correct_answer": "60 km/h"
+  },
+  {
+    "id": "Q984",
+    "category": "Speed",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} runs at 6 km/h and {CHARACTER_1} runs at 9 km/h. They start from the same place in opposite directions. How far apart are they after 2 hours?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "30 km",
+      "24 km",
+      "18 km",
+      "15 km"
+    ],
+    "answer": 0,
+    "correct_answer": "30 km"
+  },
+  {
+    "id": "Q985",
+    "category": "Speed",
+    "difficulty": "PSLE",
+    "template": "A train travels 240 km at 80 km/h. How many minutes does the journey take?",
+    "placeholder_roles": [],
+    "options": [
+      "180 minutes",
+      "200 minutes",
+      "160 minutes",
+      "240 minutes"
+    ],
+    "answer": 0,
+    "correct_answer": "180 minutes"
+  },
+  {
+    "id": "Q986",
+    "category": "Speed",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} drives 120 km to visit {CHARACTER_1} at 40 km/h. On the way back, {CHARACTER_0} travels at 60 km/h. What is the average speed for the whole journey?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "48 km/h",
+      "50 km/h",
+      "45 km/h",
+      "52 km/h"
+    ],
+    "answer": 0,
+    "correct_answer": "48 km/h"
+  },
+  {
+    "id": "Q987",
+    "category": "Speed",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} walked from home to school in 45 minutes at 4 km/h. How far is {CHARACTER_0}'s school from home?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "3 km",
+      "2 km",
+      "4 km",
+      "2.5 km"
+    ],
+    "answer": 0,
+    "correct_answer": "3 km"
+  },
+  {
+    "id": "Q988",
+    "category": "Speed",
+    "difficulty": "PSLE",
+    "template": "A cyclist travelled 90 km at an average speed of 18 km/h. How long did the journey take?",
+    "placeholder_roles": [],
+    "options": [
+      "5 hours",
+      "4 hours",
+      "6 hours",
+      "3 hours"
+    ],
+    "answer": 0,
+    "correct_answer": "5 hours"
+  },
+  {
+    "id": "Q989",
+    "category": "Speed",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} and {CHARACTER_1} start cycling towards each other from two points 48 km apart. {CHARACTER_0} cycles at 14 km/h and {CHARACTER_1} at 10 km/h. How long before they meet?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "2 hours",
+      "3 hours",
+      "1.5 hours",
+      "4 hours"
+    ],
+    "answer": 0,
+    "correct_answer": "2 hours"
+  },
+  {
+    "id": "Q990",
+    "category": "Speed",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} left home at 9:00 a.m. cycling at 15 km/h. {CHARACTER_1} left the same place at 10:00 a.m. cycling in the same direction at 20 km/h. At what time will {CHARACTER_1} catch up with {CHARACTER_0}?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "1:00 p.m.",
+      "2:00 p.m.",
+      "12:00 p.m.",
+      "3:00 p.m."
+    ],
+    "answer": 0,
+    "correct_answer": "1:00 p.m."
+  },
+  {
+    "id": "Q991",
+    "category": "Algebra",
+    "difficulty": "PSLE",
+    "template": "Solve for x: 3x + 7 = 22.",
+    "placeholder_roles": [],
+    "options": [
+      "5",
+      "6",
+      "4",
+      "7"
+    ],
+    "answer": 0,
+    "correct_answer": "5"
+  },
+  {
+    "id": "Q992",
+    "category": "Algebra",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} thinks of a number. When she multiplies it by 4 and subtracts 9, the result is 35. What is the number?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "11",
+      "10",
+      "12",
+      "9"
+    ],
+    "answer": 0,
+    "correct_answer": "11"
+  },
+  {
+    "id": "Q993",
+    "category": "Algebra",
+    "difficulty": "PSLE",
+    "template": "The perimeter of a rectangle is 64 cm. The length is 3 times the width. Find the width.",
+    "placeholder_roles": [],
+    "options": [
+      "8 cm",
+      "10 cm",
+      "6 cm",
+      "12 cm"
+    ],
+    "answer": 0,
+    "correct_answer": "8 cm"
+  },
+  {
+    "id": "Q994",
+    "category": "Algebra",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} is 3 years older than {CHARACTER_1}. The sum of their ages is 29. How old is {CHARACTER_1}?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "13",
+      "14",
+      "12",
+      "15"
+    ],
+    "answer": 0,
+    "correct_answer": "13"
+  },
+  {
+    "id": "Q995",
+    "category": "Algebra",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} has 5 more stickers than {CHARACTER_1}. Together they have 47 stickers. How many stickers does {CHARACTER_0} have?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "26",
+      "21",
+      "27",
+      "24"
+    ],
+    "answer": 0,
+    "correct_answer": "26"
+  },
+  {
+    "id": "Q996",
+    "category": "Algebra",
+    "difficulty": "PSLE",
+    "template": "A number is multiplied by 6 and then 15 is added. The result is 57. What is the number?",
+    "placeholder_roles": [],
+    "options": [
+      "7",
+      "6",
+      "8",
+      "9"
+    ],
+    "answer": 0,
+    "correct_answer": "7"
+  },
+  {
+    "id": "Q997",
+    "category": "Algebra",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} bought pencils at $0.80 each and pens at $1.20 each. He bought twice as many pencils as pens and spent $11.20 in total. How many pens did he buy?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "4",
+      "3",
+      "5",
+      "6"
+    ],
+    "answer": 0,
+    "correct_answer": "4"
+  },
+  {
+    "id": "Q998",
+    "category": "Algebra",
+    "difficulty": "PSLE",
+    "template": "The sum of three consecutive even numbers is 78. What is the largest number?",
+    "placeholder_roles": [],
+    "options": [
+      "28",
+      "26",
+      "30",
+      "24"
+    ],
+    "answer": 0,
+    "correct_answer": "28"
+  },
+  {
+    "id": "Q999",
+    "category": "Algebra",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} is 4 times as old as {CHARACTER_1}. In 5 years, {CHARACTER_0} will be 3 times as old as {CHARACTER_1}. How old is {CHARACTER_1} now?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "10",
+      "8",
+      "12",
+      "15"
+    ],
+    "answer": 0,
+    "correct_answer": "10"
+  },
+  {
+    "id": "Q1000",
+    "category": "Algebra",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} buys some apples at $0.90 each and the same number of oranges at $0.60 each. She spends $18 in total. How many apples did she buy?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "12",
+      "10",
+      "15",
+      "8"
+    ],
+    "answer": 0,
+    "correct_answer": "12"
+  },
+  {
+    "id": "Q1001",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} earns $2,400 per month. He spends 30% on rent and 25% on food, and saves the rest. How much does {CHARACTER_0} save each month?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "$1,080",
+      "$1,200",
+      "$960",
+      "$1,440"
+    ],
+    "answer": 0,
+    "correct_answer": "$1,080"
+  },
+  {
+    "id": "Q1002",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "A school has 480 students. The ratio of boys to girls is 5:7. How many more girls than boys are there?",
+    "placeholder_roles": [],
+    "options": [
+      "80",
+      "60",
+      "100",
+      "40"
+    ],
+    "answer": 0,
+    "correct_answer": "80"
+  },
+  {
+    "id": "Q1003",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} owned 3/5 of a collection of 200 stamps. {CHARACTER_1} gave her 20 more stamps. What fraction of the total 220 stamps does {CHARACTER_0} now own?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "7/11",
+      "3/5",
+      "2/3",
+      "5/8"
+    ],
+    "answer": 0,
+    "correct_answer": "7/11"
+  },
+  {
+    "id": "Q1004",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "A train left Station A at 7:45 a.m. and arrived at Station B at 11:15 a.m. The distance is 245 km. What was the average speed of the train?",
+    "placeholder_roles": [],
+    "options": [
+      "70 km/h",
+      "65 km/h",
+      "75 km/h",
+      "60 km/h"
+    ],
+    "answer": 0,
+    "correct_answer": "70 km/h"
+  },
+  {
+    "id": "Q1005",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} invests in a stall and gains a 15% profit on a cost price of $1,800. What is the selling price?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "$2,070",
+      "$2,000",
+      "$2,100",
+      "$1,980"
+    ],
+    "answer": 0,
+    "correct_answer": "$2,070"
+  },
+  {
+    "id": "Q1006",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "A rectangular swimming pool is 25 m long, 10 m wide, and 2 m deep. How many litres of water are needed to fill it completely? (1 m³ = 1000 litres)",
+    "placeholder_roles": [],
+    "options": [
+      "500,000 litres",
+      "250,000 litres",
+      "1,000,000 litres",
+      "50,000 litres"
+    ],
+    "answer": 0,
+    "correct_answer": "500,000 litres"
+  },
+  {
+    "id": "Q1007",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} had $540. He spent 2/3 on a bicycle and used 25% of the remainder on accessories. How much does {CHARACTER_0} have left?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "$135",
+      "$130",
+      "$140",
+      "$120"
+    ],
+    "answer": 0,
+    "correct_answer": "$135"
+  },
+  {
+    "id": "Q1008",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "The average score of 5 students is 72. When a 6th student joins, the average drops to 70. What was the 6th student's score?",
+    "placeholder_roles": [],
+    "options": [
+      "60",
+      "62",
+      "58",
+      "70"
+    ],
+    "answer": 0,
+    "correct_answer": "60"
+  },
+  {
+    "id": "Q1009",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} saves $180 each month. After how many months will {CHARACTER_0} have saved enough to buy a camera that costs $2,700?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "15 months",
+      "18 months",
+      "12 months",
+      "20 months"
+    ],
+    "answer": 0,
+    "correct_answer": "15 months"
+  },
+  {
+    "id": "Q1010",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "A merchant bought a carpet for $350 and sold it for $476. What is his percentage profit?",
+    "placeholder_roles": [],
+    "options": [
+      "36%",
+      "26%",
+      "40%",
+      "30%"
+    ],
+    "answer": 0,
+    "correct_answer": "36%"
+  },
+  {
+    "id": "Q1011",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} and {CHARACTER_1} start at the same point and walk in opposite directions. {CHARACTER_0} walks at 5 km/h and {CHARACTER_1} at 7 km/h. After 1.5 hours, how far apart are they?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "18 km",
+      "12 km",
+      "15 km",
+      "21 km"
+    ],
+    "answer": 0,
+    "correct_answer": "18 km"
+  },
+  {
+    "id": "Q1012",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "A canteen sold 120 cups of drinks on Monday, 15% more on Tuesday, and the same as Monday on Wednesday. What was the total number of cups sold over the three days?",
+    "placeholder_roles": [],
+    "options": [
+      "378",
+      "360",
+      "396",
+      "384"
+    ],
+    "answer": 0,
+    "correct_answer": "378"
+  },
+  {
+    "id": "Q1013",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} had $450. He spent 40% on a jacket, then received 20% of what he spent as a birthday gift from {CHARACTER_1}. How much does {CHARACTER_0} have now?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "$306",
+      "$300",
+      "$312",
+      "$324"
+    ],
+    "answer": 0,
+    "correct_answer": "$306"
+  },
+  {
+    "id": "Q1014",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "A fruit seller buys 50 kg of apples at $2.40/kg and 30 kg of oranges at $1.80/kg. He sells all of them at $3.00/kg. What is his total profit?",
+    "placeholder_roles": [],
+    "options": [
+      "$66",
+      "$60",
+      "$72",
+      "$80"
+    ],
+    "answer": 0,
+    "correct_answer": "$66"
+  },
+  {
+    "id": "Q1015",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "There are 3 red, 5 blue, and 2 green marbles in a bag. {CHARACTER_0} picks one marble at random. What is the probability that it is NOT red?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "7/10",
+      "3/10",
+      "1/2",
+      "4/5"
+    ],
+    "answer": 0,
+    "correct_answer": "7/10"
+  },
+  {
+    "id": "Q1016",
+    "category": "Area and Perimeter",
+    "difficulty": "PSLE",
+    "template": "A rectangle has a length of 18 cm and a width of 11 cm. Find its area.",
+    "placeholder_roles": [],
+    "options": [
+      "198 cm²",
+      "186 cm²",
+      "200 cm²",
+      "58 cm²"
+    ],
+    "answer": 0,
+    "correct_answer": "198 cm²"
+  },
+  {
+    "id": "Q1017",
+    "category": "Area and Perimeter",
+    "difficulty": "PSLE",
+    "template": "A square has a perimeter of 52 cm. Find its area.",
+    "placeholder_roles": [],
+    "options": [
+      "169 cm²",
+      "144 cm²",
+      "121 cm²",
+      "196 cm²"
+    ],
+    "answer": 0,
+    "correct_answer": "169 cm²"
+  },
+  {
+    "id": "Q1018",
+    "category": "Area and Perimeter",
+    "difficulty": "PSLE",
+    "template": "A triangular garden has a base of 14 m and a height of 9 m. Find its area.",
+    "placeholder_roles": [],
+    "options": [
+      "63 m²",
+      "126 m²",
+      "72 m²",
+      "54 m²"
+    ],
+    "answer": 0,
+    "correct_answer": "63 m²"
+  },
+  {
+    "id": "Q1019",
+    "category": "Area and Perimeter",
+    "difficulty": "PSLE",
+    "template": "A rectangular field has a perimeter of 80 m. The length is 4 m more than the width. Find the area of the field.",
+    "placeholder_roles": [],
+    "options": [
+      "396 m²",
+      "400 m²",
+      "380 m²",
+      "360 m²"
+    ],
+    "answer": 0,
+    "correct_answer": "396 m²"
+  },
+  {
+    "id": "Q1020",
+    "category": "Area and Perimeter",
+    "difficulty": "PSLE",
+    "template": "A circle has a radius of 7 cm. Find its area. (Use π = 22/7)",
+    "placeholder_roles": [],
+    "options": [
+      "154 cm²",
+      "144 cm²",
+      "176 cm²",
+      "132 cm²"
+    ],
+    "answer": 0,
+    "correct_answer": "154 cm²"
+  },
+  {
+    "id": "Q1021",
+    "category": "Area and Perimeter",
+    "difficulty": "PSLE",
+    "template": "A composite shape consists of a rectangle (10 cm × 6 cm) with a right triangle (base 4 cm, height 6 cm) attached to one side. Find the total area.",
+    "placeholder_roles": [],
+    "options": [
+      "72 cm²",
+      "84 cm²",
+      "60 cm²",
+      "78 cm²"
+    ],
+    "answer": 0,
+    "correct_answer": "72 cm²"
+  },
+  {
+    "id": "Q1022",
+    "category": "Area and Perimeter",
+    "difficulty": "PSLE",
+    "template": "The area of a square is 256 cm². Find its perimeter.",
+    "placeholder_roles": [],
+    "options": [
+      "64 cm",
+      "48 cm",
+      "56 cm",
+      "72 cm"
+    ],
+    "answer": 0,
+    "correct_answer": "64 cm"
+  },
+  {
+    "id": "Q1023",
+    "category": "Area and Perimeter",
+    "difficulty": "PSLE",
+    "template": "A rectangular path of width 2 m surrounds a garden that measures 12 m × 8 m. Find the area of the path.",
+    "placeholder_roles": [],
+    "options": [
+      "96 m²",
+      "80 m²",
+      "112 m²",
+      "100 m²"
+    ],
+    "answer": 0,
+    "correct_answer": "96 m²"
+  },
+  {
+    "id": "Q1024",
+    "category": "Area and Perimeter",
+    "difficulty": "PSLE",
+    "template": "A semicircle has a diameter of 14 cm. Find its perimeter. (Use π = 22/7)",
+    "placeholder_roles": [],
+    "options": [
+      "36 cm",
+      "44 cm",
+      "22 cm",
+      "30 cm"
+    ],
+    "answer": 0,
+    "correct_answer": "36 cm"
+  },
+  {
+    "id": "Q1025",
+    "category": "Area and Perimeter",
+    "difficulty": "PSLE",
+    "template": "The perimeter of a triangle is 54 cm. The sides are in the ratio 2:3:4. Find the length of the shortest side.",
+    "placeholder_roles": [],
+    "options": [
+      "12 cm",
+      "16 cm",
+      "24 cm",
+      "18 cm"
+    ],
+    "answer": 0,
+    "correct_answer": "12 cm"
+  },
+  {
+    "id": "Q1026",
+    "category": "Averages",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}'s scores in 5 tests are 78, 85, 72, 91, and 84. What is {CHARACTER_0}'s average score?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "82",
+      "80",
+      "84",
+      "85"
+    ],
+    "answer": 0,
+    "correct_answer": "82"
+  },
+  {
+    "id": "Q1027",
+    "category": "Averages",
+    "difficulty": "PSLE",
+    "template": "The average weight of 6 students is 48 kg. When a 7th student joins, the average drops to 47 kg. What is the weight of the 7th student?",
+    "placeholder_roles": [],
+    "options": [
+      "41 kg",
+      "47 kg",
+      "45 kg",
+      "43 kg"
+    ],
+    "answer": 0,
+    "correct_answer": "41 kg"
+  },
+  {
+    "id": "Q1028",
+    "category": "Averages",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}'s average mark for 4 tests is 80. What mark must {CHARACTER_0} score in the 5th test to raise the average to 82?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "90",
+      "88",
+      "85",
+      "92"
+    ],
+    "answer": 0,
+    "correct_answer": "90"
+  },
+  {
+    "id": "Q1029",
+    "category": "Averages",
+    "difficulty": "PSLE",
+    "template": "The average of three numbers is 45. Two of the numbers are 38 and 52. What is the third number?",
+    "placeholder_roles": [],
+    "options": [
+      "45",
+      "40",
+      "50",
+      "55"
+    ],
+    "answer": 0,
+    "correct_answer": "45"
+  },
+  {
+    "id": "Q1030",
+    "category": "Averages",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} scores 84, 76, and 92 in three tests. What must {CHARACTER_0} score in the 4th test to achieve an average of 85?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "88",
+      "90",
+      "85",
+      "92"
+    ],
+    "answer": 0,
+    "correct_answer": "88"
+  },
+  {
+    "id": "Q1031",
+    "category": "Volume",
+    "difficulty": "PSLE",
+    "template": "A rectangular box has dimensions 8 cm × 6 cm × 5 cm. Find its volume.",
+    "placeholder_roles": [],
+    "options": [
+      "240 cm³",
+      "480 cm³",
+      "120 cm³",
+      "200 cm³"
+    ],
+    "answer": 0,
+    "correct_answer": "240 cm³"
+  },
+  {
+    "id": "Q1032",
+    "category": "Volume",
+    "difficulty": "PSLE",
+    "template": "A cube has a volume of 512 cm³. Find the length of one side.",
+    "placeholder_roles": [],
+    "options": [
+      "8 cm",
+      "6 cm",
+      "10 cm",
+      "12 cm"
+    ],
+    "answer": 0,
+    "correct_answer": "8 cm"
+  },
+  {
+    "id": "Q1033",
+    "category": "Volume",
+    "difficulty": "PSLE",
+    "template": "A rectangular tank measures 40 cm × 30 cm × 25 cm. How many litres of water can it hold? (1000 cm³ = 1 litre)",
+    "placeholder_roles": [],
+    "options": [
+      "30 litres",
+      "25 litres",
+      "35 litres",
+      "40 litres"
+    ],
+    "answer": 0,
+    "correct_answer": "30 litres"
+  },
+  {
+    "id": "Q1034",
+    "category": "Volume",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} poured 15 litres of water into a container with a base measuring 50 cm × 30 cm. What is the height of the water level? (1 litre = 1000 cm³)",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "10 cm",
+      "8 cm",
+      "12 cm",
+      "15 cm"
+    ],
+    "answer": 0,
+    "correct_answer": "10 cm"
+  },
+  {
+    "id": "Q1035",
+    "category": "Volume",
+    "difficulty": "PSLE",
+    "template": "A rectangular fish tank has inner dimensions 60 cm × 40 cm × 30 cm. {CHARACTER_0} fills it to 3/4 of its height. How many litres of water are in the tank? (1000 cm³ = 1 litre)",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "54 litres",
+      "45 litres",
+      "60 litres",
+      "72 litres"
+    ],
+    "answer": 0,
+    "correct_answer": "54 litres"
+  },
+  {
+    "id": "Q1036",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} and {CHARACTER_1} together can finish a job in 6 days. {CHARACTER_0} alone takes 10 days. How many days will {CHARACTER_1} take to finish the job alone?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "15 days",
+      "12 days",
+      "18 days",
+      "20 days"
+    ],
+    "answer": 0,
+    "correct_answer": "15 days"
+  },
+  {
+    "id": "Q1037",
+    "category": "Fractions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} spends 3/8 of her money on clothes and 1/4 on food. If she saves $72, how much money did {CHARACTER_0} have left to start with?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "$192",
+      "$180",
+      "$216",
+      "$168"
+    ],
+    "answer": 0,
+    "correct_answer": "$192"
+  },
+  {
+    "id": "Q1038",
+    "category": "Ratios",
+    "difficulty": "PSLE",
+    "template": "Three numbers are in the ratio 1:2:3. Their sum is 162. Find the largest number.",
+    "placeholder_roles": [],
+    "options": [
+      "81",
+      "54",
+      "27",
+      "90"
+    ],
+    "answer": 0,
+    "correct_answer": "81"
+  },
+  {
+    "id": "Q1039",
+    "category": "Percentage",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} has 20% more stickers than {CHARACTER_1}. Together they have 110 stickers. How many stickers does {CHARACTER_0} have?",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
+    "options": [
+      "60",
+      "55",
+      "66",
+      "50"
+    ],
+    "answer": 0,
+    "correct_answer": "60"
+  },
+  {
+    "id": "Q1040",
+    "category": "Area and Perimeter",
+    "difficulty": "PSLE",
+    "template": "The length of a rectangle is increased by 20% and the width is decreased by 10%. By what percentage does the area change?",
+    "placeholder_roles": [],
+    "options": [
+      "8% increase",
+      "10% increase",
+      "2% increase",
+      "8% decrease"
+    ],
+    "answer": 0,
+    "correct_answer": "8% increase"
+  },
+  {
+    "id": "Q1041",
+    "category": "Speed",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} completes a race of 2 km in 12 minutes. What is {CHARACTER_0}'s speed in km/h?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "10 km/h",
+      "12 km/h",
+      "8 km/h",
+      "15 km/h"
+    ],
+    "answer": 0,
+    "correct_answer": "10 km/h"
+  },
+  {
+    "id": "Q1042",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "In a survey of 200 people, 45% prefer tea, 30% prefer coffee, and the rest prefer juice. How many people prefer juice?",
+    "placeholder_roles": [],
+    "options": [
+      "50",
+      "60",
+      "45",
+      "40"
+    ],
+    "answer": 0,
+    "correct_answer": "50"
+  },
+  {
+    "id": "Q1043",
+    "category": "Mixed Operations",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} borrows $5,000 at a simple interest rate of 4% per year. How much interest must {CHARACTER_0} pay after 3 years?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "$600",
+      "$500",
+      "$750",
+      "$450"
+    ],
+    "answer": 0,
+    "correct_answer": "$600"
   }
 ]
