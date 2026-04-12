@@ -403,11 +403,11 @@
     "id": "ENG041",
     "category": "Grammar - Pronouns",
     "difficulty": "PSLE",
-    "template": "{CHARACTER_0} ______ made all the decorations for the party.",
-    "placeholder_roles": ["protagonist"],
+    "template": "The students made all the decorations for the party ______.",
+    "placeholder_roles": [],
     "options": ["herself", "himself", "itself", "themselves"],
-    "answer": 0,
-    "correct_answer": "herself"
+    "answer": 3,
+    "correct_answer": "themselves"
   },
   {
     "id": "ENG042",
