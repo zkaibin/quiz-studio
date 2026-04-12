@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinese Quiz - Quiz Studio</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🀄</text></svg>">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GWRDBHFHSQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-GWRDBHFHSQ');
+    </script>
+    <link rel="stylesheet" href="css/style.css?v=10">
+</head>
+<body>
+    <a href="index.html" class="back-link" style="position: absolute; top: 20px; left: 20px; z-index: 1000; color: white; background: rgba(0,0,0,0.3); padding: 8px 15px; border-radius: 6px;">← Back to Home</a>
+    
+    <div class="container">
+        <header class="header">
+            <h1>🀄 Chinese Quiz 华文测验</h1>
+            <p>Practice Singapore Primary School Chinese for PSLE 练习新加坡小学华文</p>
+        </header>
+
+        <main>
+            <!-- Setup Section -->
+            <section id="setupSection" class="section">
+                <h2>Configure Your Chinese Quiz 设定测验</h2>
+                
+                <div class="form-group">
+                    <label for="studentName">Your Name 姓名:</label>
+                    <input type="text" id="studentName" placeholder="Enter your name 请输入姓名" class="input-field">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="category">Topic 课题:</label>
+                        <select id="category" class="input-field">
+                            <option value="all">All Topics 所有课题</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="difficulty">Level 程度:</label>
+                        <select id="difficulty" class="input-field">
+                            <option value="all">All Levels 所有程度</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="questionCount">Questions 题数:</label>
+                        <select id="questionCount" class="input-field">
+                            <option value="5">5 Questions 题</option>
+                            <option value="10">10 Questions 题</option>
+                            <option value="15">15 Questions 题</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="startQuizBtn" class="btn btn-primary">Start Chinese Quiz 开始测验</button>
+            </section>
+
+            <!-- Quiz Section -->
+            <section id="quizSection" class="section hidden">
+                <div class="quiz-header">
+                    <div class="quiz-info">
+                        <div class="quiz-title" id="quizTitle">Chinese Quiz 华文测验</div>
+                        <div class="quiz-meta">
+                            <span id="studentNameDisplay"></span> | 
+                            <span id="quizCategoryDisplay"></span> | 
+                            <span id="quizDifficultyDisplay"></span>
+                        </div>
+                        <div class="quiz-instructions">
+                            选择每道题的正确答案（A、B、C 或 D）。
+                            Choose the correct answer for each question (A, B, C, or D).
+                        </div>
+                    </div>
+                </div>
+
+                <div id="questionContainer" class="quiz-paper">
+                    <!-- Questions will be inserted here -->
+                </div>
+
+                <div class="quiz-controls">
+                    <button id="printBtn" class="btn btn-secondary">🖨️ Print Quiz</button>
+                    <button id="submitBtn" class="btn btn-primary">Submit Quiz 提交答案</button>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section id="resultsSection" class="section hidden">
+                <h2>Quiz Complete! 测验完成！🎉</h2>
+                <div class="results-card">
+                    <div class="score-display">
+                        <div class="score-circle">
+                            <span id="finalScore">0</span>/<span id="totalQuestions">0</span>
+                        </div>
+                        <p id="scorePercentage">0%</p>
+                    </div>
+                    <p id="resultMessage" class="result-message"></p>
+                </div>
+
+                <button id="reviewBtn" class="btn btn-primary">Review Answers 复习答案</button>
+                <button id="retakeQuizBtn" class="btn btn-secondary">Take Another Quiz 再测一次</button>
+            </section>
+
+            <!-- Review Section -->
+            <section id="reviewSection" class="section hidden">
+                <h2>Quiz Review 答案回顾 📋</h2>
+                <div id="reviewContainer" class="review-container"></div>
+                <button id="backToResultsBtn" class="btn btn-secondary">Back to Results 返回成绩</button>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/chinese-quiz.js?v=1"></script>
+</body>
+</html>
