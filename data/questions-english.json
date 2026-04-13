@@ -858,13 +858,13 @@
       "protagonist"
     ],
     "options": [
-      "The ball has broken the window.",
-      "The ball broke the window.",
-      "The window broke the ball.",
-      "The ball was breaking the window."
+      "{CHARACTER_0} has broken the window.",
+      "{CHARACTER_0} broke the window.",
+      "The window broke {CHARACTER_0}.",
+      "{CHARACTER_0} was breaking the window."
     ],
     "answer": 1,
-    "correct_answer": "The ball broke the window."
+    "correct_answer": "{CHARACTER_0} broke the window."
   },
   {
     "id": "ENG052",
