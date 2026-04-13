@@ -10,9 +10,12 @@ class ChineseQuizApp {
     this.score = 0;
     this.category = '';
     this.difficulty = '';
+    this.theme = '';
     this.letters = ['A', 'B', 'C', 'D'];
     this.optionClickHandler = null;
     this.allQuestions = [];
+    this.universes = [];
+    this.characters = [];
 
     this.setupEventListeners();
     this.initializeApp();
@@ -38,14 +41,24 @@ class ChineseQuizApp {
   async loadChineseData() {
     try {
       const cacheBuster = new Date().getTime();
-      const questions = await fetch(`data/questions-chinese.json?v=${cacheBuster}`).then(r => r.json());
+      const [questions, universes, characters] = await Promise.all([
+        fetch(`data/questions-chinese.json?v=${cacheBuster}`).then(r => r.json()),
+        fetch(`data/universes.json?v=${cacheBuster}`).then(r => r.json()),
+        fetch(`data/characters.json?v=${cacheBuster}`).then(r => r.json())
+      ]);
 
       this.allQuestions = questions;
+      this.universes = universes;
+      this.characters = characters;
 
       console.log(`✓ Loaded ${this.allQuestions.length} Chinese questions`);
+      console.log(`✓ Loaded ${this.universes.length} themes`);
+      console.log(`✓ Loaded ${this.characters.length} characters`);
     } catch (err) {
       console.error('❌ Error loading Chinese data:', err);
       this.allQuestions = [];
+      this.universes = [];
+      this.characters = [];
     }
   }
 
@@ -54,6 +67,21 @@ class ChineseQuizApp {
    */
   async populateDropdowns() {
     console.log('📋 Populating dropdowns...');
+
+    // Populate themes
+    const themeSelect = document.getElementById('theme');
+    if (themeSelect) {
+      console.log(`  Adding ${this.universes.length} themes`);
+      this.universes.forEach(universe => {
+        const option = document.createElement('option');
+        option.value = universe.id;
+        option.textContent = universe.universe_name;
+        themeSelect.appendChild(option);
+      });
+      console.log('  ✓ Themes populated');
+    } else {
+      console.error('  ❌ Theme select not found!');
+    }
 
     // Populate categories
     const categorySelect = document.getElementById('category');
@@ -143,6 +171,7 @@ class ChineseQuizApp {
    */
   async startQuiz() {
     const studentName = document.getElementById('studentName').value.trim();
+    const theme = document.getElementById('theme').value;
     const category = document.getElementById('category').value;
     const difficulty = document.getElementById('difficulty').value;
     const questionCount = parseInt(document.getElementById('questionCount').value);
@@ -153,6 +182,7 @@ class ChineseQuizApp {
     }
 
     this.studentName = studentName;
+    this.theme = theme;
     this.category = category;
     this.difficulty = difficulty;
 
@@ -164,6 +194,14 @@ class ChineseQuizApp {
     this.questions = allQuestions.slice(0, questionCount).map(q => {
       // Clone question object
       const question = JSON.parse(JSON.stringify(q));
+
+      // Assign characters dynamically based on theme and placeholder_roles
+      if (question.placeholder_roles && question.placeholder_roles.length > 0) {
+        question.placeholders = this.assignCharactersToRoles(
+          question.placeholder_roles,
+          theme
+        );
+      }
 
       // Shuffle options for each question and update answer index
       const shuffledData = this.shuffleOptions(question.options, question.answer);
@@ -204,6 +242,11 @@ class ChineseQuizApp {
       `Topic: ${this.category === 'all' ? 'All Topics' : this.category}`;
     document.getElementById('quizDifficultyDisplay').textContent =
       `Level: ${this.difficulty === 'all' ? 'All Levels' : this.difficulty.toUpperCase()}`;
+    if (document.getElementById('quizThemeDisplay')) {
+      const themeName = this.theme === 'all' ? 'All Themes' :
+        this.universes.find(u => u.id === parseInt(this.theme))?.universe_name || 'All Themes';
+      document.getElementById('quizThemeDisplay').textContent = `Theme: ${themeName}`;
+    }
 
     // Generate HTML for all questions
     this.questions.forEach((question, index) => {
@@ -223,7 +266,7 @@ class ChineseQuizApp {
         html += `
           <div class="option ${selectedClass}" data-option-index="${optIndex}">
             <span class="option-letter">${this.letters[optIndex]}</span>
-            <span class="option-text">${option}</span>
+            <span class="option-text">${this.substituteCharacters(option, question)}</span>
           </div>
         `;
       });
@@ -242,10 +285,88 @@ class ChineseQuizApp {
   }
 
   /**
-   * Build question text (convert newlines to <br> for display)
+   * Assign characters to placeholder roles based on theme
+   */
+  assignCharactersToRoles(roles, themeId) {
+    let availableCharacters;
+
+    if (themeId && themeId !== 'all') {
+      // Filter characters by selected theme/universe
+      const themeUniverseId = parseInt(themeId);
+      availableCharacters = this.characters.filter(
+        c => c.universe_id === themeUniverseId
+      );
+    } else {
+      // Use all characters if no theme selected
+      availableCharacters = this.characters;
+    }
+
+    // Track already used characters to prevent duplicates
+    const usedCharacters = new Set();
+
+    // Assign characters to each role
+    return roles.map(role => {
+      // Find characters that have this role and haven't been used yet
+      const matchingChars = availableCharacters.filter(c =>
+        c.roles && c.roles.includes(role) && !usedCharacters.has(c.name)
+      );
+
+      // If no exact role match, use any unused character from the theme
+      const candidates = matchingChars.length > 0
+        ? matchingChars
+        : availableCharacters.filter(c => !usedCharacters.has(c.name));
+
+      // If all characters are used, reuse any character
+      const finalCandidates = candidates.length > 0 ? candidates : availableCharacters;
+
+      // If no characters are available at all, return a placeholder name
+      if (finalCandidates.length === 0) {
+        return '小明';
+      }
+
+      // Pick a random character
+      const randomIndex = Math.floor(Math.random() * finalCandidates.length);
+      const selectedChar = finalCandidates[randomIndex].name;
+
+      // Mark this character as used
+      usedCharacters.add(selectedChar);
+
+      return selectedChar;
+    });
+  }
+
+  /**
+   * Get display name for a character: Chinese name (English name)
+   */
+  getCharacterDisplayName(englishName) {
+    const char = this.characters.find(c => c.name === englishName);
+    if (char && char.chinese_name) {
+      return `${char.chinese_name}（${englishName}）`;
+    }
+    return englishName;
+  }
+
+  /**
+   * Substitute {CHARACTER_N} placeholders in text using Chinese display names
+   */
+  substituteCharacters(text, question) {
+    if (!question.placeholders || question.placeholders.length === 0) {
+      return text;
+    }
+    question.placeholders.forEach((placeholder, index) => {
+      const charRegex = new RegExp(`\\{CHARACTER_${index}\\}`, 'g');
+      const displayName = this.getCharacterDisplayName(placeholder);
+      text = text.replace(charRegex, `<strong>${displayName}</strong>`);
+    });
+    return text;
+  }
+
+  /**
+   * Build question text with placeholders substituted and newlines converted
    */
   buildQuestionText(question) {
-    return question.template.replace(/\n/g, '<br>');
+    let text = question.template.replace(/\n/g, '<br>');
+    return this.substituteCharacters(text, question);
   }
 
   /**
@@ -336,8 +457,10 @@ class ChineseQuizApp {
 
       const questionText = this.buildQuestionText(question);
 
-      const userAnswerText = userAnswer !== null ? question.options[userAnswer] : 'Not answered 未作答';
-      const correctAnswerText = question.options[correctAnswer];
+      const userAnswerText = userAnswer !== null
+        ? this.substituteCharacters(question.options[userAnswer], question)
+        : 'Not answered 未作答';
+      const correctAnswerText = this.substituteCharacters(question.options[correctAnswer], question);
 
       const reviewItem = document.createElement('div');
       reviewItem.className = `review-item ${isCorrect ? 'correct' : 'incorrect'}`;
@@ -379,6 +502,7 @@ class ChineseQuizApp {
     this.score = 0;
     this.category = '';
     this.difficulty = '';
+    this.theme = '';
 
     // Clean up event listener
     if (this.optionClickHandler) {
@@ -390,6 +514,7 @@ class ChineseQuizApp {
     document.getElementById('studentName').value = '';
     document.getElementById('category').value = 'all';
     document.getElementById('difficulty').value = 'all';
+    document.getElementById('theme').value = 'all';
 
     // Show start section and hide all others
     document.getElementById('setupSection').style.display = 'block';

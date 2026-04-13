@@ -266,7 +266,7 @@ class EnglishQuizApp {
         html += `
           <div class="option ${selectedClass}" data-option-index="${optIndex}">
             <span class="option-letter">${this.letters[optIndex]}</span>
-            <span class="option-text">${option}</span>
+            <span class="option-text">${this.substituteCharacters(option, question)}</span>
           </div>
         `;
       });
@@ -319,6 +319,11 @@ class EnglishQuizApp {
       // If all characters are used, reuse any character
       const finalCandidates = candidates.length > 0 ? candidates : availableCharacters;
 
+      // If no characters are available at all, return a placeholder name
+      if (finalCandidates.length === 0) {
+        return 'Alex';
+      }
+
       // Pick a random character
       const randomIndex = Math.floor(Math.random() * finalCandidates.length);
       const selectedChar = finalCandidates[randomIndex].name;
@@ -334,16 +339,20 @@ class EnglishQuizApp {
    * Build question text with placeholders substituted
    */
   buildQuestionText(question) {
-    let text = question.template;
+    return this.substituteCharacters(question.template, question);
+  }
 
-    // Substitute character placeholders if present
-    if (question.placeholders && question.placeholders.length > 0) {
-      question.placeholders.forEach((placeholder, index) => {
-        const charRegex = new RegExp(`\\{CHARACTER_${index}\\}`, 'g');
-        text = text.replace(charRegex, `<strong>${placeholder}</strong>`);
-      });
+  /**
+   * Substitute {CHARACTER_N} placeholders in text
+   */
+  substituteCharacters(text, question) {
+    if (!question.placeholders || question.placeholders.length === 0) {
+      return text;
     }
-
+    question.placeholders.forEach((placeholder, index) => {
+      const charRegex = new RegExp(`\\{CHARACTER_${index}\\}`, 'g');
+      text = text.replace(charRegex, `<strong>${placeholder}</strong>`);
+    });
     return text;
   }
 
@@ -435,8 +444,10 @@ class EnglishQuizApp {
 
       const questionText = this.buildQuestionText(question);
 
-      const userAnswerText = userAnswer !== null ? question.options[userAnswer] : 'Not answered';
-      const correctAnswerText = question.options[correctAnswer];
+      const userAnswerText = userAnswer !== null
+        ? this.substituteCharacters(question.options[userAnswer], question)
+        : 'Not answered';
+      const correctAnswerText = this.substituteCharacters(question.options[correctAnswer], question);
 
       const reviewItem = document.createElement('div');
       reviewItem.className = `review-item ${isCorrect ? 'correct' : 'incorrect'}`;

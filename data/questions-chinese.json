@@ -618,16 +618,18 @@
     "id": "CHN042",
     "category": "语法",
     "difficulty": "P5-P6",
-    "template": "把下面的句子改成「被」字句：老师表扬了小明。",
-    "placeholder_roles": [],
+    "template": "把下面的句子改成「被」字句：老师表扬了{CHARACTER_0}。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
-      "小明被老师表扬了。",
-      "老师把小明表扬了。",
-      "小明表扬了老师。",
-      "被表扬的是小明老师。"
+      "{CHARACTER_0}被老师表扬了。",
+      "老师把{CHARACTER_0}表扬了。",
+      "{CHARACTER_0}表扬了老师。",
+      "被表扬的是{CHARACTER_0}老师。"
     ],
     "answer": 0,
-    "correct_answer": "小明被老师表扬了。"
+    "correct_answer": "{CHARACTER_0}被老师表扬了。"
   },
   {
     "id": "CHN043",
@@ -738,8 +740,10 @@
     "id": "CHN050",
     "category": "阅读理解",
     "difficulty": "P3-P4",
-    "template": "阅读：小明每天放学后都会帮妈妈做家务。他扫地、洗碗、擦桌子。妈妈非常高兴，称赞他是个好孩子。\n\n根据短文，小明帮妈妈做了哪些家务？",
-    "placeholder_roles": [],
+    "template": "阅读：{CHARACTER_0}每天放学后都会帮妈妈做家务。他扫地、洗碗、擦桌子。妈妈非常高兴，称赞他是个好孩子。\n\n根据短文，{CHARACTER_0}帮妈妈做了哪些家务？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "扫地、洗碗、擦桌子",
       "扫地、洗衣服、做饭",
@@ -768,8 +772,10 @@
     "id": "CHN052",
     "category": "阅读理解",
     "difficulty": "P5-P6",
-    "template": "阅读：李华是一个勤奋好学的学生。他每天按时完成作业，遇到不懂的问题就认真思考，实在不会才去请教老师。他的努力换来了优秀的成绩。\n\n根据短文，李华遇到不懂的问题时，会先怎么做？",
-    "placeholder_roles": [],
+    "template": "阅读：{CHARACTER_0}是一个勤奋好学的学生。他每天按时完成作业，遇到不懂的问题就认真思考，实在不会才去请教老师。他的努力换来了优秀的成绩。\n\n根据短文，{CHARACTER_0}遇到不懂的问题时，会先怎么做？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "认真思考",
       "立刻请教老师",
@@ -783,8 +789,10 @@
     "id": "CHN053",
     "category": "阅读理解",
     "difficulty": "P5-P6",
-    "template": "阅读：老奶奶在公园里散步时突然跌倒了。小华毫不犹豫地跑上去扶起老奶奶，并陪她坐在长椅上休息，直到老奶奶的家人赶来。\n\n从短文中可以看出小华是一个怎样的人？",
-    "placeholder_roles": [],
+    "template": "阅读：老奶奶在公园里散步时突然跌倒了。{CHARACTER_0}毫不犹豫地跑上去扶起老奶奶，并陪她坐在长椅上休息，直到老奶奶的家人赶来。\n\n从短文中可以看出{CHARACTER_0}是一个怎样的人？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "乐于助人",
       "贪玩好动",
@@ -813,8 +821,10 @@
     "id": "CHN055",
     "category": "阅读理解",
     "difficulty": "PSLE",
-    "template": "阅读：王明是班上最受欢迎的同学。他不仅学习成绩优秀，而且为人友善，乐于帮助有困难的同学。每当同学们遇到问题，他总是耐心地给予解释和帮助。\n\n下面哪个词语最能形容王明？",
-    "placeholder_roles": [],
+    "template": "阅读：{CHARACTER_0}是班上最受欢迎的同学。他不仅学习成绩优秀，而且为人友善，乐于帮助有困难的同学。每当同学们遇到问题，他总是耐心地给予解释和帮助。\n\n下面哪个词语最能形容{CHARACTER_0}？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "品学兼优",
       "骄傲自满",
@@ -1083,8 +1093,11 @@
     "id": "CHN073",
     "category": "阅读理解",
     "difficulty": "P3-P4",
-    "template": "阅读：小红和小明是好朋友。他们每天一起上学，一起回家，一起做作业。他们还经常在周末一起去图书馆看书。\n\n小红和小明周末会做什么？",
-    "placeholder_roles": [],
+    "template": "阅读：{CHARACTER_0}和{CHARACTER_1}是好朋友。他们每天一起上学，一起回家，一起做作业。他们还经常在周末一起去图书馆看书。\n\n{CHARACTER_0}和{CHARACTER_1}周末会做什么？",
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
     "options": [
       "一起去图书馆看书",
       "一起上学放学",
