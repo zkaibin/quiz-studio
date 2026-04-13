@@ -1298,7 +1298,7 @@
     ],
     "options": [
       "即使路途再遥远，{CHARACTER_0}也要坚持走完。",
-      "即使{CHARACTER_0}努力了，也所以他成功了。",
+      "即使{CHARACTER_0}努力了，也所以{CHARACTER_0}成功了。",
       "即使天气好，但是{CHARACTER_0}也不出门。",
       "即使{CHARACTER_0}跑得快，就到达了终点。"
     ],
