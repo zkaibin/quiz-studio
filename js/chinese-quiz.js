@@ -319,6 +319,11 @@ class ChineseQuizApp {
       // If all characters are used, reuse any character
       const finalCandidates = candidates.length > 0 ? candidates : availableCharacters;
 
+      // If no characters are available at all, return a placeholder name
+      if (finalCandidates.length === 0) {
+        return '小明';
+      }
+
       // Pick a random character
       const randomIndex = Math.floor(Math.random() * finalCandidates.length);
       const selectedChar = finalCandidates[randomIndex].name;
