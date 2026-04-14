@@ -6145,7 +6145,7 @@
       "protagonist"
     ],
     "options": [
-      "{CHARACTER_0}'s sandwich was ate by the dog.",
+      "{CHARACTER_0}'s sandwich is being eaten by the dog.",
       "{CHARACTER_0}'s sandwich is eaten by the dog.",
       "{CHARACTER_0}'s sandwich was eaten by the dog.",
       "{CHARACTER_0}'s sandwich has eaten by the dog."
@@ -7183,12 +7183,12 @@
     ],
     "options": [
       "{HIM_HER_0}",
-      "{HIM_HER_0}self",
+      "{HIMSELF_HERSELF_0}",
       "{HIS_HER_0}",
       "alone"
     ],
     "answer": 1,
-    "correct_answer": "{HIM_HER_0}self"
+    "correct_answer": "{HIMSELF_HERSELF_0}"
   },
   {
     "id": "ENG424",
@@ -7816,8 +7816,8 @@
       "the",
       "—"
     ],
-    "answer": 0,
-    "correct_answer": "a"
+    "answer": 1,
+    "correct_answer": "an"
   },
   {
     "id": "ENG461",
