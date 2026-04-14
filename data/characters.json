@@ -10,7 +10,8 @@
       "helper",
       "leader"
     ],
-    "chinese_name": "米奇老鼠"
+    "chinese_name": "米奇老鼠",
+    "gender": "male"
   },
   {
     "id": 2,
@@ -22,7 +23,8 @@
       "protagonist",
       "helper"
     ],
-    "chinese_name": "米妮老鼠"
+    "chinese_name": "米妮老鼠",
+    "gender": "female"
   },
   {
     "id": 3,
@@ -34,7 +36,8 @@
       "protagonist",
       "helper"
     ],
-    "chinese_name": "唐老鸭"
+    "chinese_name": "唐老鸭",
+    "gender": "male"
   },
   {
     "id": 4,
@@ -46,7 +49,8 @@
       "protagonist",
       "helper"
     ],
-    "chinese_name": "胡迪"
+    "chinese_name": "胡迪",
+    "gender": "male"
   },
   {
     "id": 5,
@@ -58,7 +62,8 @@
       "protagonist",
       "helper"
     ],
-    "chinese_name": "巴斯光年"
+    "chinese_name": "巴斯光年",
+    "gender": "male"
   },
   {
     "id": 6,
@@ -70,7 +75,8 @@
       "protagonist",
       "helper"
     ],
-    "chinese_name": "海绵宝宝"
+    "chinese_name": "海绵宝宝",
+    "gender": "male"
   },
   {
     "id": 7,
@@ -82,7 +88,8 @@
       "protagonist",
       "helper"
     ],
-    "chinese_name": "派大星"
+    "chinese_name": "派大星",
+    "gender": "male"
   },
   {
     "id": 8,
@@ -94,7 +101,8 @@
       "protagonist",
       "helper"
     ],
-    "chinese_name": "艾莎"
+    "chinese_name": "艾莎",
+    "gender": "female"
   },
   {
     "id": 9,
@@ -108,7 +116,8 @@
       "leader",
       "team_member"
     ],
-    "chinese_name": "郑元"
+    "chinese_name": "郑元",
+    "gender": "male"
   },
   {
     "id": 10,
@@ -121,7 +130,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "李熙承"
+    "chinese_name": "李熙承",
+    "gender": "male"
   },
   {
     "id": 11,
@@ -134,7 +144,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "朴宗霖"
+    "chinese_name": "朴宗霖",
+    "gender": "male"
   },
   {
     "id": 12,
@@ -147,7 +158,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "沈载允"
+    "chinese_name": "沈载允",
+    "gender": "male"
   },
   {
     "id": 13,
@@ -160,7 +172,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "朴成勋"
+    "chinese_name": "朴成勋",
+    "gender": "male"
   },
   {
     "id": 14,
@@ -173,7 +186,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "金善雨"
+    "chinese_name": "金善雨",
+    "gender": "male"
   },
   {
     "id": 15,
@@ -186,7 +200,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "西村力"
+    "chinese_name": "西村力",
+    "gender": "male"
   },
   {
     "id": 16,
@@ -200,7 +215,8 @@
       "leader",
       "team_member"
     ],
-    "chinese_name": "方灿"
+    "chinese_name": "方灿",
+    "gender": "male"
   },
   {
     "id": 17,
@@ -213,7 +229,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "李旻镐"
+    "chinese_name": "李旻镐",
+    "gender": "male"
   },
   {
     "id": 18,
@@ -226,7 +243,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "徐昌彬"
+    "chinese_name": "徐昌彬",
+    "gender": "male"
   },
   {
     "id": 19,
@@ -239,7 +257,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "黄铉辰"
+    "chinese_name": "黄铉辰",
+    "gender": "male"
   },
   {
     "id": 20,
@@ -252,7 +271,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "韩志秀"
+    "chinese_name": "韩志秀",
+    "gender": "male"
   },
   {
     "id": 21,
@@ -265,7 +285,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "李镇利"
+    "chinese_name": "李镇利",
+    "gender": "male"
   },
   {
     "id": 22,
@@ -278,7 +299,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "金承民"
+    "chinese_name": "金承民",
+    "gender": "male"
   },
   {
     "id": 23,
@@ -291,7 +313,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "杨政允"
+    "chinese_name": "杨政允",
+    "gender": "male"
   },
   {
     "id": 24,
@@ -305,7 +328,8 @@
       "leader",
       "team_member"
     ],
-    "chinese_name": "拉咪"
+    "chinese_name": "拉咪",
+    "gender": "female"
   },
   {
     "id": 25,
@@ -318,7 +342,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "雅贤"
+    "chinese_name": "雅贤",
+    "gender": "female"
   },
   {
     "id": 26,
@@ -331,7 +356,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "奇基塔"
+    "chinese_name": "奇基塔",
+    "gender": "female"
   },
   {
     "id": 27,
@@ -344,7 +370,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "阿莎"
+    "chinese_name": "阿莎",
+    "gender": "female"
   },
   {
     "id": 28,
@@ -357,7 +384,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "罗拉"
+    "chinese_name": "罗拉",
+    "gender": "female"
   },
   {
     "id": 29,
@@ -370,7 +398,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "帕丽塔"
+    "chinese_name": "帕丽塔",
+    "gender": "female"
   },
   {
     "id": 30,
@@ -383,7 +412,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "哈拉姆"
+    "chinese_name": "哈拉姆",
+    "gender": "female"
   },
   {
     "id": 31,
@@ -396,7 +426,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "崔叶芝"
+    "chinese_name": "崔叶芝",
+    "gender": "female"
   },
   {
     "id": 32,
@@ -409,7 +440,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "申志玟"
+    "chinese_name": "申志玟",
+    "gender": "female"
   },
   {
     "id": 33,
@@ -422,7 +454,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "申柳进"
+    "chinese_name": "申柳进",
+    "gender": "female"
   },
   {
     "id": 34,
@@ -435,7 +468,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "李彩领"
+    "chinese_name": "李彩领",
+    "gender": "female"
   },
   {
     "id": 35,
@@ -448,7 +482,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "刘允娥"
+    "chinese_name": "刘允娥",
+    "gender": "female"
   },
   {
     "id": 36,
@@ -462,7 +497,8 @@
       "leader",
       "hero"
     ],
-    "chinese_name": "钢铁侠"
+    "chinese_name": "钢铁侠",
+    "gender": "male"
   },
   {
     "id": 37,
@@ -476,7 +512,8 @@
       "leader",
       "hero"
     ],
-    "chinese_name": "美国队长"
+    "chinese_name": "美国队长",
+    "gender": "male"
   },
   {
     "id": 38,
@@ -489,7 +526,8 @@
       "helper",
       "hero"
     ],
-    "chinese_name": "托尔"
+    "chinese_name": "托尔",
+    "gender": "male"
   },
   {
     "id": 39,
@@ -502,7 +540,8 @@
       "helper",
       "hero"
     ],
-    "chinese_name": "绿巨人"
+    "chinese_name": "绿巨人",
+    "gender": "male"
   },
   {
     "id": 40,
@@ -515,7 +554,8 @@
       "helper",
       "hero"
     ],
-    "chinese_name": "黑寡妇"
+    "chinese_name": "黑寡妇",
+    "gender": "female"
   },
   {
     "id": 41,
@@ -528,7 +568,8 @@
       "helper",
       "hero"
     ],
-    "chinese_name": "鹰眼"
+    "chinese_name": "鹰眼",
+    "gender": "male"
   },
   {
     "id": 42,
@@ -541,7 +582,8 @@
       "helper",
       "hero"
     ],
-    "chinese_name": "蜘蛛侠"
+    "chinese_name": "蜘蛛侠",
+    "gender": "male"
   },
   {
     "id": 43,
@@ -554,7 +596,8 @@
       "helper",
       "hero"
     ],
-    "chinese_name": "战争机器"
+    "chinese_name": "战争机器",
+    "gender": "male"
   },
   {
     "id": 44,
@@ -567,7 +610,8 @@
       "helper",
       "hero"
     ],
-    "chinese_name": "猎鹰"
+    "chinese_name": "猎鹰",
+    "gender": "male"
   },
   {
     "id": 45,
@@ -579,7 +623,8 @@
       "protagonist",
       "helper"
     ],
-    "chinese_name": "巴基"
+    "chinese_name": "巴基",
+    "gender": "male"
   },
   {
     "id": 46,
@@ -592,7 +637,8 @@
       "helper",
       "villain"
     ],
-    "chinese_name": "洛基"
+    "chinese_name": "洛基",
+    "gender": "male"
   },
   {
     "id": 47,
@@ -604,7 +650,8 @@
       "protagonist",
       "helper"
     ],
-    "chinese_name": "女武神"
+    "chinese_name": "女武神",
+    "gender": "female"
   },
   {
     "id": 48,
@@ -616,7 +663,8 @@
       "protagonist",
       "helper"
     ],
-    "chinese_name": "凯特·毕晓普"
+    "chinese_name": "凯特·毕晓普",
+    "gender": "female"
   },
   {
     "id": 49,
@@ -628,7 +676,8 @@
       "protagonist",
       "helper"
     ],
-    "chinese_name": "女浩克"
+    "chinese_name": "女浩克",
+    "gender": "female"
   },
   {
     "id": 50,
@@ -640,7 +689,8 @@
       "protagonist",
       "helper"
     ],
-    "chinese_name": "舒里"
+    "chinese_name": "舒里",
+    "gender": "female"
   },
   {
     "id": 51,
@@ -653,7 +703,8 @@
       "helper",
       "villain"
     ],
-    "chinese_name": "灭霸"
+    "chinese_name": "灭霸",
+    "gender": "male"
   },
   {
     "id": 52,
@@ -665,7 +716,8 @@
       "protagonist",
       "helper"
     ],
-    "chinese_name": "星云"
+    "chinese_name": "星云",
+    "gender": "female"
   },
   {
     "id": 53,
@@ -677,7 +729,8 @@
       "protagonist",
       "helper"
     ],
-    "chinese_name": "叶莲娜"
+    "chinese_name": "叶莲娜",
+    "gender": "female"
   },
   {
     "id": 54,
@@ -691,7 +744,8 @@
       "leader",
       "vampire"
     ],
-    "chinese_name": "赫利"
+    "chinese_name": "赫利",
+    "gender": "male"
   },
   {
     "id": 55,
@@ -704,7 +758,8 @@
       "helper",
       "vampire"
     ],
-    "chinese_name": "梭伦"
+    "chinese_name": "梭伦",
+    "gender": "male"
   },
   {
     "id": 56,
@@ -717,7 +772,8 @@
       "helper",
       "vampire"
     ],
-    "chinese_name": "贾安"
+    "chinese_name": "贾安",
+    "gender": "male"
   },
   {
     "id": 57,
@@ -730,7 +786,8 @@
       "helper",
       "vampire"
     ],
-    "chinese_name": "贾卡"
+    "chinese_name": "贾卡",
+    "gender": "male"
   },
   {
     "id": 58,
@@ -743,7 +800,8 @@
       "helper",
       "vampire"
     ],
-    "chinese_name": "诗音"
+    "chinese_name": "诗音",
+    "gender": "male"
   },
   {
     "id": 59,
@@ -756,7 +814,8 @@
       "helper",
       "vampire"
     ],
-    "chinese_name": "诺亚"
+    "chinese_name": "诺亚",
+    "gender": "male"
   },
   {
     "id": 60,
@@ -769,7 +828,8 @@
       "helper",
       "vampire"
     ],
-    "chinese_name": "吉诺"
+    "chinese_name": "吉诺",
+    "gender": "male"
   },
   {
     "id": 61,
@@ -782,7 +842,8 @@
       "hero",
       "leader"
     ],
-    "chinese_name": "孙悟空"
+    "chinese_name": "孙悟空",
+    "gender": "male"
   },
   {
     "id": 62,
@@ -795,7 +856,8 @@
       "hero",
       "team_member"
     ],
-    "chinese_name": "贝吉塔"
+    "chinese_name": "贝吉塔",
+    "gender": "male"
   },
   {
     "id": 63,
@@ -808,7 +870,8 @@
       "hero",
       "helper"
     ],
-    "chinese_name": "孙悟饭"
+    "chinese_name": "孙悟饭",
+    "gender": "male"
   },
   {
     "id": 64,
@@ -821,7 +884,8 @@
       "hero",
       "team_member"
     ],
-    "chinese_name": "比克"
+    "chinese_name": "比克",
+    "gender": "male"
   },
   {
     "id": 65,
@@ -833,7 +897,8 @@
       "villain",
       "leader"
     ],
-    "chinese_name": "弗利萨"
+    "chinese_name": "弗利萨",
+    "gender": "male"
   },
   {
     "id": 66,
@@ -844,7 +909,8 @@
     "roles": [
       "villain"
     ],
-    "chinese_name": "沙鲁"
+    "chinese_name": "沙鲁",
+    "gender": "male"
   },
   {
     "id": 67,
@@ -856,7 +922,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "布尔玛"
+    "chinese_name": "布尔玛",
+    "gender": "female"
   },
   {
     "id": 96,
@@ -869,7 +936,8 @@
       "hero",
       "leader"
     ],
-    "chinese_name": "哪吒"
+    "chinese_name": "哪吒",
+    "gender": "male"
   },
   {
     "id": 97,
@@ -882,7 +950,8 @@
       "helper",
       "hero"
     ],
-    "chinese_name": "敖丙"
+    "chinese_name": "敖丙",
+    "gender": "male"
   },
   {
     "id": 98,
@@ -894,7 +963,8 @@
       "mentor",
       "helper"
     ],
-    "chinese_name": "太乙真人"
+    "chinese_name": "太乙真人",
+    "gender": "male"
   },
   {
     "id": 99,
@@ -906,7 +976,8 @@
       "leader",
       "helper"
     ],
-    "chinese_name": "李靖"
+    "chinese_name": "李靖",
+    "gender": "male"
   },
   {
     "id": 100,
@@ -918,7 +989,8 @@
       "helper",
       "team_member"
     ],
-    "chinese_name": "殷夫人"
+    "chinese_name": "殷夫人",
+    "gender": "female"
   },
   {
     "id": 101,
@@ -930,7 +1002,8 @@
       "antagonist",
       "villain"
     ],
-    "chinese_name": "申公豹"
+    "chinese_name": "申公豹",
+    "gender": "male"
   },
   {
     "id": 102,
@@ -942,7 +1015,8 @@
       "leader",
       "antagonist"
     ],
-    "chinese_name": "龙王"
+    "chinese_name": "龙王",
+    "gender": "male"
   },
   {
     "id": 103,
@@ -954,6 +1028,7 @@
       "mentor",
       "leader"
     ],
-    "chinese_name": "元始天尊"
+    "chinese_name": "元始天尊",
+    "gender": "male"
   }
 ]
