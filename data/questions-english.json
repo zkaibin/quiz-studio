@@ -796,7 +796,7 @@
       "{CHARACTER_0} said {HE_SHE_0} feels sick that day."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} said that she was feeling sick that day."
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} was feeling sick that day."
   },
   {
     "id": "ENG048",
@@ -813,7 +813,7 @@
       "{HE_SHE_CAP_0} asked that I had finished my homework."
     ],
     "answer": 2,
-    "correct_answer": "He asked if I had finished my homework."
+    "correct_answer": "{HE_SHE_CAP_0} asked if I had finished my homework."
   },
   {
     "id": "ENG049",
@@ -1561,7 +1561,7 @@
       "{HE_SHE_CAP_0} is very proud of {HIS_HER_0} achievements."
     ],
     "answer": 2,
-    "correct_answer": "She feels resentful or bitter about something."
+    "correct_answer": "{HE_SHE_CAP_0} feels resentful or bitter about something."
   },
   {
     "id": "ENG093",
@@ -3805,7 +3805,7 @@
       "{HIMSELF_HERSELF_0}"
     ],
     "answer": 0,
-    "correct_answer": "her"
+    "correct_answer": "{HIS_HER_0}"
   },
   {
     "id": "ENG225",
@@ -3822,7 +3822,7 @@
       "they"
     ],
     "answer": 2,
-    "correct_answer": "she"
+    "correct_answer": "{HE_SHE_0}"
   },
   {
     "id": "ENG226",
@@ -3839,7 +3839,7 @@
       "{HE_SHE_0}"
     ],
     "answer": 2,
-    "correct_answer": "herself"
+    "correct_answer": "{HIMSELF_HERSELF_0}"
   },
   {
     "id": "ENG227",
@@ -4179,7 +4179,7 @@
       "{CHARACTER_0} said {HE_SHE_0} had gone to the library."
     ],
     "answer": 0,
-    "correct_answer": "{CHARACTER_0} said she was going to the library."
+    "correct_answer": "{CHARACTER_0} said {HE_SHE_0} was going to the library."
   },
   {
     "id": "ENG247",
@@ -4213,7 +4213,7 @@
       "{CHARACTER_0} said to {HIS_HER_0} friend to help with the homework."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} told her friend that she would help her with her homework."
+    "correct_answer": "{CHARACTER_0} told {HIS_HER_0} friend that {HE_SHE_0} would help her with her homework."
   },
   {
     "id": "ENG249",
@@ -4264,7 +4264,7 @@
       "{CHARACTER_0} said {HIS_HER_0} mother that {HE_SHE_0} had finished {HIS_HER_0} homework."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} told her mother that she had already finished her homework."
+    "correct_answer": "{CHARACTER_0} told {HIS_HER_0} mother that {HE_SHE_0} had already finished {HIS_HER_0} homework."
   },
   {
     "id": "ENG252",
@@ -4298,7 +4298,7 @@
       "{CHARACTER_0} said {HE_SHE_0} would go to the museum last Saturday."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} said that she had gone to the museum the previous Saturday."
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} had gone to the museum the previous Saturday."
   },
   {
     "id": "ENG254",
@@ -4315,7 +4315,7 @@
       "{CHARACTER_0} said {HE_SHE_0} is completing the project."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} said she had completed the project."
+    "correct_answer": "{CHARACTER_0} said {HE_SHE_0} had completed the project."
   },
   {
     "id": "ENG255",
@@ -4332,7 +4332,7 @@
       "{CHARACTER_0} asked {HIS_HER_0} friend that she had eaten lunch."
     ],
     "answer": 0,
-    "correct_answer": "{CHARACTER_0} asked her friend if she had eaten lunch yet."
+    "correct_answer": "{CHARACTER_0} asked {HIS_HER_0} friend if she had eaten lunch yet."
   },
   {
     "id": "ENG256",
