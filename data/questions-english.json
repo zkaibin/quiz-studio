@@ -5132,5 +5132,4051 @@
     ],
     "answer": 1,
     "correct_answer": "\"Where are you going?\" she asked."
+  },
+  {
+    "id": "ENG303",
+    "category": "Grammar - Tenses",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} ______ {HIS_HER_0} teeth twice a day.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "brush",
+      "brushes",
+      "brushed",
+      "is brushing"
+    ],
+    "answer": 1,
+    "correct_answer": "brushes"
+  },
+  {
+    "id": "ENG304",
+    "category": "Grammar - Tenses",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} ______ a beautiful picture for {HIS_HER_0} mother's birthday.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "draw",
+      "drawed",
+      "drew",
+      "drawn"
+    ],
+    "answer": 2,
+    "correct_answer": "drew"
+  },
+  {
+    "id": "ENG305",
+    "category": "Grammar - Tenses",
+    "difficulty": "P3-P4",
+    "template": "Shhh! {CHARACTER_0} ______ right now. Do not wake {HIM_HER_0} up.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "sleeps",
+      "slept",
+      "is sleeping",
+      "has slept"
+    ],
+    "answer": 2,
+    "correct_answer": "is sleeping"
+  },
+  {
+    "id": "ENG306",
+    "category": "Grammar - Tenses",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} promised {HE_SHE_0} ______ {HIS_HER_0} room after lunch.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "cleans",
+      "cleaned",
+      "will clean",
+      "has cleaned"
+    ],
+    "answer": 2,
+    "correct_answer": "will clean"
+  },
+  {
+    "id": "ENG307",
+    "category": "Grammar - Tenses",
+    "difficulty": "P3-P4",
+    "template": "Last Monday, {CHARACTER_0} ______ to school early to prepare for the presentation.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "goes",
+      "gone",
+      "go",
+      "went"
+    ],
+    "answer": 3,
+    "correct_answer": "went"
+  },
+  {
+    "id": "ENG308",
+    "category": "Grammar - Tenses",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} ______ {HIS_HER_0} homework already, so {HE_SHE_0} is free to play.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "finish",
+      "finished",
+      "has finished",
+      "finishes"
+    ],
+    "answer": 2,
+    "correct_answer": "has finished"
+  },
+  {
+    "id": "ENG309",
+    "category": "Grammar - Tenses",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} checked the timetable. The next bus ______ at half past three.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "leave",
+      "left",
+      "leaves",
+      "is leaving"
+    ],
+    "answer": 2,
+    "correct_answer": "leaves"
+  },
+  {
+    "id": "ENG310",
+    "category": "Grammar - Tenses",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} ______ to the zoo three times last year.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "goes",
+      "is going",
+      "went",
+      "has gone"
+    ],
+    "answer": 2,
+    "correct_answer": "went"
+  },
+  {
+    "id": "ENG311",
+    "category": "Grammar - Tenses",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} ______ that water boils at 100 degrees Celsius.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "knew",
+      "knows",
+      "know",
+      "is knowing"
+    ],
+    "answer": 1,
+    "correct_answer": "knows"
+  },
+  {
+    "id": "ENG312",
+    "category": "Grammar - Tenses",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} ______ for the competition since January and is confident for the performance.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "trains",
+      "trained",
+      "has been training",
+      "had been training"
+    ],
+    "answer": 2,
+    "correct_answer": "has been training"
+  },
+  {
+    "id": "ENG313",
+    "category": "Grammar - Tenses",
+    "difficulty": "P5-P6",
+    "template": "When {CHARACTER_0} arrived at the party, all the food ______.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "was eaten",
+      "is eaten",
+      "had been eaten",
+      "has been eaten"
+    ],
+    "answer": 2,
+    "correct_answer": "had been eaten"
+  },
+  {
+    "id": "ENG314",
+    "category": "Grammar - Tenses",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} ______ a book when the power suddenly went out.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "reads",
+      "read",
+      "was reading",
+      "had read"
+    ],
+    "answer": 2,
+    "correct_answer": "was reading"
+  },
+  {
+    "id": "ENG315",
+    "category": "Grammar - Tenses",
+    "difficulty": "P5-P6",
+    "template": "By this time next year, {CHARACTER_0} ______ from primary school.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "graduates",
+      "will graduate",
+      "will have graduated",
+      "has graduated"
+    ],
+    "answer": 2,
+    "correct_answer": "will have graduated"
+  },
+  {
+    "id": "ENG316",
+    "category": "Grammar - Tenses",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} told me {HE_SHE_0} ______ Singapore before this visit.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "never visited",
+      "has never visited",
+      "had never visited",
+      "never visits"
+    ],
+    "answer": 2,
+    "correct_answer": "had never visited"
+  },
+  {
+    "id": "ENG317",
+    "category": "Grammar - Tenses",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} ______ be afraid of the dark when {HE_SHE_0} was young, but {HE_SHE_0} is not afraid anymore.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "used to",
+      "uses to",
+      "is used to",
+      "was using to"
+    ],
+    "answer": 0,
+    "correct_answer": "used to"
+  },
+  {
+    "id": "ENG318",
+    "category": "Grammar - Tenses",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} ______ on the project for months before it was finally approved.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "works",
+      "worked",
+      "has been working",
+      "had been working"
+    ],
+    "answer": 3,
+    "correct_answer": "had been working"
+  },
+  {
+    "id": "ENG319",
+    "category": "Grammar - Tenses",
+    "difficulty": "P5-P6",
+    "template": "If {CHARACTER_0} ______ more time, {HE_SHE_0} would explore the entire museum.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "has",
+      "had",
+      "would have",
+      "have"
+    ],
+    "answer": 1,
+    "correct_answer": "had"
+  },
+  {
+    "id": "ENG320",
+    "category": "Grammar - Tenses",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} ______ in Singapore since {HE_SHE_0} was born.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "is living",
+      "was living",
+      "has been living",
+      "had been living"
+    ],
+    "answer": 2,
+    "correct_answer": "has been living"
+  },
+  {
+    "id": "ENG321",
+    "category": "Grammar - Tenses",
+    "difficulty": "P5-P6",
+    "template": "At this time tomorrow, {CHARACTER_0} ______ {HIS_HER_0} final examination.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "sits",
+      "will sit",
+      "will be sitting",
+      "sat"
+    ],
+    "answer": 2,
+    "correct_answer": "will be sitting"
+  },
+  {
+    "id": "ENG322",
+    "category": "Grammar - Tenses",
+    "difficulty": "PSLE",
+    "template": "If {CHARACTER_0} ______ more carefully, {HE_SHE_0} would not have made that mistake.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "reads",
+      "read",
+      "had read",
+      "has read"
+    ],
+    "answer": 2,
+    "correct_answer": "had read"
+  },
+  {
+    "id": "ENG323",
+    "category": "Grammar - Tenses",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} realised that {HE_SHE_0} ______ {HIS_HER_0} wallet at home.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "left",
+      "leaves",
+      "had left",
+      "was leaving"
+    ],
+    "answer": 2,
+    "correct_answer": "had left"
+  },
+  {
+    "id": "ENG324",
+    "category": "Grammar - Tenses",
+    "difficulty": "PSLE",
+    "template": "By the end of this month, {CHARACTER_0} ______ the entire reading programme.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "completed",
+      "completes",
+      "will complete",
+      "will have completed"
+    ],
+    "answer": 3,
+    "correct_answer": "will have completed"
+  },
+  {
+    "id": "ENG325",
+    "category": "Grammar - Tenses",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} explained that {HE_SHE_0} ______ the letter before receiving the news.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "wrote",
+      "writes",
+      "had written",
+      "has written"
+    ],
+    "answer": 2,
+    "correct_answer": "had written"
+  },
+  {
+    "id": "ENG326",
+    "category": "Grammar - Tenses",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} wishes {HE_SHE_0} ______ more attention during the lesson.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "paid",
+      "pays",
+      "had paid",
+      "has paid"
+    ],
+    "answer": 2,
+    "correct_answer": "had paid"
+  },
+  {
+    "id": "ENG327",
+    "category": "Grammar - Tenses",
+    "difficulty": "PSLE",
+    "template": "By the time {CHARACTER_0} retires, {HE_SHE_0} ______ for this school for thirty years.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "has worked",
+      "works",
+      "will have been working",
+      "had been working"
+    ],
+    "answer": 2,
+    "correct_answer": "will have been working"
+  },
+  {
+    "id": "ENG328",
+    "category": "Grammar - Tenses",
+    "difficulty": "PSLE",
+    "template": "If {CHARACTER_0}'s team ______ more practice, they might stand a chance of winning.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "gets",
+      "got",
+      "had got",
+      "would get"
+    ],
+    "answer": 1,
+    "correct_answer": "got"
+  },
+  {
+    "id": "ENG329",
+    "category": "Grammar - Tenses",
+    "difficulty": "PSLE",
+    "template": "If {CHARACTER_0} ______ the sunscreen, {HE_SHE_0} would not have got sunburnt.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "applies",
+      "applied",
+      "had applied",
+      "has applied"
+    ],
+    "answer": 2,
+    "correct_answer": "had applied"
+  },
+  {
+    "id": "ENG330",
+    "category": "Grammar - Tenses",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} told {HIS_HER_0} friend that the test ______ the following Friday.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "is",
+      "was",
+      "will be",
+      "would be"
+    ],
+    "answer": 3,
+    "correct_answer": "would be"
+  },
+  {
+    "id": "ENG331",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} noticed that the flock of birds ______ in the direction of the sea.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "fly",
+      "flies",
+      "is flying",
+      "are fly"
+    ],
+    "answer": 2,
+    "correct_answer": "is flying"
+  },
+  {
+    "id": "ENG332",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} saw that the boxes on the shelf ______ quite dusty.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "is",
+      "was",
+      "are",
+      "has been"
+    ],
+    "answer": 2,
+    "correct_answer": "are"
+  },
+  {
+    "id": "ENG333",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P3-P4",
+    "template": "Neither {CHARACTER_0} nor {HIS_HER_0} sister ______ keen on visiting the museum.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "are",
+      "were",
+      "is",
+      "have been"
+    ],
+    "answer": 2,
+    "correct_answer": "is"
+  },
+  {
+    "id": "ENG334",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} observed that each of the students ______ a different role in the project.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "have",
+      "had",
+      "has",
+      "were having"
+    ],
+    "answer": 2,
+    "correct_answer": "has"
+  },
+  {
+    "id": "ENG335",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} saw that the bag of oranges ______ very heavy.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "were",
+      "are",
+      "was",
+      "have been"
+    ],
+    "answer": 2,
+    "correct_answer": "was"
+  },
+  {
+    "id": "ENG336",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P3-P4",
+    "template": "One of {CHARACTER_0}'s books ______ missing from the shelf.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "are",
+      "were",
+      "is",
+      "have been"
+    ],
+    "answer": 2,
+    "correct_answer": "is"
+  },
+  {
+    "id": "ENG337",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P3-P4",
+    "template": "Both {CHARACTER_0} and {HIS_HER_0} best friend ______ on the school's debate team.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "is",
+      "was",
+      "are",
+      "has been"
+    ],
+    "answer": 2,
+    "correct_answer": "are"
+  },
+  {
+    "id": "ENG338",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} knows that the information in those files ______ very important.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "are",
+      "were",
+      "is",
+      "have been"
+    ],
+    "answer": 2,
+    "correct_answer": "is"
+  },
+  {
+    "id": "ENG339",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}, as well as {HIS_HER_0} classmates, ______ required to wear the school uniform.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "are",
+      "were",
+      "is",
+      "have been"
+    ],
+    "answer": 2,
+    "correct_answer": "is"
+  },
+  {
+    "id": "ENG340",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} said that bread and butter ______ {HIS_HER_0} favourite snack.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "are",
+      "were",
+      "is",
+      "have been"
+    ],
+    "answer": 2,
+    "correct_answer": "is"
+  },
+  {
+    "id": "ENG341",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P5-P6",
+    "template": "Either {CHARACTER_0} or {HIS_HER_0} brothers ______ to attend the parent-teacher meeting.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "has",
+      "is",
+      "are",
+      "was"
+    ],
+    "answer": 2,
+    "correct_answer": "are"
+  },
+  {
+    "id": "ENG342",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P5-P6",
+    "template": "None of the money that {CHARACTER_0} raised ______ been accounted for.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "have",
+      "has",
+      "are",
+      "were"
+    ],
+    "answer": 1,
+    "correct_answer": "has"
+  },
+  {
+    "id": "ENG343",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}'s love for books and learning ______ evident from {HIS_HER_0} extensive collection.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "are",
+      "were",
+      "is",
+      "have been"
+    ],
+    "answer": 2,
+    "correct_answer": "is"
+  },
+  {
+    "id": "ENG344",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} could not believe that there ______ several unanswered messages on {HIS_HER_0} phone.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "is",
+      "was",
+      "are",
+      "were"
+    ],
+    "answer": 3,
+    "correct_answer": "were"
+  },
+  {
+    "id": "ENG345",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} saw that a number of students ______ absent from the class.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "was",
+      "is",
+      "are",
+      "were"
+    ],
+    "answer": 3,
+    "correct_answer": "were"
+  },
+  {
+    "id": "ENG346",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P5-P6",
+    "template": "The majority of {CHARACTER_0}'s classmates ______ agreed to take part in the fundraiser.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "has",
+      "have",
+      "is",
+      "was"
+    ],
+    "answer": 1,
+    "correct_answer": "have"
+  },
+  {
+    "id": "ENG347",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} learnt that three-quarters of the wall ______ already been painted.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "have",
+      "has",
+      "are",
+      "were"
+    ],
+    "answer": 1,
+    "correct_answer": "has"
+  },
+  {
+    "id": "ENG348",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} checked that all the equipment ______ packed and ready for the expedition.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "were",
+      "are",
+      "was",
+      "have been"
+    ],
+    "answer": 2,
+    "correct_answer": "was"
+  },
+  {
+    "id": "ENG349",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P5-P6",
+    "template": "Neither of {CHARACTER_0}'s proposals ______ accepted by the committee.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "were",
+      "are",
+      "was",
+      "have been"
+    ],
+    "answer": 2,
+    "correct_answer": "was"
+  },
+  {
+    "id": "ENG350",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}, along with {HIS_HER_0} parents, ______ invited to the prize-giving ceremony.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "are",
+      "were",
+      "was",
+      "have been"
+    ],
+    "answer": 2,
+    "correct_answer": "was"
+  },
+  {
+    "id": "ENG351",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "PSLE",
+    "template": "Everyone in {CHARACTER_0}'s class ______ to bring a dish for the class party.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "have",
+      "has",
+      "are",
+      "were"
+    ],
+    "answer": 1,
+    "correct_answer": "has"
+  },
+  {
+    "id": "ENG352",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "PSLE",
+    "template": "Not only the principal but also the teachers ______ full of praise for {CHARACTER_0}'s performance.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "is",
+      "has been",
+      "was",
+      "were"
+    ],
+    "answer": 3,
+    "correct_answer": "were"
+  },
+  {
+    "id": "ENG353",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}'s list of things to do before graduation ______ growing longer every day.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "are",
+      "were",
+      "is",
+      "have been"
+    ],
+    "answer": 2,
+    "correct_answer": "is"
+  },
+  {
+    "id": "ENG354",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} believes that making new friends ______ one of the best parts of school life.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "are",
+      "were",
+      "is",
+      "have been"
+    ],
+    "answer": 2,
+    "correct_answer": "is"
+  },
+  {
+    "id": "ENG355",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} said that the news about the school's results ______ very encouraging.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "are",
+      "were",
+      "is",
+      "have been"
+    ],
+    "answer": 2,
+    "correct_answer": "is"
+  },
+  {
+    "id": "ENG356",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}'s teacher explained that electronics ______ one of the fastest-growing fields today.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "are",
+      "were",
+      "is",
+      "have been"
+    ],
+    "answer": 2,
+    "correct_answer": "is"
+  },
+  {
+    "id": "ENG357",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} wondered whether either the principal or the teachers ______ going to address the new rules.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "is",
+      "was",
+      "are",
+      "has"
+    ],
+    "answer": 2,
+    "correct_answer": "are"
+  },
+  {
+    "id": "ENG358",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} and the team agreed that the number of practice sessions ______ to be increased.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "need",
+      "needs",
+      "needed",
+      "have needed"
+    ],
+    "answer": 1,
+    "correct_answer": "needs"
+  },
+  {
+    "id": "ENG359",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} heard that the jury ______ reached a unanimous verdict after deliberating for hours.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "have",
+      "has",
+      "are",
+      "were"
+    ],
+    "answer": 1,
+    "correct_answer": "has"
+  },
+  {
+    "id": "ENG360",
+    "category": "Grammar - Subject-Verb Agreement",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} confirmed that all the entries for the competition ______ submitted on time.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "was",
+      "is",
+      "were",
+      "has"
+    ],
+    "answer": 2,
+    "correct_answer": "were"
+  },
+  {
+    "id": "ENG361",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} read that the national anthem ______ at school assemblies every Monday.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "sing",
+      "sang",
+      "is sung",
+      "are sung"
+    ],
+    "answer": 2,
+    "correct_answer": "is sung"
+  },
+  {
+    "id": "ENG362",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P3-P4",
+    "template": "The dog ate {CHARACTER_0}'s sandwich. What is the passive form?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0}'s sandwich was ate by the dog.",
+      "{CHARACTER_0}'s sandwich is eaten by the dog.",
+      "{CHARACTER_0}'s sandwich was eaten by the dog.",
+      "{CHARACTER_0}'s sandwich has eaten by the dog."
+    ],
+    "answer": 2,
+    "correct_answer": "{CHARACTER_0}'s sandwich was eaten by the dog."
+  },
+  {
+    "id": "ENG363",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} read: 'The old library was destroyed by the fire.' What is the active voice?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "The fire destroys the old library.",
+      "The fire destroyed the old library.",
+      "The fire has destroyed the old library.",
+      "The old library was destroying the fire."
+    ],
+    "answer": 1,
+    "correct_answer": "The fire destroyed the old library."
+  },
+  {
+    "id": "ENG364",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P3-P4",
+    "template": "The new shopping mall ______ by workers when {CHARACTER_0} walked past.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "build",
+      "built",
+      "was built",
+      "was being built"
+    ],
+    "answer": 3,
+    "correct_answer": "was being built"
+  },
+  {
+    "id": "ENG365",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} read that the new school canteen ______ next month.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "open",
+      "opened",
+      "will open",
+      "will be opened"
+    ],
+    "answer": 3,
+    "correct_answer": "will be opened"
+  },
+  {
+    "id": "ENG366",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}'s bicycle ______ outside the school last night.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "someone stole",
+      "was stolen",
+      "had stolen",
+      "is stolen"
+    ],
+    "answer": 1,
+    "correct_answer": "was stolen"
+  },
+  {
+    "id": "ENG367",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}'s prize-winning drawing ______ in the school hall for a whole month.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "displayed",
+      "has displayed",
+      "has been displayed",
+      "is displaying"
+    ],
+    "answer": 2,
+    "correct_answer": "has been displayed"
+  },
+  {
+    "id": "ENG368",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P3-P4",
+    "template": "The class elected {CHARACTER_0} as the group leader. What is the passive voice?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} elected the class as the group leader.",
+      "{CHARACTER_0} was elected as the group leader by the class.",
+      "{CHARACTER_0} is elected as the group leader by the class.",
+      "{CHARACTER_0} had elected the group leader by the class."
+    ],
+    "answer": 1,
+    "correct_answer": "{CHARACTER_0} was elected as the group leader by the class."
+  },
+  {
+    "id": "ENG369",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} reads the newspaper every morning. What is the passive form?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "The newspaper was read every morning by {CHARACTER_0}.",
+      "The newspaper is read every morning by {CHARACTER_0}.",
+      "The newspaper has read every morning by {CHARACTER_0}.",
+      "The newspaper is being read by {CHARACTER_0}."
+    ],
+    "answer": 1,
+    "correct_answer": "The newspaper is read every morning by {CHARACTER_0}."
+  },
+  {
+    "id": "ENG370",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P3-P4",
+    "template": "The gardener watered the plants. {CHARACTER_0} asked what the passive form was.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "The plants are watered by the gardener.",
+      "The plants were watered by the gardener.",
+      "The plants have watered by the gardener.",
+      "The plants was watered by the gardener."
+    ],
+    "answer": 1,
+    "correct_answer": "The plants were watered by the gardener."
+  },
+  {
+    "id": "ENG371",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P5-P6",
+    "template": "The prize ______ to {CHARACTER_0} by the judging panel at the end of the ceremony.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "awarded",
+      "award",
+      "has been awarded",
+      "is awarding"
+    ],
+    "answer": 2,
+    "correct_answer": "has been awarded"
+  },
+  {
+    "id": "ENG372",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} was told that the application form ______ in ink.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "fill",
+      "fills",
+      "must fill",
+      "must be filled"
+    ],
+    "answer": 3,
+    "correct_answer": "must be filled"
+  },
+  {
+    "id": "ENG373",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} was relieved to find that all arrangements ______ by the time the guests arrived.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "made",
+      "had made",
+      "had been made",
+      "were making"
+    ],
+    "answer": 2,
+    "correct_answer": "had been made"
+  },
+  {
+    "id": "ENG374",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} announced that the results ______ the following Monday.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "announced",
+      "is announced",
+      "will be announced",
+      "will announce"
+    ],
+    "answer": 2,
+    "correct_answer": "will be announced"
+  },
+  {
+    "id": "ENG375",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P5-P6",
+    "template": "The teacher corrected all the test papers before {CHARACTER_0} arrived. What is the passive form?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "All the test papers corrected before {CHARACTER_0} arrived.",
+      "All the test papers were corrected by the teacher before {CHARACTER_0} arrived.",
+      "All the test papers have corrected by the teacher before {CHARACTER_0} arrived.",
+      "All the test papers are corrected by the teacher before {CHARACTER_0} arrived."
+    ],
+    "answer": 1,
+    "correct_answer": "All the test papers were corrected by the teacher before {CHARACTER_0} arrived."
+  },
+  {
+    "id": "ENG376",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} discovered that the suspect had been questioned ______ the police.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "from",
+      "by",
+      "with",
+      "to"
+    ],
+    "answer": 1,
+    "correct_answer": "by"
+  },
+  {
+    "id": "ENG377",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} heard that the old bridge ______ by the construction team last year.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "demolish",
+      "demolished",
+      "has demolished",
+      "was demolished"
+    ],
+    "answer": 3,
+    "correct_answer": "was demolished"
+  },
+  {
+    "id": "ENG378",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} thought the noise from the construction site ______ throughout the neighbourhood.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "heard",
+      "could hear",
+      "could be heard",
+      "was hearing"
+    ],
+    "answer": 2,
+    "correct_answer": "could be heard"
+  },
+  {
+    "id": "ENG379",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P5-P6",
+    "template": "The school awarded {CHARACTER_0} the top student prize. What is the passive form using the prize as the subject?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} was awarded the top student prize by the school.",
+      "The top student prize was awarded to {CHARACTER_0} by the school.",
+      "The top student prize awarded to {CHARACTER_0} by the school.",
+      "The top student prize has awarded to {CHARACTER_0} by the school."
+    ],
+    "answer": 1,
+    "correct_answer": "The top student prize was awarded to {CHARACTER_0} by the school."
+  },
+  {
+    "id": "ENG380",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} asked, 'By whom was this statue built?' Which sentence conveys the same meaning in formal passive?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "Who built this statue?",
+      "Who was this statue built?",
+      "Who this statue was built by?",
+      "Whom built this statue?"
+    ],
+    "answer": 0,
+    "correct_answer": "Who built this statue?"
+  },
+  {
+    "id": "ENG381",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} was asked: 'We must take care of our environment.' What is the correct passive form?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "Our environment must take care of.",
+      "Our environment must be taken care of.",
+      "Our environment must be took care of.",
+      "Our environment must be taking care of."
+    ],
+    "answer": 1,
+    "correct_answer": "Our environment must be taken care of."
+  },
+  {
+    "id": "ENG382",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} wondered whether the urgent message ______ before the deadline.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "must send",
+      "must have sent",
+      "must have been sent",
+      "should be send"
+    ],
+    "answer": 2,
+    "correct_answer": "must have been sent"
+  },
+  {
+    "id": "ENG383",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} knew that this novel ______ by a famous local author in 1990.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "writes",
+      "wrote",
+      "is written",
+      "was written"
+    ],
+    "answer": 3,
+    "correct_answer": "was written"
+  },
+  {
+    "id": "ENG384",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}'s teacher said the project ______ by an external panel.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "will evaluate",
+      "would evaluate",
+      "will be evaluated",
+      "would be evaluated"
+    ],
+    "answer": 3,
+    "correct_answer": "would be evaluated"
+  },
+  {
+    "id": "ENG385",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} confirmed that by the end of the year, the annual report ______ reviewed by the committee.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "will be",
+      "will have been",
+      "would be",
+      "had been"
+    ],
+    "answer": 1,
+    "correct_answer": "will have been"
+  },
+  {
+    "id": "ENG386",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} learnt that the ancient temple ______ over five hundred years ago.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "built",
+      "builds",
+      "was built",
+      "is built"
+    ],
+    "answer": 2,
+    "correct_answer": "was built"
+  },
+  {
+    "id": "ENG387",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} heard that a new regulation ______ at the moment by the authorities.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "is being discussed",
+      "has been discussed",
+      "was being discussed",
+      "will be discussed"
+    ],
+    "answer": 0,
+    "correct_answer": "is being discussed"
+  },
+  {
+    "id": "ENG388",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "PSLE",
+    "template": "If the document ______ earlier, {CHARACTER_0} would have been able to prepare for the exam.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "distributed",
+      "had distributed",
+      "had been distributed",
+      "was distributed"
+    ],
+    "answer": 2,
+    "correct_answer": "had been distributed"
+  },
+  {
+    "id": "ENG389",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} asked: 'The committee is reviewing our proposal right now.' What is the passive form?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "Our proposal is being reviewed by the committee right now.",
+      "Our proposal is reviewed by the committee right now.",
+      "Our proposal was being reviewed by the committee right now.",
+      "Our proposal has been reviewed by the committee right now."
+    ],
+    "answer": 0,
+    "correct_answer": "Our proposal is being reviewed by the committee right now."
+  },
+  {
+    "id": "ENG390",
+    "category": "Grammar - Active and Passive Voice",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} was informed that the final report ______ by all members of the group.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "must sign",
+      "must signing",
+      "must be signed",
+      "must signed"
+    ],
+    "answer": 2,
+    "correct_answer": "must be signed"
+  },
+  {
+    "id": "ENG391",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} said, \"I like ice cream.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} said that {HE_SHE_0} likes ice cream.",
+      "{CHARACTER_0} said that {HE_SHE_0} liked ice cream.",
+      "{CHARACTER_0} says that {HE_SHE_0} liked ice cream.",
+      "{CHARACTER_0} said that I liked ice cream."
+    ],
+    "answer": 1,
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} liked ice cream."
+  },
+  {
+    "id": "ENG392",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P3-P4",
+    "template": "Mother told {CHARACTER_0}, \"Eat your vegetables.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "Mother told {CHARACTER_0} to eat your vegetables.",
+      "Mother told {CHARACTER_0} that eat your vegetables.",
+      "Mother told {CHARACTER_0} to eat {HIS_HER_0} vegetables.",
+      "Mother told {CHARACTER_0} that you eat your vegetables."
+    ],
+    "answer": 2,
+    "correct_answer": "Mother told {CHARACTER_0} to eat {HIS_HER_0} vegetables."
+  },
+  {
+    "id": "ENG393",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} asked {HIS_HER_0} friend, \"Do you want to play?\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} asked {HIS_HER_0} friend did {HE_SHE_0} want to play.",
+      "{CHARACTER_0} asked {HIS_HER_0} friend if {HE_SHE_0} wanted to play.",
+      "{CHARACTER_0} asked {HIS_HER_0} friend whether you wanted to play.",
+      "{CHARACTER_0} asked {HIS_HER_0} friend do you want to play."
+    ],
+    "answer": 1,
+    "correct_answer": "{CHARACTER_0} asked {HIS_HER_0} friend if {HE_SHE_0} wanted to play."
+  },
+  {
+    "id": "ENG394",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} shouted, \"What a beautiful sunset!\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} shouted that what a beautiful sunset.",
+      "{CHARACTER_0} exclaimed that it was a very beautiful sunset.",
+      "{CHARACTER_0} exclaimed what a beautiful sunset.",
+      "{CHARACTER_0} said what a beautiful sunset it was."
+    ],
+    "answer": 1,
+    "correct_answer": "{CHARACTER_0} exclaimed that it was a very beautiful sunset."
+  },
+  {
+    "id": "ENG395",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} told {HIS_HER_0} mother that {HE_SHE_0} had finished {HIS_HER_0} homework. What was the direct speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "\"I finished my homework,\" {CHARACTER_0} said to {HIS_HER_0} mother.",
+      "\"I have finished my homework,\" {CHARACTER_0} said to {HIS_HER_0} mother.",
+      "\"He finished my homework,\" {CHARACTER_0} said to {HIS_HER_0} mother.",
+      "\"You finished your homework,\" {CHARACTER_0} said to {HIS_HER_0} mother."
+    ],
+    "answer": 1,
+    "correct_answer": "\"I have finished my homework,\" {CHARACTER_0} said to {HIS_HER_0} mother."
+  },
+  {
+    "id": "ENG396",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} told the teacher, \"I don't understand this problem.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} told the teacher that {HE_SHE_0} didn't understand that problem.",
+      "{CHARACTER_0} told the teacher that I don't understand this problem.",
+      "{CHARACTER_0} told the teacher that {HE_SHE_0} doesn't understand this problem.",
+      "{CHARACTER_0} told the teacher to not understand this problem."
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0} told the teacher that {HE_SHE_0} didn't understand that problem."
+  },
+  {
+    "id": "ENG397",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} asked the librarian, \"Where can I return the books?\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} asked the librarian where could {HE_SHE_0} return the books.",
+      "{CHARACTER_0} asked the librarian where {HE_SHE_0} could return the books.",
+      "{CHARACTER_0} asked the librarian where can I return the books.",
+      "{CHARACTER_0} asked the librarian that where {HE_SHE_0} could return the books."
+    ],
+    "answer": 1,
+    "correct_answer": "{CHARACTER_0} asked the librarian where {HE_SHE_0} could return the books."
+  },
+  {
+    "id": "ENG398",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P3-P4",
+    "template": "Grandmother told {CHARACTER_0}, \"I will bake a cake for you.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "Grandmother told {CHARACTER_0} that she would bake a cake for {HIM_HER_0}.",
+      "Grandmother told {CHARACTER_0} that I would bake a cake for you.",
+      "Grandmother told {CHARACTER_0} that she will bake a cake for {HIM_HER_0}.",
+      "Grandmother told {CHARACTER_0} that she would bake a cake for me."
+    ],
+    "answer": 0,
+    "correct_answer": "Grandmother told {CHARACTER_0} that she would bake a cake for {HIM_HER_0}."
+  },
+  {
+    "id": "ENG399",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} said, \"I will visit the museum tomorrow.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} said that {HE_SHE_0} would visit the museum tomorrow.",
+      "{CHARACTER_0} said that {HE_SHE_0} will visit the museum the next day.",
+      "{CHARACTER_0} said that {HE_SHE_0} would visit the museum the next day.",
+      "{CHARACTER_0} said that {HE_SHE_0} would visit the museum today."
+    ],
+    "answer": 2,
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} would visit the museum the next day."
+  },
+  {
+    "id": "ENG400",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} said that {HE_SHE_0} ______ going to the library the following day.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "is",
+      "was",
+      "will be",
+      "has been"
+    ],
+    "answer": 1,
+    "correct_answer": "was"
+  },
+  {
+    "id": "ENG401",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} said, \"I was very tired after the competition.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} said that {HE_SHE_0} was very tired after the competition.",
+      "{CHARACTER_0} said that {HE_SHE_0} had been very tired after the competition.",
+      "{CHARACTER_0} said that {HE_SHE_0} is very tired after the competition.",
+      "{CHARACTER_0} said that {HE_SHE_0} were very tired after the competition."
+    ],
+    "answer": 1,
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} had been very tired after the competition."
+  },
+  {
+    "id": "ENG402",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P5-P6",
+    "template": "The teacher told {CHARACTER_0}, \"Don't forget to bring your permission slip tomorrow.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "The teacher told {CHARACTER_0} not to forget to bring {HIS_HER_0} permission slip the next day.",
+      "The teacher told {CHARACTER_0} to not forget to bring your permission slip tomorrow.",
+      "The teacher told {CHARACTER_0} don't forget to bring {HIS_HER_0} permission slip the next day.",
+      "The teacher told {CHARACTER_0} that not forget {HIS_HER_0} permission slip."
+    ],
+    "answer": 0,
+    "correct_answer": "The teacher told {CHARACTER_0} not to forget to bring {HIS_HER_0} permission slip the next day."
+  },
+  {
+    "id": "ENG403",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} told {HIS_HER_0} teacher, \"I will do better in the next test.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} told {HIS_HER_0} teacher that {HE_SHE_0} will do better in the next test.",
+      "{CHARACTER_0} told {HIS_HER_0} teacher that {HE_SHE_0} would do better in the following test.",
+      "{CHARACTER_0} told {HIS_HER_0} teacher that {HE_SHE_0} will do better in the following test.",
+      "{CHARACTER_0} told {HIS_HER_0} teacher that {HE_SHE_0} would do better in the next test."
+    ],
+    "answer": 1,
+    "correct_answer": "{CHARACTER_0} told {HIS_HER_0} teacher that {HE_SHE_0} would do better in the following test."
+  },
+  {
+    "id": "ENG404",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} asked {HIS_HER_0} friend, \"Are you coming to my birthday party?\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} asked {HIS_HER_0} friend if {HE_SHE_0} was coming to {HIS_HER_0} birthday party.",
+      "{CHARACTER_0} asked {HIS_HER_0} friend whether was {HE_SHE_0} coming to {HIS_HER_0} birthday party.",
+      "{CHARACTER_0} asked {HIS_HER_0} friend are you coming to my birthday party.",
+      "{CHARACTER_0} asked {HIS_HER_0} friend that {HE_SHE_0} was coming to {HIS_HER_0} birthday party."
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0} asked {HIS_HER_0} friend if {HE_SHE_0} was coming to {HIS_HER_0} birthday party."
+  },
+  {
+    "id": "ENG405",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} said, \"I have never seen such a beautiful painting.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} said that {HE_SHE_0} has never seen such a beautiful painting.",
+      "{CHARACTER_0} said that {HE_SHE_0} had never seen such a beautiful painting.",
+      "{CHARACTER_0} said that {HE_SHE_0} never seen such a beautiful painting.",
+      "{CHARACTER_0} said that {HE_SHE_0} never saw such a beautiful painting."
+    ],
+    "answer": 1,
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} had never seen such a beautiful painting."
+  },
+  {
+    "id": "ENG406",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} said, \"I can solve this problem by myself.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} said that {HE_SHE_0} can solve that problem by {HIMSELF_HERSELF_0}.",
+      "{CHARACTER_0} said that {HE_SHE_0} could solve that problem by {HIMSELF_HERSELF_0}.",
+      "{CHARACTER_0} said that {HE_SHE_0} will solve that problem by {HIMSELF_HERSELF_0}.",
+      "{CHARACTER_0} said that {HE_SHE_0} would solve that problem by {HIMSELF_HERSELF_0}."
+    ],
+    "answer": 1,
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} could solve that problem by {HIMSELF_HERSELF_0}."
+  },
+  {
+    "id": "ENG407",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} said, \"I visited Paris two years ago.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} said that {HE_SHE_0} had visited Paris two years ago.",
+      "{CHARACTER_0} said that {HE_SHE_0} visited Paris two years before.",
+      "{CHARACTER_0} said that {HE_SHE_0} had visited Paris two years before.",
+      "{CHARACTER_0} said that {HE_SHE_0} has visited Paris two years before."
+    ],
+    "answer": 2,
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} had visited Paris two years before."
+  },
+  {
+    "id": "ENG408",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} reported, \"Today is the last day to submit entries.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} reported that today was the last day to submit entries.",
+      "{CHARACTER_0} reported that that day was the last day to submit entries.",
+      "{CHARACTER_0} reported that today is the last day to submit entries.",
+      "{CHARACTER_0} reported that yesterday was the last day to submit entries."
+    ],
+    "answer": 1,
+    "correct_answer": "{CHARACTER_0} reported that that day was the last day to submit entries."
+  },
+  {
+    "id": "ENG409",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} whispered, \"Please don't tell anyone about this.\" Which indirect speech is correct?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} whispered to keep the secret.",
+      "{CHARACTER_0} begged that {HE_SHE_0} not to tell anyone about that.",
+      "{CHARACTER_0} begged {HIS_HER_0} friend not to tell anyone about that.",
+      "{CHARACTER_0} said please don't tell anyone about this."
+    ],
+    "answer": 2,
+    "correct_answer": "{CHARACTER_0} begged {HIS_HER_0} friend not to tell anyone about that."
+  },
+  {
+    "id": "ENG410",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} told the class, \"We finished the experiment successfully.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} told the class that they had finished the experiment successfully.",
+      "{CHARACTER_0} told the class that we finished the experiment successfully.",
+      "{CHARACTER_0} told the class that they finished the experiment successfully.",
+      "{CHARACTER_0} told the class they have finished the experiment successfully."
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0} told the class that they had finished the experiment successfully."
+  },
+  {
+    "id": "ENG411",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} told {HIS_HER_0} group, \"We have done our best, and I am proud of all of you.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} told {HIS_HER_0} group that they had done their best and that {HE_SHE_0} was proud of all of them.",
+      "{CHARACTER_0} told {HIS_HER_0} group that we have done our best and that {HE_SHE_0} is proud of all of them.",
+      "{CHARACTER_0} told {HIS_HER_0} group that they have done their best and {HE_SHE_0} is proud of all of them.",
+      "{CHARACTER_0} told {HIS_HER_0} group we have done our best and I am proud of all of you."
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0} told {HIS_HER_0} group that they had done their best and that {HE_SHE_0} was proud of all of them."
+  },
+  {
+    "id": "ENG412",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} said, \"I did not sleep well last night.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} said that {HE_SHE_0} had not slept well last night.",
+      "{CHARACTER_0} said that {HE_SHE_0} did not sleep well the night before.",
+      "{CHARACTER_0} said that {HE_SHE_0} had not slept well the night before.",
+      "{CHARACTER_0} said that {HE_SHE_0} has not slept well the previous night."
+    ],
+    "answer": 2,
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} had not slept well the night before."
+  },
+  {
+    "id": "ENG413",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} asked, \"Who is responsible for this mess?\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} asked who is responsible for that mess.",
+      "{CHARACTER_0} asked who was responsible for that mess.",
+      "{CHARACTER_0} asked that who was responsible for that mess.",
+      "{CHARACTER_0} asked who responsible for that mess."
+    ],
+    "answer": 1,
+    "correct_answer": "{CHARACTER_0} asked who was responsible for that mess."
+  },
+  {
+    "id": "ENG414",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "PSLE",
+    "template": "The coach told {CHARACTER_0} and the team, \"Train hard and never give up.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "The coach told {CHARACTER_0} and the team to train hard and never give up.",
+      "The coach told {CHARACTER_0} and the team train hard and never gave up.",
+      "The coach told {CHARACTER_0} and the team that they should trained hard and never gave up.",
+      "The coach told {CHARACTER_0} and the team training hard and never giving up."
+    ],
+    "answer": 0,
+    "correct_answer": "The coach told {CHARACTER_0} and the team to train hard and never give up."
+  },
+  {
+    "id": "ENG415",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} said, \"I wish I could travel the world.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} said that {HE_SHE_0} wished {HE_SHE_0} could travel the world.",
+      "{CHARACTER_0} said that {HE_SHE_0} wish {HE_SHE_0} can travel the world.",
+      "{CHARACTER_0} said that {HE_SHE_0} wished {HE_SHE_0} can travel the world.",
+      "{CHARACTER_0} said that {HE_SHE_0} wishes {HE_SHE_0} could travel the world."
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} wished {HE_SHE_0} could travel the world."
+  },
+  {
+    "id": "ENG416",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} told {HIS_HER_0} brother, \"You must submit the form before Friday.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} told {HIS_HER_0} brother that he must submit the form before Friday.",
+      "{CHARACTER_0} told {HIS_HER_0} brother that he had to submit the form before Friday.",
+      "{CHARACTER_0} told {HIS_HER_0} brother that he must submitted the form before Friday.",
+      "{CHARACTER_0} told {HIS_HER_0} brother he must to submit the form before Friday."
+    ],
+    "answer": 1,
+    "correct_answer": "{CHARACTER_0} told {HIS_HER_0} brother that he had to submit the form before Friday."
+  },
+  {
+    "id": "ENG417",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} asked {HIS_HER_0} teacher, \"Why was the school closed yesterday?\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} asked {HIS_HER_0} teacher why was the school closed the day before.",
+      "{CHARACTER_0} asked {HIS_HER_0} teacher why the school had been closed the day before.",
+      "{CHARACTER_0} asked {HIS_HER_0} teacher why the school closed the day before.",
+      "{CHARACTER_0} asked {HIS_HER_0} teacher that why the school had been closed the day before."
+    ],
+    "answer": 1,
+    "correct_answer": "{CHARACTER_0} asked {HIS_HER_0} teacher why the school had been closed the day before."
+  },
+  {
+    "id": "ENG418",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "PSLE",
+    "template": "The librarian reminded {CHARACTER_0} that {HE_SHE_0} ______ return the books within two weeks.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "must",
+      "had to",
+      "should",
+      "needs"
+    ],
+    "answer": 1,
+    "correct_answer": "had to"
+  },
+  {
+    "id": "ENG419",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} warned {HIS_HER_0} little sister, \"Don't touch the hot stove!\" Which is the correct indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} warned {HIS_HER_0} little sister not to touch the hot stove.",
+      "{CHARACTER_0} warned {HIS_HER_0} little sister that don't touch the hot stove.",
+      "{CHARACTER_0} warned {HIS_HER_0} little sister to not touching the hot stove.",
+      "{CHARACTER_0} warned {HIS_HER_0} little sister that she would not touch the hot stove."
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0} warned {HIS_HER_0} little sister not to touch the hot stove."
+  },
+  {
+    "id": "ENG420",
+    "category": "Grammar - Direct and Indirect Speech",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} said, \"I will finish this project here by tomorrow.\" What is the indirect speech?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0} said that {HE_SHE_0} would finish that project there by the next day.",
+      "{CHARACTER_0} said that {HE_SHE_0} will finish this project here by tomorrow.",
+      "{CHARACTER_0} said that {HE_SHE_0} would finish this project there by tomorrow.",
+      "{CHARACTER_0} said that {HE_SHE_0} will finish that project here by the next day."
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} would finish that project there by the next day."
+  },
+  {
+    "id": "ENG421",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} and ______ went to the park together yesterday.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "me",
+      "I",
+      "myself",
+      "mine"
+    ],
+    "answer": 1,
+    "correct_answer": "I"
+  },
+  {
+    "id": "ENG422",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P3-P4",
+    "template": "The teacher gave the books to {CHARACTER_0} and ______.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "I",
+      "me",
+      "myself",
+      "mine"
+    ],
+    "answer": 1,
+    "correct_answer": "me"
+  },
+  {
+    "id": "ENG423",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} completed the entire project all by ______.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{HIM_HER_0}",
+      "{HIM_HER_0}self",
+      "{HIS_HER_0}",
+      "alone"
+    ],
+    "answer": 1,
+    "correct_answer": "{HIM_HER_0}self"
+  },
+  {
+    "id": "ENG424",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} has a friend ______ lives in Japan.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "which",
+      "what",
+      "who",
+      "whom"
+    ],
+    "answer": 2,
+    "correct_answer": "who"
+  },
+  {
+    "id": "ENG425",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} pointed to the trophy and said, '______ is the prize I won last year.'",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "That",
+      "Those",
+      "These",
+      "Them"
+    ],
+    "answer": 0,
+    "correct_answer": "That"
+  },
+  {
+    "id": "ENG426",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P3-P4",
+    "template": "______ did {CHARACTER_0} give the flowers to?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "Who",
+      "Whose",
+      "Whom",
+      "Which"
+    ],
+    "answer": 2,
+    "correct_answer": "Whom"
+  },
+  {
+    "id": "ENG427",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P3-P4",
+    "template": "______ and {CHARACTER_0} are going to the library after school.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "Me",
+      "My",
+      "I",
+      "Myself"
+    ],
+    "answer": 2,
+    "correct_answer": "I"
+  },
+  {
+    "id": "ENG428",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}'s teacher asked ______ to demonstrate the experiment.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{HE_SHE_0}",
+      "{HIS_HER_0}",
+      "{HIM_HER_0}",
+      "{HIMSELF_HERSELF_0}"
+    ],
+    "answer": 2,
+    "correct_answer": "{HIM_HER_0}"
+  },
+  {
+    "id": "ENG429",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P3-P4",
+    "template": "______ in {CHARACTER_0}'s class was excited about the upcoming field trip.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "Everyone",
+      "All",
+      "Both",
+      "They"
+    ],
+    "answer": 0,
+    "correct_answer": "Everyone"
+  },
+  {
+    "id": "ENG430",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} and {HIS_HER_0} friend congratulated ______ after winning the relay race.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "themselves",
+      "each other",
+      "one another",
+      "the other"
+    ],
+    "answer": 1,
+    "correct_answer": "each other"
+  },
+  {
+    "id": "ENG431",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} met a scientist ______ work was featured in the national newspaper.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "who",
+      "which",
+      "whose",
+      "whom"
+    ],
+    "answer": 2,
+    "correct_answer": "whose"
+  },
+  {
+    "id": "ENG432",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} is one of those students to ______ the teacher gives extra attention.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "who",
+      "which",
+      "whose",
+      "whom"
+    ],
+    "answer": 3,
+    "correct_answer": "whom"
+  },
+  {
+    "id": "ENG433",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} told {HIS_HER_0} teacher that ______ had misread the instructions.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{HE_SHE_0}",
+      "it",
+      "they",
+      "we"
+    ],
+    "answer": 0,
+    "correct_answer": "{HE_SHE_0}"
+  },
+  {
+    "id": "ENG434",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} learnt that one should always express ______ clearly when writing formally.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "yourself",
+      "themselves",
+      "oneself",
+      "itself"
+    ],
+    "answer": 2,
+    "correct_answer": "oneself"
+  },
+  {
+    "id": "ENG435",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P5-P6",
+    "template": "Neither of {CHARACTER_0}'s two proposals ______ by ______ of the committee members.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "was...either",
+      "was...neither",
+      "were...neither",
+      "was...none"
+    ],
+    "answer": 0,
+    "correct_answer": "was...either"
+  },
+  {
+    "id": "ENG436",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} and {HIS_HER_0} teammates helped ______ throughout the difficult project.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "each other",
+      "themselves",
+      "one another",
+      "the others"
+    ],
+    "answer": 2,
+    "correct_answer": "one another"
+  },
+  {
+    "id": "ENG437",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P5-P6",
+    "template": "______ is often said that practice makes perfect, and {CHARACTER_0} firmly believes this.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "That",
+      "It",
+      "There",
+      "What"
+    ],
+    "answer": 1,
+    "correct_answer": "It"
+  },
+  {
+    "id": "ENG438",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} read about the historic building ______ was demolished last year.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "who",
+      "whose",
+      "that / which",
+      "whom"
+    ],
+    "answer": 2,
+    "correct_answer": "that / which"
+  },
+  {
+    "id": "ENG439",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}'s friend is taller than ______, so {CHARACTER_0} always stands at the back.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "she / he",
+      "her / him",
+      "herself / himself",
+      "hers / his"
+    ],
+    "answer": 0,
+    "correct_answer": "she / he"
+  },
+  {
+    "id": "ENG440",
+    "category": "Grammar - Pronouns",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} read a novel ______ had been translated into twelve languages.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "who",
+      "whom",
+      "whose",
+      "which"
+    ],
+    "answer": 3,
+    "correct_answer": "which"
+  },
+  {
+    "id": "ENG441",
+    "category": "Grammar - Pronouns",
+    "difficulty": "PSLE",
+    "template": "______ should {CHARACTER_0} speak to about the scholarship application?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "Who",
+      "Whom",
+      "Whoever",
+      "Whomever"
+    ],
+    "answer": 1,
+    "correct_answer": "Whom"
+  },
+  {
+    "id": "ENG442",
+    "category": "Grammar - Pronouns",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} is the only student in the class ______ has never missed a single day of school.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "whom",
+      "whose",
+      "which",
+      "who"
+    ],
+    "answer": 3,
+    "correct_answer": "who"
+  },
+  {
+    "id": "ENG443",
+    "category": "Grammar - Pronouns",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} said the two rival teams played against ______ with great sportsmanship.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "themselves",
+      "each other",
+      "one another",
+      "together"
+    ],
+    "answer": 1,
+    "correct_answer": "each other"
+  },
+  {
+    "id": "ENG444",
+    "category": "Grammar - Pronouns",
+    "difficulty": "PSLE",
+    "template": "______ solves this problem first will receive a special prize from {CHARACTER_0}.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "Who",
+      "Whom",
+      "Whoever",
+      "Which"
+    ],
+    "answer": 2,
+    "correct_answer": "Whoever"
+  },
+  {
+    "id": "ENG445",
+    "category": "Grammar - Pronouns",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}'s essay, ______ took three days to write, won first prize in the competition.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "that",
+      "who",
+      "which",
+      "whose"
+    ],
+    "answer": 2,
+    "correct_answer": "which"
+  },
+  {
+    "id": "ENG446",
+    "category": "Grammar - Pronouns",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} reminded the class that each student must bring ______ own stationery.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "their",
+      "his or her",
+      "its",
+      "one's"
+    ],
+    "answer": 1,
+    "correct_answer": "his or her"
+  },
+  {
+    "id": "ENG447",
+    "category": "Grammar - Pronouns",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} announced proudly, 'I ______ will present the award today.'",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "mine",
+      "me",
+      "myself",
+      "I"
+    ],
+    "answer": 2,
+    "correct_answer": "myself"
+  },
+  {
+    "id": "ENG448",
+    "category": "Grammar - Pronouns",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} was unsure which sentence was correct. Which is the formal version?",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "It is me who deserves the credit.",
+      "It is I who deserves the credit.",
+      "It is mine who deserves the credit.",
+      "It is myself who deserves the credit."
+    ],
+    "answer": 1,
+    "correct_answer": "It is I who deserves the credit."
+  },
+  {
+    "id": "ENG449",
+    "category": "Grammar - Pronouns",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} wrote about the most memorable day ______ {HE_SHE_0} had ever experienced.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "who",
+      "which",
+      "that",
+      "whose"
+    ],
+    "answer": 2,
+    "correct_answer": "that"
+  },
+  {
+    "id": "ENG450",
+    "category": "Grammar - Pronouns",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} and {HIS_HER_0} study group agreed that ______ of them would present a different section.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "each",
+      "every",
+      "both",
+      "all"
+    ],
+    "answer": 0,
+    "correct_answer": "each"
+  },
+  {
+    "id": "ENG451",
+    "category": "Grammar - Articles",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} found ______ old key in the drawer and wondered who it belonged to.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 1,
+    "correct_answer": "an"
+  },
+  {
+    "id": "ENG452",
+    "category": "Grammar - Articles",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} saw ______ monkey swinging from tree to tree in the forest.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 0,
+    "correct_answer": "a"
+  },
+  {
+    "id": "ENG453",
+    "category": "Grammar - Articles",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} hopes to study at ______ university in Singapore one day.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 0,
+    "correct_answer": "a"
+  },
+  {
+    "id": "ENG454",
+    "category": "Grammar - Articles",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} bought a book and a pen. ______ book was very interesting.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "A",
+      "An",
+      "The",
+      "—"
+    ],
+    "answer": 2,
+    "correct_answer": "The"
+  },
+  {
+    "id": "ENG455",
+    "category": "Grammar - Articles",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} looked up and admired ______ stars twinkling in the night sky.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 2,
+    "correct_answer": "the"
+  },
+  {
+    "id": "ENG456",
+    "category": "Grammar - Articles",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} would like to visit ______ London during the school holidays next year.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 3,
+    "correct_answer": "—"
+  },
+  {
+    "id": "ENG457",
+    "category": "Grammar - Articles",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} plays ______ flute beautifully in the school concert band.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 2,
+    "correct_answer": "the"
+  },
+  {
+    "id": "ENG458",
+    "category": "Grammar - Articles",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} and {HIS_HER_0} family usually have ______ breakfast together every morning.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 3,
+    "correct_answer": "—"
+  },
+  {
+    "id": "ENG459",
+    "category": "Grammar - Articles",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} learnt that ships sail through ______ Strait of Malacca every day.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 2,
+    "correct_answer": "the"
+  },
+  {
+    "id": "ENG460",
+    "category": "Grammar - Articles",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}'s father is ______ engineer who designs impressive bridges.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 0,
+    "correct_answer": "a"
+  },
+  {
+    "id": "ENG461",
+    "category": "Grammar - Articles",
+    "difficulty": "P5-P6",
+    "template": "It took {CHARACTER_0} ______ hour to complete the entire obstacle course.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 1,
+    "correct_answer": "an"
+  },
+  {
+    "id": "ENG462",
+    "category": "Grammar - Articles",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} believes that Singapore is ______ cleanest city {HE_SHE_0} has ever visited.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 2,
+    "correct_answer": "the"
+  },
+  {
+    "id": "ENG463",
+    "category": "Grammar - Articles",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} finished in ______ third place in the school's annual spelling bee competition.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 2,
+    "correct_answer": "the"
+  },
+  {
+    "id": "ENG464",
+    "category": "Grammar - Articles",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} believes that ______ knowledge is the greatest gift one can receive in life.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 3,
+    "correct_answer": "—"
+  },
+  {
+    "id": "ENG465",
+    "category": "Grammar - Articles",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} was selected to represent {HIS_HER_0} school as ______ head prefect.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 2,
+    "correct_answer": "the"
+  },
+  {
+    "id": "ENG466",
+    "category": "Grammar - Articles",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} met ______ European exchange student at school during the cultural exchange week.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 0,
+    "correct_answer": "a"
+  },
+  {
+    "id": "ENG467",
+    "category": "Grammar - Articles",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} learnt that ______ Netherlands is famous for its tulips and windmills.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 2,
+    "correct_answer": "the"
+  },
+  {
+    "id": "ENG468",
+    "category": "Grammar - Articles",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} is taking lessons to learn to speak ______ French at an enrichment class.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 3,
+    "correct_answer": "—"
+  },
+  {
+    "id": "ENG469",
+    "category": "Grammar - Articles",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} learnt about ______ United Nations and its peacekeeping efforts worldwide.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 2,
+    "correct_answer": "the"
+  },
+  {
+    "id": "ENG470",
+    "category": "Grammar - Articles",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} spotted ______ unusual insect on a leaf during the outdoor science lesson.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 1,
+    "correct_answer": "an"
+  },
+  {
+    "id": "ENG471",
+    "category": "Grammar - Articles",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} read that ______ Sahara Desert is the largest hot desert in the world.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 2,
+    "correct_answer": "the"
+  },
+  {
+    "id": "ENG472",
+    "category": "Grammar - Articles",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} feels that ______ History is one of the most interesting subjects in school.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 3,
+    "correct_answer": "—"
+  },
+  {
+    "id": "ENG473",
+    "category": "Grammar - Articles",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} attended ______ one-hour seminar on environmental conservation last week.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 0,
+    "correct_answer": "a"
+  },
+  {
+    "id": "ENG474",
+    "category": "Grammar - Articles",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} was grateful for ______ advice that {HIS_HER_0} mentor had given {HIM_HER_0} years ago.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 2,
+    "correct_answer": "the"
+  },
+  {
+    "id": "ENG475",
+    "category": "Grammar - Articles",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} knows that ______ doctors need to study for many years before practising medicine.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 3,
+    "correct_answer": "—"
+  },
+  {
+    "id": "ENG476",
+    "category": "Grammar - Articles",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} described {HIS_HER_0} friend as ______ honest person with great integrity.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 1,
+    "correct_answer": "an"
+  },
+  {
+    "id": "ENG477",
+    "category": "Grammar - Articles",
+    "difficulty": "PSLE",
+    "template": "When {CHARACTER_0} entered the classroom, ______ teacher was already writing on the board.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 2,
+    "correct_answer": "the"
+  },
+  {
+    "id": "ENG478",
+    "category": "Grammar - Articles",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} believes that society should help ______ poor in the community.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 2,
+    "correct_answer": "the"
+  },
+  {
+    "id": "ENG479",
+    "category": "Grammar - Articles",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}'s ambition is to become ______ architect who designs eco-friendly buildings.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 0,
+    "correct_answer": "a"
+  },
+  {
+    "id": "ENG480",
+    "category": "Grammar - Articles",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} read about ______ most important scientific discovery of the century.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "a",
+      "an",
+      "the",
+      "—"
+    ],
+    "answer": 2,
+    "correct_answer": "the"
+  },
+  {
+    "id": "ENG481",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} stayed at home ______ {HE_SHE_0} was feeling unwell.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "but",
+      "because",
+      "although",
+      "so"
+    ],
+    "answer": 1,
+    "correct_answer": "because"
+  },
+  {
+    "id": "ENG482",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} enjoys reading ______ drawing in {HIS_HER_0} free time.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "but",
+      "or",
+      "and",
+      "so"
+    ],
+    "answer": 2,
+    "correct_answer": "and"
+  },
+  {
+    "id": "ENG483",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} tried very hard ______ still couldn't solve the tricky puzzle.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "and",
+      "so",
+      "but",
+      "because"
+    ],
+    "answer": 2,
+    "correct_answer": "but"
+  },
+  {
+    "id": "ENG484",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} wondered whether to take the bus ______ walk home after school.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "nor",
+      "and",
+      "but",
+      "or"
+    ],
+    "answer": 3,
+    "correct_answer": "or"
+  },
+  {
+    "id": "ENG485",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} was very hungry, ______ {HE_SHE_0} ate a large bowl of noodles quickly.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "but",
+      "so",
+      "because",
+      "although"
+    ],
+    "answer": 1,
+    "correct_answer": "so"
+  },
+  {
+    "id": "ENG486",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} felt a sudden gust of wind ______ {HE_SHE_0} opened the classroom window.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "while",
+      "when",
+      "until",
+      "before"
+    ],
+    "answer": 1,
+    "correct_answer": "when"
+  },
+  {
+    "id": "ENG487",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} washed {HIS_HER_0} hands ______ sitting down for dinner.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "before",
+      "after",
+      "since",
+      "until"
+    ],
+    "answer": 0,
+    "correct_answer": "before"
+  },
+  {
+    "id": "ENG488",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} said {HE_SHE_0} would help ______ the teacher allowed {HIM_HER_0} to do so.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "when",
+      "if",
+      "unless",
+      "since"
+    ],
+    "answer": 1,
+    "correct_answer": "if"
+  },
+  {
+    "id": "ENG489",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} listened to music ______ doing {HIS_HER_0} homework at the study table.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "when",
+      "while",
+      "until",
+      "as long as"
+    ],
+    "answer": 1,
+    "correct_answer": "while"
+  },
+  {
+    "id": "ENG490",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} practised the piano ______ {HE_SHE_0} could play the piece perfectly.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "before",
+      "after",
+      "until",
+      "when"
+    ],
+    "answer": 2,
+    "correct_answer": "until"
+  },
+  {
+    "id": "ENG491",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P5-P6",
+    "template": "______ {CHARACTER_0} was exhausted from training, {HE_SHE_0} continued to push {HIMSELF_HERSELF_0}.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "Because",
+      "Although",
+      "Since",
+      "So that"
+    ],
+    "answer": 1,
+    "correct_answer": "Although"
+  },
+  {
+    "id": "ENG492",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} is not only a talented singer ______ a skilled dancer too.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "but also",
+      "and also",
+      "but yet",
+      "or also"
+    ],
+    "answer": 0,
+    "correct_answer": "but also"
+  },
+  {
+    "id": "ENG493",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} could ______ practise every day ______ give up entirely — {HE_SHE_0} chose to practise.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "either...or",
+      "neither...nor",
+      "both...and",
+      "not only...but also"
+    ],
+    "answer": 0,
+    "correct_answer": "either...or"
+  },
+  {
+    "id": "ENG494",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} said ______ the food ______ the service at the restaurant was satisfactory.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "neither...nor",
+      "either...or",
+      "not only...but also",
+      "both...and"
+    ],
+    "answer": 0,
+    "correct_answer": "neither...nor"
+  },
+  {
+    "id": "ENG495",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} called {HIS_HER_0} mother ______ {HE_SHE_0} arrived safely at school.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "until",
+      "when",
+      "as soon as",
+      "before"
+    ],
+    "answer": 2,
+    "correct_answer": "as soon as"
+  },
+  {
+    "id": "ENG496",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} can stay up late tonight ______ {HE_SHE_0} finishes all {HIS_HER_0} homework.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "provided that",
+      "although",
+      "in case",
+      "even though"
+    ],
+    "answer": 0,
+    "correct_answer": "provided that"
+  },
+  {
+    "id": "ENG497",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} was not confident before the speech; ______, {HE_SHE_0} managed to deliver it excellently.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "because",
+      "nevertheless",
+      "since",
+      "therefore"
+    ],
+    "answer": 1,
+    "correct_answer": "nevertheless"
+  },
+  {
+    "id": "ENG498",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} had been practising for months; ______, {HE_SHE_0} was very well prepared for the competition.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "however",
+      "although",
+      "therefore",
+      "unless"
+    ],
+    "answer": 2,
+    "correct_answer": "therefore"
+  },
+  {
+    "id": "ENG499",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} will not pass the exam ______ {HE_SHE_0} works much harder than before.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "if",
+      "unless",
+      "provided that",
+      "when"
+    ],
+    "answer": 1,
+    "correct_answer": "unless"
+  },
+  {
+    "id": "ENG500",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} spoke loudly ______ everyone in the hall could hear {HIM_HER_0} clearly.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "so",
+      "so that",
+      "in order",
+      "because"
+    ],
+    "answer": 1,
+    "correct_answer": "so that"
+  },
+  {
+    "id": "ENG501",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} carried on with the project ______ the many setbacks {HE_SHE_0} encountered.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "although",
+      "despite",
+      "however",
+      "but"
+    ],
+    "answer": 1,
+    "correct_answer": "despite"
+  },
+  {
+    "id": "ENG502",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} said {HE_SHE_0} would support the cause ______ it benefited the community.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "as far as",
+      "as long as",
+      "in case",
+      "unless"
+    ],
+    "answer": 1,
+    "correct_answer": "as long as"
+  },
+  {
+    "id": "ENG503",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} brought an umbrella ______ it rained during the outdoor activity.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "so that",
+      "in case",
+      "because",
+      "whenever"
+    ],
+    "answer": 1,
+    "correct_answer": "in case"
+  },
+  {
+    "id": "ENG504",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "PSLE",
+    "template": "Both the food ______ the atmosphere at the restaurant were wonderful, said {CHARACTER_0}.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "or",
+      "nor",
+      "and",
+      "but"
+    ],
+    "answer": 2,
+    "correct_answer": "and"
+  },
+  {
+    "id": "ENG505",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} persevered with the difficult task ______ {HE_SHE_0} was tempted to give up.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "because",
+      "even though",
+      "therefore",
+      "whenever"
+    ],
+    "answer": 1,
+    "correct_answer": "even though"
+  },
+  {
+    "id": "ENG506",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "PSLE",
+    "template": "No sooner had {CHARACTER_0} stepped out of the building ______ it started to pour heavily.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "when",
+      "than",
+      "as",
+      "then"
+    ],
+    "answer": 1,
+    "correct_answer": "than"
+  },
+  {
+    "id": "ENG507",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "PSLE",
+    "template": "Hardly had {CHARACTER_0} sat down ______ {HIS_HER_0} phone rang loudly.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "when",
+      "than",
+      "then",
+      "as"
+    ],
+    "answer": 0,
+    "correct_answer": "when"
+  },
+  {
+    "id": "ENG508",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} walked into the room ______ {HE_SHE_0} owned the entire place.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "as though",
+      "although",
+      "even though",
+      "so that"
+    ],
+    "answer": 0,
+    "correct_answer": "as though"
+  },
+  {
+    "id": "ENG509",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} couldn't decide ______ to stay ______ leave the party early.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "either...or",
+      "whether...or",
+      "if...or",
+      "neither...nor"
+    ],
+    "answer": 1,
+    "correct_answer": "whether...or"
+  },
+  {
+    "id": "ENG510",
+    "category": "Grammar - Conjunctions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} explained it was not carelessness ______ ______ a lack of preparation that caused the failure.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "but rather",
+      "but also",
+      "and rather",
+      "or rather"
+    ],
+    "answer": 0,
+    "correct_answer": "but rather"
+  },
+  {
+    "id": "ENG511",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} wakes up ______ six o'clock every morning to get ready for school.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "on",
+      "in",
+      "at",
+      "by"
+    ],
+    "answer": 2,
+    "correct_answer": "at"
+  },
+  {
+    "id": "ENG512",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} will have {HIS_HER_0} music recital ______ Saturday afternoon next week.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "at",
+      "on",
+      "in",
+      "during"
+    ],
+    "answer": 1,
+    "correct_answer": "on"
+  },
+  {
+    "id": "ENG513",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} was born ______ December, the last month of the year.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "at",
+      "on",
+      "in",
+      "during"
+    ],
+    "answer": 2,
+    "correct_answer": "in"
+  },
+  {
+    "id": "ENG514",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} walked ______ the library to return the books before closing time.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "at",
+      "in",
+      "to",
+      "towards"
+    ],
+    "answer": 2,
+    "correct_answer": "to"
+  },
+  {
+    "id": "ENG515",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} received a postcard ______ {HIS_HER_0} friend who was on holiday overseas.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "by",
+      "from",
+      "of",
+      "with"
+    ],
+    "answer": 1,
+    "correct_answer": "from"
+  },
+  {
+    "id": "ENG516",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} divided the sweets equally ______ {HIS_HER_0} five classmates.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "between",
+      "among",
+      "with",
+      "for"
+    ],
+    "answer": 1,
+    "correct_answer": "among"
+  },
+  {
+    "id": "ENG517",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} found {HIS_HER_0} missing pen ______ the desk in the classroom.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "on",
+      "at",
+      "under",
+      "above"
+    ],
+    "answer": 2,
+    "correct_answer": "under"
+  },
+  {
+    "id": "ENG518",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} has been living in Singapore ______ twelve years.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "since",
+      "during",
+      "for",
+      "in"
+    ],
+    "answer": 2,
+    "correct_answer": "for"
+  },
+  {
+    "id": "ENG519",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} has been learning the piano ______ {HE_SHE_0} was six years old.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "for",
+      "during",
+      "since",
+      "from"
+    ],
+    "answer": 2,
+    "correct_answer": "since"
+  },
+  {
+    "id": "ENG520",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} and {HIS_HER_0} family travelled to Johor Bahru ______ car last weekend.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "on",
+      "in",
+      "by",
+      "with"
+    ],
+    "answer": 2,
+    "correct_answer": "by"
+  },
+  {
+    "id": "ENG521",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} succeeded ______ spite of the many challenges {HE_SHE_0} faced along the way.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "at",
+      "in",
+      "on",
+      "by"
+    ],
+    "answer": 1,
+    "correct_answer": "in"
+  },
+  {
+    "id": "ENG522",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} accepted the award ______ behalf of the entire team.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "in",
+      "at",
+      "on",
+      "by"
+    ],
+    "answer": 2,
+    "correct_answer": "on"
+  },
+  {
+    "id": "ENG523",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P5-P6",
+    "template": "______ {CHARACTER_0}, the best way to improve your English is to read widely every day.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "In accordance with",
+      "According to",
+      "In relation to",
+      "With reference to"
+    ],
+    "answer": 1,
+    "correct_answer": "According to"
+  },
+  {
+    "id": "ENG524",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} was waiting ______ the entrance of the building for {HIS_HER_0} friend.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "in",
+      "on",
+      "at",
+      "inside"
+    ],
+    "answer": 2,
+    "correct_answer": "at"
+  },
+  {
+    "id": "ENG525",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P5-P6",
+    "template": "Whether {CHARACTER_0} passes depends ______ how hard {HE_SHE_0} studies.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "at",
+      "on",
+      "in",
+      "for"
+    ],
+    "answer": 1,
+    "correct_answer": "on"
+  },
+  {
+    "id": "ENG526",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}'s report consists ______ three main sections: introduction, body, and conclusion.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "with",
+      "of",
+      "from",
+      "in"
+    ],
+    "answer": 1,
+    "correct_answer": "of"
+  },
+  {
+    "id": "ENG527",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} was responsible ______ organising the school's annual carnival.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "of",
+      "to",
+      "for",
+      "about"
+    ],
+    "answer": 2,
+    "correct_answer": "for"
+  },
+  {
+    "id": "ENG528",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P5-P6",
+    "template": "______ winning the writing competition, {CHARACTER_0} also received a scholarship for further studies.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "In addition to",
+      "In spite of",
+      "Because of",
+      "Instead of"
+    ],
+    "answer": 0,
+    "correct_answer": "In addition to"
+  },
+  {
+    "id": "ENG529",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} read that the new school guidelines were approved ______ the board of directors.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "from",
+      "of",
+      "by",
+      "with"
+    ],
+    "answer": 2,
+    "correct_answer": "by"
+  },
+  {
+    "id": "ENG530",
+    "category": "Grammar - Prepositions",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} tackled the difficult problem ______ once, without any hesitation at all.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "at",
+      "in",
+      "on",
+      "by"
+    ],
+    "answer": 0,
+    "correct_answer": "at"
+  },
+  {
+    "id": "ENG531",
+    "category": "Grammar - Prepositions",
+    "difficulty": "PSLE",
+    "template": "______ view of the approaching storm, {CHARACTER_0} and the scouts decided to pack up early.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "By",
+      "In",
+      "On",
+      "At"
+    ],
+    "answer": 1,
+    "correct_answer": "In"
+  },
+  {
+    "id": "ENG532",
+    "category": "Grammar - Prepositions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} wrote a letter ______ regard to the matter of the missing school funds.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "in",
+      "with",
+      "to",
+      "on"
+    ],
+    "answer": 1,
+    "correct_answer": "with"
+  },
+  {
+    "id": "ENG533",
+    "category": "Grammar - Prepositions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} heard that the school trip was cancelled ______ account of the severe weather.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "on",
+      "in",
+      "at",
+      "by"
+    ],
+    "answer": 0,
+    "correct_answer": "on"
+  },
+  {
+    "id": "ENG534",
+    "category": "Grammar - Prepositions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}'s careless mistake ______ {HIS_HER_0} team losing the championship.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "resulted in",
+      "resulted from",
+      "resulted to",
+      "resulted at"
+    ],
+    "answer": 0,
+    "correct_answer": "resulted in"
+  },
+  {
+    "id": "ENG535",
+    "category": "Grammar - Prepositions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} is very enthusiastic ______ {HIS_HER_0} involvement in community service.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "on",
+      "in",
+      "about",
+      "for"
+    ],
+    "answer": 2,
+    "correct_answer": "about"
+  },
+  {
+    "id": "ENG536",
+    "category": "Grammar - Prepositions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} stood ______ the crowd and addressed everyone in the hall confidently.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "in front of",
+      "opposite to",
+      "in the front of",
+      "ahead"
+    ],
+    "answer": 0,
+    "correct_answer": "in front of"
+  },
+  {
+    "id": "ENG537",
+    "category": "Grammar - Prepositions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} solved the complex problem ______ means of careful and systematic analysis.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "with",
+      "through",
+      "by",
+      "via"
+    ],
+    "answer": 2,
+    "correct_answer": "by"
+  },
+  {
+    "id": "ENG538",
+    "category": "Grammar - Prepositions",
+    "difficulty": "PSLE",
+    "template": "______ the course of {HIS_HER_0} research, {CHARACTER_0} discovered a very important pattern.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "In",
+      "During",
+      "Through",
+      "Over"
+    ],
+    "answer": 0,
+    "correct_answer": "In"
+  },
+  {
+    "id": "ENG539",
+    "category": "Grammar - Prepositions",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} was asked to write ______ reference to the given information in the passage.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "in",
+      "with",
+      "by",
+      "on"
+    ],
+    "answer": 0,
+    "correct_answer": "in"
+  },
+  {
+    "id": "ENG540",
+    "category": "Grammar - Prepositions",
+    "difficulty": "PSLE",
+    "template": "The decision was made ______ the best interest of {CHARACTER_0} and all the students.",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "for",
+      "with",
+      "in",
+      "on"
+    ],
+    "answer": 2,
+    "correct_answer": "in"
   }
 ]
