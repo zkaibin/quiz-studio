@@ -144,6 +144,7 @@ class PaperGenerator {
         // Assign characters based on required roles
         const roles = question.placeholder_roles || [];
         const assignedCharacters = {};
+        const assignedGenders = {}; // Track gender for each CHARACTER_N index
         const usedCharacters = new Set(); // Track used character names to avoid duplicates
         
         roles.forEach((role, index) => {
@@ -155,6 +156,7 @@ class PaperGenerator {
             if (matchingChars.length > 0) {
                 const char = matchingChars[Math.floor(Math.random() * matchingChars.length)];
                 assignedCharacters[`CHARACTER_${index}`] = char.name;
+                assignedGenders[index] = char.gender || 'male';
                 usedCharacters.add(char.name);
             } else {
                 // Fallback to any unused character
@@ -162,10 +164,12 @@ class PaperGenerator {
                 if (availableChars.length > 0) {
                     const char = availableChars[Math.floor(Math.random() * availableChars.length)];
                     assignedCharacters[`CHARACTER_${index}`] = char.name;
+                    assignedGenders[index] = char.gender || 'male';
                     usedCharacters.add(char.name);
                 } else {
                     // Last resort: use generic name
                     assignedCharacters[`CHARACTER_${index}`] = `Student ${index + 1}`;
+                    assignedGenders[index] = 'male';
                 }
             }
         });
@@ -176,6 +180,7 @@ class PaperGenerator {
             const regex = new RegExp(`\\{${placeholder}\\}`, 'g');
             questionText = questionText.replace(regex, assignedCharacters[placeholder]);
         });
+        questionText = this.substituteGenderPronouns(questionText, assignedGenders);
         
         // Replace placeholders in diagram if present
         if (question.diagram) {
@@ -184,6 +189,7 @@ class PaperGenerator {
                 const regex = new RegExp(`\\{${placeholder}\\}`, 'g');
                 diagram = diagram.replace(regex, assignedCharacters[placeholder]);
             });
+            diagram = this.substituteGenderPronouns(diagram, assignedGenders);
             question.diagramSubstituted = diagram;
         }
         
@@ -194,6 +200,7 @@ class PaperGenerator {
                 const regex = new RegExp(`\\{${placeholder}\\}`, 'g');
                 setup = setup.replace(regex, assignedCharacters[placeholder]);
             });
+            setup = this.substituteGenderPronouns(setup, assignedGenders);
             question.experimentSetupSubstituted = setup;
         }
         
@@ -204,11 +211,54 @@ class PaperGenerator {
                 const regex = new RegExp(`\\{${placeholder}\\}`, 'g');
                 data = data.replace(regex, assignedCharacters[placeholder]);
             });
+            data = this.substituteGenderPronouns(data, assignedGenders);
             question.experimentDataSubstituted = data;
+        }
+
+        // Replace placeholders in options if present
+        if (question.options) {
+            question.optionsSubstituted = question.options.map(opt => {
+                let text = opt;
+                Object.keys(assignedCharacters).forEach(placeholder => {
+                    const regex = new RegExp(`\\{${placeholder}\\}`, 'g');
+                    text = text.replace(regex, assignedCharacters[placeholder]);
+                });
+                return this.substituteGenderPronouns(text, assignedGenders);
+            });
+        }
+
+        // Replace placeholders in correct_answer if present
+        if (question.correct_answer) {
+            let ca = question.correct_answer;
+            Object.keys(assignedCharacters).forEach(placeholder => {
+                const regex = new RegExp(`\\{${placeholder}\\}`, 'g');
+                ca = ca.replace(regex, assignedCharacters[placeholder]);
+            });
+            question.correct_answer_substituted = this.substituteGenderPronouns(ca, assignedGenders);
         }
         
         question.questionText = questionText;
         question.universeName = universe ? universe.universe_name : 'General';
+    }
+
+    /**
+     * Substitute gender pronoun placeholders based on assigned character genders.
+     * @param {string} text - Text containing pronoun placeholders.
+     * @param {Object} genders - Map of character index to 'male'|'female'.
+     */
+    substituteGenderPronouns(text, genders) {
+        Object.keys(genders).forEach(index => {
+            const isFemale = genders[index] === 'female';
+            const i = index;
+            text = text.replace(new RegExp(`\\{HE_SHE_CAP_${i}\\}`, 'g'),        isFemale ? 'She'      : 'He');
+            text = text.replace(new RegExp(`\\{HIS_HER_CAP_${i}\\}`, 'g'),        isFemale ? 'Her'      : 'His');
+            text = text.replace(new RegExp(`\\{HE_SHE_${i}\\}`, 'g'),             isFemale ? 'she'      : 'he');
+            text = text.replace(new RegExp(`\\{HIM_HER_${i}\\}`, 'g'),            isFemale ? 'her'      : 'him');
+            text = text.replace(new RegExp(`\\{HIS_HER_${i}\\}`, 'g'),            isFemale ? 'her'      : 'his');
+            text = text.replace(new RegExp(`\\{HIS_HERS_${i}\\}`, 'g'),           isFemale ? 'hers'     : 'his');
+            text = text.replace(new RegExp(`\\{HIMSELF_HERSELF_${i}\\}`, 'g'),    isFemale ? 'herself'  : 'himself');
+        });
+        return text;
     }
     
     generatePaper() {
@@ -324,7 +374,8 @@ class PaperGenerator {
         
         if (isMCQ) {
             html += '<div class="mcq-options">';
-            question.options.forEach((option, i) => {
+            const displayOptions = question.optionsSubstituted || question.options;
+            displayOptions.forEach((option, i) => {
                 const label = String.fromCharCode(65 + i); // A, B, C, D
                 const isCorrect = i === question.answer;
                 html += `
@@ -344,7 +395,10 @@ class PaperGenerator {
             }
         } else {
             // Structured question - show answer space
-            const correctAnswer = question.correct_answer || question.options[question.answer];
+            const displayOptions = question.optionsSubstituted || question.options;
+            const correctAnswer = question.correct_answer_substituted
+                || question.correct_answer
+                || displayOptions[question.answer];
             
             if (this.showingAnswers) {
                 html += `<div style="margin-top: 15px; padding: 15px; background: #d4edda; border-radius: 6px;">
