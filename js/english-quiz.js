@@ -285,7 +285,8 @@ class EnglishQuizApp {
   }
 
   /**
-   * Assign characters to placeholder roles based on theme
+   * Assign characters to placeholder roles based on theme.
+   * Returns an array of objects: { name, gender }
    */
   assignCharactersToRoles(roles, themeId) {
     let availableCharacters;
@@ -319,19 +320,19 @@ class EnglishQuizApp {
       // If all characters are used, reuse any character
       const finalCandidates = candidates.length > 0 ? candidates : availableCharacters;
 
-      // If no characters are available at all, return a placeholder name
+      // If no characters are available at all, return a default placeholder
       if (finalCandidates.length === 0) {
-        return 'Alex';
+        return { name: 'Alex', gender: 'male' };
       }
 
       // Pick a random character
       const randomIndex = Math.floor(Math.random() * finalCandidates.length);
-      const selectedChar = finalCandidates[randomIndex].name;
+      const selectedChar = finalCandidates[randomIndex];
 
       // Mark this character as used
-      usedCharacters.add(selectedChar);
+      usedCharacters.add(selectedChar.name);
 
-      return selectedChar;
+      return { name: selectedChar.name, gender: selectedChar.gender || 'male' };
     });
   }
 
@@ -343,15 +344,37 @@ class EnglishQuizApp {
   }
 
   /**
-   * Substitute {CHARACTER_N} placeholders in text
+   * Substitute {CHARACTER_N} and gender pronoun placeholders in text.
+   * Pronoun placeholders resolve based on the assigned character's gender:
+   *   {HE_SHE_N}          → he / she
+   *   {HIM_HER_N}         → him / her
+   *   {HIS_HER_N}         → his / her  (possessive adjective)
+   *   {HIS_HERS_N}        → his / hers (possessive pronoun)
+   *   {HIMSELF_HERSELF_N} → himself / herself
+   *   {HE_SHE_CAP_N}      → He / She   (sentence-initial capitalised form)
+   *   {HIS_HER_CAP_N}     → His / Her  (sentence-initial capitalised form)
    */
   substituteCharacters(text, question) {
     if (!question.placeholders || question.placeholders.length === 0) {
       return text;
     }
     question.placeholders.forEach((placeholder, index) => {
-      const charRegex = new RegExp(`\\{CHARACTER_${index}\\}`, 'g');
-      text = text.replace(charRegex, `<strong>${placeholder}</strong>`);
+      const isFemale = placeholder.gender === 'female';
+
+      // Character name
+      text = text.replace(
+        new RegExp(`\\{CHARACTER_${index}\\}`, 'g'),
+        `<strong>${placeholder.name}</strong>`
+      );
+
+      // Pronoun placeholders
+      text = text.replace(new RegExp(`\\{HE_SHE_CAP_${index}\\}`, 'g'),  isFemale ? 'She'      : 'He');
+      text = text.replace(new RegExp(`\\{HIS_HER_CAP_${index}\\}`, 'g'),  isFemale ? 'Her'      : 'His');
+      text = text.replace(new RegExp(`\\{HE_SHE_${index}\\}`, 'g'),       isFemale ? 'she'      : 'he');
+      text = text.replace(new RegExp(`\\{HIM_HER_${index}\\}`, 'g'),      isFemale ? 'her'      : 'him');
+      text = text.replace(new RegExp(`\\{HIS_HER_${index}\\}`, 'g'),      isFemale ? 'her'      : 'his');
+      text = text.replace(new RegExp(`\\{HIS_HERS_${index}\\}`, 'g'),     isFemale ? 'hers'     : 'his');
+      text = text.replace(new RegExp(`\\{HIMSELF_HERSELF_${index}\\}`, 'g'), isFemale ? 'herself' : 'himself');
     });
     return text;
   }
