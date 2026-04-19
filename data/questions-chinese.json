@@ -1730,5 +1730,5321 @@
     ],
     "answer": 0,
     "correct_answer": "树木或木制品"
+  },
+  {
+    "id": "CHN105",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}每天「上学」，下列哪个是「上学」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "shàng xué",
+      "shǎng xué",
+      "shàng xuě",
+      "shāng xué"
+    ],
+    "answer": 0,
+    "correct_answer": "shàng xué"
+  },
+  {
+    "id": "CHN106",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "放学了，{CHARACTER_0}高兴地「下课」，下列哪个是「下课」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "xià kè",
+      "xiā kè",
+      "xià kě",
+      "xiǎ kè"
+    ],
+    "answer": 0,
+    "correct_answer": "xià kè"
+  },
+  {
+    "id": "CHN107",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}喜欢吃「水果」，下列哪个是「水果」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "shuǐ guǒ",
+      "shuì guǒ",
+      "shuǐ guō",
+      "shuí guǒ"
+    ],
+    "answer": 0,
+    "correct_answer": "shuǐ guǒ"
+  },
+  {
+    "id": "CHN108",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}最喜欢吃「苹果」，下列哪个是「苹果」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "píng guǒ",
+      "pīng guǒ",
+      "píng guō",
+      "pǐng guǒ"
+    ],
+    "answer": 0,
+    "correct_answer": "píng guǒ"
+  },
+  {
+    "id": "CHN109",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "妈妈买了「香蕉」，下列哪个是「香蕉」的正确拼音？",
+    "placeholder_roles": [],
+    "options": [
+      "xiāng jiāo",
+      "xiáng jiāo",
+      "xiāng jiào",
+      "xiǎng jiāo"
+    ],
+    "answer": 0,
+    "correct_answer": "xiāng jiāo"
+  },
+  {
+    "id": "CHN110",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}的衬衫是「白色」的，下列哪个是「白色」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "bái sè",
+      "bāi sè",
+      "bái sē",
+      "bǎi sè"
+    ],
+    "answer": 0,
+    "correct_answer": "bái sè"
+  },
+  {
+    "id": "CHN111",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}画了一个「红色」的苹果，下列哪个是「红色」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "hóng sè",
+      "hōng sè",
+      "hóng sē",
+      "hǒng sè"
+    ],
+    "answer": 0,
+    "correct_answer": "hóng sè"
+  },
+  {
+    "id": "CHN112",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}每天早上喜欢「跑步」，下列哪个是「跑步」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "pǎo bù",
+      "páo bù",
+      "pǎo bú",
+      "pāo bù"
+    ],
+    "answer": 0,
+    "correct_answer": "pǎo bù"
+  },
+  {
+    "id": "CHN113",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}学会了「游泳」，下列哪个是「游泳」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "yóu yǒng",
+      "yōu yǒng",
+      "yóu yōng",
+      "yǒu yǒng"
+    ],
+    "answer": 0,
+    "correct_answer": "yóu yǒng"
+  },
+  {
+    "id": "CHN114",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}喜欢「唱歌」，下列哪个是「唱歌」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "chàng gē",
+      "cháng gē",
+      "chàng gé",
+      "chāng gē"
+    ],
+    "answer": 0,
+    "correct_answer": "chàng gē"
+  },
+  {
+    "id": "CHN115",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}学会了「跳舞」，下列哪个是「跳舞」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "tiào wǔ",
+      "tiāo wǔ",
+      "tiào wū",
+      "tiǎo wǔ"
+    ],
+    "answer": 0,
+    "correct_answer": "tiào wǔ"
+  },
+  {
+    "id": "CHN116",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}收到礼物，感到非常「高兴」，下列哪个是「高兴」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "gāo xìng",
+      "gáo xìng",
+      "gāo xíng",
+      "gǎo xìng"
+    ],
+    "answer": 0,
+    "correct_answer": "gāo xìng"
+  },
+  {
+    "id": "CHN117",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "今天是{CHARACTER_0}的「生日」，下列哪个是「生日」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "shēng rì",
+      "shéng rì",
+      "shēng rí",
+      "shěng rì"
+    ],
+    "answer": 0,
+    "correct_answer": "shēng rì"
+  },
+  {
+    "id": "CHN118",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}有一个可爱的「弟弟」，下列哪个是「弟弟」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "dì di",
+      "dí di",
+      "dì dì",
+      "dī di"
+    ],
+    "answer": 0,
+    "correct_answer": "dì di"
+  },
+  {
+    "id": "CHN119",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}的「姐姐」非常温柔，下列哪个是「姐姐」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "jiě jie",
+      "jiē jie",
+      "jiě jiě",
+      "jié jie"
+    ],
+    "answer": 0,
+    "correct_answer": "jiě jie"
+  },
+  {
+    "id": "CHN120",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}的「哥哥」很爱护弟妹，下列哪个是「哥哥」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "gē ge",
+      "gé ge",
+      "gē gě",
+      "gě ge"
+    ],
+    "answer": 0,
+    "correct_answer": "gē ge"
+  },
+  {
+    "id": "CHN121",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}和「妹妹」一起玩，下列哪个是「妹妹」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "mèi mei",
+      "méi mei",
+      "mèi mèi",
+      "mēi mei"
+    ],
+    "answer": 0,
+    "correct_answer": "mèi mei"
+  },
+  {
+    "id": "CHN122",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}很尊敬「爷爷」，下列哪个是「爷爷」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "yé ye",
+      "yē ye",
+      "yé yé",
+      "yě ye"
+    ],
+    "answer": 0,
+    "correct_answer": "yé ye"
+  },
+  {
+    "id": "CHN123",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}每天帮「奶奶」做家务，下列哪个是「奶奶」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "nǎi nai",
+      "nài nai",
+      "nǎi nǎi",
+      "nāi nai"
+    ],
+    "answer": 0,
+    "correct_answer": "nǎi nai"
+  },
+  {
+    "id": "CHN124",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "天空中有一个大大的「太阳」，下列哪个是「太阳」的正确拼音？",
+    "placeholder_roles": [],
+    "options": [
+      "tài yáng",
+      "tāi yáng",
+      "tài yāng",
+      "tǎi yáng"
+    ],
+    "answer": 0,
+    "correct_answer": "tài yáng"
+  },
+  {
+    "id": "CHN125",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "夜晚，天空中出现了圆圆的「月亮」，下列哪个是「月亮」的正确拼音？",
+    "placeholder_roles": [],
+    "options": [
+      "yuè liang",
+      "yuē liang",
+      "yuè liáng",
+      "yué liang"
+    ],
+    "answer": 0,
+    "correct_answer": "yuè liang"
+  },
+  {
+    "id": "CHN126",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "夜晚的天空有无数闪亮的「星星」，下列哪个是「星星」的正确拼音？",
+    "placeholder_roles": [],
+    "options": [
+      "xīng xing",
+      "xíng xing",
+      "xīng xīng",
+      "xǐng xing"
+    ],
+    "answer": 0,
+    "correct_answer": "xīng xing"
+  },
+  {
+    "id": "CHN127",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}养了一只可爱的「小狗」，下列哪个是「小狗」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "xiǎo gǒu",
+      "xiāo gǒu",
+      "xiǎo gōu",
+      "xiào gǒu"
+    ],
+    "answer": 0,
+    "correct_answer": "xiǎo gǒu"
+  },
+  {
+    "id": "CHN128",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}家里有一只「小猫」，下列哪个是「小猫」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "xiǎo māo",
+      "xiāo māo",
+      "xiǎo máo",
+      "xiào māo"
+    ],
+    "answer": 0,
+    "correct_answer": "xiǎo māo"
+  },
+  {
+    "id": "CHN129",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}很爱「家人」，下列哪个是「家人」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "jiā rén",
+      "jiǎ rén",
+      "jiā rěn",
+      "jiá rén"
+    ],
+    "answer": 0,
+    "correct_answer": "jiā rén"
+  },
+  {
+    "id": "CHN130",
+    "category": "汉语拼音",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}向老师打招呼「你好」，下列哪个是「你好」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "nǐ hǎo",
+      "nī hǎo",
+      "nǐ hāo",
+      "ní hǎo"
+    ],
+    "answer": 0,
+    "correct_answer": "nǐ hǎo"
+  },
+  {
+    "id": "CHN131",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}很「努力」地学习，下列哪个是「努力」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "nǔ lì",
+      "nú lì",
+      "nǔ lí",
+      "nū lì"
+    ],
+    "answer": 0,
+    "correct_answer": "nǔ lì"
+  },
+  {
+    "id": "CHN132",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}帮妈妈「整理」房间，下列哪个是「整理」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "zhěng lǐ",
+      "zhēng lǐ",
+      "zhěng lí",
+      "zhèng lǐ"
+    ],
+    "answer": 0,
+    "correct_answer": "zhěng lǐ"
+  },
+  {
+    "id": "CHN133",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}经常「帮助」同学，下列哪个是「帮助」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "bāng zhù",
+      "bǎng zhù",
+      "bāng zhú",
+      "báng zhù"
+    ],
+    "answer": 0,
+    "correct_answer": "bāng zhù"
+  },
+  {
+    "id": "CHN134",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}「认真」地做作业，下列哪个是「认真」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "rèn zhēn",
+      "rén zhēn",
+      "rèn zhén",
+      "rěn zhēn"
+    ],
+    "answer": 0,
+    "correct_answer": "rèn zhēn"
+  },
+  {
+    "id": "CHN135",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}终于「完成」了作业，下列哪个是「完成」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "wán chéng",
+      "wān chéng",
+      "wán chēng",
+      "wǎn chéng"
+    ],
+    "answer": 0,
+    "correct_answer": "wán chéng"
+  },
+  {
+    "id": "CHN136",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}报名「参加」学校的比赛，下列哪个是「参加」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "cān jiā",
+      "cán jiā",
+      "cān jiǎ",
+      "cān jiá"
+    ],
+    "answer": 0,
+    "correct_answer": "cān jiā"
+  },
+  {
+    "id": "CHN137",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}在「比赛」中获得了第一名，下列哪个是「比赛」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "bǐ sài",
+      "bí sài",
+      "bǐ sāi",
+      "bì sài"
+    ],
+    "answer": 0,
+    "correct_answer": "bǐ sài"
+  },
+  {
+    "id": "CHN138",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}「赢得」了冠军，下列哪个是「赢得」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "yíng dé",
+      "yīng dé",
+      "yíng dě",
+      "yǐng dé"
+    ],
+    "answer": 0,
+    "correct_answer": "yíng dé"
+  },
+  {
+    "id": "CHN139",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}在「操场」上玩耍，下列哪个是「操场」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "cāo chǎng",
+      "cáo chǎng",
+      "cāo chāng",
+      "cǎo chǎng"
+    ],
+    "answer": 0,
+    "correct_answer": "cāo chǎng"
+  },
+  {
+    "id": "CHN140",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}喜欢上「音乐」课，下列哪个是「音乐」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "yīn yuè",
+      "yín yuè",
+      "yīn yuē",
+      "yǐn yuè"
+    ],
+    "answer": 0,
+    "correct_answer": "yīn yuè"
+  },
+  {
+    "id": "CHN141",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}擅长「美术」，下列哪个是「美术」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "měi shù",
+      "méi shù",
+      "měi shū",
+      "mèi shù"
+    ],
+    "answer": 0,
+    "correct_answer": "měi shù"
+  },
+  {
+    "id": "CHN142",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}最喜欢「体育」课，下列哪个是「体育」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "tǐ yù",
+      "tī yù",
+      "tǐ yū",
+      "tí yù"
+    ],
+    "answer": 0,
+    "correct_answer": "tǐ yù"
+  },
+  {
+    "id": "CHN143",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}在课上学习「自然」科学，下列哪个是「自然」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "zì rán",
+      "zī rán",
+      "zì rǎn",
+      "zhì rán"
+    ],
+    "answer": 0,
+    "correct_answer": "zì rán"
+  },
+  {
+    "id": "CHN144",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}对「科学」很感兴趣，下列哪个是「科学」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "kē xué",
+      "ké xué",
+      "kē xuē",
+      "kě xué"
+    ],
+    "answer": 0,
+    "correct_answer": "kē xué"
+  },
+  {
+    "id": "CHN145",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}「数学」考试得了满分，下列哪个是「数学」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "shù xué",
+      "shū xué",
+      "shù xuě",
+      "shú xué"
+    ],
+    "answer": 0,
+    "correct_answer": "shù xué"
+  },
+  {
+    "id": "CHN146",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}喜欢「语文」课，下列哪个是「语文」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "yǔ wén",
+      "yū wén",
+      "yǔ wēn",
+      "yú wén"
+    ],
+    "answer": 0,
+    "correct_answer": "yǔ wén"
+  },
+  {
+    "id": "CHN147",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}「英语」说得很流利，下列哪个是「英语」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "yīng yǔ",
+      "yíng yǔ",
+      "yīng yū",
+      "yǐng yǔ"
+    ],
+    "answer": 0,
+    "correct_answer": "yīng yǔ"
+  },
+  {
+    "id": "CHN148",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}每天在学校「食堂」吃午餐，下列哪个是「食堂」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "shí táng",
+      "shī táng",
+      "shí tāng",
+      "shì táng"
+    ],
+    "answer": 0,
+    "correct_answer": "shí táng"
+  },
+  {
+    "id": "CHN149",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}和「同学」们一起做作业，下列哪个是「同学」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "tóng xué",
+      "tōng xué",
+      "tóng xuě",
+      "tǒng xué"
+    ],
+    "answer": 0,
+    "correct_answer": "tóng xué"
+  },
+  {
+    "id": "CHN150",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}大声朗读「课文」，下列哪个是「课文」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "kè wén",
+      "ké wén",
+      "kè wēn",
+      "kě wén"
+    ],
+    "answer": 0,
+    "correct_answer": "kè wén"
+  },
+  {
+    "id": "CHN151",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}每天做拼音「练习」，下列哪个是「练习」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "liàn xí",
+      "liān xí",
+      "liàn xī",
+      "lián xí"
+    ],
+    "answer": 0,
+    "correct_answer": "liàn xí"
+  },
+  {
+    "id": "CHN152",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}按时完成「作业」，下列哪个是「作业」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "zuò yè",
+      "zuō yè",
+      "zuò yē",
+      "zuǒ yè"
+    ],
+    "answer": 0,
+    "correct_answer": "zuò yè"
+  },
+  {
+    "id": "CHN153",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "老师在「黑板」上写字，下列哪个是「黑板」的正确拼音？",
+    "placeholder_roles": [],
+    "options": [
+      "hēi bǎn",
+      "héi bǎn",
+      "hēi bān",
+      "hěi bǎn"
+    ],
+    "answer": 0,
+    "correct_answer": "hēi bǎn"
+  },
+  {
+    "id": "CHN154",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}用「铅笔」画画，下列哪个是「铅笔」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "qiān bǐ",
+      "qiǎn bǐ",
+      "qiān bī",
+      "qián bǐ"
+    ],
+    "answer": 0,
+    "correct_answer": "qiān bǐ"
+  },
+  {
+    "id": "CHN155",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}每天「阅读」一小时，下列哪个是「阅读」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "yuè dú",
+      "yuē dú",
+      "yuè dū",
+      "yué dú"
+    ],
+    "answer": 0,
+    "correct_answer": "yuè dú"
+  },
+  {
+    "id": "CHN156",
+    "category": "汉语拼音",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}整理好「书包」准备上学，下列哪个是「书包」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "shū bāo",
+      "shú bāo",
+      "shū báo",
+      "shǔ bāo"
+    ],
+    "answer": 0,
+    "correct_answer": "shū bāo"
+  },
+  {
+    "id": "CHN157",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}「坚持」不懈，终于成功，下列哪个是「坚持」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "jiān chí",
+      "jiǎn chí",
+      "jiān chī",
+      "jiàn chí"
+    ],
+    "answer": 0,
+    "correct_answer": "jiān chí"
+  },
+  {
+    "id": "CHN158",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}凭着「毅力」克服了重重困难，下列哪个是「毅力」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "yì lì",
+      "yí lì",
+      "yì lī",
+      "yǐ lì"
+    ],
+    "answer": 0,
+    "correct_answer": "yì lì"
+  },
+  {
+    "id": "CHN159",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}为人「谦虚」，不炫耀成绩，下列哪个是「谦虚」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "qiān xū",
+      "qiǎn xū",
+      "qiān xú",
+      "qián xū"
+    ],
+    "answer": 0,
+    "correct_answer": "qiān xū"
+  },
+  {
+    "id": "CHN160",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}待人「宽容」，从不斤斤计较，下列哪个是「宽容」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "kuān róng",
+      "kuǎn róng",
+      "kuān rōng",
+      "kuán róng"
+    ],
+    "answer": 0,
+    "correct_answer": "kuān róng"
+  },
+  {
+    "id": "CHN161",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}对帮助过自己的人深感「感激」，下列哪个是「感激」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "gǎn jī",
+      "gān jī",
+      "gǎn jí",
+      "gàn jī"
+    ],
+    "answer": 0,
+    "correct_answer": "gǎn jī"
+  },
+  {
+    "id": "CHN162",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "老师不断「鼓励」{CHARACTER_0}，下列哪个是「鼓励」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "gǔ lì",
+      "gū lì",
+      "gǔ lí",
+      "gú lì"
+    ],
+    "answer": 0,
+    "correct_answer": "gǔ lì"
+  },
+  {
+    "id": "CHN163",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}取得了很多「成就」，下列哪个是「成就」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "chéng jiù",
+      "chēng jiù",
+      "chéng jiū",
+      "chèng jiù"
+    ],
+    "answer": 0,
+    "correct_answer": "chéng jiù"
+  },
+  {
+    "id": "CHN164",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}勇于接受「挑战」，下列哪个是「挑战」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "tiǎo zhàn",
+      "tiāo zhàn",
+      "tiǎo zhān",
+      "tiào zhàn"
+    ],
+    "answer": 0,
+    "correct_answer": "tiǎo zhàn"
+  },
+  {
+    "id": "CHN165",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}认为保护环境是每个人的「责任」，下列哪个是「责任」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "zé rèn",
+      "zē rèn",
+      "zé rén",
+      "zhé rèn"
+    ],
+    "answer": 0,
+    "correct_answer": "zé rèn"
+  },
+  {
+    "id": "CHN166",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "朋友之间应该互相「信任」，下列哪个是「信任」的正确拼音？",
+    "placeholder_roles": [],
+    "options": [
+      "xìn rèn",
+      "xín rèn",
+      "xìn rén",
+      "xīn rèn"
+    ],
+    "answer": 0,
+    "correct_answer": "xìn rèn"
+  },
+  {
+    "id": "CHN167",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}认为「合作」精神非常重要，下列哪个是「合作」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "hé zuò",
+      "hē zuò",
+      "hé zuō",
+      "hě zuò"
+    ],
+    "answer": 0,
+    "correct_answer": "hé zuò"
+  },
+  {
+    "id": "CHN168",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}教导我们要「尊重」长辈，下列哪个是「尊重」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "zūn zhòng",
+      "zún zhòng",
+      "zūn zhōng",
+      "zǔn zhòng"
+    ],
+    "answer": 0,
+    "correct_answer": "zūn zhòng"
+  },
+  {
+    "id": "CHN169",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}心存「感恩」，懂得珍惜，下列哪个是「感恩」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "gǎn ēn",
+      "gān ēn",
+      "gǎn én",
+      "gàn ēn"
+    ],
+    "answer": 0,
+    "correct_answer": "gǎn ēn"
+  },
+  {
+    "id": "CHN170",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "老师为学生默默「奉献」，下列哪个是「奉献」的正确拼音？",
+    "placeholder_roles": [],
+    "options": [
+      "fèng xiàn",
+      "féng xiàn",
+      "fèng xiǎn",
+      "fěng xiàn"
+    ],
+    "answer": 0,
+    "correct_answer": "fèng xiàn"
+  },
+  {
+    "id": "CHN171",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}有着高尚的「品德」，下列哪个是「品德」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "pǐn dé",
+      "pín dé",
+      "pǐn dě",
+      "pīn dé"
+    ],
+    "answer": 0,
+    "correct_answer": "pǐn dé"
+  },
+  {
+    "id": "CHN172",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "我们「应该」尊重他人，下列哪个是「应该」的正确拼音？",
+    "placeholder_roles": [],
+    "options": [
+      "yīng gāi",
+      "yíng gāi",
+      "yīng gǎi",
+      "yǐng gāi"
+    ],
+    "answer": 0,
+    "correct_answer": "yīng gāi"
+  },
+  {
+    "id": "CHN173",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}找出了题目的「答案」，下列哪个是「答案」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "dá àn",
+      "dā àn",
+      "dá ān",
+      "dǎ àn"
+    ],
+    "answer": 0,
+    "correct_answer": "dá àn"
+  },
+  {
+    "id": "CHN174",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}明白诚实是非常「重要」的，下列哪个是「重要」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "zhòng yào",
+      "zhōng yào",
+      "zhòng yǎo",
+      "zhóng yào"
+    ],
+    "answer": 0,
+    "correct_answer": "zhòng yào"
+  },
+  {
+    "id": "CHN175",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}思考这件事的「意义」，下列哪个是「意义」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "yì yì",
+      "yí yì",
+      "yì yī",
+      "yǐ yì"
+    ],
+    "answer": 0,
+    "correct_answer": "yì yì"
+  },
+  {
+    "id": "CHN176",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "父母对{CHARACTER_0}有很大的「影响」，下列哪个是「影响」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "yǐng xiǎng",
+      "yīng xiǎng",
+      "yǐng xiāng",
+      "yìng xiǎng"
+    ],
+    "answer": 0,
+    "correct_answer": "yǐng xiǎng"
+  },
+  {
+    "id": "CHN177",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}学习「态度」认真，下列哪个是「态度」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "tài dù",
+      "tǎi dù",
+      "tài dū",
+      "tāi dù"
+    ],
+    "answer": 0,
+    "correct_answer": "tài dù"
+  },
+  {
+    "id": "CHN178",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "我们要保护自己的生活「环境」，下列哪个是「环境」的正确拼音？",
+    "placeholder_roles": [],
+    "options": [
+      "huán jìng",
+      "huān jìng",
+      "huán jǐng",
+      "huǎn jìng"
+    ],
+    "answer": 0,
+    "correct_answer": "huán jìng"
+  },
+  {
+    "id": "CHN179",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}积极「保护」濒危动物，下列哪个是「保护」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "bǎo hù",
+      "báo hù",
+      "bǎo hú",
+      "bào hù"
+    ],
+    "answer": 0,
+    "correct_answer": "bǎo hù"
+  },
+  {
+    "id": "CHN180",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "社会不断「发展」，生活越来越好，下列哪个是「发展」的正确拼音？",
+    "placeholder_roles": [],
+    "options": [
+      "fā zhǎn",
+      "fǎ zhǎn",
+      "fā zhàn",
+      "fá zhǎn"
+    ],
+    "answer": 0,
+    "correct_answer": "fā zhǎn"
+  },
+  {
+    "id": "CHN181",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}热爱中华「文化」，下列哪个是「文化」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "wén huà",
+      "wēn huà",
+      "wén huā",
+      "wǔ huà"
+    ],
+    "answer": 0,
+    "correct_answer": "wén huà"
+  },
+  {
+    "id": "CHN182",
+    "category": "汉语拼音",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}懂得「珍惜」时光，下列哪个是「珍惜」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "zhēn xī",
+      "zhén xī",
+      "zhēn xí",
+      "zhěn xī"
+    ],
+    "answer": 0,
+    "correct_answer": "zhēn xī"
+  },
+  {
+    "id": "CHN183",
+    "category": "汉语拼音",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}记住了「勤俭节约」这个成语，下列哪个是「勤俭节约」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "qín jiǎn jié yuē",
+      "qīn jiǎn jié yuē",
+      "qín jiān jié yuē",
+      "qín jiǎn jiē yuē"
+    ],
+    "answer": 0,
+    "correct_answer": "qín jiǎn jié yuē"
+  },
+  {
+    "id": "CHN184",
+    "category": "汉语拼音",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}以「坚韧不拔」的精神面对挑战，下列哪个是「坚韧不拔」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "jiān rèn bù bá",
+      "jiǎn rèn bù bá",
+      "jiān rén bù bá",
+      "jiān rèn bú bá"
+    ],
+    "answer": 0,
+    "correct_answer": "jiān rèn bù bá"
+  },
+  {
+    "id": "CHN185",
+    "category": "汉语拼音",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}「持之以恒」地练习，终于成功，下列哪个是「持之以恒」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "chí zhī yǐ héng",
+      "chī zhī yǐ héng",
+      "chí zhí yǐ héng",
+      "chí zhī yì héng"
+    ],
+    "answer": 0,
+    "correct_answer": "chí zhī yǐ héng"
+  },
+  {
+    "id": "CHN186",
+    "category": "汉语拼音",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}为了备考「废寝忘食」地复习，下列哪个是「废寝忘食」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "fèi qǐn wàng shí",
+      "féi qǐn wàng shí",
+      "fèi qín wàng shí",
+      "fèi qǐn wǎng shí"
+    ],
+    "answer": 0,
+    "correct_answer": "fèi qǐn wàng shí"
+  },
+  {
+    "id": "CHN187",
+    "category": "汉语拼音",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}做事「一丝不苟」，非常仔细，下列哪个是「一丝不苟」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "yī sī bù gǒu",
+      "yī sí bù gǒu",
+      "yī sī bú gǒu",
+      "yī sī bù gōu"
+    ],
+    "answer": 0,
+    "correct_answer": "yī sī bù gǒu"
+  },
+  {
+    "id": "CHN188",
+    "category": "汉语拼音",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}凡事「精益求精」，力求完美，下列哪个是「精益求精」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "jīng yì qiú jīng",
+      "jíng yì qiú jīng",
+      "jīng yí qiú jīng",
+      "jīng yì qiū jīng"
+    ],
+    "answer": 0,
+    "correct_answer": "jīng yì qiú jīng"
+  },
+  {
+    "id": "CHN189",
+    "category": "汉语拼音",
+    "difficulty": "PSLE",
+    "template": "老师称赞{CHARACTER_0}「博学多才」，下列哪个是「博学多才」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "bó xué duō cái",
+      "bō xué duō cái",
+      "bó xuě duō cái",
+      "bó xué duǒ cái"
+    ],
+    "answer": 0,
+    "correct_answer": "bó xué duō cái"
+  },
+  {
+    "id": "CHN190",
+    "category": "汉语拼音",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}「勤勤恳恳」地工作，赢得大家的尊敬，下列哪个是「勤勤恳恳」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "qín qín kěn kěn",
+      "qīn qín kěn kěn",
+      "qín qín kēn kěn",
+      "qín qín kěn kén"
+    ],
+    "answer": 0,
+    "correct_answer": "qín qín kěn kěn"
+  },
+  {
+    "id": "CHN191",
+    "category": "汉语拼音",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}有能力「克服困难」，下列哪个是「克服困难」的正确拼音？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "kè fú kùn nán",
+      "kě fú kùn nán",
+      "kè fū kùn nán",
+      "kè fú kǔn nán"
+    ],
+    "answer": 0,
+    "correct_answer": "kè fú kùn nán"
+  },
+  {
+    "id": "CHN192",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "选出与「伤心」意思相近的词语。（{CHARACTER_0}今天感到很伤心。）",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "难过",
+      "高兴",
+      "开心",
+      "快乐"
+    ],
+    "answer": 0,
+    "correct_answer": "难过"
+  },
+  {
+    "id": "CHN193",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}问：「快」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "慢",
+      "高",
+      "大",
+      "多"
+    ],
+    "answer": 0,
+    "correct_answer": "慢"
+  },
+  {
+    "id": "CHN194",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}在学量词：一______花",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "朵",
+      "棵",
+      "条",
+      "个"
+    ],
+    "answer": 0,
+    "correct_answer": "朵"
+  },
+  {
+    "id": "CHN195",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}在学量词：一______鱼",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "条",
+      "只",
+      "个",
+      "匹"
+    ],
+    "answer": 0,
+    "correct_answer": "条"
+  },
+  {
+    "id": "CHN196",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "下面哪个词语可以填入句子：今天天气很______，大家都汗流浃背。",
+    "placeholder_roles": [],
+    "options": [
+      "热",
+      "冷",
+      "凉",
+      "暖"
+    ],
+    "answer": 0,
+    "correct_answer": "热"
+  },
+  {
+    "id": "CHN197",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}问：「多」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "少",
+      "小",
+      "矮",
+      "短"
+    ],
+    "answer": 0,
+    "correct_answer": "少"
+  },
+  {
+    "id": "CHN198",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}在学量词：一______树",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "棵",
+      "条",
+      "块",
+      "朵"
+    ],
+    "answer": 0,
+    "correct_answer": "棵"
+  },
+  {
+    "id": "CHN199",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}问：「高」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "矮",
+      "短",
+      "小",
+      "少"
+    ],
+    "answer": 0,
+    "correct_answer": "矮"
+  },
+  {
+    "id": "CHN200",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "选出与「开心」意思相近的词语。（{CHARACTER_0}今天感到非常开心。）",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "快乐",
+      "伤心",
+      "生气",
+      "害怕"
+    ],
+    "answer": 0,
+    "correct_answer": "快乐"
+  },
+  {
+    "id": "CHN201",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}在学量词：一______叶子",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "片",
+      "棵",
+      "朵",
+      "个"
+    ],
+    "answer": 0,
+    "correct_answer": "片"
+  },
+  {
+    "id": "CHN202",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}问：「白」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "黑",
+      "红",
+      "蓝",
+      "绿"
+    ],
+    "answer": 0,
+    "correct_answer": "黑"
+  },
+  {
+    "id": "CHN203",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "下面哪个词语可以填入句子：爸爸______我们去公园玩。",
+    "placeholder_roles": [],
+    "options": [
+      "带",
+      "来",
+      "去",
+      "走"
+    ],
+    "answer": 0,
+    "correct_answer": "带"
+  },
+  {
+    "id": "CHN204",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}在学量词：一______饭",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "碗",
+      "盘",
+      "杯",
+      "个"
+    ],
+    "answer": 0,
+    "correct_answer": "碗"
+  },
+  {
+    "id": "CHN205",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}问：「新」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "旧",
+      "坏",
+      "破",
+      "烂"
+    ],
+    "answer": 0,
+    "correct_answer": "旧"
+  },
+  {
+    "id": "CHN206",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "下面哪个词语最适合填入句子：{CHARACTER_0}第一次骑自行车成功，觉得非常______。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "开心",
+      "伤心",
+      "难过",
+      "害怕"
+    ],
+    "answer": 0,
+    "correct_answer": "开心"
+  },
+  {
+    "id": "CHN207",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}在学量词：一______鞋",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "双",
+      "只",
+      "个",
+      "件"
+    ],
+    "answer": 0,
+    "correct_answer": "双"
+  },
+  {
+    "id": "CHN208",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}问：「长」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "短",
+      "矮",
+      "小",
+      "少"
+    ],
+    "answer": 0,
+    "correct_answer": "短"
+  },
+  {
+    "id": "CHN209",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "下面哪个词语最适合填入句子：{CHARACTER_0}的房间非常______，东西都摆放整齐。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "干净",
+      "脏乱",
+      "凌乱",
+      "杂乱"
+    ],
+    "answer": 0,
+    "correct_answer": "干净"
+  },
+  {
+    "id": "CHN210",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "选出与「好看」意思相近的词语。（{CHARACTER_0}说这件衣服真好看。）",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "漂亮",
+      "丑陋",
+      "普通",
+      "简单"
+    ],
+    "answer": 0,
+    "correct_answer": "漂亮"
+  },
+  {
+    "id": "CHN211",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}问：「干净」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "脏",
+      "乱",
+      "臭",
+      "差"
+    ],
+    "answer": 0,
+    "correct_answer": "脏"
+  },
+  {
+    "id": "CHN212",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}在学量词：一______水",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "杯",
+      "条",
+      "棵",
+      "块"
+    ],
+    "answer": 0,
+    "correct_answer": "杯"
+  },
+  {
+    "id": "CHN213",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "下面哪个词语最适合填入句子：弟弟肚子______了，吵着要吃东西。",
+    "placeholder_roles": [],
+    "options": [
+      "饿",
+      "痛",
+      "冷",
+      "渴"
+    ],
+    "answer": 0,
+    "correct_answer": "饿"
+  },
+  {
+    "id": "CHN214",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}问：「好」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "坏",
+      "差",
+      "低",
+      "弱"
+    ],
+    "answer": 0,
+    "correct_answer": "坏"
+  },
+  {
+    "id": "CHN215",
+    "category": "词汇",
+    "difficulty": "P1-P2",
+    "template": "{CHARACTER_0}在学量词：一______蛋糕",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "块",
+      "朵",
+      "条",
+      "棵"
+    ],
+    "answer": 0,
+    "correct_answer": "块"
+  },
+  {
+    "id": "CHN216",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "选出与「担心」意思相近的词语。（{CHARACTER_0}很担心考试的成绩。）",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "忧虑",
+      "开心",
+      "平静",
+      "放心"
+    ],
+    "answer": 0,
+    "correct_answer": "忧虑"
+  },
+  {
+    "id": "CHN217",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}问：「懒惰」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "勤快",
+      "忙碌",
+      "努力",
+      "积极"
+    ],
+    "answer": 0,
+    "correct_answer": "勤快"
+  },
+  {
+    "id": "CHN218",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}在学量词：一______歌",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "首",
+      "个",
+      "条",
+      "篇"
+    ],
+    "answer": 0,
+    "correct_answer": "首"
+  },
+  {
+    "id": "CHN219",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "下面哪个词语最适合填入句子：比赛开始了，{CHARACTER_0}______地冲向终点。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "奋力",
+      "懒散",
+      "随便",
+      "慢吞吞"
+    ],
+    "answer": 0,
+    "correct_answer": "奋力"
+  },
+  {
+    "id": "CHN220",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "下面哪个句子中，「打」字的意思是「用电话联系」？",
+    "placeholder_roles": [],
+    "options": [
+      "他打电话给妈妈。",
+      "他打了一个球。",
+      "他打扫房间。",
+      "他打算去旅行。"
+    ],
+    "answer": 0,
+    "correct_answer": "他打电话给妈妈。"
+  },
+  {
+    "id": "CHN221",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "选出与「平静」意思相近的词语。（{CHARACTER_0}的心情很平静。）",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "宁静",
+      "热闹",
+      "吵闹",
+      "紧张"
+    ],
+    "answer": 0,
+    "correct_answer": "宁静"
+  },
+  {
+    "id": "CHN222",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}问：「骄傲」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "谦虚",
+      "勤快",
+      "诚实",
+      "聪明"
+    ],
+    "answer": 0,
+    "correct_answer": "谦虚"
+  },
+  {
+    "id": "CHN223",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}在学量词：一______诗",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "首",
+      "个",
+      "篇",
+      "张"
+    ],
+    "answer": 0,
+    "correct_answer": "首"
+  },
+  {
+    "id": "CHN224",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "下面哪个词语最适合填入句子：他虽然跌倒了，但毫不______，继续向前跑。",
+    "placeholder_roles": [],
+    "options": [
+      "气馁",
+      "高兴",
+      "开心",
+      "放心"
+    ],
+    "answer": 0,
+    "correct_answer": "气馁"
+  },
+  {
+    "id": "CHN225",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "下列词语中，哪一个是形容词（描述性词语）？",
+    "placeholder_roles": [],
+    "options": [
+      "美丽",
+      "跑步",
+      "老师",
+      "学校"
+    ],
+    "answer": 0,
+    "correct_answer": "美丽"
+  },
+  {
+    "id": "CHN226",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "选出与「勇敢」意思相近的词语。（{CHARACTER_0}非常勇敢。）",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "大胆",
+      "胆小",
+      "懦弱",
+      "害怕"
+    ],
+    "answer": 0,
+    "correct_answer": "大胆"
+  },
+  {
+    "id": "CHN227",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}问：「诚实」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "虚假",
+      "伤心",
+      "快乐",
+      "勇敢"
+    ],
+    "answer": 0,
+    "correct_answer": "虚假"
+  },
+  {
+    "id": "CHN228",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}在学量词：一______山",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "座",
+      "条",
+      "个",
+      "棵"
+    ],
+    "answer": 0,
+    "correct_answer": "座"
+  },
+  {
+    "id": "CHN229",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "下面哪个词语最适合填入句子：妈妈告诫{CHARACTER_0}，做人要______，不能说谎。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "诚实",
+      "聪明",
+      "高兴",
+      "勤快"
+    ],
+    "answer": 0,
+    "correct_answer": "诚实"
+  },
+  {
+    "id": "CHN230",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "选出与「开始」意思相近的词语。（活动即将开始。）",
+    "placeholder_roles": [],
+    "options": [
+      "开端",
+      "结束",
+      "停止",
+      "完成"
+    ],
+    "answer": 0,
+    "correct_answer": "开端"
+  },
+  {
+    "id": "CHN231",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}问：「坚强」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "软弱",
+      "懒惰",
+      "聪明",
+      "平静"
+    ],
+    "answer": 0,
+    "correct_answer": "软弱"
+  },
+  {
+    "id": "CHN232",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}在学量词：一______河",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "条",
+      "座",
+      "片",
+      "棵"
+    ],
+    "answer": 0,
+    "correct_answer": "条"
+  },
+  {
+    "id": "CHN233",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "下面哪个句子中，「看」字的意思是「照顾、看守」？",
+    "placeholder_roles": [],
+    "options": [
+      "妈妈在家看弟弟。",
+      "他在看书。",
+      "他们去看电影。",
+      "老师看见了他。"
+    ],
+    "answer": 0,
+    "correct_answer": "妈妈在家看弟弟。"
+  },
+  {
+    "id": "CHN234",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "选出与「努力」意思相近的词语。（{CHARACTER_0}学习很努力。）",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "勤奋",
+      "懒惰",
+      "散漫",
+      "轻松"
+    ],
+    "answer": 0,
+    "correct_answer": "勤奋"
+  },
+  {
+    "id": "CHN235",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}问：「慷慨」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "吝啬",
+      "懒惰",
+      "骄傲",
+      "虚假"
+    ],
+    "answer": 0,
+    "correct_answer": "吝啬"
+  },
+  {
+    "id": "CHN236",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "下面哪个词语最适合填入句子：弟弟很______，经常把零用钱存起来。",
+    "placeholder_roles": [],
+    "options": [
+      "节俭",
+      "浪费",
+      "挥霍",
+      "奢侈"
+    ],
+    "answer": 0,
+    "correct_answer": "节俭"
+  },
+  {
+    "id": "CHN237",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}在学量词：一______楼",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "栋",
+      "座",
+      "层",
+      "间"
+    ],
+    "answer": 0,
+    "correct_answer": "栋"
+  },
+  {
+    "id": "CHN238",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "下列词语中，哪一个是动词（表示行动的词语）？",
+    "placeholder_roles": [],
+    "options": [
+      "奔跑",
+      "美丽",
+      "图书馆",
+      "朋友"
+    ],
+    "answer": 0,
+    "correct_answer": "奔跑"
+  },
+  {
+    "id": "CHN239",
+    "category": "词汇",
+    "difficulty": "P3-P4",
+    "template": "选出与「寒冷」意思相近的词语。（今天天气十分寒冷。）",
+    "placeholder_roles": [],
+    "options": [
+      "冰凉",
+      "炎热",
+      "温暖",
+      "凉爽"
+    ],
+    "answer": 0,
+    "correct_answer": "冰凉"
+  },
+  {
+    "id": "CHN240",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "选出与「坚强」意思相近的词语。（{CHARACTER_0}十分坚强。）",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "刚毅",
+      "软弱",
+      "懦弱",
+      "脆弱"
+    ],
+    "answer": 0,
+    "correct_answer": "刚毅"
+  },
+  {
+    "id": "CHN241",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}问：「自私」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "慷慨",
+      "勤快",
+      "诚实",
+      "聪明"
+    ],
+    "answer": 0,
+    "correct_answer": "慷慨"
+  },
+  {
+    "id": "CHN242",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "选出与「感激」意思相近的词语。（{CHARACTER_0}对帮助他的人深感感激。）",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "感谢",
+      "怨恨",
+      "生气",
+      "厌恶"
+    ],
+    "answer": 0,
+    "correct_answer": "感谢"
+  },
+  {
+    "id": "CHN243",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}问：「勇敢」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "胆怯",
+      "懒惰",
+      "软弱",
+      "骄傲"
+    ],
+    "answer": 0,
+    "correct_answer": "胆怯"
+  },
+  {
+    "id": "CHN244",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "下面哪个词语最适合填入句子：面对困难，{CHARACTER_0}从不轻易______，始终坚持到底。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "妥协",
+      "努力",
+      "奋斗",
+      "坚持"
+    ],
+    "answer": 0,
+    "correct_answer": "妥协"
+  },
+  {
+    "id": "CHN245",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}在学量词：一______飞机",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "架",
+      "辆",
+      "艘",
+      "匹"
+    ],
+    "answer": 0,
+    "correct_answer": "架"
+  },
+  {
+    "id": "CHN246",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "选出与「谦逊」意思相近的词语。（{CHARACTER_0}为人谦逊，从不自夸。）",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "谦虚",
+      "骄傲",
+      "自满",
+      "傲慢"
+    ],
+    "answer": 0,
+    "correct_answer": "谦虚"
+  },
+  {
+    "id": "CHN247",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}问：「乐观」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "悲观",
+      "开心",
+      "快乐",
+      "消极"
+    ],
+    "answer": 0,
+    "correct_answer": "悲观"
+  },
+  {
+    "id": "CHN248",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "下面哪个词语最适合填入句子：老师______{CHARACTER_0}，称赞他的作文写得非常好。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "赞扬",
+      "批评",
+      "责备",
+      "惩罚"
+    ],
+    "answer": 0,
+    "correct_answer": "赞扬"
+  },
+  {
+    "id": "CHN249",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "下列词语中，哪一个是名词（人、事物或地方的名称）？",
+    "placeholder_roles": [],
+    "options": [
+      "品德",
+      "勇敢",
+      "奔跑",
+      "认真"
+    ],
+    "answer": 0,
+    "correct_answer": "品德"
+  },
+  {
+    "id": "CHN250",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "下面哪个词语最适合填入句子：「他______了一个快乐的生日。」",
+    "placeholder_roles": [],
+    "options": [
+      "度过",
+      "经过",
+      "通过",
+      "走过"
+    ],
+    "answer": 0,
+    "correct_answer": "度过"
+  },
+  {
+    "id": "CHN251",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}在学量词：一______船",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "艘",
+      "架",
+      "辆",
+      "匹"
+    ],
+    "answer": 0,
+    "correct_answer": "艘"
+  },
+  {
+    "id": "CHN252",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "选出与「宽容」意思相近的词语。（{CHARACTER_0}待人宽容，从不斤斤计较。）",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "包容",
+      "苛刻",
+      "严厉",
+      "冷漠"
+    ],
+    "answer": 0,
+    "correct_answer": "包容"
+  },
+  {
+    "id": "CHN253",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}问：「奢侈」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "节俭",
+      "昂贵",
+      "豪华",
+      "高贵"
+    ],
+    "answer": 0,
+    "correct_answer": "节俭"
+  },
+  {
+    "id": "CHN254",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "下面哪个词语最适合填入句子：{CHARACTER_0}______地完成了比赛，成为大家学习的榜样。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "顽强",
+      "软弱",
+      "轻易",
+      "随便"
+    ],
+    "answer": 0,
+    "correct_answer": "顽强"
+  },
+  {
+    "id": "CHN255",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "选出与「聪慧」意思相近的词语。（老师称赞{CHARACTER_0}聪慧过人。）",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "睿智",
+      "愚笨",
+      "迟钝",
+      "糊涂"
+    ],
+    "answer": 0,
+    "correct_answer": "睿智"
+  },
+  {
+    "id": "CHN256",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}问：「懒惰」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "勤劳",
+      "聪明",
+      "努力",
+      "积极"
+    ],
+    "answer": 0,
+    "correct_answer": "勤劳"
+  },
+  {
+    "id": "CHN257",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "「鼓励」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "激励他人，使其振作向上",
+      "对别人进行批评",
+      "责备他人的过失",
+      "对他人表示同情"
+    ],
+    "answer": 0,
+    "correct_answer": "激励他人，使其振作向上"
+  },
+  {
+    "id": "CHN258",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}在学量词：一______信",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "封",
+      "张",
+      "份",
+      "本"
+    ],
+    "answer": 0,
+    "correct_answer": "封"
+  },
+  {
+    "id": "CHN259",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "选出与「憎恨」意思相近的词语。（{CHARACTER_0}对不公平的事感到憎恨。）",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "厌恶",
+      "喜爱",
+      "钦佩",
+      "感激"
+    ],
+    "answer": 0,
+    "correct_answer": "厌恶"
+  },
+  {
+    "id": "CHN260",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}问：「诚信」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "虚伪",
+      "诚实",
+      "正直",
+      "忠诚"
+    ],
+    "answer": 0,
+    "correct_answer": "虚伪"
+  },
+  {
+    "id": "CHN261",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "下面哪个词语最适合填入句子：{CHARACTER_0}的精神令人______，大家纷纷向他学习。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "敬佩",
+      "失望",
+      "害怕",
+      "厌恶"
+    ],
+    "answer": 0,
+    "correct_answer": "敬佩"
+  },
+  {
+    "id": "CHN262",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "下列词语中，哪一个是形容词（描述性词语）？",
+    "placeholder_roles": [],
+    "options": [
+      "坚韧",
+      "奔跑",
+      "学校",
+      "老师"
+    ],
+    "answer": 0,
+    "correct_answer": "坚韧"
+  },
+  {
+    "id": "CHN263",
+    "category": "词汇",
+    "difficulty": "P5-P6",
+    "template": "选出与「奉献」意思相近的词语。（老师为学生默默奉献。）",
+    "placeholder_roles": [],
+    "options": [
+      "付出",
+      "索取",
+      "占有",
+      "消耗"
+    ],
+    "answer": 0,
+    "correct_answer": "付出"
+  },
+  {
+    "id": "CHN264",
+    "category": "词汇",
+    "difficulty": "PSLE",
+    "template": "下面哪个词语最适合填入句子：{CHARACTER_0}做事______，从不马虎，因此深受老师赏识。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "一丝不苟",
+      "漫不经心",
+      "马马虎虎",
+      "糊里糊涂"
+    ],
+    "answer": 0,
+    "correct_answer": "一丝不苟"
+  },
+  {
+    "id": "CHN265",
+    "category": "词汇",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}问：「轻视」的反义词是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "重视",
+      "喜爱",
+      "尊重",
+      "欣赏"
+    ],
+    "answer": 0,
+    "correct_answer": "重视"
+  },
+  {
+    "id": "CHN266",
+    "category": "词汇",
+    "difficulty": "PSLE",
+    "template": "「坚韧不拔」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "意志坚定，不轻易放弃",
+      "聪明能干，勤奋努力",
+      "学识渊博，多才多艺",
+      "一心一意，专心致志"
+    ],
+    "answer": 0,
+    "correct_answer": "意志坚定，不轻易放弃"
+  },
+  {
+    "id": "CHN267",
+    "category": "词汇",
+    "difficulty": "PSLE",
+    "template": "下面哪个词语最适合填入句子：奶奶每天早起晚睡，勤快地做家务，真是______。",
+    "placeholder_roles": [],
+    "options": [
+      "任劳任怨",
+      "好吃懒做",
+      "斤斤计较",
+      "得过且过"
+    ],
+    "answer": 0,
+    "correct_answer": "任劳任怨"
+  },
+  {
+    "id": "CHN268",
+    "category": "词汇",
+    "difficulty": "PSLE",
+    "template": "选出与「废寝忘食」意思最相近的词语。",
+    "placeholder_roles": [],
+    "options": [
+      "孜孜不倦",
+      "三心二意",
+      "漫不经心",
+      "心不在焉"
+    ],
+    "answer": 0,
+    "correct_answer": "孜孜不倦"
+  },
+  {
+    "id": "CHN269",
+    "category": "词汇",
+    "difficulty": "PSLE",
+    "template": "下面哪个句子中，「半途而废」的用法是正确的？",
+    "placeholder_roles": [],
+    "options": [
+      "他做事从不半途而废，总能坚持到底。",
+      "这条河半途而废地流入了大海。",
+      "他的心情半途而废，非常难过。",
+      "小明半途而废了一顿美食。"
+    ],
+    "answer": 0,
+    "correct_answer": "他做事从不半途而废，总能坚持到底。"
+  },
+  {
+    "id": "CHN270",
+    "category": "词汇",
+    "difficulty": "PSLE",
+    "template": "「克己奉公」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "克制私欲，以公众利益为先",
+      "努力学习，取得好成绩",
+      "帮助他人，无私奉献",
+      "遵纪守法，不违规"
+    ],
+    "answer": 0,
+    "correct_answer": "克制私欲，以公众利益为先"
+  },
+  {
+    "id": "CHN271",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "「一箭双雕」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "一个行动同时达到两个目的",
+      "射箭射得很准",
+      "做事一步一步来",
+      "专心做一件事"
+    ],
+    "answer": 0,
+    "correct_answer": "一个行动同时达到两个目的"
+  },
+  {
+    "id": "CHN272",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "「水到渠成」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "条件成熟，事情自然会成功",
+      "水流得很急",
+      "努力挖渠引水",
+      "慢慢来不着急"
+    ],
+    "answer": 0,
+    "correct_answer": "条件成熟，事情自然会成功"
+  },
+  {
+    "id": "CHN273",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "「手不释卷」形容一个人怎么样？",
+    "placeholder_roles": [],
+    "options": [
+      "非常爱读书，手里总拿着书",
+      "手很灵巧，会做很多事",
+      "放不开手，紧握不放",
+      "做事不放弃"
+    ],
+    "answer": 0,
+    "correct_answer": "非常爱读书，手里总拿着书"
+  },
+  {
+    "id": "CHN274",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "「专心致志」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "一心一意，集中精力做某件事",
+      "做事很快、效率很高",
+      "有志气、有理想",
+      "认真完成每一件事"
+    ],
+    "answer": 0,
+    "correct_answer": "一心一意，集中精力做某件事"
+  },
+  {
+    "id": "CHN275",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "「全力以赴」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "用全部力量去做某件事",
+      "跑得非常快",
+      "大家一起努力",
+      "慢慢地努力"
+    ],
+    "answer": 0,
+    "correct_answer": "用全部力量去做某件事"
+  },
+  {
+    "id": "CHN276",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "「锲而不舍」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "坚持不懈，不轻易放弃",
+      "雕刻技术很好",
+      "做事三心二意",
+      "慢工出细活"
+    ],
+    "answer": 0,
+    "correct_answer": "坚持不懈，不轻易放弃"
+  },
+  {
+    "id": "CHN277",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "「好学不倦」形容一个人怎么样？",
+    "placeholder_roles": [],
+    "options": [
+      "勤奋好学，不感到疲倦",
+      "学习成绩很好",
+      "学了很多知识",
+      "不喜欢休息"
+    ],
+    "answer": 0,
+    "correct_answer": "勤奋好学，不感到疲倦"
+  },
+  {
+    "id": "CHN278",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "「见义勇为」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "看到正义的事情就勇敢地去做",
+      "遇到困难勇敢面对",
+      "爱打抱不平",
+      "帮助别人解决困难"
+    ],
+    "answer": 0,
+    "correct_answer": "看到正义的事情就勇敢地去做"
+  },
+  {
+    "id": "CHN279",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "「助人为乐」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "帮助别人是一件快乐的事",
+      "快乐地与别人分享",
+      "喜欢帮助朋友",
+      "对别人非常友好"
+    ],
+    "answer": 0,
+    "correct_answer": "帮助别人是一件快乐的事"
+  },
+  {
+    "id": "CHN280",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "成语「专心__志」，空格里应填哪个字？",
+    "placeholder_roles": [],
+    "options": [
+      "致",
+      "至",
+      "智",
+      "制"
+    ],
+    "answer": 0,
+    "correct_answer": "致"
+  },
+  {
+    "id": "CHN281",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "成语「全力以__」，空格里应填哪个字？",
+    "placeholder_roles": [],
+    "options": [
+      "赴",
+      "付",
+      "负",
+      "副"
+    ],
+    "answer": 0,
+    "correct_answer": "赴"
+  },
+  {
+    "id": "CHN282",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "成语「__而不舍」，空格里应填哪个字？",
+    "placeholder_roles": [],
+    "options": [
+      "锲",
+      "契",
+      "切",
+      "窃"
+    ],
+    "answer": 0,
+    "correct_answer": "锲"
+  },
+  {
+    "id": "CHN283",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "成语「手不__卷」，空格里应填哪个字？",
+    "placeholder_roles": [],
+    "options": [
+      "释",
+      "式",
+      "识",
+      "拾"
+    ],
+    "answer": 0,
+    "correct_answer": "释"
+  },
+  {
+    "id": "CHN284",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "成语「水__渠成」，空格里应填哪个字？",
+    "placeholder_roles": [],
+    "options": [
+      "到",
+      "道",
+      "导",
+      "倒"
+    ],
+    "answer": 0,
+    "correct_answer": "到"
+  },
+  {
+    "id": "CHN285",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}参加了学校的长跑比赛，他拼尽全力，毫不放弃。用哪个成语来形容他？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "全力以赴",
+      "半途而废",
+      "马到成功",
+      "一帆风顺"
+    ],
+    "answer": 0,
+    "correct_answer": "全力以赴"
+  },
+  {
+    "id": "CHN286",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}每天坚持练钢琴，从不间断。这体现了哪个成语的精神？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "锲而不舍",
+      "三心二意",
+      "半途而废",
+      "好高骛远"
+    ],
+    "answer": 0,
+    "correct_answer": "锲而不舍"
+  },
+  {
+    "id": "CHN287",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "下面哪个句子正确使用了成语「助人为乐」？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}经常帮助同学，以助人为乐。",
+      "{CHARACTER_0}助人为乐地跑回了家。",
+      "大家助人为乐在一起玩。",
+      "他助人为乐非常快乐。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}经常帮助同学，以助人为乐。"
+  },
+  {
+    "id": "CHN288",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "下面哪个句子正确使用了成语「一箭双雕」？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}帮妈妈买菜顺便锻炼身体，真是一箭双雕。",
+      "{CHARACTER_0}一箭双雕地射中了靶子。",
+      "他们一箭双雕地打猎。",
+      "做事要一箭双雕才好。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}帮妈妈买菜顺便锻炼身体，真是一箭双雕。"
+  },
+  {
+    "id": "CHN289",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "下面哪个成语与「勤奋学习」的意思最接近？",
+    "placeholder_roles": [],
+    "options": [
+      "手不释卷",
+      "目中无人",
+      "半途而废",
+      "守株待兔"
+    ],
+    "answer": 0,
+    "correct_answer": "手不释卷"
+  },
+  {
+    "id": "CHN290",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "「随机应变」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "根据情况的变化而灵活应对",
+      "随时随地都能做到",
+      "遇到变化就逃跑",
+      "跟着大家一起行动"
+    ],
+    "answer": 0,
+    "correct_answer": "根据情况的变化而灵活应对"
+  },
+  {
+    "id": "CHN291",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "「举一反三」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "从一件事中领悟出其他类似的道理",
+      "举例子说明问题",
+      "反复思考一件事",
+      "提出三个问题"
+    ],
+    "answer": 0,
+    "correct_answer": "从一件事中领悟出其他类似的道理"
+  },
+  {
+    "id": "CHN292",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "「温故知新」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "复习旧知识，从中获得新的理解",
+      "温习故事学新知识",
+      "和老朋友叙旧",
+      "了解历史找到新方向"
+    ],
+    "answer": 0,
+    "correct_answer": "复习旧知识，从中获得新的理解"
+  },
+  {
+    "id": "CHN293",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "「触类旁通」形容一个人怎么样？",
+    "placeholder_roles": [],
+    "options": [
+      "掌握了某类知识后，能推知同类其他知识",
+      "多才多艺，什么都会",
+      "知识面广泛",
+      "遇到问题能冷静应对"
+    ],
+    "answer": 0,
+    "correct_answer": "掌握了某类知识后，能推知同类其他知识"
+  },
+  {
+    "id": "CHN294",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "「融会贯通」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "把学到的知识全面理解，灵活运用",
+      "把所有知识都背下来",
+      "把各种学科结合在一起",
+      "知识学得很扎实"
+    ],
+    "answer": 0,
+    "correct_answer": "把学到的知识全面理解，灵活运用"
+  },
+  {
+    "id": "CHN295",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "「循序渐进」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "按照一定的顺序，逐渐深入",
+      "慢慢地学习",
+      "一步一步走",
+      "跟着别人的步伐走"
+    ],
+    "answer": 0,
+    "correct_answer": "按照一定的顺序，逐渐深入"
+  },
+  {
+    "id": "CHN296",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "「持之以恒」形容一个人怎么样？",
+    "placeholder_roles": [],
+    "options": [
+      "长期坚持，不半途而废",
+      "坚持自己的想法",
+      "永远不会改变",
+      "每天都很努力"
+    ],
+    "answer": 0,
+    "correct_answer": "长期坚持，不半途而废"
+  },
+  {
+    "id": "CHN297",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "「知难而进」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "明知有困难还是勇敢前进",
+      "遇到困难就想办法",
+      "知道了才前进",
+      "越难越要挑战"
+    ],
+    "answer": 0,
+    "correct_answer": "明知有困难还是勇敢前进"
+  },
+  {
+    "id": "CHN298",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "「实事求是」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "从实际出发，客观地看待和处理问题",
+      "认真做好每件事",
+      "做事非常实际",
+      "说话做事诚实"
+    ],
+    "answer": 0,
+    "correct_answer": "从实际出发，客观地看待和处理问题"
+  },
+  {
+    "id": "CHN299",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "「一丝不苟」形容一个人怎么样？",
+    "placeholder_roles": [],
+    "options": [
+      "做事极为认真、严格，一点都不马虎",
+      "做事很慢",
+      "做事非常努力",
+      "做事要求很高"
+    ],
+    "answer": 0,
+    "correct_answer": "做事极为认真、严格，一点都不马虎"
+  },
+  {
+    "id": "CHN300",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "「精益求精」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "好了还想更好，不断追求完美",
+      "学习非常精通",
+      "做事精心细致",
+      "追求最好的结果"
+    ],
+    "answer": 0,
+    "correct_answer": "好了还想更好，不断追求完美"
+  },
+  {
+    "id": "CHN301",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}通过学会一种解题方法，便能解出多种类似的题目。这体现了哪个成语？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "举一反三",
+      "死记硬背",
+      "循序渐进",
+      "一知半解"
+    ],
+    "answer": 0,
+    "correct_answer": "举一反三"
+  },
+  {
+    "id": "CHN302",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "下面哪个句子正确使用了成语「一丝不苟」？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}做手工时一丝不苟，每个细节都处理得很好。",
+      "{CHARACTER_0}一丝不苟地跑完了全程。",
+      "他对成语一丝不苟。",
+      "老师一丝不苟地走进教室。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}做手工时一丝不苟，每个细节都处理得很好。"
+  },
+  {
+    "id": "CHN303",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "下面哪个句子正确使用了成语「随机应变」？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}遇到突发状况时，能随机应变，冷静处理。",
+      "他随机应变地走进了教室。",
+      "{CHARACTER_0}随机应变做完了作业。",
+      "下雨了，我们要随机应变。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}遇到突发状况时，能随机应变，冷静处理。"
+  },
+  {
+    "id": "CHN304",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "下面哪个成语与「做事严谨认真」意思最接近？",
+    "placeholder_roles": [],
+    "options": [
+      "一丝不苟",
+      "漫不经心",
+      "粗心大意",
+      "马马虎虎"
+    ],
+    "answer": 0,
+    "correct_answer": "一丝不苟"
+  },
+  {
+    "id": "CHN305",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "下面哪个句子中成语「持之以恒」使用正确？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}持之以恒地练习书法，字迹越来越好看。",
+      "他持之以恒地吃了很多。",
+      "{CHARACTER_0}的字写得持之以恒。",
+      "老师持之以恒地上课。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}持之以恒地练习书法，字迹越来越好看。"
+  },
+  {
+    "id": "CHN306",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "下面哪个成语与「不断进步，精进技艺」意思最接近？",
+    "placeholder_roles": [],
+    "options": [
+      "精益求精",
+      "一知半解",
+      "急于求成",
+      "好高骛远"
+    ],
+    "answer": 0,
+    "correct_answer": "精益求精"
+  },
+  {
+    "id": "CHN307",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "成语「循__渐进」，空格里应填哪个字？",
+    "placeholder_roles": [],
+    "options": [
+      "序",
+      "叙",
+      "续",
+      "绪"
+    ],
+    "answer": 0,
+    "correct_answer": "序"
+  },
+  {
+    "id": "CHN308",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "成语「融会__通」，空格里应填哪个字？",
+    "placeholder_roles": [],
+    "options": [
+      "贯",
+      "冠",
+      "管",
+      "惯"
+    ],
+    "answer": 0,
+    "correct_answer": "贯"
+  },
+  {
+    "id": "CHN309",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "成语「实事求__」，空格里应填哪个字？",
+    "placeholder_roles": [],
+    "options": [
+      "是",
+      "事",
+      "实",
+      "试"
+    ],
+    "answer": 0,
+    "correct_answer": "是"
+  },
+  {
+    "id": "CHN310",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "成语「持之以__」，空格里应填哪个字？",
+    "placeholder_roles": [],
+    "options": [
+      "恒",
+      "横",
+      "衡",
+      "行"
+    ],
+    "answer": 0,
+    "correct_answer": "恒"
+  },
+  {
+    "id": "CHN311",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "成语「知难而__」，空格里应填哪个字？",
+    "placeholder_roles": [],
+    "options": [
+      "进",
+      "近",
+      "尽",
+      "劲"
+    ],
+    "answer": 0,
+    "correct_answer": "进"
+  },
+  {
+    "id": "CHN312",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "成语「温故知新」出自哪部经典著作？",
+    "placeholder_roles": [],
+    "options": [
+      "《论语》",
+      "《孟子》",
+      "《大学》",
+      "《中庸》"
+    ],
+    "answer": 0,
+    "correct_answer": "《论语》"
+  },
+  {
+    "id": "CHN313",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "下面哪个成语与「学习」有关？",
+    "placeholder_roles": [],
+    "options": [
+      "温故知新",
+      "守株待兔",
+      "杯水车薪",
+      "狐假虎威"
+    ],
+    "answer": 0,
+    "correct_answer": "温故知新"
+  },
+  {
+    "id": "CHN314",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "以下哪个成语形容学习时要从易到难，按步骤来？",
+    "placeholder_roles": [],
+    "options": [
+      "循序渐进",
+      "急于求成",
+      "好高骛远",
+      "一步登天"
+    ],
+    "answer": 0,
+    "correct_answer": "循序渐进"
+  },
+  {
+    "id": "CHN315",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "「一鸣惊人」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "平时默默无闻，突然做出惊人之举",
+      "鸟叫声非常响",
+      "一次成功惊动了大家",
+      "从默默无闻到名声大噪"
+    ],
+    "answer": 0,
+    "correct_answer": "平时默默无闻，突然做出惊人之举"
+  },
+  {
+    "id": "CHN316",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "「厚积薄发」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "长期大量积累，在适当时机充分发挥",
+      "积累很多知识但发挥得少",
+      "慢慢积累慢慢发展",
+      "厚厚地积累薄薄地发展"
+    ],
+    "answer": 0,
+    "correct_answer": "长期大量积累，在适当时机充分发挥"
+  },
+  {
+    "id": "CHN317",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "「卧薪尝胆」这个成语出自哪个历史故事？",
+    "placeholder_roles": [],
+    "options": [
+      "越王勾践为报国仇雪耻，忍辱负重的故事",
+      "楚汉相争时刘邦的故事",
+      "诸葛亮辅佐刘备的故事",
+      "岳飞精忠报国的故事"
+    ],
+    "answer": 0,
+    "correct_answer": "越王勾践为报国仇雪耻，忍辱负重的故事"
+  },
+  {
+    "id": "CHN318",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "「卧薪尝胆」比喻什么？",
+    "placeholder_roles": [],
+    "options": [
+      "刻苦自励，忍辱负重，以图报仇雪耻",
+      "睡觉时尝到苦头",
+      "吃苦耐劳的精神",
+      "忍受艰苦生活"
+    ],
+    "answer": 0,
+    "correct_answer": "刻苦自励，忍辱负重，以图报仇雪耻"
+  },
+  {
+    "id": "CHN319",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "「凿壁借光」这个成语说的是哪位古人刻苦读书的故事？",
+    "placeholder_roles": [],
+    "options": [
+      "匡衡",
+      "孙康",
+      "车胤",
+      "范仲淹"
+    ],
+    "answer": 0,
+    "correct_answer": "匡衡"
+  },
+  {
+    "id": "CHN320",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "「囊萤映雪」说的是哪两个人刻苦读书的故事？",
+    "placeholder_roles": [],
+    "options": [
+      "车胤和孙康",
+      "匡衡和车胤",
+      "孙康和匡衡",
+      "范仲淹和欧阳修"
+    ],
+    "answer": 0,
+    "correct_answer": "车胤和孙康"
+  },
+  {
+    "id": "CHN321",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "「程门立雪」这个成语说的是谁尊师重道的故事？",
+    "placeholder_roles": [],
+    "options": [
+      "杨时",
+      "程颐",
+      "朱熹",
+      "苏轼"
+    ],
+    "answer": 0,
+    "correct_answer": "杨时"
+  },
+  {
+    "id": "CHN322",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "「悬梁刺股」中「悬梁」说的是哪位古人？",
+    "placeholder_roles": [],
+    "options": [
+      "孙敬",
+      "苏秦",
+      "车胤",
+      "匡衡"
+    ],
+    "answer": 0,
+    "correct_answer": "孙敬"
+  },
+  {
+    "id": "CHN323",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "「悬梁刺股」中「刺股」说的是哪位古人？",
+    "placeholder_roles": [],
+    "options": [
+      "苏秦",
+      "孙敬",
+      "匡衡",
+      "孙康"
+    ],
+    "answer": 0,
+    "correct_answer": "苏秦"
+  },
+  {
+    "id": "CHN324",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "「精诚所至，金石为开」的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "只要诚心诚意，任何困难都能克服",
+      "用金石做成的东西才能打开",
+      "精心制作才能成功",
+      "诚实才是最重要的"
+    ],
+    "answer": 0,
+    "correct_answer": "只要诚心诚意，任何困难都能克服"
+  },
+  {
+    "id": "CHN325",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "下面哪个句子正确使用了成语「一鸣惊人」？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}平时低调，这次比赛却一鸣惊人，夺得冠军。",
+      "{CHARACTER_0}一鸣惊人地唱了一首歌。",
+      "他们一鸣惊人地走进了礼堂。",
+      "她的成绩一鸣惊人非常好。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}平时低调，这次比赛却一鸣惊人，夺得冠军。"
+  },
+  {
+    "id": "CHN326",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "下面哪个句子正确使用了成语「厚积薄发」？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}多年来努力积累知识，终于在比赛中厚积薄发，大放光彩。",
+      "他厚积薄发地学习。",
+      "{CHARACTER_0}厚积薄发写完了作文。",
+      "她的书积了很厚，厚积薄发。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}多年来努力积累知识，终于在比赛中厚积薄发，大放光彩。"
+  },
+  {
+    "id": "CHN327",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "下面哪个句子正确使用了成语「卧薪尝胆」？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}比赛失败后，卧薪尝胆，刻苦训练，最终赢得了冠军。",
+      "他卧薪尝胆地睡在木柴上。",
+      "{CHARACTER_0}卧薪尝胆努力读书。",
+      "她卧薪尝胆尝到了苦涩。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}比赛失败后，卧薪尝胆，刻苦训练，最终赢得了冠军。"
+  },
+  {
+    "id": "CHN328",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "下面哪个成语与「刻苦学习」的主题不符？",
+    "placeholder_roles": [],
+    "options": [
+      "守株待兔",
+      "囊萤映雪",
+      "凿壁借光",
+      "悬梁刺股"
+    ],
+    "answer": 0,
+    "correct_answer": "守株待兔"
+  },
+  {
+    "id": "CHN329",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "下面哪个成语与「坚持不懈」的意思不符？",
+    "placeholder_roles": [],
+    "options": [
+      "半途而废",
+      "持之以恒",
+      "锲而不舍",
+      "坚持不懈"
+    ],
+    "answer": 0,
+    "correct_answer": "半途而废"
+  },
+  {
+    "id": "CHN330",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "下面哪个成语描述的不是「学习进步」的过程？",
+    "placeholder_roles": [],
+    "options": [
+      "纸上谈兵",
+      "温故知新",
+      "举一反三",
+      "循序渐进"
+    ],
+    "answer": 0,
+    "correct_answer": "纸上谈兵"
+  },
+  {
+    "id": "CHN331",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "形容一个人读书时非常专心、什么都不去想，应该用哪个成语？",
+    "placeholder_roles": [],
+    "options": [
+      "专心致志",
+      "手不释卷",
+      "全力以赴",
+      "好学不倦"
+    ],
+    "answer": 0,
+    "correct_answer": "专心致志"
+  },
+  {
+    "id": "CHN332",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "形容一个人读书读得入迷，连吃饭睡觉都忘了，应该用哪个成语？",
+    "placeholder_roles": [],
+    "options": [
+      "废寝忘食",
+      "手不释卷",
+      "专心致志",
+      "锲而不舍"
+    ],
+    "answer": 0,
+    "correct_answer": "废寝忘食"
+  },
+  {
+    "id": "CHN333",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "有同学在路上跌倒了，{CHARACTER_0}马上跑过去扶他起来。形容{CHARACTER_0}行为的成语是？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "见义勇为",
+      "助人为乐",
+      "全力以赴",
+      "专心致志"
+    ],
+    "answer": 0,
+    "correct_answer": "见义勇为"
+  },
+  {
+    "id": "CHN334",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "成语「一箭双雕」原本是描述哪方面的故事？",
+    "placeholder_roles": [],
+    "options": [
+      "古代将领射箭，一箭射中两只鸟",
+      "古人发明了一种新式弓箭",
+      "猎人捕获了两只鸟",
+      "比武时一次打败两个对手"
+    ],
+    "answer": 0,
+    "correct_answer": "古代将领射箭，一箭射中两只鸟"
+  },
+  {
+    "id": "CHN335",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "「三人行，必有我师」出自哪部古代经典？",
+    "placeholder_roles": [],
+    "options": [
+      "《论语》",
+      "《孟子》",
+      "《诗经》",
+      "《史记》"
+    ],
+    "answer": 0,
+    "correct_answer": "《论语》"
+  },
+  {
+    "id": "CHN336",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "形容做事有严谨、认真、不马虎的态度，应用哪个成语？",
+    "placeholder_roles": [],
+    "options": [
+      "一丝不苟",
+      "随机应变",
+      "循序渐进",
+      "融会贯通"
+    ],
+    "answer": 0,
+    "correct_answer": "一丝不苟"
+  },
+  {
+    "id": "CHN337",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "形容面对困难不退缩、越挫越勇，应用哪个成语？",
+    "placeholder_roles": [],
+    "options": [
+      "知难而进",
+      "随机应变",
+      "实事求是",
+      "触类旁通"
+    ],
+    "answer": 0,
+    "correct_answer": "知难而进"
+  },
+  {
+    "id": "CHN338",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0}学好了乘法之后，除法也一下子就明白了。这体现了哪个成语？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "触类旁通",
+      "循序渐进",
+      "融会贯通",
+      "举一反三"
+    ],
+    "answer": 0,
+    "correct_answer": "触类旁通"
+  },
+  {
+    "id": "CHN339",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "成语「凿壁__光」，空格里应填哪个字？",
+    "placeholder_roles": [],
+    "options": [
+      "借",
+      "接",
+      "截",
+      "结"
+    ],
+    "answer": 0,
+    "correct_answer": "借"
+  },
+  {
+    "id": "CHN340",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "成语「悬梁刺__」，空格里应填哪个字？",
+    "placeholder_roles": [],
+    "options": [
+      "股",
+      "骨",
+      "鼓",
+      "固"
+    ],
+    "answer": 0,
+    "correct_answer": "股"
+  },
+  {
+    "id": "CHN341",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "成语「卧薪尝__」，空格里应填哪个字？",
+    "placeholder_roles": [],
+    "options": [
+      "胆",
+      "但",
+      "旦",
+      "淡"
+    ],
+    "answer": 0,
+    "correct_answer": "胆"
+  },
+  {
+    "id": "CHN342",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "成语「厚积__发」，空格里应填哪个字？",
+    "placeholder_roles": [],
+    "options": [
+      "薄",
+      "博",
+      "泊",
+      "勃"
+    ],
+    "answer": 0,
+    "correct_answer": "薄"
+  },
+  {
+    "id": "CHN343",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "下面哪个成语的意思是「努力学习永不满足」？",
+    "placeholder_roles": [],
+    "options": [
+      "好学不倦",
+      "手不释卷",
+      "全力以赴",
+      "一箭双雕"
+    ],
+    "answer": 0,
+    "correct_answer": "好学不倦"
+  },
+  {
+    "id": "CHN344",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "「水到渠成」常用来比喻什么情况？",
+    "placeholder_roles": [],
+    "options": [
+      "只要条件成熟，问题自然解决",
+      "努力把水引到渠里",
+      "工程完工了",
+      "做事要顺其自然"
+    ],
+    "answer": 0,
+    "correct_answer": "只要条件成熟，问题自然解决"
+  },
+  {
+    "id": "CHN345",
+    "category": "成语",
+    "difficulty": "P3-P4",
+    "template": "下面哪个句子正确使用了成语「手不释卷」？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}非常爱读书，无论走到哪里都手不释卷。",
+      "他手不释卷地跑回家。",
+      "{CHARACTER_0}手不释卷地完成了任务。",
+      "她手不释卷非常厉害。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}非常爱读书，无论走到哪里都手不释卷。"
+  },
+  {
+    "id": "CHN346",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "下面哪个句子正确使用了成语「循序渐进」？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}学习数学时循序渐进，从基础开始，慢慢掌握难题。",
+      "他循序渐进地走进了图书馆。",
+      "{CHARACTER_0}循序渐进做了很多运动。",
+      "她循序渐进写完了作文。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}学习数学时循序渐进，从基础开始，慢慢掌握难题。"
+  },
+  {
+    "id": "CHN347",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "下面哪个句子正确使用了成语「精益求精」？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}的画已经很好了，但他仍精益求精，不断改进。",
+      "他精益求精地跑完了马拉松。",
+      "{CHARACTER_0}精益求精完成了功课。",
+      "她精益求精地大声朗读。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}的画已经很好了，但他仍精益求精，不断改进。"
+  },
+  {
+    "id": "CHN348",
+    "category": "成语",
+    "difficulty": "P5-P6",
+    "template": "下面哪个成语与「不切实际、空谈理论」的意思相近？",
+    "placeholder_roles": [],
+    "options": [
+      "纸上谈兵",
+      "实事求是",
+      "融会贯通",
+      "知难而进"
+    ],
+    "answer": 0,
+    "correct_answer": "纸上谈兵"
+  },
+  {
+    "id": "CHN349",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "「程门立雪」这个成语比喻什么精神？",
+    "placeholder_roles": [],
+    "options": [
+      "尊师重道，诚心求学",
+      "在雪中坚持站立",
+      "不畏寒冷的精神",
+      "耐心等待的美德"
+    ],
+    "answer": 0,
+    "correct_answer": "尊师重道，诚心求学"
+  },
+  {
+    "id": "CHN350",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "「囊萤映雪」比喻什么？",
+    "placeholder_roles": [],
+    "options": [
+      "家境贫寒却刻苦读书",
+      "萤火虫在雪地里发光",
+      "用萤火虫的光来照亮",
+      "在艰苦环境中求学"
+    ],
+    "answer": 0,
+    "correct_answer": "家境贫寒却刻苦读书"
+  },
+  {
+    "id": "CHN351",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "下面哪个句子正确使用了成语「精诚所至，金石为开」？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}多次劝说，终于感动了朋友，真是精诚所至，金石为开。",
+      "精诚所至，金石为开，所以他买了金戒指。",
+      "{CHARACTER_0}精诚所至，金石为开地完成了比赛。",
+      "他精诚所至，金石为开地练习武术。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}多次劝说，终于感动了朋友，真是精诚所至，金石为开。"
+  },
+  {
+    "id": "CHN352",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "下面哪个成语描述的是「平时不努力，只在关键时刻才表现出能力」？",
+    "placeholder_roles": [],
+    "options": [
+      "一鸣惊人",
+      "厚积薄发",
+      "卧薪尝胆",
+      "精诚所至"
+    ],
+    "answer": 0,
+    "correct_answer": "一鸣惊人"
+  },
+  {
+    "id": "CHN353",
+    "category": "成语",
+    "difficulty": "PSLE",
+    "template": "以下哪组成语都与「刻苦学习」有关？",
+    "placeholder_roles": [],
+    "options": [
+      "囊萤映雪、凿壁借光、悬梁刺股",
+      "守株待兔、滥竽充数、掩耳盗铃",
+      "一帆风顺、马到成功、旗开得胜",
+      "杯水车薪、无济于事、无能为力"
+    ],
+    "answer": 0,
+    "correct_answer": "囊萤映雪、凿壁借光、悬梁刺股"
+  },
+  {
+    "id": "CHN354",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "选出填入空格的正确字：他写______字非常漂亮。",
+    "placeholder_roles": [],
+    "options": [
+      "的",
+      "地",
+      "得",
+      "德"
+    ],
+    "answer": 0,
+    "correct_answer": "的"
+  },
+  {
+    "id": "CHN355",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "选出填入空格的正确字：{CHARACTER_0}慢慢______走向台前。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "地",
+      "的",
+      "得",
+      "德"
+    ],
+    "answer": 0,
+    "correct_answer": "地"
+  },
+  {
+    "id": "CHN356",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "选出填入空格的正确字：{CHARACTER_0}画______很好。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "得",
+      "的",
+      "地",
+      "德"
+    ],
+    "answer": 0,
+    "correct_answer": "得"
+  },
+  {
+    "id": "CHN357",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "下面哪个句子的「的/地/得」使用正确？",
+    "placeholder_roles": [],
+    "options": [
+      "妈妈做的菜很好吃。",
+      "他高兴的唱歌。",
+      "她跑得很快地。",
+      "他们的玩得很开心。"
+    ],
+    "answer": 0,
+    "correct_answer": "妈妈做的菜很好吃。"
+  },
+  {
+    "id": "CHN358",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "下面哪个句子的「的/地/得」使用正确？",
+    "placeholder_roles": [],
+    "options": [
+      "她开心地跳起了舞。",
+      "他开心的跳起了舞。",
+      "她开心得跳起了舞。",
+      "他高兴地了跳舞。"
+    ],
+    "answer": 0,
+    "correct_answer": "她开心地跳起了舞。"
+  },
+  {
+    "id": "CHN359",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "下面哪个句子的「的/地/得」使用正确？",
+    "placeholder_roles": [],
+    "options": [
+      "他激动得说不出话来。",
+      "他激动地说不出话来。",
+      "他激动的说不出话来。",
+      "他激动的说了出来。"
+    ],
+    "answer": 0,
+    "correct_answer": "他激动得说不出话来。"
+  },
+  {
+    "id": "CHN360",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "选出填入空格的正确字：{CHARACTER_0}兴奋______跳了起来。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "地",
+      "的",
+      "得",
+      "德"
+    ],
+    "answer": 0,
+    "correct_answer": "地"
+  },
+  {
+    "id": "CHN361",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "选出填入空格的正确字：{CHARACTER_0}紧张______手心都出汗了。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "得",
+      "地",
+      "的",
+      "德"
+    ],
+    "answer": 0,
+    "correct_answer": "得"
+  },
+  {
+    "id": "CHN362",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "「他慢慢的走进教室」这句话哪里有错误？",
+    "placeholder_roles": [],
+    "options": [
+      "「慢慢的」应改为「慢慢地」",
+      "「走进」应改为「走入」",
+      "句子没有错误",
+      "「教室」应改为「课室」"
+    ],
+    "answer": 0,
+    "correct_answer": "「慢慢的」应改为「慢慢地」"
+  },
+  {
+    "id": "CHN363",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "以下哪句话的「得」字使用正确？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}高兴得蹦了起来。",
+      "{CHARACTER_0}高兴得去公园玩。",
+      "他的得意洋洋。",
+      "她的得到了奖励。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}高兴得蹦了起来。"
+  },
+  {
+    "id": "CHN364",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "把下面的句子改成「把」字句：{CHARACTER_0}喝完了牛奶。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0}把牛奶喝完了。",
+      "牛奶把{CHARACTER_0}喝完了。",
+      "{CHARACTER_0}把了牛奶喝完。",
+      "{CHARACTER_0}喝完了把牛奶。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}把牛奶喝完了。"
+  },
+  {
+    "id": "CHN365",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "把下面的句子改成「被」字句：风吹倒了那棵树。",
+    "placeholder_roles": [],
+    "options": [
+      "那棵树被风吹倒了。",
+      "那棵树把风吹倒了。",
+      "风被那棵树吹倒了。",
+      "那棵树被吹倒了风。"
+    ],
+    "answer": 0,
+    "correct_answer": "那棵树被风吹倒了。"
+  },
+  {
+    "id": "CHN366",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "下面哪个句子是正确的「被」字句？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}被老师批评了。",
+      "老师被{CHARACTER_0}批评了。",
+      "{CHARACTER_0}被批评了老师。",
+      "被{CHARACTER_0}老师批评了。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}被老师批评了。"
+  },
+  {
+    "id": "CHN367",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "把下面的句子改成「把」字句：{CHARACTER_0}收好了书包。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0}把书包收好了。",
+      "书包把{CHARACTER_0}收好了。",
+      "{CHARACTER_0}收好了把书包。",
+      "书包被{CHARACTER_0}收好了。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}把书包收好了。"
+  },
+  {
+    "id": "CHN368",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "把下面的句子改成「被」字句：{CHARACTER_0}打破了花瓶。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "花瓶被{CHARACTER_0}打破了。",
+      "花瓶把{CHARACTER_0}打破了。",
+      "{CHARACTER_0}被花瓶打破了。",
+      "花瓶被打破了{CHARACTER_0}。"
+    ],
+    "answer": 0,
+    "correct_answer": "花瓶被{CHARACTER_0}打破了。"
+  },
+  {
+    "id": "CHN369",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "下面哪个句子是正确的「把」字句？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}把房间打扫干净了。",
+      "{CHARACTER_0}把了房间打扫干净。",
+      "房间把{CHARACTER_0}打扫干净了。",
+      "{CHARACTER_0}打扫干净了把房间。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}把房间打扫干净了。"
+  },
+  {
+    "id": "CHN370",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "「小猫被{CHARACTER_0}抱回了家」，这句话的原句（主动句）是什么？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0}把小猫抱回了家。",
+      "小猫抱回了{CHARACTER_0}的家。",
+      "{CHARACTER_0}把家抱了小猫。",
+      "小猫把{CHARACTER_0}抱回了家。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}把小猫抱回了家。"
+  },
+  {
+    "id": "CHN371",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "下面哪个句子使用了「夸张」的修辞手法？",
+    "placeholder_roles": [],
+    "options": [
+      "他的力气大得能举起一座山。",
+      "他的力气很大。",
+      "他像大力士一样强壮。",
+      "他用力地举起了重物。"
+    ],
+    "answer": 0,
+    "correct_answer": "他的力气大得能举起一座山。"
+  },
+  {
+    "id": "CHN372",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "下面哪个句子使用了「比喻」的修辞手法？",
+    "placeholder_roles": [],
+    "options": [
+      "弯弯的月亮像一把镰刀挂在天空。",
+      "月亮升上了夜空。",
+      "月亮在云朵后面躲着。",
+      "今晚的月亮真圆。"
+    ],
+    "answer": 0,
+    "correct_answer": "弯弯的月亮像一把镰刀挂在天空。"
+  },
+  {
+    "id": "CHN373",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "下面哪个句子使用了「拟人」的修辞手法？",
+    "placeholder_roles": [],
+    "options": [
+      "小花朵向太阳微笑着点头。",
+      "花朵在阳光下开放。",
+      "花朵非常漂亮。",
+      "花朵像明星一样美丽。"
+    ],
+    "answer": 0,
+    "correct_answer": "小花朵向太阳微笑着点头。"
+  },
+  {
+    "id": "CHN374",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "「{CHARACTER_0}爱读书，爱运动，爱画画。」这句话使用了哪种修辞手法？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "排比",
+      "比喻",
+      "拟人",
+      "夸张"
+    ],
+    "answer": 0,
+    "correct_answer": "排比"
+  },
+  {
+    "id": "CHN375",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "「难道这件事不是{CHARACTER_0}做的吗？」这句话使用了哪种修辞手法？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "反问",
+      "排比",
+      "夸张",
+      "比喻"
+    ],
+    "answer": 0,
+    "correct_answer": "反问"
+  },
+  {
+    "id": "CHN376",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "把下面的句子改成反问句：这道题很难。",
+    "placeholder_roles": [],
+    "options": [
+      "这道题难道不难吗？",
+      "这道题难不难？",
+      "这道题很难吗？",
+      "难道这道题不很难？"
+    ],
+    "answer": 0,
+    "correct_answer": "这道题难道不难吗？"
+  },
+  {
+    "id": "CHN377",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "「春天来了，花儿笑了，小鸟唱起了歌。」这句话用了哪种修辞手法？",
+    "placeholder_roles": [],
+    "options": [
+      "拟人",
+      "排比",
+      "比喻",
+      "夸张"
+    ],
+    "answer": 0,
+    "correct_answer": "拟人"
+  },
+  {
+    "id": "CHN378",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "「天上的星星像宝石一样闪亮」，这句话的比喻词是哪个？",
+    "placeholder_roles": [],
+    "options": [
+      "像",
+      "一样",
+      "闪亮",
+      "宝石"
+    ],
+    "answer": 0,
+    "correct_answer": "像"
+  },
+  {
+    "id": "CHN379",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "「他等了一万年」使用了哪种修辞手法？",
+    "placeholder_roles": [],
+    "options": [
+      "夸张",
+      "比喻",
+      "拟人",
+      "排比"
+    ],
+    "answer": 0,
+    "correct_answer": "夸张"
+  },
+  {
+    "id": "CHN380",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "「书山有路勤为径，学海无涯苦作舟」使用了哪种修辞手法？",
+    "placeholder_roles": [],
+    "options": [
+      "对偶",
+      "排比",
+      "比喻",
+      "拟人"
+    ],
+    "answer": 0,
+    "correct_answer": "对偶"
+  },
+  {
+    "id": "CHN381",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "下面哪句话同时使用了「比喻」和「拟人」的修辞手法？",
+    "placeholder_roles": [],
+    "options": [
+      "弯弯的小河像一面镜子，静静地躺在山脚下。",
+      "他跑得像风一样快。",
+      "花儿在风中微笑。",
+      "他等了很长时间，长得像一辈子。"
+    ],
+    "answer": 0,
+    "correct_answer": "弯弯的小河像一面镜子，静静地躺在山脚下。"
+  },
+  {
+    "id": "CHN382",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "把下面的句子改成疑问句：{CHARACTER_0}今天去图书馆。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0}今天去图书馆吗？",
+      "{CHARACTER_0}今天去图书馆？",
+      "图书馆{CHARACTER_0}今天去吗？",
+      "{CHARACTER_0}去今天图书馆吗？"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}今天去图书馆吗？"
+  },
+  {
+    "id": "CHN383",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "把下面的肯定句改成否定句：{CHARACTER_0}喜欢吃蔬菜。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0}不喜欢吃蔬菜。",
+      "{CHARACTER_0}没有喜欢吃蔬菜。",
+      "{CHARACTER_0}不是喜欢吃蔬菜。",
+      "不{CHARACTER_0}喜欢吃蔬菜。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}不喜欢吃蔬菜。"
+  },
+  {
+    "id": "CHN384",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "下面哪个是陈述句？",
+    "placeholder_roles": [],
+    "options": [
+      "今天天气很好。",
+      "今天天气好吗？",
+      "多么好的天气啊！",
+      "今天怎么这么好天气？"
+    ],
+    "answer": 0,
+    "correct_answer": "今天天气很好。"
+  },
+  {
+    "id": "CHN385",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "下面哪个是感叹句？",
+    "placeholder_roles": [],
+    "options": [
+      "多么美丽的风景啊！",
+      "风景真的很美。",
+      "这风景美吗？",
+      "为什么风景这么美？"
+    ],
+    "answer": 0,
+    "correct_answer": "多么美丽的风景啊！"
+  },
+  {
+    "id": "CHN386",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "把下面的句子改成双重否定句：{CHARACTER_0}必须按时完成作业。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0}不得不按时完成作业。",
+      "{CHARACTER_0}不必不按时完成作业。",
+      "{CHARACTER_0}没有不完成作业。",
+      "作业{CHARACTER_0}必须不不完成。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}不得不按时完成作业。"
+  },
+  {
+    "id": "CHN387",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "下面哪个句子是正确的双重否定句（表达肯定意思）？",
+    "placeholder_roles": [],
+    "options": [
+      "这道题无人不会做。",
+      "这道题无人会做。",
+      "这道题谁不会做。",
+      "这道题没有人会。"
+    ],
+    "answer": 0,
+    "correct_answer": "这道题无人不会做。"
+  },
+  {
+    "id": "CHN388",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0}说：「______天下雨，我们______带雨伞。」选出正确的关联词。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "如果……就……",
+      "虽然……但是……",
+      "不但……而且……",
+      "因为……所以……"
+    ],
+    "answer": 0,
+    "correct_answer": "如果……就……"
+  },
+  {
+    "id": "CHN389",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "选出正确的关联词填入句子：「______他很努力，______没有取得好成绩。」",
+    "placeholder_roles": [],
+    "options": [
+      "虽然……但是……",
+      "因为……所以……",
+      "如果……就……",
+      "只要……就……"
+    ],
+    "answer": 0,
+    "correct_answer": "虽然……但是……"
+  },
+  {
+    "id": "CHN390",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "选出正确的关联词填入句子：「______他生病了，______没有去学校。」",
+    "placeholder_roles": [],
+    "options": [
+      "因为……所以……",
+      "虽然……但是……",
+      "如果……就……",
+      "只要……就……"
+    ],
+    "answer": 0,
+    "correct_answer": "因为……所以……"
+  },
+  {
+    "id": "CHN391",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "选出正确的关联词填入句子：「{CHARACTER_0}______很忙，______抽出时间来帮助同学。」",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "即使……也……",
+      "因为……所以……",
+      "如果……就……",
+      "虽然……但是……"
+    ],
+    "answer": 0,
+    "correct_answer": "即使……也……"
+  },
+  {
+    "id": "CHN392",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "选出正确的关联词填入句子：「______你努力学习，______能取得进步。」",
+    "placeholder_roles": [],
+    "options": [
+      "只要……就……",
+      "即使……也……",
+      "虽然……但是……",
+      "因为……所以……"
+    ],
+    "answer": 0,
+    "correct_answer": "只要……就……"
+  },
+  {
+    "id": "CHN393",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "下面哪个句子正确运用了「不但……而且……」？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}不但学习好，而且乐于助人。",
+      "{CHARACTER_0}不但来了，而且没有走。",
+      "不但他学习好，而且差。",
+      "{CHARACTER_0}不但喜欢，而且不喜欢。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}不但学习好，而且乐于助人。"
+  },
+  {
+    "id": "CHN394",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "选出正确的关联词填入句子：「______这道题很难，{CHARACTER_0}______要认真作答。」",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "既然……就……",
+      "虽然……但是……",
+      "因为……所以……",
+      "如果……就……"
+    ],
+    "answer": 0,
+    "correct_answer": "既然……就……"
+  },
+  {
+    "id": "CHN395",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "下面哪个句子正确运用了「宁可……也不……」？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}宁可吃苦，也不向困难低头。",
+      "{CHARACTER_0}宁可不学习，也不努力。",
+      "宁可他去，也不好。",
+      "{CHARACTER_0}宁可走，也不来。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}宁可吃苦，也不向困难低头。"
+  },
+  {
+    "id": "CHN396",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "选出正确的关联词填入句子：「{CHARACTER_0}______已经知道答案了，______直接写下来吧。」",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "既然……就……",
+      "因为……所以……",
+      "虽然……但是……",
+      "只要……就……"
+    ],
+    "answer": 0,
+    "correct_answer": "既然……就……"
+  },
+  {
+    "id": "CHN397",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "把下面的词语排成一个正确的句子：[{CHARACTER_0} / 认真 / 做 / 作业]",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0}认真做作业。",
+      "认真{CHARACTER_0}作业做。",
+      "作业{CHARACTER_0}认真做。",
+      "做{CHARACTER_0}认真作业。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}认真做作业。"
+  },
+  {
+    "id": "CHN398",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "把下面的词语排成一个正确的句子：[图书馆 / {CHARACTER_0} / 借 / 了 / 书 / 一本]",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0}在图书馆借了一本书。",
+      "图书馆{CHARACTER_0}借了书一本。",
+      "{CHARACTER_0}借了图书馆一本书。",
+      "一本书{CHARACTER_0}借了图书馆。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}在图书馆借了一本书。"
+  },
+  {
+    "id": "CHN399",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "以下哪个句子的语序正确？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}昨天在公园里踢足球。",
+      "{CHARACTER_0}踢昨天足球在公园里。",
+      "足球{CHARACTER_0}昨天在公园里踢。",
+      "昨天足球{CHARACTER_0}在公园里踢。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}昨天在公园里踢足球。"
+  },
+  {
+    "id": "CHN400",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "把下面的词语排成一个正确的句子：[{CHARACTER_0} / 把 / 仔细 / 读了 / 遍 / 课文 / 一]",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0}把课文仔细读了一遍。",
+      "{CHARACTER_0}仔细把课文读了一遍。",
+      "{CHARACTER_0}把一遍课文仔细读了。",
+      "课文{CHARACTER_0}把仔细读了一遍。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}把课文仔细读了一遍。"
+  },
+  {
+    "id": "CHN401",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "以下哪个句子的语序正确？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}非常认真地完成了这项任务。",
+      "{CHARACTER_0}完成了非常认真地这项任务。",
+      "这项任务{CHARACTER_0}非常认真地完成了。",
+      "完成了{CHARACTER_0}认真这项任务非常。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}非常认真地完成了这项任务。"
+  },
+  {
+    "id": "CHN402",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "给句子加上描述性词语：「{CHARACTER_0}唱歌」，下面哪个扩写句最恰当？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0}开心地在台上唱着动听的歌。",
+      "{CHARACTER_0}唱歌了。",
+      "{CHARACTER_0}非常唱歌。",
+      "{CHARACTER_0}的唱歌很好。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}开心地在台上唱着动听的歌。"
+  },
+  {
+    "id": "CHN403",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "给句子加上描述性词语：「{CHARACTER_0}写字」，下面哪个扩写句最恰当？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0}认真地在练习本上写着工整的字。",
+      "{CHARACTER_0}写了字。",
+      "{CHARACTER_0}的写字很好看。",
+      "{CHARACTER_0}非常仔细写字做。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}认真地在练习本上写着工整的字。"
+  },
+  {
+    "id": "CHN404",
+    "category": "语法",
+    "difficulty": "P1-P2",
+    "template": "「猫」是什么词？",
+    "placeholder_roles": [],
+    "options": [
+      "名词",
+      "动词",
+      "形容词",
+      "副词"
+    ],
+    "answer": 0,
+    "correct_answer": "名词"
+  },
+  {
+    "id": "CHN405",
+    "category": "语法",
+    "difficulty": "P1-P2",
+    "template": "「跑」是什么词？",
+    "placeholder_roles": [],
+    "options": [
+      "动词",
+      "名词",
+      "形容词",
+      "副词"
+    ],
+    "answer": 0,
+    "correct_answer": "动词"
+  },
+  {
+    "id": "CHN406",
+    "category": "语法",
+    "difficulty": "P1-P2",
+    "template": "「美丽」是什么词？",
+    "placeholder_roles": [],
+    "options": [
+      "形容词",
+      "名词",
+      "动词",
+      "副词"
+    ],
+    "answer": 0,
+    "correct_answer": "形容词"
+  },
+  {
+    "id": "CHN407",
+    "category": "语法",
+    "difficulty": "P1-P2",
+    "template": "以下哪个句子是完整的句子？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}在公园里玩耍。",
+      "在公园里。",
+      "非常快乐。",
+      "跑步和。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}在公园里玩耍。"
+  },
+  {
+    "id": "CHN408",
+    "category": "语法",
+    "difficulty": "P1-P2",
+    "template": "哪个句子末尾应该用句号（。）？",
+    "placeholder_roles": [],
+    "options": [
+      "今天是星期一。",
+      "今天是星期一？",
+      "今天是星期一！",
+      "今天是星期一，"
+    ],
+    "answer": 0,
+    "correct_answer": "今天是星期一。"
+  },
+  {
+    "id": "CHN409",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "下面哪个句子使用了「对偶」的修辞手法？",
+    "placeholder_roles": [],
+    "options": [
+      "春回大地千山秀，日照神州百业兴。",
+      "春天来了，花儿开了。",
+      "他的笑声像春风一样温暖。",
+      "她非常努力，也非常聪明。"
+    ],
+    "answer": 0,
+    "correct_answer": "春回大地千山秀，日照神州百业兴。"
+  },
+  {
+    "id": "CHN410",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "「我们怎么能不热爱自己的祖国呢？」这句话的意思是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "我们应该热爱自己的祖国。",
+      "我们不热爱自己的祖国。",
+      "我们在问是否应该热爱祖国。",
+      "我们不知道是否该爱国。"
+    ],
+    "answer": 0,
+    "correct_answer": "我们应该热爱自己的祖国。"
+  },
+  {
+    "id": "CHN411",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "把下面的句子改成反问句：{CHARACTER_0}应该诚实。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0}难道不应该诚实吗？",
+      "{CHARACTER_0}应该诚实吗？",
+      "难道{CHARACTER_0}诚实？",
+      "{CHARACTER_0}是应该诚实吗？"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}难道不应该诚实吗？"
+  },
+  {
+    "id": "CHN412",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "下面哪个句子正确运用了「因为……所以……」？",
+    "placeholder_roles": [],
+    "options": [
+      "因为下雨了，所以{CHARACTER_0}带了雨伞。",
+      "因为{CHARACTER_0}带了雨伞，所以下雨了。",
+      "因为所以下雨了带伞。",
+      "因为{CHARACTER_0}，所以下雨。"
+    ],
+    "answer": 0,
+    "correct_answer": "因为下雨了，所以{CHARACTER_0}带了雨伞。"
+  },
+  {
+    "id": "CHN413",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "下面哪个句子正确运用了「虽然……但是……」？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}虽然生病了，但是还是坚持上学。",
+      "虽然{CHARACTER_0}上学了，但是他没有生病。",
+      "{CHARACTER_0}虽然很努力但是很好。",
+      "虽然他，但是{CHARACTER_0}学习好。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}虽然生病了，但是还是坚持上学。"
+  },
+  {
+    "id": "CHN414",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "下面哪个句子正确运用了「即使……也……」？",
+    "placeholder_roles": [],
+    "options": [
+      "即使面对再大的困难，{CHARACTER_0}也不会放弃。",
+      "即使{CHARACTER_0}放弃了，也困难了。",
+      "即使他学习，也好。",
+      "{CHARACTER_0}即使也很努力。"
+    ],
+    "answer": 0,
+    "correct_answer": "即使面对再大的困难，{CHARACTER_0}也不会放弃。"
+  },
+  {
+    "id": "CHN415",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "下面哪个句子正确运用了「不但……而且……」？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}不但成绩优秀，而且品德高尚。",
+      "他不但去了，而且没有回来。",
+      "不但学习好，而且{CHARACTER_0}差。",
+      "{CHARACTER_0}不但努力而且也不认真。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}不但成绩优秀，而且品德高尚。"
+  },
+  {
+    "id": "CHN416",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "「{CHARACTER_0}在哪里？」是什么句型？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "疑问句",
+      "陈述句",
+      "感叹句",
+      "祈使句"
+    ],
+    "answer": 0,
+    "correct_answer": "疑问句"
+  },
+  {
+    "id": "CHN417",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "「快把作业做完！」是什么句型？",
+    "placeholder_roles": [],
+    "options": [
+      "祈使句",
+      "感叹句",
+      "疑问句",
+      "陈述句"
+    ],
+    "answer": 0,
+    "correct_answer": "祈使句"
+  },
+  {
+    "id": "CHN418",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "下面哪个是否定句？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}今天没有迟到。",
+      "{CHARACTER_0}今天迟到了。",
+      "今天{CHARACTER_0}迟到！",
+      "{CHARACTER_0}今天迟到吗？"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}今天没有迟到。"
+  },
+  {
+    "id": "CHN419",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "以下哪个「把」字句是语法正确的？",
+    "placeholder_roles": [],
+    "options": [
+      "{CHARACTER_0}把窗户关上了。",
+      "{CHARACTER_0}把了窗户关上。",
+      "窗户把{CHARACTER_0}关上了。",
+      "{CHARACTER_0}关上了把窗户。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}把窗户关上了。"
+  },
+  {
+    "id": "CHN420",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "以下哪个「被」字句是语法正确的？",
+    "placeholder_roles": [],
+    "options": [
+      "蛋糕被{CHARACTER_0}吃完了。",
+      "蛋糕把{CHARACTER_0}吃完了。",
+      "{CHARACTER_0}吃完了被蛋糕。",
+      "被蛋糕{CHARACTER_0}吃完了。"
+    ],
+    "answer": 0,
+    "correct_answer": "蛋糕被{CHARACTER_0}吃完了。"
+  },
+  {
+    "id": "CHN421",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}在复习修辞手法。「春天像一个小姑娘，轻盈地走来了。」这句话用了哪两种修辞手法？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "比喻和拟人",
+      "排比和比喻",
+      "夸张和拟人",
+      "对偶和排比"
+    ],
+    "answer": 0,
+    "correct_answer": "比喻和拟人"
+  },
+  {
+    "id": "CHN422",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "下面哪个句子正确运用了「既然……就……」？",
+    "placeholder_roles": [],
+    "options": [
+      "既然你已经决定了，就不要后悔。",
+      "既然他去了，就他回来。",
+      "他既然就努力学习。",
+      "既然{CHARACTER_0}，就他努力。"
+    ],
+    "answer": 0,
+    "correct_answer": "既然你已经决定了，就不要后悔。"
+  },
+  {
+    "id": "CHN423",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "把句子改成「把」字句：老师在黑板上写下了今天的课题。",
+    "placeholder_roles": [],
+    "options": [
+      "老师把今天的课题写在黑板上了。",
+      "老师把黑板写下了今天的课题。",
+      "今天的课题把老师写在黑板上。",
+      "老师在黑板上把写了课题。"
+    ],
+    "answer": 0,
+    "correct_answer": "老师把今天的课题写在黑板上了。"
+  },
+  {
+    "id": "CHN424",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "把句子改成「被」字句：{CHARACTER_0}摔破了杯子。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "杯子被{CHARACTER_0}摔破了。",
+      "杯子把{CHARACTER_0}摔破了。",
+      "{CHARACTER_0}被杯子摔破了。",
+      "杯子被摔破了{CHARACTER_0}。"
+    ],
+    "answer": 0,
+    "correct_answer": "杯子被{CHARACTER_0}摔破了。"
+  },
+  {
+    "id": "CHN425",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "把下面的词语排成正确的句子：[他 / 不得不 / 承认 / 了 / 自己的错误]",
+    "placeholder_roles": [],
+    "options": [
+      "他不得不承认了自己的错误。",
+      "他承认了不得不自己的错误。",
+      "不得不他承认自己的错误了。",
+      "他自己的错误不得不承认了。"
+    ],
+    "answer": 0,
+    "correct_answer": "他不得不承认了自己的错误。"
+  },
+  {
+    "id": "CHN426",
+    "category": "语法",
+    "difficulty": "P1-P2",
+    "template": "「我们一起去公园玩！」句末应该用什么标点符号？",
+    "placeholder_roles": [],
+    "options": [
+      "叹号（！）",
+      "句号（。）",
+      "问号（？）",
+      "逗号（，）"
+    ],
+    "answer": 0,
+    "correct_answer": "叹号（！）"
+  },
+  {
+    "id": "CHN427",
+    "category": "语法",
+    "difficulty": "P1-P2",
+    "template": "「你吃饭了吗」句末应该用什么标点符号？",
+    "placeholder_roles": [],
+    "options": [
+      "问号（？）",
+      "句号（。）",
+      "叹号（！）",
+      "逗号（，）"
+    ],
+    "answer": 0,
+    "correct_answer": "问号（？）"
+  },
+  {
+    "id": "CHN428",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "「他的眼睛像两颗明亮的星星。」这句话里，被比喻的事物是什么？",
+    "placeholder_roles": [],
+    "options": [
+      "他的眼睛",
+      "星星",
+      "两颗",
+      "明亮"
+    ],
+    "answer": 0,
+    "correct_answer": "他的眼睛"
+  },
+  {
+    "id": "CHN429",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "「蚂蚁们忙碌地搬运着食物，像一支训练有素的小军队。」这句话使用了哪种修辞手法？",
+    "placeholder_roles": [],
+    "options": [
+      "比喻",
+      "拟人",
+      "排比",
+      "夸张"
+    ],
+    "answer": 0,
+    "correct_answer": "比喻"
+  },
+  {
+    "id": "CHN430",
+    "category": "语法",
+    "difficulty": "P5-P6",
+    "template": "下面哪个句子使用了「排比」的修辞手法？",
+    "placeholder_roles": [],
+    "options": [
+      "他跑得快，跳得高，游得远。",
+      "他跑得快。",
+      "他跑得像猎豹一样快。",
+      "他跑步非常认真。"
+    ],
+    "answer": 0,
+    "correct_answer": "他跑得快，跳得高，游得远。"
+  },
+  {
+    "id": "CHN431",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0}在做改写练习。把下面的句子改成双重否定句：{CHARACTER_0}一定要去参加比赛。",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0}不得不去参加比赛。",
+      "{CHARACTER_0}不要不去参加比赛。",
+      "{CHARACTER_0}没有不去比赛。",
+      "不{CHARACTER_0}不参加比赛。"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}不得不去参加比赛。"
+  },
+  {
+    "id": "CHN432",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "下面哪个修辞手法用来将事物比作另一种事物，表达相似之处？",
+    "placeholder_roles": [],
+    "options": [
+      "比喻",
+      "拟人",
+      "夸张",
+      "反问"
+    ],
+    "answer": 0,
+    "correct_answer": "比喻"
+  },
+  {
+    "id": "CHN433",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "以下哪种修辞手法把无生命的事物赋予人的特征或行为？",
+    "placeholder_roles": [],
+    "options": [
+      "拟人",
+      "比喻",
+      "排比",
+      "对偶"
+    ],
+    "answer": 0,
+    "correct_answer": "拟人"
+  },
+  {
+    "id": "CHN434",
+    "category": "语法",
+    "difficulty": "PSLE",
+    "template": "「难道我们不应该保护环境吗？」把这个反问句改成陈述句，正确的是哪句？",
+    "placeholder_roles": [],
+    "options": [
+      "我们应该保护环境。",
+      "我们不应该保护环境。",
+      "我们保护了环境吗？",
+      "我们能否保护环境。"
+    ],
+    "answer": 0,
+    "correct_answer": "我们应该保护环境。"
+  },
+  {
+    "id": "CHN435",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "把「{CHARACTER_0}喜欢画画」改成疑问句，哪个最正确？",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "options": [
+      "{CHARACTER_0}喜欢画画吗？",
+      "{CHARACTER_0}喜欢画画？",
+      "喜欢画画{CHARACTER_0}？",
+      "画画{CHARACTER_0}喜欢吗？"
+    ],
+    "answer": 0,
+    "correct_answer": "{CHARACTER_0}喜欢画画吗？"
+  },
+  {
+    "id": "CHN436",
+    "category": "语法",
+    "difficulty": "P3-P4",
+    "template": "下面哪个句子正确运用了「如果……就……」？",
+    "placeholder_roles": [],
+    "options": [
+      "如果明天下雨，我们就不去野餐了。",
+      "如果去野餐，就我们下雨。",
+      "如果{CHARACTER_0}就去，他下雨。",
+      "我们就不去，如果下雨了。"
+    ],
+    "answer": 0,
+    "correct_answer": "如果明天下雨，我们就不去野餐了。"
   }
 ]
