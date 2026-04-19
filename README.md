@@ -118,6 +118,41 @@ This creates:
 
 - The test page stores Supabase URL + anon key in browser localStorage for convenience.
 - Do not put service role keys in frontend code.
+
+---
+
+## 🚀 Production Auth Deployment (Main Landing Page)
+
+After validating the test page, auth is now integrated into the main landing page (`index.html`).
+
+### Production Setup
+
+1. **Create `js/supabase-config.js`** (after pulling latest from GitHub):
+   ```javascript
+   window.SUPABASE_CONFIG = {
+       url: 'YOUR_SUPABASE_PROJECT_URL',
+       anonKey: 'YOUR_SUPABASE_ANON_KEY'
+   };
+   ```
+   This file is **gitignored** for security—never commit credentials.
+
+2. **Deployed Files**:
+   - Main UI: [index.html](index.html) - now includes login panel and profile section
+   - Auth logic: [js/landing-auth.js](js/landing-auth.js) - handles session state and user interactions
+   - Config template: Create [js/supabase-config.js](js/supabase-config.js) with your credentials
+
+3. **Features**:
+   - **Sign In / Sign Up tabs** - Users can create accounts or log in before starting quizzes
+   - **Profile section** - After login, shows user name and email with Edit/Sign Out buttons
+   - **Session persistence** - Automatically restores login state on page reload
+   - **Graceful fallback** - Quiz modes still accessible to unlogged-in users
+
+### Deployment Steps
+
+1. Update your deployment machine's `js/supabase-config.js` with production credentials.
+2. Run tests locally: `npm run serve` and verify login/signup works.
+3. Deploy as usual (GitHub Pages, etc.).
+4. Users will see login panel on landing page.
 - Keep RLS enabled on `profiles` in all environments.
 
 ## 🎮 How to Use
