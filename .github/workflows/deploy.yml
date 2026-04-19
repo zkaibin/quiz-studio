@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Create Supabase Config
 
 on:
   push:
@@ -19,8 +19,11 @@ jobs:
           };
           EOF
       
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+      - name: Commit and push config file
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add js/supabase-config.js
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-generate Supabase config" && git push)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
