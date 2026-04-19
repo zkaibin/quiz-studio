@@ -71,6 +71,55 @@ Visit the live site: `https://yourusername.github.io/quiz-studio`
    # Then visit http://localhost:8000
    ```
 
+## 🔐 Supabase Login + Profile Test (Staging Before Main Integration)
+
+Use the standalone test page first, then port to the landing page after validation.
+
+### Step 1: Create Supabase schema and policies
+
+1. Open your Supabase project.
+2. Go to SQL Editor.
+3. Run the SQL in [sql/supabase-auth-setup.sql](sql/supabase-auth-setup.sql).
+
+This creates:
+- `public.profiles` table linked 1:1 to `auth.users`
+- `updated_at` trigger
+- RLS policies so users can only read/update their own profile row
+- Optional signup trigger to auto-create a profile record
+
+### Step 2: Enable Email/Password auth
+
+1. In Supabase Dashboard, go to Authentication > Providers.
+2. Enable Email provider.
+3. Configure email confirmation to your preference (enabled for production, optional for local testing).
+
+### Step 3: Test locally with the standalone page
+
+1. Start local server:
+   ```bash
+   npm run serve
+   ```
+2. Open [supabase-test.html](supabase-test.html).
+3. Paste Supabase Project URL and Anon Key from Project Settings > API.
+4. Click "Save & Connect".
+5. Try:
+   - Sign Up
+   - Sign In
+   - Load Profile
+   - Save Profile
+
+### What was added for this test flow
+
+- Test UI: [supabase-test.html](supabase-test.html)
+- Test logic: [js/supabase-auth-test.js](js/supabase-auth-test.js)
+- SQL setup: [sql/supabase-auth-setup.sql](sql/supabase-auth-setup.sql)
+
+### Notes
+
+- The test page stores Supabase URL + anon key in browser localStorage for convenience.
+- Do not put service role keys in frontend code.
+- Keep RLS enabled on `profiles` in all environments.
+
 ## 🎮 How to Use
 
 ### Math Quiz

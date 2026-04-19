@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Auth Test - Quiz Studio</title>
+    <link rel="stylesheet" href="css/style.css?v=10">
+    <style>
+        .test-wrap {
+            max-width: 980px;
+            margin: 0 auto;
+            display: grid;
+            gap: 20px;
+        }
+
+        .panel {
+            background: #fff;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .panel h2 {
+            margin-bottom: 12px;
+            color: #2c3e50;
+        }
+
+        .muted {
+            color: #6b7280;
+            font-size: 0.92rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .status {
+            margin-top: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: #f3f4f6;
+            font-size: 0.92rem;
+            word-break: break-word;
+        }
+
+        .status.ok {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status.err {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .session-box {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            background: #111827;
+            color: #e5e7eb;
+            border-radius: 8px;
+            padding: 12px;
+            overflow: auto;
+            max-height: 220px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <a href="index.html" class="back-link" style="position: absolute; top: 20px; left: 20px; z-index: 1000; color: white; background: rgba(0,0,0,0.3); padding: 8px 15px; border-radius: 6px;">← Back to Home</a>
+
+    <div class="container" style="max-width: 1100px;">
+        <header class="header">
+            <h1>Supabase Auth Test</h1>
+            <p>Validate login and user profile flow before integrating into the main pages.</p>
+        </header>
+
+        <main class="test-wrap">
+            <section class="panel">
+                <h2>1) Supabase Project Config</h2>
+                <p class="muted">Paste your project URL and anon key from Supabase Project Settings > API. These values are saved in your browser localStorage for testing only.</p>
+
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label for="supabaseUrl">Supabase URL</label>
+                        <input id="supabaseUrl" class="input-field" placeholder="https://YOUR_PROJECT.supabase.co" />
+                    </div>
+                    <div class="form-group full">
+                        <label for="supabaseAnonKey">Supabase Anon Key</label>
+                        <input id="supabaseAnonKey" class="input-field" placeholder="eyJ..." />
+                    </div>
+                </div>
+
+                <div class="btn-row">
+                    <button id="saveConfigBtn" class="btn btn-primary">Save & Connect</button>
+                    <button id="clearConfigBtn" class="btn btn-secondary">Clear Config</button>
+                </div>
+                <div id="configStatus" class="status">Not connected.</div>
+            </section>
+
+            <section class="panel">
+                <h2>2) Authentication (Email + Password)</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" class="input-field" placeholder="student@example.com" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input id="password" type="password" class="input-field" placeholder="At least 6 characters" />
+                    </div>
+                </div>
+                <div class="btn-row">
+                    <button id="signUpBtn" class="btn btn-primary">Sign Up</button>
+                    <button id="signInBtn" class="btn btn-primary">Sign In</button>
+                    <button id="signOutBtn" class="btn btn-secondary">Sign Out</button>
+                </div>
+                <div id="authStatus" class="status">No active session.</div>
+            </section>
+
+            <section class="panel">
+                <h2>3) User Profile (profiles table)</h2>
+                <p class="muted">After login, this section loads/saves your row in the profiles table.</p>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input id="fullName" class="input-field" placeholder="Kaibin Zhang" />
+                    </div>
+                    <div class="form-group">
+                        <label for="displayName">Display Name</label>
+                        <input id="displayName" class="input-field" placeholder="Kai" />
+                    </div>
+                    <div class="form-group">
+                        <label for="favouriteSubject">Favourite Subject</label>
+                        <select id="favouriteSubject" class="input-field">
+                            <option value="">Select one</option>
+                            <option value="Math">Math</option>
+                            <option value="Science">Science</option>
+                            <option value="English">English</option>
+                            <option value="Chinese">Chinese</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="avatarUrl">Avatar URL</label>
+                        <input id="avatarUrl" class="input-field" placeholder="https://..." />
+                    </div>
+                    <div class="form-group full">
+                        <label for="bio">Bio</label>
+                        <textarea id="bio" class="input-field" rows="4" placeholder="Short description"></textarea>
+                    </div>
+                </div>
+                <div class="btn-row">
+                    <button id="loadProfileBtn" class="btn btn-secondary">Load Profile</button>
+                    <button id="saveProfileBtn" class="btn btn-primary">Save Profile</button>
+                </div>
+                <div id="profileStatus" class="status">Profile not loaded.</div>
+            </section>
+
+            <section class="panel">
+                <h2>4) Session Debug</h2>
+                <div id="sessionDump" class="session-box">{}</div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/supabase-auth-test.js?v=1"></script>
+</body>
+</html>
