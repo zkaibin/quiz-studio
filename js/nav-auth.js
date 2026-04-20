@@ -123,6 +123,7 @@
     '      </div>',
     '    </div>',
     '    <button class="qs-menu-btn" id="qs-profile-btn">✏️ Edit Profile</button>',
+    '    <button class="qs-menu-btn" id="qs-records-btn">📋 My Quiz Records</button>',
     '    <button class="qs-menu-btn qs-danger" id="qs-signout-btn">🚪 Sign Out</button>',
     '  </div>',
     '</div>'
@@ -371,6 +372,11 @@
     var profileBtn = $('qs-profile-btn');
     if (profileBtn) profileBtn.addEventListener('click', function () {
       window.location.href = 'profile.html';
+    });
+
+    var recordsBtn = $('qs-records-btn');
+    if (recordsBtn) recordsBtn.addEventListener('click', function () {
+      window.location.href = 'quiz-records.html';
     });
   }
 
