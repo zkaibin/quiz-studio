@@ -444,8 +444,8 @@ class EnglishQuizApp {
         score: this.score,
         total_questions: this.questions.length,
         percentage: isNaN(percentage) ? 0 : percentage,
-        questions: JSON.parse(JSON.stringify(this.questions)),
-        answers: JSON.parse(JSON.stringify(this.answers))
+        questions: structuredClone(this.questions),
+        answers: structuredClone(this.answers)
       });
     } catch (e) {
       // Fail silently – don't interrupt the user's quiz experience
