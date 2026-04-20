@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Confirmed - Quiz Studio</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .icon {
+            font-size: 72px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card h1 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #6b7280;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .countdown {
+            font-size: 0.9rem;
+            color: #9ca3af;
+            margin-top: 16px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 24px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .error-icon { font-size: 72px; margin-bottom: 20px; display: block; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <span id="statusIcon" class="icon">⏳</span>
+        <h1 id="statusTitle">Confirming your email…</h1>
+        <p id="statusMessage">Please wait while we verify your account.</p>
+        <p id="countdown" class="countdown"></p>
+        <a id="homeBtn" href="index.html" class="btn" style="display:none;">Go to Quiz Studio</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script>
+    (function () {
+      'use strict';
+
+      async function handleCallback() {
+        const icon    = document.getElementById('statusIcon');
+        const title   = document.getElementById('statusTitle');
+        const message = document.getElementById('statusMessage');
+        const countdown = document.getElementById('countdown');
+        const homeBtn = document.getElementById('homeBtn');
+
+        if (!window.SUPABASE_CONFIG) {
+          showError(icon, title, message, homeBtn, 'Configuration missing.');
+          return;
+        }
+
+        const client = supabase.createClient(
+          window.SUPABASE_CONFIG.url,
+          window.SUPABASE_CONFIG.anonKey
+        );
+
+        // Supabase handles the hash / query params automatically when we call getSession()
+        // For PKCE flow (code in query string) we need exchangeCodeForSession
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+
+        let error = null;
+
+        if (code) {
+          // PKCE flow: exchange auth code for session
+          const result = await client.auth.exchangeCodeForSession(code);
+          error = result.error;
+        } else {
+          // Implicit / magic-link flow: hash contains tokens; getSession picks them up
+          const result = await client.auth.getSession();
+          error = result.error;
+        }
+
+        if (error) {
+          showError(icon, title, message, homeBtn,
+            'Confirmation failed: ' + error.message +
+            '. The link may have expired. Please try signing up again or contact support.');
+          return;
+        }
+
+        // Success
+        icon.textContent = '✅';
+        title.textContent = 'Email Confirmed!';
+        message.textContent = 'Your account has been successfully verified. You can now sign in to Quiz Studio.';
+        homeBtn.style.display = 'inline-block';
+
+        // Auto-redirect countdown
+        let seconds = 5;
+        countdown.textContent = 'Redirecting to Quiz Studio in ' + seconds + ' seconds…';
+        const interval = setInterval(function () {
+          seconds--;
+          if (seconds <= 0) {
+            clearInterval(interval);
+            window.location.href = 'index.html';
+          } else {
+            countdown.textContent = 'Redirecting to Quiz Studio in ' + seconds + ' seconds…';
+          }
+        }, 1000);
+      }
+
+      function showError(icon, title, message, homeBtn, msg) {
+        icon.textContent = '❌';
+        title.textContent = 'Confirmation Error';
+        message.textContent = msg;
+        homeBtn.style.display = 'inline-block';
+      }
+
+      handleCallback();
+    })();
+    </script>
+</body>
+</html>
