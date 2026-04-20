@@ -205,7 +205,11 @@
 
       var avatarEl = $('qs-avatar-circle');
       if (currentProfile && currentProfile.avatar_url) {
-        avatarEl.innerHTML = '<img src="' + currentProfile.avatar_url + '" alt="avatar">';
+        var img = document.createElement('img');
+        img.setAttribute('src', currentProfile.avatar_url);
+        img.setAttribute('alt', 'avatar');
+        avatarEl.innerHTML = '';
+        avatarEl.appendChild(img);
       } else {
         avatarEl.textContent = name.charAt(0).toUpperCase();
       }
@@ -326,6 +330,8 @@
     tabs.forEach(function (tab) {
       tab.addEventListener('click', function () {
         var tabName = tab.getAttribute('data-qs-tab');
+        var allowedTabs = ['signin', 'register'];
+        if (allowedTabs.indexOf(tabName) === -1) return;
         document.querySelectorAll('#qs-auth-dropdown .qs-tab').forEach(function (t) {
           t.classList.remove('active');
         });
