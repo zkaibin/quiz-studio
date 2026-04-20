@@ -11,15 +11,8 @@
   async function applyUserProfile() {
     if (!window.SUPABASE_CONFIG) return;
 
-    let client;
-    try {
-      client = supabase.createClient(
-        window.SUPABASE_CONFIG.url,
-        window.SUPABASE_CONFIG.anonKey
-      );
-    } catch (e) {
-      return;
-    }
+    const client = window.SUPABASE_CLIENT;
+    if (!client) return;
 
     const { data } = await client.auth.getSession();
     const user = data.session?.user || null;

@@ -12,15 +12,12 @@
 
   // ── Init ─────────────────────────────────────────────────────────────────
   async function init() {
-    if (!window.SUPABASE_CONFIG) {
+    if (!window.SUPABASE_CLIENT) {
       showListMsg('Supabase configuration not found.', true);
       return;
     }
 
-    client = supabase.createClient(
-      window.SUPABASE_CONFIG.url,
-      window.SUPABASE_CONFIG.anonKey
-    );
+    client = window.SUPABASE_CLIENT;
 
     var result = await client.auth.getSession();
     if (!result.data.session) {
