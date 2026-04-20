@@ -114,27 +114,39 @@
           window.SUPABASE_CONFIG.anonKey
         );
 
-        // Supabase handles the hash / query params automatically when we call getSession()
-        // For PKCE flow (code in query string) we need exchangeCodeForSession
         const params = new URLSearchParams(window.location.search);
+        const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
         const code = params.get('code');
+        const callbackError =
+          params.get('error_description') ||
+          hashParams.get('error_description') ||
+          params.get('error') ||
+          hashParams.get('error');
 
-        let error = null;
-
-        if (code) {
-          // PKCE flow: exchange auth code for session
-          const result = await client.auth.exchangeCodeForSession(code);
-          error = result.error;
-        } else {
-          // Implicit / magic-link flow: hash contains tokens; getSession picks them up
-          const result = await client.auth.getSession();
-          error = result.error;
+        if (callbackError) {
+          showError(icon, title, message, homeBtn,
+            'Confirmation failed: ' + callbackError +
+            '. Please request a fresh confirmation email.');
+          return;
         }
 
-        if (error) {
+        let error = null;
+        let session = null;
+
+        if (code) {
+          const result = await client.auth.exchangeCodeForSession(code);
+          error = result.error;
+          session = result.data?.session || null;
+        } else {
+          const result = await client.auth.getSession();
+          error = result.error;
+          session = result.data?.session || null;
+        }
+
+        if (error || !session) {
+          const reason = error ? error.message : 'No valid session was created from the confirmation link';
           showError(icon, title, message, homeBtn,
-            'Confirmation failed: ' + error.message +
-            '. The link may have expired. Please try signing up again or contact support.');
+            'Confirmation failed: ' + reason + '. Check that Supabase Auth has the correct Site URL and Redirect URLs for this app, then request a fresh confirmation email.');
           return;
         }
 

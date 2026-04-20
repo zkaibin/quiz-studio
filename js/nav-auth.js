@@ -238,6 +238,10 @@
     if (el) { el.style.display = 'none'; el.textContent = ''; }
   }
 
+  function getEmailRedirectUrl() {
+    return new URL('auth-callback.html', window.location.href).href;
+  }
+
   // ── Auth actions ──────────────────────────────────────────────────────────
   async function doSignIn() {
     if (!client) { showMsg('Authentication service not available.', 'error'); return; }
@@ -270,7 +274,10 @@
     var result = await client.auth.signUp({
       email: email,
       password: password,
-      options: { data: { full_name: name } }
+      options: {
+        data: { full_name: name },
+        emailRedirectTo: getEmailRedirectUrl()
+      }
     });
     btn.disabled = false;
     btn.textContent = 'Create Account';

@@ -121,6 +121,10 @@
     return true;
   }
 
+  function getEmailRedirectUrl() {
+    return new URL('auth-callback.html', window.location.href).href;
+  }
+
   async function signUp() {
     if (!requireClient()) return;
     const email = $('email').value.trim();
@@ -131,7 +135,11 @@
       return;
     }
 
-    const { error } = await client.auth.signUp({ email, password });
+    const { error } = await client.auth.signUp({
+      email,
+      password,
+      options: { emailRedirectTo: getEmailRedirectUrl() }
+    });
     if (error) {
       setStatus('authStatus', `Sign up failed: ${error.message}`, 'err');
       return;

@@ -8,6 +8,10 @@
 
   const $ = (id) => document.getElementById(id);
 
+  function getEmailRedirectUrl() {
+    return new URL('auth-callback.html', window.location.href).href;
+  }
+
   function initSupabase() {
     if (!window.SUPABASE_CONFIG) {
       console.warn('Supabase config not loaded.');
@@ -98,7 +102,10 @@
     const { data: signUpData, error } = await client.auth.signUp({
       email,
       password,
-      options: { data: { full_name: name } }
+      options: {
+        data: { full_name: name },
+        emailRedirectTo: getEmailRedirectUrl()
+      }
     });
     if (error) {
       alert(`Sign up failed: ${error.message}`);
