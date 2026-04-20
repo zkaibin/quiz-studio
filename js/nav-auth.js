@@ -57,6 +57,9 @@
     '}',
     '.qs-submit-btn:hover{opacity:0.9;}',
     '.qs-submit-btn:disabled{opacity:0.6;cursor:not-allowed;}',
+    '.qs-helper-row{display:flex;justify-content:flex-end;margin:2px 0 10px;}',
+    '.qs-link-btn{background:none;border:none;padding:0;color:#667eea;font-size:0.82rem;cursor:pointer;text-decoration:underline;}',
+    '.qs-link-btn:hover{opacity:0.85;}',
     '.qs-profile-header{',
     '  display:flex;align-items:center;gap:12px;',
     '  margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #eee;',
@@ -104,6 +107,7 @@
     '    <div class="qs-form active" data-qs-form="signin">',
     '      <input id="qs-login-email" type="email" placeholder="Email address" autocomplete="email" />',
     '      <input id="qs-login-password" type="password" placeholder="Password" autocomplete="current-password" />',
+    '      <div class="qs-helper-row"><button type="button" class="qs-link-btn" id="qs-forgot-btn">Forgot password?</button></div>',
     '      <button class="qs-submit-btn" id="qs-signin-btn">Sign In</button>',
     '    </div>',
     '    <div class="qs-form" data-qs-form="register">',
@@ -242,6 +246,10 @@
     return new URL('auth-callback.html', window.location.href).href;
   }
 
+  function getPasswordResetRedirectUrl() {
+    return new URL('reset-password.html', window.location.href).href;
+  }
+
   // ── Auth actions ──────────────────────────────────────────────────────────
   async function doSignIn() {
     if (!client) { showMsg('Authentication service not available.', 'error'); return; }
@@ -292,6 +300,18 @@
     $('qs-signup-name').value = '';
     $('qs-signup-email').value = '';
     $('qs-signup-password').value = '';
+  }
+
+  async function doForgotPassword() {
+    if (!client) { showMsg('Authentication service not available.', 'error'); return; }
+    var email = $('qs-login-email').value.trim();
+    if (!email) { showMsg('Enter your email address first, then click Forgot password.', 'error'); return; }
+    clearMsg();
+    var result = await client.auth.resetPasswordForEmail(email, {
+      redirectTo: getPasswordResetRedirectUrl()
+    });
+    if (result.error) { showMsg(result.error.message, 'error'); return; }
+    showMsg('Password reset email sent. Check your inbox for the reset link.', 'success');
   }
 
   async function doSignOut() {
@@ -374,6 +394,9 @@
 
     var signinBtn = $('qs-signin-btn');
     if (signinBtn) signinBtn.addEventListener('click', doSignIn);
+
+    var forgotBtn = $('qs-forgot-btn');
+    if (forgotBtn) forgotBtn.addEventListener('click', doForgotPassword);
 
     var signupBtn = $('qs-signup-btn');
     if (signupBtn) signupBtn.addEventListener('click', doSignUp);

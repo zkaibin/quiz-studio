@@ -125,6 +125,10 @@
     return new URL('auth-callback.html', window.location.href).href;
   }
 
+  function getPasswordResetRedirectUrl() {
+    return new URL('reset-password.html', window.location.href).href;
+  }
+
   async function signUp() {
     if (!requireClient()) return;
     const email = $('email').value.trim();
@@ -170,6 +174,27 @@
 
     currentUser = data.user || null;
     setStatus('authStatus', `Signed in as ${currentUser?.email || email}`, 'ok');
+  }
+
+  async function forgotPassword() {
+    if (!requireClient()) return;
+    const email = $('email').value.trim();
+
+    if (!email) {
+      setStatus('authStatus', 'Enter your email address first, then click Forgot Password.', 'err');
+      return;
+    }
+
+    const { error } = await client.auth.resetPasswordForEmail(email, {
+      redirectTo: getPasswordResetRedirectUrl()
+    });
+
+    if (error) {
+      setStatus('authStatus', `Reset email failed: ${error.message}`, 'err');
+      return;
+    }
+
+    setStatus('authStatus', 'Password reset email sent. Check your inbox for the reset link.', 'ok');
   }
 
   async function signOut() {
@@ -250,6 +275,7 @@
 
     $('signUpBtn').addEventListener('click', signUp);
     $('signInBtn').addEventListener('click', signIn);
+    $('forgotPasswordBtn').addEventListener('click', forgotPassword);
     $('signOutBtn').addEventListener('click', signOut);
 
     $('loadProfileBtn').addEventListener('click', loadProfile);

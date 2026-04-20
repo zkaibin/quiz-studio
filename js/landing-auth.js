@@ -12,6 +12,10 @@
     return new URL('auth-callback.html', window.location.href).href;
   }
 
+  function getPasswordResetRedirectUrl() {
+    return new URL('reset-password.html', window.location.href).href;
+  }
+
   function initSupabase() {
     if (!window.SUPABASE_CONFIG) {
       console.warn('Supabase config not loaded.');
@@ -145,6 +149,26 @@
     $('loginPassword').value = '';
   }
 
+  async function forgotPassword() {
+    const email = $('loginEmail')?.value.trim();
+
+    if (!email) {
+      alert('Please enter your email address first.');
+      return;
+    }
+
+    const { error } = await client.auth.resetPasswordForEmail(email, {
+      redirectTo: getPasswordResetRedirectUrl()
+    });
+
+    if (error) {
+      alert(`Reset email failed: ${error.message}`);
+      return;
+    }
+
+    alert('Password reset email sent. Check your inbox for the reset link.');
+  }
+
   async function signOut() {
     const { error } = await client.auth.signOut();
     if (error) {
@@ -165,6 +189,7 @@
     const signInSubmitBtn = $('signInSubmitBtn');
     const signOutBtn = $('signOutBtn');
     const editProfileBtn = $('editProfileBtn');
+    const forgotPasswordBtn = $('forgotPasswordBtn');
 
     if (signUpTabBtn) {
       signUpTabBtn.addEventListener('click', () => {
@@ -190,6 +215,10 @@
 
     if (signInSubmitBtn) {
       signInSubmitBtn.addEventListener('click', signIn);
+    }
+
+    if (forgotPasswordBtn) {
+      forgotPasswordBtn.addEventListener('click', forgotPassword);
     }
 
     if (signOutBtn) {
