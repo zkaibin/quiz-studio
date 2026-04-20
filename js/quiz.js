@@ -467,12 +467,9 @@ class QuizApp {
    * Save quiz record to Supabase for logged-in users (guest mode skipped)
    */
   async saveQuizRecord(percentage) {
-    if (!window.SUPABASE_CONFIG || typeof supabase === 'undefined') return;
+    if (!window.SUPABASE_CLIENT) return;
     try {
-      const client = supabase.createClient(
-        window.SUPABASE_CONFIG.url,
-        window.SUPABASE_CONFIG.anonKey
-      );
+      const client = window.SUPABASE_CLIENT;
       const { data } = await client.auth.getSession();
       const user = data.session && data.session.user;
       if (!user) return; // guest mode – skip saving

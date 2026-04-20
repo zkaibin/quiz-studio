@@ -15,15 +15,12 @@
   }
 
   async function initAndLoad() {
-    if (!window.SUPABASE_CONFIG) {
+    if (!window.SUPABASE_CLIENT) {
       setStatus('profileStatus', 'Supabase configuration not found.', 'err');
       return;
     }
 
-    client = supabase.createClient(
-      window.SUPABASE_CONFIG.url,
-      window.SUPABASE_CONFIG.anonKey
-    );
+    client = window.SUPABASE_CLIENT;
 
     const { data, error } = await client.auth.getSession();
     if (error || !data.session) {
