@@ -152,9 +152,19 @@
 
   // ── Supabase init ─────────────────────────────────────────────────────────
   function initSupabase() {
-    if (!window.SUPABASE_CLIENT) return false;
-    client = window.SUPABASE_CLIENT;
-    return true;
+    if (window.SUPABASE_CLIENT) {
+      client = window.SUPABASE_CLIENT;
+      return true;
+    }
+    if (window.SUPABASE_CONFIG && window.supabase && window.supabase.createClient) {
+      client = window.supabase.createClient(
+        window.SUPABASE_CONFIG.url,
+        window.SUPABASE_CONFIG.anonKey
+      );
+      window.SUPABASE_CLIENT = client;
+      return true;
+    }
+    return false;
   }
 
   async function loadProfile() {
