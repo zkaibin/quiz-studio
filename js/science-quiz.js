@@ -412,10 +412,44 @@ class ScienceQuizApp {
   /**
    * Finish the quiz and show results
    */
-  finishQuiz() {
+  async finishQuiz() {
     this.score = this.calculateScore();
     const percentage = Math.round((this.score / this.questions.length) * 100);
+
+    // Save to Supabase for registered users
+    await this.saveQuizRecord(percentage);
+
     this.showResultsSection(percentage);
+  }
+
+  /**
+   * Save quiz record to Supabase for logged-in users (guest mode skipped)
+   */
+  async saveQuizRecord(percentage) {
+    if (!window.SUPABASE_CLIENT) return;
+    try {
+      const client = window.SUPABASE_CLIENT;
+      const { data } = await client.auth.getSession();
+      const user = data.session && data.session.user;
+      if (!user) return; // guest mode – skip saving
+
+      await client.from('quiz_records').insert({
+        user_id: user.id,
+        student_name: this.studentName,
+        subject: 'science',
+        category: this.category || 'all',
+        difficulty: this.difficulty || 'all',
+        theme: this.theme || 'all',
+        score: this.score,
+        total_questions: this.questions.length,
+        percentage: isNaN(percentage) ? 0 : percentage,
+        questions: structuredClone(this.questions),
+        answers: structuredClone(this.answers)
+      });
+    } catch (e) {
+      // Fail silently – don't interrupt the user's quiz experience
+      console.warn('Could not save quiz record:', e);
+    }
   }
 
   /**
