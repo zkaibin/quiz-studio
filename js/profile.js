@@ -4,7 +4,10 @@
 
   let client = null;
   let currentUser = null;
+  let selectedAvatarFile = null;
 
+  const STORAGE_BUCKET = 'profile-pictures';
+  const MAX_AVATAR_SIZE = 2 * 1024 * 1024;
   const $ = (id) => document.getElementById(id);
 
   function setStatus(elementId, message, kind) {
@@ -12,6 +15,100 @@
     if (!el) return;
     el.textContent = message;
     el.className = 'status-msg' + (kind ? ' ' + kind : '');
+  }
+
+  function getDisplayName() {
+    return (
+      $('displayName')?.value.trim() ||
+      $('fullName')?.value.trim() ||
+      currentUser?.email?.split('@')[0] ||
+      'User'
+    );
+  }
+
+  function updateAvatarPreview(url) {
+    const img = $('avatarPreviewImg');
+    const fallback = $('avatarFallback');
+    if (!img || !fallback) return;
+
+    const name = getDisplayName();
+    fallback.textContent = name ? name.charAt(0).toUpperCase() : '👤';
+
+    if (url) {
+      img.src = url;
+      img.style.display = 'block';
+      fallback.style.display = 'none';
+      img.onerror = function () {
+        img.style.display = 'none';
+        fallback.style.display = 'inline';
+      };
+    } else {
+      img.removeAttribute('src');
+      img.style.display = 'none';
+      fallback.style.display = 'inline';
+    }
+  }
+
+  function handleAvatarSelection(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) {
+      selectedAvatarFile = null;
+      return;
+    }
+
+    if (!file.type.startsWith('image/')) {
+      e.target.value = '';
+      selectedAvatarFile = null;
+      setStatus('profileStatus', 'Please choose an image file.', 'err');
+      return;
+    }
+
+    if (file.size > MAX_AVATAR_SIZE) {
+      e.target.value = '';
+      selectedAvatarFile = null;
+      setStatus('profileStatus', 'Image must be 2 MB or smaller.', 'err');
+      return;
+    }
+
+    selectedAvatarFile = file;
+    $('avatarUrl').value = '';
+    updateAvatarPreview(URL.createObjectURL(file));
+    setStatus('profileStatus', 'Picture selected. Click Save Profile to upload it.', '');
+  }
+
+  function removeAvatarSelection() {
+    selectedAvatarFile = null;
+    if ($('avatarFile')) $('avatarFile').value = '';
+    if ($('avatarUrl')) $('avatarUrl').value = '';
+    updateAvatarPreview('');
+    setStatus('profileStatus', 'Profile picture will be removed when you save.', '');
+  }
+
+  async function uploadAvatarIfNeeded() {
+    if (!selectedAvatarFile) {
+      return $('avatarUrl').value.trim() || null;
+    }
+
+    const extension = (selectedAvatarFile.name.split('.').pop() || 'png').toLowerCase();
+    const filePath = currentUser.id + '/avatar-' + Date.now() + '.' + extension;
+
+    const { error: uploadError } = await client.storage
+      .from(STORAGE_BUCKET)
+      .upload(filePath, selectedAvatarFile, {
+        upsert: true,
+        cacheControl: '3600',
+        contentType: selectedAvatarFile.type,
+      });
+
+    if (uploadError) {
+      if (/bucket/i.test(uploadError.message)) {
+        throw new Error('Image uploads are not configured yet. Run the updated Supabase SQL setup first.');
+      }
+      throw uploadError;
+    }
+
+    const { data } = client.storage.from(STORAGE_BUCKET).getPublicUrl(filePath);
+    return data?.publicUrl || null;
   }
 
   async function initAndLoad() {
@@ -24,7 +121,6 @@
 
     const { data, error } = await client.auth.getSession();
     if (error || !data.session) {
-      // Not logged in – redirect to home
       window.location.href = 'index.html';
       return;
     }
@@ -33,7 +129,6 @@
     $('profileEmail').textContent = currentUser.email;
     await loadProfile();
 
-    // Keep session in sync
     client.auth.onAuthStateChange((_event, session) => {
       if (!session) {
         window.location.href = 'index.html';
@@ -61,6 +156,9 @@
       $('avatarUrl').value = data.avatar_url || '';
       $('bio').value = data.bio || '';
       $('favouriteSubject').value = data.favourite_subject || '';
+      updateAvatarPreview(data.avatar_url || '');
+    } else {
+      updateAvatarPreview('');
     }
   }
 
@@ -68,24 +166,34 @@
     e.preventDefault();
     if (!client || !currentUser) return;
 
-    const payload = {
-      id: currentUser.id,
-      email: currentUser.email,
-      full_name: $('fullName').value.trim() || null,
-      display_name: $('displayName').value.trim() || null,
-      avatar_url: $('avatarUrl').value.trim() || null,
-      bio: $('bio').value.trim() || null,
-      favourite_subject: $('favouriteSubject').value || null,
-    };
+    try {
+      setStatus('profileStatus', selectedAvatarFile ? 'Uploading picture…' : 'Saving…', '');
+      const avatarUrl = await uploadAvatarIfNeeded();
 
-    setStatus('profileStatus', 'Saving…', '');
-    const { error } = await client.from('profiles').upsert(payload, { onConflict: 'id' });
-    if (error) {
+      const payload = {
+        id: currentUser.id,
+        email: currentUser.email,
+        full_name: $('fullName').value.trim() || null,
+        display_name: $('displayName').value.trim() || null,
+        avatar_url: avatarUrl,
+        bio: $('bio').value.trim() || null,
+        favourite_subject: $('favouriteSubject').value || null,
+      };
+
+      const { error } = await client.from('profiles').upsert(payload, { onConflict: 'id' });
+      if (error) {
+        setStatus('profileStatus', 'Save failed: ' + error.message, 'err');
+        return;
+      }
+
+      selectedAvatarFile = null;
+      if ($('avatarFile')) $('avatarFile').value = '';
+      $('avatarUrl').value = avatarUrl || '';
+      updateAvatarPreview(avatarUrl || '');
+      setStatus('profileStatus', 'Profile saved successfully!', 'ok');
+    } catch (error) {
       setStatus('profileStatus', 'Save failed: ' + error.message, 'err');
-      return;
     }
-
-    setStatus('profileStatus', 'Profile saved successfully!', 'ok');
   }
 
   async function changePassword(e) {
@@ -132,6 +240,35 @@
 
     const signOutBtn = $('signOutBtn');
     if (signOutBtn) signOutBtn.addEventListener('click', signOut);
+
+    const avatarFile = $('avatarFile');
+    if (avatarFile) avatarFile.addEventListener('change', handleAvatarSelection);
+
+    const avatarUrl = $('avatarUrl');
+    if (avatarUrl) {
+      avatarUrl.addEventListener('input', function (e) {
+        if (e.target.value.trim()) {
+          selectedAvatarFile = null;
+          if ($('avatarFile')) $('avatarFile').value = '';
+        }
+        updateAvatarPreview(e.target.value.trim());
+      });
+    }
+
+    const removeAvatarBtn = $('removeAvatarBtn');
+    if (removeAvatarBtn) removeAvatarBtn.addEventListener('click', removeAvatarSelection);
+
+    const nameFields = ['fullName', 'displayName'];
+    nameFields.forEach(function (id) {
+      const field = $(id);
+      if (field) {
+        field.addEventListener('input', function () {
+          if (!$('avatarUrl').value.trim() && !selectedAvatarFile) {
+            updateAvatarPreview('');
+          }
+        });
+      }
+    });
   }
 
   function bootstrap() {

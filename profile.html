@@ -134,9 +134,54 @@
             font-weight: 400;
             color: #6b7280;
         }
+
+        .divider {
             border: none;
             border-top: 1px solid #e5e7eb;
             margin: 0 0 20px;
+        }
+
+        .profile-photo-row {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .profile-photo-preview {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #e5e7eb;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .profile-photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .profile-photo-fallback {
+            font-size: 2rem;
+        }
+
+        .photo-actions {
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .photo-help {
+            margin-top: 8px;
+            color: #6b7280;
+            font-size: 0.85rem;
+            line-height: 1.4;
         }
     </style>
 </head>
@@ -181,8 +226,21 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="avatarUrl">Avatar URL <span class="label-hint">(optional link to your profile picture)</span></label>
-                            <input id="avatarUrl" type="url" class="input-field" placeholder="https://example.com/avatar.png" />
+                            <label for="avatarFile">Profile Picture <span class="label-hint">(upload an image or paste a link)</span></label>
+                            <div class="profile-photo-row">
+                                <div class="profile-photo-preview">
+                                    <img id="avatarPreviewImg" alt="Profile picture preview" />
+                                    <span id="avatarFallback" class="profile-photo-fallback">👤</span>
+                                </div>
+                                <div class="photo-actions">
+                                    <input id="avatarFile" type="file" class="input-field" accept="image/*" />
+                                    <div class="btn-row" style="margin-top: 10px;">
+                                        <button type="button" id="removeAvatarBtn" class="btn btn-secondary">Remove Picture</button>
+                                    </div>
+                                    <div class="photo-help">PNG, JPG, GIF or WEBP up to 2 MB. Your image will be uploaded when you save your profile.</div>
+                                </div>
+                            </div>
+                            <input id="avatarUrl" type="url" class="input-field" placeholder="Or paste an image URL" style="margin-top: 12px;" />
                         </div>
 
                         <div class="form-group">
