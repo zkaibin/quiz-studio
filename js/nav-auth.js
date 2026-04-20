@@ -230,6 +230,7 @@
 
   // ── Auth actions ──────────────────────────────────────────────────────────
   async function doSignIn() {
+    if (!client) { showMsg('Authentication service not available.', 'error'); return; }
     var email = $('qs-login-email').value.trim();
     var password = $('qs-login-password').value;
     if (!email || !password) { showMsg('Please enter email and password.', 'error'); return; }
@@ -247,6 +248,7 @@
   }
 
   async function doSignUp() {
+    if (!client) { showMsg('Authentication service not available.', 'error'); return; }
     var name = $('qs-signup-name').value.trim();
     var email = $('qs-signup-email').value.trim();
     var password = $('qs-signup-password').value;
