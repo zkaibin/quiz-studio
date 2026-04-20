@@ -6,6 +6,7 @@ create table if not exists public.quiz_records (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users(id) on delete cascade,
   student_name text,
+  subject text,
   category text,
   difficulty text,
   theme text,
@@ -16,6 +17,9 @@ create table if not exists public.quiz_records (
   answers jsonb not null,
   completed_at timestamptz not null default now()
 );
+
+-- 1a) Add subject column to existing installations (safe to run on new installs too)
+alter table public.quiz_records add column if not exists subject text;
 
 -- 2) Index for fast per-user lookup
 create index if not exists quiz_records_user_id_idx

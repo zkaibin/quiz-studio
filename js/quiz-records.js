@@ -39,7 +39,7 @@
     showListMsg('Loading your quiz records…', false);
     var result = await client
       .from('quiz_records')
-      .select('id, student_name, category, difficulty, theme, score, total_questions, percentage, completed_at')
+      .select('id, student_name, subject, category, difficulty, theme, score, total_questions, percentage, completed_at')
       .eq('user_id', currentUser.id)
       .order('completed_at', { ascending: false });
 
@@ -84,6 +84,7 @@
       html += '<div class="record-meta">';
 
       var parts = [];
+      if (rec.subject) parts.push('Subject: ' + rec.subject.charAt(0).toUpperCase() + rec.subject.slice(1));
       if (rec.category && rec.category !== 'all') parts.push('Category: ' + rec.category);
       if (rec.difficulty && rec.difficulty !== 'all') parts.push('Level: ' + rec.difficulty);
       if (rec.theme && rec.theme !== 'all') parts.push('Theme: ' + rec.theme);

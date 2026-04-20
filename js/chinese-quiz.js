@@ -428,6 +428,7 @@ class ChineseQuizApp {
       await client.from('quiz_records').insert({
         user_id: user.id,
         student_name: this.studentName,
+        subject: 'chinese',
         category: this.category || 'all',
         difficulty: this.difficulty || 'all',
         theme: this.theme || 'all',
