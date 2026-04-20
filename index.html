@@ -188,6 +188,32 @@
             opacity: 0.9;
         }
 
+        .subject-breakdown {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .subject-pill {
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 50px;
+            padding: 8px 20px;
+            color: white;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(4px);
+        }
+
+        .subject-pill .pill-count {
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -233,6 +259,10 @@
                 gap: 20px;
             }
 
+            .subject-breakdown {
+                gap: 8px;
+            }
+
             .profile-display {
                 flex-direction: column;
                 text-align: center;
@@ -247,7 +277,7 @@
             <p>Singapore Primary School Practice Platform</p>
             <div class="stats">
                 <div class="stat-item">
-                    <span class="stat-number">1520+</span>
+                    <span class="stat-number">2,665+</span>
                     <span class="stat-label">Questions</span>
                 </div>
                 <div class="stat-item">
@@ -259,6 +289,12 @@
                     <span class="stat-label">PSLE Levels</span>
                 </div>
             </div>
+            <div class="subject-breakdown">
+                <div class="subject-pill">🔢 Math <span class="pill-count">954</span></div>
+                <div class="subject-pill">🔬 Science <span class="pill-count">371</span></div>
+                <div class="subject-pill">📖 English <span class="pill-count">540</span></div>
+                <div class="subject-pill">🀄 Chinese <span class="pill-count">800</span></div>
+            </div>
         </header>
 
         <div class="modes-container">
@@ -267,6 +303,7 @@
                 <h2>Math Quiz</h2>
                 <p>Practice PSLE Math with instant feedback and fun character themes</p>
                 <ul class="features">
+                    <li>954 questions across 5 difficulty levels</li>
                     <li>Real-time answer checking</li>
                     <li>Character-themed questions</li>
                     <li>Progress tracking</li>
@@ -280,7 +317,7 @@
                 <h2>Science Quiz</h2>
                 <p>Practice Singapore Primary School Science with 371 questions including experiment scenarios</p>
                 <ul class="features">
-                    <li>370+ questions across 15 topics</li>
+                    <li>371 questions across 15 topics</li>
                     <li>41 hands-on experiment questions</li>
                     <li>Instant feedback & explanations</li>
                     <li>Interactive concept maps</li>
@@ -307,7 +344,7 @@
                 <h2>Chinese Quiz 华文测验</h2>
                 <p>Strengthen Chinese language skills for PSLE with vocabulary, grammar, idioms and more</p>
                 <ul class="features">
-                    <li>104 questions across 8 topics</li>
+                    <li>800 questions across 8 topics</li>
                     <li>汉语拼音, 词汇 & 成语</li>
                     <li>P3-P4, P5-P6 and PSLE levels</li>
                     <li>Reading comprehension passages</li>
@@ -344,7 +381,7 @@
 
         <footer class="footer">
             <p>Built for Primary School students preparing for PSLE Math, Science, English and Chinese</p>
-            <p style="margin-top: 8px; font-size: 0.85em; opacity: 0.7;">Last updated: April 2026 &mdash; Added English (540) and Chinese (104) question banks</p>
+            <p style="margin-top: 8px; font-size: 0.85em; opacity: 0.7;">Last updated: April 2026 &mdash; 2,665+ questions across Math (954), Science (371), English (540) and Chinese (800)</p>
             <p style="margin-top: 8px; font-size: 0.85em;"><a href="supabase-test.html" style="color: #fff; text-decoration: underline;">Open Supabase Auth Test Page</a></p>
         </footer>
     </div>
