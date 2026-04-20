@@ -95,13 +95,25 @@
       return;
     }
 
-    const { error } = await client.auth.signUp({ email, password });
+    const { data: signUpData, error } = await client.auth.signUp({
+      email,
+      password,
+      options: { data: { full_name: name } }
+    });
     if (error) {
       alert(`Sign up failed: ${error.message}`);
       return;
     }
 
-    alert('Sign up successful! Check your email if confirmation is required, or sign in now.');
+    // Upsert a profile row with the display name so it's available immediately
+    if (signUpData?.user) {
+      await client.from('profiles').upsert(
+        { id: signUpData.user.id, email, full_name: name, display_name: name },
+        { onConflict: 'id' }
+      );
+    }
+
+    alert('Sign up successful! Check your email to confirm your account, then sign in.');
     $('signupEmail').value = '';
     $('signupPassword').value = '';
     $('signupName').value = '';
@@ -179,7 +191,7 @@
 
     if (editProfileBtn) {
       editProfileBtn.addEventListener('click', () => {
-        window.location.href = 'supabase-test.html';
+        window.location.href = 'profile.html';
       });
     }
   }
