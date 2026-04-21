@@ -190,7 +190,7 @@
 
         .top-nav {
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
             gap: 12px;
             margin-bottom: 18px;
             flex-wrap: wrap;
@@ -300,8 +300,8 @@
     <div class="landing-container">
         <nav class="top-nav">
             <a href="leaderboard.html">🏅 Leaderboard</a>
-            <a href="dashboard.html">🏆 My Dashboard</a>
-            <a href="profile.html">👤 My Profile</a>
+            <a href="dashboard.html" id="nav-dashboard" style="display:none">🏆 My Dashboard</a>
+            <a href="profile.html" id="nav-profile" style="display:none">👤 My Profile</a>
         </nav>
         <header class="header">
             <h1>🎓 Quiz Studio</h1>
@@ -426,5 +426,26 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase-config.js"></script>
     <script src="js/nav-auth.js"></script>
+    <script>
+        (function () {
+            function updateNavLinks(hasSession) {
+                var dashLink = document.getElementById('nav-dashboard');
+                var profileLink = document.getElementById('nav-profile');
+                if (dashLink) dashLink.style.display = hasSession ? '' : 'none';
+                if (profileLink) profileLink.style.display = hasSession ? '' : 'none';
+            }
+
+            var client = window.SUPABASE_CLIENT;
+            if (!client) { updateNavLinks(false); return; }
+
+            client.auth.getSession().then(function (result) {
+                updateNavLinks(!!(result.data && result.data.session));
+            });
+
+            client.auth.onAuthStateChange(function (_event, session) {
+                updateNavLinks(!!session);
+            });
+        })();
+    </script>
 </body>
 </html>
