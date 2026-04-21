@@ -435,16 +435,27 @@
                 if (profileLink) profileLink.style.display = hasSession ? '' : 'none';
             }
 
-            var client = window.SUPABASE_CLIENT;
-            if (!client) { updateNavLinks(false); return; }
+            function initNavLinks() {
+                var client = window.SUPABASE_CLIENT;
+                if (!client && window.SUPABASE_CONFIG && window.supabase && window.supabase.createClient) {
+                    client = window.supabase.createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey);
+                }
+                if (!client) { updateNavLinks(false); return; }
 
-            client.auth.getSession().then(function (result) {
-                updateNavLinks(!!(result.data && result.data.session));
-            });
+                client.auth.getSession().then(function (result) {
+                    updateNavLinks(!!(result.data && result.data.session));
+                });
 
-            client.auth.onAuthStateChange(function (_event, session) {
-                updateNavLinks(!!session);
-            });
+                client.auth.onAuthStateChange(function (_event, session) {
+                    updateNavLinks(!!session);
+                });
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initNavLinks);
+            } else {
+                initNavLinks();
+            }
         })();
     </script>
 </body>
