@@ -457,24 +457,25 @@ class QuizApp {
     // Save session to localStorage
     dataManager.saveSession(this.studentName, this.score, this.questions.length);
 
-    // Save to Supabase for registered users
-    await this.saveQuizRecord(percentage);
+    // Save to Supabase for registered users (returns points earned)
+    this.pointsEarned = await this.saveQuizRecord(percentage);
 
     this.showResultsSection(percentage);
   }
 
   /**
-   * Save quiz record to Supabase for logged-in users (guest mode skipped)
+   * Save quiz record to Supabase for logged-in users (guest mode skipped).
+   * Returns points earned (0 for guests).
    */
   async saveQuizRecord(percentage) {
-    if (!window.SUPABASE_CLIENT) return;
+    if (!window.SUPABASE_CLIENT || !window.QuizRewards) return 0;
     try {
       const client = window.SUPABASE_CLIENT;
       const { data } = await client.auth.getSession();
       const user = data.session && data.session.user;
-      if (!user) return; // guest mode – skip saving
+      if (!user) return 0; // guest mode – skip saving
 
-      await client.from('quiz_records').insert({
+      return await window.QuizRewards.saveQuizWithPoints(client, user, {
         user_id: user.id,
         student_name: this.studentName,
         subject: 'math',
@@ -490,6 +491,7 @@ class QuizApp {
     } catch (e) {
       // Fail silently – don't interrupt the user's quiz experience
       console.warn('Could not save quiz record:', e);
+      return 0;
     }
   }
 
@@ -522,6 +524,13 @@ class QuizApp {
       '💪 Try Again!';
 
     document.getElementById('resultMessage').textContent = resultText;
+
+    const pointsEl = document.getElementById('pointsEarned');
+    if (pointsEl) {
+      const pts = this.pointsEarned || 0;
+      pointsEl.textContent = pts > 0 ? `⭐ +${pts} points earned!` : '';
+      pointsEl.style.display = pts > 0 ? 'block' : 'none';
+    }
   }
 
   /**

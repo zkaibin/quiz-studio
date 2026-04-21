@@ -583,6 +583,18 @@ label {
     margin: 15px 0;
 }
 
+.points-earned {
+    font-size: 1.15em;
+    font-weight: 700;
+    color: #b45309;
+    background: #fef3c7;
+    border: 1px solid #fcd34d;
+    border-radius: 8px;
+    padding: 8px 18px;
+    display: inline-block;
+    margin: 8px 0 4px;
+}
+
 /* Review Styles */
 .review-container {
     margin: 30px 0;
