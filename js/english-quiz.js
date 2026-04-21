@@ -495,6 +495,8 @@ class EnglishQuizApp {
 
   /**
    * Show review section with detailed answers
+   */
+  showReviewSection() {
     document.getElementById('resultsSection').style.display = 'none';
     document.getElementById('reviewSection').style.display = 'block';
 
