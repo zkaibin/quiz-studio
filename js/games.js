@@ -2260,6 +2260,10 @@ const RK_FACE_COLORS = ['#ffffff', '#ffdd00', '#009900', '#0055cc', '#ff7700', '
 let rubikState = null;
 let rubikN = 3;
 let rubikMoveCount = 0;
+let rubikRotX = 0.42;   // tilt down to show top face
+let rubikRotY = -0.62;  // rotate right to show R face
+let rubik3DDrag = false;
+let rubik3DLast = {x: 0, y: 0};
 
 function createSolvedCube(n) {
     return Array.from({length: 6}, (_, f) =>
@@ -2449,9 +2453,160 @@ function isRubikSolved(cube) {
     return true;
 }
 
+// --- 3-D rendering helpers ---
+const RK_FACE_NORMALS = [
+    [0,1,0],[0,-1,0],[0,0,1],[0,0,-1],[-1,0,0],[1,0,0]
+];
+const RK_FACE_CORNERS = [
+    [[-1,1,-1],[1,1,-1],[1,1,1],[-1,1,1]],           // U (y=+1)
+    [[-1,-1,1],[1,-1,1],[1,-1,-1],[-1,-1,-1]],        // D (y=-1)
+    [[-1,1,1],[1,1,1],[1,-1,1],[-1,-1,1]],            // F (z=+1)
+    [[1,1,-1],[-1,1,-1],[-1,-1,-1],[1,-1,-1]],        // B (z=-1)
+    [[-1,1,1],[-1,1,-1],[-1,-1,-1],[-1,-1,1]],        // L (x=-1)
+    [[1,1,-1],[1,1,1],[1,-1,1],[1,-1,-1]]              // R (x=+1)
+];
+
+function r3dRotate(x, y, z) {
+    const cy = Math.cos(rubikRotY), sy = Math.sin(rubikRotY);
+    const x1 = x * cy + z * sy, z1 = -x * sy + z * cy;
+    const cx = Math.cos(rubikRotX), sx = Math.sin(rubikRotX);
+    return [x1, y * cx - z1 * sx, y * sx + z1 * cx];
+}
+
+function r3dProject(x, y, z, W, H, scale) {
+    const fov = 4.5, d = fov / (fov + z);
+    return [W / 2 + x * scale * d, H / 2 - y * scale * d];
+}
+
+function r3dStickerCorners(f, i, j, n) {
+    const cellSize = 2 / n, gap = Math.max(0.025, 0.05 - n * 0.005);
+    const s = cellSize, g = gap;
+    switch (f) {
+        case RK_U: return [[-1+j*s+g,1,-1+i*s+g],[-1+(j+1)*s-g,1,-1+i*s+g],
+                           [-1+(j+1)*s-g,1,-1+(i+1)*s-g],[-1+j*s+g,1,-1+(i+1)*s-g]];
+        case RK_D: return [[-1+j*s+g,-1,1-i*s-g],[-1+(j+1)*s-g,-1,1-i*s-g],
+                           [-1+(j+1)*s-g,-1,1-(i+1)*s+g],[-1+j*s+g,-1,1-(i+1)*s+g]];
+        case RK_F: return [[-1+j*s+g,1-i*s-g,1],[-1+(j+1)*s-g,1-i*s-g,1],
+                           [-1+(j+1)*s-g,1-(i+1)*s+g,1],[-1+j*s+g,1-(i+1)*s+g,1]];
+        case RK_B: return [[1-j*s-g,1-i*s-g,-1],[1-(j+1)*s+g,1-i*s-g,-1],
+                           [1-(j+1)*s+g,1-(i+1)*s+g,-1],[1-j*s-g,1-(i+1)*s+g,-1]];
+        case RK_R: return [[1,1-i*s-g,1-j*s-g],[1,1-i*s-g,1-(j+1)*s+g],
+                           [1,1-(i+1)*s+g,1-(j+1)*s+g],[1,1-(i+1)*s+g,1-j*s-g]];
+        case RK_L: return [[-1,1-i*s-g,-1+j*s+g],[-1,1-i*s-g,-1+(j+1)*s-g],
+                           [-1,1-(i+1)*s+g,-1+(j+1)*s-g],[-1,1-(i+1)*s+g,-1+j*s+g]];
+    }
+}
+
+function r3dShadeColor(hex, f) {
+    const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+    return `rgb(${Math.round(r*f)},${Math.round(g*f)},${Math.round(b*f)})`;
+}
+
+function drawRubik3D() {
+    const canvas = document.getElementById('rk-canvas');
+    if (!canvas || !rubikState) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    const n = rubikN, scale = Math.min(W, H) * 0.3;
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#e8eaf0';
+    ctx.fillRect(0, 0, W, H);
+
+    // World-space directional light (unit vector: (0.43, 0.86, 0.26), magnitude ≈ 1.0)
+    const lx = 0.43, ly = 0.86, lz = 0.26;
+
+    // Back-face cull, compute depth and light factor per face
+    const visible = [];
+    for (let f = 0; f < 6; f++) {
+        const [nx, ny, nz] = RK_FACE_NORMALS[f];
+        const [rnx, rny, rnz] = r3dRotate(nx, ny, nz);
+        if (rnz <= 0) continue;
+        const dot = nx * lx + ny * ly + nz * lz;
+        visible.push({f, depth: rnz, lightFactor: 0.5 + 0.5 * Math.max(0, dot)});
+    }
+    visible.sort((a, b) => a.depth - b.depth); // painter's algorithm: back first
+
+    for (const {f, lightFactor} of visible) {
+        // Draw the dark face background (creates gap/frame effect)
+        const fc = RK_FACE_CORNERS[f];
+        ctx.beginPath();
+        fc.forEach(([x, y, z], k) => {
+            const [rx, ry, rz] = r3dRotate(x, y, z);
+            const [px, py] = r3dProject(rx, ry, rz, W, H, scale);
+            k === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+        });
+        ctx.closePath();
+        ctx.fillStyle = '#1c1c1c';
+        ctx.fill();
+
+        // Draw each sticker
+        for (let i = 0; i < n; i++) {
+            for (let j = 0; j < n; j++) {
+                const sc = r3dStickerCorners(f, i, j, n);
+                ctx.beginPath();
+                sc.forEach(([x, y, z], k) => {
+                    const [rx, ry, rz] = r3dRotate(x, y, z);
+                    const [px, py] = r3dProject(rx, ry, rz, W, H, scale);
+                    k === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+                });
+                ctx.closePath();
+                ctx.fillStyle = r3dShadeColor(RK_FACE_COLORS[rubikState[f][i][j]], lightFactor);
+                ctx.fill();
+            }
+        }
+    }
+}
+
+function setupRubik3DCanvas() {
+    const canvas = document.getElementById('rk-canvas');
+    if (!canvas) return;
+    canvas.style.cursor = 'grab';
+
+    const onMove = (dx, dy) => {
+        rubikRotY += dx * 0.008;
+        rubikRotX += dy * 0.008;
+        rubikRotX = Math.max(-1.4, Math.min(1.4, rubikRotX));
+        drawRubik3D();
+    };
+
+    canvas.addEventListener('mousedown', e => {
+        rubik3DDrag = true;
+        rubik3DLast = {x: e.clientX, y: e.clientY};
+        canvas.style.cursor = 'grabbing';
+    });
+    canvas.addEventListener('mousemove', e => {
+        if (!rubik3DDrag) return;
+        onMove(e.clientX - rubik3DLast.x, e.clientY - rubik3DLast.y);
+        rubik3DLast = {x: e.clientX, y: e.clientY};
+    });
+    const endDrag = () => { rubik3DDrag = false; canvas.style.cursor = 'grab'; };
+    canvas.addEventListener('mouseup', endDrag);
+    canvas.addEventListener('mouseleave', endDrag);
+
+    canvas.addEventListener('touchstart', e => {
+        if (e.touches.length === 1) {
+            rubik3DDrag = true;
+            rubik3DLast = {x: e.touches[0].clientX, y: e.touches[0].clientY};
+        }
+        e.preventDefault();
+    }, {passive: false});
+    canvas.addEventListener('touchmove', e => {
+        if (!rubik3DDrag || e.touches.length !== 1) return;
+        onMove(e.touches[0].clientX - rubik3DLast.x, e.touches[0].clientY - rubik3DLast.y);
+        rubik3DLast = {x: e.touches[0].clientX, y: e.touches[0].clientY};
+        e.preventDefault();
+    }, {passive: false});
+    canvas.addEventListener('touchend', () => { rubik3DDrag = false; });
+
+    drawRubik3D();
+}
+
 function initRubik() {
     rubikN = 3;
     rubikMoveCount = 0;
+    rubikRotX = 0.42;
+    rubikRotY = -0.62;
     rubikState = createSolvedCube(rubikN);
     renderRubikGame();
 }
@@ -2468,17 +2623,11 @@ function renderRubikGame() {
             .rk-act:hover { opacity:.85; transform:translateY(-1px); }
             .rk-info { display:flex; gap:14px; justify-content:center; align-items:center; margin-bottom:10px; font-size:.95em; font-weight:600; color:#374151; }
             .rk-win { color:#10b981; font-size:1.1em; font-weight:800; }
-            .rk-bwrap { overflow-x:auto; padding-bottom:4px; }
-            .rk-board { display:flex; flex-direction:column; gap:4px; align-items:center; padding:6px 0 8px; }
-            .rk-row { display:flex; gap:4px; align-items:flex-start; }
-            .rk-fw { display:flex; flex-direction:column; align-items:center; }
-            .rk-fl { font-size:.7em; font-weight:700; color:#6b7280; margin-bottom:2px; }
-            .rk-face { display:grid; gap:2px; }
-            .rk-s { border-radius:3px; border:2px solid rgba(0,0,0,.22); }
             .rk-mbtn-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:5px; max-width:360px; margin:10px auto 0; }
             .rk-mb { padding:7px 2px; font-size:.83em; font-weight:700; border:none; border-radius:8px; cursor:pointer; color:#fff; transition:all .13s; }
             .rk-mb:hover { opacity:.85; transform:translateY(-1px); }
             .rk-hint { text-align:center; font-size:.75em; color:#9ca3af; margin-top:6px; }
+            #rk-canvas { display:block; margin:0 auto 10px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.15); touch-action:none; max-width:100%; }
         </style>
         <div class="rk-top">
             <span style="font-size:.88em;font-weight:700;color:#374151">Size:</span>
@@ -2493,71 +2642,17 @@ function renderRubikGame() {
             <span>Moves: <strong id="rk-moves">0</strong></span>
             <span id="rk-status"></span>
         </div>
-        <div class="rk-bwrap"><div class="rk-board" id="rk-board"></div></div>
+        <canvas id="rk-canvas" width="320" height="320"></canvas>
         <div class="rk-mbtn-grid" id="rk-mbtns"></div>
-        <p class="rk-hint">U/D = top/bottom &nbsp;|&nbsp; R/L = right/left &nbsp;|&nbsp; F/B = front/back &nbsp;|&nbsp; ' = counter-clockwise</p>
+        <p class="rk-hint">Drag cube to rotate &nbsp;|&nbsp; U/D/R/L/F/B = face moves &nbsp;|&nbsp; ' = counter-clockwise</p>
     `;
-    renderRubikBoard();
+    setupRubik3DCanvas();
     renderRubikMoveButtons();
     updateRubikStatus();
 }
 
 function renderRubikBoard() {
-    const board = document.getElementById('rk-board');
-    if (!board) return;
-    const n = rubikN;
-    const sz = Math.max(12, Math.min(24, Math.floor(110 / n)));
-    const fw = n * sz + (n - 1) * 2;
-
-    function makeFace(fIdx, label) {
-        const wrap = document.createElement('div');
-        wrap.className = 'rk-fw';
-        const lbl = document.createElement('div');
-        lbl.className = 'rk-fl';
-        lbl.textContent = label;
-        wrap.appendChild(lbl);
-        const face = document.createElement('div');
-        face.className = 'rk-face';
-        face.style.gridTemplateColumns = `repeat(${n},${sz}px)`;
-        face.style.gridTemplateRows = `repeat(${n},${sz}px)`;
-        for (let i = 0; i < n; i++)
-            for (let j = 0; j < n; j++) {
-                const s = document.createElement('div');
-                s.className = 'rk-s';
-                s.style.cssText = `width:${sz}px;height:${sz}px;background:${RK_FACE_COLORS[rubikState[fIdx][i][j]]}`;
-                face.appendChild(s);
-            }
-        wrap.appendChild(face);
-        return wrap;
-    }
-
-    function spacer() {
-        const sp = document.createElement('div');
-        sp.style.cssText = `width:${fw}px;height:${fw + 20}px;flex-shrink:0`;
-        return sp;
-    }
-
-    board.innerHTML = '';
-
-    const r1 = document.createElement('div');
-    r1.className = 'rk-row';
-    r1.appendChild(spacer());
-    r1.appendChild(makeFace(RK_U, 'U'));
-    board.appendChild(r1);
-
-    const r2 = document.createElement('div');
-    r2.className = 'rk-row';
-    r2.appendChild(makeFace(RK_L, 'L'));
-    r2.appendChild(makeFace(RK_F, 'F'));
-    r2.appendChild(makeFace(RK_R, 'R'));
-    r2.appendChild(makeFace(RK_B, 'B'));
-    board.appendChild(r2);
-
-    const r3 = document.createElement('div');
-    r3.className = 'rk-row';
-    r3.appendChild(spacer());
-    r3.appendChild(makeFace(RK_D, 'D'));
-    board.appendChild(r3);
+    drawRubik3D();
 }
 
 function renderRubikMoveButtons() {
