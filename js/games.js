@@ -13,7 +13,8 @@ const gameModals = {
     hangman: { title: '🪢 Hangman', subtitle: 'Guess the word!' },
     kpopemoji: { title: '🎤 K-POP Emoji Quiz', subtitle: 'Guess the group from the emojis!' },
     kpopidol: { title: '🌟 K-POP Idol Quiz', subtitle: 'Guess the idol from the emojis!' },
-    chengyu: { title: '🀄 成语游戏', subtitle: '猜猜成语的意思！' }
+    chengyu: { title: '🀄 成语游戏', subtitle: '猜猜成语的意思！' },
+    rubik: { title: '🎲 Rubik\'s Cube', subtitle: 'Scramble and solve!' }
 };
 
 function openGame(gameId) {
@@ -70,6 +71,7 @@ function initGame(gameId) {
         case 'kpopemoji': initKpopEmoji(); break;
         case 'kpopidol': initKpopIdol(); break;
         case 'chengyu': initChengyu(); break;
+        case 'rubik': initRubik(); break;
     }
 }
 
@@ -2250,4 +2252,389 @@ function endChengyu() {
             .cy-result .big-emoji { font-size:4em; margin-bottom:12px; }
         </style>
     `;
+}
+
+// ============= RUBIK'S CUBE =============
+const RK_U = 0, RK_D = 1, RK_F = 2, RK_B = 3, RK_L = 4, RK_R = 5;
+const RK_FACE_COLORS = ['#ffffff', '#ffdd00', '#009900', '#0055cc', '#ff7700', '#dd0000'];
+let rubikState = null;
+let rubikN = 3;
+let rubikMoveCount = 0;
+
+function createSolvedCube(n) {
+    return Array.from({length: 6}, (_, f) =>
+        Array.from({length: n}, () => Array(n).fill(f))
+    );
+}
+
+function rotateFaceCW(cube, f) {
+    const n = cube[f].length;
+    const old = cube[f].map(r => [...r]);
+    for (let i = 0; i < n; i++)
+        for (let j = 0; j < n; j++)
+            cube[f][j][n - 1 - i] = old[i][j];
+}
+
+function rotateFaceCCW(cube, f) {
+    const n = cube[f].length;
+    const old = cube[f].map(r => [...r]);
+    for (let i = 0; i < n; i++)
+        for (let j = 0; j < n; j++)
+            cube[f][n - 1 - j][i] = old[i][j];
+}
+
+// U CW: F->R(rev), R->B, B->L, L->F(rev)
+// U CCW: F->L(rev), L->B, B->R, R->F(rev)
+function rubikU(cube, cw) {
+    const n = cube[RK_U].length;
+    cw ? rotateFaceCW(cube, RK_U) : rotateFaceCCW(cube, RK_U);
+    const tF = cube[RK_F][0].slice();
+    const tR = cube[RK_R][0].slice();
+    const tB = cube[RK_B][0].slice();
+    const tL = cube[RK_L][0].slice();
+    for (let j = 0; j < n; j++) {
+        if (cw) {
+            cube[RK_R][0][j] = tF[n - 1 - j];
+            cube[RK_B][0][j] = tR[j];
+            cube[RK_L][0][j] = tB[j];
+            cube[RK_F][0][j] = tL[n - 1 - j];
+        } else {
+            cube[RK_L][0][j] = tF[n - 1 - j];
+            cube[RK_B][0][j] = tL[j];
+            cube[RK_R][0][j] = tB[j];
+            cube[RK_F][0][j] = tR[n - 1 - j];
+        }
+    }
+}
+
+// D CW: F->L(rev), L->B, B->R, R->F(rev)
+// D CCW: F->R(rev), R->B, B->L, L->F(rev)
+function rubikD(cube, cw) {
+    const n = cube[RK_D].length;
+    cw ? rotateFaceCW(cube, RK_D) : rotateFaceCCW(cube, RK_D);
+    const tF = cube[RK_F][n - 1].slice();
+    const tL = cube[RK_L][n - 1].slice();
+    const tB = cube[RK_B][n - 1].slice();
+    const tR = cube[RK_R][n - 1].slice();
+    for (let j = 0; j < n; j++) {
+        if (cw) {
+            cube[RK_L][n - 1][j] = tF[n - 1 - j];
+            cube[RK_B][n - 1][j] = tL[j];
+            cube[RK_R][n - 1][j] = tB[j];
+            cube[RK_F][n - 1][j] = tR[n - 1 - j];
+        } else {
+            cube[RK_R][n - 1][j] = tF[n - 1 - j];
+            cube[RK_B][n - 1][j] = tR[j];
+            cube[RK_L][n - 1][j] = tB[j];
+            cube[RK_F][n - 1][j] = tL[n - 1 - j];
+        }
+    }
+}
+
+// R CW: B->U(rev), U->F, F->D, D->B(rev)
+// R CCW: F->U, U->B(rev), B->D, D->F(rev)
+function rubikR(cube, cw) {
+    const n = cube[RK_R].length;
+    cw ? rotateFaceCW(cube, RK_R) : rotateFaceCCW(cube, RK_R);
+    const tU = cube[RK_U].map(r => r[n - 1]);
+    const tF = cube[RK_F].map(r => r[n - 1]);
+    const tD = cube[RK_D].map(r => r[n - 1]);
+    const tB = cube[RK_B].map(r => r[n - 1]);
+    for (let i = 0; i < n; i++) {
+        if (cw) {
+            cube[RK_U][i][n - 1] = tB[n - 1 - i];
+            cube[RK_F][i][n - 1] = tU[i];
+            cube[RK_D][i][n - 1] = tF[i];
+            cube[RK_B][i][n - 1] = tD[n - 1 - i];
+        } else {
+            cube[RK_U][i][n - 1] = tF[i];
+            cube[RK_F][i][n - 1] = tD[i];
+            cube[RK_D][i][n - 1] = tB[n - 1 - i];
+            cube[RK_B][i][n - 1] = tU[n - 1 - i];
+        }
+    }
+}
+
+// L CW: F->U, U->B(rev), B->D(rev), D->F
+// L CCW: U->F, B->U(rev), D->B(rev), F->D
+function rubikL(cube, cw) {
+    const n = cube[RK_L].length;
+    cw ? rotateFaceCW(cube, RK_L) : rotateFaceCCW(cube, RK_L);
+    const tU = cube[RK_U].map(r => r[0]);
+    const tF = cube[RK_F].map(r => r[0]);
+    const tD = cube[RK_D].map(r => r[0]);
+    const tB = cube[RK_B].map(r => r[0]);
+    for (let i = 0; i < n; i++) {
+        if (cw) {
+            cube[RK_U][i][0] = tF[i];
+            cube[RK_B][i][0] = tU[n - 1 - i];
+            cube[RK_D][i][0] = tB[n - 1 - i];
+            cube[RK_F][i][0] = tD[i];
+        } else {
+            cube[RK_F][i][0] = tU[i];
+            cube[RK_U][i][0] = tB[n - 1 - i];
+            cube[RK_B][i][0] = tD[n - 1 - i];
+            cube[RK_D][i][0] = tF[i];
+        }
+    }
+}
+
+// F CW: L->U(rev), U->R, R->D(rev), D->L
+// F CCW: U->L(rev), R->U, D->R(rev), L->D
+function rubikF(cube, cw) {
+    const n = cube[RK_F].length;
+    cw ? rotateFaceCW(cube, RK_F) : rotateFaceCCW(cube, RK_F);
+    const tU = cube[RK_U][n - 1].slice();
+    const tR = cube[RK_R].map(r => r[n - 1]);
+    const tD = cube[RK_D][0].slice();
+    const tL = cube[RK_L].map(r => r[0]);
+    for (let i = 0; i < n; i++) {
+        if (cw) {
+            cube[RK_U][n - 1][i] = tL[n - 1 - i];
+            cube[RK_R][i][n - 1] = tU[i];
+            cube[RK_D][0][i]     = tR[n - 1 - i];
+            cube[RK_L][i][0]     = tD[i];
+        } else {
+            cube[RK_L][i][0]     = tU[n - 1 - i];
+            cube[RK_U][n - 1][i] = tR[i];
+            cube[RK_R][i][n - 1] = tD[n - 1 - i];
+            cube[RK_D][0][i]     = tL[i];
+        }
+    }
+}
+
+// B CW: U->R, R->D(rev), D->L, L->U(rev)
+// B CCW: U->L(rev), L->D, D->R(rev), R->U
+function rubikB(cube, cw) {
+    const n = cube[RK_B].length;
+    cw ? rotateFaceCW(cube, RK_B) : rotateFaceCCW(cube, RK_B);
+    const tU = cube[RK_U][0].slice();
+    const tR = cube[RK_R].map(r => r[0]);
+    const tD = cube[RK_D][n - 1].slice();
+    const tL = cube[RK_L].map(r => r[n - 1]);
+    for (let i = 0; i < n; i++) {
+        if (cw) {
+            cube[RK_R][i][0]     = tU[i];
+            cube[RK_D][n - 1][i] = tR[n - 1 - i];
+            cube[RK_L][i][n - 1] = tD[i];
+            cube[RK_U][0][i]     = tL[n - 1 - i];
+        } else {
+            cube[RK_U][0][i]     = tR[i];
+            cube[RK_R][i][0]     = tD[n - 1 - i];
+            cube[RK_D][n - 1][i] = tL[i];
+            cube[RK_L][i][n - 1] = tU[n - 1 - i];
+        }
+    }
+}
+
+function rubikApplyMove(cube, move) {
+    const cw = !move.includes("'");
+    switch (move[0]) {
+        case 'U': rubikU(cube, cw); break;
+        case 'D': rubikD(cube, cw); break;
+        case 'R': rubikR(cube, cw); break;
+        case 'L': rubikL(cube, cw); break;
+        case 'F': rubikF(cube, cw); break;
+        case 'B': rubikB(cube, cw); break;
+    }
+}
+
+function isRubikSolved(cube) {
+    for (let f = 0; f < 6; f++) {
+        const c = cube[f][0][0];
+        for (const row of cube[f])
+            for (const cell of row)
+                if (cell !== c) return false;
+    }
+    return true;
+}
+
+function initRubik() {
+    rubikN = 3;
+    rubikMoveCount = 0;
+    rubikState = createSolvedCube(rubikN);
+    renderRubikGame();
+}
+
+function renderRubikGame() {
+    const container = document.getElementById('game-rubik');
+    if (!container) return;
+    container.innerHTML = `
+        <style>
+            .rk-top { display:flex; flex-wrap:wrap; align-items:center; gap:8px; justify-content:center; margin-bottom:12px; }
+            .rk-sz { padding:5px 11px; font-size:.85em; font-weight:700; border:2px solid #667eea; border-radius:8px; background:#f8f9fa; color:#667eea; cursor:pointer; transition:all .2s; }
+            .rk-sz.rk-on, .rk-sz:hover { background:#667eea; color:#fff; }
+            .rk-act { padding:7px 14px; font-size:.9em; font-weight:700; border:none; border-radius:9px; cursor:pointer; color:#fff; transition:all .15s; }
+            .rk-act:hover { opacity:.85; transform:translateY(-1px); }
+            .rk-info { display:flex; gap:14px; justify-content:center; align-items:center; margin-bottom:10px; font-size:.95em; font-weight:600; color:#374151; }
+            .rk-win { color:#10b981; font-size:1.1em; font-weight:800; }
+            .rk-bwrap { overflow-x:auto; padding-bottom:4px; }
+            .rk-board { display:flex; flex-direction:column; gap:4px; align-items:center; padding:6px 0 8px; }
+            .rk-row { display:flex; gap:4px; align-items:flex-start; }
+            .rk-fw { display:flex; flex-direction:column; align-items:center; }
+            .rk-fl { font-size:.7em; font-weight:700; color:#6b7280; margin-bottom:2px; }
+            .rk-face { display:grid; gap:2px; }
+            .rk-s { border-radius:3px; border:2px solid rgba(0,0,0,.22); }
+            .rk-mbtn-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:5px; max-width:360px; margin:10px auto 0; }
+            .rk-mb { padding:7px 2px; font-size:.83em; font-weight:700; border:none; border-radius:8px; cursor:pointer; color:#fff; transition:all .13s; }
+            .rk-mb:hover { opacity:.85; transform:translateY(-1px); }
+            .rk-hint { text-align:center; font-size:.75em; color:#9ca3af; margin-top:6px; }
+        </style>
+        <div class="rk-top">
+            <span style="font-size:.88em;font-weight:700;color:#374151">Size:</span>
+            <button class="rk-sz${rubikN===2?' rk-on':''}" onclick="setRubikSize(2)">2×2</button>
+            <button class="rk-sz${rubikN===3?' rk-on':''}" onclick="setRubikSize(3)">3×3</button>
+            <button class="rk-sz${rubikN===4?' rk-on':''}" onclick="setRubikSize(4)">4×4</button>
+            <button class="rk-sz${rubikN===5?' rk-on':''}" onclick="setRubikSize(5)">5×5</button>
+            <button class="rk-act" style="background:linear-gradient(135deg,#f59e0b,#d97706)" onclick="scrambleRubik()">🔀 Scramble</button>
+            <button class="rk-act" style="background:linear-gradient(135deg,#10b981,#059669)" onclick="resetRubik()">↺ Reset</button>
+        </div>
+        <div class="rk-info">
+            <span>Moves: <strong id="rk-moves">0</strong></span>
+            <span id="rk-status"></span>
+        </div>
+        <div class="rk-bwrap"><div class="rk-board" id="rk-board"></div></div>
+        <div class="rk-mbtn-grid" id="rk-mbtns"></div>
+        <p class="rk-hint">U/D = top/bottom &nbsp;|&nbsp; R/L = right/left &nbsp;|&nbsp; F/B = front/back &nbsp;|&nbsp; ' = counter-clockwise</p>
+    `;
+    renderRubikBoard();
+    renderRubikMoveButtons();
+    updateRubikStatus();
+}
+
+function renderRubikBoard() {
+    const board = document.getElementById('rk-board');
+    if (!board) return;
+    const n = rubikN;
+    const sz = Math.max(12, Math.min(24, Math.floor(110 / n)));
+    const fw = n * sz + (n - 1) * 2;
+
+    function makeFace(fIdx, label) {
+        const wrap = document.createElement('div');
+        wrap.className = 'rk-fw';
+        const lbl = document.createElement('div');
+        lbl.className = 'rk-fl';
+        lbl.textContent = label;
+        wrap.appendChild(lbl);
+        const face = document.createElement('div');
+        face.className = 'rk-face';
+        face.style.gridTemplateColumns = `repeat(${n},${sz}px)`;
+        face.style.gridTemplateRows = `repeat(${n},${sz}px)`;
+        for (let i = 0; i < n; i++)
+            for (let j = 0; j < n; j++) {
+                const s = document.createElement('div');
+                s.className = 'rk-s';
+                s.style.cssText = `width:${sz}px;height:${sz}px;background:${RK_FACE_COLORS[rubikState[fIdx][i][j]]}`;
+                face.appendChild(s);
+            }
+        wrap.appendChild(face);
+        return wrap;
+    }
+
+    function spacer() {
+        const sp = document.createElement('div');
+        sp.style.cssText = `width:${fw}px;height:${fw + 20}px;flex-shrink:0`;
+        return sp;
+    }
+
+    board.innerHTML = '';
+
+    const r1 = document.createElement('div');
+    r1.className = 'rk-row';
+    r1.appendChild(spacer());
+    r1.appendChild(makeFace(RK_U, 'U'));
+    board.appendChild(r1);
+
+    const r2 = document.createElement('div');
+    r2.className = 'rk-row';
+    r2.appendChild(makeFace(RK_L, 'L'));
+    r2.appendChild(makeFace(RK_F, 'F'));
+    r2.appendChild(makeFace(RK_R, 'R'));
+    r2.appendChild(makeFace(RK_B, 'B'));
+    board.appendChild(r2);
+
+    const r3 = document.createElement('div');
+    r3.className = 'rk-row';
+    r3.appendChild(spacer());
+    r3.appendChild(makeFace(RK_D, 'D'));
+    board.appendChild(r3);
+}
+
+function renderRubikMoveButtons() {
+    const c = document.getElementById('rk-mbtns');
+    if (!c) return;
+    const btns = [
+        {mv:'U',  bg:'#6366f1'}, {mv:"U'", bg:'#818cf8'},
+        {mv:'R',  bg:'#ef4444'}, {mv:"R'", bg:'#f87171'},
+        {mv:'F',  bg:'#10b981'}, {mv:"F'", bg:'#34d399'},
+        {mv:'D',  bg:'#f59e0b'}, {mv:"D'", bg:'#fbbf24'},
+        {mv:'L',  bg:'#f97316'}, {mv:"L'", bg:'#fb923c'},
+        {mv:'B',  bg:'#3b82f6'}, {mv:"B'", bg:'#60a5fa'},
+    ];
+    c.innerHTML = '';
+    btns.forEach(({mv, bg}) => {
+        const btn = document.createElement('button');
+        btn.className = 'rk-mb';
+        btn.style.background = bg;
+        btn.textContent = mv;
+        btn.title = mv.endsWith("'") ? `${mv[0]} counter-clockwise` : `${mv} clockwise`;
+        btn.onclick = () => {
+            rubikApplyMove(rubikState, mv);
+            rubikMoveCount++;
+            const el = document.getElementById('rk-moves');
+            if (el) el.textContent = rubikMoveCount;
+            renderRubikBoard();
+            updateRubikStatus();
+        };
+        c.appendChild(btn);
+    });
+}
+
+function updateRubikStatus() {
+    const el = document.getElementById('rk-status');
+    if (!el) return;
+    if (isRubikSolved(rubikState)) {
+        el.innerHTML = '<span class="rk-win">🎉 Solved!</span>';
+    } else {
+        el.textContent = '';
+    }
+}
+
+function setRubikSize(n) {
+    rubikN = n;
+    rubikMoveCount = 0;
+    rubikState = createSolvedCube(n);
+    document.querySelectorAll('.rk-sz').forEach(b =>
+        b.classList.toggle('rk-on', b.textContent === `${n}×${n}`)
+    );
+    const el = document.getElementById('rk-moves');
+    if (el) el.textContent = '0';
+    renderRubikBoard();
+    updateRubikStatus();
+}
+
+function resetRubik() {
+    rubikState = createSolvedCube(rubikN);
+    rubikMoveCount = 0;
+    const el = document.getElementById('rk-moves');
+    if (el) el.textContent = '0';
+    renderRubikBoard();
+    updateRubikStatus();
+}
+
+function scrambleRubik() {
+    const moves = ['U', "U'", 'D', "D'", 'R', "R'", 'L', "L'", 'F', "F'", 'B', "B'"];
+    const count = {2: 20, 3: 25, 4: 35, 5: 45}[rubikN] || 25;
+    let last = '';
+    for (let m = 0; m < count; m++) {
+        let mv;
+        do { mv = moves[Math.floor(Math.random() * moves.length)]; } while (mv[0] === last);
+        last = mv[0];
+        rubikApplyMove(rubikState, mv);
+    }
+    rubikMoveCount = 0;
+    const el = document.getElementById('rk-moves');
+    if (el) el.textContent = '0';
+    renderRubikBoard();
+    updateRubikStatus();
 }
