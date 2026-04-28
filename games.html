@@ -138,6 +138,11 @@
             animation: slideUp 0.3s;
         }
 
+        .game-modal.rubik-modal .modal-content {
+            max-width: min(1240px, 96vw);
+            padding: 28px;
+        }
+
         @keyframes slideUp {
             from { transform: translateY(50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
@@ -764,7 +769,7 @@
             <div class="game-card" onclick="openGame('rubik')">
                 <div class="game-icon">🎲</div>
                 <h3>Rubik's Cube</h3>
-                <p>Scramble and solve the NxN Rubik's Cube! Supports 2×2, 3×3, 4×4, and 5×5.</p>
+                <p>Advanced 3×3 Rubik simulator with a proven cube model, smart controls, solver help, and fullscreen play.</p>
             </div>
         </div>
     </div>
@@ -772,6 +777,8 @@
     <!-- Game Modals will be inserted here -->
     <div id="game-modals"></div>
 
+    <script src="js/vendor/cubejs/cube.js"></script>
+    <script src="js/vendor/cubejs/solve.js"></script>
     <script src="js/games.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase-config.js"></script>
