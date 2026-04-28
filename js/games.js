@@ -14,7 +14,7 @@ const gameModals = {
     kpopemoji: { title: '🎤 K-POP Emoji Quiz', subtitle: 'Guess the group from the emojis!' },
     kpopidol: { title: '🌟 K-POP Idol Quiz', subtitle: 'Guess the idol from the emojis!' },
     chengyu: { title: '🀄 成语游戏', subtitle: '猜猜成语的意思！' },
-    rubik: { title: '🎲 Rubik\'s Cube', subtitle: 'Scramble and solve!' }
+    rubik: { title: '🎲 Rubik\'s Cube', subtitle: 'Configurable 2×2 to 5×5 cube simulator' }
 };
 
 function openGame(gameId) {
@@ -2262,8 +2262,18 @@ function endChengyu() {
 const RK_U = 0, RK_D = 1, RK_F = 2, RK_B = 3, RK_L = 4, RK_R = 5;
 const RK_FACE_COLORS = ['#ffffff', '#ffd54f', '#22c55e', '#2563eb', '#fb923c', '#ef4444'];
 const RK_FACE_LETTER_TO_INDEX = { U: RK_U, D: RK_D, F: RK_F, B: RK_B, L: RK_L, R: RK_R };
+const RK_SIZE_OPTIONS = [2, 3, 4, 5];
+const RK_SCRAMBLE_LENGTHS = { 2: 11, 3: 25, 4: 40, 5: 60 };
 const RK_SCRAMBLE_FACES = ['U', 'D', 'R', 'L', 'F', 'B'];
 const RK_AXIS_GROUP = { U: 'UD', D: 'UD', R: 'RL', L: 'RL', F: 'FB', B: 'FB' };
+const RK_FACE_MOVE_INFO = {
+    U: {axis: [0, 1, 0], rotation: 1},
+    D: {axis: [0, -1, 0], rotation: 1},
+    F: {axis: [0, 0, 1], rotation: -1},
+    B: {axis: [0, 0, -1], rotation: -1},
+    L: {axis: [-1, 0, 0], rotation: 1},
+    R: {axis: [1, 0, 0], rotation: 1}
+};
 const RK_MOVE_BUTTONS = [
     {mv: 'U', bg: '#6366f1'}, {mv: "U'", bg: '#818cf8'}, {mv: 'U2', bg: '#a5b4fc'},
     {mv: 'R', bg: '#ef4444'}, {mv: "R'", bg: '#f87171'}, {mv: 'R2', bg: '#fca5a5'},
@@ -2273,6 +2283,7 @@ const RK_MOVE_BUTTONS = [
     {mv: 'B', bg: '#3b82f6'}, {mv: "B'", bg: '#60a5fa'}, {mv: 'B2', bg: '#93c5fd'}
 ];
 let rubikCube = null;
+let rubikSize = 3;
 let rubikMoveCount = 0;
 let rubikRotX = 0.5;
 let rubikRotY = -0.7;
@@ -2322,6 +2333,321 @@ const RK_FACE_LOCAL_AXES = [
     {u: [0, 0, -1], v: [0, -1, 0]}
 ];
 
+function rubikCurrentSize(cube = rubikCube) {
+    return Number(cube?.size || rubikSize || 3);
+}
+
+function rubikSizeLabel(size = rubikCurrentSize()) {
+    return `${size}×${size}`;
+}
+
+function rubikReadyStatusMessage(size = rubikCurrentSize()) {
+    return `${rubikSizeLabel(size)} cube ready. Generate a scramble or enter an algorithm.`;
+}
+
+function rubikDefaultSolutionText(size = rubikCurrentSize()) {
+    return size === 3 ? 'No hint yet.' : 'Hints and auto-solve are currently available for 3×3 only.';
+}
+
+function rubikAlgorithmPlaceholder(size = rubikCurrentSize()) {
+    return size >= 4 ? 'Example: R U R\' U\' or Rw U Rw\'' : 'Example: R U R\' U\'';
+}
+
+function rubikStageChipText(size = rubikCurrentSize()) {
+    return size >= 4
+        ? 'Drag outer stickers to turn, drag empty space to orbit, or enter wide moves like Rw'
+        : 'Drag stickers to turn, or drag empty space to orbit';
+}
+
+function rubikHelpText(size = rubikCurrentSize()) {
+    const base = 'Keyboard: U R F D L B turns, Shift for inverse, Space to scramble, Z undo, Y redo.';
+    return size === 3
+        ? `${base} H shows a hint, S auto-solves, and auto-solve animates each move so you can follow along on a physical cube.`
+        : `${base} For 4×4 and 5×5 you can enter wide moves like Rw in the algorithm box. Hints and auto-solve remain 3×3-only.`;
+}
+
+function rubikSupportsSolver(size = rubikCurrentSize()) {
+    return size === 3 && typeof Cube === 'function';
+}
+
+function rubikScrambleLength(size = rubikCurrentSize()) {
+    return RK_SCRAMBLE_LENGTHS[size] || 25;
+}
+
+function rubikCoordinateValues(size) {
+    const max = size - 1;
+    return Array.from({length: size}, (_, index) => -max + index * 2);
+}
+
+function rubikIndexFromCoordinate(value, size) {
+    return Math.round((value + (size - 1)) / 2);
+}
+
+function rubikStickerDiscretePosition(face, row, col, size) {
+    const coords = rubikCoordinateValues(size);
+    const x = coords[col];
+    const y = -coords[row];
+    const z = coords[row];
+    const max = size - 1;
+    switch (face) {
+        case RK_U: return {x, y: max, z, nx: 0, ny: 1, nz: 0};
+        case RK_D: return {x, y: -max, z: -z, nx: 0, ny: -1, nz: 0};
+        case RK_F: return {x, y, z: max, nx: 0, ny: 0, nz: 1};
+        case RK_B: return {x: -x, y, z: -max, nx: 0, ny: 0, nz: -1};
+        case RK_L: return {x: -max, y, z: x, nx: -1, ny: 0, nz: 0};
+        case RK_R: return {x: max, y, z: -x, nx: 1, ny: 0, nz: 0};
+        default: return {x: 0, y: 0, z: 0, nx: 0, ny: 0, nz: 0};
+    }
+}
+
+function rubikCreateFaceletCube(size) {
+    const stickers = [];
+    for (let face = 0; face < 6; face++) {
+        for (let row = 0; row < size; row++) {
+            for (let col = 0; col < size; col++) {
+                stickers.push({
+                    color: face,
+                    ...rubikStickerDiscretePosition(face, row, col, size)
+                });
+            }
+        }
+    }
+    const cube = {size, stickers, faces: [], solved: true};
+    return rubikRefreshFaceletCube(cube);
+}
+
+function rubikCloneFaceletCube(cube) {
+    return {
+        size: cube.size,
+        solved: cube.solved,
+        stickers: cube.stickers.map(sticker => ({...sticker})),
+        faces: cube.faces.map(face => face.map(row => [...row]))
+    };
+}
+
+function rubikFaceIndexFromNormal({nx, ny, nz}) {
+    if (ny === 1) return RK_U;
+    if (ny === -1) return RK_D;
+    if (nz === 1) return RK_F;
+    if (nz === -1) return RK_B;
+    if (nx === -1) return RK_L;
+    if (nx === 1) return RK_R;
+    return null;
+}
+
+function rubikFaceletCubeFaces(cube) {
+    const size = cube.size;
+    const faces = Array.from({length: 6}, () => Array.from({length: size}, () => Array(size).fill(0)));
+    cube.stickers.forEach(sticker => {
+        const face = rubikFaceIndexFromNormal(sticker);
+        if (face === null) return;
+        let row = 0;
+        let col = 0;
+        switch (face) {
+            case RK_U:
+                row = rubikIndexFromCoordinate(sticker.z, size);
+                col = rubikIndexFromCoordinate(sticker.x, size);
+                break;
+            case RK_D:
+                row = rubikIndexFromCoordinate(-sticker.z, size);
+                col = rubikIndexFromCoordinate(sticker.x, size);
+                break;
+            case RK_F:
+                row = rubikIndexFromCoordinate(-sticker.y, size);
+                col = rubikIndexFromCoordinate(sticker.x, size);
+                break;
+            case RK_B:
+                row = rubikIndexFromCoordinate(-sticker.y, size);
+                col = rubikIndexFromCoordinate(-sticker.x, size);
+                break;
+            case RK_L:
+                row = rubikIndexFromCoordinate(-sticker.y, size);
+                col = rubikIndexFromCoordinate(sticker.z, size);
+                break;
+            case RK_R:
+                row = rubikIndexFromCoordinate(-sticker.y, size);
+                col = rubikIndexFromCoordinate(-sticker.z, size);
+                break;
+        }
+        if (faces[face]?.[row]?.[col] !== undefined) faces[face][row][col] = sticker.color;
+    });
+    return faces;
+}
+
+function rubikRefreshFaceletCube(cube) {
+    cube.faces = rubikFaceletCubeFaces(cube);
+    cube.solved = cube.faces.every(face => face.every(row => row.every(color => color === face[0][0])));
+    return cube;
+}
+
+function rubikRotateDiscreteVector(vector, axis, direction) {
+    const sign = axis[0] || axis[1] || axis[2];
+    if (axis[0]) {
+        const effective = direction * sign;
+        return effective > 0 ? [vector[0], -vector[2], vector[1]] : [vector[0], vector[2], -vector[1]];
+    }
+    if (axis[1]) {
+        const effective = direction * sign;
+        return effective > 0 ? [vector[2], vector[1], -vector[0]] : [-vector[2], vector[1], vector[0]];
+    }
+    const effective = direction * sign;
+    return effective > 0 ? [-vector[1], vector[0], vector[2]] : [vector[1], -vector[0], vector[2]];
+}
+
+function rubikRotateFaceletSticker(sticker, axis, quarterTurns) {
+    const turns = ((quarterTurns % 4) + 4) % 4;
+    for (let index = 0; index < turns; index++) {
+        [sticker.x, sticker.y, sticker.z] = rubikRotateDiscreteVector([sticker.x, sticker.y, sticker.z], axis, 1);
+        [sticker.nx, sticker.ny, sticker.nz] = rubikRotateDiscreteVector([sticker.nx, sticker.ny, sticker.nz], axis, 1);
+    }
+}
+
+function rubikNormalizeMoveToken(token, size = rubikCurrentSize()) {
+    const raw = String(token || '').trim().replace(/’/g, "'");
+    if (!raw) return null;
+    const faceChar = raw[0];
+    if (!/[URFDLBurfdlb]/.test(faceChar)) return null;
+    let rest = raw.slice(1);
+    let wide = /[urfdlb]/.test(faceChar);
+    const face = faceChar.toUpperCase();
+    if (/^[wW]/.test(rest)) {
+        wide = true;
+        rest = rest.slice(1);
+    }
+    if (!['', "'", '2', "2'"].includes(rest)) return null;
+    if (rest === "2'") rest = '2';
+    if (wide && size < 3) return null;
+    if (wide && size === 3) return `${face.toLowerCase()}${rest}`;
+    if (wide) return `${face}w${rest}`;
+    return `${face}${rest}`;
+}
+
+function rubikMoveDescriptor(move, size = rubikCurrentSize()) {
+    const normalized = rubikNormalizeMoveToken(move, size);
+    if (!normalized) return null;
+    const face = normalized[0].toUpperCase();
+    const info = RK_FACE_MOVE_INFO[face];
+    if (!info) return null;
+    const wide = normalized[0] === normalized[0].toLowerCase() || normalized.includes('w');
+    const suffix = normalized.slice(wide && normalized[0] === normalized[0].toUpperCase() ? 2 : 1);
+    const direction = suffix.includes("'") ? -1 : 1;
+    const amount = suffix.includes('2') ? 2 : 1;
+    return {
+        normalized,
+        face,
+        faceIndex: RK_FACE_LETTER_TO_INDEX[face],
+        axis: info.axis,
+        layers: wide ? Math.min(2, Math.floor(size / 2)) : 1,
+        quarterTurns: info.rotation * direction * amount
+    };
+}
+
+function rubikApplyFaceletMove(cube, move) {
+    const descriptor = rubikMoveDescriptor(move, cube.size);
+    if (!descriptor) return false;
+    const threshold = (cube.size - 1) - (descriptor.layers - 1) * 2;
+    cube.stickers.forEach(sticker => {
+        const layerValue = sticker.x * descriptor.axis[0] + sticker.y * descriptor.axis[1] + sticker.z * descriptor.axis[2];
+        if (layerValue >= threshold) {
+            rubikRotateFaceletSticker(sticker, descriptor.axis, descriptor.quarterTurns);
+        }
+    });
+    rubikRefreshFaceletCube(cube);
+    return true;
+}
+
+function rubikNormalizeAlgorithm(algorithm, size = rubikCurrentSize()) {
+    return String(algorithm || '')
+        .trim()
+        .replace(/,/g, ' ')
+        .split(/\s+/)
+        .filter(Boolean)
+        .map(move => rubikNormalizeMoveToken(move, size))
+        .filter(Boolean);
+}
+
+function rubikInverseMove(move, size = rubikCurrentSize()) {
+    const normalized = rubikNormalizeMoveToken(move, size);
+    if (!normalized) return '';
+    if (normalized.endsWith('2')) return normalized;
+    return normalized.endsWith("'") ? normalized.slice(0, -1) : `${normalized}'`;
+}
+
+function createRubikCube(size = rubikCurrentSize()) {
+    if (size === 3 && typeof Cube === 'function') {
+        const cube = new Cube();
+        cube.size = 3;
+        return cube;
+    }
+    return rubikCreateFaceletCube(size);
+}
+
+function cloneRubikCube(cube = rubikCube) {
+    if (!cube) return null;
+    if (cube.size === 3 && typeof Cube === 'function' && typeof cube.toJSON === 'function') {
+        const clone = new Cube(cube.toJSON());
+        clone.size = 3;
+        return clone;
+    }
+    return rubikCloneFaceletCube(cube);
+}
+
+function rubikApplyMoveToCube(cube, move) {
+    if (!cube) return false;
+    if (cube.size === 3 && typeof cube.move === 'function') {
+        cube.move(move);
+        return true;
+    }
+    return rubikApplyFaceletMove(cube, move);
+}
+
+function rubikApplyAlgorithmToCube(cube, algorithm) {
+    const size = rubikCurrentSize(cube);
+    const moves = Array.isArray(algorithm) ? algorithm : rubikNormalizeAlgorithm(algorithm, size);
+    moves.forEach(move => rubikApplyMoveToCube(cube, move));
+    return cube;
+}
+
+function rubikIsSolved(cube = rubikCube) {
+    if (!cube) return false;
+    if (cube.size === 3 && typeof cube.isSolved === 'function') return cube.isSolved();
+    return !!cube.solved;
+}
+
+function rubikResetState(options = {}) {
+    const {rerender = false} = options;
+    cancelRubikMotion();
+    rubikCube = createRubikCube(rubikSize);
+    rubikMoveCount = 0;
+    rubikScramble = '';
+    rubikLastMove = '—';
+    rubikHistory = [];
+    rubikRedoStack = [];
+    rubikSolutionText = rubikDefaultSolutionText(rubikSize);
+    rubikSolutionMoves = [];
+    rubikSolutionActiveIndex = -1;
+    resetRubikTimer();
+    if (rerender) {
+        renderRubikGame();
+        return;
+    }
+    renderRubikBoard();
+    const scrambleEl = document.getElementById('rk-scramble');
+    if (scrambleEl) scrambleEl.textContent = '—';
+    setRubikSolutionText(rubikDefaultSolutionText(rubikSize));
+    setRubikStatus(rubikReadyStatusMessage(rubikSize), 'ready');
+}
+
+function setRubikSize(size) {
+    if (!RK_SIZE_OPTIONS.includes(size)) return;
+    if (rubikActiveAnimation || rubikSequence) {
+        setRubikStatus('Wait for the current move to finish before changing cube size.', 'warning');
+        return;
+    }
+    rubikSize = size;
+    rubikResetState({rerender: true});
+}
+
 function cleanupRubik() {
     cancelRubikMotion();
     stopRubikTimer();
@@ -2345,14 +2671,6 @@ function setRubikStatus(message, tone = 'ready') {
     rubikStatusMessage = message;
     rubikStatusTone = tone;
     updateRubikStatus();
-}
-
-function createRubikCube() {
-    return typeof Cube === 'function' ? new Cube() : null;
-}
-
-function cloneRubikCube(cube = rubikCube) {
-    return cube && typeof Cube === 'function' ? new Cube(cube.toJSON()) : null;
 }
 
 function cancelRubikMotion() {
@@ -2397,47 +2715,47 @@ function renderRubikSolutionOutput() {
 }
 
 function rubikStateFaces(cube = rubikCube) {
-    const facelets = cube ? cube.asString() : 'UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB';
-    const faces = Array.from({length: 6}, () => Array.from({length: 3}, () => Array(3).fill(0)));
-    [
-        {face: RK_U, offset: 0},
-        {face: RK_R, offset: 9},
-        {face: RK_F, offset: 18},
-        {face: RK_D, offset: 27},
-        {face: RK_L, offset: 36},
-        {face: RK_B, offset: 45}
-    ].forEach(({face, offset}) => {
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                faces[face][i][j] = RK_FACE_LETTER_TO_INDEX[facelets[offset + i * 3 + j]];
+    const size = rubikCurrentSize(cube);
+    if (!cube) {
+        return Array.from({length: 6}, (_, face) => Array.from({length: size}, () => Array(size).fill(face)));
+    }
+    if (cube.size === 3 && typeof cube.asString === 'function') {
+        const facelets = cube.asString();
+        const faces = Array.from({length: 6}, () => Array.from({length: 3}, () => Array(3).fill(0)));
+        [
+            {face: RK_U, offset: 0},
+            {face: RK_R, offset: 9},
+            {face: RK_F, offset: 18},
+            {face: RK_D, offset: 27},
+            {face: RK_L, offset: 36},
+            {face: RK_B, offset: 45}
+        ].forEach(({face, offset}) => {
+            for (let row = 0; row < 3; row++) {
+                for (let col = 0; col < 3; col++) {
+                    faces[face][row][col] = RK_FACE_LETTER_TO_INDEX[facelets[offset + row * 3 + col]];
+                }
             }
-        }
-    });
-    return faces;
+        });
+        return faces;
+    }
+    return cube.faces.map(face => face.map(row => [...row]));
 }
 
-function rubikNormalizeAlgorithm(algorithm) {
-    return String(algorithm || '')
-        .trim()
-        .replace(/,/g, ' ')
-        .split(/\s+/)
-        .filter(Boolean)
-        .map(move => move.toUpperCase().replace(/’/g, "'"))
-        .filter(move => /^[URFDLB](2|'|2')?$/.test(move))
-        .map(move => move.endsWith("2'") ? `${move[0]}2` : move);
-}
-
-function rubikGenerateScramble(length = 25) {
+function rubikGenerateScramble(length = rubikScrambleLength(rubikSize), size = rubikSize) {
     const suffixes = ['', "'", '2'];
+    const availableMoves = size >= 4
+        ? RK_SCRAMBLE_FACES.flatMap(face => [face, `${face}w`])
+        : [...RK_SCRAMBLE_FACES];
     const result = [];
-    let lastFace = '';
+    let lastMove = '';
     let lastAxis = '';
     while (result.length < length) {
-        const face = RK_SCRAMBLE_FACES[Math.floor(Math.random() * RK_SCRAMBLE_FACES.length)];
+        const move = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+        const face = move[0].toUpperCase();
         const axis = RK_AXIS_GROUP[face];
-        if (face === lastFace || axis === lastAxis) continue;
-        result.push(face + suffixes[Math.floor(Math.random() * suffixes.length)]);
-        lastFace = face;
+        if (move === lastMove || axis === lastAxis) continue;
+        result.push(move + suffixes[Math.floor(Math.random() * suffixes.length)]);
+        lastMove = move;
         lastAxis = axis;
     }
     return result.join(' ');
@@ -2565,27 +2883,25 @@ function rubikRotateAroundAxis(point, axis, angle) {
 }
 
 function rubikMoveAnimationInfo(move) {
-    const normalized = rubikNormalizeAlgorithm(move)[0];
-    if (!normalized) return null;
-    const face = normalized[0];
+    const descriptor = rubikMoveDescriptor(move, rubikCurrentSize());
+    if (!descriptor) return null;
     return {
-        move: normalized,
-        face,
-        axis: ({
-            U: [0, 1, 0],
-            D: [0, -1, 0],
-            F: [0, 0, 1],
-            B: [0, 0, -1],
-            L: [-1, 0, 0],
-            R: [1, 0, 0]
-        })[face],
-        angle: (Math.PI / 2) * (normalized.includes('2') ? 2 : 1) * (normalized.includes("'") ? -1 : 1),
-        duration: normalized.includes('2') ? 240 : 180
+        move: descriptor.normalized,
+        face: descriptor.face,
+        faceIndex: descriptor.faceIndex,
+        axis: descriptor.axis,
+        layers: descriptor.layers,
+        angle: (Math.PI / 2) * descriptor.quarterTurns,
+        duration: descriptor.normalized.includes('2') ? 240 : 180
     };
 }
 
-function rubikPointOnAnimatedLayer(point, animation) {
-    return animation && rubikDot(point, animation.axis) > 0.55;
+function rubikStickerOnAnimatedLayer(face, row, col, animation, size = rubikCurrentSize()) {
+    if (!animation) return false;
+    const sticker = rubikStickerDiscretePosition(face, row, col, size);
+    const threshold = (size - 1) - (animation.layers - 1) * 2;
+    const layerValue = sticker.x * animation.axis[0] + sticker.y * animation.axis[1] + sticker.z * animation.axis[2];
+    return layerValue >= threshold;
 }
 
 function rubikInsetPolygon(points, amount = 0.18) {
@@ -2610,6 +2926,7 @@ function drawRubik3D() {
     if (!canvas || !rubikCube) return;
     const cubeForRender = rubikActiveAnimation?.cube || rubikCube;
     const faces = rubikStateFaces(cubeForRender);
+    const size = rubikCurrentSize(cubeForRender);
     const ctx = canvas.getContext('2d');
     const width = canvas.width;
     const height = canvas.height;
@@ -2643,7 +2960,7 @@ function drawRubik3D() {
     for (let face = 0; face < 6; face++) {
         let normal = RK_FACE_NORMALS[face];
         let corners = RK_FACE_CORNERS[face];
-        if (animation && rubikPointOnAnimatedLayer(rubikAverage(corners), animation)) {
+        if (animation && face === animation.faceIndex) {
             normal = rubikRotateAroundAxis(normal, animation.axis, animation.angle * animation.progress);
             corners = corners.map(point => rubikRotateAroundAxis(point, animation.axis, animation.angle * animation.progress));
         }
@@ -2673,12 +2990,12 @@ function drawRubik3D() {
 
     const stickers = [];
     for (let face = 0; face < 6; face++) {
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                let corners = r3dStickerCorners(face, i, j, 3);
+        for (let i = 0; i < size; i++) {
+            for (let j = 0; j < size; j++) {
+                let corners = r3dStickerCorners(face, i, j, size);
                 let normal = RK_FACE_NORMALS[face];
                 let center = rubikAverage(corners);
-                if (animation && rubikPointOnAnimatedLayer(center, animation)) {
+                if (animation && rubikStickerOnAnimatedLayer(face, i, j, animation, size)) {
                     corners = corners.map(point => rubikRotateAroundAxis(point, animation.axis, animation.angle * animation.progress));
                     normal = rubikRotateAroundAxis(normal, animation.axis, animation.angle * animation.progress);
                     center = rubikRotateAroundAxis(center, animation.axis, animation.angle * animation.progress);
@@ -2894,6 +3211,7 @@ function renderRubikNet() {
     const container = document.getElementById('rk-net');
     if (!container || !rubikCube) return;
     const faces = rubikStateFaces();
+    const size = rubikCurrentSize();
     const descriptors = [
         {face: RK_U, label: 'U', cls: 'face-u'},
         {face: RK_L, label: 'L', cls: 'face-l'},
@@ -2905,7 +3223,7 @@ function renderRubikNet() {
     container.innerHTML = descriptors.map(({face, label, cls}) => `
         <div class="rk-net-face ${cls}">
             <div class="rk-net-label">${label}</div>
-            <div class="rk-net-grid">
+            <div class="rk-net-grid" style="grid-template-columns:repeat(${size},1fr);">
                 ${faces[face].flatMap(row => row).map(color => `<span class="rk-net-sticker" style="background:${RK_FACE_COLORS[color]}"></span>`).join('')}
             </div>
         </div>
@@ -2926,7 +3244,7 @@ function updateRubikStats() {
 function updateRubikStatus() {
     const badge = document.getElementById('rk-status-badge');
     const text = document.getElementById('rk-status-text');
-    const solved = rubikCube && rubikCube.isSolved();
+    const solved = rubikCube && rubikIsSolved(rubikCube);
     if (solved) stopRubikTimer();
     if (badge) {
         const tone = solved ? 'success' : rubikStatusTone;
@@ -2974,7 +3292,7 @@ function animateRubikMove(move, options = {}) {
             return;
         }
         rubikAnimationFrame = null;
-        rubikCube.move(rubikActiveAnimation.move);
+        rubikApplyMoveToCube(rubikCube, rubikActiveAnimation.move);
         if (options.countMoves) rubikMoveCount += 1;
         if (options.trackHistory) {
             rubikHistory.push(rubikActiveAnimation.move);
@@ -2983,7 +3301,7 @@ function animateRubikMove(move, options = {}) {
         rubikLastMove = rubikActiveAnimation.move;
         rubikActiveAnimation = null;
         renderRubikBoard();
-        if (rubikCube.isSolved()) {
+        if (rubikIsSolved(rubikCube)) {
             setRubikStatus(options.solvedMessage || 'Great job — the cube is solved.', 'success');
         } else if (options.message) {
             setRubikStatus(options.message, options.tone || 'active');
@@ -3014,7 +3332,7 @@ function runRubikMoveSequence(moves, options = {}) {
     const advance = () => {
         if (!rubikSequence) return;
         if (rubikSequence.index >= rubikSequence.moves.length) {
-            const finalMessage = rubikCube.isSolved()
+            const finalMessage = rubikIsSolved(rubikCube)
                 ? rubikSequence.solvedMessage || 'Great job — the cube is solved.'
                 : rubikSequence.finalMessage;
             if (rubikSolutionMoves.length) {
@@ -3022,7 +3340,7 @@ function runRubikMoveSequence(moves, options = {}) {
             }
             rubikSequence.onComplete?.();
             rubikSequence = null;
-            if (finalMessage) setRubikStatus(finalMessage, rubikCube.isSolved() ? 'success' : rubikStatusTone);
+            if (finalMessage) setRubikStatus(finalMessage, rubikIsSolved(rubikCube) ? 'success' : rubikStatusTone);
             else updateRubikStatus();
             return;
         }
@@ -3083,36 +3401,29 @@ function renderRubikMoveButtons() {
 }
 
 function resetRubik() {
-    cancelRubikMotion();
-    rubikCube = createRubikCube();
-    rubikMoveCount = 0;
-    rubikScramble = '';
-    rubikLastMove = '—';
-    rubikHistory = [];
-    rubikRedoStack = [];
-    resetRubikTimer();
-    renderRubikBoard();
-    setRubikStatus('Standard 3×3 cube ready. Generate a scramble or enter an algorithm.', 'ready');
-    const scrambleEl = document.getElementById('rk-scramble');
-    if (scrambleEl) scrambleEl.textContent = '—';
-    setRubikSolutionText('No hint yet.');
+    rubikResetState();
 }
 
 function scrambleRubik() {
     cancelRubikMotion();
-    rubikCube = createRubikCube();
+    rubikCube = createRubikCube(rubikSize);
     rubikMoveCount = 0;
     rubikHistory = [];
     rubikRedoStack = [];
     rubikLastMove = '—';
-    rubikScramble = rubikGenerateScramble(25);
-    rubikCube.move(rubikScramble);
+    rubikScramble = rubikGenerateScramble(rubikScrambleLength(rubikSize), rubikSize);
+    rubikApplyAlgorithmToCube(rubikCube, rubikScramble);
     startRubikTimer();
     renderRubikBoard();
     const scrambleEl = document.getElementById('rk-scramble');
     if (scrambleEl) scrambleEl.textContent = rubikScramble;
-    setRubikSolutionText('No hint yet.');
-    setRubikStatus('Scramble loaded. Solve it or ask the simulator for a hint.', 'active');
+    setRubikSolutionText(rubikDefaultSolutionText(rubikSize));
+    setRubikStatus(
+        rubikSupportsSolver(rubikSize)
+            ? 'Scramble loaded. Solve it or ask the simulator for a hint.'
+            : 'Scramble loaded. Solve it manually or enter an algorithm to explore the cube.',
+        'active'
+    );
 }
 
 function undoRubikMove() {
@@ -3126,7 +3437,7 @@ function undoRubikMove() {
     }
     const move = rubikHistory.pop();
     rubikRedoStack.push(move);
-    animateRubikMove(Cube.inverse(move), {
+    animateRubikMove(rubikInverseMove(move, rubikCurrentSize()), {
         message: `Undid ${move}.`,
         tone: 'info',
         onComplete: () => {
@@ -3182,11 +3493,16 @@ async function ensureRubikSolver() {
 
 async function showRubikHint() {
     if (!rubikCube) return;
+    if (!rubikSupportsSolver(rubikCurrentSize())) {
+        setRubikSolutionText(rubikDefaultSolutionText(rubikSize));
+        setRubikStatus('Hints are currently available for the 3×3 cube only.', 'warning');
+        return;
+    }
     if (rubikActiveAnimation || rubikSequence) {
         setRubikStatus('Wait for the current move to finish first.', 'warning');
         return;
     }
-    if (rubikCube.isSolved()) {
+    if (rubikIsSolved(rubikCube)) {
         setRubikStatus('The cube is already solved.', 'success');
         return;
     }
@@ -3203,11 +3519,16 @@ async function showRubikHint() {
 
 async function solveRubik() {
     if (!rubikCube) return;
+    if (!rubikSupportsSolver(rubikCurrentSize())) {
+        setRubikSolutionText(rubikDefaultSolutionText(rubikSize));
+        setRubikStatus('Auto-solve is currently available for the 3×3 cube only.', 'warning');
+        return;
+    }
     if (rubikActiveAnimation || rubikSequence) {
         setRubikStatus('Auto-solve is already running.', 'warning');
         return;
     }
-    if (rubikCube.isSolved()) {
+    if (rubikIsSolved(rubikCube)) {
         setRubikStatus('The cube is already solved.', 'success');
         return;
     }
@@ -3250,7 +3571,12 @@ function applyRubikAlgorithmInput() {
     }
     const moves = rubikNormalizeAlgorithm(input.value);
     if (!moves.length) {
-        setRubikStatus('Enter a valid algorithm like R U R\' U\'.', 'warning');
+        setRubikStatus(
+            rubikCurrentSize() >= 4
+                ? 'Enter a valid algorithm like R U R\' U\' or Rw U Rw\'.'
+                : 'Enter a valid algorithm like R U R\' U\'.',
+            'warning'
+        );
         return;
     }
     applyRubikMoveSequence(moves);
@@ -3339,11 +3665,12 @@ function bindRubikGlobalEvents() {
 function initRubik() {
     const container = document.getElementById('game-rubik');
     if (!container) return;
-    if (typeof Cube !== 'function') {
+    if (typeof Cube !== 'function' && rubikSize === 3) {
         container.innerHTML = '<p style="text-align:center;color:#ef4444;font-weight:700;">Rubik simulator library failed to load.</p>';
         return;
     }
-    rubikCube = createRubikCube();
+    if (!RK_SIZE_OPTIONS.includes(rubikSize)) rubikSize = 3;
+    rubikCube = createRubikCube(rubikSize);
     rubikMoveCount = 0;
     rubikRotX = 0.5;
     rubikRotY = -0.7;
@@ -3353,7 +3680,7 @@ function initRubik() {
     rubikLastMove = '—';
     rubikHistory = [];
     rubikRedoStack = [];
-    rubikSolutionText = 'No hint yet.';
+    rubikSolutionText = rubikDefaultSolutionText(rubikSize);
     rubikSolutionMoves = [];
     rubikSolutionActiveIndex = -1;
     cancelRubikMotion();
@@ -3365,6 +3692,7 @@ function initRubik() {
 function renderRubikGame() {
     const container = document.getElementById('game-rubik');
     if (!container) return;
+    const solverEnabled = rubikSupportsSolver(rubikSize);
     container.innerHTML = `
         <style>
             .rk-shell { background:linear-gradient(180deg,#f8fbff 0%,#eef2ff 100%); border:1px solid rgba(99,102,241,.12); border-radius:28px; padding:20px; box-shadow:0 30px 80px rgba(15,23,42,.14); }
@@ -3372,10 +3700,14 @@ function renderRubikGame() {
             .rk-toolbar-actions, .rk-toolbar-meta { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
             .rk-btn { border:none; border-radius:14px; padding:11px 16px; font-weight:800; cursor:pointer; color:#fff; box-shadow:0 10px 20px rgba(15,23,42,.16); transition:transform .18s ease, opacity .18s ease; }
             .rk-btn:hover { transform:translateY(-1px); opacity:.92; }
+            .rk-btn:disabled { cursor:not-allowed; opacity:.55; transform:none; box-shadow:none; }
             .rk-btn.primary { background:linear-gradient(135deg,#6366f1,#4f46e5); }
             .rk-btn.warning { background:linear-gradient(135deg,#f59e0b,#d97706); }
             .rk-btn.success { background:linear-gradient(135deg,#10b981,#059669); }
             .rk-btn.dark { background:linear-gradient(135deg,#334155,#0f172a); }
+            .rk-size-picker { display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:14px; background:rgba(255,255,255,.75); border:1px solid rgba(148,163,184,.28); }
+            .rk-size-picker span { color:#475569; font-size:.8em; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
+            .rk-size-picker select { border:none; background:transparent; color:#0f172a; font-size:1em; font-weight:800; outline:none; }
             .rk-layout { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(310px,.9fr); gap:18px; }
             .rk-stage-card, .rk-side-card { background:rgba(255,255,255,.86); border:1px solid rgba(148,163,184,.24); border-radius:22px; padding:16px; box-shadow:0 18px 50px rgba(148,163,184,.16); }
             .rk-stage { position:relative; border-radius:22px; overflow:hidden; background:radial-gradient(circle at top, rgba(99,102,241,.18), rgba(15,23,42,.95)); min-height:380px; display:flex; align-items:center; justify-content:center; }
@@ -3425,8 +3757,14 @@ function renderRubikGame() {
                     <button class="rk-btn dark" onclick="redoRubikMove()">↷ Redo</button>
                 </div>
                 <div class="rk-toolbar-meta">
-                    <button class="rk-btn primary" onclick="showRubikHint()">💡 Hint</button>
-                    <button class="rk-btn primary" onclick="solveRubik()">🧠 Auto Solve</button>
+                    <label class="rk-size-picker">
+                        <span>Size</span>
+                        <select id="rk-size-select" onchange="setRubikSize(Number(this.value))">
+                            ${RK_SIZE_OPTIONS.map(size => `<option value="${size}" ${size === rubikSize ? 'selected' : ''}>${size}×${size}</option>`).join('')}
+                        </select>
+                    </label>
+                    <button class="rk-btn primary" id="rk-hint-btn" onclick="showRubikHint()" ${solverEnabled ? '' : 'disabled'}>💡 Hint</button>
+                    <button class="rk-btn primary" id="rk-solve-btn" onclick="solveRubik()" ${solverEnabled ? '' : 'disabled'}>🧠 Auto Solve</button>
                     <button class="rk-btn dark" id="rk-fullscreen-btn" onclick="toggleRubikFullscreen()">⛶ Fullscreen</button>
                 </div>
             </div>
@@ -3444,7 +3782,7 @@ function renderRubikGame() {
                 <div class="rk-stage-card">
                     <div class="rk-stage" id="rk-stage">
                         <canvas id="rk-canvas"></canvas>
-                        <div class="rk-stage-chip">Drag stickers to turn, or drag empty space to orbit</div>
+                        <div class="rk-stage-chip" id="rk-stage-chip">${rubikStageChipText(rubikSize)}</div>
                     </div>
                     <div style="margin-top:14px;">
                         <span class="rk-field-label">Current scramble</span>
@@ -3455,13 +3793,13 @@ function renderRubikGame() {
                     <div class="rk-side-card">
                         <span class="rk-field-label">Algorithm input</span>
                         <div class="rk-alg-row">
-                            <input id="rk-alg-input" type="text" placeholder="Example: R U R' U'">
+                            <input id="rk-alg-input" type="text" placeholder="${rubikAlgorithmPlaceholder(rubikSize)}">
                             <button class="rk-btn primary" onclick="applyRubikAlgorithmInput()">Apply</button>
                         </div>
                     </div>
                     <div class="rk-side-card">
-                        <span class="rk-field-label">Solver output</span>
-                        <div class="rk-solution-box" id="rk-solution">No hint yet.</div>
+                        <span class="rk-field-label">Solver output ${solverEnabled ? '' : '(3×3 only)'}</span>
+                        <div class="rk-solution-box" id="rk-solution">${rubikDefaultSolutionText(rubikSize)}</div>
                     </div>
                     <div class="rk-side-card">
                         <span class="rk-field-label">Cube net</span>
@@ -3473,11 +3811,11 @@ function renderRubikGame() {
                     </div>
                 </div>
             </div>
-            <p class="rk-help">Keyboard: U R F D L B turns, Shift for inverse, Space to scramble, Z undo, Y redo, H hint, S solve. Auto-solve animates each move so you can follow along on a physical cube.</p>
+            <p class="rk-help" id="rk-help">${rubikHelpText(rubikSize)}</p>
         </div>
     `;
     renderRubikMoveButtons();
     setupRubik3DCanvas();
     renderRubikBoard();
-    setRubikStatus('Standard 3×3 cube ready. Generate a scramble or enter an algorithm.', 'ready');
+    setRubikStatus(rubikReadyStatusMessage(rubikSize), 'ready');
 }
