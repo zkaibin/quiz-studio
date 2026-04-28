@@ -2766,7 +2766,9 @@ function rubikPointInPolygon(point, polygon) {
     for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
         const [xi, yi] = polygon[i];
         const [xj, yj] = polygon[j];
-        if ((yi > point.y) === (yj > point.y) || yj === yi) continue;
+        const spansPointY = (yi > point.y) !== (yj > point.y);
+        if (!spansPointY) continue;
+        if (yj === yi) continue;
         const intersects = point.x < ((xj - xi) * (point.y - yi)) / (yj - yi) + xi;
         if (intersects) inside = !inside;
     }
@@ -2786,8 +2788,8 @@ function rubikProjectedVector(canvas, origin, vector) {
     const [orx, ory, orz] = r3dRotate(...origin);
     const [px1, py1] = r3dProject(orx, ory, orz, canvas.width, canvas.height, scale);
     const target = rubikAdd(origin, vector);
-    const [trx, trY, trz] = r3dRotate(...target);
-    const [px2, py2] = r3dProject(trx, trY, trz, canvas.width, canvas.height, scale);
+    const [trx, tryCoord, trz] = r3dRotate(...target);
+    const [px2, py2] = r3dProject(trx, tryCoord, trz, canvas.width, canvas.height, scale);
     return [px2 - px1, py2 - py1];
 }
 
@@ -3440,7 +3442,7 @@ function renderRubikGame() {
                 <div class="rk-stage-card">
                     <div class="rk-stage" id="rk-stage">
                         <canvas id="rk-canvas"></canvas>
-                        <div class="rk-stage-chip">Drag stickers to turn • drag empty space to orbit</div>
+                        <div class="rk-stage-chip">Drag stickers to turn | drag empty space to orbit</div>
                     </div>
                     <div style="margin-top:14px;">
                         <span class="rk-field-label">Current scramble</span>
