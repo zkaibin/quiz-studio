@@ -2342,10 +2342,16 @@ function rubikSizeLabel(size = rubikCurrentSize()) {
 }
 
 function rubikReadyStatusMessage(size = rubikCurrentSize()) {
+    if (size === 3 && typeof Cube !== 'function') {
+        return '3×3 simulation ready. Solver features are unavailable because the CubeJS library did not load.';
+    }
     return `${rubikSizeLabel(size)} cube ready. Generate a scramble or enter an algorithm.`;
 }
 
 function rubikDefaultSolutionText(size = rubikCurrentSize()) {
+    if (size === 3 && typeof Cube !== 'function') {
+        return 'Solver features are unavailable because the CubeJS library did not load.';
+    }
     return size === 3 ? 'No hint yet.' : 'Hints and auto-solve are currently available for 3×3 only.';
 }
 
@@ -2481,6 +2487,7 @@ function rubikRefreshFaceletCube(cube) {
 }
 
 function rubikRotateDiscreteVector(vector, axis, direction) {
+    if (!axis[0] && !axis[1] && !axis[2]) return [...vector];
     const sign = axis[0] || axis[1] || axis[2];
     if (axis[0]) {
         const effective = direction * sign;
@@ -3665,10 +3672,6 @@ function bindRubikGlobalEvents() {
 function initRubik() {
     const container = document.getElementById('game-rubik');
     if (!container) return;
-    if (typeof Cube !== 'function' && rubikSize === 3) {
-        container.innerHTML = '<p style="text-align:center;color:#ef4444;font-weight:700;">Rubik simulator library failed to load.</p>';
-        return;
-    }
     if (!RK_SIZE_OPTIONS.includes(rubikSize)) rubikSize = 3;
     rubikCube = createRubikCube(rubikSize);
     rubikMoveCount = 0;
