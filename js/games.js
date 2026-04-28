@@ -2520,8 +2520,12 @@ function rubikRotateFaceletSticker(sticker, axis, quarterTurns) {
     }
 }
 
+function rubikAxisKey(axis) {
+    return `${Math.abs(axis[0])},${Math.abs(axis[1])},${Math.abs(axis[2])}`;
+}
+
 function rubikSliceFaceFromAxis(axis) {
-    return RK_AXIS_TO_SLICE_FACE[`${Math.abs(axis[0])},${Math.abs(axis[1])},${Math.abs(axis[2])}`] || null;
+    return RK_AXIS_TO_SLICE_FACE[rubikAxisKey(axis)] || null;
 }
 
 function rubikMoveSuffixFromQuarterTurns(quarterTurns) {
@@ -2531,6 +2535,7 @@ function rubikMoveSuffixFromQuarterTurns(quarterTurns) {
 }
 
 function rubikLayerDepthFromValue(layerValue, size) {
+    // Coordinates step by 2 from the outside in, so each inward slice increases depth by 1.
     return Math.max(1, Math.round(((size - 1) - Math.abs(layerValue)) / 2) + 1);
 }
 
@@ -2561,6 +2566,7 @@ function rubikNormalizeMoveToken(token, size = rubikCurrentSize()) {
     }
     if (!['', "'", '2', "2'"].includes(rest)) return null;
     if (rest === "2'") rest = '2';
+    // Even cubes do not have a single center slice, so M/E/S only make sense on odd cubes >= 3.
     if (isSlice && (wide || size < 3 || size % 2 === 0)) return null;
     if (wide && size < 3) return null;
     if (wide && size === 3) return `${face.toLowerCase()}${rest}`;
@@ -2572,10 +2578,10 @@ function rubikMoveDescriptor(move, size = rubikCurrentSize()) {
     if (move && typeof move === 'object') {
         if (!Array.isArray(move.axis) || typeof move.quarterTurns !== 'number') return null;
         const axis = [...move.axis];
-        const layerValues = (Array.isArray(move.layerValues) && move.layerValues.length ? move.layerValues : [size - 1])
-            .map(value => rubikNearestCoordinate(value, size))
-            .filter((value, index, values) => values.indexOf(value) === index)
-            .sort((a, b) => b - a);
+        const layerValues = [...new Set(
+            (Array.isArray(move.layerValues) && move.layerValues.length ? move.layerValues : [size - 1])
+                .map(value => rubikNearestCoordinate(value, size))
+        )].sort((a, b) => b - a);
         const face = move.face || rubikMoveFaceFromAxis(axis) || (layerValues[0] === 0 ? rubikSliceFaceFromAxis(axis) : null);
         return {
             normalized: typeof move.normalized === 'string' ? move.normalized : null,
@@ -3237,8 +3243,8 @@ function rubikMoveFromDrag(canvas, sticker, dragVector) {
     const localAxis = Math.abs(uDot) >= Math.abs(vDot) ? localAxes.u : localAxes.v;
     const turnAxis = rubikCross(sticker.normal, localAxis);
     const rawLayerValue = rubikDot(sticker.center, turnAxis);
-    const layerValue = Math.abs(rubikNearestCoordinate(rawLayerValue, size));
     const orientedAxis = rawLayerValue < 0 ? rubikScale(turnAxis, -1) : turnAxis;
+    const layerValue = rubikNearestCoordinate(rubikDot(sticker.center, orientedAxis), size);
     const tangent = rubikCross(turnAxis, sticker.center);
     const projectedTangent = rubikProjectedVector(canvas, sticker.center, rubikScale(tangent, 0.45));
     const direction = dragVector[0] * projectedTangent[0] + dragVector[1] * projectedTangent[1];
