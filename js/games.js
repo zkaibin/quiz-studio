@@ -2272,8 +2272,12 @@ const RK_FACE_MOVE_INFO = {
     F: {axis: [0, 0, 1], rotation: -1},
     B: {axis: [0, 0, -1], rotation: -1},
     L: {axis: [-1, 0, 0], rotation: 1},
-    R: {axis: [1, 0, 0], rotation: 1}
+    R: {axis: [1, 0, 0], rotation: 1},
+    M: {axis: [1, 0, 0], rotation: -1, slice: true},
+    E: {axis: [0, 1, 0], rotation: -1, slice: true},
+    S: {axis: [0, 0, 1], rotation: -1, slice: true}
 };
+const RK_AXIS_TO_SLICE_FACE = {'1,0,0': 'M', '0,1,0': 'E', '0,0,1': 'S'};
 const RK_MOVE_BUTTONS = [
     {mv: 'U', bg: '#6366f1'}, {mv: "U'", bg: '#818cf8'}, {mv: 'U2', bg: '#a5b4fc'},
     {mv: 'R', bg: '#ef4444'}, {mv: "R'", bg: '#f87171'}, {mv: 'R2', bg: '#fca5a5'},
@@ -2361,8 +2365,8 @@ function rubikAlgorithmPlaceholder(size = rubikCurrentSize()) {
 
 function rubikStageChipText(size = rubikCurrentSize()) {
     return size >= 4
-        ? 'Drag outer stickers to turn, drag empty space to orbit, or enter wide moves like Rw'
-        : 'Drag stickers to turn, or drag empty space to orbit';
+        ? 'Drag any visible sticker to turn its layer, drag empty space to orbit, or enter wide moves like Rw'
+        : 'Drag any visible sticker to turn its layer, or drag empty space to orbit';
 }
 
 function rubikHelpText(size = rubikCurrentSize()) {
@@ -2383,6 +2387,13 @@ function rubikScrambleLength(size = rubikCurrentSize()) {
 function rubikCoordinateValues(size) {
     const max = size - 1;
     return Array.from({length: size}, (_, index) => -max + index * 2);
+}
+
+function rubikNearestCoordinate(value, size) {
+    const coords = rubikCoordinateValues(size);
+    return coords.reduce((closest, coord) => (
+        Math.abs(coord - value) < Math.abs(closest - value) ? coord : closest
+    ), coords[0]);
 }
 
 function rubikIndexFromCoordinate(value, size) {
@@ -2509,20 +2520,48 @@ function rubikRotateFaceletSticker(sticker, axis, quarterTurns) {
     }
 }
 
+function rubikSliceFaceFromAxis(axis) {
+    return RK_AXIS_TO_SLICE_FACE[`${Math.abs(axis[0])},${Math.abs(axis[1])},${Math.abs(axis[2])}`] || null;
+}
+
+function rubikMoveSuffixFromQuarterTurns(quarterTurns) {
+    const turns = ((quarterTurns % 4) + 4) % 4;
+    if (turns === 2) return '2';
+    return turns === 3 ? "'" : '';
+}
+
+function rubikLayerDepthFromValue(layerValue, size) {
+    return Math.max(1, Math.round(((size - 1) - Math.abs(layerValue)) / 2) + 1);
+}
+
+function rubikMoveLabel(move, size = rubikCurrentSize()) {
+    if (typeof move === 'string') return rubikNormalizeMoveToken(move, size) || String(move);
+    const descriptor = rubikMoveDescriptor(move, size);
+    if (!descriptor) return '—';
+    if (descriptor.normalized) return descriptor.normalized;
+    const face = descriptor.face || rubikMoveFaceFromAxis(descriptor.axis) || rubikSliceFaceFromAxis(descriptor.axis) || '?';
+    const primaryLayer = descriptor.layerValues?.[0] ?? size - 1;
+    const depth = rubikLayerDepthFromValue(primaryLayer, size);
+    const base = depth > 1 ? `${face}[${depth}]` : face;
+    return `${base}${rubikMoveSuffixFromQuarterTurns(descriptor.quarterTurns)}`;
+}
+
 function rubikNormalizeMoveToken(token, size = rubikCurrentSize()) {
     const raw = String(token || '').trim().replace(/[\u2018\u2019]/g, "'");
     if (!raw) return null;
     const faceChar = raw[0];
-    if (!/[URFDLBurfdlb]/.test(faceChar)) return null;
+    if (!/[URFDLBMESurfdlb]/.test(faceChar)) return null;
     let rest = raw.slice(1);
     let wide = /[urfdlb]/.test(faceChar);
     const face = faceChar.toUpperCase();
+    const isSlice = ['M', 'E', 'S'].includes(face);
     if (/^[wW]/.test(rest)) {
         wide = true;
         rest = rest.slice(1);
     }
     if (!['', "'", '2', "2'"].includes(rest)) return null;
     if (rest === "2'") rest = '2';
+    if (isSlice && (wide || size < 3 || size % 2 === 0)) return null;
     if (wide && size < 3) return null;
     if (wide && size === 3) return `${face.toLowerCase()}${rest}`;
     if (wide) return `${face}w${rest}`;
@@ -2530,6 +2569,26 @@ function rubikNormalizeMoveToken(token, size = rubikCurrentSize()) {
 }
 
 function rubikMoveDescriptor(move, size = rubikCurrentSize()) {
+    if (move && typeof move === 'object') {
+        if (!Array.isArray(move.axis) || typeof move.quarterTurns !== 'number') return null;
+        const axis = [...move.axis];
+        const layerValues = (Array.isArray(move.layerValues) && move.layerValues.length ? move.layerValues : [size - 1])
+            .map(value => rubikNearestCoordinate(value, size))
+            .filter((value, index, values) => values.indexOf(value) === index)
+            .sort((a, b) => b - a);
+        const face = move.face || rubikMoveFaceFromAxis(axis) || (layerValues[0] === 0 ? rubikSliceFaceFromAxis(axis) : null);
+        return {
+            normalized: typeof move.normalized === 'string' ? move.normalized : null,
+            face,
+            faceIndex: Number.isInteger(move.faceIndex)
+                ? move.faceIndex
+                : (layerValues.includes(size - 1) && RK_FACE_LETTER_TO_INDEX[face] !== undefined ? RK_FACE_LETTER_TO_INDEX[face] : null),
+            axis,
+            layers: layerValues.length,
+            layerValues,
+            quarterTurns: move.quarterTurns
+        };
+    }
     const normalized = rubikNormalizeMoveToken(move, size);
     if (!normalized) return null;
     const face = normalized[0].toUpperCase();
@@ -2539,12 +2598,16 @@ function rubikMoveDescriptor(move, size = rubikCurrentSize()) {
     const suffix = normalized.slice(wide && normalized[0] === normalized[0].toUpperCase() ? 2 : 1);
     const direction = suffix.includes("'") ? -1 : 1;
     const amount = suffix.includes('2') ? 2 : 1;
+    const layerValues = info.slice
+        ? [0]
+        : Array.from({length: wide ? Math.min(2, Math.floor(size / 2)) : 1}, (_, index) => (size - 1) - index * 2);
     return {
         normalized,
         face,
-        faceIndex: RK_FACE_LETTER_TO_INDEX[face],
+        faceIndex: info.slice ? null : RK_FACE_LETTER_TO_INDEX[face],
         axis: info.axis,
-        layers: wide ? Math.min(2, Math.floor(size / 2)) : 1,
+        layers: layerValues.length,
+        layerValues,
         quarterTurns: info.rotation * direction * amount
     };
 }
@@ -2552,10 +2615,12 @@ function rubikMoveDescriptor(move, size = rubikCurrentSize()) {
 function rubikApplyFaceletMove(cube, move) {
     const descriptor = rubikMoveDescriptor(move, cube.size);
     if (!descriptor) return false;
-    const threshold = (cube.size - 1) - (descriptor.layers - 1) * 2;
     cube.stickers.forEach(sticker => {
-        const layerValue = sticker.x * descriptor.axis[0] + sticker.y * descriptor.axis[1] + sticker.z * descriptor.axis[2];
-        if (layerValue >= threshold) {
+        const layerValue = rubikNearestCoordinate(
+            sticker.x * descriptor.axis[0] + sticker.y * descriptor.axis[1] + sticker.z * descriptor.axis[2],
+            cube.size
+        );
+        if (descriptor.layerValues.includes(layerValue)) {
             rubikRotateFaceletSticker(sticker, descriptor.axis, descriptor.quarterTurns);
         }
     });
@@ -2574,6 +2639,15 @@ function rubikNormalizeAlgorithm(algorithm, size = rubikCurrentSize()) {
 }
 
 function rubikInverseMove(move, size = rubikCurrentSize()) {
+    if (move && typeof move === 'object') {
+        const descriptor = rubikMoveDescriptor(move, size);
+        if (!descriptor) return null;
+        return {
+            ...descriptor,
+            quarterTurns: -descriptor.quarterTurns,
+            normalized: descriptor.normalized ? rubikInverseMove(descriptor.normalized, size) : null
+        };
+    }
     const normalized = rubikNormalizeMoveToken(move, size);
     if (!normalized) return '';
     if (normalized.endsWith('2')) return normalized;
@@ -2601,11 +2675,13 @@ function cloneRubikCube(cube = rubikCube) {
 
 function rubikApplyMoveToCube(cube, move) {
     if (!cube) return false;
-    if (cube.size === 3 && typeof cube.move === 'function') {
-        cube.move(move);
+    const descriptor = rubikMoveDescriptor(move, rubikCurrentSize(cube));
+    if (!descriptor) return false;
+    if (cube.size === 3 && typeof cube.move === 'function' && descriptor.normalized) {
+        cube.move(descriptor.normalized);
         return true;
     }
-    return rubikApplyFaceletMove(cube, move);
+    return rubikApplyFaceletMove(cube, descriptor);
 }
 
 function rubikApplyAlgorithmToCube(cube, algorithm) {
@@ -2893,22 +2969,25 @@ function rubikMoveAnimationInfo(move) {
     const descriptor = rubikMoveDescriptor(move, rubikCurrentSize());
     if (!descriptor) return null;
     return {
-        move: descriptor.normalized,
+        move,
         face: descriptor.face,
         faceIndex: descriptor.faceIndex,
         axis: descriptor.axis,
         layers: descriptor.layers,
+        layerValues: descriptor.layerValues,
         angle: (Math.PI / 2) * descriptor.quarterTurns,
-        duration: descriptor.normalized.includes('2') ? 240 : 180
+        duration: Math.abs(descriptor.quarterTurns) === 2 ? 240 : 180
     };
 }
 
 function rubikStickerOnAnimatedLayer(face, row, col, animation, size = rubikCurrentSize()) {
     if (!animation) return false;
     const sticker = rubikStickerDiscretePosition(face, row, col, size);
-    const threshold = (size - 1) - (animation.layers - 1) * 2;
-    const layerValue = sticker.x * animation.axis[0] + sticker.y * animation.axis[1] + sticker.z * animation.axis[2];
-    return layerValue >= threshold;
+    const layerValue = rubikNearestCoordinate(
+        sticker.x * animation.axis[0] + sticker.y * animation.axis[1] + sticker.z * animation.axis[2],
+        size
+    );
+    return animation.layerValues.includes(layerValue);
 }
 
 function rubikInsetPolygon(points, amount = 0.18) {
@@ -3129,8 +3208,27 @@ function rubikMoveFaceFromAxis(axis) {
     return null;
 }
 
+function rubikDragMoveForLayer(axis, layerValue, direction, size = rubikCurrentSize()) {
+    if (layerValue === 0) {
+        const sliceFace = rubikSliceFaceFromAxis(axis);
+        if (!sliceFace) return null;
+        return rubikMoveDescriptor(`${sliceFace}${direction < 0 ? "'" : ''}`, size);
+    }
+    const face = rubikMoveFaceFromAxis(axis);
+    if (!face) return null;
+    const normalized = layerValue === size - 1 ? `${face}${direction < 0 ? "'" : ''}` : null;
+    if (normalized) return rubikMoveDescriptor(normalized, size);
+    return {
+        face,
+        axis: [...axis],
+        layerValues: [layerValue],
+        quarterTurns: RK_FACE_MOVE_INFO[face].rotation * (direction < 0 ? -1 : 1)
+    };
+}
+
 function rubikMoveFromDrag(canvas, sticker, dragVector) {
     if (!sticker) return null;
+    const size = rubikCurrentSize();
     const localAxes = RK_FACE_LOCAL_AXES[sticker.face];
     const projectedU = rubikProjectedVector(canvas, sticker.center, rubikScale(localAxes.u, 0.45));
     const projectedV = rubikProjectedVector(canvas, sticker.center, rubikScale(localAxes.v, 0.45));
@@ -3138,15 +3236,14 @@ function rubikMoveFromDrag(canvas, sticker, dragVector) {
     const vDot = dragVector[0] * projectedV[0] + dragVector[1] * projectedV[1];
     const localAxis = Math.abs(uDot) >= Math.abs(vDot) ? localAxes.u : localAxes.v;
     const turnAxis = rubikCross(sticker.normal, localAxis);
-    const layerValue = rubikDot(sticker.center, turnAxis);
-    if (Math.abs(layerValue) < 0.55) return null;
-    const face = rubikMoveFaceFromAxis(turnAxis);
-    if (!face) return null;
+    const rawLayerValue = rubikDot(sticker.center, turnAxis);
+    const layerValue = Math.abs(rubikNearestCoordinate(rawLayerValue, size));
+    const orientedAxis = rawLayerValue < 0 ? rubikScale(turnAxis, -1) : turnAxis;
     const tangent = rubikCross(turnAxis, sticker.center);
     const projectedTangent = rubikProjectedVector(canvas, sticker.center, rubikScale(tangent, 0.45));
     const direction = dragVector[0] * projectedTangent[0] + dragVector[1] * projectedTangent[1];
     if (Math.abs(direction) < 1) return null;
-    return `${face}${direction < 0 ? "'" : ''}`;
+    return rubikDragMoveForLayer(orientedAxis, layerValue, direction, size);
 }
 
 function setupRubik3DCanvas() {
@@ -3192,7 +3289,7 @@ function setupRubik3DCanvas() {
                 if (move) {
                     applyRubikMove(move);
                 } else {
-                    setRubikStatus('Drag an edge or corner sticker to turn an outer layer.', 'info');
+                    setRubikStatus('Drag a visible sticker farther in the turn direction to rotate that layer.', 'info');
                 }
             }
         }
@@ -3305,7 +3402,7 @@ function animateRubikMove(move, options = {}) {
             rubikHistory.push(rubikActiveAnimation.move);
             rubikRedoStack = [];
         }
-        rubikLastMove = rubikActiveAnimation.move;
+        rubikLastMove = rubikMoveLabel(rubikActiveAnimation.move, rubikCurrentSize());
         rubikActiveAnimation = null;
         renderRubikBoard();
         if (rubikIsSolved(rubikCube)) {
@@ -3387,7 +3484,7 @@ function applyRubikMove(move) {
     return rubikApplyMoves([move], {
         countMoves: true,
         trackHistory: true,
-        message: `Applied ${move}`,
+        message: `Applied ${rubikMoveLabel(move, rubikCurrentSize())}`,
         tone: 'active'
     });
 }
@@ -3445,11 +3542,11 @@ function undoRubikMove() {
     const move = rubikHistory.pop();
     rubikRedoStack.push(move);
     animateRubikMove(rubikInverseMove(move, rubikCurrentSize()), {
-        message: `Undid ${move}.`,
+        message: `Undid ${rubikMoveLabel(move, rubikCurrentSize())}.`,
         tone: 'info',
         onComplete: () => {
             rubikMoveCount = Math.max(0, rubikMoveCount - 1);
-            rubikLastMove = `undo ${move}`;
+            rubikLastMove = `undo ${rubikMoveLabel(move, rubikCurrentSize())}`;
             updateRubikStats();
         }
     });
@@ -3466,12 +3563,12 @@ function redoRubikMove() {
     }
     const move = rubikRedoStack.pop();
     animateRubikMove(move, {
-        message: `Redid ${move}.`,
+        message: `Redid ${rubikMoveLabel(move, rubikCurrentSize())}.`,
         tone: 'info',
         onComplete: () => {
             rubikHistory.push(move);
             rubikMoveCount++;
-            rubikLastMove = `redo ${move}`;
+            rubikLastMove = `redo ${rubikMoveLabel(move, rubikCurrentSize())}`;
             updateRubikStats();
         }
     });
