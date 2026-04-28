@@ -2535,8 +2535,12 @@ function rubikMoveSuffixFromQuarterTurns(quarterTurns) {
 }
 
 function rubikLayerDepthFromValue(layerValue, size) {
-    // Coordinates step by 2 from the outside in, so each inward slice increases depth by 1.
+    // depth=1 is the outermost layer on that axis; each inward coordinate step of 2 adds one layer of depth.
     return Math.max(1, Math.round(((size - 1) - Math.abs(layerValue)) / 2) + 1);
+}
+
+function rubikMoveFaceLabel(descriptor) {
+    return descriptor.face || rubikMoveFaceFromAxis(descriptor.axis) || rubikSliceFaceFromAxis(descriptor.axis) || '?';
 }
 
 function rubikMoveLabel(move, size = rubikCurrentSize()) {
@@ -2544,9 +2548,10 @@ function rubikMoveLabel(move, size = rubikCurrentSize()) {
     const descriptor = rubikMoveDescriptor(move, size);
     if (!descriptor) return '—';
     if (descriptor.normalized) return descriptor.normalized;
-    const face = descriptor.face || rubikMoveFaceFromAxis(descriptor.axis) || rubikSliceFaceFromAxis(descriptor.axis) || '?';
+    const face = rubikMoveFaceLabel(descriptor);
     const primaryLayer = descriptor.layerValues?.[0] ?? size - 1;
     const depth = rubikLayerDepthFromValue(primaryLayer, size);
+    // Custom inner-slice labels use Face[depth], so R[2] means the second layer in from the R side.
     const base = depth > 1 ? `${face}[${depth}]` : face;
     return `${base}${rubikMoveSuffixFromQuarterTurns(descriptor.quarterTurns)}`;
 }
@@ -2566,7 +2571,7 @@ function rubikNormalizeMoveToken(token, size = rubikCurrentSize()) {
     }
     if (!['', "'", '2', "2'"].includes(rest)) return null;
     if (rest === "2'") rest = '2';
-    // Even cubes do not have a single center slice, so M/E/S only make sense on odd cubes >= 3.
+    // M/E/S require a true center slice, so they are only valid on odd cubes that are at least 3×3.
     if (isSlice && (wide || size < 3 || size % 2 === 0)) return null;
     if (wide && size < 3) return null;
     if (wide && size === 3) return `${face.toLowerCase()}${rest}`;
