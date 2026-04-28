@@ -2385,12 +2385,15 @@ function renderRubikSolutionOutput() {
         solutionEl.textContent = rubikSolutionText;
         return;
     }
-    solutionEl.innerHTML = rubikSolutionMoves.map((move, index) => {
-        const classes = ['rk-solution-move'];
-        if (rubikSolutionActiveIndex >= 0 && index < rubikSolutionActiveIndex) classes.push('done');
-        if (index === rubikSolutionActiveIndex) classes.push('active');
-        return `<span class="${classes.join(' ')}">${move}</span>`;
-    }).join(' ');
+    solutionEl.textContent = '';
+    rubikSolutionMoves.forEach((move, index) => {
+        const chip = document.createElement('span');
+        chip.className = 'rk-solution-move';
+        if (rubikSolutionActiveIndex >= 0 && index < rubikSolutionActiveIndex) chip.classList.add('done');
+        if (index === rubikSolutionActiveIndex) chip.classList.add('active');
+        chip.textContent = move;
+        solutionEl.appendChild(chip);
+    });
 }
 
 function rubikStateFaces(cube = rubikCube) {
@@ -2540,7 +2543,8 @@ function rubikAdd(a, b) {
 }
 
 function rubikNormalize(vec) {
-    const length = Math.hypot(vec[0], vec[1], vec[2]) || 1;
+    const length = Math.hypot(vec[0], vec[1], vec[2]);
+    if (!length) return [0, 0, 0];
     return [vec[0] / length, vec[1] / length, vec[2] / length];
 }
 
@@ -2762,8 +2766,8 @@ function rubikPointInPolygon(point, polygon) {
     for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
         const [xi, yi] = polygon[i];
         const [xj, yj] = polygon[j];
-        const intersects = ((yi > point.y) !== (yj > point.y)) &&
-            (point.x < ((xj - xi) * (point.y - yi)) / ((yj - yi) || 1e-6) + xi);
+        if ((yi > point.y) === (yj > point.y) || yj === yi) continue;
+        const intersects = point.x < ((xj - xi) * (point.y - yi)) / (yj - yi) + xi;
         if (intersects) inside = !inside;
     }
     return inside;
@@ -2782,8 +2786,8 @@ function rubikProjectedVector(canvas, origin, vector) {
     const [orx, ory, orz] = r3dRotate(...origin);
     const [px1, py1] = r3dProject(orx, ory, orz, canvas.width, canvas.height, scale);
     const target = rubikAdd(origin, vector);
-    const [trx, tryY, trz] = r3dRotate(...target);
-    const [px2, py2] = r3dProject(trx, tryY, trz, canvas.width, canvas.height, scale);
+    const [trx, trY, trz] = r3dRotate(...target);
+    const [px2, py2] = r3dProject(trx, trY, trz, canvas.width, canvas.height, scale);
     return [px2 - px1, py2 - py1];
 }
 
