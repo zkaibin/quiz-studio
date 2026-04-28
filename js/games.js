@@ -2549,7 +2549,7 @@ function rubikNormalize(vec) {
 }
 
 function rubikAverage(points) {
-    return points.reduce((sum, point) => rubikAdd(sum, point), [0, 0, 0]).map(value => value / points.length);
+    return rubikScale(points.reduce((sum, point) => rubikAdd(sum, point), [0, 0, 0]), 1 / points.length);
 }
 
 function rubikRotateAroundAxis(point, axis, angle) {
@@ -2589,8 +2589,10 @@ function rubikPointOnAnimatedLayer(point, animation) {
 }
 
 function rubikInsetPolygon(points, amount = 0.18) {
-    const center = points.reduce((sum, point) => [sum[0] + point[0], sum[1] + point[1]], [0, 0]).map(value => value / points.length);
-    return points.map(([x, y]) => [x + (center[0] - x) * amount, y + (center[1] - y) * amount]);
+    const center = points.reduce((sum, point) => [sum[0] + point[0], sum[1] + point[1]], [0, 0]);
+    const centerX = center[0] / points.length;
+    const centerY = center[1] / points.length;
+    return points.map(([x, y]) => [x + (centerX - x) * amount, y + (centerY - y) * amount]);
 }
 
 function rubikFillQuad(ctx, points, fillStyle) {
@@ -2788,8 +2790,8 @@ function rubikProjectedVector(canvas, origin, vector) {
     const [orx, ory, orz] = r3dRotate(...origin);
     const [px1, py1] = r3dProject(orx, ory, orz, canvas.width, canvas.height, scale);
     const target = rubikAdd(origin, vector);
-    const [trx, targetY, trz] = r3dRotate(...target);
-    const [px2, py2] = r3dProject(trx, targetY, trz, canvas.width, canvas.height, scale);
+    const [trx, ry2, trz] = r3dRotate(...target);
+    const [px2, py2] = r3dProject(trx, ry2, trz, canvas.width, canvas.height, scale);
     return [px2 - px1, py2 - py1];
 }
 
@@ -3471,7 +3473,7 @@ function renderRubikGame() {
                     </div>
                 </div>
             </div>
-            <p class="rk-help">Keyboard: U R F D L B turns, Shift for inverse, Space to scramble, Z undo, Y redo, H hint, S solve. Auto-solve now animates each move so you can follow along on a physical cube.</p>
+            <p class="rk-help">Keyboard: U R F D L B turns, Shift for inverse, Space to scramble, Z undo, Y redo, H hint, S solve. Auto-solve animates each move so you can follow along on a physical cube.</p>
         </div>
     `;
     renderRubikMoveButtons();
