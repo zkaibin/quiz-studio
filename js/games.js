@@ -3707,7 +3707,8 @@ function renderRubikGame() {
             .rk-btn.dark { background:linear-gradient(135deg,#334155,#0f172a); }
             .rk-size-picker { display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:14px; background:rgba(255,255,255,.75); border:1px solid rgba(148,163,184,.28); }
             .rk-size-picker span { color:#475569; font-size:.8em; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
-            .rk-size-picker select { border:none; background:transparent; color:#0f172a; font-size:1em; font-weight:800; outline:none; }
+            .rk-size-picker select { border:none; background:transparent; color:#0f172a; font-size:1em; font-weight:800; }
+            .rk-size-picker select:focus-visible { outline:2px solid #6366f1; outline-offset:2px; border-radius:8px; }
             .rk-layout { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(310px,.9fr); gap:18px; }
             .rk-stage-card, .rk-side-card { background:rgba(255,255,255,.86); border:1px solid rgba(148,163,184,.24); border-radius:22px; padding:16px; box-shadow:0 18px 50px rgba(148,163,184,.16); }
             .rk-stage { position:relative; border-radius:22px; overflow:hidden; background:radial-gradient(circle at top, rgba(99,102,241,.18), rgba(15,23,42,.95)); min-height:380px; display:flex; align-items:center; justify-content:center; }
@@ -3759,7 +3760,7 @@ function renderRubikGame() {
                 <div class="rk-toolbar-meta">
                     <label class="rk-size-picker">
                         <span>Size</span>
-                        <select id="rk-size-select" onchange="setRubikSize(Number(this.value))">
+                        <select id="rk-size-select" aria-label="Rubik cube size" onchange="setRubikSize(Number(this.value))">
                             ${RK_SIZE_OPTIONS.map(size => `<option value="${size}" ${size === rubikSize ? 'selected' : ''}>${size}×${size}</option>`).join('')}
                         </select>
                     </label>
