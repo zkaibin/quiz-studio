@@ -2334,7 +2334,7 @@ const RK_FACE_LOCAL_AXES = [
 ];
 
 function rubikCurrentSize(cube = rubikCube) {
-    return Number(cube?.size || rubikSize || 3);
+    return Number(cube?.size ?? rubikSize ?? 3);
 }
 
 function rubikSizeLabel(size = rubikCurrentSize()) {
@@ -2510,7 +2510,7 @@ function rubikRotateFaceletSticker(sticker, axis, quarterTurns) {
 }
 
 function rubikNormalizeMoveToken(token, size = rubikCurrentSize()) {
-    const raw = String(token || '').trim().replace(/’/g, "'");
+    const raw = String(token || '').trim().replace(/[\u2018\u2019]/g, "'");
     if (!raw) return null;
     const faceChar = raw[0];
     if (!/[URFDLBurfdlb]/.test(faceChar)) return null;
@@ -3767,8 +3767,8 @@ function renderRubikGame() {
                             ${RK_SIZE_OPTIONS.map(size => `<option value="${size}" ${size === rubikSize ? 'selected' : ''}>${size}×${size}</option>`).join('')}
                         </select>
                     </label>
-                    <button class="rk-btn primary" id="rk-hint-btn" onclick="showRubikHint()" ${solverEnabled ? '' : 'disabled'}>💡 Hint</button>
-                    <button class="rk-btn primary" id="rk-solve-btn" onclick="solveRubik()" ${solverEnabled ? '' : 'disabled'}>🧠 Auto Solve</button>
+                    <button class="rk-btn primary" id="rk-hint-btn" onclick="showRubikHint()" ${solverEnabled ? '' : 'disabled aria-disabled="true" title="Hint is available for 3×3 only"'}>💡 Hint</button>
+                    <button class="rk-btn primary" id="rk-solve-btn" onclick="solveRubik()" ${solverEnabled ? '' : 'disabled aria-disabled="true" title="Auto-solve is available for 3×3 only"'}>🧠 Auto Solve</button>
                     <button class="rk-btn dark" id="rk-fullscreen-btn" onclick="toggleRubikFullscreen()">⛶ Fullscreen</button>
                 </div>
             </div>
