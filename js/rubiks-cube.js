@@ -27,7 +27,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     FACE_LOCAL_AXES[FACE.L] = { u: [0, 0, 1], v: [0, -1, 0], n: [-1, 0, 0] };
     FACE_LOCAL_AXES[FACE.R] = { u: [0, 0, -1], v: [0, -1, 0], n: [1, 0, 0] };
     Object.entries(FACE_LOCAL_AXES).forEach(([faceKey, axes]) => {
-      FACE_CAMERA_UP[faceKey] = vecScale(axes.v, -1);
+      FACE_CAMERA_UP[faceKey] = [-axes.v[0], -axes.v[1], -axes.v[2]];
     });
   }
 
