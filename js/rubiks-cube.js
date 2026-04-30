@@ -628,7 +628,17 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     }
     const key = event.key.toLowerCase();
     if ('urfdlb'.includes(key)) {
+      const cameraAndControlsExist = !!(camera && controls);
+      const savedCameraPosition = cameraAndControlsExist ? camera.position.clone() : null;
+      const savedCameraUp = cameraAndControlsExist ? camera.up.clone() : null;
+      const savedControlsTarget = cameraAndControlsExist ? controls.target.clone() : null;
       applyMove(event.shiftKey ? `${key.toUpperCase()}'` : key.toUpperCase());
+      if (cameraAndControlsExist) {
+        camera.position.copy(savedCameraPosition);
+        camera.up.copy(savedCameraUp);
+        controls.target.copy(savedControlsTarget);
+        controls.update();
+      }
       event.preventDefault();
       return;
     }
