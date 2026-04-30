@@ -13,6 +13,10 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   const FACE = Core ? Core.FACE : {};
   const FACE_COLORS = Core ? Core.FACE_COLORS : [];
   const MOVE_INFO = Core ? Core.FACE_MOVE_INFO : {};
+  const CUBIE_SIZE_RATIO = 0.985;
+  const STICKER_SIZE_RATIO = 0.84;
+  const STICKER_LIFT = 0.004;
+  const MIN_MOVE_DURATION_MS = 55;
   const FACE_LOCAL_AXES = {};
   if (Core) {
     FACE_LOCAL_AXES[FACE.U] = { u: [1, 0, 0], v: [0, 0, 1], n: [0, 1, 0] };
@@ -36,12 +40,15 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   let processingQueue = false;
   let animation = null;
   let scrambleSeed = 1;
+  let animationSpeed = 1;
+  let stateMoveStack = [];
 
   let renderer, scene, camera, controls;
+  let coarsePointerQuery = null;
   let cubeGroup;
   let raycaster;
   let pointer = null;
-  const dragState = { active: false, turned: false, sticker: null, start: { x: 0, y: 0 }, end: { x: 0, y: 0 } };
+  const dragState = { active: false, turned: false, sticker: null, start: { x: 0, y: 0 }, end: { x: 0, y: 0 }, pointerId: null };
 
   const refs = {
     mount: document.getElementById('rk3d-mount'),
@@ -50,7 +57,9 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     resetBtn: document.getElementById('rk-reset-btn'),
     undoBtn: document.getElementById('rk-undo-btn'),
     redoBtn: document.getElementById('rk-redo-btn'),
+    solveBtn: document.getElementById('rk-solve-btn'),
     applyBtn: document.getElementById('rk-apply-btn'),
+    speedSelect: document.getElementById('rk-speed'),
     algInput: document.getElementById('rk-alg-input'),
     statusBadge: document.getElementById('rk-status-badge'),
     statusText: document.getElementById('rk-status-text'),
@@ -76,6 +85,12 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     return len ? [a[0] / len, a[1] / len, a[2] / len] : [0, 0, 0];
   }
 
+  function updateRendererPixelRatio() {
+    if (!renderer) return;
+    const isTouchDevice = !!(coarsePointerQuery && coarsePointerQuery.matches);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isTouchDevice ? 1.5 : 2));
+  }
+
   function initScene() {
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0x0f172a);
@@ -83,8 +98,13 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
     camera.position.set(4.4, 4.2, 5.8);
 
-    renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+    coarsePointerQuery = window.matchMedia('(pointer: coarse)');
+    updateRendererPixelRatio();
+    if (typeof coarsePointerQuery.addEventListener === 'function') {
+      coarsePointerQuery.addEventListener('change', updateRendererPixelRatio);
+    }
+    renderer.domElement.style.touchAction = 'none';
     refs.mount.appendChild(renderer.domElement);
 
     const ambient = new THREE.AmbientLight(0xffffff, 0.7);
@@ -164,9 +184,9 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     clearGroup(cubeGroup);
 
     const spacing = 1 / Math.max(2, size);
-    const cubieSize = spacing * 0.94;
-    const stickerSize = spacing * 0.78;
-    const offset = cubieSize / 2 + 0.004;
+    const cubieSize = spacing * CUBIE_SIZE_RATIO;
+    const stickerSize = spacing * STICKER_SIZE_RATIO;
+    const offset = cubieSize / 2 + STICKER_LIFT;
 
     const coreGeo = new THREE.BoxGeometry(cubieSize, cubieSize, cubieSize);
     const coreMat = new THREE.MeshPhongMaterial({ color: 0x0b1020, shininess: 18 });
@@ -227,7 +247,9 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     refs.scramble.textContent = scrambleText;
     refs.undoBtn.disabled = !history.length || processingQueue || !!animation;
     refs.redoBtn.disabled = !redoStack.length || processingQueue || !!animation;
+    refs.solveBtn.disabled = !stateMoveStack.length || processingQueue || !!animation;
     refs.sizeSelect.disabled = processingQueue || !!animation;
+    refs.speedSelect.disabled = processingQueue || !!animation;
     refs.applyBtn.disabled = processingQueue || !!animation;
     refs.scrambleBtn.disabled = processingQueue || !!animation;
     refs.resetBtn.disabled = processingQueue || !!animation;
@@ -263,6 +285,20 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     return Core.normalizeAlgorithm(input, size);
   }
 
+  function trackAppliedMove(move) {
+    const descriptor = Core.moveDescriptor(move, size);
+    if (!descriptor) return;
+    const moveLabel = descriptor.normalized ? descriptor.normalized : model.moveLabel(descriptor);
+    if (!moveLabel) return;
+    const inverse = Core.inverseMove(moveLabel, size);
+    const lastTrackedMove = stateMoveStack[stateMoveStack.length - 1];
+    if (lastTrackedMove && inverse && lastTrackedMove === inverse) {
+      stateMoveStack.pop();
+      return;
+    }
+    stateMoveStack.push(moveLabel);
+  }
+
   function queueMove(move, options) {
     moveQueue.push({ move, options: options || {} });
     processQueue();
@@ -270,6 +306,16 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
 
   function queueMoves(moves, options) {
     for (const move of moves) queueMove(move, options);
+  }
+
+  function clearUndoRedoHistory() {
+    history = [];
+    redoStack = [];
+  }
+
+  function replaceStateMovesWithSequence(moves) {
+    stateMoveStack = [];
+    moves.forEach((move) => trackAppliedMove(move));
   }
 
   function getCubiesForDescriptor(descriptor) {
@@ -295,7 +341,8 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
 
     const axis = new THREE.Vector3(descriptor.axis[0], descriptor.axis[1], descriptor.axis[2]).normalize();
     const turns = Math.abs(descriptor.quarterTurns);
-    const duration = turns === 2 ? 230 : 170;
+    const baseDuration = turns === 2 ? 230 : 170;
+    const duration = Math.max(MIN_MOVE_DURATION_MS, Math.round(baseDuration / animationSpeed));
 
     animation = {
       startedAt: performance.now(),
@@ -309,6 +356,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
         cubeGroup.remove(pivot);
 
         model.applyDescriptor(descriptor);
+        if (entry.options.trackState !== false) trackAppliedMove(descriptor);
         buildCubeMeshes();
         animation = null;
 
@@ -362,8 +410,8 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     model = new Core.CubeModel(size);
     moveCount = 0;
     lastMove = '—';
-    history = [];
-    redoStack = [];
+    clearUndoRedoHistory();
+    stateMoveStack = [];
     scrambleText = '—';
     setStatus(`${size}×${size} cube ready.`, 'ready');
     buildCubeMeshes();
@@ -376,10 +424,37 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     const seed = seedForScramble();
     const sequence = Core.generateScramble(size, { seed });
     model.applyMoves(sequence);
+    replaceStateMovesWithSequence(sequence);
     scrambleText = `${sequence.join(' ')} (seed:${seed})`;
     setStatus('Scrambled. Start solving.', 'active');
     buildCubeMeshes();
     refreshUI();
+  }
+
+  function autoSolve() {
+    if (processingQueue || animation) return;
+    if (!stateMoveStack.length) {
+      setStatus('Cube is already solved.', 'success');
+      refreshUI();
+      return;
+    }
+    const steps = stateMoveStack
+      .slice()
+      .reverse()
+      .map((move) => Core.inverseMove(move, size))
+      .filter(Boolean);
+    if (!steps.length) {
+      setStatus('No solvable move history available.', 'warning');
+      refreshUI();
+      return;
+    }
+    clearUndoRedoHistory();
+    queueMoves(steps, {
+      countMove: false,
+      message: `Auto-solving (${steps.length} steps)...`,
+      tone: 'active',
+      trackState: true
+    });
   }
 
   function undo() {
@@ -485,9 +560,12 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
 
   function onPointerDown(event) {
     if (processingQueue || animation) return;
+    event.preventDefault();
+    renderer.domElement.setPointerCapture(event.pointerId);
     const sticker = pickSticker(event);
     dragState.active = true;
     dragState.turned = false;
+    dragState.pointerId = event.pointerId;
     dragState.sticker = sticker;
     dragState.start = eventPoint(event);
     dragState.end = dragState.start;
@@ -495,13 +573,17 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   }
 
   function onPointerMove(event) {
-    if (!dragState.active) return;
+    if (!dragState.active || event.pointerId !== dragState.pointerId) return;
     dragState.end = eventPoint(event);
     event.preventDefault();
   }
 
   function onPointerUp(event) {
-    if (!dragState.active) return;
+    if (!dragState.active || event.pointerId !== dragState.pointerId) return;
+    event.preventDefault();
+    if (renderer.domElement.hasPointerCapture(event.pointerId)) {
+      renderer.domElement.releasePointerCapture(event.pointerId);
+    }
     dragState.end = eventPoint(event);
     const drag = [dragState.end.x - dragState.start.x, dragState.end.y - dragState.start.y];
     if (dragState.sticker && Math.hypot(drag[0], drag[1]) > 24) {
@@ -510,6 +592,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     }
 
     dragState.active = false;
+    dragState.pointerId = null;
     dragState.sticker = null;
     controls.enabled = true;
   }
@@ -550,8 +633,13 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     });
     refs.scrambleBtn.addEventListener('click', scrambleCube);
     refs.resetBtn.addEventListener('click', resetCube);
+    refs.solveBtn.addEventListener('click', autoSolve);
     refs.undoBtn.addEventListener('click', undo);
     refs.redoBtn.addEventListener('click', redo);
+    refs.speedSelect.addEventListener('change', () => {
+      const value = Number(refs.speedSelect.value);
+      animationSpeed = Number.isFinite(value) && value > 0 ? value : 1;
+    });
     refs.applyBtn.addEventListener('click', applyAlgorithm);
     document.addEventListener('keydown', onKey);
   }
@@ -565,8 +653,10 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
       refs.resetBtn.disabled = true;
       refs.undoBtn.disabled = true;
       refs.redoBtn.disabled = true;
+      refs.solveBtn.disabled = true;
       refs.applyBtn.disabled = true;
       refs.algInput.disabled = true;
+      refs.speedSelect.disabled = true;
       return;
     }
 
