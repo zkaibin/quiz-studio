@@ -288,10 +288,11 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   function trackAppliedMove(move) {
     const descriptor = Core.moveDescriptor(move, size);
     if (!descriptor) return;
-    const moveLabel = descriptor.normalized || model.moveLabel(descriptor);
+    const moveLabel = descriptor.normalized ? descriptor.normalized : model.moveLabel(descriptor);
     if (!moveLabel) return;
     const inverse = Core.inverseMove(moveLabel, size);
-    if (stateMoveStack.length && inverse && stateMoveStack[stateMoveStack.length - 1] === inverse) {
+    const lastTrackedMove = stateMoveStack[stateMoveStack.length - 1];
+    if (lastTrackedMove && inverse && lastTrackedMove === inverse) {
       stateMoveStack.pop();
       return;
     }
@@ -310,6 +311,11 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   function clearUndoRedoHistory() {
     history = [];
     redoStack = [];
+  }
+
+  function replaceStateMovesWithSequence(moves) {
+    stateMoveStack = [];
+    moves.forEach((move) => trackAppliedMove(move));
   }
 
   function getCubiesForDescriptor(descriptor) {
@@ -418,8 +424,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     const seed = seedForScramble();
     const sequence = Core.generateScramble(size, { seed });
     model.applyMoves(sequence);
-    stateMoveStack = [];
-    sequence.forEach((move) => trackAppliedMove(move));
+    replaceStateMovesWithSequence(sequence);
     scrambleText = `${sequence.join(' ')} (seed:${seed})`;
     setStatus('Scrambled. Start solving.', 'active');
     buildCubeMeshes();
