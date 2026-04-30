@@ -79,6 +79,62 @@
     return null;
   }
 
+  function faceIndexFromVector(vector) {
+    if (!vector) return null;
+    if (vector[1] === 1) return FACE.U;
+    if (vector[1] === -1) return FACE.D;
+    if (vector[2] === 1) return FACE.F;
+    if (vector[2] === -1) return FACE.B;
+    if (vector[0] === -1) return FACE.L;
+    if (vector[0] === 1) return FACE.R;
+    return null;
+  }
+
+  function vecNeg(vector) {
+    return [-vector[0], -vector[1], -vector[2]];
+  }
+
+  function canonicalNetFaceMapping() {
+    return { U: FACE.U, L: FACE.L, F: FACE.F, R: FACE.R, B: FACE.B, D: FACE.D };
+  }
+
+  function slotNormalFromBasis(slot, basis) {
+    if (!basis) return null;
+    const front = basis.front;
+    const up = basis.up;
+    const right = basis.right;
+    if (!front || !up || !right) return null;
+    if (slot === 'F') return front;
+    if (slot === 'B') return vecNeg(front);
+    if (slot === 'R') return right;
+    if (slot === 'L') return vecNeg(right);
+    if (slot === 'U') return up;
+    if (slot === 'D') return vecNeg(up);
+    return null;
+  }
+
+  function resolveNetFaceMapping(mode, basis) {
+    const fallback = canonicalNetFaceMapping();
+    if (mode !== 'view') return fallback;
+    return {
+      U: faceIndexFromVector(slotNormalFromBasis('U', basis)) ?? fallback.U,
+      L: faceIndexFromVector(slotNormalFromBasis('L', basis)) ?? fallback.L,
+      F: faceIndexFromVector(slotNormalFromBasis('F', basis)) ?? fallback.F,
+      R: faceIndexFromVector(slotNormalFromBasis('R', basis)) ?? fallback.R,
+      B: faceIndexFromVector(slotNormalFromBasis('B', basis)) ?? fallback.B,
+      D: faceIndexFromVector(slotNormalFromBasis('D', basis)) ?? fallback.D
+    };
+  }
+
+  function viewOrientationLabel(basis) {
+    const frontFace = faceIndexFromVector(slotNormalFromBasis('F', basis));
+    const upFace = faceIndexFromVector(slotNormalFromBasis('U', basis));
+    return {
+      front: frontFace === null ? '?' : FACE_LETTERS[frontFace],
+      up: upFace === null ? '?' : FACE_LETTERS[upFace]
+    };
+  }
+
   function rotateDiscreteVector(vector, axis, direction) {
     const sign = axis[0] || axis[1] || axis[2];
     if (!sign) return [vector[0], vector[1], vector[2]];
@@ -452,6 +508,9 @@
     normalizeAlgorithm,
     moveDescriptor,
     inverseMove,
+    canonicalNetFaceMapping,
+    resolveNetFaceMapping,
+    viewOrientationLabel,
     generateScramble,
     scrambleLengthForSize,
     CubeModel

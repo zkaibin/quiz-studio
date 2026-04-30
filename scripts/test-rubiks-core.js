@@ -5,7 +5,10 @@ const {
   inverseMove,
   generateScramble,
   normalizeAlgorithm,
-  normalizeMoveToken
+  normalizeMoveToken,
+  canonicalNetFaceMapping,
+  resolveNetFaceMapping,
+  viewOrientationLabel
 } = require('../js/rubiks-cube-core');
 
 function applyAndInverseIdentity(size) {
@@ -110,6 +113,45 @@ function descriptorLabelCoverage() {
   );
 }
 
+function netOrientationMappingCoverage() {
+  const canonical = canonicalNetFaceMapping();
+  assert.deepStrictEqual(
+    resolveNetFaceMapping('fixed'),
+    canonical,
+    'fixed net mode should always use canonical face mapping'
+  );
+  assert.deepStrictEqual(
+    resolveNetFaceMapping('fixed', { front: [1, 0, 0], up: [0, 1, 0], right: [0, 0, -1] }),
+    canonical,
+    'fixed net mode should ignore view basis'
+  );
+  assert.deepStrictEqual(
+    resolveNetFaceMapping('view', { front: [0, 0, 1], up: [0, 1, 0], right: [1, 0, 0] }),
+    canonical,
+    'view mode should match canonical mapping in the default orientation'
+  );
+
+  const rightFrontBasis = { front: [1, 0, 0], up: [0, 1, 0], right: [0, 0, -1] };
+  const rightFront = resolveNetFaceMapping('view', rightFrontBasis);
+  assert.strictEqual(rightFront.F, canonical.R, 'view mode front slot should follow camera orientation');
+  assert.strictEqual(rightFront.B, canonical.L, 'view mode back slot should follow camera orientation');
+  assert.strictEqual(rightFront.R, canonical.B, 'view mode right slot should follow camera orientation');
+  assert.strictEqual(rightFront.L, canonical.F, 'view mode left slot should follow camera orientation');
+  assert.strictEqual(rightFront.U, canonical.U, 'view mode up slot should follow camera orientation');
+  assert.strictEqual(rightFront.D, canonical.D, 'view mode down slot should follow camera orientation');
+
+  assert.deepStrictEqual(
+    viewOrientationLabel({ front: [0, 0, 1], up: [0, 1, 0], right: [1, 0, 0] }),
+    { front: 'F', up: 'U' },
+    'orientation label should report canonical front/up for default basis'
+  );
+  assert.deepStrictEqual(
+    viewOrientationLabel(rightFrontBasis),
+    { front: 'R', up: 'U' },
+    'orientation label should report current view front/up faces'
+  );
+}
+
 for (let size = 2; size <= 10; size++) {
   const solved = new CubeModel(size);
   assert.ok(solved.isSolved(), `new cube must be solved for ${size}`);
@@ -120,5 +162,6 @@ for (let size = 2; size <= 10; size++) {
   applyAndInverseIdentity(size);
 }
 descriptorLabelCoverage();
+netOrientationMappingCoverage();
 
 console.log('Rubik core validation passed for sizes 2x2 through 10x10.');

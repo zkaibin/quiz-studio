@@ -58,6 +58,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   let scrambleSeed = 1;
   let animationSpeed = 1;
   let stateMoveStack = [];
+  let netMode = 'fixed';
 
   let renderer, scene, camera, controls;
   let coarsePointerQuery = null;
@@ -90,7 +91,9 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     moves: document.getElementById('rk-moves'),
     last: document.getElementById('rk-last'),
     scramble: document.getElementById('rk-scramble'),
-    net: document.getElementById('rk-net')
+    net: document.getElementById('rk-net'),
+    netMode: document.getElementById('rk-net-mode'),
+    orientation: document.getElementById('rk-orientation')
   };
 
   function populateSizeOptions() {
@@ -138,16 +141,6 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     const out = [0, 0, 0];
     out[bestAxis] = components[bestAxis] >= 0 ? 1 : -1;
     return out;
-  }
-  function faceIndexFromVector(v) {
-    if (!v) return null;
-    if (v[1] === 1) return FACE.U;
-    if (v[1] === -1) return FACE.D;
-    if (v[2] === 1) return FACE.F;
-    if (v[2] === -1) return FACE.B;
-    if (v[0] === -1) return FACE.L;
-    if (v[0] === 1) return FACE.R;
-    return null;
   }
   function coordinateForIndex(index, size) {
     return index * 2 - (size - 1);
@@ -440,6 +433,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     refs.redoBtn.disabled = !redoStack.length || processingQueue || !!animation;
     refs.solveBtn.disabled = !stateMoveStack.length || processingQueue || !!animation;
     refs.sizeSelect.disabled = processingQueue || !!animation;
+    refs.netMode.disabled = processingQueue || !!animation;
     refs.speedSelect.disabled = processingQueue || !!animation;
     refs.applyBtn.disabled = processingQueue || !!animation;
     refs.scrambleBtn.disabled = processingQueue || !!animation;
@@ -450,15 +444,11 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   function renderNet() {
     if (!model || !refs.net) return;
     const basis = currentViewBasis();
-    const fallbackBySlot = { U: FACE.U, L: FACE.L, F: FACE.F, R: FACE.R, B: FACE.B, D: FACE.D };
-    const mapping = {
-      U: faceIndexFromVector(slotBasis('U', basis).normal) ?? fallbackBySlot.U,
-      L: faceIndexFromVector(slotBasis('L', basis).normal) ?? fallbackBySlot.L,
-      F: faceIndexFromVector(slotBasis('F', basis).normal) ?? fallbackBySlot.F,
-      R: faceIndexFromVector(slotBasis('R', basis).normal) ?? fallbackBySlot.R,
-      B: faceIndexFromVector(slotBasis('B', basis).normal) ?? fallbackBySlot.B,
-      D: faceIndexFromVector(slotBasis('D', basis).normal) ?? fallbackBySlot.D
-    };
+    const mapping = Core.resolveNetFaceMapping(netMode, basis);
+    const orientation = Core.viewOrientationLabel(basis);
+    if (refs.orientation) {
+      refs.orientation.textContent = `Front: ${orientation.front} · Up: ${orientation.up}`;
+    }
     const templates = [
       { slot: 'U', cls: 'u', label: 'U' },
       { slot: 'L', cls: 'l', label: 'L' },
@@ -972,6 +962,10 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     refs.solveBtn.addEventListener('click', autoSolve);
     refs.undoBtn.addEventListener('click', undo);
     refs.redoBtn.addEventListener('click', redo);
+    refs.netMode.addEventListener('change', () => {
+      netMode = refs.netMode.value === 'view' ? 'view' : 'fixed';
+      renderNet();
+    });
     refs.speedSelect.addEventListener('change', () => {
       const value = Number(refs.speedSelect.value);
       animationSpeed = Number.isFinite(value) && value > 0 ? value : 1;
@@ -992,6 +986,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
       refs.solveBtn.disabled = true;
       refs.applyBtn.disabled = true;
       refs.algInput.disabled = true;
+      refs.netMode.disabled = true;
       refs.speedSelect.disabled = true;
       return;
     }
