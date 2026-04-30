@@ -17,6 +17,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   const STICKER_SIZE_RATIO = 0.84;
   const STICKER_LIFT = 0.004;
   const MIN_MOVE_DURATION_MS = 55;
+  const PERPENDICULAR_EPSILON = 1e-6;
   const DRAG_DIRECTION_SIGN_BY_FACE = { U: -1, D: -1, R: -1, L: -1, F: -1, B: -1 };
   const FACE_LOCAL_AXES = {};
   const FACE_CAMERA_UP = {};
@@ -93,9 +94,9 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   function vecNeg(a) { return [-a[0], -a[1], -a[2]]; }
   function axisIndexOfVector(v) {
     const components = [Math.abs(v[0] ?? 0), Math.abs(v[1] ?? 0), Math.abs(v[2] ?? 0)];
-    let bestAxis = 0;
-    let best = components[0];
-    for (let axis = 1; axis < 3; axis++) {
+    let bestAxis = null;
+    let best = -1;
+    for (let axis = 0; axis < 3; axis++) {
       if (components[axis] > best) {
         bestAxis = axis;
         best = components[axis];
@@ -147,7 +148,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     const excludedFrontAxis = frontAxis === null ? [] : [frontAxis];
 
     let up = dominantAxisVector(camera.up, excludedFrontAxis);
-    if (!up || Math.abs(vecDot(up, front)) > 1e-6) {
+    if (!up || Math.abs(vecDot(up, front)) > PERPENDICULAR_EPSILON) {
       up = dominantAxisVector([0, 1, 0], excludedFrontAxis) || dominantAxisVector([0, 0, 1], excludedFrontAxis) || fallback.up;
     }
     let right = vecCross(up, front);
