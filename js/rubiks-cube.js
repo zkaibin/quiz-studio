@@ -92,10 +92,16 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   }
   function vecNeg(a) { return [-a[0], -a[1], -a[2]]; }
   function axisIndexOfVector(v) {
-    if (v[0]) return 0;
-    if (v[1]) return 1;
-    if (v[2]) return 2;
-    return -1;
+    const components = [Math.abs(v[0] || 0), Math.abs(v[1] || 0), Math.abs(v[2] || 0)];
+    let bestAxis = 0;
+    let best = components[0];
+    for (let axis = 1; axis < 3; axis++) {
+      if (components[axis] > best) {
+        bestAxis = axis;
+        best = components[axis];
+      }
+    }
+    return best > 0 ? bestAxis : -1;
   }
   function dominantAxisVector(v, excludedAxis) {
     const excluded = new Set(Array.isArray(excludedAxis) ? excludedAxis : (excludedAxis === undefined ? [] : [excludedAxis]));
@@ -140,7 +146,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     const frontAxis = axisIndexOfVector(front);
 
     let up = dominantAxisVector(camera.up, [frontAxis]);
-    if (!up || vecDot(up, front) !== 0) {
+    if (!up || Math.abs(vecDot(up, front)) > 1e-10) {
       up = dominantAxisVector([0, 1, 0], [frontAxis]) || dominantAxisVector([0, 0, 1], [frontAxis]) || fallback.up;
     }
     let right = vecCross(up, front);
