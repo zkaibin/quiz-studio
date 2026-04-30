@@ -628,15 +628,15 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     }
     const key = event.key.toLowerCase();
     if ('urfdlb'.includes(key)) {
-      const hasCameraAndControls = !!(camera && controls);
-      const cameraPosition = hasCameraAndControls ? camera.position.clone() : null;
-      const cameraUp = hasCameraAndControls ? camera.up.clone() : null;
-      const controlsTarget = hasCameraAndControls ? controls.target.clone() : null;
+      const cameraAndControlsExist = !!(camera && controls);
+      const savedCameraPosition = cameraAndControlsExist ? camera.position.clone() : null;
+      const savedCameraUp = cameraAndControlsExist ? camera.up.clone() : null;
+      const savedControlsTarget = cameraAndControlsExist ? controls.target.clone() : null;
       applyMove(event.shiftKey ? `${key.toUpperCase()}'` : key.toUpperCase());
-      if (hasCameraAndControls) {
-        camera.position.copy(cameraPosition);
-        camera.up.copy(cameraUp);
-        controls.target.copy(controlsTarget);
+      if (cameraAndControlsExist) {
+        camera.position.copy(savedCameraPosition);
+        camera.up.copy(savedCameraUp);
+        controls.target.copy(savedControlsTarget);
         controls.update();
       }
       event.preventDefault();
