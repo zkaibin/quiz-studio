@@ -553,7 +553,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     const oriented = rawLayerValue < 0 ? vecScale(turnAxis, -1) : turnAxis;
     const layerValue = Core.nearestCoordinate(vecDot(sticker.center, oriented), size);
 
-    const tangent = vecCross(turnAxis, sticker.center);
+    const tangent = vecCross(oriented, sticker.center);
     const projectedTangent = projectedVector(sticker.center, vecScale(vecNorm(tangent), 0.45));
     const direction = drag[0] * projectedTangent[0] + drag[1] * projectedTangent[1];
     if (Math.abs(direction) < 1) return null;
