@@ -77,6 +77,29 @@ function randomConsistency(size) {
   assert.strictEqual(a.serialize(), b.serialize(), `sequence consistency failed for ${size}`);
 }
 
+function targetedLayerIdentity(size) {
+  const cube = new CubeModel(size);
+  const baseline = cube.serialize();
+  const maxDepth = Math.floor(size / 2);
+  const sequence = ['R', "U'", 'F2'];
+
+  if (size >= 4) {
+    sequence.push('Rw', "2Uw'");
+    if (maxDepth >= 3) sequence.push(`${maxDepth}Rw`);
+  }
+  if (size >= 3 && size % 2 === 1) {
+    sequence.push('M', "E'", 'S2');
+  }
+
+  const normalized = sequence
+    .map((move) => normalizeMoveToken(move, size))
+    .filter(Boolean);
+  cube.applyMoves(normalized);
+  const inverted = [...normalized].reverse().map((m) => inverseMove(m, size));
+  cube.applyMoves(inverted);
+  assert.strictEqual(cube.serialize(), baseline, `targeted layer identity failed for ${size}x${size}`);
+}
+
 function descriptorLabelCoverage() {
   const cube3 = new CubeModel(3);
   assert.strictEqual(
@@ -160,6 +183,7 @@ for (let size = 2; size <= 10; size++) {
   notationCoverage(size);
   randomConsistency(size);
   applyAndInverseIdentity(size);
+  targetedLayerIdentity(size);
 }
 descriptorLabelCoverage();
 netOrientationMappingCoverage();
