@@ -13,6 +13,10 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   const FACE = Core ? Core.FACE : {};
   const FACE_COLORS = Core ? Core.FACE_COLORS : [];
   const MOVE_INFO = Core ? Core.FACE_MOVE_INFO : {};
+  const CUBIE_SIZE_RATIO = 0.985;
+  const STICKER_SIZE_RATIO = 0.84;
+  const STICKER_LIFT = 0.004;
+  const MIN_MOVE_DURATION_MS = 55;
   const FACE_LOCAL_AXES = {};
   if (Core) {
     FACE_LOCAL_AXES[FACE.U] = { u: [1, 0, 0], v: [0, 0, 1], n: [0, 1, 0] };
@@ -83,9 +87,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
 
   function updateRendererPixelRatio() {
     if (!renderer) return;
-    const isTouchDevice = coarsePointerQuery
-      ? coarsePointerQuery.matches
-      : window.matchMedia('(pointer: coarse)').matches;
+    const isTouchDevice = !!(coarsePointerQuery && coarsePointerQuery.matches);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isTouchDevice ? 1.5 : 2));
   }
 
@@ -181,13 +183,10 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   function buildCubeMeshes() {
     clearGroup(cubeGroup);
 
-    const cubieSizeRatio = 0.985;
-    const stickerSizeRatio = 0.84;
-    const stickerLift = 0.004;
     const spacing = 1 / Math.max(2, size);
-    const cubieSize = spacing * cubieSizeRatio;
-    const stickerSize = spacing * stickerSizeRatio;
-    const offset = cubieSize / 2 + stickerLift;
+    const cubieSize = spacing * CUBIE_SIZE_RATIO;
+    const stickerSize = spacing * STICKER_SIZE_RATIO;
+    const offset = cubieSize / 2 + STICKER_LIFT;
 
     const coreGeo = new THREE.BoxGeometry(cubieSize, cubieSize, cubieSize);
     const coreMat = new THREE.MeshPhongMaterial({ color: 0x0b1020, shininess: 18 });
@@ -308,6 +307,11 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     for (const move of moves) queueMove(move, options);
   }
 
+  function clearUndoRedoHistory() {
+    history = [];
+    redoStack = [];
+  }
+
   function getCubiesForDescriptor(descriptor) {
     const axis = descriptor.axis;
     return cubeGroup.children.filter((child) => {
@@ -332,7 +336,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     const axis = new THREE.Vector3(descriptor.axis[0], descriptor.axis[1], descriptor.axis[2]).normalize();
     const turns = Math.abs(descriptor.quarterTurns);
     const baseDuration = turns === 2 ? 230 : 170;
-    const duration = Math.max(55, Math.round(baseDuration / animationSpeed));
+    const duration = Math.max(MIN_MOVE_DURATION_MS, Math.round(baseDuration / animationSpeed));
 
     animation = {
       startedAt: performance.now(),
@@ -400,8 +404,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     model = new Core.CubeModel(size);
     moveCount = 0;
     lastMove = '—';
-    history = [];
-    redoStack = [];
+    clearUndoRedoHistory();
     stateMoveStack = [];
     scrambleText = '—';
     setStatus(`${size}×${size} cube ready.`, 'ready');
@@ -440,8 +443,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
       refreshUI();
       return;
     }
-    history = [];
-    redoStack = [];
+    clearUndoRedoHistory();
     queueMoves(steps, {
       countMove: false,
       message: `Auto-solving (${steps.length} steps)...`,
