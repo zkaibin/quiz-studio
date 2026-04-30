@@ -201,5 +201,5 @@ body {
   .toolbar .group { width: 100%; }
   .btn { flex: 1; }
   .alg-row { flex-direction: column; }
-  #rk3d-mount { min-height: 300px; }
+  #rk3d-mount { min-height: 320px; }
 }
