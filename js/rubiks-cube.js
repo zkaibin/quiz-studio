@@ -18,6 +18,15 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   const STICKER_LIFT = 0.004;
   const MIN_MOVE_DURATION_MS = 55;
   const PERPENDICULAR_EPSILON = 1e-6;
+  const PROJECTION_EPSILON = 1e-4;
+  const DRAG_DIRECTION_MIN_COMPONENT_PX = 6;
+  const HALF = 0.5;
+  const PROJECTION_SAMPLE_RATIO = 0.45;
+  const MIN_PROJECTION_SAMPLE_WORLD = 0.03;
+  const MIN_DRAG_THRESHOLD_PX = 8;
+  const MAX_DRAG_THRESHOLD_PX = 24;
+  const DRAG_THRESHOLD_RATIO = 0.45;
+  const DRAG_DEBUG_QUERY_KEY = 'rkdebug';
   const DRAG_DIRECTION_SIGN_BY_FACE = { U: -1, D: -1, R: -1, L: -1, F: -1, B: -1 };
   const FACE_LOCAL_AXES = {};
   const FACE_CAMERA_UP = {};
@@ -52,6 +61,14 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
 
   let renderer, scene, camera, controls;
   let coarsePointerQuery = null;
+  const dragDebugEnabled = (() => {
+    const params = new URLSearchParams(window.location.search);
+    const raw = params.get(DRAG_DEBUG_QUERY_KEY);
+    if (raw === null) return false;
+    const normalized = raw.trim().toLowerCase();
+    return normalized === '' || normalized === '1' || normalized === 'true' || normalized === 'yes' || normalized === 'on';
+  })();
+  let dragDebugOverlay = null;
   let cubeGroup;
   let raycaster;
   let pointer = null;
@@ -217,6 +234,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     }
     renderer.domElement.style.touchAction = 'none';
     refs.mount.appendChild(renderer.domElement);
+    initDragDebugOverlay();
 
     const ambient = new THREE.AmbientLight(0xffffff, 0.7);
     const key = new THREE.DirectionalLight(0xffffff, 0.7);
@@ -244,6 +262,53 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     window.addEventListener('resize', resize);
     resize();
     renderLoop();
+  }
+
+  function initDragDebugOverlay() {
+    if (!dragDebugEnabled || !refs.mount) return;
+    dragDebugOverlay = document.createElement('pre');
+    dragDebugOverlay.className = 'rk-drag-debug';
+    refs.mount.appendChild(dragDebugOverlay);
+    setDragDebugText(['debug: on', 'waiting for drag']);
+  }
+
+  function setDragDebugText(lines) {
+    if (!dragDebugOverlay) return;
+    const output = Array.isArray(lines) ? lines.join('\n') : String(lines);
+    dragDebugOverlay.textContent = output;
+  }
+
+  function formatDragDebugMove(move) {
+    if (!move) return 'move: (none)';
+    const layer = Array.isArray(move.layerValues) && move.layerValues.length ? move.layerValues[0] : '?';
+    return `move: ${move.normalized} layer:${layer} axis:[${move.axis.join(',')}]`;
+  }
+
+  function currentDragVector() {
+    return [dragState.end.x - dragState.start.x, dragState.end.y - dragState.start.y];
+  }
+
+  function updateDragDebugFromState(eventType) {
+    if (!dragDebugOverlay || !dragState.active) return;
+    const sticker = dragState.sticker;
+    const drag = currentDragVector();
+    const dragLength = vectorLength2D(drag);
+    if (!sticker) {
+      setDragDebugText([
+        `event: ${eventType}`,
+        `drag: ${dragLength.toFixed(1)}px`,
+        'mode: orbit (no sticker hit)'
+      ]);
+      return;
+    }
+    const threshold = stickerDragThreshold(sticker);
+    const candidate = dragLength > threshold ? moveFromStickerDrag(sticker, drag) : null;
+    setDragDebugText([
+      `event: ${eventType}`,
+      `sticker: ${sticker.face} @ [${sticker.center.join(',')}]`,
+      `drag: ${dragLength.toFixed(1)}px threshold:${threshold.toFixed(1)}px`,
+      formatDragDebugMove(candidate)
+    ]);
   }
 
   function alignCameraToFace(face) {
@@ -646,7 +711,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   }
 
   function projectToScreen(point) {
-    const p = new THREE.Vector3(point[0], point[1], point[2]);
+    const p = point instanceof THREE.Vector3 ? point.clone() : new THREE.Vector3(point[0], point[1], point[2]);
     p.project(camera);
     const canvas = renderer.domElement;
     return {
@@ -657,19 +722,56 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
 
   function projectedVector(origin, vector) {
     const p1 = projectToScreen(origin);
-    const p2 = projectToScreen([origin[0] + vector[0], origin[1] + vector[1], origin[2] + vector[2]]);
+    const o = origin instanceof THREE.Vector3 ? origin : new THREE.Vector3(origin[0], origin[1], origin[2]);
+    const p2 = projectToScreen(new THREE.Vector3(o.x + vector[0], o.y + vector[1], o.z + vector[2]));
     return [p2.x - p1.x, p2.y - p1.y];
+  }
+
+  function vectorLength2D(v) {
+    return Math.hypot(v[0], v[1]);
+  }
+
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
+  function worldSpacingForSize(gridDimension) {
+    return 1 / Math.max(2, gridDimension);
+  }
+
+  function discreteToWorldPoint(point) {
+    const spacing = worldSpacingForSize(size);
+    return new THREE.Vector3(point[0] * spacing, point[1] * spacing, point[2] * spacing);
+  }
+
+  function stickerDragThreshold(sticker) {
+    if (!sticker) return MAX_DRAG_THRESHOLD_PX;
+    const axes = FACE_LOCAL_AXES[sticker.face];
+    if (!axes) return MAX_DRAG_THRESHOLD_PX;
+    const worldCenter = discreteToWorldPoint(sticker.center);
+    const spacing = worldSpacingForSize(size);
+    const halfSticker = spacing * STICKER_SIZE_RATIO * HALF;
+    const projectedU = projectedVector(worldCenter, vecScale(axes.u, halfSticker));
+    const projectedV = projectedVector(worldCenter, vecScale(axes.v, halfSticker));
+    const averageProjected = (vectorLength2D(projectedU) + vectorLength2D(projectedV)) * HALF;
+    return clamp(averageProjected * DRAG_THRESHOLD_RATIO, MIN_DRAG_THRESHOLD_PX, MAX_DRAG_THRESHOLD_PX);
   }
 
   function moveFromStickerDrag(sticker, drag) {
     if (!sticker) return null;
     const axes = FACE_LOCAL_AXES[sticker.face];
     if (!axes) return null;
+    const worldCenter = discreteToWorldPoint(sticker.center);
+    const spacing = worldSpacingForSize(size);
+    const projectionSample = Math.max(spacing * PROJECTION_SAMPLE_RATIO, MIN_PROJECTION_SAMPLE_WORLD);
 
-    const projectedU = projectedVector(sticker.center, vecScale(axes.u, 0.45));
-    const projectedV = projectedVector(sticker.center, vecScale(axes.v, 0.45));
-    const uDot = drag[0] * projectedU[0] + drag[1] * projectedU[1];
-    const vDot = drag[0] * projectedV[0] + drag[1] * projectedV[1];
+    const projectedU = projectedVector(worldCenter, vecScale(axes.u, projectionSample));
+    const projectedV = projectedVector(worldCenter, vecScale(axes.v, projectionSample));
+    const uLen = vectorLength2D(projectedU);
+    const vLen = vectorLength2D(projectedV);
+    if (uLen < PROJECTION_EPSILON && vLen < PROJECTION_EPSILON) return null;
+    const uDot = uLen > PROJECTION_EPSILON ? (drag[0] * projectedU[0] + drag[1] * projectedU[1]) / uLen : 0;
+    const vDot = vLen > PROJECTION_EPSILON ? (drag[0] * projectedV[0] + drag[1] * projectedV[1]) / vLen : 0;
     const localAxis = Math.abs(uDot) >= Math.abs(vDot) ? axes.u : axes.v;
 
     const turnAxis = vecCross(sticker.normal, localAxis);
@@ -678,9 +780,11 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     const layerValue = Core.nearestCoordinate(vecDot(sticker.center, oriented), size);
 
     const tangent = vecCross(oriented, sticker.center);
-    const projectedTangent = projectedVector(sticker.center, vecScale(vecNorm(tangent), 0.45));
-    const direction = drag[0] * projectedTangent[0] + drag[1] * projectedTangent[1];
-    if (Math.abs(direction) < 1) return null;
+    const projectedTangent = projectedVector(worldCenter, vecScale(vecNorm(tangent), projectionSample));
+    const tangentLen = vectorLength2D(projectedTangent);
+    if (tangentLen < PROJECTION_EPSILON) return null;
+    const direction = (drag[0] * projectedTangent[0] + drag[1] * projectedTangent[1]) / tangentLen;
+    if (Math.abs(direction) < DRAG_DIRECTION_MIN_COMPONENT_PX) return null;
 
     return dragMoveForLayer(oriented, layerValue, direction);
   }
@@ -716,11 +820,13 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     dragState.start = eventPoint(event);
     dragState.end = dragState.start;
     controls.enabled = !sticker;
+    updateDragDebugFromState('pointerdown');
   }
 
   function onPointerMove(event) {
     if (!dragState.active || event.pointerId !== dragState.pointerId) return;
     dragState.end = eventPoint(event);
+    updateDragDebugFromState('pointermove');
     event.preventDefault();
   }
 
@@ -731,10 +837,21 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
       renderer.domElement.releasePointerCapture(event.pointerId);
     }
     dragState.end = eventPoint(event);
-    const drag = [dragState.end.x - dragState.start.x, dragState.end.y - dragState.start.y];
-    if (dragState.sticker && Math.hypot(drag[0], drag[1]) > 24) {
-      const move = moveFromStickerDrag(dragState.sticker, drag);
-      if (move) applyMove(move);
+    const drag = currentDragVector();
+    const threshold = dragState.sticker ? stickerDragThreshold(dragState.sticker) : 0;
+    let attemptedMove = null;
+    const dragLength = vectorLength2D(drag);
+    if (dragState.sticker && dragLength > threshold) {
+      attemptedMove = moveFromStickerDrag(dragState.sticker, drag);
+      if (attemptedMove) applyMove(attemptedMove);
+    }
+    if (dragDebugOverlay) {
+      setDragDebugText([
+        `event: ${event.type}`,
+        `drag: ${dragLength.toFixed(1)}px threshold:${threshold.toFixed(1)}px`,
+        formatDragDebugMove(attemptedMove),
+        attemptedMove ? 'status: applied' : 'status: ignored'
+      ]);
     }
 
     dragState.active = false;
