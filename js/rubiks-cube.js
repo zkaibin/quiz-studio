@@ -280,14 +280,19 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
 
   function formatDragDebugMove(move) {
     if (!move) return 'move: (none)';
-    return `move: ${move.normalized} layer:${move.layerValues[0]} axis:[${move.axis.join(',')}]`;
+    const layer = Array.isArray(move.layerValues) && move.layerValues.length ? move.layerValues[0] : '?';
+    return `move: ${move.normalized} layer:${layer} axis:[${move.axis.join(',')}]`;
+  }
+
+  function currentDragVector() {
+    return [dragState.end.x - dragState.start.x, dragState.end.y - dragState.start.y];
   }
 
   function updateDragDebugFromState(eventType) {
     if (!dragDebugOverlay || !dragState.active) return;
     const sticker = dragState.sticker;
-    const drag = [dragState.end.x - dragState.start.x, dragState.end.y - dragState.start.y];
-    const dragLength = Math.hypot(drag[0], drag[1]);
+    const drag = currentDragVector();
+    const dragLength = vectorLength2D(drag);
     if (!sticker) {
       setDragDebugText([
         `event: ${eventType}`,
@@ -832,15 +837,15 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
       renderer.domElement.releasePointerCapture(event.pointerId);
     }
     dragState.end = eventPoint(event);
-    const drag = [dragState.end.x - dragState.start.x, dragState.end.y - dragState.start.y];
+    const drag = currentDragVector();
     const threshold = dragState.sticker ? stickerDragThreshold(dragState.sticker) : 0;
     let attemptedMove = null;
-    if (dragState.sticker && Math.hypot(drag[0], drag[1]) > threshold) {
+    const dragLength = vectorLength2D(drag);
+    if (dragState.sticker && dragLength > threshold) {
       attemptedMove = moveFromStickerDrag(dragState.sticker, drag);
       if (attemptedMove) applyMove(attemptedMove);
     }
     if (dragDebugOverlay) {
-      const dragLength = Math.hypot(drag[0], drag[1]);
       setDragDebugText([
         `event: ${event.type}`,
         `drag: ${dragLength.toFixed(1)}px threshold:${threshold.toFixed(1)}px`,
