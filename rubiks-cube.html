@@ -20,11 +20,20 @@
         <div class="group">
           <button id="rk-scramble-btn" class="btn warn">🔀 Scramble</button>
           <button id="rk-reset-btn" class="btn primary">↺ Reset</button>
+          <button id="rk-solve-btn" class="btn primary">🧠 Auto Solve</button>
           <button id="rk-undo-btn" class="btn dark">↶ Undo</button>
           <button id="rk-redo-btn" class="btn dark">↷ Redo</button>
         </div>
         <div class="group">
           <label class="size-picker">Size <select id="rk-size"></select></label>
+          <label class="size-picker">Speed
+            <select id="rk-speed">
+              <option value="0.7">Slow</option>
+              <option value="1" selected>Normal</option>
+              <option value="1.7">Fast</option>
+              <option value="2.6">Turbo</option>
+            </select>
+          </label>
         </div>
       </div>
 
