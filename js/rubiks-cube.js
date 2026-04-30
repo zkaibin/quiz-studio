@@ -4,7 +4,7 @@
   if (!Core) missingDeps.push('RubiksCubeCore');
   if (!window.THREE) missingDeps.push('THREE');
 
-  const FACE = Core ? Core.FACE : { U: 0, D: 1, F: 2, B: 3, L: 4, R: 5 };
+  const FACE = Core && Core.FACE;
   const FACE_COLORS = Core ? Core.FACE_COLORS : [];
   const MOVE_INFO = Core ? Core.FACE_MOVE_INFO : {};
   const FACE_LOCAL_AXES = Core ? {
