@@ -92,7 +92,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   }
   function vecNeg(a) { return [-a[0], -a[1], -a[2]]; }
   function axisIndexOfVector(v) {
-    const components = [Math.abs(v[0] || 0), Math.abs(v[1] || 0), Math.abs(v[2] || 0)];
+    const components = [Math.abs(v[0] ?? 0), Math.abs(v[1] ?? 0), Math.abs(v[2] ?? 0)];
     let bestAxis = 0;
     let best = components[0];
     for (let axis = 1; axis < 3; axis++) {
@@ -101,7 +101,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
         best = components[axis];
       }
     }
-    return best > 0 ? bestAxis : -1;
+    return best > 0 ? bestAxis : null;
   }
   function dominantAxisVector(v, excludedAxis) {
     const excluded = new Set(Array.isArray(excludedAxis) ? excludedAxis : (excludedAxis === undefined ? [] : [excludedAxis]));
@@ -131,11 +131,11 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     if (v[0] === 1) return FACE.R;
     return null;
   }
-  function coordinateForIndex(index, sizeNow) {
-    return index * 2 - (sizeNow - 1);
+  function coordinateForIndex(index, size) {
+    return index * 2 - (size - 1);
   }
-  function indexFromCoordinate(value, sizeNow) {
-    return Math.round((value + (sizeNow - 1)) / 2);
+  function indexFromCoordinate(value, size) {
+    return Math.round((value + (size - 1)) / 2);
   }
 
   function currentViewBasis() {
@@ -144,10 +144,11 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     const forward = controls.target.clone().sub(camera.position).normalize();
     const front = dominantAxisVector(forward) || fallback.front;
     const frontAxis = axisIndexOfVector(front);
+    const excludedFrontAxis = frontAxis === null ? [] : [frontAxis];
 
-    let up = dominantAxisVector(camera.up, [frontAxis]);
-    if (!up || Math.abs(vecDot(up, front)) > 1e-10) {
-      up = dominantAxisVector([0, 1, 0], [frontAxis]) || dominantAxisVector([0, 0, 1], [frontAxis]) || fallback.up;
+    let up = dominantAxisVector(camera.up, excludedFrontAxis);
+    if (!up || Math.abs(vecDot(up, front)) > 1e-6) {
+      up = dominantAxisVector([0, 1, 0], excludedFrontAxis) || dominantAxisVector([0, 0, 1], excludedFrontAxis) || fallback.up;
     }
     let right = vecCross(up, front);
     if (!right[0] && !right[1] && !right[2]) right = fallback.right;
