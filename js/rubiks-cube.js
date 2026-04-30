@@ -20,6 +20,12 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   const PERPENDICULAR_EPSILON = 1e-6;
   const PROJECTION_EPSILON = 1e-4;
   const DRAG_DIRECTION_MIN_COMPONENT_PX = 6;
+  const HALF = 0.5;
+  const PROJECTION_SAMPLE_RATIO = 0.45;
+  const MIN_PROJECTION_SAMPLE_WORLD = 0.03;
+  const MIN_DRAG_THRESHOLD_PX = 8;
+  const MAX_DRAG_THRESHOLD_PX = 24;
+  const DRAG_THRESHOLD_RATIO = 0.45;
   const DRAG_DIRECTION_SIGN_BY_FACE = { U: -1, D: -1, R: -1, L: -1, F: -1, B: -1 };
   const FACE_LOCAL_AXES = {};
   const FACE_CAMERA_UP = {};
@@ -672,8 +678,8 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     return Math.max(min, Math.min(max, value));
   }
 
-  function worldSpacingForSize(cubeSize) {
-    return 1 / Math.max(2, cubeSize);
+  function worldSpacingForSize(gridDimension) {
+    return 1 / Math.max(2, gridDimension);
   }
 
   function discreteToWorldPoint(point) {
@@ -682,16 +688,16 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   }
 
   function stickerDragThreshold(sticker) {
-    if (!sticker) return 24;
+    if (!sticker) return MAX_DRAG_THRESHOLD_PX;
     const axes = FACE_LOCAL_AXES[sticker.face];
-    if (!axes) return 24;
+    if (!axes) return MAX_DRAG_THRESHOLD_PX;
     const worldCenter = discreteToWorldPoint(sticker.center);
     const spacing = worldSpacingForSize(size);
-    const halfSticker = spacing * STICKER_SIZE_RATIO * 0.5;
+    const halfSticker = spacing * STICKER_SIZE_RATIO * HALF;
     const projectedU = projectedVector(worldCenter, vecScale(axes.u, halfSticker));
     const projectedV = projectedVector(worldCenter, vecScale(axes.v, halfSticker));
-    const averageProjected = (vectorLength2D(projectedU) + vectorLength2D(projectedV)) * 0.5;
-    return clamp(averageProjected * 0.45, 8, 24);
+    const averageProjected = (vectorLength2D(projectedU) + vectorLength2D(projectedV)) * HALF;
+    return clamp(averageProjected * DRAG_THRESHOLD_RATIO, MIN_DRAG_THRESHOLD_PX, MAX_DRAG_THRESHOLD_PX);
   }
 
   function moveFromStickerDrag(sticker, drag) {
@@ -700,7 +706,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     if (!axes) return null;
     const worldCenter = discreteToWorldPoint(sticker.center);
     const spacing = worldSpacingForSize(size);
-    const projectionSample = Math.max(spacing * 0.45, 0.03);
+    const projectionSample = Math.max(spacing * PROJECTION_SAMPLE_RATIO, MIN_PROJECTION_SAMPLE_WORLD);
 
     const projectedU = projectedVector(worldCenter, vecScale(axes.u, projectionSample));
     const projectedV = projectedVector(worldCenter, vecScale(axes.v, projectionSample));
