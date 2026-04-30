@@ -74,6 +74,42 @@ function randomConsistency(size) {
   assert.strictEqual(a.serialize(), b.serialize(), `sequence consistency failed for ${size}`);
 }
 
+function descriptorLabelCoverage() {
+  const cube3 = new CubeModel(3);
+  assert.strictEqual(
+    cube3.moveLabel({ axis: [1, 0, 0], layerValues: [0], quarterTurns: -1, normalized: null }),
+    'M',
+    '3x3 center x-slice should label as M'
+  );
+  assert.strictEqual(
+    cube3.moveLabel({ axis: [0, 1, 0], layerValues: [0], quarterTurns: -1, normalized: null }),
+    'E',
+    '3x3 center y-slice should label as E'
+  );
+  assert.strictEqual(
+    cube3.moveLabel({ axis: [0, 0, 1], layerValues: [0], quarterTurns: -1, normalized: null }),
+    'S',
+    '3x3 center z-slice should label as S'
+  );
+
+  const cube5 = new CubeModel(5);
+  assert.strictEqual(
+    cube5.moveLabel({ axis: [1, 0, 0], layerValues: [2], quarterTurns: -1, normalized: null }),
+    'R (layer 2)',
+    '5x5 inner non-center layer should include layer depth label'
+  );
+  assert.strictEqual(
+    cube5.moveLabel({ axis: [1, 0, 0], layerValues: [4], quarterTurns: -1, normalized: null }),
+    'R',
+    '5x5 outer positive-face layer should keep regular face notation'
+  );
+  assert.strictEqual(
+    cube5.moveLabel({ axis: [1, 0, 0], layerValues: [-2], quarterTurns: -1, normalized: null }),
+    'R (layer 4)',
+    '5x5 opposite-side inner layer should map to correct depth label'
+  );
+}
+
 for (let size = 2; size <= 10; size++) {
   const solved = new CubeModel(size);
   assert.ok(solved.isSolved(), `new cube must be solved for ${size}`);
@@ -83,5 +119,6 @@ for (let size = 2; size <= 10; size++) {
   randomConsistency(size);
   applyAndInverseIdentity(size);
 }
+descriptorLabelCoverage();
 
 console.log('Rubik core validation passed for sizes 2x2 through 10x10.');

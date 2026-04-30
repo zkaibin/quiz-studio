@@ -489,15 +489,78 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   function trackAppliedMove(move) {
     const descriptor = Core.moveDescriptor(move, size);
     if (!descriptor) return;
-    const moveLabel = descriptor.normalized ? descriptor.normalized : model.moveLabel(descriptor);
-    if (!moveLabel) return;
-    const inverse = Core.inverseMove(moveLabel, size);
+    const trackedMove = trackedMoveFromDescriptor(descriptor);
+    if (!trackedMove) return;
+    const inverse = Core.inverseMove(trackedMove, size);
     const lastTrackedMove = stateMoveStack[stateMoveStack.length - 1];
-    if (lastTrackedMove && inverse && lastTrackedMove === inverse) {
+    if (lastTrackedMove && inverse && trackedMovesEqual(lastTrackedMove, inverse)) {
       stateMoveStack.pop();
       return;
     }
-    stateMoveStack.push(moveLabel);
+    stateMoveStack.push(trackedMove);
+  }
+
+  function turnSuffixFromQuarterTurns(quarterTurns) {
+    const turns = ((quarterTurns % 4) + 4) % 4;
+    if (turns === 2) return '2';
+    return turns === 3 ? "'" : '';
+  }
+
+  function axisKey(axis) {
+    return `${Math.abs(axis[0])},${Math.abs(axis[1])},${Math.abs(axis[2])}`;
+  }
+
+  function normalizedQuarterTurns(quarterTurns) {
+    return ((quarterTurns % 4) + 4) % 4;
+  }
+
+  function normalizedLayerValues(layerValues) {
+    return Core.normalizeLayerValues(layerValues, size);
+  }
+
+  function trackedMoveTokenFromDescriptor(descriptor) {
+    if (descriptor.normalized) return descriptor.normalized;
+    const layers = normalizedLayerValues(descriptor.layerValues);
+    if (layers.length !== 1) return null;
+    const layerValue = layers[0];
+    const max = size - 1;
+    const face = axisFaceFromAxis(descriptor.axis);
+    if (!face) return null;
+    if (layerValue === max) return normalizedFaceMove(face, descriptor.quarterTurns);
+    if (size % 2 === 1 && layerValue === 0) {
+      const sliceFace = Core.AXIS_TO_SLICE_FACE[axisKey(descriptor.axis)];
+      if (!sliceFace) return null;
+      return `${sliceFace}${turnSuffixFromQuarterTurns(descriptor.quarterTurns)}`;
+    }
+    return null;
+  }
+
+  function trackedMoveFromDescriptor(descriptor) {
+    const token = trackedMoveTokenFromDescriptor(descriptor);
+    if (token) return token;
+    return {
+      axis: [...descriptor.axis],
+      layerValues: normalizedLayerValues(descriptor.layerValues),
+      quarterTurns: descriptor.quarterTurns,
+      normalized: null,
+      face: descriptor.face || axisFaceFromAxis(descriptor.axis)
+    };
+  }
+
+  function trackedMovesEqual(a, b) {
+    if (typeof a === 'string' && typeof b === 'string') return a === b;
+    const left = Core.moveDescriptor(a, size);
+    const right = Core.moveDescriptor(b, size);
+    if (!left || !right) return false;
+    const sameAxis = left.axis[0] === right.axis[0]
+      && left.axis[1] === right.axis[1]
+      && left.axis[2] === right.axis[2];
+    if (!sameAxis) return false;
+    if (normalizedQuarterTurns(left.quarterTurns) !== normalizedQuarterTurns(right.quarterTurns)) return false;
+    const leftLayers = normalizedLayerValues(left.layerValues);
+    const rightLayers = normalizedLayerValues(right.layerValues);
+    if (leftLayers.length !== rightLayers.length) return false;
+    return leftLayers.every((value, index) => value === rightLayers[index]);
   }
 
   function queueMove(move, options) {
@@ -706,7 +769,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
       axis: [...axis],
       layerValues: [layerValue],
       quarterTurns,
-      normalized: normalizedFaceMove(face, quarterTurns)
+      normalized: null
     };
   }
 
