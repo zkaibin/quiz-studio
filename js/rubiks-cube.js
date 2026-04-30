@@ -38,6 +38,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   let scrambleSeed = 1;
 
   let renderer, scene, camera, controls;
+  let coarsePointerQuery = null;
   let cubeGroup;
   let raycaster;
   let pointer = null;
@@ -76,6 +77,14 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     return len ? [a[0] / len, a[1] / len, a[2] / len] : [0, 0, 0];
   }
 
+  function updateRendererPixelRatio() {
+    if (!renderer) return;
+    const isTouchDevice = coarsePointerQuery
+      ? coarsePointerQuery.matches
+      : window.matchMedia('(pointer: coarse)').matches;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isTouchDevice ? 1.5 : 2));
+  }
+
   function initScene() {
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0x0f172a);
@@ -84,8 +93,13 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     camera.position.set(4.4, 4.2, 5.8);
 
     renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isTouchDevice ? 1.5 : 2));
+    coarsePointerQuery = window.matchMedia('(pointer: coarse)');
+    updateRendererPixelRatio();
+    if (typeof coarsePointerQuery.addEventListener === 'function') {
+      coarsePointerQuery.addEventListener('change', updateRendererPixelRatio);
+    } else if (typeof coarsePointerQuery.addListener === 'function') {
+      coarsePointerQuery.addListener(updateRendererPixelRatio);
+    }
     renderer.domElement.style.touchAction = 'none';
     refs.mount.appendChild(renderer.domElement);
 
