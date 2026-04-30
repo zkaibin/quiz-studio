@@ -17,6 +17,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   const STICKER_SIZE_RATIO = 0.84;
   const STICKER_LIFT = 0.004;
   const MIN_MOVE_DURATION_MS = 55;
+  const PERPENDICULAR_EPSILON = 1e-6;
   const DRAG_DIRECTION_SIGN_BY_FACE = { U: -1, D: -1, R: -1, L: -1, F: -1, B: -1 };
   const FACE_LOCAL_AXES = {};
   const FACE_CAMERA_UP = {};
@@ -90,6 +91,110 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     const len = Math.hypot(a[0], a[1], a[2]);
     return len ? [a[0] / len, a[1] / len, a[2] / len] : [0, 0, 0];
   }
+  function vecNeg(a) { return [-a[0], -a[1], -a[2]]; }
+  function axisIndexOfVector(v) {
+    const components = [Math.abs(v[0] ?? 0), Math.abs(v[1] ?? 0), Math.abs(v[2] ?? 0)];
+    let bestAxis = null;
+    let best = -1;
+    for (let axis = 0; axis < 3; axis++) {
+      if (components[axis] > best) {
+        bestAxis = axis;
+        best = components[axis];
+      }
+    }
+    return best > 0 ? bestAxis : null;
+  }
+  function dominantAxisVector(v, excludedAxis) {
+    const excluded = new Set(Array.isArray(excludedAxis) ? excludedAxis : (excludedAxis === undefined ? [] : [excludedAxis]));
+    const components = [v.x ?? v[0] ?? 0, v.y ?? v[1] ?? 0, v.z ?? v[2] ?? 0];
+    let bestAxis = -1;
+    let bestValue = -1;
+    for (let axis = 0; axis < 3; axis++) {
+      if (excluded.has(axis)) continue;
+      const abs = Math.abs(components[axis]);
+      if (abs > bestValue) {
+        bestAxis = axis;
+        bestValue = abs;
+      }
+    }
+    if (bestAxis === -1 || bestValue <= 0) return null;
+    const out = [0, 0, 0];
+    out[bestAxis] = components[bestAxis] >= 0 ? 1 : -1;
+    return out;
+  }
+  function faceIndexFromVector(v) {
+    if (!v) return null;
+    if (v[1] === 1) return FACE.U;
+    if (v[1] === -1) return FACE.D;
+    if (v[2] === 1) return FACE.F;
+    if (v[2] === -1) return FACE.B;
+    if (v[0] === -1) return FACE.L;
+    if (v[0] === 1) return FACE.R;
+    return null;
+  }
+  function coordinateForIndex(index, size) {
+    return index * 2 - (size - 1);
+  }
+  function indexFromCoordinate(value, size) {
+    return Math.round((value + (size - 1)) / 2);
+  }
+
+  function currentViewBasis() {
+    const fallback = { front: [0, 0, 1], up: [0, 1, 0], right: [1, 0, 0] };
+    if (!camera || !controls) return fallback;
+    const forward = controls.target.clone().sub(camera.position).normalize();
+    const front = dominantAxisVector(forward) || fallback.front;
+    const frontAxis = axisIndexOfVector(front);
+    const excludedFrontAxis = frontAxis === null ? [] : [frontAxis];
+
+    let up = dominantAxisVector(camera.up, excludedFrontAxis);
+    if (!up || Math.abs(vecDot(up, front)) > PERPENDICULAR_EPSILON) {
+      up = dominantAxisVector([0, 1, 0], excludedFrontAxis) || dominantAxisVector([0, 0, 1], excludedFrontAxis) || fallback.up;
+    }
+    let right = vecCross(up, front);
+    if (!right[0] && !right[1] && !right[2]) right = fallback.right;
+    right = dominantAxisVector(right) || fallback.right;
+    up = dominantAxisVector(vecCross(front, right), [frontAxis]) || up;
+
+    return { front, up, right };
+  }
+
+  function slotBasis(slot, basis) {
+    const { front, up, right } = basis;
+    if (slot === 'F') return { normal: front, up: up };
+    if (slot === 'B') return { normal: vecNeg(front), up: up };
+    if (slot === 'R') return { normal: right, up: up };
+    if (slot === 'L') return { normal: vecNeg(right), up: up };
+    if (slot === 'U') return { normal: up, up: vecNeg(front) };
+    if (slot === 'D') return { normal: vecNeg(up), up: front };
+    return null;
+  }
+
+  function orientedFaceGrid(faceIndex, slot, basis, sizeNow) {
+    const source = model.faces[faceIndex];
+    const faceAxes = FACE_LOCAL_AXES[faceIndex];
+    const slotAxes = slotBasis(slot, basis);
+    if (!source || !faceAxes || !slotAxes) return source;
+
+    const targetRight = vecCross(slotAxes.up, slotAxes.normal);
+    const targetDown = vecNeg(slotAxes.up);
+    const out = Array.from({ length: sizeNow }, () => Array(sizeNow).fill(0));
+    for (let row = 0; row < sizeNow; row++) {
+      for (let col = 0; col < sizeNow; col++) {
+        const colCoord = coordinateForIndex(col, sizeNow);
+        const rowCoord = coordinateForIndex(row, sizeNow);
+        const worldVec = [
+          faceAxes.u[0] * colCoord + faceAxes.v[0] * rowCoord,
+          faceAxes.u[1] * colCoord + faceAxes.v[1] * rowCoord,
+          faceAxes.u[2] * colCoord + faceAxes.v[2] * rowCoord
+        ];
+        const nextCol = indexFromCoordinate(vecDot(worldVec, targetRight), sizeNow);
+        const nextRow = indexFromCoordinate(vecDot(worldVec, targetDown), sizeNow);
+        out[nextRow][nextCol] = source[row][col];
+      }
+    }
+    return out;
+  }
 
   function updateRendererPixelRatio() {
     if (!renderer) return;
@@ -125,6 +230,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     controls.enablePan = false;
     controls.minDistance = 4;
     controls.maxDistance = 12;
+    controls.addEventListener('change', renderNet);
 
     raycaster = new THREE.Raycaster();
     pointer = new THREE.Vector2();
@@ -277,20 +383,30 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   }
 
   function renderNet() {
-    const faces = model.faces;
+    if (!model || !refs.net) return;
+    const basis = currentViewBasis();
+    const fallbackBySlot = { U: FACE.U, L: FACE.L, F: FACE.F, R: FACE.R, B: FACE.B, D: FACE.D };
+    const mapping = {
+      U: faceIndexFromVector(slotBasis('U', basis).normal) ?? fallbackBySlot.U,
+      L: faceIndexFromVector(slotBasis('L', basis).normal) ?? fallbackBySlot.L,
+      F: faceIndexFromVector(slotBasis('F', basis).normal) ?? fallbackBySlot.F,
+      R: faceIndexFromVector(slotBasis('R', basis).normal) ?? fallbackBySlot.R,
+      B: faceIndexFromVector(slotBasis('B', basis).normal) ?? fallbackBySlot.B,
+      D: faceIndexFromVector(slotBasis('D', basis).normal) ?? fallbackBySlot.D
+    };
     const templates = [
-      { face: FACE.U, cls: 'u', label: 'U' },
-      { face: FACE.L, cls: 'l', label: 'L' },
-      { face: FACE.F, cls: 'f', label: 'F' },
-      { face: FACE.R, cls: 'r', label: 'R' },
-      { face: FACE.B, cls: 'b', label: 'B' },
-      { face: FACE.D, cls: 'd', label: 'D' }
+      { slot: 'U', cls: 'u', label: 'U' },
+      { slot: 'L', cls: 'l', label: 'L' },
+      { slot: 'F', cls: 'f', label: 'F' },
+      { slot: 'R', cls: 'r', label: 'R' },
+      { slot: 'B', cls: 'b', label: 'B' },
+      { slot: 'D', cls: 'd', label: 'D' }
     ];
     refs.net.innerHTML = templates.map((entry) => `
       <div class="net-face ${entry.cls}">
         <div class="net-label">${entry.label}</div>
         <div class="net-grid" style="grid-template-columns:repeat(${size},1fr)">
-          ${faces[entry.face].flat().map((color) => `<span class="net-sticker" style="background:${FACE_COLORS[color]}"></span>`).join('')}
+          ${orientedFaceGrid(mapping[entry.slot], entry.slot, basis, size).flat().map((color) => `<span class="net-sticker" style="background:${FACE_COLORS[color]}"></span>`).join('')}
         </div>
       </div>
     `).join('');
