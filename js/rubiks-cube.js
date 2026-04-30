@@ -18,6 +18,8 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   const STICKER_LIFT = 0.004;
   const MIN_MOVE_DURATION_MS = 55;
   const PERPENDICULAR_EPSILON = 1e-6;
+  const PROJECTION_EPSILON = 1e-4;
+  const DRAG_DIRECTION_MIN_COMPONENT_PX = 6;
   const DRAG_DIRECTION_SIGN_BY_FACE = { U: -1, D: -1, R: -1, L: -1, F: -1, B: -1 };
   const FACE_LOCAL_AXES = {};
   const FACE_CAMERA_UP = {};
@@ -670,8 +672,8 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     return Math.max(min, Math.min(max, value));
   }
 
-  function worldSpacingForSize(sizeNow) {
-    return 1 / Math.max(2, sizeNow);
+  function worldSpacingForSize(cubeSize) {
+    return 1 / Math.max(2, cubeSize);
   }
 
   function discreteToWorldPoint(point) {
@@ -704,9 +706,9 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     const projectedV = projectedVector(worldCenter, vecScale(axes.v, projectionSample));
     const uLen = vectorLength2D(projectedU);
     const vLen = vectorLength2D(projectedV);
-    if (uLen < 1e-4 && vLen < 1e-4) return null;
-    const uDot = uLen > 1e-4 ? (drag[0] * projectedU[0] + drag[1] * projectedU[1]) / uLen : 0;
-    const vDot = vLen > 1e-4 ? (drag[0] * projectedV[0] + drag[1] * projectedV[1]) / vLen : 0;
+    if (uLen < PROJECTION_EPSILON && vLen < PROJECTION_EPSILON) return null;
+    const uDot = uLen > PROJECTION_EPSILON ? (drag[0] * projectedU[0] + drag[1] * projectedU[1]) / uLen : 0;
+    const vDot = vLen > PROJECTION_EPSILON ? (drag[0] * projectedV[0] + drag[1] * projectedV[1]) / vLen : 0;
     const localAxis = Math.abs(uDot) >= Math.abs(vDot) ? axes.u : axes.v;
 
     const turnAxis = vecCross(sticker.normal, localAxis);
@@ -717,9 +719,9 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     const tangent = vecCross(oriented, sticker.center);
     const projectedTangent = projectedVector(worldCenter, vecScale(vecNorm(tangent), projectionSample));
     const tangentLen = vectorLength2D(projectedTangent);
-    if (tangentLen < 1e-4) return null;
+    if (tangentLen < PROJECTION_EPSILON) return null;
     const direction = (drag[0] * projectedTangent[0] + drag[1] * projectedTangent[1]) / tangentLen;
-    if (Math.abs(direction) < 6) return null;
+    if (Math.abs(direction) < DRAG_DIRECTION_MIN_COMPONENT_PX) return null;
 
     return dragMoveForLayer(oriented, layerValue, direction);
   }
