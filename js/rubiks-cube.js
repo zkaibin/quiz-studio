@@ -41,7 +41,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   let cubeGroup;
   let raycaster;
   let pointer = null;
-  const dragState = { active: false, turned: false, sticker: null, start: { x: 0, y: 0 }, end: { x: 0, y: 0 } };
+  const dragState = { active: false, turned: false, sticker: null, start: { x: 0, y: 0 }, end: { x: 0, y: 0 }, pointerId: null };
 
   const refs = {
     mount: document.getElementById('rk3d-mount'),
@@ -83,8 +83,10 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
     camera.position.set(4.4, 4.2, 5.8);
 
-    renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isTouchDevice ? 1.5 : 2));
+    renderer.domElement.style.touchAction = 'none';
     refs.mount.appendChild(renderer.domElement);
 
     const ambient = new THREE.AmbientLight(0xffffff, 0.7);
@@ -164,8 +166,8 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     clearGroup(cubeGroup);
 
     const spacing = 1 / Math.max(2, size);
-    const cubieSize = spacing * 0.94;
-    const stickerSize = spacing * 0.78;
+    const cubieSize = spacing * 0.985;
+    const stickerSize = spacing * 0.84;
     const offset = cubieSize / 2 + 0.004;
 
     const coreGeo = new THREE.BoxGeometry(cubieSize, cubieSize, cubieSize);
@@ -485,9 +487,12 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
 
   function onPointerDown(event) {
     if (processingQueue || animation) return;
+    event.preventDefault();
+    renderer.domElement.setPointerCapture(event.pointerId);
     const sticker = pickSticker(event);
     dragState.active = true;
     dragState.turned = false;
+    dragState.pointerId = event.pointerId;
     dragState.sticker = sticker;
     dragState.start = eventPoint(event);
     dragState.end = dragState.start;
@@ -495,13 +500,17 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   }
 
   function onPointerMove(event) {
-    if (!dragState.active) return;
+    if (!dragState.active || event.pointerId !== dragState.pointerId) return;
     dragState.end = eventPoint(event);
     event.preventDefault();
   }
 
   function onPointerUp(event) {
-    if (!dragState.active) return;
+    if (!dragState.active || event.pointerId !== dragState.pointerId) return;
+    event.preventDefault();
+    if (renderer.domElement.hasPointerCapture(event.pointerId)) {
+      renderer.domElement.releasePointerCapture(event.pointerId);
+    }
     dragState.end = eventPoint(event);
     const drag = [dragState.end.x - dragState.start.x, dragState.end.y - dragState.start.y];
     if (dragState.sticker && Math.hypot(drag[0], drag[1]) > 24) {
@@ -510,6 +519,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     }
 
     dragState.active = false;
+    dragState.pointerId = null;
     dragState.sticker = null;
     controls.enabled = true;
   }
