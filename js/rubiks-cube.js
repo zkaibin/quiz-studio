@@ -1,18 +1,21 @@
 (function () {
   const Core = window.RubiksCubeCore;
-  if (!Core || !window.THREE) return;
+  const missingDeps = [];
+  if (!Core) missingDeps.push('RubiksCubeCore');
+  if (!window.THREE) missingDeps.push('THREE');
 
-  const FACE = Core.FACE;
-  const FACE_COLORS = Core.FACE_COLORS;
-  const MOVE_INFO = Core.FACE_MOVE_INFO;
-  const FACE_LOCAL_AXES = {
-    [FACE.U]: { u: [1, 0, 0], v: [0, 0, 1], n: [0, 1, 0] },
-    [FACE.D]: { u: [1, 0, 0], v: [0, 0, -1], n: [0, -1, 0] },
-    [FACE.F]: { u: [1, 0, 0], v: [0, -1, 0], n: [0, 0, 1] },
-    [FACE.B]: { u: [-1, 0, 0], v: [0, -1, 0], n: [0, 0, -1] },
-    [FACE.L]: { u: [0, 0, 1], v: [0, -1, 0], n: [-1, 0, 0] },
-    [FACE.R]: { u: [0, 0, -1], v: [0, -1, 0], n: [1, 0, 0] }
-  };
+  const FACE = Core ? Core.FACE : {};
+  const FACE_COLORS = Core ? Core.FACE_COLORS : [];
+  const MOVE_INFO = Core ? Core.FACE_MOVE_INFO : {};
+  const FACE_LOCAL_AXES = {};
+  if (Core) {
+    FACE_LOCAL_AXES[FACE.U] = { u: [1, 0, 0], v: [0, 0, 1], n: [0, 1, 0] };
+    FACE_LOCAL_AXES[FACE.D] = { u: [1, 0, 0], v: [0, 0, -1], n: [0, -1, 0] };
+    FACE_LOCAL_AXES[FACE.F] = { u: [1, 0, 0], v: [0, -1, 0], n: [0, 0, 1] };
+    FACE_LOCAL_AXES[FACE.B] = { u: [-1, 0, 0], v: [0, -1, 0], n: [0, 0, -1] };
+    FACE_LOCAL_AXES[FACE.L] = { u: [0, 0, 1], v: [0, -1, 0], n: [-1, 0, 0] };
+    FACE_LOCAL_AXES[FACE.R] = { u: [0, 0, -1], v: [0, -1, 0], n: [1, 0, 0] };
+  }
 
   let size = 3;
   let model = null;
@@ -50,6 +53,12 @@
     scramble: document.getElementById('rk-scramble'),
     net: document.getElementById('rk-net')
   };
+
+  function populateSizeOptions() {
+    refs.sizeSelect.innerHTML = Array.from({ length: 9 }, (_, i) => i + 2)
+      .map((n) => `<option value="${n}" ${n === size ? 'selected' : ''}>${n}×${n}</option>`)
+      .join('');
+  }
 
   function vecDot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
   function vecCross(a, b) {
@@ -541,9 +550,18 @@
   }
 
   function bootstrap() {
-    refs.sizeSelect.innerHTML = Array.from({ length: 9 }, (_, i) => i + 2)
-      .map((n) => `<option value="${n}" ${n === size ? 'selected' : ''}>${n}×${n}</option>`)
-      .join('');
+    populateSizeOptions();
+
+    if (missingDeps.length) {
+      setStatus(`Failed to load: ${missingDeps.join(', ')}`, 'warning');
+      refs.scrambleBtn.disabled = true;
+      refs.resetBtn.disabled = true;
+      refs.undoBtn.disabled = true;
+      refs.redoBtn.disabled = true;
+      refs.applyBtn.disabled = true;
+      refs.algInput.disabled = true;
+      return;
+    }
 
     initScene();
     bindEvents();
