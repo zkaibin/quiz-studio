@@ -27,7 +27,8 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     FACE_LOCAL_AXES[FACE.L] = { u: [0, 0, 1], v: [0, -1, 0], n: [-1, 0, 0] };
     FACE_LOCAL_AXES[FACE.R] = { u: [0, 0, -1], v: [0, -1, 0], n: [1, 0, 0] };
     Object.entries(FACE_LOCAL_AXES).forEach(([faceKey, axes]) => {
-      FACE_CAMERA_UP[faceKey] = [-axes.v[0], -axes.v[1], -axes.v[2]];
+      const faceUp = [-axes.v[0], -axes.v[1], -axes.v[2]];
+      FACE_CAMERA_UP[faceKey] = faceUp;
     });
   }
 
@@ -144,8 +145,8 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     const target = controls.target.clone();
     const distance = camera.position.distanceTo(target) || 6;
     const normal = new THREE.Vector3(axes.n[0], axes.n[1], axes.n[2]).normalize();
-    const up = FACE_CAMERA_UP[face] || [0, 1, 0];
-    camera.up.set(up[0], up[1], up[2]);
+    const faceUp = FACE_CAMERA_UP[face];
+    camera.up.set(faceUp[0], faceUp[1], faceUp[2]);
     camera.position.copy(target).add(normal.multiplyScalar(distance));
     camera.lookAt(target);
     controls.update();
