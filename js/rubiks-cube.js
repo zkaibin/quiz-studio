@@ -34,7 +34,7 @@
   let renderer, scene, camera, controls;
   let cubeGroup;
   let raycaster;
-  const pointer = new THREE.Vector2();
+  let pointer = null;
   const dragState = { active: false, turned: false, sticker: null, start: { x: 0, y: 0 }, end: { x: 0, y: 0 } };
 
   const refs = {
@@ -95,6 +95,7 @@
     controls.maxDistance = 12;
 
     raycaster = new THREE.Raycaster();
+    pointer = new THREE.Vector2();
     cubeGroup = new THREE.Group();
     scene.add(cubeGroup);
 
