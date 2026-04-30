@@ -181,6 +181,22 @@ body {
   font-size: .92rem;
   font-weight: 600;
 }
+.net-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.net-mode-picker {
+  padding: 5px 8px;
+  font-size: .72rem;
+}
+.orientation-indicator {
+  color: #64748b;
+  font-size: .72rem;
+  font-weight: 800;
+}
 .net {
   display: grid;
   grid-template-columns: repeat(4,minmax(62px,1fr));
