@@ -97,8 +97,6 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     updateRendererPixelRatio();
     if (typeof coarsePointerQuery.addEventListener === 'function') {
       coarsePointerQuery.addEventListener('change', updateRendererPixelRatio);
-    } else if (typeof coarsePointerQuery.addListener === 'function') {
-      coarsePointerQuery.addListener(updateRendererPixelRatio);
     }
     renderer.domElement.style.touchAction = 'none';
     refs.mount.appendChild(renderer.domElement);
@@ -179,10 +177,13 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   function buildCubeMeshes() {
     clearGroup(cubeGroup);
 
+    const cubieSizeRatio = 0.985;
+    const stickerSizeRatio = 0.84;
+    const stickerLift = 0.004;
     const spacing = 1 / Math.max(2, size);
-    const cubieSize = spacing * 0.985;
-    const stickerSize = spacing * 0.84;
-    const offset = cubieSize / 2 + 0.004;
+    const cubieSize = spacing * cubieSizeRatio;
+    const stickerSize = spacing * stickerSizeRatio;
+    const offset = cubieSize / 2 + stickerLift;
 
     const coreGeo = new THREE.BoxGeometry(cubieSize, cubieSize, cubieSize);
     const coreMat = new THREE.MeshPhongMaterial({ color: 0x0b1020, shininess: 18 });
