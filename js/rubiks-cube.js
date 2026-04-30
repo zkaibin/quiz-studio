@@ -17,6 +17,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   const STICKER_SIZE_RATIO = 0.84;
   const STICKER_LIFT = 0.004;
   const MIN_MOVE_DURATION_MS = 55;
+  const DRAG_DIRECTION_SIGN_BY_FACE = { U: -1, D: -1, R: -1, L: -1, F: 1, B: 1 };
   const FACE_LOCAL_AXES = {};
   const FACE_CAMERA_UP = {};
   if (Core) {
@@ -507,7 +508,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   function dragMoveForLayer(axis, layerValue, direction) {
     const face = axisFaceFromAxis(axis);
     if (!face) return null;
-    const dragDirectionSign = (face === 'R' || face === 'L' || face === 'U' || face === 'D') ? -1 : 1;
+    const dragDirectionSign = DRAG_DIRECTION_SIGN_BY_FACE[face] || 1;
     const quarterTurns = MOVE_INFO[face].rotation * (direction < 0 ? -1 : 1) * dragDirectionSign;
     return {
       face,
