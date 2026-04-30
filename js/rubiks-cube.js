@@ -1,6 +1,8 @@
 (function () {
   const Core = window.RubiksCubeCore;
-  if (!Core || !window.THREE) return;
+  const missingDeps = [];
+  if (!Core) missingDeps.push('RubiksCubeCore');
+  if (!window.THREE) missingDeps.push('THREE');
 
   const FACE = Core.FACE;
   const FACE_COLORS = Core.FACE_COLORS;
@@ -50,6 +52,12 @@
     scramble: document.getElementById('rk-scramble'),
     net: document.getElementById('rk-net')
   };
+
+  function populateSizeOptions() {
+    refs.sizeSelect.innerHTML = Array.from({ length: 9 }, (_, i) => i + 2)
+      .map((n) => `<option value="${n}" ${n === size ? 'selected' : ''}>${n}×${n}</option>`)
+      .join('');
+  }
 
   function vecDot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
   function vecCross(a, b) {
@@ -541,9 +549,18 @@
   }
 
   function bootstrap() {
-    refs.sizeSelect.innerHTML = Array.from({ length: 9 }, (_, i) => i + 2)
-      .map((n) => `<option value="${n}" ${n === size ? 'selected' : ''}>${n}×${n}</option>`)
-      .join('');
+    populateSizeOptions();
+
+    if (missingDeps.length) {
+      setStatus(`Failed to load: ${missingDeps.join(', ')}`, 'warning');
+      refs.scrambleBtn.disabled = true;
+      refs.resetBtn.disabled = true;
+      refs.undoBtn.disabled = true;
+      refs.redoBtn.disabled = true;
+      refs.applyBtn.disabled = true;
+      refs.algInput.disabled = true;
+      return;
+    }
 
     initScene();
     bindEvents();
