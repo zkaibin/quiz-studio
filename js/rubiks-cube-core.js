@@ -131,6 +131,7 @@
   }
 
   function normalizeMoveToken(token, size) {
+    // Normalize smart quotes from pasted text so notation like R’ U’ still parses.
     const raw = String(token || '').trim().replace(/[\u2018\u2019]/g, "'");
     if (!raw) return null;
     const match = raw.match(/^(\d+)?([URFDLBMESurfdlb])(w|W)?(2'?|'|)?$/);
