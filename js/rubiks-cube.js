@@ -520,7 +520,8 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     if (size % 2 === 1 && layerValue === 0) {
       const sliceFace = Core.AXIS_TO_SLICE_FACE[axisKey(descriptor.axis)];
       if (!sliceFace) return null;
-      return `${sliceFace}${turnSuffixFromQuarterTurns(descriptor.quarterTurns)}`;
+      return normalizedFaceMove(sliceFace, descriptor.quarterTurns)
+        || `${sliceFace}${turnSuffixFromQuarterTurns(descriptor.quarterTurns)}`;
     }
     return null;
   }
