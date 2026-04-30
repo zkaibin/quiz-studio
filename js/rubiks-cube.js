@@ -18,6 +18,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   const STICKER_LIFT = 0.004;
   const MIN_MOVE_DURATION_MS = 55;
   const FACE_LOCAL_AXES = {};
+  const FACE_CAMERA_UP = {};
   if (Core) {
     FACE_LOCAL_AXES[FACE.U] = { u: [1, 0, 0], v: [0, 0, 1], n: [0, 1, 0] };
     FACE_LOCAL_AXES[FACE.D] = { u: [1, 0, 0], v: [0, 0, -1], n: [0, -1, 0] };
@@ -25,6 +26,10 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     FACE_LOCAL_AXES[FACE.B] = { u: [-1, 0, 0], v: [0, -1, 0], n: [0, 0, -1] };
     FACE_LOCAL_AXES[FACE.L] = { u: [0, 0, 1], v: [0, -1, 0], n: [-1, 0, 0] };
     FACE_LOCAL_AXES[FACE.R] = { u: [0, 0, -1], v: [0, -1, 0], n: [1, 0, 0] };
+    Object.entries(FACE_LOCAL_AXES).forEach(([faceKey, axes]) => {
+      const faceUp = [-axes.v[0], -axes.v[1], -axes.v[2]];
+      FACE_CAMERA_UP[faceKey] = faceUp;
+    });
   }
 
   let size = 3;
@@ -132,6 +137,19 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     window.addEventListener('resize', resize);
     resize();
     renderLoop();
+  }
+
+  function alignCameraToFace(face) {
+    const axes = FACE_LOCAL_AXES[face];
+    if (!axes || !camera || !controls) return;
+    const target = controls.target.clone();
+    const distance = camera.position.distanceTo(target) || 6;
+    const normal = new THREE.Vector3(axes.n[0], axes.n[1], axes.n[2]).normalize();
+    const faceUp = FACE_CAMERA_UP[face];
+    camera.up.set(faceUp[0], faceUp[1], faceUp[2]);
+    camera.position.copy(target).add(normal.multiplyScalar(distance));
+    camera.lookAt(target);
+    controls.update();
   }
 
   function resize() {
@@ -333,6 +351,9 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
       done(false);
       return;
     }
+    if (entry.options.faceLocalView && descriptor.face !== undefined && descriptor.face !== null) {
+      alignCameraToFace(descriptor.face);
+    }
 
     const pivot = new THREE.Group();
     const affected = getCubiesForDescriptor(descriptor);
@@ -389,8 +410,8 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     refreshUI();
   }
 
-  function applyMove(move) {
-    queueMove(move, { countMove: true, tone: 'active' });
+  function applyMove(move, options) {
+    queueMove(move, { countMove: true, tone: 'active', ...(options || {}) });
   }
 
   function applyAlgorithm() {
@@ -608,7 +629,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     }
     const key = event.key.toLowerCase();
     if ('urfdlb'.includes(key)) {
-      applyMove(event.shiftKey ? `${key.toUpperCase()}'` : key.toUpperCase());
+      applyMove(event.shiftKey ? `${key.toUpperCase()}'` : key.toUpperCase(), { faceLocalView: true });
       event.preventDefault();
       return;
     }
