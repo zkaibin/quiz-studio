@@ -142,8 +142,8 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   function currentViewBasis() {
     const fallback = { front: [0, 0, 1], up: [0, 1, 0], right: [1, 0, 0] };
     if (!camera || !controls) return fallback;
-    const forward = controls.target.clone().sub(camera.position).normalize();
-    const front = dominantAxisVector(forward) || fallback.front;
+    const viewDirection = camera.position.clone().sub(controls.target).normalize();
+    const front = dominantAxisVector(viewDirection) || fallback.front;
     const frontAxis = axisIndexOfVector(front);
     const excludedFrontAxis = frontAxis === null ? [] : [frontAxis];
 
