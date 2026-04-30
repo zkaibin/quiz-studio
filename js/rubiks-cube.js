@@ -140,12 +140,13 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   }
 
   function alignCameraToFace(face) {
-    const axes = FACE_LOCAL_AXES[face];
+    const faceIndex = typeof face === 'string' ? FACE[face] : face;
+    const axes = FACE_LOCAL_AXES[faceIndex];
     if (!axes || !camera || !controls) return;
     const target = controls.target.clone();
     const distance = camera.position.distanceTo(target) || 6;
     const normal = new THREE.Vector3(axes.n[0], axes.n[1], axes.n[2]).normalize();
-    const faceUp = FACE_CAMERA_UP[face];
+    const faceUp = FACE_CAMERA_UP[faceIndex];
     camera.up.set(faceUp[0], faceUp[1], faceUp[2]);
     camera.position.copy(target).add(normal.multiplyScalar(distance));
     camera.lookAt(target);
