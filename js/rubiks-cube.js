@@ -1,8 +1,14 @@
+import * as THREE_NAMESPACE from './vendor/three/three.module.min.js';
+import { OrbitControls } from './vendor/three/OrbitControls.js';
+
+window.THREE = { ...THREE_NAMESPACE, OrbitControls };
+
 (function () {
   const Core = window.RubiksCubeCore;
+  const THREE = window.THREE;
   const missingDeps = [];
   if (!Core) missingDeps.push('RubiksCubeCore');
-  if (!window.THREE) missingDeps.push('THREE');
+  if (!THREE) missingDeps.push('THREE');
 
   const FACE = Core ? Core.FACE : {};
   const FACE_COLORS = Core ? Core.FACE_COLORS : [];
