@@ -81,14 +81,14 @@ function targetedLayerIdentity(size) {
   const cube = new CubeModel(size);
   const baseline = cube.serialize();
   const maxDepth = Math.floor(size / 2);
-  const sequence = ['R', "U'", 'F2'];
+  const sequence = ['R', 'U\'', 'F2'];
 
   if (size >= 4) {
-    sequence.push('Rw', "2Uw'");
+    sequence.push('Rw', '2Uw\'');
     if (maxDepth >= 3) sequence.push(`${maxDepth}Rw`);
   }
   if (size >= 3 && size % 2 === 1) {
-    sequence.push('M', "E'", 'S2');
+    sequence.push('M', 'E\'', 'S2');
   }
 
   const normalized = sequence
