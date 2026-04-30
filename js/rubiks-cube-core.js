@@ -134,7 +134,14 @@
 
   function layerDepthFromValue(layerValue, size) {
     const max = size - 1;
+    // Convert discrete layer coordinates (max, max-2, ... , -max) into 1-based depth from the positive face.
     return Math.round((max - layerValue) / 2) + 1;
+  }
+
+  function normalizeLayerValues(layerValues, size) {
+    const sizeInt = ensureSize(size);
+    const values = Array.isArray(layerValues) ? layerValues : [sizeInt - 1];
+    return [...new Set(values.map((value) => nearestCoordinate(value, sizeInt)))].sort((a, b) => b - a);
   }
 
   function layerValuesFromDepth(axis, depth, size) {
@@ -181,11 +188,9 @@
     const sizeInt = ensureSize(size);
     if (move && typeof move === 'object' && Array.isArray(move.axis)) {
       const axis = [move.axis[0], move.axis[1], move.axis[2]];
-      const layerValues = (Array.isArray(move.layerValues) ? move.layerValues : [sizeInt - 1])
-        .map((value) => nearestCoordinate(value, sizeInt));
       return {
         axis,
-        layerValues: [...new Set(layerValues)].sort((a, b) => b - a),
+        layerValues: normalizeLayerValues(move.layerValues, sizeInt),
         quarterTurns: Number(move.quarterTurns) || 1,
         normalized: move.normalized || null,
         face: move.face || moveFaceFromAxis(axis)
@@ -403,9 +408,7 @@
       if (!descriptor) return '—';
       if (descriptor.normalized) return descriptor.normalized;
       const suffix = moveSuffixFromQuarterTurns(descriptor.quarterTurns);
-      const layerValues = (Array.isArray(descriptor.layerValues) ? descriptor.layerValues : [this.size - 1])
-        .map((value) => nearestCoordinate(value, this.size))
-        .sort((a, b) => b - a);
+      const layerValues = normalizeLayerValues(descriptor.layerValues, this.size);
       if (layerValues.length === 1) {
         const face = descriptor.face || moveFaceFromAxis(descriptor.axis);
         const layerValue = layerValues[0];
@@ -444,6 +447,7 @@
     AXIS_TO_SLICE_FACE,
     coordinateValues,
     nearestCoordinate,
+    normalizeLayerValues,
     normalizeMoveToken,
     normalizeAlgorithm,
     moveDescriptor,

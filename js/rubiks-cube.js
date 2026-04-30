@@ -506,13 +506,16 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     return turns === 3 ? "'" : '';
   }
 
+  function axisKey(axis) {
+    return `${Math.abs(axis[0])},${Math.abs(axis[1])},${Math.abs(axis[2])}`;
+  }
+
   function normalizedQuarterTurns(quarterTurns) {
     return ((quarterTurns % 4) + 4) % 4;
   }
 
   function normalizedLayerValues(layerValues) {
-    return [...new Set((Array.isArray(layerValues) ? layerValues : [size - 1]).map((value) => Core.nearestCoordinate(value, size)))]
-      .sort((a, b) => b - a);
+    return Core.normalizeLayerValues(layerValues, size);
   }
 
   function trackedMoveTokenFromDescriptor(descriptor) {
@@ -525,7 +528,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     if (!face) return null;
     if (layerValue === max) return normalizedFaceMove(face, descriptor.quarterTurns);
     if (size % 2 === 1 && layerValue === 0) {
-      const sliceFace = Core.AXIS_TO_SLICE_FACE[`${Math.abs(descriptor.axis[0])},${Math.abs(descriptor.axis[1])},${Math.abs(descriptor.axis[2])}`];
+      const sliceFace = Core.AXIS_TO_SLICE_FACE[axisKey(descriptor.axis)];
       if (!sliceFace) return null;
       return `${sliceFace}${turnSuffixFromQuarterTurns(descriptor.quarterTurns)}`;
     }
