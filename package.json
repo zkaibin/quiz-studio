@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server/server.js",
     "dev": "nodemon server/server.js",
-    "serve": "node dev-server.js"
+    "serve": "node dev-server.js",
+    "test:rubik": "node scripts/test-rubiks-core.js"
   },
   "keywords": [
     "quiz",

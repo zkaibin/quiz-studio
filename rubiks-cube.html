@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rubik's Cube Simulator - Quiz Studio</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎲</text></svg>">
+  <link rel="stylesheet" href="css/rubiks-cube.css">
+</head>
+<body>
+  <div class="container">
+    <a class="back-btn" href="games.html">← Back to Games</a>
+    <header class="header">
+      <h1>🎲 Rubik's Cube Simulator</h1>
+      <p>Standalone rebuild with a virtual cube core and Three.js renderer (2×2 to 10×10).</p>
+    </header>
+
+    <section class="shell" id="rk-shell">
+      <div class="toolbar">
+        <div class="group">
+          <button id="rk-scramble-btn" class="btn warn">🔀 Scramble</button>
+          <button id="rk-reset-btn" class="btn primary">↺ Reset</button>
+          <button id="rk-undo-btn" class="btn dark">↶ Undo</button>
+          <button id="rk-redo-btn" class="btn dark">↷ Redo</button>
+        </div>
+        <div class="group">
+          <label class="size-picker">Size <select id="rk-size"></select></label>
+        </div>
+      </div>
+
+      <div class="status">
+        <span id="rk-status-badge" class="badge ready">Ready</span>
+        <span id="rk-status-text">Ready. Scramble to begin.</span>
+      </div>
+
+      <div class="layout">
+        <div class="card">
+          <div id="rk3d-mount"></div>
+          <div class="stats">
+            <div class="stat"><div class="k">Moves</div><div id="rk-moves" class="v">0</div></div>
+            <div class="stat"><div class="k">Last Move</div><div id="rk-last" class="v">—</div></div>
+          </div>
+          <div style="margin-top:10px;">
+            <span class="label">Current scramble</span>
+            <div id="rk-scramble" class="scramble">—</div>
+          </div>
+        </div>
+
+        <div style="display:grid; gap:12px;">
+          <div class="card">
+            <span class="label">Algorithm input</span>
+            <div class="alg-row">
+              <input id="rk-alg-input" type="text" placeholder="Example: R U R' U' or 3Rw U 2Rw'">
+              <button id="rk-apply-btn" class="btn primary">Apply</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="label">Cube net</span>
+            <div id="rk-net" class="net"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="help">Drag empty space to orbit. Drag visible stickers to turn layers. Keyboard: U R F D L B (Shift for inverse), Space scramble, Z undo, Y redo.</p>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.164.1/examples/js/controls/OrbitControls.js"></script>
+  <script src="js/rubiks-cube-core.js"></script>
+  <script src="js/rubiks-cube.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/nav-auth.js"></script>
+</body>
+</html>
