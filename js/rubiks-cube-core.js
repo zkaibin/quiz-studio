@@ -122,6 +122,21 @@
     return turns === 3 ? "'" : '';
   }
 
+  function normalizedTokenForFace(face, quarterTurns) {
+    const info = FACE_MOVE_INFO[face];
+    if (!info) return null;
+    const turns = ((quarterTurns * info.rotation) % 4 + 4) % 4;
+    if (turns === 1) return face;
+    if (turns === 2) return `${face}2`;
+    if (turns === 3) return `${face}'`;
+    return null;
+  }
+
+  function layerDepthFromValue(layerValue, size) {
+    const max = size - 1;
+    return Math.round((max - layerValue) / 2) + 1;
+  }
+
   function layerValuesFromDepth(axis, depth, size) {
     const max = size - 1;
     const count = Math.max(1, Math.min(Math.floor(size / 2), depth));
@@ -387,8 +402,27 @@
       const descriptor = moveDescriptor(move, this.size);
       if (!descriptor) return '—';
       if (descriptor.normalized) return descriptor.normalized;
-      const face = descriptor.face || moveFaceFromAxis(descriptor.axis) || AXIS_TO_SLICE_FACE[axisKey(descriptor.axis)] || '?';
-      return `${face}${moveSuffixFromQuarterTurns(descriptor.quarterTurns)}`;
+      const suffix = moveSuffixFromQuarterTurns(descriptor.quarterTurns);
+      const layerValues = (Array.isArray(descriptor.layerValues) ? descriptor.layerValues : [this.size - 1])
+        .map((value) => nearestCoordinate(value, this.size))
+        .sort((a, b) => b - a);
+      if (layerValues.length === 1) {
+        const face = descriptor.face || moveFaceFromAxis(descriptor.axis);
+        const layerValue = layerValues[0];
+        const max = this.size - 1;
+        if (face && layerValue === max) return normalizedTokenForFace(face, descriptor.quarterTurns) || `${face}${suffix}`;
+        if (this.size % 2 === 1 && layerValue === 0) {
+          const sliceFace = AXIS_TO_SLICE_FACE[axisKey(descriptor.axis)];
+          if (sliceFace) return normalizedTokenForFace(sliceFace, descriptor.quarterTurns) || `${sliceFace}${suffix}`;
+        }
+        if (face) {
+          const depth = layerDepthFromValue(layerValue, this.size);
+          const token = normalizedTokenForFace(face, descriptor.quarterTurns) || `${face}${suffix}`;
+          return `${token} (layer ${depth})`;
+        }
+      }
+      const fallbackFace = descriptor.face || moveFaceFromAxis(descriptor.axis) || AXIS_TO_SLICE_FACE[axisKey(descriptor.axis)] || '?';
+      return `${fallbackFace}${suffix}`;
     }
 
     stickerMapByCubie() {
