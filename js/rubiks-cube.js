@@ -628,12 +628,12 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     }
     const key = event.key.toLowerCase();
     if ('urfdlb'.includes(key)) {
-      const canPreserveView = !!(camera && controls);
-      const cameraPosition = canPreserveView ? camera.position.clone() : null;
-      const cameraUp = canPreserveView ? camera.up.clone() : null;
-      const controlsTarget = canPreserveView ? controls.target.clone() : null;
+      const hasCameraAndControls = !!(camera && controls);
+      const cameraPosition = hasCameraAndControls ? camera.position.clone() : null;
+      const cameraUp = hasCameraAndControls ? camera.up.clone() : null;
+      const controlsTarget = hasCameraAndControls ? controls.target.clone() : null;
       applyMove(event.shiftKey ? `${key.toUpperCase()}'` : key.toUpperCase());
-      if (canPreserveView) {
+      if (hasCameraAndControls) {
         camera.position.copy(cameraPosition);
         camera.up.copy(cameraUp);
         controls.target.copy(controlsTarget);
