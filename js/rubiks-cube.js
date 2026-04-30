@@ -646,7 +646,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   }
 
   function projectToScreen(point) {
-    const p = new THREE.Vector3(point[0], point[1], point[2]);
+    const p = point instanceof THREE.Vector3 ? point.clone() : new THREE.Vector3(point[0], point[1], point[2]);
     p.project(camera);
     const canvas = renderer.domElement;
     return {
@@ -657,19 +657,56 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
 
   function projectedVector(origin, vector) {
     const p1 = projectToScreen(origin);
-    const p2 = projectToScreen([origin[0] + vector[0], origin[1] + vector[1], origin[2] + vector[2]]);
+    const o = origin instanceof THREE.Vector3 ? origin : new THREE.Vector3(origin[0], origin[1], origin[2]);
+    const p2 = projectToScreen(new THREE.Vector3(o.x + vector[0], o.y + vector[1], o.z + vector[2]));
     return [p2.x - p1.x, p2.y - p1.y];
+  }
+
+  function vectorLength2D(v) {
+    return Math.hypot(v[0], v[1]);
+  }
+
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
+  function worldSpacingForSize(sizeNow) {
+    return 1 / Math.max(2, sizeNow);
+  }
+
+  function discreteToWorldPoint(point) {
+    const spacing = worldSpacingForSize(size);
+    return new THREE.Vector3(point[0] * spacing, point[1] * spacing, point[2] * spacing);
+  }
+
+  function stickerDragThreshold(sticker) {
+    if (!sticker) return 24;
+    const axes = FACE_LOCAL_AXES[sticker.face];
+    if (!axes) return 24;
+    const worldCenter = discreteToWorldPoint(sticker.center);
+    const spacing = worldSpacingForSize(size);
+    const halfSticker = spacing * STICKER_SIZE_RATIO * 0.5;
+    const projectedU = projectedVector(worldCenter, vecScale(axes.u, halfSticker));
+    const projectedV = projectedVector(worldCenter, vecScale(axes.v, halfSticker));
+    const averageProjected = (vectorLength2D(projectedU) + vectorLength2D(projectedV)) * 0.5;
+    return clamp(averageProjected * 0.45, 8, 24);
   }
 
   function moveFromStickerDrag(sticker, drag) {
     if (!sticker) return null;
     const axes = FACE_LOCAL_AXES[sticker.face];
     if (!axes) return null;
+    const worldCenter = discreteToWorldPoint(sticker.center);
+    const spacing = worldSpacingForSize(size);
+    const projectionSample = Math.max(spacing * 0.45, 0.03);
 
-    const projectedU = projectedVector(sticker.center, vecScale(axes.u, 0.45));
-    const projectedV = projectedVector(sticker.center, vecScale(axes.v, 0.45));
-    const uDot = drag[0] * projectedU[0] + drag[1] * projectedU[1];
-    const vDot = drag[0] * projectedV[0] + drag[1] * projectedV[1];
+    const projectedU = projectedVector(worldCenter, vecScale(axes.u, projectionSample));
+    const projectedV = projectedVector(worldCenter, vecScale(axes.v, projectionSample));
+    const uLen = vectorLength2D(projectedU);
+    const vLen = vectorLength2D(projectedV);
+    if (uLen < 1e-4 && vLen < 1e-4) return null;
+    const uDot = uLen > 1e-4 ? (drag[0] * projectedU[0] + drag[1] * projectedU[1]) / uLen : 0;
+    const vDot = vLen > 1e-4 ? (drag[0] * projectedV[0] + drag[1] * projectedV[1]) / vLen : 0;
     const localAxis = Math.abs(uDot) >= Math.abs(vDot) ? axes.u : axes.v;
 
     const turnAxis = vecCross(sticker.normal, localAxis);
@@ -678,9 +715,11 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     const layerValue = Core.nearestCoordinate(vecDot(sticker.center, oriented), size);
 
     const tangent = vecCross(oriented, sticker.center);
-    const projectedTangent = projectedVector(sticker.center, vecScale(vecNorm(tangent), 0.45));
-    const direction = drag[0] * projectedTangent[0] + drag[1] * projectedTangent[1];
-    if (Math.abs(direction) < 1) return null;
+    const projectedTangent = projectedVector(worldCenter, vecScale(vecNorm(tangent), projectionSample));
+    const tangentLen = vectorLength2D(projectedTangent);
+    if (tangentLen < 1e-4) return null;
+    const direction = (drag[0] * projectedTangent[0] + drag[1] * projectedTangent[1]) / tangentLen;
+    if (Math.abs(direction) < 6) return null;
 
     return dragMoveForLayer(oriented, layerValue, direction);
   }
@@ -732,7 +771,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     }
     dragState.end = eventPoint(event);
     const drag = [dragState.end.x - dragState.start.x, dragState.end.y - dragState.start.y];
-    if (dragState.sticker && Math.hypot(drag[0], drag[1]) > 24) {
+    if (dragState.sticker && Math.hypot(drag[0], drag[1]) > stickerDragThreshold(dragState.sticker)) {
       const move = moveFromStickerDrag(dragState.sticker, drag);
       if (move) applyMove(move);
     }
