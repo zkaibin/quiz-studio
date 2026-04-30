@@ -198,20 +198,24 @@ After validating the test page, auth is now integrated into the main landing pag
 
 1. Open `games.html` from the homepage
 2. Pick any game card to launch the modal
-3. For **成语游戏 Chengyu Quiz**:
+3. For **Rubik's Cube**:
+   - Click the Rubik card to open the standalone simulator page: `rubiks-cube.html`
+   - Supports configurable sizes from **2×2 to 10×10**
+   - Includes drag-to-turn layers, camera orbit, keyboard moves, undo/redo, algorithm input, and deterministic seeded scrambles
+4. For **成语游戏 Chengyu Quiz**:
    - Questions are randomly selected from a **600+ idiom library**
    - Each round contains **20 questions**
    - Use **Category** filters to focus practice by level
    - Meanings include both English and Chinese
-4. For **Word Scramble** and **Hangman**:
+5. For **Word Scramble** and **Hangman**:
    - Questions are drawn from JSON word libraries in `data/`
    - Each run is capped at **20 random questions**
    - Click **New 20** to reshuffle a fresh set
-5. For **K-POP Emoji** and **K-POP Idol** quizzes:
+6. For **K-POP Emoji** and **K-POP Idol** quizzes:
    - Questions are loaded from JSON banks in `data/`
    - Each run is capped at **20 random questions**
    - Click **New 20** for another random set
-6. Click **Play Again** to get a fresh random set
+7. Click **Play Again** to get a fresh random set
 
 ### Paper Generator
 
@@ -225,16 +229,20 @@ After validating the test page, auth is now integrated into the main landing pag
 quiz-studio/
 ├── index.html                      # Landing page
 ├── games.html                      # Fun games hub
+├── rubiks-cube.html                # Standalone Rubik's cube simulator
 ├── quiz.html                       # Math quiz interface
 ├── science-quiz.html               # Science quiz interface
 ├── science-concepts.html           # Science concept maps
 ├── paper-generator.html            # Print quiz papers
 ├── css/
 │   ├── style.css                   # Main styles
+│   ├── rubiks-cube.css             # Standalone Rubik simulator styles
 │   └── print.css                   # Print styles
 ├── js/
 │   ├── quiz.js                     # Math quiz logic & character substitution
 │   ├── games.js                    # Mini games and Chengyu quiz logic
+│   ├── rubiks-cube-core.js         # Generic Rubik virtual cube model + parser
+│   ├── rubiks-cube.js              # Rubik Three.js renderer + controls
 │   ├── science-quiz.js             # Science quiz logic
 │   ├── science-concepts.js         # Concept map data & interactions
 │   ├── data-loader.js              # JSON data loading & management

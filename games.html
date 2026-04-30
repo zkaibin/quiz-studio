@@ -766,10 +766,10 @@
                 <p>Practice Chinese idioms! Read the chengyu and pick the correct meaning.</p>
             </div>
 
-            <div class="game-card" onclick="openGame('rubik')">
+            <div class="game-card" onclick="window.location.href='rubiks-cube.html'">
                 <div class="game-icon">🎲</div>
                 <h3>Rubik's Cube</h3>
-                <p>Configurable 2×2, 3×3, 4×4, and 5×5 simulator with shared controls, fullscreen play, and 3×3 solver help.</p>
+                <p>Standalone simulator rebuilt from scratch with a robust virtual model and interactive 3D controls (2×2 to 10×10).</p>
             </div>
         </div>
     </div>
@@ -777,8 +777,6 @@
     <!-- Game Modals will be inserted here -->
     <div id="game-modals"></div>
 
-    <script src="js/vendor/cubejs/cube.js"></script>
-    <script src="js/vendor/cubejs/solve.js"></script>
     <script src="js/games.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase-config.js"></script>

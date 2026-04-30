@@ -13,8 +13,7 @@ const gameModals = {
     hangman: { title: '🪢 Hangman', subtitle: 'Guess the word!' },
     kpopemoji: { title: '🎤 K-POP Emoji Quiz', subtitle: 'Guess the group from the emojis!' },
     kpopidol: { title: '🌟 K-POP Idol Quiz', subtitle: 'Guess the idol from the emojis!' },
-    chengyu: { title: '🀄 成语游戏', subtitle: '猜猜成语的意思！' },
-    rubik: { title: '🎲 Rubik\'s Cube', subtitle: 'Configurable 2×2 to 5×5 cube simulator' }
+    chengyu: { title: '🀄 成语游戏', subtitle: '猜猜成语的意思！' }
 };
 
 function openGame(gameId) {
@@ -38,7 +37,6 @@ function createGameModal(gameId) {
     const modal = document.createElement('div');
     modal.id = `modal-${gameId}`;
     modal.className = 'game-modal';
-    if (gameId === 'rubik') modal.classList.add('rubik-modal');
     modal.innerHTML = `
         <div class="modal-content">
             <button class="close-btn" onclick="closeGame('${gameId}')">×</button>
@@ -72,7 +70,6 @@ function initGame(gameId) {
         case 'kpopemoji': initKpopEmoji(); break;
         case 'kpopidol': initKpopIdol(); break;
         case 'chengyu': initChengyu(); break;
-        case 'rubik': initRubik(); break;
     }
 }
 
@@ -87,9 +84,6 @@ function cleanupGame(gameId) {
     }
     if (gameId === 'mathchallenge' && window.mathTimer) {
         clearInterval(window.mathTimer);
-    }
-    if (gameId === 'rubik') {
-        cleanupRubik();
     }
 }
 
