@@ -134,7 +134,7 @@
 
   function layerDepthFromValue(layerValue, size) {
     const max = size - 1;
-    // Convert discrete layer coordinates (max, max-2, ... , -max) into 1-based depth from the positive face.
+    // Convert discrete layer coordinates (max, max-2, ..., -max) into 1-based depth from the positive face.
     return Math.round((max - layerValue) / 2) + 1;
   }
 
