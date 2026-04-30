@@ -17,7 +17,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   const STICKER_SIZE_RATIO = 0.84;
   const STICKER_LIFT = 0.004;
   const MIN_MOVE_DURATION_MS = 55;
-  const DRAG_DIRECTION_SIGN_BY_FACE = { U: -1, D: -1, R: -1, L: -1, F: 1, B: 1 };
+  const DRAG_DIRECTION_SIGN_BY_FACE = { U: -1, D: -1, R: -1, L: -1, F: -1, B: -1 };
   const FACE_LOCAL_AXES = {};
   const FACE_CAMERA_UP = {};
   if (Core) {
@@ -505,6 +505,16 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     return null;
   }
 
+  function normalizedFaceMove(face, quarterTurns) {
+    const info = MOVE_INFO[face];
+    if (!info) return null;
+    const turns = ((quarterTurns * info.rotation) % 4 + 4) % 4;
+    if (turns === 1) return face;
+    if (turns === 2) return `${face}2`;
+    if (turns === 3) return `${face}'`;
+    return null;
+  }
+
   function dragMoveForLayer(axis, layerValue, direction) {
     const face = axisFaceFromAxis(axis);
     if (!face) return null;
@@ -515,7 +525,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
       axis: [...axis],
       layerValues: [layerValue],
       quarterTurns,
-      normalized: null
+      normalized: normalizedFaceMove(face, quarterTurns)
     };
   }
 
