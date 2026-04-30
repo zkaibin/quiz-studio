@@ -9,12 +9,12 @@
   const FACE_LETTERS = ['U', 'D', 'F', 'B', 'L', 'R'];
   const FACE_COLORS = ['#ffffff', '#ffd54f', '#22c55e', '#2563eb', '#fb923c', '#ef4444'];
   const FACE_MOVE_INFO = {
-    U: { axis: [0, 1, 0], rotation: 1 },
-    D: { axis: [0, -1, 0], rotation: 1 },
+    U: { axis: [0, 1, 0], rotation: -1 },
+    D: { axis: [0, -1, 0], rotation: -1 },
     F: { axis: [0, 0, 1], rotation: -1 },
     B: { axis: [0, 0, -1], rotation: -1 },
-    L: { axis: [-1, 0, 0], rotation: 1 },
-    R: { axis: [1, 0, 0], rotation: 1 },
+    L: { axis: [-1, 0, 0], rotation: -1 },
+    R: { axis: [1, 0, 0], rotation: -1 },
     M: { axis: [1, 0, 0], rotation: -1, slice: true },
     E: { axis: [0, 1, 0], rotation: -1, slice: true },
     S: { axis: [0, 0, 1], rotation: -1, slice: true }
