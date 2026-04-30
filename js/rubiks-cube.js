@@ -333,7 +333,7 @@
     const raw = refs.algInput.value.trim();
     const moves = parseAlgorithm(raw);
     if (!moves.length) {
-      setStatus('Invalid algorithm. Try: R U R\' U\' or 3Rw U', 'warning');
+      setStatus("Invalid algorithm. Try: R U R' U' or 3Rw U", 'warning');
       refreshUI();
       return;
     }

@@ -48,6 +48,14 @@ function notationCoverage(size) {
   invalid.forEach((token) => {
     assert.strictEqual(normalizeMoveToken(token, size), null, `expected invalid token ${token} for ${size}`);
   });
+
+  if (size >= 4) {
+    const maxDepth = Math.floor(size / 2);
+    const boundary = `${maxDepth}Rw`;
+    assert.ok(normalizeMoveToken(boundary, size), `max depth token should be valid: ${boundary} on ${size}`);
+    const overflow = `${maxDepth + 1}Rw`;
+    assert.strictEqual(normalizeMoveToken(overflow, size), null, `overflow depth should be invalid: ${overflow} on ${size}`);
+  }
 }
 
 function deterministicScramble(size) {
