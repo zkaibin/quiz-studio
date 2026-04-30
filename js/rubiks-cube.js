@@ -352,10 +352,6 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
       done(false);
       return;
     }
-    if (entry.options.faceLocalView && descriptor.face !== undefined && descriptor.face !== null) {
-      alignCameraToFace(descriptor.face);
-    }
-
     const pivot = new THREE.Group();
     const affected = getCubiesForDescriptor(descriptor);
     cubeGroup.add(pivot);
@@ -511,7 +507,8 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   function dragMoveForLayer(axis, layerValue, direction) {
     const face = axisFaceFromAxis(axis);
     if (!face) return null;
-    const quarterTurns = MOVE_INFO[face].rotation * (direction < 0 ? -1 : 1);
+    const dragDirectionSign = (face === 'R' || face === 'L' || face === 'U' || face === 'D') ? -1 : 1;
+    const quarterTurns = MOVE_INFO[face].rotation * (direction < 0 ? -1 : 1) * dragDirectionSign;
     return {
       face,
       axis: [...axis],
@@ -630,7 +627,7 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     }
     const key = event.key.toLowerCase();
     if ('urfdlb'.includes(key)) {
-      applyMove(event.shiftKey ? `${key.toUpperCase()}'` : key.toUpperCase(), { faceLocalView: true });
+      applyMove(event.shiftKey ? `${key.toUpperCase()}'` : key.toUpperCase());
       event.preventDefault();
       return;
     }
