@@ -1,7 +1,10 @@
 /**
  * Science Concept Maps - Interactive learning tool
- * Based on Singapore Primary Science Syllabus 2021
+ * Based on Singapore Primary Science Syllabus 2026 (Revised)
  * Organized around 5 themes: Diversity, Cycles, Systems, Energy, Interactions
+ * Updated 2026: Added Scientific Investigation, Climate & Environment sections.
+ * New PSLE 2026 emphasis: Scientific inquiry process skills, environmental stewardship,
+ * higher-order thinking, and real-world application of science concepts.
  */
 
 const conceptMaps = {
@@ -1762,6 +1765,421 @@ const conceptMaps = {
           </div>
           <div class="example-box">
             <strong>Exam Key Point:</strong> Everyone can help protect environment through daily actions. Small changes by many people make BIG difference. Remember: Individual actions matter - you have power to create positive change!
+          </div>
+        `
+      }
+    ]
+  },
+
+  // SCIENTIFIC INVESTIGATION (New for PSLE 2026 Revised Syllabus)
+  'scientific-investigation': {
+    title: 'Scientific Investigation (PSLE 2026 Revised)',
+    description: 'Science is a way of investigating and understanding the world. The PSLE 2026 revised syllabus places strong emphasis on scientific inquiry skills, experimental design, and data analysis.',
+    sections: [
+      {
+        heading: 'Science Process Skills',
+        content: `
+          <div class="key-concepts">
+            <div class="key-concept-card">
+              <h4>1. Observing</h4>
+              <p>Using your five senses (sight, hearing, smell, touch, taste) to gather information about the world.</p>
+              <p><strong>Examples:</strong> Noting the color of a liquid, feeling if an object is rough, listening to the pitch of a sound</p>
+              <p><strong>Types:</strong> Qualitative (descriptive) or Quantitative (with numbers/measurements)</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>2. Classifying</h4>
+              <p>Sorting objects or events into groups based on shared characteristics.</p>
+              <p><strong>Examples:</strong> Grouping animals as vertebrates/invertebrates, sorting materials as conductors/insulators</p>
+              <p><strong>Key:</strong> Must use clear, observable criteria for classification</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>3. Measuring</h4>
+              <p>Using instruments to find the size, quantity, or degree of something.</p>
+              <p><strong>Tools:</strong> Ruler (length), measuring cylinder (volume), balance (mass), thermometer (temperature), stopwatch (time)</p>
+              <p><strong>Key:</strong> Always state the unit of measurement (cm, g, mL, °C, s)</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>4. Predicting</h4>
+              <p>Using existing knowledge to forecast what will happen in the future.</p>
+              <p><strong>Examples:</strong> Predicting a plant will wilt if unwatered, predicting a denser object will sink</p>
+              <p><strong>Difference from guessing:</strong> A prediction must be based on evidence or prior knowledge</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>5. Inferring</h4>
+              <p>Making an interpretation or explanation based on observations.</p>
+              <p><strong>Example:</strong> Seeing muddy footprints → inferring an animal walked through</p>
+              <p><strong>Key difference:</strong> An observation is what you directly see/sense; an inference is your interpretation</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>6. Communicating</h4>
+              <p>Sharing findings clearly using words, tables, graphs, and diagrams.</p>
+              <p><strong>Types:</strong> Bar graphs (comparing categories), line graphs (showing change over time), tables, diagrams, written conclusions</p>
+              <p><strong>Key:</strong> Results must be presented clearly so others can understand and repeat</p>
+            </div>
+          </div>
+          <div class="example-box">
+            <strong>2026 PSLE Exam Key Point:</strong> You will be asked to identify which process skill a scientist is using. Remember: Observing = senses, Classifying = grouping, Measuring = instruments, Predicting = forecasting, Inferring = interpreting.
+          </div>
+        `
+      },
+      {
+        heading: 'Designing a Fair Test',
+        content: `
+          <div class="key-concepts">
+            <div class="key-concept-card">
+              <h4>Independent Variable (What you CHANGE)</h4>
+              <p>The one factor you deliberately change in the experiment.</p>
+              <p><strong>Example:</strong> Testing how temperature affects reaction rate → change the temperature</p>
+              <p><strong>Rule:</strong> Only ONE independent variable per experiment</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Dependent Variable (What you MEASURE)</h4>
+              <p>The factor you observe or measure to see if it changes.</p>
+              <p><strong>Example:</strong> Testing how temperature affects reaction rate → measure the time taken</p>
+              <p><strong>Rule:</strong> This is the result of changing the independent variable</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Controlled Variables (What you KEEP THE SAME)</h4>
+              <p>All other factors that must remain constant to make the test fair.</p>
+              <p><strong>Example:</strong> Amount of substance, type of container, size of equipment, time allowed</p>
+              <p><strong>Rule:</strong> If controlled variables are not kept constant, the results will not be reliable</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Control Group (Baseline Comparison)</h4>
+              <p>A group in the experiment where the independent variable is NOT applied. Used as a comparison to identify the effect of the variable.</p>
+              <p><strong>Example:</strong> In a plant growth experiment, the control group receives no fertilizer; experimental groups receive different amounts of fertilizer</p>
+            </div>
+          </div>
+          <div class="example-box">
+            <strong>How to Identify Variables:</strong><br>
+            Question: "We test how the amount of water affects plant growth. We keep the pot size and sunlight the same."<br>
+            • Independent variable: Amount of water<br>
+            • Dependent variable: Plant growth (height)<br>
+            • Controlled variables: Pot size, sunlight, type of plant, temperature
+          </div>
+          <div class="example-box">
+            <strong>2026 PSLE Exam Key Point:</strong> A fair test changes ONLY ONE variable at a time. All other variables must be kept the same. If more than one variable changes, you cannot tell which variable caused the change in results.
+          </div>
+        `
+      },
+      {
+        heading: 'Hypothesis and Scientific Method',
+        content: `
+          <ul class="concept-list">
+            <li><strong>Hypothesis:</strong> A testable statement predicting the expected outcome. Usually written as: "If [independent variable] is [changed], then [dependent variable] will [predicted change]."</li>
+            <li><strong>Example:</strong> "If plants receive more sunlight, then they will grow taller."</li>
+            <li><strong>Scientific Method Steps:</strong>
+              <ol style="margin: 10px 0 10px 20px;">
+                <li>Ask a question / identify a problem</li>
+                <li>Form a hypothesis</li>
+                <li>Plan and conduct an experiment (fair test)</li>
+                <li>Collect and record data (observations)</li>
+                <li>Analyze results (look for patterns)</li>
+                <li>Draw conclusions (do results support hypothesis?)</li>
+                <li>Communicate findings</li>
+              </ol>
+            </li>
+            <li><strong>Valid conclusion:</strong> A conclusion is only valid if it is supported by evidence from the experiment. If results don't support the hypothesis, the hypothesis is rejected — this is still valuable!</li>
+            <li><strong>Reliability:</strong> Repeating experiments multiple times improves reliability. A single result is not enough to draw firm conclusions.</li>
+          </ul>
+          <div class="example-box">
+            <strong>2026 PSLE Exam Key Point:</strong> Results must SUPPORT your conclusion. Never just say "my hypothesis is correct" — say "the results support the hypothesis because [evidence]." If results don't match, the hypothesis is rejected.
+          </div>
+        `
+      },
+      {
+        heading: 'Recording and Interpreting Data',
+        content: `
+          <div class="key-concepts">
+            <div class="key-concept-card">
+              <h4>Tables</h4>
+              <p><strong>Use for:</strong> Recording raw data in an organized way</p>
+              <p><strong>Format:</strong> Column headers include variable name AND unit (e.g., "Temperature (°C)")</p>
+              <p><strong>Key:</strong> Each row is a separate trial or measurement</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Bar Graphs</h4>
+              <p><strong>Use for:</strong> Comparing different categories</p>
+              <p><strong>When:</strong> Independent variable is categorical (types of soil, types of material)</p>
+              <p><strong>Example:</strong> Comparing growth of plants in different soil types</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Line Graphs</h4>
+              <p><strong>Use for:</strong> Showing changes over time or continuous measurements</p>
+              <p><strong>When:</strong> Independent variable is numerical and continuous</p>
+              <p><strong>Example:</strong> Temperature of water cooling over time</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Calculating Average</h4>
+              <p><strong>Formula:</strong> Average = Sum of all values ÷ Number of values</p>
+              <p><strong>Why average?</strong> Reduces the effect of random errors, gives a more representative result</p>
+              <p><strong>Example:</strong> Heights of 3 plants: 12, 15, 9 cm → Average = (12+15+9) ÷ 3 = 12 cm</p>
+            </div>
+          </div>
+          <div class="example-box">
+            <strong>Anomalous Result:</strong> A result that does not fit the pattern is called an anomalous result (outlier). It may be due to experimental error and should be investigated. Don't include anomalous results when calculating averages.
+          </div>
+          <div class="example-box">
+            <strong>2026 PSLE Exam Key Point:</strong> When asked to "analyze results," look for the pattern/trend. Use data from the table/graph to support your conclusion. Quantitative statements (using actual numbers) are better than vague statements.
+          </div>
+        `
+      },
+      {
+        heading: 'Sources of Error and Improving Investigations',
+        content: `
+          <div class="key-concepts">
+            <div class="key-concept-card">
+              <h4>Human Error</h4>
+              <p>• Incorrect reading of instruments (e.g., reading thermometer at wrong angle)</p>
+              <p>• Inconsistent technique between trials</p>
+              <p>• Misreading scales on measuring cylinders or balances</p>
+              <p><strong>How to reduce:</strong> Be careful, read instruments at eye level, use same technique every time</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Instrument Error</h4>
+              <p>• Inaccurate instruments (e.g., balance not zeroed)</p>
+              <p>• Wrong scale used for the quantity measured</p>
+              <p>• Faulty equipment</p>
+              <p><strong>How to reduce:</strong> Calibrate instruments, check zero reading before measuring</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Improving an Experiment</h4>
+              <p>• <strong>Repeat trials:</strong> Do 3+ trials to find an average</p>
+              <p>• <strong>Control more variables:</strong> Identify all possible factors that could affect results</p>
+              <p>• <strong>Larger sample size:</strong> Test more subjects for more reliable results</p>
+              <p>• <strong>Better equipment:</strong> Use more precise measuring tools</p>
+            </div>
+          </div>
+          <div class="example-box">
+            <strong>2026 PSLE Exam Key Point:</strong> Common question: "How can you improve this experiment?" Answers include: repeat trials, control more variables, use larger sample, use more precise instruments, or extend the duration of observation.
+          </div>
+        `
+      }
+    ]
+  },
+
+  // CLIMATE CHANGE & ENVIRONMENT (New section for PSLE 2026)
+  'climate-environment': {
+    title: 'Climate Change & Environmental Stewardship (PSLE 2026)',
+    description: 'The 2026 PSLE syllabus places greater emphasis on understanding human impact on the environment, climate change, and the role of individuals and communities in protecting our planet.',
+    sections: [
+      {
+        heading: 'The Greenhouse Effect and Climate Change',
+        content: `
+          <div class="key-concepts">
+            <div class="key-concept-card">
+              <h4>Natural Greenhouse Effect</h4>
+              <p>The greenhouse effect is a natural process that keeps Earth warm enough for life.</p>
+              <p><strong>How it works:</strong></p>
+              <p>1. Sunlight passes through the atmosphere and warms Earth's surface</p>
+              <p>2. Earth's surface emits heat (infrared radiation) back toward space</p>
+              <p>3. Greenhouse gases (water vapor, CO₂, methane) absorb some of this heat and re-radiate it back to Earth</p>
+              <p>4. This keeps Earth's average temperature at ~15°C (without it, Earth would be -18°C!)</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Enhanced Greenhouse Effect (Human-Caused)</h4>
+              <p>Human activities have INCREASED the amount of greenhouse gases, trapping MORE heat than natural.</p>
+              <p><strong>Main greenhouse gases increased by humans:</strong></p>
+              <p>• <strong>Carbon dioxide (CO₂):</strong> Burning fossil fuels (coal, oil, gas), deforestation</p>
+              <p>• <strong>Methane (CH₄):</strong> Livestock farming, rice paddies, landfills</p>
+              <p>• <strong>Nitrous oxide (N₂O):</strong> Fertilizers, industrial processes</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Effects of Climate Change</h4>
+              <p>• <strong>Rising temperatures:</strong> Global average temperature increasing by 1–2°C+</p>
+              <p>• <strong>Melting ice caps:</strong> Polar ice and glaciers melt, reducing habitat for polar animals</p>
+              <p>• <strong>Rising sea levels:</strong> From melting ice AND thermal expansion of warming oceans; threatens low-lying areas (including parts of Singapore)</p>
+              <p>• <strong>Extreme weather:</strong> More intense storms, droughts, floods, heatwaves</p>
+              <p>• <strong>Ocean acidification:</strong> CO₂ dissolves in ocean to form carbonic acid, harmful to coral reefs and shellfish</p>
+              <p>• <strong>Loss of biodiversity:</strong> Species unable to adapt to rapid changes may go extinct</p>
+            </div>
+          </div>
+          <div class="example-box">
+            <strong>2026 PSLE Exam Key Point:</strong> The NATURAL greenhouse effect is essential for life. The ENHANCED greenhouse effect (due to human activities) is causing global warming. Key cause = burning fossil fuels. Key effects = rising temperatures, melting ice, rising seas.
+          </div>
+        `
+      },
+      {
+        heading: 'Biodiversity and Human Impact',
+        content: `
+          <div class="key-concepts">
+            <div class="key-concept-card">
+              <h4>What is Biodiversity?</h4>
+              <p><strong>Definition:</strong> The variety of all living things in an ecosystem or on Earth.</p>
+              <p><strong>Includes:</strong> Different species of plants, animals, fungi, and microorganisms, plus the variety of ecosystems they live in</p>
+              <p><strong>Why important?</strong></p>
+              <p>• More stable and resilient ecosystems (if one species declines, others fill the role)</p>
+              <p>• Provides food, medicines, clean air and water for humans</p>
+              <p>• Maintains balance in food chains and webs</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Threats to Biodiversity</h4>
+              <p><strong>1. Habitat destruction:</strong> Deforestation, urban development, pollution destroy ecosystems where species live</p>
+              <p><strong>2. Overhunting and overfishing:</strong> Removing too many animals from ecosystems disrupts food webs</p>
+              <p><strong>3. Pollution:</strong> Air, water, and soil pollution harm or kill organisms</p>
+              <p><strong>4. Climate change:</strong> Rapid temperature changes make habitats unsuitable for current species</p>
+              <p><strong>5. Invasive species:</strong> Non-native species introduced by humans outcompete native species</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Extinction and Endangered Species</h4>
+              <p><strong>Vulnerable:</strong> Species at risk of becoming endangered if threats continue</p>
+              <p><strong>Endangered:</strong> Species at very high risk of extinction in the wild</p>
+              <p><strong>Critically Endangered:</strong> Species facing extremely high risk of extinction</p>
+              <p><strong>Extinct:</strong> No living individuals remain anywhere on Earth</p>
+              <p><strong>Singapore examples:</strong> Sunda pangolin (critically endangered), Singapore freshwater crab, some orchid species</p>
+            </div>
+          </div>
+          <div class="example-box">
+            <strong>2026 PSLE Exam Key Point:</strong> Biodiversity = variety of life. High biodiversity = more stable ecosystem. Main threats: habitat loss, pollution, overhunting, climate change. Extinction is permanent — once a species is gone, it cannot return.
+          </div>
+        `
+      },
+      {
+        heading: 'Pollution and Its Effects',
+        content: `
+          <div class="key-concepts">
+            <div class="key-concept-card">
+              <h4>Air Pollution</h4>
+              <p><strong>Sources:</strong> Vehicle exhaust, burning fossil fuels, factory smoke, haze from forest fires (regional)</p>
+              <p><strong>Effects:</strong></p>
+              <p>• Respiratory diseases in humans and animals</p>
+              <p>• Acid rain (sulphur dioxide + water vapor → sulphuric acid) damages forests and buildings</p>
+              <p>• Contributes to climate change (CO₂, methane)</p>
+              <p>• Smog reduces visibility and crop productivity</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Water Pollution</h4>
+              <p><strong>Sources:</strong> Industrial waste, agricultural runoff (fertilizers, pesticides), oil spills, sewage</p>
+              <p><strong>Effects:</strong></p>
+              <p>• Kills aquatic organisms (fish, coral)</p>
+              <p>• Eutrophication: Excess nutrients → algae bloom → oxygen depleted → fish die</p>
+              <p>• Unsafe drinking water → diseases in humans</p>
+              <p>• Bioaccumulation: Toxins build up in food chains (small fish → big fish → humans)</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Land/Soil Pollution</h4>
+              <p><strong>Sources:</strong> Improper waste disposal, pesticides, industrial waste, plastic litter</p>
+              <p><strong>Effects:</strong></p>
+              <p>• Toxins in soil affect plant growth and soil microorganisms</p>
+              <p>• Plastic waste harms land animals that eat or get entangled in it</p>
+              <p>• Leaching of chemicals into groundwater</p>
+            </div>
+          </div>
+          <div class="example-box">
+            <strong>Eutrophication Explained:</strong><br>
+            Fertilizer runoff → excess nutrients in water → rapid algae growth → algae covers surface → sunlight blocked from water plants → aquatic plants die → bacteria decompose plants → bacteria use up oxygen → fish and other organisms suffocate and die.
+          </div>
+          <div class="example-box">
+            <strong>2026 PSLE Exam Key Point:</strong> Pollution harms living things directly and indirectly through food chains. Bioaccumulation means toxins get MORE concentrated at higher levels of the food chain (small organisms absorb trace toxins; predators eat many small organisms, accumulating larger doses).
+          </div>
+        `
+      },
+      {
+        heading: 'Conservation and Sustainability in Singapore',
+        content: `
+          <div class="key-concepts">
+            <div class="key-concept-card">
+              <h4>Singapore's Water Security — The Four National Taps</h4>
+              <p>Singapore's water strategy to ensure a reliable supply despite being a small island with no rivers from neighbouring countries:</p>
+              <p><strong>1. Local Catchment Water:</strong> Rainwater collected in reservoirs (17 reservoirs in Singapore)</p>
+              <p><strong>2. Imported Water:</strong> Water piped from Johor, Malaysia (under treaty agreements)</p>
+              <p><strong>3. NEWater:</strong> Highly purified recycled wastewater; meets 40% of water needs today</p>
+              <p><strong>4. Desalinated Water:</strong> Salt removed from sea water using reverse osmosis technology</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Singapore's Green Initiatives</h4>
+              <p><strong>Singapore Green Plan 2030:</strong></p>
+              <p>• <strong>City in Nature:</strong> Expand nature parks, more green spaces, eco-corridors</p>
+              <p>• <strong>Energy Reset:</strong> 2 GW of solar energy by 2030, reduce carbon intensity</p>
+              <p>• <strong>Sustainable Living:</strong> Reduce waste (zero-waste nation goal), clean transport</p>
+              <p>• <strong>Green Economy:</strong> Develop green technologies and industries</p>
+              <p>• <strong>Resilient Future:</strong> Prepare for climate change impacts (coastal protection, flood management)</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Reduce, Reuse, Recycle (3Rs)</h4>
+              <p><strong>Reduce (Most important):</strong> Use less in the first place — buy only what you need, choose items with less packaging, use less electricity and water</p>
+              <p><strong>Reuse:</strong> Use items again — bring reusable bags, repair instead of replace, donate old items</p>
+              <p><strong>Recycle:</strong> Convert waste into new materials — sort recyclables (paper, glass, metal, plastic), compost food waste</p>
+              <p><strong>Why this order?</strong> Reducing creates no waste; recycling still uses energy and resources</p>
+            </div>
+          </div>
+          <div class="example-box">
+            <strong>2026 PSLE Exam Key Point:</strong> Singapore's challenges — limited land, water, and energy — make conservation critical. NEWater and desalination reduce dependence on imported water. The 3Rs hierarchy: Reduce &gt; Reuse &gt; Recycle. Recycling is good but Reducing is better.
+          </div>
+        `
+      },
+      {
+        heading: 'Renewable Energy and Technology Solutions',
+        content: `
+          <div class="key-concepts">
+            <div class="key-concept-card">
+              <h4>Why Switch from Fossil Fuels?</h4>
+              <p>• Fossil fuels (coal, oil, natural gas) are finite — they will run out</p>
+              <p>• Burning fossil fuels releases CO₂, contributing to climate change</p>
+              <p>• Air pollution from burning fossil fuels causes health problems</p>
+              <p>• Energy security: relying on fossil fuel imports creates vulnerability</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Solar Energy in Singapore</h4>
+              <p><strong>Advantages for Singapore:</strong></p>
+              <p>• Singapore is located near the equator — strong, year-round sunlight</p>
+              <p>• Reduces reliance on natural gas for electricity generation</p>
+              <p>• Solar panels on rooftops, reservoirs, and floating farms</p>
+              <p><strong>Challenges:</strong></p>
+              <p>• Cloudy/rainy weather reduces output</p>
+              <p>• Limited land area for large solar farms</p>
+              <p>• Storage of solar energy (batteries) remains expensive</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Emerging Technologies</h4>
+              <p><strong>Green Hydrogen:</strong> Produced using renewable electricity; clean fuel for industry and transport</p>
+              <p><strong>Carbon Capture:</strong> Technology to capture CO₂ from the atmosphere or industrial processes</p>
+              <p><strong>Electric Vehicles (EVs):</strong> Replace petrol cars; Singapore is expanding EV charging infrastructure</p>
+              <p><strong>Smart Building Technology:</strong> AI-controlled systems optimize energy use in buildings</p>
+            </div>
+          </div>
+          <div class="example-box">
+            <strong>2026 PSLE Exam Key Point:</strong> Renewable energy (solar, wind, hydro) does not run out and produces little/no pollution. Non-renewable (fossil fuels) will run out and cause pollution. Singapore invests in solar energy and imports renewable electricity from the region.
+          </div>
+        `
+      },
+      {
+        heading: 'Interactions Between Living Things and Their Environment',
+        content: `
+          <div class="key-concepts">
+            <div class="key-concept-card">
+              <h4>Mutualism (Both Benefit)</h4>
+              <p>Both organisms benefit from the relationship.</p>
+              <p><strong>Examples:</strong></p>
+              <p>• <strong>Bee and flower:</strong> Bee gets nectar (food); flower gets pollinated (reproduction)</p>
+              <p>• <strong>Clownfish and sea anemone:</strong> Fish is protected by stinging tentacles; fish's movement brings food and oxygen to anemone</p>
+              <p>• <strong>Bacteria in gut:</strong> Bacteria get nutrients; human digests food better</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Parasitism (One Benefits, One Harmed)</h4>
+              <p>The parasite benefits at the expense of the host.</p>
+              <p><strong>Examples:</strong></p>
+              <p>• <strong>Tapeworm in intestine:</strong> Tapeworm absorbs digested nutrients; human loses nutrients</p>
+              <p>• <strong>Mosquito on human:</strong> Mosquito gets blood; human may get diseases (dengue, malaria)</p>
+              <p>• <strong>Dodder plant:</strong> Parasitic plant taps into host plant's stem to steal nutrients</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Commensalism (One Benefits, Other Unaffected)</h4>
+              <p>One organism benefits; the other is neither helped nor harmed.</p>
+              <p><strong>Examples:</strong></p>
+              <p>• <strong>Barnacles on whale:</strong> Barnacles get transport to food-rich areas; whale is unaffected</p>
+              <p>• <strong>Orchid on tree:</strong> Orchid uses tree for support to reach sunlight; tree is not affected</p>
+            </div>
+            <div class="key-concept-card">
+              <h4>Competition</h4>
+              <p>Organisms compete for limited resources (food, water, space, light, mates).</p>
+              <p><strong>Intraspecific:</strong> Competition within the same species (e.g., male birds competing for territory)</p>
+              <p><strong>Interspecific:</strong> Competition between different species (e.g., plants competing for sunlight in a forest)</p>
+              <p><strong>Effect:</strong> Competition limits population sizes; invasive species can outcompete native species</p>
+            </div>
+          </div>
+          <div class="example-box">
+            <strong>2026 PSLE Exam Key Point:</strong> Know all four types of interactions: Mutualism (+/+), Parasitism (+/-), Commensalism (+/0), Competition (-/-). Always identify WHO benefits and WHO is harmed. Mutualism ≠ Commensalism — in commensalism, one organism is truly unaffected.
           </div>
         `
       }

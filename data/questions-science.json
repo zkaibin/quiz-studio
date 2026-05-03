@@ -6014,5 +6014,966 @@
     ],
     "answer": 1,
     "correct_answer": "Insects undergo complete metamorphosis: egg→larva→pupa→adult"
+  },
+
+  {
+    "id": "SCI331",
+    "category": "Scientific Investigation",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} wants to find out how the length of a pendulum affects the time it takes to complete one swing. What is the independent variable in this investigation?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "The time taken for one swing",
+      "The length of the pendulum",
+      "The weight of the pendulum bob",
+      "The angle of the swing"
+    ],
+    "answer": 1,
+    "correct_answer": "The length of the pendulum"
+  },
+  {
+    "id": "SCI332",
+    "category": "Scientific Investigation",
+    "difficulty": "P5-P6",
+    "template": "In an experiment to test how temperature affects the rate of dissolving sugar, which variable should be kept the same (controlled variable)?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Temperature of water",
+      "Amount of sugar added",
+      "Rate of stirring",
+      "Color of the sugar"
+    ],
+    "answer": 2,
+    "correct_answer": "Rate of stirring"
+  },
+  {
+    "id": "SCI333",
+    "category": "Scientific Investigation",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} observes that plants near the window grow taller than plants away from it. What is the most appropriate hypothesis for an investigation to test this observation?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Plants that receive more sunlight will grow taller",
+      "Plants near windows are older",
+      "Wind from the window helps plants grow",
+      "Plants grow better in cold temperatures"
+    ],
+    "answer": 0,
+    "correct_answer": "Plants that receive more sunlight will grow taller"
+  },
+  {
+    "id": "SCI334",
+    "category": "Scientific Investigation",
+    "difficulty": "P5-P6",
+    "template": "What is the difference between an observation and an inference?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "An observation is a guess; an inference is measured",
+      "An observation uses the senses to gather information; an inference is a conclusion based on observations",
+      "An observation requires equipment; an inference does not",
+      "There is no difference between them"
+    ],
+    "answer": 1,
+    "correct_answer": "An observation uses the senses to gather information; an inference is a conclusion based on observations"
+  },
+  {
+    "id": "SCI335",
+    "category": "Scientific Investigation",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} sets up an experiment to test whether plants grow better in red, white, or blue light. She uses three identical pots of plants and the same type of light bulb, only changing the color filter. She measures plant height after 2 weeks. What is the dependent variable?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Color of the light",
+      "Type of plant",
+      "Height of the plant after 2 weeks",
+      "Size of the pot"
+    ],
+    "answer": 2,
+    "correct_answer": "Height of the plant after 2 weeks"
+  },
+  {
+    "id": "SCI336",
+    "category": "Scientific Investigation",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} conducted an experiment to test how type of soil affects plant growth. He noticed that one plant in sandy soil grew much better than the others. Which statement best explains why this result may NOT be reliable?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Sandy soil is always better for plants",
+      "The experiment was only done once, so it may not be repeatable",
+      "Plants always grow well in sandy soil",
+      "The result shows that all soils are the same"
+    ],
+    "answer": 1,
+    "correct_answer": "The experiment was only done once, so it may not be repeatable"
+  },
+  {
+    "id": "SCI337",
+    "category": "Scientific Investigation",
+    "difficulty": "PSLE",
+    "template": "A scientist measures the height of 5 bean plants grown in different types of fertilizer: 12 cm, 15 cm, 9 cm, 18 cm, and 11 cm. What is the average height of the bean plants?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "13 cm",
+      "12 cm",
+      "15 cm",
+      "11 cm"
+    ],
+    "answer": 0,
+    "correct_answer": "13 cm"
+  },
+  {
+    "id": "SCI338",
+    "category": "Scientific Investigation",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} wants to find a fair way to test which running shoe provides the most grip. Which method best ensures a fair test?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Test each shoe on different types of surfaces",
+      "Test all shoes on the same surface, with the same person, applying the same force",
+      "Have different people test each shoe",
+      "Test the shoes at different times of the day"
+    ],
+    "answer": 1,
+    "correct_answer": "Test all shoes on the same surface, with the same person, applying the same force"
+  },
+  {
+    "id": "SCI339",
+    "category": "Scientific Investigation",
+    "difficulty": "P5-P6",
+    "template": "When recording results in an experiment, why is it important to repeat the experiment multiple times?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "To waste more time",
+      "To increase reliability and reduce the effect of errors",
+      "Because one result is not enough to fill in a table",
+      "To make the experiment harder"
+    ],
+    "answer": 1,
+    "correct_answer": "To increase reliability and reduce the effect of errors"
+  },
+  {
+    "id": "SCI340",
+    "category": "Scientific Investigation",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} notices dark clouds forming before it rains. She predicts it will rain within an hour. What type of scientific skill is she using?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Observing",
+      "Classifying",
+      "Predicting",
+      "Measuring"
+    ],
+    "answer": 2,
+    "correct_answer": "Predicting"
+  },
+  {
+    "id": "SCI341",
+    "category": "Scientific Investigation",
+    "difficulty": "P5-P6",
+    "template": "In a well-designed experiment, why must only ONE variable be changed at a time?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Because it is too difficult to change more than one variable",
+      "To ensure we can identify which variable caused the change in results",
+      "Because experiments should be as short as possible",
+      "To save materials"
+    ],
+    "answer": 1,
+    "correct_answer": "To ensure we can identify which variable caused the change in results"
+  },
+  {
+    "id": "SCI342",
+    "category": "Scientific Investigation",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} and {CHARACTER_1} performed the same experiment but got different results. What should they do to resolve this?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist", "helper"],
+    "options": [
+      "Both should accept the average of their results without repeating",
+      "Only {CHARACTER_0}'s result should be used",
+      "They should repeat the experiment carefully, checking all variables are controlled",
+      "They should choose the result that matches the hypothesis"
+    ],
+    "answer": 2,
+    "correct_answer": "They should repeat the experiment carefully, checking all variables are controlled"
+  },
+  {
+    "id": "SCI343",
+    "category": "Scientific Investigation",
+    "difficulty": "P5-P6",
+    "template": "A student draws a bar graph to show the results of an experiment. What is the purpose of the graph?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "To make the report look colorful",
+      "To display data in a clear, visual way that makes patterns easier to see",
+      "Because the teacher requires it",
+      "Graphs are more accurate than tables"
+    ],
+    "answer": 1,
+    "correct_answer": "To display data in a clear, visual way that makes patterns easier to see"
+  },
+  {
+    "id": "SCI344",
+    "category": "Scientific Investigation",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} observes that ice in a red cup melts faster than ice in a white cup left in the sun. He concludes: 'Dark-colored objects absorb more heat than light-colored objects.' Is this conclusion valid based on the experiment?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "No, because ice always melts at the same rate regardless of cup color",
+      "Yes, because the only difference was cup color, supporting the conclusion",
+      "No, because only one trial was performed, so more repeats are needed",
+      "Yes, because the conclusion matches what the teacher taught"
+    ],
+    "answer": 1,
+    "correct_answer": "Yes, because the only difference was cup color, supporting the conclusion"
+  },
+  {
+    "id": "SCI345",
+    "category": "Scientific Investigation",
+    "difficulty": "P5-P6",
+    "template": "Which of the following is an example of quantitative data (data that involves numbers)?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "The flower is red",
+      "The water smells like chlorine",
+      "The plant grew 5 cm in one week",
+      "The soil feels damp"
+    ],
+    "answer": 2,
+    "correct_answer": "The plant grew 5 cm in one week"
+  },
+  {
+    "id": "SCI346",
+    "category": "Climate & Environment",
+    "difficulty": "PSLE",
+    "template": "What is the main cause of the enhanced greenhouse effect that is leading to global warming?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Increased volcanic activity",
+      "The hole in the ozone layer",
+      "Increased levels of greenhouse gases from human activities",
+      "Changes in the Earth's orbit around the Sun"
+    ],
+    "answer": 2,
+    "correct_answer": "Increased levels of greenhouse gases from human activities"
+  },
+  {
+    "id": "SCI347",
+    "category": "Climate & Environment",
+    "difficulty": "PSLE",
+    "template": "Carbon dioxide is called a greenhouse gas. What does it do in the atmosphere?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "It makes the sky appear blue",
+      "It traps heat from the Earth's surface, preventing it from escaping into space",
+      "It filters harmful UV rays from the Sun",
+      "It produces oxygen for living things to breathe"
+    ],
+    "answer": 1,
+    "correct_answer": "It traps heat from the Earth's surface, preventing it from escaping into space"
+  },
+  {
+    "id": "SCI348",
+    "category": "Climate & Environment",
+    "difficulty": "PSLE",
+    "template": "Which of the following human activities MOST contributes to the increase of greenhouse gases in the atmosphere?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Planting more trees",
+      "Burning fossil fuels such as coal and oil for energy",
+      "Using solar panels for electricity",
+      "Recycling plastic bottles"
+    ],
+    "answer": 1,
+    "correct_answer": "Burning fossil fuels such as coal and oil for energy"
+  },
+  {
+    "id": "SCI349",
+    "category": "Climate & Environment",
+    "difficulty": "PSLE",
+    "template": "Global warming causes sea levels to rise. What are the TWO main reasons for this?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "More rainfall and stronger waves",
+      "Melting of polar ice caps and glaciers, AND thermal expansion of water as it warms",
+      "Evaporation of ocean water and condensation into clouds",
+      "Increased tidal activity and more frequent earthquakes"
+    ],
+    "answer": 1,
+    "correct_answer": "Melting of polar ice caps and glaciers, AND thermal expansion of water as it warms"
+  },
+  {
+    "id": "SCI350",
+    "category": "Climate & Environment",
+    "difficulty": "PSLE",
+    "template": "Deforestation (cutting down forests) worsens climate change because:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Trees produce carbon dioxide which causes cooling",
+      "Fewer trees means less carbon dioxide is absorbed from the atmosphere",
+      "Trees release harmful gases that protect the Earth",
+      "Deforestation has no effect on the atmosphere"
+    ],
+    "answer": 1,
+    "correct_answer": "Fewer trees means less carbon dioxide is absorbed from the atmosphere"
+  },
+  {
+    "id": "SCI351",
+    "category": "Climate & Environment",
+    "difficulty": "PSLE",
+    "template": "Which of the following actions can individuals do to reduce their carbon footprint (amount of greenhouse gases produced)?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Drive private cars everywhere and take frequent flights",
+      "Leave all lights and air conditioning on when not in the room",
+      "Use public transport, save energy at home, and reduce meat consumption",
+      "Buy new items frequently and throw away old ones"
+    ],
+    "answer": 2,
+    "correct_answer": "Use public transport, save energy at home, and reduce meat consumption"
+  },
+  {
+    "id": "SCI352",
+    "category": "Climate & Environment",
+    "difficulty": "PSLE",
+    "template": "Biodiversity refers to the variety of life in an ecosystem. Why is high biodiversity important?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "It makes nature look more colorful and interesting",
+      "A diverse ecosystem is more stable and resilient to environmental changes",
+      "High biodiversity means more animals to hunt",
+      "Biodiversity has no importance for ecosystem stability"
+    ],
+    "answer": 1,
+    "correct_answer": "A diverse ecosystem is more stable and resilient to environmental changes"
+  },
+  {
+    "id": "SCI353",
+    "category": "Climate & Environment",
+    "difficulty": "PSLE",
+    "template": "The Siberian tiger is classified as an endangered species. Which of the following is the MAIN threat to its survival?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Too much rain in its habitat",
+      "Habitat destruction and poaching by humans",
+      "Competition from other large cats",
+      "Lack of water in Siberia"
+    ],
+    "answer": 1,
+    "correct_answer": "Habitat destruction and poaching by humans"
+  },
+  {
+    "id": "SCI354",
+    "category": "Climate & Environment",
+    "difficulty": "P5-P6",
+    "template": "Water pollution occurs when harmful substances enter rivers, lakes, or oceans. Which activity is a MAJOR cause of water pollution?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Planting mangroves along coastlines",
+      "Releasing untreated industrial waste and sewage into waterways",
+      "Using solar-powered boats",
+      "Building more reservoirs"
+    ],
+    "answer": 1,
+    "correct_answer": "Releasing untreated industrial waste and sewage into waterways"
+  },
+  {
+    "id": "SCI355",
+    "category": "Climate & Environment",
+    "difficulty": "P5-P6",
+    "template": "{CHARACTER_0} learns that Singapore recycles water through NEWater. Why is this important?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Because sea water tastes better than NEWater",
+      "Because Singapore has limited natural freshwater resources and must manage water sustainably",
+      "Because recycled water is cheaper to make than rainwater",
+      "Because NEWater is only used for cooling buildings"
+    ],
+    "answer": 1,
+    "correct_answer": "Because Singapore has limited natural freshwater resources and must manage water sustainably"
+  },
+  {
+    "id": "SCI356",
+    "category": "Cycles",
+    "difficulty": "PSLE",
+    "template": "In a food web, a rabbit eats grass, a fox eats rabbits, and an eagle eats both foxes and rabbits. If a disease kills most of the rabbits, what would MOST LIKELY happen to the eagle population?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "The eagle population would increase because there is less competition",
+      "The eagle population would not be affected",
+      "The eagle population would decrease because its food source has reduced",
+      "Eagles would stop eating rabbits and only eat foxes"
+    ],
+    "answer": 2,
+    "correct_answer": "The eagle population would decrease because its food source has reduced"
+  },
+  {
+    "id": "SCI357",
+    "category": "Cycles",
+    "difficulty": "PSLE",
+    "template": "In an ecosystem: Seagrass → Dugong → Killer whale. What role do decomposers play in this food chain?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Decomposers eat the killer whales",
+      "Decomposers break down dead organisms and return nutrients to the environment for producers to use",
+      "Decomposers compete with seagrass for sunlight",
+      "Decomposers have no role in this food chain"
+    ],
+    "answer": 1,
+    "correct_answer": "Decomposers break down dead organisms and return nutrients to the environment for producers to use"
+  },
+  {
+    "id": "SCI358",
+    "category": "Cycles",
+    "difficulty": "PSLE",
+    "template": "In a food web: Grass → Grasshopper → Spider → Shrew → Hawk. A farmer uses pesticides that kill all the grasshoppers. What would MOST LIKELY happen to the spider population?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Spider population increases because there is less competition",
+      "Spider population decreases because its food source (grasshoppers) is gone",
+      "Spider population remains the same",
+      "Spiders would move to a different food web"
+    ],
+    "answer": 1,
+    "correct_answer": "Spider population decreases because its food source (grasshoppers) is gone"
+  },
+  {
+    "id": "SCI359",
+    "category": "Cycles",
+    "difficulty": "PSLE",
+    "template": "Why is the Sun described as the 'source of energy for almost all life on Earth'?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "The Sun provides warmth that keeps all animals alive directly",
+      "Plants use sunlight for photosynthesis to produce food, which forms the basis of all food chains",
+      "The Sun provides light that allows animals to see their food",
+      "The Sun evaporates water which provides rain for plants"
+    ],
+    "answer": 1,
+    "correct_answer": "Plants use sunlight for photosynthesis to produce food, which forms the basis of all food chains"
+  },
+  {
+    "id": "SCI360",
+    "category": "Environment",
+    "difficulty": "PSLE",
+    "template": "Which of these is an example of sustainable living that helps protect the environment?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Buying single-use plastics for convenience",
+      "Printing all documents rather than reading digitally",
+      "Choosing reusable bags, reducing food waste, and conserving water",
+      "Keeping electrical appliances on standby mode all day"
+    ],
+    "answer": 2,
+    "correct_answer": "Choosing reusable bags, reducing food waste, and conserving water"
+  },
+  {
+    "id": "SCI361",
+    "category": "Living Things",
+    "difficulty": "P3-P4",
+    "template": "Which of the following is NOT a living thing?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "A mushroom",
+      "A spider",
+      "A rock",
+      "A cactus"
+    ],
+    "answer": 2,
+    "correct_answer": "A rock"
+  },
+  {
+    "id": "SCI362",
+    "category": "Living Things",
+    "difficulty": "P3-P4",
+    "template": "What do ALL animals need to survive?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Sunlight, water, and soil",
+      "Food, water, air, and shelter",
+      "Sunlight and soil only",
+      "Food and shelter only"
+    ],
+    "answer": 1,
+    "correct_answer": "Food, water, air, and shelter"
+  },
+  {
+    "id": "SCI363",
+    "category": "Living Things",
+    "difficulty": "P3-P4",
+    "template": "A fern reproduces using spores, not seeds. Which group does the fern belong to?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Flowering plants",
+      "Non-flowering plants",
+      "Fungi",
+      "Microorganisms"
+    ],
+    "answer": 1,
+    "correct_answer": "Non-flowering plants"
+  },
+  {
+    "id": "SCI364",
+    "category": "Materials",
+    "difficulty": "P3-P4",
+    "template": "{CHARACTER_0} tests different materials to see if they allow light to pass through. A clear glass window allows clear vision through it. What property does this glass have?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Opaque",
+      "Translucent",
+      "Transparent",
+      "Reflective"
+    ],
+    "answer": 2,
+    "correct_answer": "Transparent"
+  },
+  {
+    "id": "SCI365",
+    "category": "Materials",
+    "difficulty": "P3-P4",
+    "template": "Which property of materials describes whether it can conduct heat?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Transparency",
+      "Thermal conductivity",
+      "Magnetism",
+      "Flexibility"
+    ],
+    "answer": 1,
+    "correct_answer": "Thermal conductivity"
+  },
+  {
+    "id": "SCI366",
+    "category": "Cycles",
+    "difficulty": "P3-P4",
+    "template": "What does the term 'life cycle' mean?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "The list of things a living organism eats",
+      "The series of changes an organism goes through from birth to reproduction to death",
+      "The habitat where an organism lives",
+      "The amount of energy an organism needs"
+    ],
+    "answer": 1,
+    "correct_answer": "The series of changes an organism goes through from birth to reproduction to death"
+  },
+  {
+    "id": "SCI367",
+    "category": "Cycles",
+    "difficulty": "P3-P4",
+    "template": "A mosquito goes through four stages: egg, larva, pupa, and adult. What type of metamorphosis is this?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Incomplete metamorphosis",
+      "Complete metamorphosis",
+      "No metamorphosis",
+      "Partial metamorphosis"
+    ],
+    "answer": 1,
+    "correct_answer": "Complete metamorphosis"
+  },
+  {
+    "id": "SCI368",
+    "category": "Energy",
+    "difficulty": "P3-P4",
+    "template": "Which of the following is a source of light energy?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "A battery",
+      "A candle flame",
+      "A rubber band",
+      "A magnet"
+    ],
+    "answer": 1,
+    "correct_answer": "A candle flame"
+  },
+  {
+    "id": "SCI369",
+    "category": "Energy",
+    "difficulty": "P3-P4",
+    "template": "When you push a swing and it moves, what type of energy does the moving swing have?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Chemical energy",
+      "Heat energy",
+      "Kinetic energy",
+      "Light energy"
+    ],
+    "answer": 2,
+    "correct_answer": "Kinetic energy"
+  },
+  {
+    "id": "SCI370",
+    "category": "Forces",
+    "difficulty": "P3-P4",
+    "template": "What is a force?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "A type of energy stored in food",
+      "A push or pull that can change the motion or shape of an object",
+      "The weight of an object",
+      "The speed at which an object moves"
+    ],
+    "answer": 1,
+    "correct_answer": "A push or pull that can change the motion or shape of an object"
+  },
+  {
+    "id": "SCI371",
+    "category": "Forces",
+    "difficulty": "P3-P4",
+    "template": "When you kick a football, it moves. When does it stop?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "It never stops",
+      "When there is no more air around it",
+      "When friction and gravity slow it down and stop it",
+      "When it gets too tired"
+    ],
+    "answer": 2,
+    "correct_answer": "When friction and gravity slow it down and stop it"
+  },
+  {
+    "id": "SCI372",
+    "category": "Human Body",
+    "difficulty": "PSLE",
+    "template": "In the human respiratory system, gas exchange occurs in the alveoli. What gases are exchanged?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Oxygen enters the blood; nitrogen leaves the blood",
+      "Oxygen enters the blood from inhaled air; carbon dioxide leaves the blood into the air to be exhaled",
+      "Carbon dioxide enters the blood from the air; oxygen leaves the blood",
+      "Only oxygen is exchanged in the alveoli"
+    ],
+    "answer": 1,
+    "correct_answer": "Oxygen enters the blood from inhaled air; carbon dioxide leaves the blood into the air to be exhaled"
+  },
+  {
+    "id": "SCI373",
+    "category": "Human Body",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} exercises vigorously. She notices her heart beats faster and she breathes more rapidly. Why does this happen?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Her heart and lungs are getting damaged from exercise",
+      "Her muscles need more oxygen and energy, so the heart and lungs work harder to supply them",
+      "Exercise confuses the body's systems",
+      "Her body temperature decreases during exercise, requiring faster breathing"
+    ],
+    "answer": 1,
+    "correct_answer": "Her muscles need more oxygen and energy, so the heart and lungs work harder to supply them"
+  },
+  {
+    "id": "SCI374",
+    "category": "Electricity",
+    "difficulty": "PSLE",
+    "template": "In a parallel circuit with three identical bulbs, one bulb burns out. What happens to the other two bulbs?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Both remaining bulbs also go out",
+      "Both remaining bulbs shine brighter",
+      "Both remaining bulbs continue to shine with the same brightness",
+      "Only one of the remaining bulbs stays on"
+    ],
+    "answer": 2,
+    "correct_answer": "Both remaining bulbs continue to shine with the same brightness"
+  },
+  {
+    "id": "SCI375",
+    "category": "Electricity",
+    "difficulty": "PSLE",
+    "template": "Two batteries are connected in series to a circuit with one bulb. Compared to a circuit with one battery and one bulb, the bulb with two batteries will:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Be dimmer because the batteries cancel each other out",
+      "Shine brighter because more voltage is provided",
+      "Shine at exactly the same brightness",
+      "The bulb will immediately burn out"
+    ],
+    "answer": 1,
+    "correct_answer": "Shine brighter because more voltage is provided"
+  },
+  {
+    "id": "SCI376",
+    "category": "Matter",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} heats a block of ice in a container. The ice melts to water, and then the water boils. In which state is the water when it is boiling?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "Solid",
+      "Liquid",
+      "Gas",
+      "Both liquid and gas"
+    ],
+    "answer": 3,
+    "correct_answer": "Both liquid and gas"
+  },
+  {
+    "id": "SCI377",
+    "category": "Heat",
+    "difficulty": "PSLE",
+    "template": "A Thermos flask keeps hot drinks hot and cold drinks cold. How does it work?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "It generates its own heat or cold depending on what is inside",
+      "The double-walled vacuum insulation minimizes heat transfer by conduction, convection, and radiation",
+      "The metal walls conduct heat to maintain temperature",
+      "It uses chemicals inside to heat or cool the liquid"
+    ],
+    "answer": 1,
+    "correct_answer": "The double-walled vacuum insulation minimizes heat transfer by conduction, convection, and radiation"
+  },
+  {
+    "id": "SCI378",
+    "category": "Adaptations",
+    "difficulty": "PSLE",
+    "template": "The pitcher plant has a modified leaf shaped like a pitcher filled with liquid. This is an adaptation to help it:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Store water during dry seasons",
+      "Trap and digest insects to obtain nutrients lacking in its poor soil habitat",
+      "Attract pollinators with its sweet liquid",
+      "Protect itself from large herbivores"
+    ],
+    "answer": 1,
+    "correct_answer": "Trap and digest insects to obtain nutrients lacking in its poor soil habitat"
+  },
+  {
+    "id": "SCI379",
+    "category": "Adaptations",
+    "difficulty": "PSLE",
+    "template": "The mangrove tree has prop roots that grow from its trunk and branches into the muddy soil. What is the main function of these prop roots?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "To absorb extra sunlight for photosynthesis",
+      "To store food for dry seasons",
+      "To provide structural support and anchor the tree in soft, waterlogged soil",
+      "To filter salt from sea water"
+    ],
+    "answer": 2,
+    "correct_answer": "To provide structural support and anchor the tree in soft, waterlogged soil"
+  },
+  {
+    "id": "SCI380",
+    "category": "Interactions",
+    "difficulty": "PSLE",
+    "template": "Bees and flowers have a mutualistic relationship. What does each organism gain from this interaction?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Bees get shelter from the flower; the flower gets water from the bee",
+      "Bees get nectar (food) from the flower; the flower gets pollinated, enabling reproduction",
+      "Bees protect the flower from insects; the flower provides oxygen to the bee",
+      "Both bees and flowers compete for sunlight"
+    ],
+    "answer": 1,
+    "correct_answer": "Bees get nectar (food) from the flower; the flower gets pollinated, enabling reproduction"
+  },
+  {
+    "id": "SCI381",
+    "category": "Interactions",
+    "difficulty": "PSLE",
+    "template": "Tapeworms live inside the human intestine and absorb nutrients from food the human has digested. This type of relationship is called:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Mutualism (both benefit)",
+      "Commensalism (one benefits, other unaffected)",
+      "Parasitism (one benefits, other is harmed)",
+      "Competition (both are harmed)"
+    ],
+    "answer": 2,
+    "correct_answer": "Parasitism (one benefits, other is harmed)"
+  },
+  {
+    "id": "SCI382",
+    "category": "Reproduction",
+    "difficulty": "PSLE",
+    "template": "A flower produces brightly colored petals, sweet nectar, and a strong fragrance. Which of the following is the MOST LIKELY pollination agent for this flower?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Wind",
+      "Water",
+      "Insects (e.g., bees and butterflies)",
+      "Humans"
+    ],
+    "answer": 2,
+    "correct_answer": "Insects (e.g., bees and butterflies)"
+  },
+  {
+    "id": "SCI383",
+    "category": "Reproduction",
+    "difficulty": "PSLE",
+    "template": "A seed from a palm tree has a hard, fibrous outer layer that allows it to float. This is an adaptation for which type of seed dispersal?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Wind dispersal",
+      "Water dispersal",
+      "Animal dispersal (eating)",
+      "Explosive/self dispersal"
+    ],
+    "answer": 1,
+    "correct_answer": "Water dispersal"
+  },
+  {
+    "id": "SCI384",
+    "category": "Light",
+    "difficulty": "PSLE",
+    "template": "A stick placed in a glass of water appears bent at the water surface. This phenomenon is due to:",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Reflection of light off the water surface",
+      "Refraction — light bends when passing from water to air because it changes speed",
+      "The stick is actually bent by the water pressure",
+      "Dispersion of white light into colors"
+    ],
+    "answer": 1,
+    "correct_answer": "Refraction — light bends when passing from water to air because it changes speed"
+  },
+  {
+    "id": "SCI385",
+    "category": "Sound",
+    "difficulty": "PSLE",
+    "template": "Astronauts on the Moon cannot speak to each other through air. They must use radio communication. Why?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Radio waves travel faster than sound",
+      "The Moon has too much gravity for sound to travel",
+      "Sound cannot travel in a vacuum (the Moon has no atmosphere/air)",
+      "Astronaut helmets absorb all sound waves"
+    ],
+    "answer": 2,
+    "correct_answer": "Sound cannot travel in a vacuum (the Moon has no atmosphere/air)"
+  },
+  {
+    "id": "SCI386",
+    "category": "Sound",
+    "difficulty": "P5-P6",
+    "template": "A guitar player plucks a thick string and a thin string with the same force. Which string produces a lower-pitched sound?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "The thin string",
+      "The thick string",
+      "Both produce the same pitch",
+      "Pitch depends on the color of the string"
+    ],
+    "answer": 1,
+    "correct_answer": "The thick string"
+  },
+  {
+    "id": "SCI387",
+    "category": "Energy",
+    "difficulty": "PSLE",
+    "template": "Singapore is investing in solar energy. Which statement best explains why solar energy is important for Singapore?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Singapore receives a lot of sunlight year-round and solar energy reduces dependence on fossil fuels",
+      "Solar panels are very cheap to install and maintain",
+      "Solar energy can store large amounts of electricity for night use without any technology",
+      "Singapore has no other energy options available"
+    ],
+    "answer": 0,
+    "correct_answer": "Singapore receives a lot of sunlight year-round and solar energy reduces dependence on fossil fuels"
+  },
+  {
+    "id": "SCI388",
+    "category": "Climate & Environment",
+    "difficulty": "PSLE",
+    "template": "Singapore's Four National Taps include NEWater, desalination, local catchment water, and imported water. Why does Singapore invest so much in water security?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Because Singapore has too much water and needs to manage the excess",
+      "Because water is Singapore's only natural resource to export",
+      "Because Singapore is a small island nation with limited natural freshwater and vulnerable to climate variability",
+      "Because Singapore law requires all water to be recycled"
+    ],
+    "answer": 2,
+    "correct_answer": "Because Singapore is a small island nation with limited natural freshwater and vulnerable to climate variability"
+  },
+  {
+    "id": "SCI389",
+    "category": "Scientific Investigation",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} is testing whether plants grow better with music playing nearby. She sets up two groups: one with music (experimental group) and one without music (control group). Why is it important to have a control group?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "The control group is not necessary in this experiment",
+      "The control group provides a baseline for comparison so changes due to music can be identified",
+      "The control group shows what happens when all plants die",
+      "The control group produces more accurate results than the experimental group"
+    ],
+    "answer": 1,
+    "correct_answer": "The control group provides a baseline for comparison so changes due to music can be identified"
+  },
+  {
+    "id": "SCI390",
+    "category": "Cells",
+    "difficulty": "PSLE",
+    "template": "Why do cells in different parts of the body look different from each other (e.g., a red blood cell vs. a muscle cell)?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Different cells are made of different materials",
+      "Cells are shaped and structured differently to suit their specific functions",
+      "Cells look different because they are from different organisms",
+      "All cells look the same under a microscope"
+    ],
+    "answer": 1,
+    "correct_answer": "Cells are shaped and structured differently to suit their specific functions"
   }
 ]
