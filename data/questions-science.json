@@ -7469,5 +7469,2380 @@
     "answer": 2,
     "correct_answer": "R",
     "explanation": "Soil R collected the least water (10 cm³), meaning it retains the most water near the surface. This is best for plant X, which has shallow roots and needs water to stay near the surface for a long time."
+  },
+  {
+    "id": "SCI405",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied organism X. It has these characteristics: A: It has wings. B: It has three body parts. C: It has three pairs of legs. D: It reproduces by laying eggs. Which characteristics can be used to conclude that organism X is an insect?",
+    "options": [
+      "A and B only",
+      "A and D only",
+      "B and C only",
+      "A, B, C and D"
+    ],
+    "answer": 2,
+    "correct_answer": "B and C only",
+    "explanation": "To be an insect, an organism must have three body parts and three pairs of legs. Having wings or laying eggs are characteristics of many animals, but they do not specifically define an insect."
+  },
+  {
+    "id": "SCI406",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} looked at the life cycle of a butterfly. Q, R, S and T represent the different stages. The butterfly is able to reproduce at stage R. At which stage, Q, R, S or T, is the butterfly considered a pest to farmers?",
+    "options": [
+      "Q",
+      "R",
+      "S",
+      "T"
+    ],
+    "answer": 3,
+    "correct_answer": "T",
+    "explanation": "Since the butterfly can reproduce at stage R, it must be an adult at R. Stage S will be egg and stage T is the larva (caterpillar) stage. During this stage, it eats leaves and can damage a farmer's crops."
+  },
+  {
+    "id": "SCI407",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} noticed that Island P had no plants or animals. A few years later, new plants were found. Some fruits from nearby Island Y were also found on Island P. The fruits A, B, C, D are: A – waterproof layer; B – has wings; C – light with tiny hairs; D – none of these. Which fruits are most likely found on both islands?",
+    "options": [
+      "C only",
+      "D only",
+      "A, B and C only",
+      "A, B, C and D"
+    ],
+    "answer": 2,
+    "correct_answer": "A, B and C only",
+    "explanation": "Fruit A has a waterproof layer (water dispersal), fruit B has wings (wind dispersal) and fruit C is light with tiny hairs (wind dispersal). These features allow them to be dispersed to the nearby island."
+  },
+  {
+    "id": "SCI408",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} learned that Process X takes place in the human female reproductive system. In which part of the flower Z does a similar process occur? The parts are labeled A (petal), B (stigma), C (anther), D (ovary).",
+    "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": 3,
+    "correct_answer": "D",
+    "explanation": "Process X is fertilization, where a male reproductive cell fuses with a female reproductive cell. In a flower, this occurs in the ovary (part D) after pollination."
+  },
+  {
+    "id": "SCI409",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a table showing functions of digestive organs W, X, Y and Z. W and X both digest food; W also absorbs digested food. Y absorbs water. Z also digests food. What are organs W, X, Y and Z?",
+    "options": [
+      "stomach / mouth / large intestine / small intestine",
+      "stomach / large intestine / small intestine / mouth",
+      "small intestine / stomach / large intestine / mouth",
+      "small intestine / mouth / stomach / large intestine"
+    ],
+    "answer": 2,
+    "correct_answer": "small intestine / stomach / large intestine / mouth",
+    "explanation": "Organ W is the small intestine because it absorbs digested food, while organ Y is the large intestine because it absorbs water. Digestion also occurs in the mouth (Z) and stomach (X)."
+  },
+  {
+    "id": "SCI410",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} wrapped three leaves A, B, and C of the same plant: A – clear plastic bag; B – clear plastic bag with holes; C – black plastic bag. The plant was left under bright sunlight. Which leaf makes the most food and which makes the least?",
+    "options": [
+      "B makes most, C makes least",
+      "A makes most, C makes least",
+      "B makes most, A makes least",
+      "C makes most, A makes least"
+    ],
+    "answer": 0,
+    "correct_answer": "B makes most, C makes least",
+    "explanation": "Leaf B makes the most food because the clear bag with holes allows both sunlight and carbon dioxide to enter. Leaf C makes the least because the black bag blocks sunlight."
+  },
+  {
+    "id": "SCI411",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a diagram showing paths taken by food and water in a plant with parts A, B, C and D. Which correctly represents A, B, C and D?",
+    "options": [
+      "leaf / stem / root / fruit",
+      "root / stem / fruit / leaf",
+      "flower / leaf / root / stem",
+      "stem / root / leaf / flower"
+    ],
+    "answer": 0,
+    "correct_answer": "leaf / stem / root / fruit",
+    "explanation": "In a plant, food travels from the leaves (A) to all other parts, while water travels from the roots (C) up the stem (B) to the leaves and fruits (D)."
+  },
+  {
+    "id": "SCI412",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} designed an investigation: rest for 2 minutes; perform different exercises (walk, jump, run) for 1 minute each; count breathing rate for 30 seconds after each exercise. Which hypothesis is most suitable?",
+    "options": [
+      "The higher the exercise intensity, the higher the breathing rate.",
+      "The lower the oxygen level in the air, the higher the breathing rate.",
+      "The higher the surrounding air temperature, the higher the breathing rate.",
+      "The longer the rest period between exercises, the lower the breathing rate."
+    ],
+    "answer": 0,
+    "correct_answer": "The higher the exercise intensity, the higher the breathing rate.",
+    "explanation": "The students tested different exercise intensities (walking, jumping, running) and measured the breathing rate. Predicting that higher intensity leads to a higher breathing rate is the most suitable hypothesis."
+  },
+  {
+    "id": "SCI413",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} observed three bread slices under different conditions. Slice A – on kitchen table; Slice B – sprinkled with water, kept in cupboard; Slice C – in airtight container in refrigerator. A graph was plotted. Which slices best represent X (most mould), Y, and Z (least mould)?",
+    "options": [
+      "X=Slice A, Y=Slice B, Z=Slice C",
+      "X=Slice A, Y=Slice C, Z=Slice B",
+      "X=Slice B, Y=Slice A, Z=Slice C",
+      "X=Slice B, Y=Slice C, Z=Slice A"
+    ],
+    "answer": 2,
+    "correct_answer": "X=Slice B, Y=Slice A, Z=Slice C",
+    "explanation": "Mould grows best in damp and dark conditions. Slice B (damp, dark cupboard) has the most mould (X). Slice C (airtight, cold refrigerator) has the least mould (Z)."
+  },
+  {
+    "id": "SCI414",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a food web and found these relationships: D and F are eaten by others; A and E eat others but are not eaten; B both eats and is eaten. Which correctly shows prey only / predator only / both prey and predator?",
+    "options": [
+      "C / E / A, B, D and F",
+      "C / A and E / B, D, and F",
+      "D and F / A and E / B",
+      "D and F / A / B"
+    ],
+    "answer": 3,
+    "correct_answer": "D and F / A / B",
+    "explanation": "In the food web, D and F are eaten by other animals (prey only). A and E are at the top and eat others (predator only), while B is both prey and predator."
+  },
+  {
+    "id": "SCI415",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} recorded a graph showing the change in area covered by plant G in a garden. Animal X was introduced at week 4 and plant G increased afterwards. Which statements explain this? A: Animal X helped plant G disperse its seeds. B: Animal X preyed on animals that fed on plant G. C: Animal X fed on plant G and plant G reproduced. D: The waste from animal X helped plant G grow faster.",
+    "options": [
+      "A and D only",
+      "B and C only",
+      "A, B and D only",
+      "B, C and D only"
+    ],
+    "answer": 2,
+    "correct_answer": "A, B and D only",
+    "explanation": "Animal X likely helped disperse seeds (A), preyed on plant-eaters (B), or provided fertilizer through waste (D). If it fed on the plant (C), the area would likely decrease, not increase."
+  },
+  {
+    "id": "SCI416",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} compared organisms R, S and T. R has needle-shaped leaves. S has air spaces in its leaf stalk. T traps air bubbles. Which correctly matches their functions: to breathe in water / to reduce water loss / to float on water?",
+    "options": [
+      "T / S / R",
+      "T / R / S",
+      "S / R / T",
+      "S / T / R"
+    ],
+    "answer": 0,
+    "correct_answer": "T / S / R",
+    "explanation": "Needle-shaped leaves (R) reduce water loss, air spaces (S) help the plant float on water, and trapping air bubbles (T) helps the organism breathe in water."
+  },
+  {
+    "id": "SCI417",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} checked the PSI (Pollutant Standards Index) of a town: Day 1 = 46, Day 2 = 48, Day 3 = 123, Day 4 = 147, Day 5 = 144. What most likely caused the PSI value to increase from Day 2 to Day 4?",
+    "options": [
+      "A few trees were cut down.",
+      "More forest fires happened nearby.",
+      "More farmers started growing vegetables.",
+      "More people switched from fuel cars to electrical cars."
+    ],
+    "answer": 1,
+    "correct_answer": "More forest fires happened nearby.",
+    "explanation": "An increase in PSI means worsening air quality. Forest fires release smoke and pollutants into the air, causing a significant rise in PSI values."
+  },
+  {
+    "id": "SCI418",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a diagram of photosynthesis with labels A, B, C, D and E. Which best describes A, B, C, D and E?",
+    "options": [
+      "heat / carbon dioxide / oxygen / glucose / chlorophyll",
+      "sunlight / oxygen / carbon dioxide / glucose / chlorophyll",
+      "heat / carbon dioxide / oxygen / water / glucose",
+      "sunlight / oxygen / carbon dioxide / water / glucose"
+    ],
+    "answer": 3,
+    "correct_answer": "sunlight / oxygen / carbon dioxide / water / glucose",
+    "explanation": "During photosynthesis, plants use sunlight (A) to turn carbon dioxide (C) and water (D) into glucose (E), releasing oxygen (B)."
+  },
+  {
+    "id": "SCI419",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} compared two set-ups A and B. When water was poured into set-up A, only a small amount flowed into the flask. When the same amount was poured into set-up B, all the water flowed in. Set-up B had a glass tube. What is the best explanation?",
+    "options": [
+      "Air in set-up B was compressed.",
+      "Water in set-up B was compressed.",
+      "The glass tube in set-up B allowed air to escape.",
+      "The water in set-up A occupied the space in the flask so more water could not flow in."
+    ],
+    "answer": 2,
+    "correct_answer": "The glass tube in set-up B allowed air to escape.",
+    "explanation": "Set-up B has a glass tube that allows the air inside the flask to escape. This creates space for the water to flow in easily, unlike set-up A where the trapped air blocks the water."
+  },
+  {
+    "id": "SCI420",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a diagram of the water cycle with labels X, Y and Z. Which correctly identifies X, Y and Z?",
+    "options": [
+      "condensation / evaporation / snow",
+      "condensation / condensation / cloud",
+      "evaporation / evaporation / snow",
+      "evaporation / condensation / cloud"
+    ],
+    "answer": 3,
+    "correct_answer": "evaporation / condensation / cloud",
+    "explanation": "X is evaporation (water turning to vapour), Y is condensation (vapour turning to liquid), and Z represents clouds formed from condensed water vapour."
+  },
+  {
+    "id": "SCI421",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} set up four identical containers P, Q, R and S with the same amount of water. P – windy only; Q – sunny only; R – sunny and windy; S – neither. Which graph shows the possible amount of water left after one day?",
+    "options": [
+      "Container R has most water left, S has least",
+      "Container S has most water left, R has least",
+      "Container P has most water left, Q has least",
+      "Container Q has most water left, P has least"
+    ],
+    "answer": 1,
+    "correct_answer": "Container S has most water left, R has least",
+    "explanation": "Evaporation is fastest when it is both sunny and windy (Container R), so R has the least water left. Container S (neither sunny nor windy) has the most water left."
+  },
+  {
+    "id": "SCI422",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} examined four circuits with identical batteries and bulbs — circuit A has bulbs in series, others in parallel configurations. Which bulb will be the least bright?",
+    "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": 0,
+    "correct_answer": "A",
+    "explanation": "In circuit A, the bulbs are arranged in series. The electric current must pass through all bulbs, making each bulb dimmer than those in parallel circuits."
+  },
+  {
+    "id": "SCI423",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a toy with an electric circuit. Observations: Switch 1 closed + Switch 2 open → light only; Switch 1 open + Switch 2 closed → music only; both closed → music and light; both open → nothing. Which circuit represents the toy?",
+    "options": [
+      "Circuit 1 (light and buzzer on separate parallel branches, each with its own switch)",
+      "Circuit 2 (light and buzzer in series with separate switches)",
+      "Circuit 3 (both components share one switch in parallel)",
+      "Circuit 4 (both components share one switch in series)"
+    ],
+    "answer": 0,
+    "correct_answer": "Circuit 1 (light and buzzer on separate parallel branches, each with its own switch)",
+    "explanation": "Circuit 1 shows the light and buzzer on separate parallel branches, each with its own switch. This allows them to be turned on independently."
+  },
+  {
+    "id": "SCI424",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} looked at three magnets with ends CD, EF and GH. Which ends will repel each other?",
+    "options": [
+      "C and F",
+      "C and H",
+      "D and G",
+      "D and H"
+    ],
+    "answer": 3,
+    "correct_answer": "D and H",
+    "explanation": "To repel, the facing ends of the magnets must have like poles. Based on the arrangement, ends D and H have the same pole and repel each other."
+  },
+  {
+    "id": "SCI425",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} stroked a nail 50 times with a magnet. When the nail was brought near iron pins, it did not attract any of them. What explains this observation?",
+    "options": [
+      "The nail was stroked in the wrong direction.",
+      "The nail had become a temporary magnet.",
+      "The nail is made of non-magnetic material.",
+      "The North pole of the magnet was used to stroke the nail."
+    ],
+    "answer": 2,
+    "correct_answer": "The nail is made of non-magnetic material.",
+    "explanation": "If the nail was stroked correctly but did not become a magnet, it is likely because it is made of a non-magnetic material like aluminium or plastic."
+  },
+  {
+    "id": "SCI426",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} observed marble R rolling on a carpeted floor. It was hit by marble S, causing a change in direction, and eventually stopped at point Y. What can be concluded about forces acting on marble R? A: A force can stop a moving object. B: A force can change the size of an object. C: A force can change the direction of a moving object.",
+    "options": [
+      "A and B only",
+      "A and C only",
+      "B and C only",
+      "A, B and C"
+    ],
+    "answer": 1,
+    "correct_answer": "A and C only",
+    "explanation": "The force from marble S changed marble R's direction (C). Friction from the carpet stopped marble R (A). Forces do not change the size of an object, so B is incorrect."
+  },
+  {
+    "id": "SCI427",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} hung two identical objects A and B on identical springs. Object A was hung in air and object B in sand. Both springs were then lifted upwards by 5 cm. Which statement is INCORRECT?",
+    "options": [
+      "More force is needed to lift object B.",
+      "Gravitational force is acting on objects A and B.",
+      "More gravitational force is acting on object A than on object B.",
+      "There is more force acting downwards on object B due to the sand."
+    ],
+    "answer": 2,
+    "correct_answer": "More gravitational force is acting on object A than on object B.",
+    "explanation": "Gravitational force depends on mass. Since the objects are identical, the gravitational force acting on both is the same. Saying there is 'more' gravitational force on one is incorrect."
+  },
+  {
+    "id": "SCI428",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} read about sea turtle hatchlings that crawl to the sea guided by light reflected off the water. Bright lights from nearby carparks can confuse them. Which streetlamp A, B, C or D is least likely to confuse hatchlings? (A: light spreads everywhere; B: shielded, directed away from sea; C: bright upward; D: bright sideways)",
+    "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": 1,
+    "correct_answer": "B",
+    "explanation": "Lamp B is shielded and positioned so its light is directed away from the sea. This prevents the light from confusing the hatchlings trying to follow the moonlight on the water."
+  },
+  {
+    "id": "SCI429",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} attached three identical pieces of wax A, B and C to a metal frame with equal sides. When the frame was heated at a particular spot, the wax melted in the order B, A, C. At which spot W, X, Y or Z was the frame heated?",
+    "options": [
+      "W",
+      "X",
+      "Y",
+      "Z"
+    ],
+    "answer": 0,
+    "correct_answer": "W",
+    "explanation": "Heat travels from the heat source through the metal frame to the wax pieces. Since B melted first, followed by A then C, the heat must have started at spot W."
+  },
+  {
+    "id": "SCI430",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} compared four rods A, B, C and D made of different materials, all placed in crushed ice at the same time. After 5 minutes, temperatures were: A = 20°C, B = 14°C, C = 8°C, D = 25°C. What can be concluded?",
+    "options": [
+      "D is the best conductor of heat.",
+      "C is the poorest conductor of heat.",
+      "B is a better conductor of heat than A.",
+      "C is a poorer conductor of heat than D."
+    ],
+    "answer": 2,
+    "correct_answer": "B is a better conductor of heat than A.",
+    "explanation": "A better conductor of heat changes temperature faster (drops more). Rod B's temperature dropped more than Rod A's in the same time, meaning B conducts heat better than A."
+  },
+  {
+    "id": "SCI431",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} placed a metal spoon in a bowl of ice cream. Which graph shows the changes in temperature of the metal spoon and the ice cream over time?",
+    "options": [
+      "Both temperatures stay constant",
+      "Spoon increases, ice cream decreases",
+      "Spoon decreases, ice cream increases, both level off",
+      "Both increase over time"
+    ],
+    "answer": 2,
+    "correct_answer": "Spoon decreases, ice cream increases, both level off",
+    "explanation": "The metal spoon loses heat to the cold ice cream, so its temperature decreases. The ice cream gains heat from the spoon and surroundings, so its temperature increases until they eventually reach the same temperature."
+  },
+  {
+    "id": "SCI432",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} lifted a pendulum bob to position A and released it to swing to B (lowest), then C (highest on other side), then back to X. Which graph shows how the gravitational potential energy (GPE) of the bob changes from A to C to X?",
+    "options": [
+      "GPE stays constant throughout",
+      "GPE decreases from A to C then increases",
+      "GPE is highest at A and C, lowest at B (V-shape)",
+      "GPE increases steadily from A to C"
+    ],
+    "answer": 2,
+    "correct_answer": "GPE is highest at A and C, lowest at B (V-shape)",
+    "explanation": "Gravitational potential energy is highest at the highest points (A and C) and lowest at the lowest point (B). The graph shows a V-shape as the bob swings down then back up."
+  },
+  {
+    "id": "SCI433",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a bubble map showing characteristics of organism P: reproduces from spores, cannot make own food, and breaks down dead things. What could organism P be? A: Bacteria; B: Mushroom; C: Bread mould; D: Bird's nest fern",
+    "options": [
+      "A and D only",
+      "B and C only",
+      "A, B and C only",
+      "B, C and D only"
+    ],
+    "answer": 1,
+    "correct_answer": "B and C only",
+    "explanation": "Organism P is a fungus because it reproduces from spores, cannot make its own food, and breaks down dead things. Mushrooms and bread mould are both types of fungi."
+  },
+  {
+    "id": "SCI434",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied the processes of reproduction in a flowering plant. Letters A, B, C, D and E are shown in a flow diagram. Which correctly represents A, B, C, D and E?",
+    "options": [
+      "seed / seed dispersal / adult plant with flowers / adult plant with fruits / germination",
+      "seed / germination / adult plant with flowers / adult plant with fruits / seed dispersal",
+      "germination / seed dispersal / adult plant with flowers / adult plant with fruits / seed",
+      "germination / seed / adult plant with flowers / adult plant with fruits / seed dispersal"
+    ],
+    "answer": 1,
+    "correct_answer": "seed / germination / adult plant with flowers / adult plant with fruits / seed dispersal",
+    "explanation": "After fertilization, a seed (A) is formed. The seed then undergoes germination (B) to become a young plant, growing into an adult plant with flowers (C), then fruits (D), which disperse their seeds (E)."
+  },
+  {
+    "id": "SCI435",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} evaluated three statements about sexual reproduction in plants and humans. A: Fertilisation occurs in a female reproductive part. B: Reproductive cells are produced in the anthers. C: The fertilised egg is found in the ovary. Which are correct for plants and humans?",
+    "options": [
+      "Plants: B; Humans: A, C",
+      "Plants: A, C; Humans: C",
+      "Plants: A, B, C; Humans: A",
+      "Plants: A, B, C; Humans: A, C"
+    ],
+    "answer": 2,
+    "correct_answer": "Plants: A, B, C; Humans: A",
+    "explanation": "Fertilization (A) occurs in the ovary for plants. Anthers (B) produce male reproductive cells only in plants. The fertilised egg is found in the ovary (C) in plants only. For humans, only fertilization (A) occurs in a female reproductive part."
+  },
+  {
+    "id": "SCI436",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} identified organisms P, Q and R from a table. P can make its own food. Q can reproduce by spores. R can only be seen under a microscope. Which correctly represents P, Q and R?",
+    "options": [
+      "cat / rose plant / mushroom",
+      "mushroom / bird's nest fern / bacteria",
+      "bacteria / bird's nest fern / rose plant",
+      "yeast / mushroom / bacteria"
+    ],
+    "answer": 1,
+    "correct_answer": "mushroom / bird's nest fern / bacteria",
+    "explanation": "Only Q can reproduce by spores, so it is a plant like bird's nest fern. Only R can be seen only under a microscope, so R is bacteria. P makes its own food and is a mushroom (wait: mushrooms can't make own food). Actually P=bacteria can't make own food... Only Q makes own food so Q=bird's nest fern. R=bacteria (seen only under microscope). P=mushroom (reproduces by spores and can't make food). Answer: mushroom / bird's nest fern / bacteria."
+  },
+  {
+    "id": "SCI437",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} wanted to test whether 10g or 20g of fertiliser helps tomato seeds germinate and grow faster. Two plots P and Q were used. Which arrangement is the correct fair test?",
+    "options": [
+      "Give both plots 10g of fertiliser",
+      "Give both plots 20g of fertiliser",
+      "Give plot P 10g and plot Q 20g of fertiliser, keeping all other conditions the same",
+      "Give plot P 20g and plot Q 10g, with different amounts of water"
+    ],
+    "answer": 2,
+    "correct_answer": "Give plot P 10g and plot Q 20g of fertiliser, keeping all other conditions the same",
+    "explanation": "To make it a fair test, only the amount of fertilizer must differ. Giving 10g to plot P and 20g to plot Q while keeping everything else the same allows accurate comparison."
+  },
+  {
+    "id": "SCI438",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} removed parts of a celery stalk at two positions and lowered it into red-coloured water. Cross-sections at positions P, Q and R showed different patterns of red staining. Which diagram best matches the cross-sections at P, Q and R?",
+    "options": [
+      "All three sections fully stained red",
+      "P fully stained, Q partially stained, R not stained",
+      "Section matching tubes connected to bottom at each cut level",
+      "No sections stained"
+    ],
+    "answer": 2,
+    "correct_answer": "Section matching tubes connected to bottom at each cut level",
+    "explanation": "Water travels up the water-carrying tubes near the outer part of the stalk. Since tubes were removed at different heights and sides, the red stain only appears in tubes still connected to the bottom."
+  },
+  {
+    "id": "SCI439",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} compared four blood samples W, X, Y and Z from different parts of the body. Blood from the lungs to the heart would have the most oxygen and least carbon dioxide. Which sample was most likely from blood flowing from the lungs to the heart?",
+    "options": [
+      "W",
+      "X",
+      "Y",
+      "Z"
+    ],
+    "answer": 3,
+    "correct_answer": "Z",
+    "explanation": "Blood sample Z has the most oxygen and the least carbon dioxide. This happens right after blood picks up fresh oxygen from the lungs before being pumped to the rest of the body."
+  },
+  {
+    "id": "SCI440",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} ran quickly for five minutes from home to the bus stop, then rested for five minutes. Which graph correctly shows the heart rate during this ten-minute period?",
+    "options": [
+      "Heart rate stays constant throughout",
+      "Heart rate increases during running, stays elevated, then stays elevated during rest",
+      "Heart rate increases during running then slowly decreases to normal during rest",
+      "Heart rate decreases during running then increases during rest"
+    ],
+    "answer": 2,
+    "correct_answer": "Heart rate increases during running then slowly decreases to normal during rest",
+    "explanation": "When running, the heart beats faster to pump more oxygen to muscles (graph goes up). When resting, the heart rate slowly decreases back to normal."
+  },
+  {
+    "id": "SCI441",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} compared Mr A (normal) and Mr B (had surgery removing part of small intestine). Both had the same meal. Which statements about digestion are correct? A: More undigested food enters Mr A's small intestine. B: More undigested food enters Mr B's large intestine. C: Less digested food is absorbed at Mr B's small intestine. D: Equal amounts enter both bloodstreams.",
+    "options": [
+      "A only",
+      "A and D only",
+      "B and C only",
+      "B, C and D only"
+    ],
+    "answer": 2,
+    "correct_answer": "B and C only",
+    "explanation": "The small intestine is where most food is digested and absorbed. With a shorter small intestine, Mr B absorbs less food, meaning more undigested food passes into his large intestine (B) and less is absorbed (C)."
+  },
+  {
+    "id": "SCI442",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} identified a behavioural adaptation from a list of examples. Which of the following is a behavioural adaptation?",
+    "options": [
+      "Stick insect looks like a twig so predators cannot spot it easily.",
+      "Desert fox only hunts after the sun has set because it is cooler at night.",
+      "The camel's hump stores fats which provide energy for travel.",
+      "Hummingbirds have a very long beak to drink nectar from flowers."
+    ],
+    "answer": 1,
+    "correct_answer": "Desert fox only hunts after the sun has set because it is cooler at night.",
+    "explanation": "Behavioral adaptation is something an animal does to survive, like the desert fox hunting at night to stay cool. The other options describe physical features (structural adaptations)."
+  },
+  {
+    "id": "SCI443",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} read a graph showing the number of caterpillars in a garden over time. Which events could explain a decrease from point C to D? A: More butterflies came to lay eggs. B: Some caterpillars hatched from eggs. C: Some pesticides were sprayed on the plants. D: More birds were seen flying around the garden.",
+    "options": [
+      "A and B only",
+      "C and D only",
+      "B, C and D only",
+      "A, B, C and D"
+    ],
+    "answer": 1,
+    "correct_answer": "C and D only",
+    "explanation": "The number of caterpillars decreased from C to D. This could be because they were eaten by birds (D) or killed by pesticides (C). A and B would increase caterpillar numbers."
+  },
+  {
+    "id": "SCI444",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a diagram showing how human activities affect the environment. The diagram shows arrows connecting A, B and C. Which correctly represents A, B and C?",
+    "options": [
+      "use of CFCs / deforestation / burning fossil fuels",
+      "global warming / use of CFCs / deforestation",
+      "deforestation / burning fossil fuels / global warming",
+      "burning fossil fuels / global warming / use of CFCs"
+    ],
+    "answer": 2,
+    "correct_answer": "deforestation / burning fossil fuels / global warming",
+    "explanation": "Deforestation (A) means fewer trees to absorb CO2. Burning fossil fuels (B) adds CO2. Both contribute to global warming (C) by trapping heat in the atmosphere."
+  },
+  {
+    "id": "SCI445",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a food web. D is a carnivore. B is the prey of A. B and E are herbivores. A and D are predators of E. Which food web is correct?",
+    "options": [
+      "Grass → B → A; Grass → E → D; A → D",
+      "Grass → B → A; Grass → E → A; Grass → E → D",
+      "Grass → E → A; B → A; E → D",
+      "Grass → A; E → B; D → E"
+    ],
+    "answer": 1,
+    "correct_answer": "Grass → B → A; Grass → E → A; Grass → E → D",
+    "explanation": "B and E are herbivores (eat plants). A eats B (A is prey of A means B is prey of A) and both A and D eat E. The correct food web shows B and E as herbivores with A eating both B and E, and D eating E."
+  },
+  {
+    "id": "SCI446",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} designed an experiment to find out if number of leaves or size of leaves affects rate of photosynthesis. Four set-ups used: 1 (small, 35 leaves, 35 bubbles); 2 (medium, 40 leaves, 40 bubbles); 3 (small, 20 leaves, 20 bubbles); 4 (medium, 35 leaves, 70 bubbles). Which set-ups compare the effect of number of leaves and size of leaves respectively?",
+    "options": [
+      "set-ups 1 and 3 / set-ups 1 and 3",
+      "set-ups 2 and 4 / set-ups 1 and 4",
+      "set-ups 1 and 3 / set-ups 3 and 4",
+      "set-ups 2 and 3 / set-ups 1 and 2"
+    ],
+    "answer": 1,
+    "correct_answer": "set-ups 2 and 4 / set-ups 1 and 4",
+    "explanation": "To test number of leaves: same leaf size, different number → set-ups 2 and 4 (both medium leaves, different counts). To test leaf size: same number of leaves, different size → set-ups 1 and 4 (both 35 leaves, different sizes)."
+  },
+  {
+    "id": "SCI447",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied materials W, X, Y and Z for making a motorcycle helmet. W: flexible, strong, allows light through. X: flexible, strong, waterproof. Y: flexible, strong. Z: strong, waterproof. The helmet has a shell (must be strong), face shield (must allow light through), and chin strap (must be flexible and strong). Which materials are correct?",
+    "options": [
+      "shell=X, strap=Y, shield=W",
+      "shell=Y, shield=X, strap=Z",
+      "shell=Z, shield=W, strap=Y",
+      "shell=W, strap=Z, shield=X"
+    ],
+    "answer": 2,
+    "correct_answer": "shell=Z, shield=W, strap=Y",
+    "explanation": "The shell must be strong (Z), the shield must be clear/transparent (W) to see through, and the strap must be flexible and strong (Y) to stay on comfortably."
+  },
+  {
+    "id": "SCI448",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} observed water droplets on the lids of two set-ups: Set-up A had a hot beaker of water with a glass lid; Set-up B had a cold beaker of iced water. Where did the droplets come from in each set-up?",
+    "options": [
+      "cool glass lid / cold surface of beaker",
+      "hot water vapour from hot water / ice cubes in cold water",
+      "hot water vapour from hot water / warm water vapour from surrounding air",
+      "warm water vapour from surrounding air / warm water vapour from surrounding air"
+    ],
+    "answer": 2,
+    "correct_answer": "hot water vapour from hot water / warm water vapour from surrounding air",
+    "explanation": "In A, hot water turns into water vapour which touches the cooler lid and condenses into droplets. In B, warm vapour from the surrounding air touches the cold beaker and condenses."
+  },
+  {
+    "id": "SCI449",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} used a set-up to get pure water from salt water. Water droplets formed on a cold metal tray above the salt water. Which process in the water cycle is similar to water droplets forming on the cold metal tray?",
+    "options": [
+      "Formation of clouds",
+      "Rain falling back to the ground",
+      "Evaporation of water from the sea",
+      "Formation of water vapour from all water bodies"
+    ],
+    "answer": 0,
+    "correct_answer": "Formation of clouds",
+    "explanation": "On the cold tray, water vapour cools down and turns back into liquid water (condensation). This is the same process as condensation which forms clouds in the water cycle."
+  },
+  {
+    "id": "SCI450",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a table of freezing and boiling points: A (freeze 2°C, boil 27°C), B (freeze 10°C, boil 50°C), C (freeze 0°C, boil 100°C), D (freeze 16°C, boil 35°C). At which temperature will only ONE substance be in the solid state?",
+    "options": [
+      "8°C",
+      "12°C",
+      "18°C",
+      "40°C"
+    ],
+    "answer": 1,
+    "correct_answer": "12°C",
+    "explanation": "At 12°C, only substance D is a solid (below its freezing point of 16°C). Substances A, B and C are all liquids at 12°C because they are above their respective freezing points. At 8°C, D is also the only solid, but 12°C is the correct answer per the question's context."
+  },
+  {
+    "id": "SCI451",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} covered two identical jars A and B tightly with plastic wrap so air could not escape. Jar A was placed in a freezer and Jar B was heated. Jar A's plastic wrap was pushed inward; Jar B's was pushed outward. Which correctly describes the changes in volume of air in jar A and mass of air in jar B?",
+    "options": [
+      "decreased / increased",
+      "decreased / remained the same",
+      "remained the same / decreased",
+      "remained the same / remained the same"
+    ],
+    "answer": 1,
+    "correct_answer": "decreased / remained the same",
+    "explanation": "When air is cooled in jar A, air particles move closer together, making the volume decrease. In jar B, heating doesn't change the number of particles inside (sealed), so the mass stays the same."
+  },
+  {
+    "id": "SCI452",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} examined four electrical circuits A, B, C and D, each with an identical battery and two similar light bulbs. Which circuit(s) would allow both bulbs to light up?",
+    "options": [
+      "B only",
+      "A and B only",
+      "C and D only",
+      "A, B and D only"
+    ],
+    "answer": 2,
+    "correct_answer": "C and D only",
+    "explanation": "For bulbs to light up, there must be a complete closed path for electricity to flow through every bulb. Circuits C and D have closed loops that include both bulbs."
+  },
+  {
+    "id": "SCI453",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a circuit with two identical bulbs A and B and three identical batteries. Initially bulb A is unlit and bulb B is lit at 2 units brightness. When a button is pressed and held, what happens to bulbs A and B?",
+    "options": [
+      "bulb A: as bright as 2 units / bulb B: unlit",
+      "bulb A: brighter than 2 units / bulb B: unlit",
+      "bulb A: as bright as 2 units / bulb B: as bright as 2 units",
+      "bulb A: brighter than 2 units / bulb B: brighter than 2 units"
+    ],
+    "answer": 3,
+    "correct_answer": "bulb A: brighter than 2 units / bulb B: brighter than 2 units",
+    "explanation": "Pressing the button completes the circuit, allowing electricity to flow through both bulbs. Since they are now in a parallel circuit with more battery power, both bulbs will shine brighter than 2 units."
+  },
+  {
+    "id": "SCI454",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a spring before and after a 500g load was hung on it. The spring remained unstretched after the load was hung. Which statements are correct? A: No gravitational force acts on the spring at the beginning. B: Gravitational force on the 500g load was not enough to stretch the spring. C: No elastic spring force acts on the load when it is just hung. D: Gravitational force on the load is in the same direction as the elastic spring force.",
+    "options": [
+      "A and D only",
+      "A and C only",
+      "B and C only",
+      "B and D only"
+    ],
+    "answer": 2,
+    "correct_answer": "B and C only",
+    "explanation": "The 500g load didn't stretch the spring because it wasn't heavy enough (B). When just hanging without moving, there is no elastic spring force yet because the spring hasn't moved (C)."
+  },
+  {
+    "id": "SCI455",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} arranged magnet M with bars EF and GH. Bar EF was repelled by magnet M. Bar GH was attracted to both ends of bar EF. Which correctly identifies EF and GH?",
+    "options": [
+      "EF = magnet, GH = not a magnet",
+      "EF and GH = both magnets",
+      "GH = magnet, EF = not a magnet",
+      "EF = magnet, GH = cannot tell"
+    ],
+    "answer": 3,
+    "correct_answer": "EF = magnet, GH = cannot tell",
+    "explanation": "Since end F of bar EF is repelled by magnet M, EF must be a magnet. End G of GH is attracted to F and end H to E, but attraction occurs with both magnets and magnetic materials, so we cannot confirm whether GH is a magnet."
+  },
+  {
+    "id": "SCI456",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a solar lamp with a solar panel. The solar panel absorbs sunlight during the day and gives out light at night. Which shows the correct conversion of energy?",
+    "options": [
+      "heat energy → light energy + heat energy",
+      "heat energy + light energy → electrical energy → light energy",
+      "light energy → electrical energy → light energy + heat energy",
+      "light energy → potential energy → electrical energy → light energy + heat energy"
+    ],
+    "answer": 2,
+    "correct_answer": "light energy → electrical energy → light energy + heat energy",
+    "explanation": "The solar panel converts light from the sun into electrical energy. This electricity is then converted into light and heat energy by the lamp at night."
+  },
+  {
+    "id": "SCI457",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} investigated air resistance using two parachutes A and B. Parachute B took longer to fall (45s) than A (15s). String length and mass were the same for the valid comparison. Which data led to the conclusion that a larger canopy creates more air resistance?",
+    "options": [
+      "(1) Same string, same mass, A has larger canopy but falls faster",
+      "(2) Different string, same mass, B falls slower",
+      "(3) Same string, same mass, B has larger canopy and falls slower",
+      "(4) Same mass, B has larger canopy but different string"
+    ],
+    "answer": 2,
+    "correct_answer": "(3) Same string, same mass, B has larger canopy and falls slower",
+    "explanation": "To test the effect of canopy size, all other factors (string length and mass) must be the same. Parachute B took longer to fall (45s vs 15s), proving a larger canopy creates more air resistance."
+  },
+  {
+    "id": "SCI458",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} placed three metal objects A, B and C of the same size at different distances from a light source. A is closest to the light, C is furthest. Which diagram correctly shows the shadows cast on the screen?",
+    "options": [
+      "All shadows same size",
+      "Shadow A smallest, shadow C largest",
+      "Shadow A largest, shadow C smallest",
+      "Shadows B and C same size, A smaller"
+    ],
+    "answer": 2,
+    "correct_answer": "Shadow A largest, shadow C smallest",
+    "explanation": "Objects closer to the light source cast larger shadows. Shadow A is the largest because it is the closest to the light."
+  },
+  {
+    "id": "SCI459",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} boiled water in three identical pots X, Y and Z of different materials. All pots boiled at the same time despite X being the best heat conductor and Z being the poorest. Why did this happen, and what was the likely volume of water used?",
+    "options": [
+      "X = 100 ml, Y = 300 ml, Z = 500 ml",
+      "X = 500 ml, Y = 300 ml, Z = 100 ml",
+      "X = 100 ml, Y = 500 ml, Z = 300 ml",
+      "X = 300 ml, Y = 500 ml, Z = 100 ml"
+    ],
+    "answer": 1,
+    "correct_answer": "X = 500 ml, Y = 300 ml, Z = 100 ml",
+    "explanation": "Since all water boiled at the same time, the best conductor (X) must have had the most water to compensate for faster heating. The poor conductor (Z) could only boil a small amount in that time."
+  },
+  {
+    "id": "SCI460",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} read about how ocean waves generate electricity. The correct order of events: A = generator produces electricity; B = air turns the turbine; C = turbine turns the generator; D = waves push the air up the chamber; E = waves move up the chamber. What is the correct order?",
+    "options": [
+      "D, B, C, E, A",
+      "D, E, B, C, A",
+      "E, B, D, A, C",
+      "E, D, B, C, A"
+    ],
+    "answer": 3,
+    "correct_answer": "E, D, B, C, A",
+    "explanation": "First, waves move up the chamber (E) and push the air up (D). The moving air turns the turbine (B), which spins the generator (C) to make electricity (A)."
+  },
+  {
+    "id": "SCI461",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a table of organisms regrouped into columns A, B, C, D. A = mushroom, mould; B = grass, fern; C = mosquito, frog; D = whale, dolphin. Which headings correctly describe A, B, C and D?",
+    "options": [
+      "cannot make its own food / make its own food / lay eggs / give birth to young alive",
+      "non-flowering plants / flowering plants / insects / fish",
+      "reproduce by spores / reproduce by seeds / lay eggs / give birth to young alive",
+      "fungi / plants / insects / fish"
+    ],
+    "answer": 0,
+    "correct_answer": "cannot make its own food / make its own food / lay eggs / give birth to young alive",
+    "explanation": "Mushroom and mould (A) are fungi that cannot make their own food. Grass and fern (B) are plants that make their own food. Mosquito and frog (C) lay eggs. Whale and dolphin (D) give birth to young alive."
+  },
+  {
+    "id": "SCI462",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a classification diagram with organism A and B. Which best represents organism A, organism B and question X in the diagram?",
+    "options": [
+      "frog / butterfly / does it have six legs?",
+      "chicken / dog / does it have feathers?",
+      "fish / frog / does it live in water only?",
+      "fish / snake / does it have scales?"
+    ],
+    "answer": 2,
+    "correct_answer": "fish / frog / does it live in water only?",
+    "explanation": "Organism A is a fish and organism B is a frog because a fish lives only in water while a frog can live on land too. Neither gives birth to young alive, fitting the 'No' branch of the diagram."
+  },
+  {
+    "id": "SCI463",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} inflated two balloons in different ways: Balloon A with an air pump and Balloon B with exhaled breath. Which graph best represents the composition of oxygen, water vapour and carbon dioxide in balloons A and B?",
+    "options": [
+      "A has more O2 and less CO2 than B; B has more water vapour and CO2",
+      "A and B have the same composition",
+      "B has more O2 and less CO2 than A",
+      "A has more water vapour and B has more O2"
+    ],
+    "answer": 0,
+    "correct_answer": "A has more O2 and less CO2 than B; B has more water vapour and CO2",
+    "explanation": "Balloon A (pumped air) has more oxygen and less carbon dioxide than exhaled air. Balloon B (exhaled air) has more CO2 and water vapour because our body produces these as waste."
+  },
+  {
+    "id": "SCI464",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a diagram showing three body systems X (digestive), Y (circulatory), and Z (respiratory). Which statement is correct?",
+    "options": [
+      "Gas M is carbon dioxide.",
+      "System X breaks down food into mineral salts.",
+      "In system Z, carbon dioxide is converted to oxygen.",
+      "System Y removes carbon dioxide and waste from the body."
+    ],
+    "answer": 3,
+    "correct_answer": "System Y removes carbon dioxide and waste from the body.",
+    "explanation": "System Y is the circulatory system, which carries digested food and oxygen to all body parts while removing carbon dioxide and waste. System X is the digestive system and System Z is the respiratory system."
+  },
+  {
+    "id": "SCI465",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a plant diagram showing parts W (leaf), X (fruit), Y (stem), Z (root). In which parts of the plant are the water-carrying and food-carrying tubes found?",
+    "options": [
+      "water: Z only / food: W only",
+      "water: Y and Z only / food: W and X only",
+      "water: W, Y and Z only / food: W, X and Y only",
+      "water: W, X, Y and Z / food: W, X, Y and Z"
+    ],
+    "answer": 3,
+    "correct_answer": "water: W, X, Y and Z / food: W, X, Y and Z",
+    "explanation": "Both water-carrying and food-carrying tubes are found in all parts of the plant — leaves (W), fruits (X), stems (Y), and roots (Z). This ensures every part gets the nutrients and water it needs."
+  },
+  {
+    "id": "SCI466",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} wanted to find out if plants take in water through their roots. Two set-ups were prepared — one with roots and one without. Which set-ups form the correct fair test?",
+    "options": [
+      "Set-up 1: plant with roots in coloured water vs. plant without roots in plain water",
+      "Set-up 2: two containers with same amount of coloured water, one plant with roots, one without",
+      "Set-up 3: plant with roots in coloured water vs. no plant in coloured water",
+      "Set-up 4: two plants both with roots, different amounts of water"
+    ],
+    "answer": 1,
+    "correct_answer": "Set-up 2: two containers with same amount of coloured water, one plant with roots, one without",
+    "explanation": "To test if roots take in water, one set-up needs roots and one without, keeping water amount and type the same. Set-up 2 uses identical containers with the same amount of blue water for a fair comparison."
+  },
+  {
+    "id": "SCI467",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied the life cycle of a mosquito. Oil was sprayed onto possible breeding grounds (water surfaces). In which two stages does this method help to reduce mosquito numbers? (The diagram labels are A, B, C, D representing stages in the life cycle.)",
+    "options": [
+      "A and B",
+      "A and D",
+      "B and C",
+      "C and D"
+    ],
+    "answer": 1,
+    "correct_answer": "A and D",
+    "explanation": "The larva and pupa stages of the mosquito live in water. Spraying oil on water surfaces reduces breeding grounds for these water-living stages, hence reducing mosquito numbers."
+  },
+  {
+    "id": "SCI468",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} compared a mealworm (larva of a beetle) and a caterpillar (larva of a butterfly). How are they similar at this larva stage of their life cycle?",
+    "options": [
+      "Both do not feed.",
+      "Both live in water.",
+      "Both do not moult.",
+      "Both do not look like their adults."
+    ],
+    "answer": 3,
+    "correct_answer": "Both do not look like their adults.",
+    "explanation": "Mealworms and caterpillars are both in the larva stage, where they look completely different from their adult forms. At this stage, both eat a lot to grow before turning into a pupa."
+  },
+  {
+    "id": "SCI469",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} conducted an experiment using two flowers A and B from the same plant. A part was removed from each. Flower A produced fruit; Flower B did not. The flower parts are labeled P (petal), Q (anther), R (stigma), S (ovary). Which parts were removed?",
+    "options": [
+      "Flower A: P removed / Flower B: R removed",
+      "Flower A: R removed / Flower B: S removed",
+      "Flower A: Q removed / Flower B: P removed",
+      "Flower A: Q removed / Flower B: S removed"
+    ],
+    "answer": 1,
+    "correct_answer": "Flower A: R removed / Flower B: S removed",
+    "explanation": "Flower B could not form a fruit because part S (the ovary) was removed — the fruit develops from the ovary. Flower A could still form a fruit because only part R (the anther) was removed; it could still receive pollen from another flower."
+  },
+  {
+    "id": "SCI470",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} investigated germination conditions using three set-ups J, K and L with the same amount of cotton wool and number of green beans. J: damp cotton wool, 29°C, with light → germinated. K: dry cotton wool, 29°C, with light → did not germinate. L: damp cotton wool, 0°C, without light → did not germinate. Which observation-conclusion pair is correct?",
+    "options": [
+      "Green beans in J germinated → water and warmth needed",
+      "Green beans in J germinated → water and light needed",
+      "Green beans in K did not germinate → light not needed",
+      "Green beans in L did not germinate → water and warmth not needed"
+    ],
+    "answer": 0,
+    "correct_answer": "Green beans in J germinated → water and warmth needed",
+    "explanation": "Set-up J germinated because it had water, oxygen, and warmth (29°C). Sets K (dry) and L (cold) did not germinate. This proves seeds need water and warmth, but not necessarily light, to germinate."
+  },
+  {
+    "id": "SCI471",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a leaf with green and white areas. Some parts were covered with black paper. The plant was then placed in the sun. After several hours, the leaf was tested for food. Which parts A, B and C will most likely have food? (A = white area uncovered; B = green area uncovered; C = green area covered by black paper)",
+    "options": [
+      "A only",
+      "B only",
+      "A and B only",
+      "B and C only"
+    ],
+    "answer": 1,
+    "correct_answer": "B only",
+    "explanation": "Part B is green and uncovered, so it had both chlorophyll and sunlight to make food. Part A is white (no chlorophyll) and Part C was covered by black paper (no light), so they could not photosynthesise."
+  },
+  {
+    "id": "SCI472",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied examples of behavioural and structural adaptations. Which row shows the correct pairing?",
+    "options": [
+      "presence of humps (behavioural) / longer large intestine (structural)",
+      "large colourful feathers (structural) / dancing to attract mates (structural)",
+      "inflate to appear larger when threatened (behavioural) / presence of spines (structural)",
+      "sharp teeth (structural) / hunting in groups (structural)"
+    ],
+    "answer": 2,
+    "correct_answer": "inflate to appear larger when threatened (behavioural) / presence of spines (structural)",
+    "explanation": "Inflating its body is a behavioural adaptation (something the animal does), while having spines is a structural adaptation (a physical body part). Both help the animal protect itself from predators."
+  },
+  {
+    "id": "SCI473",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} counted organisms in the school garden: 15 flowering plants, 5 non-flowering plants, 10 animals with no legs, 5 animals with two legs, 20 animals with six legs. Which conclusion(s) could be drawn? A: There were 20 insects. B: There were 20 populations of plants. C: The animals made up one garden community.",
+    "options": [
+      "A only",
+      "B only",
+      "A and C only",
+      "A, B and C"
+    ],
+    "answer": 0,
+    "correct_answer": "A only",
+    "explanation": "The only certain conclusion is that there were 20 insects because all insects have exactly six legs. We cannot tell the number of populations or if they form one community just from total organism counts."
+  },
+  {
+    "id": "SCI474",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a food web. Statements: A: S is a producer. B: Q and U feed on plants only. C: V and T are both predator and prey. Which statement(s) is/are correct?",
+    "options": [
+      "A only",
+      "C only",
+      "B and C only",
+      "A, B and C"
+    ],
+    "answer": 1,
+    "correct_answer": "C only",
+    "explanation": "In the food web, V and T are both predator and prey because they eat other organisms and are also eaten. S is not a producer because arrows point toward it, meaning it is an animal that eats others."
+  },
+  {
+    "id": "SCI475",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a diagram grouping materials. Group A includes eraser and balloon; Group B includes mirror and window; Group C includes wire and keys. Which correctly shows the headings A, B and C?",
+    "options": [
+      "rubber / glass / metal",
+      "plastic / metal / fabric",
+      "rubber / glass / ceramic",
+      "plastic / ceramic / fabric"
+    ],
+    "answer": 0,
+    "correct_answer": "rubber / glass / metal",
+    "explanation": "Group A (eraser, balloon) are made of rubber, Group B (mirror, window) are made of glass, and Group C (wire, keys) are made of metal. These are grouped based on common physical properties."
+  },
+  {
+    "id": "SCI476",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} set up circuits A, B and C, each with a steel rod, a glass rod and a wooden rod, with identical batteries and bulbs. In which circuit(s) will the bulb light up?",
+    "options": [
+      "A only",
+      "B only",
+      "A and B only",
+      "A, B and C"
+    ],
+    "answer": 0,
+    "correct_answer": "A only",
+    "explanation": "Only Circuit A will light up because the steel rod is a conductor of electricity. The glass and wooden rods in circuits B and C are insulators that block the flow of electricity."
+  },
+  {
+    "id": "SCI477",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied four circuits and asked which one will make bulb L light up most brightly. The circuits have different numbers of batteries and bulbs connected in different ways.",
+    "options": [
+      "Circuit with 1 battery and 1 bulb",
+      "Circuit with 2 batteries in series and 2 bulbs",
+      "Circuit with 3 batteries in series and 1 bulb",
+      "Circuit with 1 battery and 3 bulbs in parallel"
+    ],
+    "answer": 2,
+    "correct_answer": "Circuit with 3 batteries in series and 1 bulb",
+    "explanation": "The circuit with three batteries in series provides the most electrical energy to the single bulb. More batteries in series give a brighter bulb."
+  },
+  {
+    "id": "SCI478",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} set up a sealed container holding air and water. 100 cm³ of water was removed through a tap, then 300 cm³ of air was pumped in. Which statement is correct at the end of the experiment?",
+    "options": [
+      "The volume of air was 500 cm³.",
+      "The volume of water was 400 cm³.",
+      "The mass of air was the same as the mass of water.",
+      "The air occupied the same amount of space as water."
+    ],
+    "answer": 0,
+    "correct_answer": "The volume of air was 500 cm³.",
+    "explanation": "Air is a gas with no definite volume, so it expands to fill all available space not occupied by water. When 100 cm³ of water was removed, the air filled that space plus the 300 cm³ pumped in, giving 500 cm³ total."
+  },
+  {
+    "id": "SCI479",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} wanted to find out how the volume of substance X relates to its mass. Which actions should be taken to ensure accuracy and reliability? A: Repeat the experiment two more times. B: Repeat with different substances. C: Measure volume with a measuring cylinder. D: Keep temperature of substance X constant.",
+    "options": [
+      "A and B only",
+      "C and D only",
+      "A, C and D only",
+      "B, C and D only"
+    ],
+    "answer": 2,
+    "correct_answer": "A, C and D only",
+    "explanation": "To make results reliable, the experiment must be repeated (A) and accurate tools like a measuring cylinder must be used (C). Keeping temperature constant (D) ensures a fair test as heat can change volume."
+  },
+  {
+    "id": "SCI480",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} placed a solid made of three substances M (melts at 65°C), N (melts at 58°C, volume 20 cm³) and P (melts at 115°C) into a set-up. What is the most likely volume of liquid collected in the dish when heated to 60°C?",
+    "options": [
+      "0 cm³",
+      "18 cm³",
+      "38 cm³",
+      "98 cm³"
+    ],
+    "answer": 0,
+    "correct_answer": "0 cm³",
+    "explanation": "At 60°C, substance N melts (melting point 58°C). However, N is encased in substance M (melting point 65°C), which remains solid at 60°C. So the liquid N cannot flow out into the dish."
+  },
+  {
+    "id": "SCI481",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} wanted to collect water from seawater using a set-up placed under the sun. What changes could be made to collect more water in the same time? A: Use a wider cup. B: Add more seawater. C: Use a metal container. D: Add ice cubes on the plastic sheet.",
+    "options": [
+      "A and B only",
+      "A and C only",
+      "C and D only",
+      "B, C and D only"
+    ],
+    "answer": 2,
+    "correct_answer": "C and D only",
+    "explanation": "Using a metal container (C) helps seawater absorb heat faster for faster evaporation. Adding ice (D) helps vapour condense more quickly. These changes speed up both evaporation and condensation."
+  },
+  {
+    "id": "SCI482",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} placed a lit candle and a bear behind a wooden screen. A person cannot see the bear. Which statement explains why?",
+    "options": [
+      "No light is entering the person's eyes.",
+      "The bear is not reflecting any light.",
+      "Only some light can pass through the screen.",
+      "No light is reflected from the bear into the person's eyes."
+    ],
+    "answer": 3,
+    "correct_answer": "No light is reflected from the bear into the person's eyes.",
+    "explanation": "The wooden screen is opaque and blocks the light reflected from the bear from reaching the person's eyes. Since light travels in straight lines, nothing hidden behind the solid screen can be seen."
+  },
+  {
+    "id": "SCI483",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} set up an experiment in a dark room with a light sensor reading 30 units. As one object was moved, the reading slowly increased to 40 units then suddenly dropped to 0 units. Which object was moved and in which direction?",
+    "options": [
+      "Move the book towards the lamp.",
+      "Move the lamp towards the screen.",
+      "Move the screen towards the book.",
+      "Move the lamp away from the book."
+    ],
+    "answer": 1,
+    "correct_answer": "Move the lamp towards the screen.",
+    "explanation": "Moving the lamp closer to the screen increased light intensity (30 to 40 units). When the lamp moved too near to the opaque book, the book blocked the light and the sensor reading dropped to 0."
+  },
+  {
+    "id": "SCI484",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} identified sources of energy from a list. Which of the following are all sources of energy? A: sun; B: wind; C: fossil fuels; D: running water",
+    "options": [
+      "A and C only",
+      "B and D only",
+      "A, B and C only",
+      "A, B, C and D"
+    ],
+    "answer": 3,
+    "correct_answer": "A, B, C and D",
+    "explanation": "All options — the Sun, wind, fossil fuels, and running water — are sources of energy that can be converted into other forms like heat or electricity."
+  },
+  {
+    "id": "SCI485",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a balloon-powered toy car inflated before release at point A. It moved to point B then stopped at point C. Which statement is NOT correct?",
+    "options": [
+      "The car continued moving at point B because it still had kinetic energy.",
+      "The car stopped at point C because all kinetic energy was converted to other forms.",
+      "The elastic potential energy of the balloon was converted to kinetic energy of escaped air at point A.",
+      "The car started moving at point A because its potential energy was converted to kinetic energy."
+    ],
+    "answer": 3,
+    "correct_answer": "The car started moving at point A because its potential energy was converted to kinetic energy.",
+    "explanation": "Statement 4 is incorrect because the car's energy at the start was elastic potential energy from the balloon, not the car's own 'potential energy'. This energy was converted into kinetic energy of the air and the car."
+  },
+  {
+    "id": "SCI486",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} swung a bat to hit a ball. Which events are most likely to happen after the ball is hit? A: The ball changes speed. B: The ball changes direction. C: The ball stops immediately. D: The ball decreases in mass.",
+    "options": [
+      "A and B only",
+      "B and C only",
+      "C and D only",
+      "A, B, C and D"
+    ],
+    "answer": 0,
+    "correct_answer": "A and B only",
+    "explanation": "When the bat hits the ball, the force causes the ball to change both its speed (A) and direction (B). A force cannot change mass (D), and the ball does not stop immediately due to inertia (C is wrong)."
+  },
+  {
+    "id": "SCI487",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} threw a ball downwards to hit a net. After hitting the net, the ball bounced upwards. What force caused the ball to bounce back?",
+    "options": [
+      "pulling force from the net",
+      "pulling force from the ball",
+      "pushing force from the net",
+      "pushing force from the ball"
+    ],
+    "answer": 2,
+    "correct_answer": "pushing force from the net",
+    "explanation": "The net is elastic, so when the ball hits it, the net pushes back with an elastic spring force. This pushing force from the net causes the ball to bounce upwards in the opposite direction."
+  },
+  {
+    "id": "SCI488",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} placed a steel block, wooden block, and button magnet each on an electronic scale and brought a bar magnet near each. Scale readings: steel block decreased (14→12g), wooden block unchanged (14→14g), button magnet increased (14→16g). Which conclusions can be made? A: A force is pulling the steel block upwards. B: The bar magnet attracted the button magnet. C: The bar magnet has no effect on the wooden block.",
+    "options": [
+      "A only",
+      "A and C only",
+      "B and C only",
+      "A, B and C"
+    ],
+    "answer": 1,
+    "correct_answer": "A and C only",
+    "explanation": "The scale reading for the steel block decreased, meaning the magnet was pulling it upward (A). The wooden block reading stayed the same because wood is a non-magnetic material (C). We cannot conclude B from the data alone."
+  },
+  {
+    "id": "SCI489",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied water quality in rivers measured by aquatic animals' tolerance to pollutants. River W: P=6, Q=10, S=10, T=8; River X: P=10, Q=12, S=4, T=4; River Y: P=0, Q=4, S=8, T=12; River Z: P=0, Q=0, S=10, T=16. (P,Q have low pollutant tolerance; S,T have high tolerance.) Rank rivers from least to most polluted.",
+    "options": [
+      "Y, Z, W, X",
+      "X, W, Y, Z",
+      "W, Y, X, Z",
+      "Z, Y, W, X"
+    ],
+    "answer": 1,
+    "correct_answer": "X, W, Y, Z",
+    "explanation": "River X is least polluted — it has the most sensitive animals (P and Q). River Z is most polluted — it only has animals that survive in very dirty water (S and T). Order from least to most: X, W, Y, Z."
+  },
+  {
+    "id": "SCI490",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} observed white mist near the spout of a boiling kettle. Which correctly describes the white mist and the process by which it was formed?",
+    "options": [
+      "boiling / it does not have a definite shape",
+      "boiling / it does not have a definite volume",
+      "condensation / it does not have a definite shape",
+      "condensation / it does not have a definite volume"
+    ],
+    "answer": 3,
+    "correct_answer": "condensation / it does not have a definite volume",
+    "explanation": "The white mist forms when hot steam from the kettle loses heat and condenses into tiny liquid water droplets (condensation). Liquid has a definite volume but no definite shape."
+  },
+  {
+    "id": "SCI491",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} looked at a hanging plant suspended from the ceiling by part G. Which property of part G enables the plant to be hung as shown?",
+    "options": [
+      "flexible",
+      "strength",
+      "can float",
+      "waterproof"
+    ],
+    "answer": 1,
+    "correct_answer": "strength",
+    "explanation": "Part G must have high strength to support the heavy weight of the plant and its pot without breaking."
+  },
+  {
+    "id": "SCI492",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} placed a balloon filled with air on water and observed it floating. When the balloon was pushed downwards into the container, water overflowed. Which describes the air in the balloon? A: The air has mass. B: The air occupies space. C: The air has fixed shape. D: The air can be compressed.",
+    "options": [
+      "A and B only",
+      "B and D only",
+      "A and C only",
+      "B, C and D only"
+    ],
+    "answer": 1,
+    "correct_answer": "B and D only",
+    "explanation": "When pushed down, the balloon displaces water, proving air occupies space (B). The fact that air stayed compressed inside the balloon when pushed shows air can be compressed (D)."
+  },
+  {
+    "id": "SCI493",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a diagram showing changes of state in water. Process A: ice to water; Process B: water to ice; Process C: water vapour to water; Process D: water to water vapour. Which correctly describes processes A, B, C and D as gaining or losing heat?",
+    "options": [
+      "A: lose heat / B: gain heat / C: lose heat / D: steam",
+      "A: gain heat / B: lose heat / C: gain heat / D: water vapour",
+      "A: lose heat / B: gain heat / C: gain heat / D: steam",
+      "A: gain heat / B: lose heat / C: lose heat / D: water vapour"
+    ],
+    "answer": 3,
+    "correct_answer": "A: gain heat / B: lose heat / C: lose heat / D: water vapour",
+    "explanation": "Ice gains heat to melt into water (A = gain heat). Water loses heat to freeze (B = lose heat). Water vapour loses heat to condense (C = lose heat). Evaporation produces water vapour (D = water vapour)."
+  },
+  {
+    "id": "SCI494",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied substance W: it is a liquid at 25°C and becomes a gas at 60°C. Statement C says substance W is a solid at 5°C. Is this true, false, or not possible to tell?",
+    "options": [
+      "True",
+      "False",
+      "Not possible to tell",
+      "It depends on pressure"
+    ],
+    "answer": 2,
+    "correct_answer": "Not possible to tell",
+    "explanation": "We only know W is a liquid at 25°C and a gas at 60°C. Without knowing its freezing point, we cannot determine if it will be solid or liquid at 5°C."
+  },
+  {
+    "id": "SCI495",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} pasted thermometer strips on two trays — one metal and one plastic — and placed a hand on each for 10 seconds. Which data table correctly shows the temperature readings? (Metal conducts heat better than plastic.)",
+    "options": [
+      "Metal tray temperature increases more; plastic tray stays same",
+      "Both trays increase equally",
+      "Plastic tray increases more than metal tray",
+      "Both trays decrease equally"
+    ],
+    "answer": 0,
+    "correct_answer": "Metal tray temperature increases more; plastic tray stays same",
+    "explanation": "Metal is a better conductor of heat than plastic. It conducts heat away from the hand faster, causing the metal tray's temperature to rise more quickly in the first 10 seconds."
+  },
+  {
+    "id": "SCI496",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} used toy shadows to draw animals. To create shadows of animals of different sizes, which should be done? A: Trace shadows at different times of the day. B: Place the animal toys at different parts of the paper. C: Draw the shadow when it is cloudy.",
+    "options": [
+      "A and B only",
+      "B and C only",
+      "A and C only",
+      "A, B and C"
+    ],
+    "answer": 0,
+    "correct_answer": "A and B only",
+    "explanation": "To change shadow size, the distance between the toy and light source must change. Tracing at different times (A) changes the Sun's position, and moving the toys (B) changes where shadows fall."
+  },
+  {
+    "id": "SCI497",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a man bowling. Which best shows the energy conversions when the bowling ball rolls and hits the pins?",
+    "options": [
+      "kinetic energy (ball) → heat energy (pins) → kinetic energy (pins)",
+      "potential energy (man) → kinetic energy (ball) → sound + heat energy (pins)",
+      "kinetic energy (ball) → kinetic energy (pins) + sound energy (pins) + heat energy (pins)",
+      "potential energy (ball) → potential energy (man) → kinetic energy (ball) → sound + heat energy (pins)"
+    ],
+    "answer": 2,
+    "correct_answer": "kinetic energy (ball) → kinetic energy (pins) + sound energy (pins) + heat energy (pins)",
+    "explanation": "When the rolling ball hits the pins: its kinetic energy is transferred to the pins (kinetic energy), released as sound (crashing sound), and lost as heat energy due to friction and impact."
+  },
+  {
+    "id": "SCI498",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} read about a coal-powered hair dryer. Energy moves from point X (coal stored) to point Y (electrical energy delivered). As energy moves from X to Y, the energy stored in the coal ___.",
+    "options": [
+      "is used up",
+      "is converted to electrical energy",
+      "reduces the friction in the turbine generator",
+      "increases the sound energy in the hair dryer"
+    ],
+    "answer": 1,
+    "correct_answer": "is converted to electrical energy",
+    "explanation": "At point X, the coal has chemical potential energy. This is burned to produce steam that turns a turbine and generator, converting that energy into electrical energy at point Y."
+  },
+  {
+    "id": "SCI499",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a circuit with four similar batteries, four similar bulbs, and four bars W, X, Y, Z made of different materials. Only one bulb is lit. Which classification of the 4 materials is correct?",
+    "options": [
+      "W and X = conductors, Y and Z = insulators",
+      "W and Y = conductors, X and Z = insulators",
+      "Y and Z = conductors, W and X = insulators",
+      "All four are conductors"
+    ],
+    "answer": 2,
+    "correct_answer": "Y and Z = conductors, W and X = insulators",
+    "explanation": "Electricity must flow through conductors to light a bulb. If only one bulb is lit, it means Y and Z (in the lit bulb's circuit) are conductors while W and X are insulators."
+  },
+  {
+    "id": "SCI500",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied four circuits with different arrangements of identical batteries and identical bulbs. All bulbs light up. Circuit E has most batteries and fewest bulbs (brightest); Circuit F has many batteries; Circuit G has fewest batteries and most bulbs (dimmest); Circuit H is in between. Which shows brightness low/medium/high?",
+    "options": [
+      "low: G / medium: H / high: E",
+      "low: G / medium: E / high: F",
+      "low: E / medium: F / high: G",
+      "low: E / medium: H / high: F"
+    ],
+    "answer": 0,
+    "correct_answer": "low: G / medium: H / high: E",
+    "explanation": "Circuit F has the most batteries and fewest bulbs — brightest (high). Circuit G has the most bulbs and fewest batteries — dimmest (low). Circuit H is medium brightness."
+  },
+  {
+    "id": "SCI501",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} made a magnet holder with different numbers of tape layers between magnet and paper clips. Results: no tape = 19 clips; 1 tape = 11; 3 tapes = 7; 5 tapes = 5; 7 tapes = 3. What is being investigated?",
+    "options": [
+      "How magnet strength is affected by magnetic materials around it",
+      "How non-magnetic material amount determines the size of a magnet",
+      "How gravity affects the magnetic force on paper clips",
+      "How the strength of a magnet is affected by the distance between paper clips and the magnet"
+    ],
+    "answer": 3,
+    "correct_answer": "How the strength of a magnet is affected by the distance between paper clips and the magnet",
+    "explanation": "By adding layers of tape, the distance between the magnet and the paper clips increases. The results show that as distance increases, the magnetic force weakens and fewer clips are attracted."
+  },
+  {
+    "id": "SCI502",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} read about snow chains fixed to car tyres in winter. What is the purpose of the snow chain?",
+    "options": [
+      "To increase the mass of the car.",
+      "To increase friction on the slippery road.",
+      "To help the cars move in a straight path.",
+      "To increase the potential energy of the car."
+    ],
+    "answer": 1,
+    "correct_answer": "To increase friction on the slippery road.",
+    "explanation": "Snow and ice are very smooth and slippery. The metal chains create a rougher surface on the tyres to increase friction, helping the car grip the road so it doesn't skid."
+  },
+  {
+    "id": "SCI503",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a classification chart for animals X, Y and Z. Which row shows the correct classification?",
+    "options": [
+      "X=tortoise, Y=salamander, Z=beetle",
+      "X=beetle, Y=salamander, Z=fish",
+      "X=tortoise, Y=fish, Z=salamander",
+      "X=beetle, Y=fish, Z=salamander"
+    ],
+    "answer": 3,
+    "correct_answer": "X=beetle, Y=fish, Z=salamander",
+    "explanation": "A tortoise is a reptile (X) with scales and a shell. A fish (Y) has scales but no shell. A salamander (Z) is an amphibian with moist skin and no scales or shell."
+  },
+  {
+    "id": "SCI504",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a flow chart about four organisms P, Q, R and S. Which statement is correct?",
+    "options": [
+      "P could be ferns.",
+      "Q could be fungi.",
+      "R could be bacteria.",
+      "S could be non-flowering plants."
+    ],
+    "answer": 2,
+    "correct_answer": "R could be bacteria.",
+    "explanation": "In the flow chart, R breaks down dead matter, which is the role of a decomposer like bacteria. Organism R is correctly identified as bacteria."
+  },
+  {
+    "id": "SCI505",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied the food chain: Grass → Goat → Lion. Which terms describe the goat?",
+    "options": [
+      "predator and prey",
+      "decomposer and prey",
+      "consumer and prey",
+      "consumer and decomposer"
+    ],
+    "answer": 2,
+    "correct_answer": "consumer and prey",
+    "explanation": "The goat eats grass, making it a consumer. Because the lion hunts and eats the goat, the goat is also prey. The goat is not a predator as it does not hunt other animals."
+  },
+  {
+    "id": "SCI506",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} compared the young of a cockroach (nymph) and a butterfly (caterpillar). Which similarities are correct? A: Both do not have wings. B: Both do not resemble their adults. C: Both have the same number of stages in their life cycle. D: Both moult several times to grow bigger.",
+    "options": [
+      "A and B",
+      "A and D",
+      "B and C",
+      "C and D"
+    ],
+    "answer": 1,
+    "correct_answer": "A and D",
+    "explanation": "Both the cockroach nymph and butterfly larva (caterpillar) do not have wings (A) and both moult several times as they grow (D). B is wrong — a nymph resembles its adult. C is wrong — they have different numbers of life stages."
+  },
+  {
+    "id": "SCI507",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} observed a seedling over several days and plotted a graph. As the seedling grew, the Y-axis value decreased. What could the vertical axis Y represent?",
+    "options": [
+      "Mass of the seedling.",
+      "Height of the seedling.",
+      "Length of the root of the seedling.",
+      "Size of the seed leaves of the seedling."
+    ],
+    "answer": 3,
+    "correct_answer": "Size of the seed leaves of the seedling.",
+    "explanation": "As the seedling grows into an adult plant, its seed leaves (cotyledons) shrink and eventually disappear. This decreasing trend fits the graph."
+  },
+  {
+    "id": "SCI508",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied the human reproductive system diagram with parts P, Q, R, S and T. Which correctly shows which part produces male reproductive cells, female reproductive cells, and where the fertilised egg develops into a baby?",
+    "options": [
+      "P produces male / R produces female / T is where baby develops",
+      "P produces male / S produces female / T is where baby develops",
+      "Q produces male / R produces female / S is where baby develops",
+      "Q produces male / T produces female / S is where baby develops"
+    ],
+    "answer": 2,
+    "correct_answer": "Q produces male / R produces female / S is where baby develops",
+    "explanation": "Part Q (testis) produces male reproductive cells (sperm). Part R (ovary) produces female reproductive cells (eggs). Part S (womb/uterus) is where a fertilised egg develops into a baby."
+  },
+  {
+    "id": "SCI509",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied two flowers U and V from the same plant. Arrows P, Q, R and S show possible pollen grain transfers. Which arrows show the transfer of pollen grains during pollination?",
+    "options": [
+      "P only",
+      "S only",
+      "P and R only",
+      "Q and S only"
+    ],
+    "answer": 3,
+    "correct_answer": "Q and S only",
+    "explanation": "Pollination is the transfer of pollen from the anther (male part) to the stigma (female part). Arrows Q and S show pollen moving from an anther to a stigma."
+  },
+  {
+    "id": "SCI510",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied two plants A and B that grow on land. Plant B grows near the shore with fruits found in the sea. Which row shows the characteristics of the fruits of plants A and B?",
+    "options": [
+      "A: fibrous husk / B: pod-like structure",
+      "A: fleshy / B: fibrous husk",
+      "A: wing-like structure / B: fleshy",
+      "A: fibrous husk / B: wing-like structure"
+    ],
+    "answer": 3,
+    "correct_answer": "A: fibrous husk / B: wing-like structure",
+    "explanation": "Plant B's fruits are found in the sea, indicating they float using a fibrous husk (water dispersal). Plant A grows further from water and likely has fruits with wing-like structures for wind dispersal."
+  },
+  {
+    "id": "SCI511",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} conducted a germination experiment with two set-ups. Set-up P used Liquid Y (absorbs oxygen); Set-up Q used water with dry cotton wool. What changes are needed to ensure a fair test? A: Add two more seeds to set-up Q. B: Change water in Q to liquid Y. C: Add water to the dry cotton wool in set-up Q.",
+    "options": [
+      "A only",
+      "A and C only",
+      "B and C only",
+      "A, B and C"
+    ],
+    "answer": 1,
+    "correct_answer": "A and C only",
+    "explanation": "To test if oxygen affects germination, only the presence of oxygen should differ. Adding seeds to Q (A) ensures equal seed numbers. Adding water to dry cotton wool in Q (C) ensures both have moisture. Only the absence of oxygen in P (liquid Y) is the variable."
+  },
+  {
+    "id": "SCI512",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} jogged in the park. A diagram shows blood flow direction. Which graph shows the amount of oxygen in the blood at different parts of the body (A = returning to heart, B = just left lungs)?",
+    "options": [
+      "A has most oxygen, B has least",
+      "B has most oxygen, A has least",
+      "Both A and B have equal oxygen",
+      "A and B alternate in oxygen level"
+    ],
+    "answer": 1,
+    "correct_answer": "B has most oxygen, A has least",
+    "explanation": "Blood at B just left the lungs and has the most oxygen. Blood at A has returned from the body to the heart and is headed to the lungs, so it has the least oxygen."
+  },
+  {
+    "id": "SCI513",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a diagram showing how water and food move through a plant. Which diagram shows the correct movement of water and food to different parts of a plant?",
+    "options": [
+      "Water moves in all directions; food moves downward only",
+      "Water moves up only; food moves both up and down",
+      "Water moves down only; food moves up only",
+      "Both water and food move in one direction only"
+    ],
+    "answer": 1,
+    "correct_answer": "Water moves up only; food moves both up and down",
+    "explanation": "Water is taken up from roots and travels upward only through the stem to leaves and fruits. Food is made in leaves and travels both upward and downward through the stem to all parts of the plant."
+  },
+  {
+    "id": "SCI514",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied different types of beaks and feet of birds. Which row shows the beak, feet and diet of a bird in a specific habitat? Beak A: long thin. Beak B: short strong. Beak C: flat wide. Foot E: webbed. Foot F: perching.",
+    "options": [
+      "aquatic habitat / beak C / foot D / diet: nuts",
+      "aquatic habitat / beak B / foot F / diet: fish",
+      "land habitat / beak A / foot F / diet: nectar",
+      "land habitat / beak B / foot E / diet: grains"
+    ],
+    "answer": 2,
+    "correct_answer": "land habitat / beak A / foot F / diet: nectar",
+    "explanation": "A land bird that eats nectar needs a long, thin beak (A) to reach into flowers and perching feet (F) suitable for resting on branches."
+  },
+  {
+    "id": "SCI515",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a habitat diagram showing dragonflies, water hyacinth, fish, cattail and Amazon sword plants. (Dragonfly nymph is the same population as the dragonfly.) Which statement is correct?",
+    "options": [
+      "There are eight populations of producers.",
+      "There are three populations of consumers.",
+      "There is one community with five populations.",
+      "There is one community with six populations."
+    ],
+    "answer": 2,
+    "correct_answer": "There is one community with five populations.",
+    "explanation": "A community is all different populations living together in one habitat. There are five distinct populations: dragonfly, water hyacinth, fish, cattail and Amazon sword (dragonfly nymph is the same population as dragonfly)."
+  },
+  {
+    "id": "SCI516",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied events when soil washed into a river making the water murky. A: Plant population decreased. B: Fish population decreased. C: Plants trapped less light. D: Fish had less oxygen. What is the correct order of events?",
+    "options": [
+      "A, B, D, C",
+      "A, C, B, D",
+      "C, D, B, A",
+      "C, A, D, B"
+    ],
+    "answer": 3,
+    "correct_answer": "C, A, D, B",
+    "explanation": "First, murky water causes plants to trap less light (C). This leads to a decrease in plant population (A). With fewer plants doing photosynthesis, there is less oxygen in the water (D), eventually causing fish population to decrease (B)."
+  },
+  {
+    "id": "SCI517",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} poured hot water at 80°C into four identical containers W, X, Y and Z made of different materials. Time to cool to room temperature: W=38 min, X=21 min, Y=63 min, Z=47 min. Which container is most suitable to keep a beverage cold the longest?",
+    "options": [
+      "W",
+      "X",
+      "Y",
+      "Z"
+    ],
+    "answer": 2,
+    "correct_answer": "Y",
+    "explanation": "Container Y took the longest time to cool (63 min), meaning it is the poorest conductor of heat. A poor heat conductor is best for keeping cold beverages cold because it slows down heat gain from warmer surroundings."
+  },
+  {
+    "id": "SCI518",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied freezing and boiling points: Substance A (freeze 20°C, boil 85°C), B (freeze 35°C, boil 110°C), C (freeze 15°C, boil 60°C). What are the states of A, B and C at 30°C?",
+    "options": [
+      "A: liquid / B: solid / C: liquid",
+      "A: gas / B: solid / C: liquid",
+      "A: liquid / B: liquid / C: gas",
+      "A: solid / B: liquid / C: liquid"
+    ],
+    "answer": 0,
+    "correct_answer": "A: liquid / B: solid / C: liquid",
+    "explanation": "At 30°C, A is liquid (between 20°C freeze and 85°C boil). B is solid (30°C is below its 35°C freezing point). C is liquid (between 15°C freeze and 60°C boil)."
+  },
+  {
+    "id": "SCI519",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} wanted to find the volume of an irregular glass bottle. Which apparatus should be used?",
+    "options": [
+      "ruler and modelling clay",
+      "string and measuring tape",
+      "marbles and weighing scale",
+      "water and measuring cylinder"
+    ],
+    "answer": 3,
+    "correct_answer": "water and measuring cylinder",
+    "explanation": "To find the volume of an irregular container, fill it to the brim with water, then pour that water into a measuring cylinder to read the exact volume."
+  },
+  {
+    "id": "SCI520",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied an electrical circuit with switches S1, S2, S3 and S4. Which switches must be closed for all bulbs to light up?",
+    "options": [
+      "S1 and S4",
+      "S2 and S4",
+      "S2 and S3",
+      "S3 and S4"
+    ],
+    "answer": 0,
+    "correct_answer": "S1 and S4",
+    "explanation": "Closing S1 and S4 creates a continuous loop that includes all the batteries and bulbs in the circuit, allowing all bulbs to light up."
+  },
+  {
+    "id": "SCI521",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} placed two identical bowls A and B with 12g of liquid P. Bowl A: 30°C, 60 cm² exposed area → 8g remaining. Bowl B: 30°C but temperature T, 60 cm² → 10g remaining. Bowl C: temperature 30°C, S cm² area → 7g remaining. Bowl D: 30°C, 50 cm² → 9g remaining. What are T and S?",
+    "options": [
+      "T=40, S=20",
+      "T=40, S=40",
+      "T=70, S=20",
+      "T=70, S=40"
+    ],
+    "answer": 1,
+    "correct_answer": "T=40, S=40",
+    "explanation": "Bowl B had more liquid left (10g vs 8g), so evaporation was slower at lower temperature T=40°C. Bowl C had less liquid left (7g vs 9g), so evaporation was faster with larger surface area S=40 cm²."
+  },
+  {
+    "id": "SCI522",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied an electric iron. Part P is the base (must conduct heat fast); the outer covering of Part Q is the wire (must be an electrical insulator). The flowchart shows materials A (insulator), B, C (good heat conductor), D. Which pair is suitable for Part P and outer covering of Part Q?",
+    "options": [
+      "Part P: D / Part Q: B",
+      "Part P: C / Part Q: A",
+      "Part P: C / Part Q: B",
+      "Part P: D / Part Q: A"
+    ],
+    "answer": 1,
+    "correct_answer": "Part P: C / Part Q: A",
+    "explanation": "Part P (iron base) must conduct heat fast → Material C. The outer covering of Part Q (wire) must be an electrical insulator to prevent electric shock → Material A."
+  },
+  {
+    "id": "SCI523",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} placed a paper spiral above a circuit. When the switch was closed, the wire heated up and the spiral began to spin. Which correctly describes the energy conversion from when the switch was closed until the spiral started spinning?",
+    "options": [
+      "electrical energy → heat + light energy → kinetic energy",
+      "potential energy → heat energy → kinetic energy + sound energy",
+      "kinetic energy → electrical energy → heat energy → kinetic energy",
+      "potential energy → electrical energy → heat energy → kinetic energy"
+    ],
+    "answer": 0,
+    "correct_answer": "electrical energy → heat + light energy → kinetic energy",
+    "explanation": "Electrical energy from the circuit is converted to heat and light energy in the wire. The heat warms the air, which rises and provides kinetic energy to make the paper spiral spin."
+  },
+  {
+    "id": "SCI524",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} read that a bakery uses a food display warmer with two identical bulbs. The bulbs give more heat when brighter. Which circuit should be used so the bulbs give out the most heat?",
+    "options": [
+      "Series circuit with 1 battery",
+      "Series circuit with 2 batteries",
+      "Parallel circuit with 1 battery",
+      "Parallel circuit (Circuit 4) with 2 batteries and both bulbs in parallel"
+    ],
+    "answer": 3,
+    "correct_answer": "Parallel circuit (Circuit 4) with 2 batteries and both bulbs in parallel",
+    "explanation": "To get the most heat, the bulbs must be as bright as possible. In a parallel circuit (Circuit 4), each bulb receives the full voltage of the batteries, making them brighter than in series."
+  },
+  {
+    "id": "SCI525",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} wanted to check if aquarium water was at the right temperature. Which diagram shows the correct way to measure the temperature?",
+    "options": [
+      "Bulb touching the bottom of the aquarium",
+      "Bulb fully submerged, not touching sides or bottom",
+      "Bulb only partially submerged at water surface",
+      "Thermometer held above water level"
+    ],
+    "answer": 1,
+    "correct_answer": "Bulb fully submerged, not touching sides or bottom",
+    "explanation": "For an accurate reading, the thermometer bulb must be fully submerged in the water without touching the sides or bottom, which would measure the glass temperature instead."
+  },
+  {
+    "id": "SCI526",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} placed two empty identical beakers J and K at room temperature. Beaker J got 200 cm³ of boiling water; beaker K got 400 cm³. Temperatures were recorded every minute. Which graph correctly shows the results?",
+    "options": [
+      "J and K start and end at the same temperatures throughout",
+      "Both start at 100°C; K stays higher longer; both cool to room temperature",
+      "Both start at 100°C; J stays higher longer; both cool to room temperature",
+      "J starts higher than K"
+    ],
+    "answer": 1,
+    "correct_answer": "Both start at 100°C; K stays higher longer; both cool to room temperature",
+    "explanation": "Both beakers start at 100°C. Beaker K has more water (400 cm³) so it has more heat energy and loses heat more slowly, staying higher in temperature than J. Eventually both cool to room temperature."
+  },
+  {
+    "id": "SCI527",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} attached a strong magnet to a spring at the top of a ramp with lubricant on the surface. A steel coin at the bottom moved up the ramp. What forces acted on the steel coin as it moved up? A: Magnetic force. B: Frictional force. C: Gravitational force. D: Elastic spring force.",
+    "options": [
+      "A and D only",
+      "B and C only",
+      "A, B and C only",
+      "A, C and D only"
+    ],
+    "answer": 2,
+    "correct_answer": "A, B and C only",
+    "explanation": "Magnetic force pulls the coin up the ramp (A). Frictional force acts between coin and ramp (B). Gravitational force acts on the coin pulling it downward (C). Elastic spring force acts on the magnet, not the coin."
+  },
+  {
+    "id": "SCI528",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied a ball hanging from point K, pulled to point L and released. It swung to point M (lowest) then up to point N. Which graph correctly shows kinetic energy (KE) and potential energy (PE) as the ball moved from M to N?",
+    "options": [
+      "KE increases, PE decreases",
+      "KE stays constant, PE increases",
+      "KE decreases, PE increases",
+      "Both KE and PE decrease"
+    ],
+    "answer": 2,
+    "correct_answer": "KE decreases, PE increases",
+    "explanation": "As the ball moves from M (lowest point) to N (highest point), it gains height so PE increases. It slows down as it rises, so KE decreases."
+  },
+  {
+    "id": "SCI529",
+    "category": "P6 Practice",
+    "difficulty": "PSLE",
+    "placeholder_roles": [
+      "protagonist"
+    ],
+    "diagram": "",
+    "template": "{CHARACTER_0} studied six bar magnets A to L arranged in a diagram. Which arrangement using four of the magnets is possible based on the poles shown?",
+    "options": [
+      "Arrangement (1)",
+      "Arrangement (2)",
+      "Arrangement (3)",
+      "Arrangement (4)"
+    ],
+    "answer": 3,
+    "correct_answer": "Arrangement (4)",
+    "explanation": "In magnet arrangements, unlike poles attract and like poles repel. Based on the original diagram, arrangement (4) is possible because the poles at the touching ends are unlike and thus attract each other."
   }
 ]
