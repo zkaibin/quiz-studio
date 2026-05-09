@@ -359,6 +359,18 @@ class ScienceQuizApp {
       }
       html += `<div class="experiment-data">${data}</div>`;
     }
+
+    // Add diagram if present
+    if (question.diagram) {
+      let diagram = question.diagram;
+      if (question.placeholders && question.placeholders.length > 0) {
+        question.placeholders.forEach((placeholder, index) => {
+          const charRegex = new RegExp(`{CHARACTER_${index}}`, 'g');
+          diagram = diagram.replace(charRegex, placeholder);
+        });
+      }
+      html += `<div class="question-diagram">${diagram}</div>`;
+    }
     
     // Build question text
     let text = question.template;
