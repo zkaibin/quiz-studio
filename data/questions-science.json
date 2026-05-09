@@ -6975,5 +6975,243 @@
     ],
     "answer": 1,
     "correct_answer": "Cells are shaped and structured differently to suit their specific functions"
+  },
+  {
+    "id": "SCI391",
+    "category": "Living Things",
+    "difficulty": "PSLE",
+    "template": "Animal Q is a frog. A classification table groups animals by whether they have wings and whether they have hair. In which group should animal Q be placed?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Group with wings and hair",
+      "Group with wings but no hair",
+      "Group with no wings and no hair",
+      "Group with no wings but has hair"
+    ],
+    "answer": 2,
+    "correct_answer": "Group with no wings and no hair",
+    "explanation": "A frog is an amphibian. Amphibians do not have wings and do not have hair."
+  },
+  {
+    "id": "SCI392",
+    "category": "Living Things",
+    "difficulty": "PSLE",
+    "template": "Organism X is a fern and organism Y is a flowering plant. Which one of the following statements about organisms X and Y is correct?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Both produce flowers.",
+      "Both reproduce by spores.",
+      "Only organism Y can trap sunlight.",
+      "Both carry out photosynthesis."
+    ],
+    "answer": 3,
+    "correct_answer": "Both carry out photosynthesis.",
+    "explanation": "Both ferns and flowering plants are green plants, so they can both trap sunlight to carry out photosynthesis to make their own food. Only ferns reproduce by spores, and only flowering plants produce flowers."
+  },
+  {
+    "id": "SCI393",
+    "category": "Human Body",
+    "difficulty": "PSLE",
+    "template": "Substance V is taken in by system X, and substance W is transported by system Y throughout the human body. Which one of the following correctly identifies V, W, X and Y?\n(1) V=digested food, W=oxygen, X=circulatory, Y=respiratory\n(2) V=digested food, W=oxygen, X=respiratory, Y=circulatory\n(3) V=oxygen, W=digested food, X=circulatory, Y=respiratory\n(4) V=oxygen, W=digested food, X=respiratory, Y=circulatory",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "(1) digested food / oxygen / circulatory / respiratory",
+      "(2) digested food / oxygen / respiratory / circulatory",
+      "(3) oxygen / digested food / circulatory / respiratory",
+      "(4) oxygen / digested food / respiratory / circulatory"
+    ],
+    "answer": 3,
+    "correct_answer": "(4) oxygen / digested food / respiratory / circulatory",
+    "explanation": "The respiratory system (X) takes in oxygen (V), and the circulatory system (Y) transports it along with digested food (W) to the rest of the body."
+  },
+  {
+    "id": "SCI394",
+    "category": "Living Things",
+    "difficulty": "PSLE",
+    "template": "The mosquito undergoes complete metamorphosis — its young (larvae) live in water and look very different from the adult. The grasshopper undergoes incomplete metamorphosis — its young (nymphs) live on land and resemble the adult. Both adult mosquitoes and adult grasshoppers have wings and reproduce by laying eggs.\n\nWhich of the following statements are correct for BOTH animals?\nA: Adult has wings\nB: Young resembles the adult\nC: Young lives in the water\nD: Adult reproduces by laying eggs",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "A and C only",
+      "A and D only",
+      "B and C only",
+      "B and D only"
+    ],
+    "answer": 1,
+    "correct_answer": "A and D only",
+    "explanation": "For both the mosquito and the grasshopper, the adult stage has wings (A) and reproduces by laying eggs (D). However, only the mosquito's young live in water (C), and only the grasshopper's young resemble the adult (B)."
+  },
+  {
+    "id": "SCI395",
+    "category": "Interactions",
+    "difficulty": "PSLE",
+    "template": "In an ocean food web: krill is eaten by squids and blue whales; squids are eaten by sperm whales, penguins, and killer whales; penguins are eaten by killer whales.\n\nWhich of the following would likely cause an INCREASE in the population of squids?\nA: A decrease in the population of killer whales\nB: A decrease in the population of blue whales\nC: A decrease in the population of sperm whales",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "A and B only",
+      "B and C only",
+      "A and C only",
+      "A, B and C"
+    ],
+    "answer": 2,
+    "correct_answer": "A and C only",
+    "explanation": "A: Fewer killer whales means fewer squids eaten directly, so squid population increases. C: Fewer sperm whales means fewer squids eaten, so squid population increases. B: Fewer blue whales means more krill available, but this leads to more squid food competition rather than a direct increase in squid numbers in this food web."
+  },
+  {
+    "id": "SCI396",
+    "category": "Reproduction",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} removed two parts from flower P, then transferred pollen from another flower of the same plant onto the remaining stigma. After some time, a fruit was formed. A flower has these parts: A (ovary), B (anthers), C (stigma), D (petals). Which two parts were removed from flower P?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "A and C",
+      "A and D",
+      "B and C",
+      "B and D"
+    ],
+    "answer": 3,
+    "correct_answer": "B and D",
+    "explanation": "A fruit forms from the ovary (A) after fertilization via the stigma (C). Parts B (anthers) and D (petals) can be removed because the flower can still receive pollen on its stigma from another flower to fertilize the ovules in the ovary."
+  },
+  {
+    "id": "SCI397",
+    "category": "Living Things",
+    "difficulty": "PSLE",
+    "template": "A plant with leaves that have green and white areas was kept in the dark for two days to remove all starch. A leaf was then partially covered with black paper on its top and bottom, so that only area P (green, uncovered) and area Q (white, uncovered) were exposed to light, while areas R (green, covered) and S (white, covered) received no light. After one day in sunlight, the leaf was tested for starch. In which area(s) is starch mostly found?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Q only",
+      "P only",
+      "Q and P only",
+      "R and S only"
+    ],
+    "answer": 1,
+    "correct_answer": "P only",
+    "explanation": "Starch is only found in area P because it is green (has chlorophyll) and was not covered (received light), allowing it to photosynthesise and make food. Area Q had no chlorophyll (white), and areas R and S received no light."
+  },
+  {
+    "id": "SCI398",
+    "category": "Heat",
+    "difficulty": "PSLE",
+    "template": "A test tube containing water at 20°C was placed in the centre of a beaker with ice cubes. The beaker was left in a room for some time. Which of the following statements are correct?\nA: The ice cubes gained heat from the surroundings and melted.\nB: The ice cubes lost heat to the water in the test tube and melted.\nC: The beaker gained heat from the surroundings and became cooler.\nD: The water in the test tube lost heat to the ice cubes and became cooler.",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "A and B only",
+      "A and D only",
+      "B and C only",
+      "C and D only"
+    ],
+    "answer": 1,
+    "correct_answer": "A and D only",
+    "explanation": "Heat travels from warmer objects to cooler objects. The test tube water (20°C) was warmer than the ice, so it lost heat to the ice (D) and became cooler. The ice gained heat from both the warmer water and the warmer room surroundings (A) and melted. B is wrong because heat flows from water to ice, not ice to water."
+  },
+  {
+    "id": "SCI399",
+    "category": "Human Body",
+    "difficulty": "PSLE",
+    "template": "The following statements refer to the human digestive system, where P = mouth, Q = stomach, R = small intestine, S = large intestine:\nA: Digestion ends at R.\nB: S has the most digested food.\nC: There is more undigested food at P than Q.\nD: Digestive juices are produced at Q and R only.\nWhich of the following statement(s) is/are correct?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "B only",
+      "A and C only",
+      "B and C only",
+      "A, B and D only"
+    ],
+    "answer": 2,
+    "correct_answer": "B and C only",
+    "explanation": "Digestion begins in the mouth (P) and ends in the small intestine (R), so A is wrong. S (large intestine) absorbs water but has the most digested food passed through, making B correct. There is more undigested food at P (start) than at Q (further along), making C correct. Digestive juices are also produced in the mouth, so D is wrong."
+  },
+  {
+    "id": "SCI400",
+    "category": "Adaptations",
+    "difficulty": "PSLE",
+    "template": "Insect F looks like a bee but does not have a poisonous sting. Which one of the following statements about insect F's adaptation is correct?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Insect F can grow a sting to protect itself.",
+      "Insect F can reproduce with bees to have more offspring.",
+      "Predators of insect F will mistake them for bees and not go near them.",
+      "Predators of insect F have more prey to feed on as they can also feed on bees."
+    ],
+    "answer": 2,
+    "correct_answer": "Predators of insect F will mistake them for bees and not go near them.",
+    "explanation": "By looking like a bee, insect F uses mimicry to protect itself. Predators that are afraid of being stung by a real bee will mistake insect F for one and stay away."
+  },
+  {
+    "id": "SCI401",
+    "category": "Living Things",
+    "difficulty": "PSLE",
+    "template": "A plant has leaves J, K and L. At point X (between J and K), both the food-carrying tubes and water-carrying tubes were cut. At point Y (between K and L), only the food-carrying tubes were cut. Leaf J is above point X, leaf K is between X and Y, and leaf L is below point Y (closest to the roots). Which of the following statements about leaves J, K and L is correct?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Only leaf L would be able to photosynthesise.",
+      "Only leaf K would be able to photosynthesise.",
+      "Both leaves K and L would be able to photosynthesise.",
+      "Leaves J, K and L would not be able to photosynthesise."
+    ],
+    "answer": 2,
+    "correct_answer": "Both leaves K and L would be able to photosynthesise.",
+    "explanation": "To photosynthesise, leaves need water from the roots. At X, both water and food tubes are cut, so leaf J receives no water and cannot photosynthesise. At Y, only food tubes are cut, so water can still reach leaves K and L from the roots, allowing both K and L to photosynthesise."
+  },
+  {
+    "id": "SCI402",
+    "category": "Interactions",
+    "difficulty": "PSLE",
+    "template": "In a food web: rice plant → grasshopper → chicken → snake; rice plant → rat; grasshopper → rat; chicken → rat (rats eat rice plants, grasshoppers, and are eaten by snakes; chickens are eaten by snakes). After animal X was released into the field, the number of grasshoppers increased and the number of rats decreased. Which organism did animal X feed on?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "Snake",
+      "Chicken",
+      "Rice plant",
+      "Grasshopper"
+    ],
+    "answer": 1,
+    "correct_answer": "Chicken",
+    "explanation": "Animal X feeds on chickens. Fewer chickens means fewer grasshoppers eaten, so grasshopper population increases. The increased grasshopper population eats more rice plants, leaving less food for rats, causing the rat population to decrease."
+  },
+  {
+    "id": "SCI403",
+    "category": "Living Things",
+    "difficulty": "PSLE",
+    "template": "An experiment uses two flasks (X and Y) connected in series. Air is bubbled through flask X (containing limewater) first, then through a plant in light, then through flask Y (containing limewater). Limewater turns cloudy when it comes into contact with carbon dioxide. What happens to the limewater in flask X and flask Y?",
+    "diagram": "",
+    "placeholder_roles": [],
+    "options": [
+      "X becomes cloudy; Y becomes cloudy",
+      "X becomes cloudy; Y remains clear",
+      "X remains clear; Y becomes cloudy",
+      "X remains clear; Y remains clear"
+    ],
+    "answer": 1,
+    "correct_answer": "X becomes cloudy; Y remains clear",
+    "explanation": "Flask X turns cloudy because the incoming air contains carbon dioxide. Flask Y remains clear because the plant in light carries out photosynthesis, absorbing all the carbon dioxide before the air reaches flask Y."
+  },
+  {
+    "id": "SCI404",
+    "category": "Living Things",
+    "difficulty": "PSLE",
+    "template": "{CHARACTER_0} tested four types of soil (P, Q, R, S) by pouring 100 cm³ of water into each and measuring the water collected after 10 minutes. Results: P = 97 cm³, Q = 50 cm³, R = 10 cm³, S = 70 cm³. Plant X has shallow roots that cannot grow deep into the ground. Which soil is plant X most adapted to grow in?",
+    "diagram": "",
+    "placeholder_roles": ["protagonist"],
+    "options": [
+      "P",
+      "Q",
+      "R",
+      "S"
+    ],
+    "answer": 2,
+    "correct_answer": "R",
+    "explanation": "Soil R collected the least water (10 cm³), meaning it retains the most water near the surface. This is best for plant X, which has shallow roots and needs water to stay near the surface for a long time."
   }
 ]
