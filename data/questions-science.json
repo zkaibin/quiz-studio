@@ -21,7 +21,9 @@
     "difficulty": "P3-P4",
     "template": "{CHARACTER_0} is studying a butterfly that goes through complete metamorphosis. What is the correct order of its life cycle?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Egg → Larva → Pupa → Adult",
       "Egg → Pupa → Larva → Adult",
@@ -53,7 +55,9 @@
     "difficulty": "P3-P4",
     "template": "{CHARACTER_0} wants to make a raincoat. Which material is waterproof and would be best?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Cotton",
       "Paper",
@@ -69,7 +73,9 @@
     "difficulty": "P3-P4",
     "template": "{CHARACTER_0} is testing materials with a magnet. Which of the following materials can be attracted by the magnet?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Aluminum can",
       "Iron nail",
@@ -261,7 +267,9 @@
     "difficulty": "P5-P6",
     "template": "{CHARACTER_0} dissolved salt in water. What type of mixture did {CHARACTER_0} form?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Suspension",
       "Solution",
@@ -277,7 +285,9 @@
     "difficulty": "P5-P6",
     "template": "{CHARACTER_0} needs to separate sand from water. Which method would be best?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Evaporation",
       "Filtration",
@@ -325,7 +335,9 @@
     "difficulty": "P5-P6",
     "template": "{CHARACTER_0} is studying cacti and wonders why they have thorns instead of broad leaves. What is the reason?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "To attract insects",
       "To reduce water loss",
@@ -485,7 +497,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} placed a plant in a dark cupboard for three days. What would most likely happen to the plant?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "It would grow faster",
       "It would turn yellow and become weak",
@@ -501,7 +515,9 @@
     "difficulty": "PSLE",
     "template": "In an experiment, {CHARACTER_0} placed equal amounts of water in four identical cups and left them in different locations for 24 hours. In which location would the water evaporate the FASTEST?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "In a cool, shady area",
       "In a warm, windy area",
@@ -517,7 +533,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} observed that when she added more weights to a spring, it stretched more. What can {CHARACTER_0} conclude?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "The spring becomes lighter with more weight",
       "The amount of stretch is related to the weight added",
@@ -565,7 +583,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} is a farmer who wants to increase the yield of crops. Which of the following would be MOST effective?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Adding fertilizers to the soil",
       "Planting seeds deeper",
@@ -613,7 +633,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} notices that ice cream melts faster on a hot day than on a cool day. This is because:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Ice cream absorbs more heat on a hot day",
       "The sun's light makes ice cream melt",
@@ -693,7 +715,9 @@
     "difficulty": "P3-P4",
     "template": "{CHARACTER_0} wants to build a table that is strong and durable. Which material would be best?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Paper",
       "Wood",
@@ -789,7 +813,9 @@
     "difficulty": "P5-P6",
     "template": "{CHARACTER_0} pushes a toy car on different surfaces. On which surface will the car travel the farthest?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Rough carpet",
       "Smooth tile floor",
@@ -837,7 +863,9 @@
     "difficulty": "P5-P6",
     "template": "{CHARACTER_0} is making a simple circuit. Which material should {CHARACTER_0} use to connect the battery to the bulb?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Plastic rod",
       "Wooden stick",
@@ -933,7 +961,9 @@
     "difficulty": "P5-P6",
     "template": "{CHARACTER_0} observed that chameleons can change color. This adaptation helps them to:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Attract mates only",
       "Regulate body temperature",
@@ -1061,7 +1091,9 @@
     "difficulty": "P5-P6",
     "template": "{CHARACTER_0} wants to keep a drink cold for a long time. What should {CHARACTER_0} use?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Metal container",
       "Glass container",
@@ -1077,7 +1109,10 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} and {CHARACTER_1} are testing how temperature affects the rate of dissolving. They placed equal amounts of salt in two cups of water - one hot and one cold. What would they observe?",
     "diagram": "",
-    "placeholder_roles": ["protagonist", "helper"],
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
     "options": [
       "Salt dissolves faster in cold water",
       "Salt dissolves faster in hot water",
@@ -1125,7 +1160,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} wants to separate a mixture of sand and salt. What is the best method?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Use a magnet",
       "Dissolve in water, filter, then evaporate",
@@ -1173,7 +1210,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} observes that a balloon filled with air shrinks when placed in a refrigerator. This is because:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Cold air enters the balloon",
       "The air particles inside move slower and take up less space",
@@ -1333,7 +1372,9 @@
     "difficulty": "P5-P6",
     "template": "{CHARACTER_0} observed that woodlice prefer dark, damp places. This is an example of:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Feeding",
       "Response to environment",
@@ -1621,7 +1662,9 @@
     "difficulty": "P5-P6",
     "template": "{CHARACTER_0} notices that soup at the top of a pot gets hot even though heat is applied at the bottom. This is due to:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Conduction",
       "Convection",
@@ -1781,7 +1824,9 @@
     "difficulty": "P5-P6",
     "template": "{CHARACTER_0} rubs two sticks together and they become warm. This demonstrates that friction produces:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Light",
       "Heat",
@@ -1909,7 +1954,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} set up an experiment with two plants. Plant A received sunlight and water. Plant B received only water, no sunlight. After one week, what would {CHARACTER_0} observe?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Both plants grow equally well",
       "Plant A grows well, Plant B turns yellow and weak",
@@ -1941,7 +1988,10 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} and {CHARACTER_1} want to test which paper towel absorbs the most water. What should they keep the same?",
     "diagram": "",
-    "placeholder_roles": ["protagonist", "helper"],
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
     "options": [
       "Brand of paper towel",
       "Amount of water and time allowed to absorb",
@@ -1989,7 +2039,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} observes that ice cubes melt faster in a metal bowl than in a plastic bowl. This is because:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Metal is heavier than plastic",
       "Metal conducts heat better than plastic",
@@ -2069,7 +2121,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} wants to make ice cream freeze faster. What should {CHARACTER_0} do?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Add salt to the ice around the container",
       "Add sugar to the ice cream",
@@ -2133,7 +2187,9 @@
     "difficulty": "P5-P6",
     "template": "{CHARACTER_0} places a potted plant in a dark room for several days. What life process will be affected first?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Reproduction",
       "Photosynthesis (Nutrition)",
@@ -2181,7 +2237,9 @@
     "difficulty": "P3-P4",
     "template": "{CHARACTER_0} wants to test if a material floats or sinks. What property is {CHARACTER_0} testing?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Hardness",
       "Density (ability to float)",
@@ -2261,7 +2319,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} observes that butter melts when heated but chocolate hardens when cooled. Both are examples of:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Chemical changes",
       "Reversible physical changes",
@@ -2309,7 +2369,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} needs to separate iron filings from sand. What should {CHARACTER_0} use?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Filter",
       "Magnet",
@@ -2357,7 +2419,9 @@
     "difficulty": "P5-P6",
     "template": "{CHARACTER_0} hangs wet clothes in the sun with wind blowing. They dry faster because:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Wind prevents evaporation",
       "Sun and wind both increase evaporation rate",
@@ -2469,7 +2533,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} observes that grass in a field grows back after being eaten by rabbits. This shows:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Energy is recycled in food chains",
       "Matter cycles but energy flows through",
@@ -2581,7 +2647,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} looks at plant cells under a microscope and sees large spaces filled with liquid. These are:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Nuclei",
       "Vacuoles",
@@ -2725,7 +2793,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} exercises and notices their heart beats faster. This is because:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "The heart is tired",
       "Muscles need more oxygen and nutrients",
@@ -2837,7 +2907,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} plants bean seeds in soil. For germination to occur, the seeds need:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Only water",
       "Water, air, and suitable temperature",
@@ -2965,7 +3037,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} uses a solar calculator. What energy conversion occurs?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Light to electrical to display",
       "Heat to light to electrical",
@@ -3045,7 +3119,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} touches a metal spoon and wooden spoon left in hot soup. The metal spoon feels hotter because:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Metal absorbs more heat",
       "Metal conducts heat better to the hand",
@@ -3269,7 +3345,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} strikes a tuning fork and places it in water. What happens?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Nothing",
       "Water splashes because of vibrations",
@@ -3397,7 +3475,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} adds more batteries in series to a circuit. What happens to the bulb?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Bulb gets dimmer",
       "Bulb gets brighter",
@@ -3493,7 +3573,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} stretches a spring. When released, the spring returns to its original shape due to:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Gravity",
       "Elastic force",
@@ -3637,7 +3719,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} observes that fish have streamlined bodies. This helps them to:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Look beautiful",
       "Swim faster with less resistance",
@@ -3733,7 +3817,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} wants to reduce carbon footprint. What should {CHARACTER_0} do?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Drive alone to school",
       "Leave lights on all day",
@@ -3829,7 +3915,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} wants to speed up dissolving. What should {CHARACTER_0} do?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Use cold water",
       "Use hot water and stir",
@@ -3925,7 +4013,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} hears thunder 3 seconds after seeing lightning. This shows that:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Sound travels faster than light",
       "Light travels faster than sound",
@@ -4037,7 +4127,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} observes ice melting. This is an example of:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Chemical change",
       "Reversible physical change",
@@ -4165,7 +4257,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} sees plastic bottles in the ocean. This is harmful because:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Plastic provides food for fish",
       "Plastic helps water quality",
@@ -4261,7 +4355,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} uses a hair dryer. What energy conversions occur?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Electrical to heat and kinetic (fan motion)",
       "Heat to electrical",
@@ -4341,7 +4437,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} stirs sugar in cold water and hot water. What difference would {CHARACTER_0} notice?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Sugar dissolves equally fast in both",
       "Sugar dissolves faster in hot water",
@@ -4405,7 +4503,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} brings a reusable water bottle instead of buying plastic bottles. This is an example of:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Recycling",
       "Reducing and reusing",
@@ -4485,7 +4585,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} observes dandelion seeds floating in the wind. This is an example of seed dispersal by:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Animals",
       "Wind",
@@ -4597,7 +4699,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} shines light at a mirror. The angle of reflection equals:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Zero degrees",
       "The angle of incidence",
@@ -4693,7 +4797,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} eats a sandwich. Which system breaks down the food?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Respiratory system",
       "Digestive system",
@@ -4757,7 +4863,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} wears white clothes in summer and dark clothes in winter because:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "White reflects heat, dark absorbs heat",
       "Dark reflects heat, white absorbs heat",
@@ -4869,7 +4977,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} places a ringing phone in a jar and pumps out the air. What happens to the sound?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Gets louder",
       "Gets softer and eventually can't be heard",
@@ -4949,7 +5059,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} uses a double-walled vacuum flask to keep drinks hot because:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "It looks nice",
       "The vacuum prevents heat loss by conduction and convection",
@@ -5013,7 +5125,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} rides a bicycle. Friction between the tires and road helps by:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Making the bike slip",
       "Providing grip for movement and stopping",
@@ -5077,7 +5191,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} notices Christmas lights stay on even when one bulb is removed. This is a:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Series circuit",
       "Parallel circuit",
@@ -5189,7 +5305,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} examines onion cells under a microscope and sees rectangular shapes. This is because of the:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Cell membrane",
       "Rigid cell wall in plant cells",
@@ -5269,7 +5387,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} observes a chameleon changing color to match its surroundings. This is:",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Migration",
       "Camouflage for protection",
@@ -5286,7 +5406,9 @@
     "template": "<strong>Question:</strong> Which beaker will have the LOWEST temperature after 30 minutes?",
     "experiment_setup": "{CHARACTER_0} sets up 4 identical beakers with hot water at 80°C. Each beaker is wrapped differently:\n• Beaker 1: No wrapping\n• Beaker 2: Aluminum foil\n• Beaker 3: Newspaper\n• Beaker 4: Cotton wool\n\n<strong>Procedure:</strong> {CHARACTER_0} measures the temperature of water in each beaker after 30 minutes.",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Beaker 1 (no wrapping)",
       "Beaker 2 (aluminum foil)",
@@ -5304,7 +5426,9 @@
     "experiment_setup": "{CHARACTER_0} tests which material is the best heat conductor by placing metal, wood, and plastic spoons in hot water.",
     "experiment_data": "<strong>📊 Observation:</strong> After 2 minutes, {CHARACTER_0} touches the handles of each spoon.",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Metal spoon",
       "Wooden spoon",
@@ -5322,7 +5446,9 @@
     "experiment_setup": "{CHARACTER_0} tests how fast sugar dissolves in water at different temperatures.",
     "experiment_data": "<strong>📊 Results:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Temperature</th><th style='padding:8px'>Time to dissolve</th></tr><tr><td style='padding:8px'>Cold (10°C)</td><td style='padding:8px'>3 minutes</td></tr><tr><td style='padding:8px'>Room (25°C)</td><td style='padding:8px'>1.5 minutes</td></tr><tr><td style='padding:8px'>Hot (60°C)</td><td style='padding:8px'>30 seconds</td></tr></table>",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Temperature has no effect on dissolving",
       "Sugar dissolves faster at higher temperatures",
@@ -5339,7 +5465,9 @@
     "template": "<strong>Question:</strong> What is the independent variable (what {CHARACTER_0} changes) in this experiment?",
     "experiment_setup": "{CHARACTER_0} wants to find out how the length of wire affects the brightness of a bulb. {CHARACTER_0} sets up circuits with wires of different lengths (10cm, 20cm, 30cm) but keeps everything else the same: same battery, same bulb, same wire thickness.",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "The brightness of the bulb",
       "The length of the wire",
@@ -5357,7 +5485,9 @@
     "experiment_setup": "{CHARACTER_0} sets up two circuits with 2 bulbs each:<br>• Circuit A: Bulbs connected in series<br>• Circuit B: Bulbs connected in parallel",
     "experiment_data": "<strong>📊 Observation:</strong> In Circuit A, when one bulb is removed, the other bulb goes out. In Circuit B, when one bulb is removed, the other bulb stays lit.",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Parallel circuits use more powerful batteries",
       "In parallel circuits, each bulb has its own path to the battery",
@@ -5375,7 +5505,9 @@
     "experiment_setup": "{CHARACTER_0} places an object between a light source and a screen. {CHARACTER_0} moves the light source to different heights while keeping the object in the same position.",
     "experiment_data": "<strong>📊 Results:</strong><br>• Light directly overhead → Shadow is short<br>• Light at medium height → Shadow is medium<br>• Light at low angle → Shadow is very long",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Shadow length is always constant",
       "Shadow is longer when light is at a lower angle",
@@ -5393,7 +5525,9 @@
     "experiment_setup": "{CHARACTER_0} shines a light at a flat mirror and measures the angle of the incoming light ray and the reflected light ray from the mirror surface.",
     "experiment_data": "<strong>📊 Results:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Angle of incoming ray</th><th style='padding:8px'>Angle of reflected ray</th></tr><tr><td style='padding:8px'>30°</td><td style='padding:8px'>30°</td></tr><tr><td style='padding:8px'>45°</td><td style='padding:8px'>45°</td></tr><tr><td style='padding:8px'>60°</td><td style='padding:8px'>60°</td></tr></table>",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "The angle of reflection is always larger than the angle of incidence",
       "The angle of reflection equals the angle of incidence",
@@ -5411,7 +5545,9 @@
     "experiment_setup": "{CHARACTER_0} releases a toy car from the top of ramps at different heights and measures how far the car travels on a flat surface.",
     "experiment_data": "<strong>📊 Results:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Ramp Height</th><th style='padding:8px'>Distance traveled</th></tr><tr><td style='padding:8px'>10 cm</td><td style='padding:8px'>50 cm</td></tr><tr><td style='padding:8px'>20 cm</td><td style='padding:8px'>100 cm</td></tr><tr><td style='padding:8px'>30 cm</td><td style='padding:8px'>150 cm</td></tr></table>",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Ramp height has no effect on distance traveled",
       "Higher ramps give the car more speed and energy",
@@ -5429,7 +5565,9 @@
     "experiment_setup": "{CHARACTER_0} tests friction by pulling a wooden block across different surfaces using a spring scale to measure the force needed.",
     "experiment_data": "<strong>📊 Results:</strong><br>• Smooth tile: 2 Newtons<br>• Rough carpet: 8 Newtons<br>• Sandpaper: 12 Newtons",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Smoother surfaces create more friction",
       "Rougher surfaces create more friction",
@@ -5447,7 +5585,9 @@
     "experiment_setup": "{CHARACTER_0} plucks a ruler hanging over the edge of a desk. {CHARACTER_0} varies the length of ruler hanging over the edge and observes the sound.",
     "experiment_data": "<strong>📊 Observations:</strong><br>• Short length: High-pitched sound, fast vibration<br>• Medium length: Medium-pitched sound<br>• Long length: Low-pitched sound, slow vibration",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Slower vibrations produce higher pitch",
       "Faster vibrations produce higher pitch",
@@ -5465,7 +5605,9 @@
     "experiment_setup": "{CHARACTER_0} places a ringing phone in a bell jar and gradually pumps out the air while listening to the sound.",
     "experiment_data": "<strong>📊 Observations:</strong><br>• Full air: Loud ringing heard clearly<br>• Half air removed: Softer ringing<br>• Most air removed: Very faint sound<br>• Complete vacuum: No sound heard",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Sound can travel through a vacuum",
       "Sound needs a medium (like air) to travel",
@@ -5483,7 +5625,9 @@
     "experiment_setup": "{CHARACTER_0} sets up 3 identical containers with equal amounts of water and places them in different conditions:<br>• Container A: In the sun<br>• Container B: In the shade<br>• Container C: In the refrigerator",
     "experiment_data": "<strong>📊 After 24 hours:</strong> Container A has the least water remaining, Container C has almost all water remaining.",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "The color of the container",
       "Temperature - warmer conditions increase evaporation",
@@ -5501,7 +5645,9 @@
     "experiment_setup": "{CHARACTER_0} sets up 4 containers with equal amounts of water:<br>• Container 1: Covered with lid<br>• Container 2: Uncovered<br>• Container 3: Uncovered with fan blowing<br>• Container 4: Uncovered, wide surface area",
     "experiment_data": "<strong>📊 After 48 hours, water remaining:</strong><br>Container 1 > Container 2 > Container 4 > Container 3",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Covering the container and small surface area",
       "Air movement (wind) and larger surface area",
@@ -5519,7 +5665,9 @@
     "experiment_setup": "{CHARACTER_0} tests the absorbency of different materials by dropping 10 ml of water on each material and measuring how much water is absorbed.",
     "experiment_data": "<strong>📊 Results:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Material</th><th style='padding:8px'>Water absorbed</th></tr><tr><td style='padding:8px'>Cotton cloth</td><td style='padding:8px'>9 ml</td></tr><tr><td style='padding:8px'>Paper towel</td><td style='padding:8px'>8 ml</td></tr><tr><td style='padding:8px'>Plastic sheet</td><td style='padding:8px'>0 ml</td></tr><tr><td style='padding:8px'>Sponge</td><td style='padding:8px'>10 ml</td></tr></table>",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Cotton cloth",
       "Paper towel",
@@ -5537,7 +5685,9 @@
     "experiment_setup": "{CHARACTER_0} investigates energy conversions by observing different devices.",
     "experiment_data": "<strong>📊 Observations:</strong><br>• Solar panel: Light → Electrical energy<br>• Light bulb: Electrical → Light + Heat<br>• Electric motor: Electrical → Kinetic (movement)<br>• Generator: Kinetic → Electrical",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Chemical → Light",
       "Kinetic (hand movement) → Electrical → Light",
@@ -5555,7 +5705,9 @@
     "experiment_setup": "{CHARACTER_0} sets up 4 plant seedlings in identical conditions except for one variable:<br>• Plant A: Sunlight + water<br>• Plant B: No sunlight + water<br>• Plant C: Sunlight + no water<br>• Plant D: No sunlight + no water",
     "experiment_data": "<strong>📊 After 2 weeks:</strong> Only Plant A is green and healthy. Plant B is pale and weak. Plants C and D are dead.",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Plants only need water to survive",
       "Plants only need sunlight to survive",
@@ -5573,7 +5725,9 @@
     "experiment_setup": "{CHARACTER_0} measures breathing rate before and after exercise.",
     "experiment_data": "<strong>📊 Results:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Condition</th><th style='padding:8px'>Breaths per minute</th></tr><tr><td style='padding:8px'>Resting</td><td style='padding:8px'>12</td></tr><tr><td style='padding:8px'>After light walking</td><td style='padding:8px'>18</td></tr><tr><td style='padding:8px'>After running</td><td style='padding:8px'>30</td></tr></table>",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "To look more tired",
       "Muscles need more oxygen for energy production",
@@ -5591,7 +5745,9 @@
     "experiment_setup": "{CHARACTER_0} plants bean seeds in different conditions to test germination:<br>• Seeds 1: Warm, moist, with air<br>• Seeds 2: Cold, moist, with air<br>• Seeds 3: Warm, dry, with air<br>• Seeds 4: Warm, moist, no air (underwater)",
     "experiment_data": "<strong>📊 After 5 days:</strong> Only Seeds 1 germinated successfully.",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Light, cold, and water",
       "Warmth, water, and air",
@@ -5609,7 +5765,9 @@
     "experiment_setup": "{CHARACTER_0} sets up two model ecosystems in bottles:<br>• Ecosystem A: Plants, snails, water, sealed bottle<br>• Ecosystem B: Only snails, water, sealed bottle",
     "experiment_data": "<strong>📊 After 1 week:</strong><br>• Ecosystem A: Plants and snails alive and healthy<br>• Ecosystem B: Snails died",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "The bottle was too small",
       "Without plants, there was no oxygen production for the snails",
@@ -5627,7 +5785,9 @@
     "experiment_setup": "{CHARACTER_0} compares water loss from two model 'plants':<br>• Model A: Leaves with waxy coating<br>• Model B: Leaves without waxy coating<br><br>Both placed in warm, sunny conditions.",
     "experiment_data": "<strong>📊 After 24 hours:</strong><br>• Model A lost 5 ml of water<br>• Model B lost 20 ml of water",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "To make leaves look shiny",
       "To reduce water loss through evaporation",
@@ -5645,7 +5805,9 @@
     "experiment_setup": "{CHARACTER_0} tests different bird beak models to see which is best for picking up different types of food.<br>• Beak A: Long, thin (tweezers)<br>• Beak B: Short, thick (clothespin)<br>• Beak C: Spoon-shaped (spoon)<br><br>{CHARACTER_0} times how long it takes each 'beak' to pick up 10 small items from cracks in wood.",
     "experiment_data": "<strong>📊 Results:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Beak Type</th><th style='padding:8px'>Time taken</th></tr><tr><td style='padding:8px'>Long, thin (A)</td><td style='padding:8px'>30 seconds</td></tr><tr><td style='padding:8px'>Short, thick (B)</td><td style='padding:8px'>90 seconds</td></tr><tr><td style='padding:8px'>Spoon-shaped (C)</td><td style='padding:8px'>120 seconds</td></tr></table>",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Short, thick beak (B)",
       "Long, thin beak (A)",
@@ -5663,7 +5825,9 @@
     "experiment_setup": "{CHARACTER_0} tests how camouflage helps animals hide by placing colored paper 'insects' on different backgrounds and timing how long it takes a partner to find them.",
     "experiment_data": "<strong>📊 Results:</strong><br>• Green insects on green paper: Average 45 seconds to find<br>• Green insects on brown paper: Average 8 seconds to find<br>• Brown insects on brown paper: Average 50 seconds to find<br>• Brown insects on green paper: Average 6 seconds to find",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Color doesn't affect how easy it is to spot prey",
       "Animals that match their background are harder to spot",
@@ -5681,7 +5845,9 @@
     "experiment_setup": "{CHARACTER_0} compares two model 'roots':<br>• Root A: Smooth cylinder<br>• Root B: Cylinder covered with tiny threads (like root hairs)<br><br>Both models are dipped in colored water for 1 minute.",
     "experiment_data": "<strong>📊 Observations:</strong><br>• Root A absorbed small amount of water<br>• Root B absorbed much more water (5 times more)<br><br><strong>Measurement:</strong> Root B has 20 times more surface area than Root A.",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Root hairs make roots look pretty",
       "Root hairs increase surface area for better water absorption",
@@ -5699,7 +5865,9 @@
     "experiment_setup": "{CHARACTER_0} prepares microscope slides of onion skin and observes them under a microscope at 400x magnification.",
     "experiment_data": "<strong>📊 Observations:</strong><br>• Clear rectangular shapes arranged in a pattern<br>• Each shape has a dark dot in the center (nucleus)<br>• Thick walls around each shape (cell wall)<br>• Shapes fit together like bricks in a wall",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Plant cells have irregular shapes and no walls",
       "Plant cells have rectangular shapes with cell walls",
@@ -5717,7 +5885,9 @@
     "experiment_setup": "{CHARACTER_0} prepares two microscope slides:<br>• Slide A: Cheek cells (animal cells)<br>• Slide B: Elodea leaf (plant cells)",
     "experiment_data": "<strong>📊 Observations:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Feature</th><th style='padding:8px'>Cheek cells</th><th style='padding:8px'>Elodea cells</th></tr><tr><td style='padding:8px'>Cell wall</td><td style='padding:8px'>No</td><td style='padding:8px'>Yes</td></tr><tr><td style='padding:8px'>Cell membrane</td><td style='padding:8px'>Yes</td><td style='padding:8px'>Yes</td></tr><tr><td style='padding:8px'>Nucleus</td><td style='padding:8px'>Yes</td><td style='padding:8px'>Yes</td></tr><tr><td style='padding:8px'>Chloroplasts</td><td style='padding:8px'>No</td><td style='padding:8px'>Yes</td></tr></table>",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Cell wall and chloroplasts",
       "Cell membrane and nucleus",
@@ -5735,7 +5905,9 @@
     "experiment_setup": "{CHARACTER_0} creates a mini water cycle model:<br>• Clear plastic container with water at the bottom<br>• Small cup in the center<br>• Plastic wrap covering the top<br>• Small weight on the plastic wrap above the cup<br>• Placed in sunlight",
     "experiment_data": "<strong>📊 Observations after 3 hours:</strong><br>• Water droplets form on the underside of the plastic wrap<br>• Droplets slide down and drip into the center cup<br>• Water level in the container decreased slightly<br>• Cup now contains clean water",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Water disappears and never comes back",
       "Water evaporates, condenses, and falls as 'rain' in a continuous cycle",
@@ -5753,7 +5925,9 @@
     "experiment_setup": "{CHARACTER_0} places a drop of purple food coloring in a glass of still water and observes what happens over time without stirring.",
     "experiment_data": "<strong>📊 Observations:</strong><br>• 0 minutes: Purple color only at the drop point<br>• 5 minutes: Purple color starts spreading slowly<br>• 30 minutes: Purple color spread throughout half the glass<br>• 2 hours: Entire glass is evenly purple",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Boiling",
       "Diffusion - particles move from high to low concentration",
@@ -5771,7 +5945,9 @@
     "experiment_setup": "{CHARACTER_0} tests what happens to air when heated by placing a balloon over the mouth of an empty bottle, then placing the bottle in hot water.",
     "experiment_data": "<strong>📊 Observations:</strong><br>• Before heating: Balloon is flat<br>• After 2 minutes in hot water: Balloon inflates<br>• When bottle removed from hot water: Balloon slowly deflates again",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Hot water creates new air",
       "Air expands when heated and contracts when cooled",
@@ -5789,7 +5965,9 @@
     "experiment_setup": "{CHARACTER_0} investigates whether different materials can change their shape and volume:<br>• Water poured into different shaped containers<br>• Air from a balloon released<br>• Ice cube in a container<br>• Stone in different containers",
     "experiment_data": "<strong>📊 Results:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Material</th><th style='padding:8px'>Shape</th><th style='padding:8px'>Volume</th></tr><tr><td style='padding:8px'>Water (liquid)</td><td style='padding:8px'>Changes</td><td style='padding:8px'>Fixed</td></tr><tr><td style='padding:8px'>Air (gas)</td><td style='padding:8px'>Changes</td><td style='padding:8px'>Changes</td></tr><tr><td style='padding:8px'>Ice/Stone (solid)</td><td style='padding:8px'>Fixed</td><td style='padding:8px'>Fixed</td></tr></table>",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "All materials have the same properties",
       "Liquids take the shape of containers but keep fixed volume; gases change both",
@@ -5807,7 +5985,9 @@
     "experiment_setup": "{CHARACTER_0} observes water changing states by placing a container of water in the freezer and measuring temperature every 15 minutes.",
     "experiment_data": "<strong>📊 Observations:</strong><br>• Start: Water at 20°C (liquid)<br>• 15 min: Water at 5°C (still liquid)<br>• 30 min: Water at 0°C (turning slushy)<br>• 45 min: Water at 0°C (completely solid ice)<br>• 60 min: Ice at -5°C (solid)",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Evaporation",
       "Freezing - liquid changes to solid when cooled below 0°C",
@@ -5825,7 +6005,9 @@
     "experiment_setup": "{CHARACTER_0} investigates energy in a rubber band powered toy car by winding up the rubber band different numbers of turns and measuring how far the car travels.",
     "experiment_data": "<strong>📊 Results:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Turns</th><th style='padding:8px'>Distance traveled</th></tr><tr><td style='padding:8px'>5 turns</td><td style='padding:8px'>1 meter</td></tr><tr><td style='padding:8px'>10 turns</td><td style='padding:8px'>3 meters</td></tr><tr><td style='padding:8px'>15 turns</td><td style='padding:8px'>5 meters</td></tr></table>",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Light energy",
       "Elastic potential energy (stored in the stretched rubber band)",
@@ -5843,7 +6025,9 @@
     "experiment_setup": "{CHARACTER_0} wraps three identical bottles of water in different colored paper (white, gray, black) and places them in direct sunlight for 30 minutes.",
     "experiment_data": "<strong>📊 Temperature increase:</strong><br>• White paper bottle: +5°C<br>• Gray paper bottle: +8°C<br>• Black paper bottle: +12°C",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Dark colors reflect more light energy",
       "Dark colors absorb more light energy and convert it to heat",
@@ -5861,7 +6045,9 @@
     "experiment_setup": "{CHARACTER_0} buries different items in soil to test which decompose:<br>• Item 1: Apple core<br>• Item 2: Plastic bag<br>• Item 3: Paper<br>• Item 4: Aluminum can<br><br>All items marked and checked every 2 weeks.",
     "experiment_data": "<strong>📊 After 8 weeks:</strong><br>• Apple core: Completely decomposed<br>• Paper: Partially decomposed (60% gone)<br>• Plastic bag: No change<br>• Aluminum can: No change",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "All materials decompose at the same rate",
       "Natural materials decompose faster than synthetic materials",
@@ -5879,7 +6065,9 @@
     "experiment_setup": "{CHARACTER_0} sets up two bottles with pond water and small aquatic animals:<br>• Bottle A: Animals + pond plants<br>• Bottle B: Animals only (no plants)<br><br>Both bottles sealed and placed in sunlight.",
     "experiment_data": "<strong>📊 After 24 hours:</strong><br>• Bottle A: Animals active and healthy<br>• Bottle B: Animals sluggish or dead<br><br><strong>Oxygen test:</strong><br>• Bottle A: High oxygen level<br>• Bottle B: Very low oxygen level",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Plants use up all the oxygen",
       "Plants produce oxygen through photosynthesis that animals need",
@@ -5897,7 +6085,9 @@
     "experiment_setup": "{CHARACTER_0} grows identical bean plants in different conditions:<br>• Plant A: Clean water<br>• Plant B: Water with detergent<br>• Plant C: Water with vinegar (acid rain simulation)<br>• Plant D: Water with oil",
     "experiment_data": "<strong>📊 After 3 weeks:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Plant</th><th style='padding:8px'>Height</th><th style='padding:8px'>Condition</th></tr><tr><td style='padding:8px'>A (clean)</td><td style='padding:8px'>20 cm</td><td style='padding:8px'>Healthy, green</td></tr><tr><td style='padding:8px'>B (detergent)</td><td style='padding:8px'>8 cm</td><td style='padding:8px'>Yellow, weak</td></tr><tr><td style='padding:8px'>C (vinegar)</td><td style='padding:8px'>6 cm</td><td style='padding:8px'>Brown spots, dying</td></tr><tr><td style='padding:8px'>D (oil)</td><td style='padding:8px'>4 cm</td><td style='padding:8px'>Nearly dead</td></tr></table>",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Pollution helps plants grow better",
       "Pollution harms plant growth and health",
@@ -5915,7 +6105,9 @@
     "experiment_setup": "{CHARACTER_0} measures heart rate and breathing rate during different activities using a heart rate monitor.",
     "experiment_data": "<strong>📊 Results:</strong><table border='1' style='border-collapse:collapse; margin:10px 0; width:100%'><tr style='background:#e2e8f0'><th style='padding:8px'>Activity</th><th style='padding:8px'>Heart rate (bpm)</th><th style='padding:8px'>Breathing rate</th></tr><tr><td style='padding:8px'>Resting</td><td style='padding:8px'>70</td><td style='padding:8px'>12 breaths/min</td></tr><tr><td style='padding:8px'>Walking</td><td style='padding:8px'>100</td><td style='padding:8px'>18 breaths/min</td></tr><tr><td style='padding:8px'>Jogging</td><td style='padding:8px'>140</td><td style='padding:8px'>28 breaths/min</td></tr><tr><td style='padding:8px'>Running</td><td style='padding:8px'>165</td><td style='padding:8px'>35 breaths/min</td></tr></table>",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "To waste energy",
       "To pump more oxygen-rich blood to working muscles faster",
@@ -5933,7 +6125,9 @@
     "experiment_setup": "{CHARACTER_0} conducts a test where a blindfolded volunteer tries to identify different foods while holding their nose closed, then with nose open.",
     "experiment_data": "<strong>📊 Results:</strong><br><strong>With nose held closed:</strong><br>• Apple vs Potato: Could not tell the difference (identified 2/10 correctly)<br>• Lemon vs Orange juice: Could only tell sour vs sweet (5/10 correct)<br><br><strong>With nose open:</strong><br>• Identified correctly: 9/10 foods",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Touch is most important for tasting",
       "Smell is crucial for identifying flavors - taste and smell work together",
@@ -5951,7 +6145,9 @@
     "experiment_setup": "{CHARACTER_0} models the action of saliva in digestion:<br>• Test tube A: Bread + water<br>• Test tube B: Bread + saliva<br><br>Both kept at body temperature (37°C) for 10 minutes, then iodine solution added to test for starch.",
     "experiment_data": "<strong>📊 Observations:</strong><br>• Test tube A: Iodine turns blue-black (starch present)<br>• Test tube B: Iodine stays brown (no starch - it was broken down)<br><br><strong>Taste test before iodine:</strong> Test tube B liquid tastes slightly sweet.",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Saliva has no effect on food",
       "Saliva contains enzymes that break down starch into sugars",
@@ -5969,7 +6165,9 @@
     "experiment_setup": "{CHARACTER_0} places pieces of bread in different conditions to observe mold growth:<br>• Bread A: In a sealed bag, moist, warm place<br>• Bread B: In open air, dry, warm place<br>• Bread C: In a sealed bag, dry, warm place<br>• Bread D: In refrigerator, sealed bag, moist",
     "experiment_data": "<strong>📊 After 1 week:</strong><br>• Bread A: Heavy mold growth (green and black)<br>• Bread B: Slight mold, mostly dried out<br>• Bread C: Very little mold<br>• Bread D: Minimal mold",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Mold grows best in cold, dry conditions",
       "Mold grows best in warm, moist conditions",
@@ -5987,7 +6185,9 @@
     "experiment_setup": "{CHARACTER_0} sets up an experiment with identical flowering plants:<br>• Plant Group A: Pollen allowed to reach stigma naturally<br>• Plant Group B: Stigma covered with bag to prevent pollen from reaching it<br>• Plant Group C: Pollen manually transferred to stigma with brush",
     "experiment_data": "<strong>📊 After 4 weeks:</strong><br>• Plant A: Developed seeds and fruits<br>• Plant B: No seeds or fruits developed, flower died<br>• Plant C: Developed seeds and fruits (similar to A)",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Pollen is not needed for plant reproduction",
       "Pollen must reach the stigma for fertilization and seed formation",
@@ -6005,7 +6205,9 @@
     "experiment_setup": "{CHARACTER_0} observes the complete life cycle of mealworms (beetle larvae) over several weeks, documenting each stage with photos and measurements.",
     "experiment_data": "<strong>📊 Life cycle observed:</strong><br>• Week 0-2: Tiny eggs → larvae hatched<br>• Week 2-6: Larvae grew larger, molted several times<br>• Week 6-8: Larvae → pupae (non-moving stage)<br>• Week 8-10: Pupae → adult beetles emerged<br>• Week 10+: Adult beetles laid new eggs",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Insects are born as adults",
       "Insects undergo complete metamorphosis: egg→larva→pupa→adult",
@@ -6015,14 +6217,15 @@
     "answer": 1,
     "correct_answer": "Insects undergo complete metamorphosis: egg→larva→pupa→adult"
   },
-
   {
     "id": "SCI331",
     "category": "Scientific Investigation",
     "difficulty": "P5-P6",
     "template": "{CHARACTER_0} wants to find out how the length of a pendulum affects the time it takes to complete one swing. What is the independent variable in this investigation?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "The time taken for one swing",
       "The length of the pendulum",
@@ -6054,7 +6257,9 @@
     "difficulty": "P5-P6",
     "template": "{CHARACTER_0} observes that plants near the window grow taller than plants away from it. What is the most appropriate hypothesis for an investigation to test this observation?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Plants that receive more sunlight will grow taller",
       "Plants near windows are older",
@@ -6086,7 +6291,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} sets up an experiment to test whether plants grow better in red, white, or blue light. She uses three identical pots of plants and the same type of light bulb, only changing the color filter. She measures plant height after 2 weeks. What is the dependent variable?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Color of the light",
       "Type of plant",
@@ -6102,7 +6309,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} conducted an experiment to test how type of soil affects plant growth. He noticed that one plant in sandy soil grew much better than the others. Which statement best explains why this result may NOT be reliable?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Sandy soil is always better for plants",
       "The experiment was only done once, so it may not be repeatable",
@@ -6134,7 +6343,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} wants to find a fair way to test which running shoe provides the most grip. Which method best ensures a fair test?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Test each shoe on different types of surfaces",
       "Test all shoes on the same surface, with the same person, applying the same force",
@@ -6166,7 +6377,9 @@
     "difficulty": "P5-P6",
     "template": "{CHARACTER_0} notices dark clouds forming before it rains. She predicts it will rain within an hour. What type of scientific skill is she using?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Observing",
       "Classifying",
@@ -6198,7 +6411,10 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} and {CHARACTER_1} performed the same experiment but got different results. What should they do to resolve this?",
     "diagram": "",
-    "placeholder_roles": ["protagonist", "helper"],
+    "placeholder_roles": [
+      "protagonist",
+      "helper"
+    ],
     "options": [
       "Both should accept the average of their results without repeating",
       "Only {CHARACTER_0}'s result should be used",
@@ -6230,7 +6446,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} observes that ice in a red cup melts faster than ice in a white cup left in the sun. He concludes: 'Dark-colored objects absorb more heat than light-colored objects.' Is this conclusion valid based on the experiment?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "No, because ice always melts at the same rate regardless of cup color",
       "Yes, because the only difference was cup color, supporting the conclusion",
@@ -6406,7 +6624,9 @@
     "difficulty": "P5-P6",
     "template": "{CHARACTER_0} learns that Singapore recycles water through NEWater. Why is this important?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Because sea water tastes better than NEWater",
       "Because Singapore has limited natural freshwater resources and must manage water sustainably",
@@ -6550,7 +6770,9 @@
     "difficulty": "P3-P4",
     "template": "{CHARACTER_0} tests different materials to see if they allow light to pass through. A clear glass window allows clear vision through it. What property does this glass have?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Opaque",
       "Translucent",
@@ -6694,7 +6916,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} exercises vigorously. She notices her heart beats faster and she breathes more rapidly. Why does this happen?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Her heart and lungs are getting damaged from exercise",
       "Her muscles need more oxygen and energy, so the heart and lungs work harder to supply them",
@@ -6742,7 +6966,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} heats a block of ice in a container. The ice melts to water, and then the water boils. In which state is the water when it is boiling?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "Solid",
       "Liquid",
@@ -6950,7 +7176,9 @@
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} is testing whether plants grow better with music playing nearby. She sets up two groups: one with music (experimental group) and one without music (control group). Why is it important to have a control group?",
     "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "The control group is not necessary in this experiment",
       "The control group provides a baseline for comparison so changes due to music can be identified",
@@ -6981,7 +7209,7 @@
     "category": "Living Things",
     "difficulty": "PSLE",
     "template": "Animal Q is a frog. A classification table groups animals by whether they have wings and whether they have hair. In which group should animal Q be placed?",
-    "diagram": "",
+    "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 195\" width=\"380\" font-family=\"Arial,sans-serif\">\n  <text x=\"190\" y=\"18\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1e293b\">Animal Classification Table</text>\n  <!-- corner -->\n  <rect x=\"10\" y=\"28\" width=\"90\" height=\"40\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1\"/>\n  <!-- column headers -->\n  <rect x=\"100\" y=\"28\" width=\"130\" height=\"40\" fill=\"#bfdbfe\" stroke=\"#94a3b8\" stroke-width=\"1\"/>\n  <text x=\"165\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e40af\">No Wings</text>\n  <rect x=\"230\" y=\"28\" width=\"140\" height=\"40\" fill=\"#bfdbfe\" stroke=\"#94a3b8\" stroke-width=\"1\"/>\n  <text x=\"300\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e40af\">Has Wings</text>\n  <!-- row headers -->\n  <rect x=\"10\" y=\"68\" width=\"90\" height=\"57\" fill=\"#bfdbfe\" stroke=\"#94a3b8\" stroke-width=\"1\"/>\n  <text x=\"55\" y=\"93\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e40af\">No</text>\n  <text x=\"55\" y=\"110\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e40af\">Hair</text>\n  <rect x=\"10\" y=\"125\" width=\"90\" height=\"57\" fill=\"#bfdbfe\" stroke=\"#94a3b8\" stroke-width=\"1\"/>\n  <text x=\"55\" y=\"150\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e40af\">Has</text>\n  <text x=\"55\" y=\"167\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e40af\">Hair</text>\n  <!-- data cells -->\n  <rect x=\"100\" y=\"68\" width=\"130\" height=\"57\" fill=\"white\" stroke=\"#94a3b8\" stroke-width=\"1\"/>\n  <text x=\"165\" y=\"103\" text-anchor=\"middle\" font-size=\"32\" font-weight=\"bold\" fill=\"#475569\">E</text>\n  <rect x=\"230\" y=\"68\" width=\"140\" height=\"57\" fill=\"white\" stroke=\"#94a3b8\" stroke-width=\"1\"/>\n  <text x=\"300\" y=\"103\" text-anchor=\"middle\" font-size=\"32\" font-weight=\"bold\" fill=\"#475569\">F</text>\n  <rect x=\"100\" y=\"125\" width=\"130\" height=\"57\" fill=\"white\" stroke=\"#94a3b8\" stroke-width=\"1\"/>\n  <text x=\"165\" y=\"160\" text-anchor=\"middle\" font-size=\"32\" font-weight=\"bold\" fill=\"#475569\">G</text>\n  <rect x=\"230\" y=\"125\" width=\"140\" height=\"57\" fill=\"white\" stroke=\"#94a3b8\" stroke-width=\"1\"/>\n  <text x=\"300\" y=\"160\" text-anchor=\"middle\" font-size=\"32\" font-weight=\"bold\" fill=\"#475569\">H</text>\n</svg>",
     "placeholder_roles": [],
     "options": [
       "Group with wings and hair",
@@ -6998,7 +7226,7 @@
     "category": "Living Things",
     "difficulty": "PSLE",
     "template": "Organism X is a fern and organism Y is a flowering plant. Which one of the following statements about organisms X and Y is correct?",
-    "diagram": "",
+    "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 200\" width=\"380\" font-family=\"Arial,sans-serif\">\n  <!-- Organism X: Fern -->\n  <text x=\"90\" y=\"16\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#15803d\">Organism X (Fern)</text>\n  <line x1=\"90\" y1=\"168\" x2=\"90\" y2=\"80\" stroke=\"#166534\" stroke-width=\"2\"/>\n  <path d=\"M90,130 Q62,112 46,95\" stroke=\"#16a34a\" stroke-width=\"1.5\" fill=\"none\"/>\n  <path d=\"M90,115 Q118,97 134,80\" stroke=\"#16a34a\" stroke-width=\"1.5\" fill=\"none\"/>\n  <path d=\"M90,100 Q68,85 56,75\" stroke=\"#16a34a\" stroke-width=\"1.5\" fill=\"none\"/>\n  <path d=\"M90,90 Q112,75 124,65\" stroke=\"#16a34a\" stroke-width=\"1.5\" fill=\"none\"/>\n  <!-- leaflets left -->\n  <ellipse cx=\"58\" cy=\"110\" rx=\"7\" ry=\"4\" fill=\"#86efac\" stroke=\"#15803d\" stroke-width=\"0.8\" transform=\"rotate(-30,58,110)\"/>\n  <ellipse cx=\"71\" cy=\"97\" rx=\"7\" ry=\"4\" fill=\"#86efac\" stroke=\"#15803d\" stroke-width=\"0.8\" transform=\"rotate(-35,71,97)\"/>\n  <!-- leaflets right -->\n  <ellipse cx=\"122\" cy=\"89\" rx=\"7\" ry=\"4\" fill=\"#86efac\" stroke=\"#15803d\" stroke-width=\"0.8\" transform=\"rotate(30,122,89)\"/>\n  <ellipse cx=\"110\" cy=\"102\" rx=\"7\" ry=\"4\" fill=\"#86efac\" stroke=\"#15803d\" stroke-width=\"0.8\" transform=\"rotate(35,110,102)\"/>\n  <text x=\"90\" y=\"158\" text-anchor=\"middle\" font-size=\"10\" fill=\"#64748b\">● spores (no flowers)</text>\n  <text x=\"90\" y=\"172\" text-anchor=\"middle\" font-size=\"10\" fill=\"#64748b\">Green leaves → photosynthesis</text>\n  <!-- divider -->\n  <line x1=\"190\" y1=\"10\" x2=\"190\" y2=\"192\" stroke=\"#e2e8f0\" stroke-width=\"2\"/>\n  <!-- Organism Y: Flowering plant -->\n  <text x=\"290\" y=\"16\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#15803d\">Organism Y (Flowering Plant)</text>\n  <line x1=\"290\" y1=\"168\" x2=\"290\" y2=\"108\" stroke=\"#166534\" stroke-width=\"2\"/>\n  <ellipse cx=\"267\" cy=\"148\" rx=\"23\" ry=\"9\" fill=\"#4ade80\" stroke=\"#15803d\" stroke-width=\"1\" transform=\"rotate(-25,267,148)\"/>\n  <ellipse cx=\"313\" cy=\"138\" rx=\"23\" ry=\"9\" fill=\"#4ade80\" stroke=\"#15803d\" stroke-width=\"1\" transform=\"rotate(25,313,138)\"/>\n  <!-- petals -->\n  <ellipse cx=\"290\" cy=\"92\" rx=\"6\" ry=\"12\" fill=\"#fde68a\" stroke=\"#f59e0b\" stroke-width=\"1\"/>\n  <ellipse cx=\"290\" cy=\"92\" rx=\"6\" ry=\"12\" fill=\"#fde68a\" stroke=\"#f59e0b\" stroke-width=\"1\" transform=\"rotate(60,290,92)\"/>\n  <ellipse cx=\"290\" cy=\"92\" rx=\"6\" ry=\"12\" fill=\"#fde68a\" stroke=\"#f59e0b\" stroke-width=\"1\" transform=\"rotate(120,290,92)\"/>\n  <ellipse cx=\"290\" cy=\"92\" rx=\"6\" ry=\"12\" fill=\"#fde68a\" stroke=\"#f59e0b\" stroke-width=\"1\" transform=\"rotate(180,290,92)\"/>\n  <ellipse cx=\"290\" cy=\"92\" rx=\"6\" ry=\"12\" fill=\"#fde68a\" stroke=\"#f59e0b\" stroke-width=\"1\" transform=\"rotate(240,290,92)\"/>\n  <ellipse cx=\"290\" cy=\"92\" rx=\"6\" ry=\"12\" fill=\"#fde68a\" stroke=\"#f59e0b\" stroke-width=\"1\" transform=\"rotate(300,290,92)\"/>\n  <circle cx=\"290\" cy=\"92\" r=\"8\" fill=\"#f97316\"/>\n  <text x=\"290\" y=\"158\" text-anchor=\"middle\" font-size=\"10\" fill=\"#64748b\">● seeds / flowers</text>\n  <text x=\"290\" y=\"172\" text-anchor=\"middle\" font-size=\"10\" fill=\"#64748b\">Green leaves → photosynthesis</text>\n</svg>",
     "placeholder_roles": [],
     "options": [
       "Both produce flowers.",
@@ -7015,7 +7243,7 @@
     "category": "Human Body",
     "difficulty": "PSLE",
     "template": "Substance V is taken in by system X, and substance W is transported by system Y throughout the human body. Which one of the following correctly identifies V, W, X and Y?\n(1) V=digested food, W=oxygen, X=circulatory, Y=respiratory\n(2) V=digested food, W=oxygen, X=respiratory, Y=circulatory\n(3) V=oxygen, W=digested food, X=circulatory, Y=respiratory\n(4) V=oxygen, W=digested food, X=respiratory, Y=circulatory",
-    "diagram": "",
+    "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 440 195\" width=\"440\" font-family=\"Arial,sans-serif\">\n  <text x=\"220\" y=\"16\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\">Transport of Substances in the Human Body</text>\n  <!-- Substance V entering System X -->\n  <text x=\"80\" y=\"42\" text-anchor=\"middle\" font-size=\"11\" fill=\"#0369a1\" font-weight=\"bold\">Substance V</text>\n  <text x=\"80\" y=\"54\" text-anchor=\"middle\" font-size=\"10\" fill=\"#0369a1\">(from outside)</text>\n  <line x1=\"80\" y1=\"58\" x2=\"80\" y2=\"72\" stroke=\"#0369a1\" stroke-width=\"1.5\"/>\n  <polygon points=\"74,72 80,82 86,72\" fill=\"#0369a1\"/>\n  <!-- System X box -->\n  <rect x=\"20\" y=\"82\" width=\"120\" height=\"65\" fill=\"#dbeafe\" stroke=\"#3b82f6\" stroke-width=\"2\" rx=\"8\"/>\n  <text x=\"80\" y=\"112\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1d4ed8\">System X</text>\n  <text x=\"80\" y=\"130\" text-anchor=\"middle\" font-size=\"10\" fill=\"#1d4ed8\">(takes in V)</text>\n  <!-- Arrow X → Y -->\n  <line x1=\"140\" y1=\"115\" x2=\"193\" y2=\"115\" stroke=\"#475569\" stroke-width=\"2\"/>\n  <polygon points=\"191,109 201,115 191,121\" fill=\"#475569\"/>\n  <text x=\"167\" y=\"108\" text-anchor=\"middle\" font-size=\"9\" fill=\"#475569\">V + W</text>\n  <!-- System Y box -->\n  <rect x=\"200\" y=\"82\" width=\"120\" height=\"65\" fill=\"#fee2e2\" stroke=\"#ef4444\" stroke-width=\"2\" rx=\"8\"/>\n  <text x=\"260\" y=\"112\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#991b1b\">System Y</text>\n  <text x=\"260\" y=\"130\" text-anchor=\"middle\" font-size=\"10\" fill=\"#991b1b\">(distributes W)</text>\n  <!-- Arrow Y → body -->\n  <line x1=\"320\" y1=\"115\" x2=\"373\" y2=\"115\" stroke=\"#991b1b\" stroke-width=\"1.5\"/>\n  <polygon points=\"371,109 381,115 371,121\" fill=\"#991b1b\"/>\n  <!-- Body cells box -->\n  <rect x=\"383\" y=\"97\" width=\"50\" height=\"35\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"1.5\" rx=\"6\"/>\n  <text x=\"408\" y=\"112\" text-anchor=\"middle\" font-size=\"10\" fill=\"#92400e\">Body</text>\n  <text x=\"408\" y=\"125\" text-anchor=\"middle\" font-size=\"10\" fill=\"#92400e\">cells</text>\n  <!-- W label -->\n  <text x=\"350\" y=\"107\" text-anchor=\"middle\" font-size=\"9\" fill=\"#991b1b\">Substance W →</text>\n  <!-- Question prompt -->\n  <text x=\"220\" y=\"175\" text-anchor=\"middle\" font-size=\"11\" fill=\"#64748b\">Identify V, W, X and Y from the options below.</text>\n</svg>",
     "placeholder_roles": [],
     "options": [
       "(1) digested food / oxygen / circulatory / respiratory",
@@ -7032,7 +7260,7 @@
     "category": "Living Things",
     "difficulty": "PSLE",
     "template": "The mosquito undergoes complete metamorphosis — its young (larvae) live in water and look very different from the adult. The grasshopper undergoes incomplete metamorphosis — its young (nymphs) live on land and resemble the adult. Both adult mosquitoes and adult grasshoppers have wings and reproduce by laying eggs.\n\nWhich of the following statements are correct for BOTH animals?\nA: Adult has wings\nB: Young resembles the adult\nC: Young lives in the water\nD: Adult reproduces by laying eggs",
-    "diagram": "",
+    "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 500 230\" width=\"500\" font-family=\"Arial,sans-serif\">\n  <!-- MOSQUITO (complete metamorphosis) -->\n  <text x=\"120\" y=\"16\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#0369a1\">Mosquito</text>\n  <text x=\"120\" y=\"29\" text-anchor=\"middle\" font-size=\"10\" fill=\"#64748b\">(complete metamorphosis)</text>\n  <!-- Egg -->\n  <ellipse cx=\"55\" cy=\"90\" rx=\"32\" ry=\"22\" fill=\"#e0f2fe\" stroke=\"#0369a1\" stroke-width=\"1.5\"/>\n  <text x=\"55\" y=\"95\" text-anchor=\"middle\" font-size=\"12\" fill=\"#0369a1\">Egg</text>\n  <!-- Arrow Egg→Larva -->\n  <line x1=\"88\" y1=\"84\" x2=\"148\" y2=\"76\" stroke=\"#0369a1\" stroke-width=\"1.5\"/>\n  <polygon points=\"145,70 155,75 149,83\" fill=\"#0369a1\"/>\n  <!-- Larva (in water) -->\n  <ellipse cx=\"180\" cy=\"72\" rx=\"32\" ry=\"22\" fill=\"#bae6fd\" stroke=\"#0369a1\" stroke-width=\"1.5\"/>\n  <text x=\"180\" y=\"70\" text-anchor=\"middle\" font-size=\"12\" fill=\"#0369a1\">Larva</text>\n  <text x=\"180\" y=\"84\" text-anchor=\"middle\" font-size=\"9\" fill=\"#0369a1\">(in water)</text>\n  <!-- Arrow Larva→Pupa -->\n  <line x1=\"178\" y1=\"94\" x2=\"164\" y2=\"138\" stroke=\"#0369a1\" stroke-width=\"1.5\"/>\n  <polygon points=\"158,135 163,147 170,137\" fill=\"#0369a1\"/>\n  <!-- Pupa -->\n  <ellipse cx=\"155\" cy=\"160\" rx=\"32\" ry=\"22\" fill=\"#bae6fd\" stroke=\"#0369a1\" stroke-width=\"1.5\"/>\n  <text x=\"155\" y=\"165\" text-anchor=\"middle\" font-size=\"12\" fill=\"#0369a1\">Pupa</text>\n  <!-- Arrow Pupa→Adult -->\n  <line x1=\"123\" y1=\"155\" x2=\"88\" y2=\"130\" stroke=\"#0369a1\" stroke-width=\"1.5\"/>\n  <polygon points=\"83,133 87,122 94,130\" fill=\"#0369a1\"/>\n  <!-- Adult -->\n  <ellipse cx=\"58\" cy=\"148\" rx=\"32\" ry=\"22\" fill=\"#7dd3fc\" stroke=\"#0369a1\" stroke-width=\"2\"/>\n  <text x=\"58\" y=\"146\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#0369a1\">Adult</text>\n  <text x=\"58\" y=\"160\" text-anchor=\"middle\" font-size=\"9\" fill=\"#0369a1\">has wings</text>\n  <!-- Arrow Adult→Egg (cycle) -->\n  <line x1=\"40\" y1=\"128\" x2=\"42\" y2=\"109\" stroke=\"#0369a1\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/>\n  <polygon points=\"37,110 42,100 47,110\" fill=\"#0369a1\"/>\n\n  <!-- DIVIDER -->\n  <line x1=\"248\" y1=\"10\" x2=\"248\" y2=\"210\" stroke=\"#cbd5e1\" stroke-width=\"1.5\" stroke-dasharray=\"6,3\"/>\n\n  <!-- GRASSHOPPER (incomplete metamorphosis) -->\n  <text x=\"380\" y=\"16\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#15803d\">Grasshopper</text>\n  <text x=\"380\" y=\"29\" text-anchor=\"middle\" font-size=\"10\" fill=\"#64748b\">(incomplete metamorphosis)</text>\n  <!-- Egg -->\n  <ellipse cx=\"308\" cy=\"90\" rx=\"32\" ry=\"22\" fill=\"#dcfce7\" stroke=\"#15803d\" stroke-width=\"1.5\"/>\n  <text x=\"308\" y=\"95\" text-anchor=\"middle\" font-size=\"12\" fill=\"#15803d\">Egg</text>\n  <!-- Arrow Egg→Nymph -->\n  <line x1=\"340\" y1=\"84\" x2=\"398\" y2=\"76\" stroke=\"#15803d\" stroke-width=\"1.5\"/>\n  <polygon points=\"395,70 405,75 399,83\" fill=\"#15803d\"/>\n  <!-- Nymph (on land) -->\n  <ellipse cx=\"432\" cy=\"72\" rx=\"32\" ry=\"22\" fill=\"#bbf7d0\" stroke=\"#15803d\" stroke-width=\"1.5\"/>\n  <text x=\"432\" y=\"70\" text-anchor=\"middle\" font-size=\"12\" fill=\"#15803d\">Nymph</text>\n  <text x=\"432\" y=\"84\" text-anchor=\"middle\" font-size=\"9\" fill=\"#15803d\">(on land)</text>\n  <!-- Arrow Nymph→Adult -->\n  <line x1=\"416\" y1=\"93\" x2=\"400\" y2=\"138\" stroke=\"#15803d\" stroke-width=\"1.5\"/>\n  <polygon points=\"393,136 399,148 406,138\" fill=\"#15803d\"/>\n  <!-- Adult -->\n  <ellipse cx=\"383\" cy=\"160\" rx=\"38\" ry=\"22\" fill=\"#86efac\" stroke=\"#15803d\" stroke-width=\"2\"/>\n  <text x=\"383\" y=\"158\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#15803d\">Adult</text>\n  <text x=\"383\" y=\"172\" text-anchor=\"middle\" font-size=\"9\" fill=\"#15803d\">has wings</text>\n  <!-- Arrow Adult→Egg (cycle) -->\n  <line x1=\"348\" y1=\"153\" x2=\"322\" y2=\"112\" stroke=\"#15803d\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/>\n  <polygon points=\"316,114 321,103 328,111\" fill=\"#15803d\"/>\n</svg>",
     "placeholder_roles": [],
     "options": [
       "A and C only",
@@ -7049,7 +7277,7 @@
     "category": "Interactions",
     "difficulty": "PSLE",
     "template": "In an ocean food web: krill is eaten by squids and blue whales; squids are eaten by sperm whales, penguins, and killer whales; penguins are eaten by killer whales.\n\nWhich of the following would likely cause an INCREASE in the population of squids?\nA: A decrease in the population of killer whales\nB: A decrease in the population of blue whales\nC: A decrease in the population of sperm whales",
-    "diagram": "",
+    "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 520 290\" width=\"520\" font-family=\"Arial,sans-serif\">\n  <text x=\"260\" y=\"16\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\">Ocean Food Web</text>\n  <text x=\"260\" y=\"30\" text-anchor=\"middle\" font-size=\"10\" fill=\"#64748b\">Arrows show direction of energy: prey → predator</text>\n  <!-- KRILL (bottom centre) -->\n  <rect x=\"210\" y=\"240\" width=\"100\" height=\"34\" rx=\"6\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"1.5\"/>\n  <text x=\"260\" y=\"262\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#92400e\">Krill</text>\n  <!-- BLUE WHALE (bottom right) -->\n  <rect x=\"380\" y=\"240\" width=\"120\" height=\"34\" rx=\"6\" fill=\"#dbeafe\" stroke=\"#3b82f6\" stroke-width=\"1.5\"/>\n  <text x=\"440\" y=\"262\" text-anchor=\"middle\" font-size=\"13\" fill=\"#1d4ed8\">Blue Whale</text>\n  <!-- SQUID (middle centre) -->\n  <rect x=\"210\" y=\"155\" width=\"100\" height=\"34\" rx=\"6\" fill=\"#e0f2fe\" stroke=\"#0284c7\" stroke-width=\"2\"/>\n  <text x=\"260\" y=\"177\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#075985\">Squid</text>\n  <!-- SPERM WHALE (top left) -->\n  <rect x=\"10\" y=\"60\" width=\"120\" height=\"34\" rx=\"6\" fill=\"#fce7f3\" stroke=\"#be185d\" stroke-width=\"1.5\"/>\n  <text x=\"70\" y=\"82\" text-anchor=\"middle\" font-size=\"13\" fill=\"#9d174d\">Sperm Whale</text>\n  <!-- PENGUIN (top centre) -->\n  <rect x=\"200\" y=\"60\" width=\"90\" height=\"34\" rx=\"6\" fill=\"#fce7f3\" stroke=\"#be185d\" stroke-width=\"1.5\"/>\n  <text x=\"245\" y=\"82\" text-anchor=\"middle\" font-size=\"13\" fill=\"#9d174d\">Penguin</text>\n  <!-- KILLER WHALE (top right) -->\n  <rect x=\"360\" y=\"60\" width=\"130\" height=\"34\" rx=\"6\" fill=\"#ede9fe\" stroke=\"#7c3aed\" stroke-width=\"1.5\"/>\n  <text x=\"425\" y=\"82\" text-anchor=\"middle\" font-size=\"13\" fill=\"#6d28d9\">Killer Whale</text>\n  <!-- krill → squid -->\n  <line x1=\"260\" y1=\"240\" x2=\"260\" y2=\"191\" stroke=\"#0284c7\" stroke-width=\"1.5\"/>\n  <polygon points=\"254,192 260,181 266,192\" fill=\"#0284c7\"/>\n  <!-- krill → blue whale -->\n  <line x1=\"310\" y1=\"254\" x2=\"378\" y2=\"256\" stroke=\"#3b82f6\" stroke-width=\"1.5\"/>\n  <polygon points=\"376,250 388,256 376,262\" fill=\"#3b82f6\"/>\n  <!-- squid → sperm whale -->\n  <line x1=\"215\" y1=\"162\" x2=\"134\" y2=\"88\" stroke=\"#9d174d\" stroke-width=\"1.5\"/>\n  <polygon points=\"127,92 133,81 141,89\" fill=\"#9d174d\"/>\n  <!-- squid → penguin -->\n  <line x1=\"247\" y1=\"155\" x2=\"246\" y2=\"96\" stroke=\"#9d174d\" stroke-width=\"1.5\"/>\n  <polygon points=\"240,97 246,86 252,97\" fill=\"#9d174d\"/>\n  <!-- squid → killer whale -->\n  <line x1=\"304\" y1=\"163\" x2=\"367\" y2=\"90\" stroke=\"#7c3aed\" stroke-width=\"1.5\"/>\n  <polygon points=\"360,93 369,83 374,93\" fill=\"#7c3aed\"/>\n  <!-- penguin → killer whale -->\n  <line x1=\"290\" y1=\"77\" x2=\"358\" y2=\"77\" stroke=\"#7c3aed\" stroke-width=\"1.5\"/>\n  <polygon points=\"356,71 368,77 356,83\" fill=\"#7c3aed\"/>\n</svg>",
     "placeholder_roles": [],
     "options": [
       "A and B only",
@@ -7066,8 +7294,10 @@
     "category": "Reproduction",
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} removed two parts from flower P, then transferred pollen from another flower of the same plant onto the remaining stigma. After some time, a fruit was formed. A flower has these parts: A (ovary), B (anthers), C (stigma), D (petals). Which two parts were removed from flower P?",
-    "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 270\" width=\"360\" font-family=\"Arial,sans-serif\">\n  <text x=\"180\" y=\"16\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\">Flower (cross-section)</text>\n  <!-- Petals (D) – 5 petals -->\n  <ellipse cx=\"180\" cy=\"130\" rx=\"26\" ry=\"52\" fill=\"#fde68a\" stroke=\"#f59e0b\" stroke-width=\"1.5\" transform=\"rotate(-72,180,140)\"/>\n  <ellipse cx=\"180\" cy=\"130\" rx=\"26\" ry=\"52\" fill=\"#fde68a\" stroke=\"#f59e0b\" stroke-width=\"1.5\" transform=\"rotate(-36,180,140)\"/>\n  <ellipse cx=\"180\" cy=\"130\" rx=\"26\" ry=\"52\" fill=\"#fde68a\" stroke=\"#f59e0b\" stroke-width=\"1.5\" transform=\"rotate(0,180,140)\"/>\n  <ellipse cx=\"180\" cy=\"130\" rx=\"26\" ry=\"52\" fill=\"#fde68a\" stroke=\"#f59e0b\" stroke-width=\"1.5\" transform=\"rotate(36,180,140)\"/>\n  <ellipse cx=\"180\" cy=\"130\" rx=\"26\" ry=\"52\" fill=\"#fde68a\" stroke=\"#f59e0b\" stroke-width=\"1.5\" transform=\"rotate(72,180,140)\"/>\n  <!-- Stem -->\n  <rect x=\"174\" y=\"218\" width=\"12\" height=\"38\" fill=\"#86efac\" stroke=\"#15803d\" stroke-width=\"1\"/>\n  <!-- Ovary (A) -->\n  <ellipse cx=\"180\" cy=\"210\" rx=\"20\" ry=\"14\" fill=\"#bbf7d0\" stroke=\"#16a34a\" stroke-width=\"2\"/>\n  <text x=\"180\" y=\"214\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#15803d\">A</text>\n  <!-- Style -->\n  <rect x=\"177\" y=\"175\" width=\"6\" height=\"35\" fill=\"#86efac\" stroke=\"#15803d\" stroke-width=\"1\"/>\n  <!-- Stigma (C) -->\n  <ellipse cx=\"180\" cy=\"172\" rx=\"13\" ry=\"7\" fill=\"#4ade80\" stroke=\"#15803d\" stroke-width=\"2\"/>\n  <text x=\"180\" y=\"176\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#15803d\">C</text>\n  <!-- Stamens/Anthers (B) – 4 stamens -->\n  <line x1=\"152\" y1=\"195\" x2=\"147\" y2=\"165\" stroke=\"#a16207\" stroke-width=\"1.5\"/>\n  <ellipse cx=\"146\" cy=\"162\" rx=\"8\" ry=\"5\" fill=\"#fbbf24\" stroke=\"#a16207\" stroke-width=\"1.5\"/>\n  <line x1=\"162\" y1=\"188\" x2=\"154\" y2=\"158\" stroke=\"#a16207\" stroke-width=\"1.5\"/>\n  <ellipse cx=\"153\" cy=\"155\" rx=\"8\" ry=\"5\" fill=\"#fbbf24\" stroke=\"#a16207\" stroke-width=\"1.5\"/>\n  <line x1=\"208\" y1=\"188\" x2=\"206\" y2=\"158\" stroke=\"#a16207\" stroke-width=\"1.5\"/>\n  <ellipse cx=\"207\" cy=\"155\" rx=\"8\" ry=\"5\" fill=\"#fbbf24\" stroke=\"#a16207\" stroke-width=\"1.5\"/>\n  <line x1=\"218\" y1=\"195\" x2=\"213\" y2=\"165\" stroke=\"#a16207\" stroke-width=\"1.5\"/>\n  <ellipse cx=\"214\" cy=\"162\" rx=\"8\" ry=\"5\" fill=\"#fbbf24\" stroke=\"#a16207\" stroke-width=\"1.5\"/>\n  <!-- B label -->\n  <text x=\"232\" y=\"157\" font-size=\"12\" font-weight=\"bold\" fill=\"#a16207\">B</text>\n  <!-- Labels with dashed lines -->\n  <line x1=\"130\" y1=\"172\" x2=\"166\" y2=\"172\" stroke=\"#15803d\" stroke-width=\"1\" stroke-dasharray=\"3,2\"/>\n  <text x=\"10\" y=\"168\" font-size=\"11\" font-weight=\"bold\" fill=\"#15803d\">C – stigma</text>\n  <line x1=\"118\" y1=\"212\" x2=\"159\" y2=\"210\" stroke=\"#15803d\" stroke-width=\"1\" stroke-dasharray=\"3,2\"/>\n  <text x=\"10\" y=\"215\" font-size=\"11\" font-weight=\"bold\" fill=\"#15803d\">A – ovary</text>\n  <text x=\"236\" y=\"168\" font-size=\"11\" font-weight=\"bold\" fill=\"#a16207\">B – anthers</text>\n  <line x1=\"234\" y1=\"106\" x2=\"200\" y2=\"118\" stroke=\"#d97706\" stroke-width=\"1\" stroke-dasharray=\"3,2\"/>\n  <text x=\"234\" y=\"103\" font-size=\"11\" font-weight=\"bold\" fill=\"#d97706\">D – petals</text>\n</svg>",
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "A and C",
       "A and D",
@@ -7083,7 +7313,7 @@
     "category": "Living Things",
     "difficulty": "PSLE",
     "template": "A plant with leaves that have green and white areas was kept in the dark for two days to remove all starch. A leaf was then partially covered with black paper on its top and bottom, so that only area P (green, uncovered) and area Q (white, uncovered) were exposed to light, while areas R (green, covered) and S (white, covered) received no light. After one day in sunlight, the leaf was tested for starch. In which area(s) is starch mostly found?",
-    "diagram": "",
+    "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 270\" width=\"340\" font-family=\"Arial,sans-serif\">\n  <text x=\"170\" y=\"16\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\">Variegated Leaf with Black Paper</text>\n  <!-- Leaf base shape background (two halves) -->\n  <!-- Green left half -->\n  <rect x=\"70\" y=\"35\" width=\"100\" height=\"190\" fill=\"#86efac\" stroke=\"#15803d\" stroke-width=\"1\"/>\n  <!-- White right half -->\n  <rect x=\"170\" y=\"35\" width=\"100\" height=\"190\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1\"/>\n  <!-- Leaf outline rounded -->\n  <rect x=\"70\" y=\"35\" width=\"200\" height=\"190\" fill=\"none\" stroke=\"#475569\" stroke-width=\"2\" rx=\"15\"/>\n  <!-- Black paper TOP (covers both halves) -->\n  <rect x=\"70\" y=\"35\" width=\"200\" height=\"70\" fill=\"#1e293b\" rx=\"15\" ry=\"15\"/>\n  <rect x=\"70\" y=\"70\" width=\"200\" height=\"35\" fill=\"#1e293b\"/>\n  <!-- Black paper BOTTOM -->\n  <rect x=\"70\" y=\"155\" width=\"200\" height=\"70\" fill=\"#1e293b\" rx=\"5\"/>\n  <rect x=\"70\" y=\"155\" width=\"200\" height=\"35\" fill=\"#1e293b\"/>\n  <!-- Labels in covered top section -->\n  <text x=\"120\" y=\"72\" text-anchor=\"middle\" font-size=\"18\" font-weight=\"bold\" fill=\"#86efac\">S</text>\n  <text x=\"120\" y=\"88\" text-anchor=\"middle\" font-size=\"9\" fill=\"#86efac\">green, covered</text>\n  <text x=\"220\" y=\"72\" text-anchor=\"middle\" font-size=\"18\" font-weight=\"bold\" fill=\"#cbd5e1\">R</text>\n  <text x=\"220\" y=\"88\" text-anchor=\"middle\" font-size=\"9\" fill=\"#cbd5e1\">white, covered</text>\n  <!-- Labels in EXPOSED middle section (P and Q) -->\n  <text x=\"120\" y=\"130\" text-anchor=\"middle\" font-size=\"28\" font-weight=\"bold\" fill=\"#15803d\">P</text>\n  <text x=\"120\" y=\"150\" text-anchor=\"middle\" font-size=\"10\" fill=\"#15803d\">green, uncovered</text>\n  <text x=\"220\" y=\"130\" text-anchor=\"middle\" font-size=\"28\" font-weight=\"bold\" fill=\"#64748b\">Q</text>\n  <text x=\"220\" y=\"150\" text-anchor=\"middle\" font-size=\"10\" fill=\"#64748b\">white, uncovered</text>\n  <!-- Labels in covered bottom section -->\n  <text x=\"120\" y=\"175\" text-anchor=\"middle\" font-size=\"18\" font-weight=\"bold\" fill=\"#86efac\">S</text>\n  <text x=\"220\" y=\"175\" text-anchor=\"middle\" font-size=\"18\" font-weight=\"bold\" fill=\"#cbd5e1\">R</text>\n  <!-- Stem -->\n  <line x1=\"170\" y1=\"225\" x2=\"170\" y2=\"248\" stroke=\"#166534\" stroke-width=\"3\"/>\n  <!-- Light arrow -->\n  <text x=\"290\" y=\"120\" font-size=\"22\" fill=\"#fbbf24\">☀</text>\n  <line x1=\"283\" y1=\"130\" x2=\"272\" y2=\"130\" stroke=\"#f59e0b\" stroke-width=\"1.5\"/>\n  <polygon points=\"273,125 262,130 273,135\" fill=\"#f59e0b\"/>\n  <text x=\"295\" y=\"145\" text-anchor=\"middle\" font-size=\"9\" fill=\"#f59e0b\">light</text>\n  <!-- Black paper label -->\n  <text x=\"44\" y=\"73\" text-anchor=\"end\" font-size=\"9\" fill=\"#475569\">black</text>\n  <text x=\"44\" y=\"84\" text-anchor=\"end\" font-size=\"9\" fill=\"#475569\">paper</text>\n  <line x1=\"46\" y1=\"73\" x2=\"68\" y2=\"73\" stroke=\"#475569\" stroke-width=\"1\"/>\n  <text x=\"44\" y=\"178\" text-anchor=\"end\" font-size=\"9\" fill=\"#475569\">black</text>\n  <text x=\"44\" y=\"189\" text-anchor=\"end\" font-size=\"9\" fill=\"#475569\">paper</text>\n  <line x1=\"46\" y1=\"178\" x2=\"68\" y2=\"178\" stroke=\"#475569\" stroke-width=\"1\"/>\n</svg>",
     "placeholder_roles": [],
     "options": [
       "Q only",
@@ -7100,7 +7330,7 @@
     "category": "Heat",
     "difficulty": "PSLE",
     "template": "A test tube containing water at 20°C was placed in the centre of a beaker with ice cubes. The beaker was left in a room for some time. Which of the following statements are correct?\nA: The ice cubes gained heat from the surroundings and melted.\nB: The ice cubes lost heat to the water in the test tube and melted.\nC: The beaker gained heat from the surroundings and became cooler.\nD: The water in the test tube lost heat to the ice cubes and became cooler.",
-    "diagram": "",
+    "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 240\" width=\"320\" font-family=\"Arial,sans-serif\">\n  <text x=\"160\" y=\"16\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\">Heat Transfer Experiment</text>\n  <!-- Beaker outline -->\n  <path d=\"M45,35 L45,195 Q45,215 65,215 L255,215 Q275,215 275,195 L275,35 Z\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"2\"/>\n  <rect x=\"35\" y=\"25\" width=\"250\" height=\"14\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"2\" rx=\"3\"/>\n  <!-- Ice cubes -->\n  <rect x=\"55\" y=\"145\" width=\"38\" height=\"38\" fill=\"#e0f2fe\" stroke=\"#7dd3fc\" stroke-width=\"1.5\" rx=\"3\"/>\n  <text x=\"74\" y=\"168\" text-anchor=\"middle\" font-size=\"9\" fill=\"#0369a1\">ice</text>\n  <rect x=\"100\" y=\"135\" width=\"38\" height=\"48\" fill=\"#e0f2fe\" stroke=\"#7dd3fc\" stroke-width=\"1.5\" rx=\"3\"/>\n  <text x=\"119\" y=\"163\" text-anchor=\"middle\" font-size=\"9\" fill=\"#0369a1\">ice</text>\n  <rect x=\"195\" y=\"150\" width=\"38\" height=\"38\" fill=\"#e0f2fe\" stroke=\"#7dd3fc\" stroke-width=\"1.5\" rx=\"3\"/>\n  <text x=\"214\" y=\"173\" text-anchor=\"middle\" font-size=\"9\" fill=\"#0369a1\">ice</text>\n  <rect x=\"225\" y=\"140\" width=\"32\" height=\"42\" fill=\"#e0f2fe\" stroke=\"#7dd3fc\" stroke-width=\"1.5\" rx=\"3\"/>\n  <text x=\"241\" y=\"164\" text-anchor=\"middle\" font-size=\"9\" fill=\"#0369a1\">ice</text>\n  <!-- Test tube (centre) -->\n  <rect x=\"143\" y=\"48\" width=\"34\" height=\"120\" fill=\"#fef9c3\" stroke=\"#ca8a04\" stroke-width=\"2\" rx=\"4\"/>\n  <path d=\"M143,166 Q143,185 160,185 Q177,185 177,166\" fill=\"#fef9c3\" stroke=\"#ca8a04\" stroke-width=\"2\"/>\n  <!-- Water label in test tube -->\n  <text x=\"160\" y=\"103\" text-anchor=\"middle\" font-size=\"11\" fill=\"#92400e\">Water</text>\n  <text x=\"160\" y=\"119\" text-anchor=\"middle\" font-size=\"11\" fill=\"#92400e\">20°C</text>\n  <!-- Heat arrows: water → ice -->\n  <line x1=\"143\" y1=\"135\" x2=\"114\" y2=\"150\" stroke=\"#ef4444\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/>\n  <polygon points=\"111,145 108,157 119,154\" fill=\"#ef4444\"/>\n  <line x1=\"177\" y1=\"140\" x2=\"198\" y2=\"155\" stroke=\"#ef4444\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/>\n  <polygon points=\"199,149 206,159 195,161\" fill=\"#ef4444\"/>\n  <text x=\"160\" y=\"204\" text-anchor=\"middle\" font-size=\"9\" fill=\"#ef4444\">heat flows from water to ice →</text>\n  <!-- Room temp arrows into beaker -->\n  <line x1=\"15\" y1=\"120\" x2=\"43\" y2=\"120\" stroke=\"#f97316\" stroke-width=\"1.5\" stroke-dasharray=\"3,2\"/>\n  <polygon points=\"41,114 52,120 41,126\" fill=\"#f97316\"/>\n  <text x=\"8\" y=\"105\" font-size=\"8\" fill=\"#f97316\">room</text>\n  <text x=\"8\" y=\"116\" font-size=\"8\" fill=\"#f97316\">temp</text>\n  <!-- Beaker label -->\n  <text x=\"160\" y=\"230\" text-anchor=\"middle\" font-size=\"10\" fill=\"#64748b\">Left in room for some time</text>\n</svg>",
     "placeholder_roles": [],
     "options": [
       "A and B only",
@@ -7117,7 +7347,7 @@
     "category": "Human Body",
     "difficulty": "PSLE",
     "template": "The following statements refer to the human digestive system, where P = mouth, Q = stomach, R = small intestine, S = large intestine:\nA: Digestion ends at R.\nB: S has the most digested food.\nC: There is more undigested food at P than Q.\nD: Digestive juices are produced at Q and R only.\nWhich of the following statement(s) is/are correct?",
-    "diagram": "",
+    "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 310\" width=\"340\" font-family=\"Arial,sans-serif\">\n  <text x=\"170\" y=\"16\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\">Human Digestive System</text>\n  <!-- Head/mouth area (P) -->\n  <ellipse cx=\"170\" cy=\"48\" rx=\"28\" ry=\"22\" fill=\"#fde68a\" stroke=\"#d97706\" stroke-width=\"2\"/>\n  <text x=\"170\" y=\"45\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"bold\" fill=\"#92400e\">P</text>\n  <text x=\"170\" y=\"60\" text-anchor=\"middle\" font-size=\"9\" fill=\"#92400e\">(mouth)</text>\n  <!-- Oesophagus -->\n  <rect x=\"164\" y=\"70\" width=\"12\" height=\"35\" fill=\"#fde68a\" stroke=\"#d97706\" stroke-width=\"1\"/>\n  <!-- Stomach (Q) -->\n  <path d=\"M145,105 Q128,118 130,140 Q132,162 155,168 Q175,172 192,160 Q208,148 205,128 Q202,110 188,105 Z\" fill=\"#fca5a5\" stroke=\"#ef4444\" stroke-width=\"2\"/>\n  <text x=\"168\" y=\"138\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"bold\" fill=\"#991b1b\">Q</text>\n  <text x=\"168\" y=\"153\" text-anchor=\"middle\" font-size=\"9\" fill=\"#991b1b\">(stomach)</text>\n  <!-- Small intestine (R) - coiled -->\n  <path d=\"M163,168 Q140,175 135,195 Q130,215 145,225 Q162,235 178,225 Q194,215 192,198 Q190,182 175,178 Q160,175 155,190 Q150,205 162,212 Q174,218 182,208\" fill=\"none\" stroke=\"#22c55e\" stroke-width=\"3\"/>\n  <text x=\"115\" y=\"210\" font-size=\"11\" font-weight=\"bold\" fill=\"#15803d\">R</text>\n  <text x=\"95\" y=\"225\" font-size=\"9\" fill=\"#15803d\">(small intestine)</text>\n  <!-- Large intestine (S) - outer frame -->\n  <path d=\"M185,208 Q200,215 210,230 Q225,248 220,265 Q215,278 200,280 Q140,285 120,278 Q100,268 100,250 Q100,232 118,222 Q135,212 138,195\" fill=\"none\" stroke=\"#8b5cf6\" stroke-width=\"3\"/>\n  <text x=\"218\" y=\"265\" font-size=\"11\" font-weight=\"bold\" fill=\"#6d28d9\">S</text>\n  <text x=\"218\" y=\"280\" font-size=\"9\" fill=\"#6d28d9\">(large intestine)</text>\n  <!-- P label connector -->\n  <line x1=\"198\" y1=\"48\" x2=\"248\" y2=\"48\" stroke=\"#d97706\" stroke-width=\"1\" stroke-dasharray=\"3,2\"/>\n  <text x=\"252\" y=\"52\" font-size=\"11\" font-weight=\"bold\" fill=\"#d97706\">P (mouth)</text>\n  <!-- Arrows showing flow -->\n  <line x1=\"170\" y1=\"70\" x2=\"170\" y2=\"103\" stroke=\"#94a3b8\" stroke-width=\"1\"/>\n  <polygon points=\"164,101 170,112 176,101\" fill=\"#94a3b8\"/>\n</svg>",
     "placeholder_roles": [],
     "options": [
       "B only",
@@ -7151,7 +7381,7 @@
     "category": "Living Things",
     "difficulty": "PSLE",
     "template": "A plant has leaves J, K and L. At point X (between J and K), both the food-carrying tubes and water-carrying tubes were cut. At point Y (between K and L), only the food-carrying tubes were cut. Leaf J is above point X, leaf K is between X and Y, and leaf L is below point Y (closest to the roots). Which of the following statements about leaves J, K and L is correct?",
-    "diagram": "",
+    "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 360\" width=\"340\" font-family=\"Arial,sans-serif\">\n  <text x=\"170\" y=\"16\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\">Plant with Cut Points X and Y</text>\n  <!-- Roots -->\n  <path d=\"M170,330 Q150,348 130,355\" stroke=\"#92400e\" stroke-width=\"2\" fill=\"none\"/>\n  <path d=\"M170,330 Q170,352 170,360\" stroke=\"#92400e\" stroke-width=\"2\" fill=\"none\"/>\n  <path d=\"M170,330 Q190,348 210,355\" stroke=\"#92400e\" stroke-width=\"2\" fill=\"none\"/>\n  <text x=\"170\" y=\"350\" text-anchor=\"middle\" font-size=\"10\" fill=\"#92400e\">Roots</text>\n  <!-- Stem -->\n  <rect x=\"163\" y=\"48\" width=\"14\" height=\"282\" fill=\"#86efac\" stroke=\"#15803d\" stroke-width=\"1.5\"/>\n  <!-- CUT X (red band – both tubes) -->\n  <rect x=\"148\" y=\"152\" width=\"44\" height=\"16\" fill=\"#ef4444\" stroke=\"#dc2626\" stroke-width=\"1.5\" rx=\"3\"/>\n  <text x=\"204\" y=\"163\" font-size=\"12\" font-weight=\"bold\" fill=\"#dc2626\">X</text>\n  <text x=\"204\" y=\"176\" font-size=\"9\" fill=\"#dc2626\">both tubes cut</text>\n  <!-- CUT Y (orange band – food tubes only) -->\n  <rect x=\"148\" y=\"245\" width=\"44\" height=\"16\" fill=\"#fb923c\" stroke=\"#ea580c\" stroke-width=\"1.5\" rx=\"3\"/>\n  <text x=\"204\" y=\"256\" font-size=\"12\" font-weight=\"bold\" fill=\"#ea580c\">Y</text>\n  <text x=\"204\" y=\"269\" font-size=\"9\" fill=\"#ea580c\">food tubes only</text>\n  <!-- Leaf J (above X) -->\n  <ellipse cx=\"100\" cy=\"82\" rx=\"42\" ry=\"17\" fill=\"#86efac\" stroke=\"#15803d\" stroke-width=\"1.5\" transform=\"rotate(-15,100,82)\"/>\n  <line x1=\"163\" y1=\"88\" x2=\"122\" y2=\"85\" stroke=\"#15803d\" stroke-width=\"1.5\"/>\n  <text x=\"48\" y=\"76\" font-size=\"15\" font-weight=\"bold\" fill=\"#dc2626\">J</text>\n  <text x=\"34\" y=\"92\" font-size=\"9\" fill=\"#dc2626\">✗ no water</text>\n  <!-- Leaf K (between X and Y) -->\n  <ellipse cx=\"240\" cy=\"200\" rx=\"42\" ry=\"17\" fill=\"#86efac\" stroke=\"#15803d\" stroke-width=\"1.5\" transform=\"rotate(15,240,200)\"/>\n  <line x1=\"177\" y1=\"198\" x2=\"208\" y2=\"200\" stroke=\"#15803d\" stroke-width=\"1.5\"/>\n  <text x=\"290\" y=\"194\" font-size=\"15\" font-weight=\"bold\" fill=\"#15803d\">K</text>\n  <text x=\"282\" y=\"210\" font-size=\"9\" fill=\"#15803d\">✓ has water</text>\n  <!-- Leaf L (below Y) -->\n  <ellipse cx=\"97\" cy=\"290\" rx=\"42\" ry=\"17\" fill=\"#86efac\" stroke=\"#15803d\" stroke-width=\"1.5\" transform=\"rotate(-15,97,290)\"/>\n  <line x1=\"163\" y1=\"293\" x2=\"123\" y2=\"292\" stroke=\"#15803d\" stroke-width=\"1.5\"/>\n  <text x=\"44\" y=\"284\" font-size=\"15\" font-weight=\"bold\" fill=\"#15803d\">L</text>\n  <text x=\"34\" y=\"300\" font-size=\"9\" fill=\"#15803d\">✓ has water</text>\n  <!-- Water flow arrow from roots upward -->\n  <text x=\"134\" y=\"310\" text-anchor=\"middle\" font-size=\"9\" fill=\"#0369a1\">↑ water</text>\n  <!-- Soil line -->\n  <line x1=\"60\" y1=\"332\" x2=\"280\" y2=\"332\" stroke=\"#92400e\" stroke-width=\"1.5\" stroke-dasharray=\"5,3\"/>\n  <text x=\"170\" y=\"344\" text-anchor=\"middle\" font-size=\"9\" fill=\"#92400e\">— soil level —</text>\n</svg>",
     "placeholder_roles": [],
     "options": [
       "Only leaf L would be able to photosynthesise.",
@@ -7168,7 +7398,7 @@
     "category": "Interactions",
     "difficulty": "PSLE",
     "template": "In a food web: rice plant → grasshopper → chicken → snake; rice plant → rat; grasshopper → rat; chicken → rat (rats eat rice plants, grasshoppers, and are eaten by snakes; chickens are eaten by snakes). After animal X was released into the field, the number of grasshoppers increased and the number of rats decreased. Which organism did animal X feed on?",
-    "diagram": "",
+    "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 460 260\" width=\"460\" font-family=\"Arial,sans-serif\">\n  <text x=\"230\" y=\"16\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\">Food Web</text>\n  <text x=\"230\" y=\"30\" text-anchor=\"middle\" font-size=\"10\" fill=\"#64748b\">Arrows show direction of energy: eaten by →</text>\n  <!-- RICE PLANT (bottom left) -->\n  <rect x=\"20\" y=\"190\" width=\"110\" height=\"34\" rx=\"6\" fill=\"#dcfce7\" stroke=\"#16a34a\" stroke-width=\"1.5\"/>\n  <text x=\"75\" y=\"212\" text-anchor=\"middle\" font-size=\"13\" fill=\"#15803d\">Rice Plant</text>\n  <!-- GRASSHOPPER (middle left) -->\n  <rect x=\"20\" y=\"105\" width=\"110\" height=\"34\" rx=\"6\" fill=\"#fef9c3\" stroke=\"#ca8a04\" stroke-width=\"1.5\"/>\n  <text x=\"75\" y=\"127\" text-anchor=\"middle\" font-size=\"13\" fill=\"#92400e\">Grasshopper</text>\n  <!-- CHICKEN (middle right) -->\n  <rect x=\"200\" y=\"105\" width=\"100\" height=\"34\" rx=\"6\" fill=\"#fce7f3\" stroke=\"#be185d\" stroke-width=\"1.5\"/>\n  <text x=\"250\" y=\"127\" text-anchor=\"middle\" font-size=\"13\" fill=\"#9d174d\">Chicken</text>\n  <!-- RAT (bottom right) -->\n  <rect x=\"330\" y=\"190\" width=\"100\" height=\"34\" rx=\"6\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"1.5\"/>\n  <text x=\"380\" y=\"212\" text-anchor=\"middle\" font-size=\"13\" fill=\"#92400e\">Rat</text>\n  <!-- SNAKE (top centre) -->\n  <rect x=\"175\" y=\"25\" width=\"100\" height=\"34\" rx=\"6\" fill=\"#ede9fe\" stroke=\"#7c3aed\" stroke-width=\"1.5\"/>\n  <text x=\"225\" y=\"47\" text-anchor=\"middle\" font-size=\"13\" fill=\"#6d28d9\">Snake</text>\n  <!-- ANIMAL X (top right, feeds on chicken) -->\n  <rect x=\"330\" y=\"25\" width=\"110\" height=\"34\" rx=\"6\" fill=\"#f1f5f9\" stroke=\"#64748b\" stroke-width=\"1.5\" stroke-dasharray=\"5,3\"/>\n  <text x=\"385\" y=\"43\" text-anchor=\"middle\" font-size=\"13\" fill=\"#475569\">Animal X</text>\n  <text x=\"385\" y=\"56\" text-anchor=\"middle\" font-size=\"9\" fill=\"#475569\">(new)</text>\n  <!-- rice plant → grasshopper -->\n  <line x1=\"75\" y1=\"190\" x2=\"75\" y2=\"141\" stroke=\"#16a34a\" stroke-width=\"1.5\"/>\n  <polygon points=\"69,142 75,131 81,142\" fill=\"#16a34a\"/>\n  <!-- rice plant → rat -->\n  <line x1=\"130\" y1=\"207\" x2=\"328\" y2=\"207\" stroke=\"#d97706\" stroke-width=\"1.5\"/>\n  <polygon points=\"326,201 338,207 326,213\" fill=\"#d97706\"/>\n  <!-- grasshopper → chicken -->\n  <line x1=\"130\" y1=\"122\" x2=\"198\" y2=\"122\" stroke=\"#ca8a04\" stroke-width=\"1.5\"/>\n  <polygon points=\"196,116 208,122 196,128\" fill=\"#ca8a04\"/>\n  <!-- grasshopper → rat -->\n  <line x1=\"100\" y1=\"139\" x2=\"345\" y2=\"192\" stroke=\"#d97706\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/>\n  <polygon points=\"342,186 352,194 341,198\" fill=\"#d97706\"/>\n  <!-- chicken → snake -->\n  <line x1=\"235\" y1=\"105\" x2=\"228\" y2=\"61\" stroke=\"#be185d\" stroke-width=\"1.5\"/>\n  <polygon points=\"222,62 228,51 234,62\" fill=\"#be185d\"/>\n  <!-- rat → snake -->\n  <line x1=\"368\" y1=\"190\" x2=\"270\" y2=\"62\" stroke=\"#7c3aed\" stroke-width=\"1.5\"/>\n  <polygon points=\"264,65 270,54 276,65\" fill=\"#7c3aed\"/>\n  <!-- chicken → animal X -->\n  <line x1=\"300\" y1=\"115\" x2=\"332\" y2=\"55\" stroke=\"#475569\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/>\n  <polygon points=\"326,58 333,47 339,58\" fill=\"#475569\"/>\n</svg>",
     "placeholder_roles": [],
     "options": [
       "Snake",
@@ -7185,7 +7415,7 @@
     "category": "Living Things",
     "difficulty": "PSLE",
     "template": "An experiment uses two flasks (X and Y) connected in series. Air is bubbled through flask X (containing limewater) first, then through a plant in light, then through flask Y (containing limewater). Limewater turns cloudy when it comes into contact with carbon dioxide. What happens to the limewater in flask X and flask Y?",
-    "diagram": "",
+    "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 520 220\" width=\"520\" font-family=\"Arial,sans-serif\">\n  <text x=\"260\" y=\"16\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\">Limewater Experiment</text>\n  <!-- Air pump / source -->\n  <rect x=\"8\" y=\"78\" width=\"64\" height=\"44\" fill=\"#f1f5f9\" stroke=\"#64748b\" stroke-width=\"1.5\" rx=\"5\"/>\n  <text x=\"40\" y=\"97\" text-anchor=\"middle\" font-size=\"10\" fill=\"#475569\">Air</text>\n  <text x=\"40\" y=\"111\" text-anchor=\"middle\" font-size=\"10\" fill=\"#475569\">source</text>\n  <!-- arrow 1 -->\n  <line x1=\"72\" y1=\"100\" x2=\"96\" y2=\"100\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n  <polygon points=\"94,94 106,100 94,106\" fill=\"#64748b\"/>\n  <!-- Flask X -->\n  <path d=\"M108,55 L108,155 Q108,175 128,175 L178,175 Q198,175 198,155 L198,55 Z\" fill=\"#dbeafe\" stroke=\"#3b82f6\" stroke-width=\"2\"/>\n  <!-- Cloudy effect in X -->\n  <ellipse cx=\"143\" cy=\"130\" rx=\"14\" ry=\"10\" fill=\"#93c5fd\" opacity=\"0.6\"/>\n  <ellipse cx=\"162\" cy=\"140\" rx=\"12\" ry=\"8\" fill=\"#93c5fd\" opacity=\"0.6\"/>\n  <ellipse cx=\"150\" cy=\"150\" rx=\"10\" ry=\"7\" fill=\"#93c5fd\" opacity=\"0.6\"/>\n  <text x=\"153\" y=\"85\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"bold\" fill=\"#1d4ed8\">X</text>\n  <text x=\"153\" y=\"102\" text-anchor=\"middle\" font-size=\"10\" fill=\"#1d4ed8\">limewater</text>\n  <text x=\"153\" y=\"193\" text-anchor=\"middle\" font-size=\"10\" fill=\"#1d4ed8\">→ turns cloudy</text>\n  <text x=\"153\" y=\"205\" text-anchor=\"middle\" font-size=\"9\" fill=\"#1d4ed8\">(CO₂ present)</text>\n  <!-- arrow 2 -->\n  <line x1=\"198\" y1=\"100\" x2=\"224\" y2=\"100\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n  <polygon points=\"222,94 234,100 222,106\" fill=\"#64748b\"/>\n  <!-- Plant container -->\n  <rect x=\"236\" y=\"46\" width=\"100\" height=\"108\" fill=\"#dcfce7\" stroke=\"#16a34a\" stroke-width=\"2\" rx=\"6\"/>\n  <text x=\"286\" y=\"88\" text-anchor=\"middle\" font-size=\"26\">🌿</text>\n  <text x=\"286\" y=\"112\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"bold\" fill=\"#15803d\">Plant</text>\n  <text x=\"286\" y=\"126\" text-anchor=\"middle\" font-size=\"10\" fill=\"#15803d\">in light</text>\n  <!-- sun symbol -->\n  <circle cx=\"326\" cy=\"54\" r=\"12\" fill=\"#fbbf24\" stroke=\"#f59e0b\" stroke-width=\"1\"/>\n  <text x=\"326\" y=\"59\" text-anchor=\"middle\" font-size=\"11\" fill=\"white\">☀</text>\n  <text x=\"286\" y=\"170\" text-anchor=\"middle\" font-size=\"9\" fill=\"#15803d\">absorbs all CO₂</text>\n  <!-- arrow 3 -->\n  <line x1=\"336\" y1=\"100\" x2=\"362\" y2=\"100\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n  <polygon points=\"360,94 372,100 360,106\" fill=\"#64748b\"/>\n  <!-- Flask Y -->\n  <path d=\"M374,55 L374,155 Q374,175 394,175 L444,175 Q464,175 464,155 L464,55 Z\" fill=\"#f0fdf4\" stroke=\"#22c55e\" stroke-width=\"2\"/>\n  <text x=\"419\" y=\"85\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"bold\" fill=\"#1d4ed8\">Y</text>\n  <text x=\"419\" y=\"102\" text-anchor=\"middle\" font-size=\"10\" fill=\"#1d4ed8\">limewater</text>\n  <text x=\"419\" y=\"193\" text-anchor=\"middle\" font-size=\"10\" fill=\"#15803d\">→ stays clear</text>\n  <text x=\"419\" y=\"205\" text-anchor=\"middle\" font-size=\"9\" fill=\"#15803d\">(no CO₂)</text>\n  <!-- Air label with CO2 note -->\n  <text x=\"40\" y=\"138\" text-anchor=\"middle\" font-size=\"9\" fill=\"#64748b\">CO₂ in air</text>\n  <!-- arrow labels -->\n  <text x=\"84\" y=\"92\" text-anchor=\"middle\" font-size=\"9\" fill=\"#ef4444\">CO₂</text>\n</svg>",
     "placeholder_roles": [],
     "options": [
       "X becomes cloudy; Y becomes cloudy",
@@ -7202,8 +7432,10 @@
     "category": "Living Things",
     "difficulty": "PSLE",
     "template": "{CHARACTER_0} tested four types of soil (P, Q, R, S) by pouring 100 cm³ of water into each and measuring the water collected after 10 minutes. Results: P = 97 cm³, Q = 50 cm³, R = 10 cm³, S = 70 cm³. Plant X has shallow roots that cannot grow deep into the ground. Which soil is plant X most adapted to grow in?",
-    "diagram": "",
-    "placeholder_roles": ["protagonist"],
+    "diagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 440 230\" width=\"440\" font-family=\"Arial,sans-serif\">\n  <text x=\"220\" y=\"16\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\">Soil Drainage Experiment</text>\n  <text x=\"220\" y=\"30\" text-anchor=\"middle\" font-size=\"10\" fill=\"#64748b\">100 cm³ water poured into each soil — amount collected after 10 minutes:</text>\n  <!-- Soil P (97 cm3 — drains fast) -->\n  <text x=\"55\" y=\"50\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#475569\">Soil P</text>\n  <polygon points=\"30,55 80,55 72,88 38,88\" fill=\"#c4a168\" stroke=\"#92400e\" stroke-width=\"1.5\"/>\n  <text x=\"55\" y=\"78\" text-anchor=\"middle\" font-size=\"9\" fill=\"#78350f\">soil</text>\n  <rect x=\"37\" y=\"88\" width=\"36\" height=\"55\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n  <!-- 97/100 full bar -->\n  <rect x=\"37\" y=\"89\" width=\"36\" height=\"53\" fill=\"#bae6fd\"/>\n  <text x=\"55\" y=\"120\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#0369a1\">97</text>\n  <text x=\"55\" y=\"158\" text-anchor=\"middle\" font-size=\"10\" fill=\"#64748b\">97 cm³</text>\n  <!-- Soil Q (50 cm3) -->\n  <text x=\"165\" y=\"50\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#475569\">Soil Q</text>\n  <polygon points=\"140,55 190,55 182,88 148,88\" fill=\"#c4a168\" stroke=\"#92400e\" stroke-width=\"1.5\"/>\n  <text x=\"165\" y=\"78\" text-anchor=\"middle\" font-size=\"9\" fill=\"#78350f\">soil</text>\n  <rect x=\"147\" y=\"88\" width=\"36\" height=\"55\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n  <!-- 50/100 full bar -->\n  <rect x=\"147\" y=\"115\" width=\"36\" height=\"28\" fill=\"#bae6fd\"/>\n  <text x=\"165\" y=\"158\" text-anchor=\"middle\" font-size=\"10\" fill=\"#64748b\">50 cm³</text>\n  <!-- Soil R (10 cm3 — BEST, highlighted) -->\n  <text x=\"275\" y=\"50\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#16a34a\">Soil R ★</text>\n  <polygon points=\"250,55 300,55 292,88 258,88\" fill=\"#c4a168\" stroke=\"#16a34a\" stroke-width=\"2\"/>\n  <text x=\"275\" y=\"78\" text-anchor=\"middle\" font-size=\"9\" fill=\"#78350f\">soil</text>\n  <rect x=\"257\" y=\"88\" width=\"36\" height=\"55\" fill=\"#f0fdf4\" stroke=\"#16a34a\" stroke-width=\"2\"/>\n  <!-- 10/100 full bar -->\n  <rect x=\"257\" y=\"137\" width=\"36\" height=\"6\" fill=\"#86efac\"/>\n  <text x=\"275\" y=\"125\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#16a34a\">10</text>\n  <text x=\"275\" y=\"158\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"bold\" fill=\"#16a34a\">10 cm³</text>\n  <text x=\"275\" y=\"172\" text-anchor=\"middle\" font-size=\"9\" fill=\"#16a34a\">retains most water!</text>\n  <!-- Soil S (70 cm3) -->\n  <text x=\"385\" y=\"50\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#475569\">Soil S</text>\n  <polygon points=\"360,55 410,55 402,88 368,88\" fill=\"#c4a168\" stroke=\"#92400e\" stroke-width=\"1.5\"/>\n  <text x=\"385\" y=\"78\" text-anchor=\"middle\" font-size=\"9\" fill=\"#78350f\">soil</text>\n  <rect x=\"367\" y=\"88\" width=\"36\" height=\"55\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n  <!-- 70/100 full bar -->\n  <rect x=\"367\" y=\"105\" width=\"36\" height=\"38\" fill=\"#bae6fd\"/>\n  <text x=\"385\" y=\"158\" text-anchor=\"middle\" font-size=\"10\" fill=\"#64748b\">70 cm³</text>\n  <!-- Plant X note -->\n  <text x=\"220\" y=\"200\" text-anchor=\"middle\" font-size=\"11\" fill=\"#475569\">Plant X has shallow roots → needs soil that retains water near the surface.</text>\n</svg>",
+    "placeholder_roles": [
+      "protagonist"
+    ],
     "options": [
       "P",
       "Q",
