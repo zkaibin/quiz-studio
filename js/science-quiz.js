@@ -573,7 +573,8 @@ class ScienceQuizApp {
     }
 
     // Reset form
-    document.getElementById('studentName').value = '';
+    const nameInput = document.getElementById('studentName');
+    if (!nameInput.readOnly) nameInput.value = '';
     document.getElementById('category').value = 'all';
     document.getElementById('difficulty').value = 'all';
     document.getElementById('theme').value = 'all';
