@@ -41,17 +41,18 @@ class ScienceQuizApp {
   async loadScienceData() {
     try {
       const cacheBuster = new Date().getTime();
-      const [questions, universes, characters] = await Promise.all([
+      const [questions, p6Questions, universes, characters] = await Promise.all([
         fetch(`data/questions-science.json?v=${cacheBuster}`).then(r => r.json()),
+        fetch(`data/questions-science-p6.json?v=${cacheBuster}`).then(r => r.json()),
         fetch(`data/universes.json?v=${cacheBuster}`).then(r => r.json()),
         fetch(`data/characters.json?v=${cacheBuster}`).then(r => r.json())
       ]);
       
-      this.allQuestions = questions;
+      this.allQuestions = [...questions, ...p6Questions];
       this.universes = universes;
       this.characters = characters;
       
-      console.log(`✓ Loaded ${this.allQuestions.length} science questions`);
+      console.log(`✓ Loaded ${this.allQuestions.length} science questions (incl. ${p6Questions.length} P6 Practice)`);
       console.log(`✓ Loaded ${this.universes.length} themes`);
       console.log(`✓ Loaded ${this.characters.length} characters`);
     } catch (err) {
