@@ -2,7 +2,7 @@
 
 **Singapore Primary School Practice Platform** - A comprehensive learning platform for Mathematics and Science with interactive quizzes, character-themed questions, and visual concept maps!
 
-[![Questions](https://img.shields.io/badge/Questions-1200+-blue)]()
+[![Questions](https://img.shields.io/badge/Questions-1900+-blue)]()
 [![Subjects](https://img.shields.io/badge/Subjects-2-green)]()
 [![Themes](https://img.shields.io/badge/Character_Themes-11-purple)]()
 [![Levels](https://img.shields.io/badge/Levels-6-orange)]()
@@ -17,9 +17,9 @@
 - **🎯 6 Difficulty Levels** - P1-P2, P3-P4, P5-P6, PSLE, Challenging
 
 ### Science
-- **🔬 371 Science Questions** - Covering all major topics for P3-P6 levels
-  - **330 Regular Questions** across 15 core topics
-  - **41 Experiment Questions** with structured setup, data, and analysis
+- **🔬 943 Science Questions** - Comprehensive coverage for P3-P6 levels
+  - **431 Regular Questions** across 15 core topics (including 41 experiment questions)
+  - **512 P6 Practice Questions** from Week 1-4 with complete SVG diagram support
 - **📚 13 Interactive Concept Maps** - Visual learning tool for key science concepts
 - **🎨 Character Theme Support** - Same character themes available for science questions
 - **🧪 Hands-on Experiments** - Real experiment scenarios with observations and conclusions
@@ -334,11 +334,11 @@ Advanced PSLE-level problems covering **18 specialized types**:
 
 See **CHALLENGING_PROBLEM_TYPES.md** for detailed descriptions of each problem type.
 
-### Science (371 Questions)
+### Science (943 Questions)
 
 Comprehensive coverage across **16 categories** for P3-P6:
 
-#### Regular Questions (330 Questions)
+#### Regular Questions (431 Questions - questions-science.json)
 20+ questions per topic covering:
 1. **Living Things** - MRS GREN, life cycles, plant functions
 2. **Materials** - Properties, magnetic materials, absorbency
@@ -364,6 +364,16 @@ Hands-on experiment scenarios with:
 - **Topics covered**: All 15 core topics plus cross-topic investigations
 - **Visual formatting**: Blue-tinted setup boxes, gray data tables
 - **Character integration**: Dynamic character placeholders in experiments
+
+#### P6 Practice Questions (512 Questions - questions-science-p6.json)
+Week 1-4 practice materials with comprehensive SVG diagrams:
+- **📅 W1 (SCI391-529)**: 139 questions with diagrams
+- **📅 W2 (SCI530-651)**: 122 questions with diagrams
+- **📅 W3 (SCI652-788)**: 129 questions with diagrams
+- **📅 W4 (SCI792-930)**: 122 questions with diagrams
+- **🎨 100% SVG Diagram Coverage** - Every question includes a visual diagram
+- **Visual Learning Support** - Tables, graphs, flowcharts, labeled diagrams
+- **PSLE-Level Difficulty** - Targeted practice for P6 students
 
 ### Science Concept Maps (13 Topics)
 
