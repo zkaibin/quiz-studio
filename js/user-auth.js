@@ -1,66 +1,49 @@
-/* global supabase, SUPABASE_CONFIG */
+/* global FB_AUTH, FB_DB */
 /**
  * Shared user-auth helper loaded on quiz pages.
- * - Checks if a user is logged in via Supabase.
- * - Pre-fills the #studentName field with the user's display/full name.
- * - Makes the field read-only while logged in (guest mode keeps it editable).
+ * Checks if a user is logged in via Firebase and pre-fills #studentName.
  */
 (function () {
   'use strict';
 
   async function applyUserProfile() {
-    if (!window.SUPABASE_CONFIG) return;
+    if (!window.FB_AUTH || !window.FB_DB) return;
 
-    let client = window.SUPABASE_CLIENT;
-    if (!client) {
-      if (window.supabase && window.supabase.createClient) {
-        client = window.supabase.createClient(
-          window.SUPABASE_CONFIG.url,
-          window.SUPABASE_CONFIG.anonKey
-        );
-        window.SUPABASE_CLIENT = client;
-      } else {
-        return;
+    var auth = window.FB_AUTH;
+    var db = window.FB_DB;
+
+    var { onAuthStateChanged } = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js');
+
+    onAuthStateChanged(auth, async function (user) {
+      if (!user) return;
+
+      var nameInput = document.getElementById('studentName');
+      if (!nameInput) return;
+
+      var displayName = null;
+      try {
+        var { getDoc, doc } = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js');
+        var snap = await getDoc(doc(db, 'users', user.uid));
+        if (snap.exists()) {
+          var data = snap.data();
+          displayName = data.display_name || data.full_name || null;
+        }
+      } catch (e) {
+        // fall through to defaults
       }
-    }
 
-    const { data } = await client.auth.getSession();
-    const user = data.session?.user || null;
-    if (!user) return;
+      if (!displayName) {
+        displayName = user.displayName || (user.email && user.email.split('@')[0]) || 'User';
+      }
 
-    const nameInput = document.getElementById('studentName');
-    if (!nameInput) return;
-
-    // Try loading from the profiles table first
-    let displayName = null;
-    try {
-      const { data: profile } = await client
-        .from('profiles')
-        .select('display_name, full_name')
-        .eq('id', user.id)
-        .maybeSingle();
-
-      displayName =
-        profile?.display_name ||
-        profile?.full_name ||
-        user.user_metadata?.full_name ||
-        user.email?.split('@')[0] ||
-        'User';
-    } catch (e) {
-      displayName =
-        user.user_metadata?.full_name ||
-        user.email?.split('@')[0] ||
-        'User';
-    }
-
-    nameInput.value = displayName;
-    nameInput.readOnly = true;
-    nameInput.title = 'Logged in as ' + user.email + ' — edit your profile to change your name.';
-    nameInput.style.background = '#f0f4ff';
-    nameInput.style.cursor = 'not-allowed';
+      nameInput.value = displayName;
+      nameInput.readOnly = true;
+      nameInput.title = 'Logged in as ' + user.email + ' \u2014 edit your profile to change your name.';
+      nameInput.style.background = '#f0f4ff';
+      nameInput.style.cursor = 'not-allowed';
+    });
   }
 
-  // Run once the DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', applyUserProfile);
   } else {

@@ -1,0 +1,78 @@
+{
+  "pdf1": [
+    {
+      "num": "1",
+      "question": "Which one of the headers can group the six animals into two groups, 1 and 2, with the same number of animals in each group? Identify suitable headers for Groups 1 and 2. Group 1 Group 2",
+      "options": [
+        "covered with scales covered with hair",
+        "lays eggs gives birth to young alive",
+        "has a three-stage life cycle has a four-stage life cycle",
+        "does not have four legs has four legs"
+      ],
+      "explanation": "birds, butterflies and turtles lays eggs while cat, elephant and bear give birth to young alive.",
+      "answer_section": "Correct (1) (2) (3) (4) Explanation: birds, butterflies and turtles lays eggs while cat, elephant and bear give birth to young alive. https://testmozusercontent.com/q/15340518/student/review 1/12 6/3"
+    },
+    {
+      "num": "2",
+      "question": "The picture shows several children sitting on a carnival ride. During one part of the ride, the children in their seats are dropped from a certain height. S, T, U and V represent the direction of possible forces acting on the children during this part of the ride. Which arrows show the direction of gravity and friction acting on the children respectively when the seats drop? Direction of gravity Direction of friction",
+      "options": [
+        "U S",
+        "U V",
+        "S T",
+        "S V"
+      ],
+      "explanation": "Gravity always acts downwards (U). Friction opposes motion. Since the children are dropped downwards, friction acts upwards (S).",
+      "answer_section": "Correct (1) (2) (3) (4) Explanation: Gravity always acts downwards (U). Friction opposes motion. Since the children are dropped downwards, friction acts upwards (S). https://testmozusercontent.com/q/"
+    },
+    {
+      "num": "10",
+      "question": "Plant K's life cycle is shown below. The diagram below shows the seed and flower of Plant K. Which processes, A, B or C, require the seed or the flower and what are the agents involved during these processes? Seed Flower Process Agent Process Agent",
+      "options": [
+        "C animal A wind",
+        "C animal B wind",
+        "B animal B wind",
+        "B wind B animal"
+      ],
+      "explanation": "https://testmozusercontent.com/q/15340518/student/review 8/12 6/3/26, 11:02 AM P6 打卡营 科学 MCQ W5D3-1 Process C involves seed dispersal, and the hooks on the seed suggest it uses animals as agents. Process B is pollination, and the structure of the flower indicates wind is the likely agent for transferring pollen.",
+      "answer_section": "Incorrect (1) (2) (3) (4) Explanation: https://testmozusercontent.com/q/15340518/student/review 8/12 6/3/26, 11:02 AM P6 打卡营 科学 MCQ W5D3-1 Process C involves seed dispersal, and the hooks on the seed"
+    },
+    {
+      "num": "11",
+      "question": "Aaron conducted an experiment using the set-ups as shown below. He recorded the change in the amount of carbon dioxide present in each set-up in the graph below. Identify the correct line representing his findings for each set-up. Set-up A B C D",
+      "options": [
+        "Z Y W X",
+        "Y Z X W",
+        "Z Y X W",
+        "Y Z W X"
+      ],
+      "explanation": "Set-ups that do not have decaying matter (A and D) start with a smaller percentage of carbon dioxide. Set-ups that are in light (A and B) have a smaller percentage of carbon dioxide at the end as they undergo photosynthesis and take in carbon dioxide.",
+      "answer_section": "Correct https://testmozusercontent.com/q/15340518/student/review 9/12 6/3/26, 11:02 AM P6 打卡营 科学 MCQ W5D3-1 (1) (2) (3) (4) Explanation: Set-ups that do not have decaying matter (A and D) start with"
+    }
+  ],
+  "pdf2": [
+    {
+      "num": "6",
+      "question": "Layla placed all her clothes into a bag. She then removed most of the air trapped inside the bag by pushing it out. Which of the following shows the changes in the total mass and volume of the bag of clothes after the air was pushed out? Total mass of the bag of clothes Total volume of the bag of clothes",
+      "options": [
+        "remains the same decrease",
+        "remains the same remains the same",
+        "decrease increase",
+        "decrease decrease"
+      ],
+      "explanation": "Air has mass and takes up space. Removing the air from the bag decreases both the total mass of the bag's contents and the total volume it occupies.",
+      "answer_section": "Correct https://testmozusercontent.com/q/15340570/student/review 5/13 6/3/26, 11:04 AM P6 打卡营 科学 MCQ W5D3-2 (1) (2) (3) (4) Explanation: Air has mass and takes up space. Removing the air from the bag"
+    },
+    {
+      "num": "7",
+      "question": "Two plates, A and B, are made from different materials. At room temperature, plate B felt much cooler than plate A. Two identical ice cubes were placed on both plates as shown below. Which of the following correctly matches the ice that melted slower and its reason? Place where ice Reason melted slower",
+      "options": [
+        "A Plate A is a poorer conductor of heat than plate B.",
+        "A The ice transferred more heat to plate A than to plate B.",
+        "B Plate B is a better conductor of heat than plate A.",
+        "B The ice transferred coldness to plate B faster than to plate A."
+      ],
+      "explanation": "https://testmozusercontent.com/q/15340570/student/review 6/13 6/3/26, 11:04 AM P6 打卡营 科学 MCQ W5D3-2 Plate A is a poorer conductor of heat, meaning it transfers heat from the environment to the ice more slowly. Consequently, the ice cube on Plate A will melt at a slower rate than the one on Plate B.",
+      "answer_section": "Correct (1) (2) (3) (4) Explanation: https://testmozusercontent.com/q/15340570/student/review 6/13 6/3/26, 11:04 AM P6 打卡营 科学 MCQ W5D3-2 Plate A is a poorer conductor of heat, meaning it transfers he"
+    }
+  ]
+}

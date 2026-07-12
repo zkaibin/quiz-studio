@@ -432,15 +432,13 @@ class ScienceQuizApp {
    * Returns points earned (0 for guests).
    */
   async saveQuizRecord(percentage) {
-    if (!window.SUPABASE_CLIENT || !window.QuizRewards) return 0;
+    if (!window.FB_AUTH || !window.QuizRewards) return 0;
     try {
-      const client = window.SUPABASE_CLIENT;
-      const { data } = await client.auth.getSession();
-      const user = data.session && data.session.user;
+      const user = window.FB_AUTH.currentUser;
       if (!user) return 0; // guest mode – skip saving
 
-      return await window.QuizRewards.saveQuizWithPoints(client, user, {
-        user_id: user.id,
+      return await window.QuizRewards.saveQuizWithPoints(null, null, {
+        user_id: user.uid,
         student_name: this.studentName,
         subject: 'science',
         category: this.category || 'all',

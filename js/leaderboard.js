@@ -1,47 +1,56 @@
-/* global window */
+/* global FB_AUTH, FB_DB */
 (function () {
   'use strict';
 
-  var client = null;
+  var auth = null;
+  var db = null;
   var currentUserId = null;
 
   function $(id) { return document.getElementById(id); }
 
-  // ── Init ─────────────────────────────────────────────────────────────────
   async function init() {
-    if (!window.SUPABASE_CLIENT) {
-      showMsg('Supabase configuration not found.', true);
+    if (!window.FB_AUTH || !window.FB_DB) {
+      showMsg('Firebase configuration not found.', true);
       return;
     }
-    client = window.SUPABASE_CLIENT;
+    auth = window.FB_AUTH;
+    db = window.FB_DB;
 
-    // Check if a user is logged in (to highlight their row)
-    var sessionResult = await client.auth.getSession();
-    if (sessionResult.data.session) {
-      currentUserId = sessionResult.data.session.user.id;
+    var user = auth.currentUser;
+    if (user) {
+      currentUserId = user.uid;
+    } else {
+      var { onAuthStateChanged } = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js');
+      await new Promise(function (resolve) {
+        var unsub = onAuthStateChanged(auth, function (u) {
+          if (u) currentUserId = u.uid;
+          unsub();
+          resolve();
+        });
+      });
     }
 
     await loadLeaderboard();
   }
 
-  // ── Load leaderboard ──────────────────────────────────────────────────────
   async function loadLeaderboard() {
-    showMsg('Loading leaderboard…', false);
-
-    var res = await client
-      .from('leaderboard')
-      .select('id, display_name, avatar_url, total_points, total_quizzes');
-
-    if (res.error) {
-      showMsg('Could not load leaderboard: ' + res.error.message, true);
-      return;
+    showMsg('Loading leaderboard\u2026', false);
+    try {
+      var { collection, getDocs, orderBy, query, limit } =
+        await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js');
+      var q = query(collection(db, 'users'), orderBy('total_points', 'desc'), limit(100));
+      var snap = await getDocs(q);
+      var rows = [];
+      snap.forEach(function (d) {
+        rows.push(Object.assign({ id: d.id }, d.data()));
+      });
+      hideMsg();
+      renderLeaderboard(rows);
+    } catch (e) {
+      showMsg('Could not load leaderboard: ' + e.message, true);
     }
-
-    hideMsg();
-    renderLeaderboard(res.data || []);
   }
 
-  // ── Render ────────────────────────────────────────────────────────────────
   function renderLeaderboard(rows) {
     var tbody = $('lbTbody');
     if (!tbody) return;
@@ -55,26 +64,24 @@
     rows.forEach(function (row, index) {
       var rank = index + 1;
       var isMe = row.id === currentUserId;
-      var rankLabel = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '#' + rank;
-      var name = row.display_name || 'Anonymous';
+      var rankLabel = rank === 1 ? '\uD83E\uDD47' : rank === 2 ? '\uD83E\uDD48' : rank === 3 ? '\uD83E\uDD49' : '#' + rank;
+      var name = row.display_name || row.full_name || 'Anonymous';
       var avatar = row.avatar_url
         ? '<img src="' + escapeHtml(row.avatar_url) + '" alt="" class="lb-avatar-img" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'inline\'">' +
-          '<span style="display:none" class="lb-avatar-fallback">👤</span>'
-        : '<span class="lb-avatar-fallback">👤</span>';
+          '<span style="display:none" class="lb-avatar-fallback">\uD83D\uDC64</span>'
+        : '<span class="lb-avatar-fallback">\uD83D\uDC64</span>';
 
       html += '<tr class="' + (isMe ? 'lb-row-me' : '') + '">';
       html += '<td class="lb-rank">' + rankLabel + '</td>';
       html += '<td><div class="lb-avatar">' + avatar + '</div></td>';
       html += '<td class="lb-name">' + escapeHtml(name) + (isMe ? ' <span class="lb-you">You</span>' : '') + '</td>';
-      html += '<td class="lb-pts">⭐ ' + (row.total_points || 0) + '</td>';
+      html += '<td class="lb-pts">\u2B50 ' + (row.total_points || 0) + '</td>';
       html += '<td class="lb-quizzes">' + (row.total_quizzes || 0) + '</td>';
       html += '</tr>';
     });
-
     tbody.innerHTML = html;
   }
 
-  // ── Helpers ───────────────────────────────────────────────────────────────
   function showMsg(msg, isError) {
     var el = $('lbMsg');
     if (!el) return;
@@ -96,11 +103,9 @@
       .replace(/"/g, '&quot;');
   }
 
-  // ── Bootstrap ─────────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function () {
     var refreshBtn = $('refreshBtn');
     if (refreshBtn) refreshBtn.addEventListener('click', loadLeaderboard);
-
     init();
   });
 })();

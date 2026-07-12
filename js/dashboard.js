@@ -1,54 +1,47 @@
-/* global supabase, SUPABASE_CLIENT */
+/* global FB_AUTH, FB_DB */
 (function () {
   'use strict';
 
-  var client = null;
+  var auth = null;
+  var db = null;
   var currentUser = null;
 
   var SUBJECTS = [
-    { key: 'math',    label: '🔢 Math' },
-    { key: 'science', label: '🔬 Science' },
-    { key: 'english', label: '📖 English' },
-    { key: 'chinese', label: '🀄 Chinese' }
+    { key: 'math',    label: '\uD83D\uDD22 Math' },
+    { key: 'science', label: '\uD83D\uDD2C Science' },
+    { key: 'english', label: '\uD83D\uDCD6 English' },
+    { key: 'chinese', label: '\uD83C\uC004 Chinese' }
   ];
 
   function $(id) { return document.getElementById(id); }
 
-  // ── Init ─────────────────────────────────────────────────────────────────
   async function init() {
-    if (!window.SUPABASE_CLIENT) {
-      showError('Supabase configuration not found.');
+    if (!window.FB_AUTH || !window.FB_DB) {
+      showError('Firebase configuration not found.');
       return;
     }
-    client = window.SUPABASE_CLIENT;
+    auth = window.FB_AUTH;
+    db = window.FB_DB;
 
-    var result = await client.auth.getSession();
-    if (!result.data.session) {
-      window.location.href = 'index.html';
-      return;
-    }
-    currentUser = result.data.session.user;
-
-    client.auth.onAuthStateChange(function (_event, session) {
-      if (!session) window.location.href = 'index.html';
+    var { onAuthStateChanged } = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js');
+    onAuthStateChanged(auth, async function (user) {
+      if (!user) {
+        window.location.href = 'index.html';
+        return;
+      }
+      currentUser = user;
+      await Promise.all([loadProfile(), loadQuizStats()]);
     });
-
-    await Promise.all([loadProfile(), loadQuizStats()]);
   }
 
-  // ── Load profile totals ───────────────────────────────────────────────────
   async function loadProfile() {
-    var res = await client
-      .from('profiles')
-      .select('display_name, total_points, total_quizzes')
-      .eq('id', currentUser.id)
-      .maybeSingle();
-
-    if (res.error || !res.data) return;
-    var p = res.data;
+    var { getDoc, doc } = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js');
+    var snap = await getDoc(doc(db, 'users', currentUser.uid));
+    if (!snap.exists()) return;
+    var p = snap.data();
 
     var nameEl = $('dashName');
-    if (nameEl) nameEl.textContent = p.display_name || currentUser.email || 'Learner';
+    if (nameEl) nameEl.textContent = p.display_name || p.full_name || currentUser.email || 'Learner';
 
     var ptEl = $('totalPoints');
     if (ptEl) ptEl.textContent = p.total_points || 0;
@@ -56,47 +49,42 @@
     var qEl = $('totalQuizzes');
     if (qEl) qEl.textContent = p.total_quizzes || 0;
 
-    // Fetch leaderboard rank
     await loadRank(p.total_points || 0);
   }
 
   async function loadRank(userPoints) {
     var rankEl = $('leaderboardRank');
     if (!rankEl) return;
-
-    var res = await client
-      .from('profiles')
-      .select('total_points', { count: 'exact', head: false })
-      .gt('total_points', userPoints)
-      .gt('total_quizzes', 0);
-
-    if (res.error) {
-      rankEl.textContent = '—';
-      return;
+    try {
+      var { collection, getDocs, query, where } =
+        await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js');
+      var q = query(collection(db, 'users'), where('total_points', '>', userPoints));
+      var snap = await getDocs(q);
+      rankEl.textContent = '#' + (snap.size + 1);
+    } catch (e) {
+      rankEl.textContent = '\u2014';
     }
-    var rank = (res.data ? res.data.length : 0) + 1;
-    rankEl.textContent = '#' + rank;
   }
 
-  // ── Load quiz records and compute per-subject stats ───────────────────────
   async function loadQuizStats() {
-    var res = await client
-      .from('quiz_records')
-      .select('subject, score, total_questions, percentage, points_earned, completed_at')
-      .eq('user_id', currentUser.id)
-      .order('completed_at', { ascending: false });
-
-    if (res.error) {
-      showError('Could not load quiz stats: ' + res.error.message);
-      return;
+    try {
+      var { collection, getDocs, query, where, orderBy } =
+        await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js');
+      var q = query(
+        collection(db, 'quiz_records'),
+        where('user_id', '==', currentUser.uid),
+        orderBy('completed_at', 'desc')
+      );
+      var snap = await getDocs(q);
+      var records = [];
+      snap.forEach(function (d) { records.push(d.data()); });
+      renderSubjectBreakdown(records);
+      renderRecentActivity(records.slice(0, 5));
+    } catch (e) {
+      showError('Could not load quiz stats: ' + e.message);
     }
-
-    var records = res.data || [];
-    renderSubjectBreakdown(records);
-    renderRecentActivity(records.slice(0, 5));
   }
 
-  // ── Subject breakdown ─────────────────────────────────────────────────────
   function renderSubjectBreakdown(records) {
     var tbody = $('subjectTbody');
     if (!tbody) return;
@@ -119,19 +107,13 @@
     var html = '';
     SUBJECTS.forEach(function (s) {
       var d = stats[s.key];
-      var avgPct = d.count > 0 ? Math.round(d.totalPct / d.count) : '—';
-      html += '<tr>';
-      html += '<td>' + d.label + '</td>';
-      html += '<td>' + d.count + '</td>';
-      html += '<td>' + (d.count > 0 ? avgPct + '%' : '—') + '</td>';
-      html += '<td>⭐ ' + d.points + '</td>';
-      html += '</tr>';
+      var avgPct = d.count > 0 ? Math.round(d.totalPct / d.count) : '\u2014';
+      html += '<tr><td>' + d.label + '</td><td>' + d.count + '</td><td>' + (d.count > 0 ? avgPct + '%' : '\u2014') + '</td><td>\u2B50 ' + d.points + '</td></tr>';
     });
 
     tbody.innerHTML = html || '<tr><td colspan="4">No records yet.</td></tr>';
   }
 
-  // ── Recent activity ───────────────────────────────────────────────────────
   function renderRecentActivity(records) {
     var container = $('recentActivity');
     if (!container) return;
@@ -143,7 +125,8 @@
 
     var html = '';
     records.forEach(function (r) {
-      var date = new Date(r.completed_at).toLocaleString();
+      var ts = r.completed_at;
+      var dateStr = ts && ts.toDate ? ts.toDate().toLocaleString() : (ts ? new Date(ts).toLocaleString() : '');
       var subject = r.subject ? r.subject.charAt(0).toUpperCase() + r.subject.slice(1) : 'Unknown';
       var pct = r.percentage || 0;
       var badgeClass = pct >= 80 ? 'badge-excellent' : pct >= 60 ? 'badge-good' : pct >= 40 ? 'badge-ok' : 'badge-poor';
@@ -152,25 +135,22 @@
       html += '<div class="dash-activity-item">';
       html += '<div class="dash-activity-info">';
       html += '<span class="dash-activity-subject">' + subject + '</span>';
-      html += '<span class="dash-activity-date">' + date + '</span>';
+      html += '<span class="dash-activity-date">' + dateStr + '</span>';
       html += '</div>';
       html += '<div class="dash-activity-score">';
       html += '<span class="score-badge ' + badgeClass + '">' + pct + '%</span>';
-      if (pts > 0) html += '<span class="dash-activity-pts">⭐ +' + pts + '</span>';
-      html += '</div>';
-      html += '</div>';
+      if (pts > 0) html += '<span class="dash-activity-pts">\u2B50 +' + pts + '</span>';
+      html += '</div></div>';
     });
 
     container.innerHTML = html;
   }
 
-  // ── Error helper ──────────────────────────────────────────────────────────
   function showError(msg) {
     var el = $('dashError');
     if (el) { el.textContent = msg; el.style.display = 'block'; }
   }
 
-  // ── Bootstrap ─────────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function () {
     init();
   });

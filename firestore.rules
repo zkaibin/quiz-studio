@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return signedIn() && request.auth.uid == userId;
+    }
+
+    // User profile + totals doc
+    // NOTE: Read is public to preserve existing public leaderboard behavior.
+    // If you want stricter privacy later, move leaderboard fields into a separate public collection.
+    match /users/{userId} {
+      allow read: if true;
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId);
+      allow delete: if isOwner(userId);
+    }
+
+    // Quiz records: strictly per-user access
+    match /quiz_records/{recordId} {
+      allow create: if signedIn()
+        && request.resource.data.user_id == request.auth.uid;
+      allow read: if signedIn() && resource.data.user_id == request.auth.uid;
+      allow update: if false;
+      allow delete: if signedIn() && resource.data.user_id == request.auth.uid;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

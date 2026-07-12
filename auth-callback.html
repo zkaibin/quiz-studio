@@ -91,94 +91,85 @@
         <a id="homeBtn" href="index.html" class="btn" style="display:none;">Go to Quiz Studio</a>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/supabase-config.js"></script>
-    <script>
-    (function () {
-      'use strict';
+    <script type="module">
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
+      import { getAuth, applyActionCode, checkActionCode } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
 
-      async function handleCallback() {
-        const icon    = document.getElementById('statusIcon');
-        const title   = document.getElementById('statusTitle');
-        const message = document.getElementById('statusMessage');
-        const countdown = document.getElementById('countdown');
-        const homeBtn = document.getElementById('homeBtn');
+      const firebaseConfig = {
+        apiKey: "AIzaSyCJvrCxJ103emuCwBWEYNzfbWjdV8QcO4w",
+        authDomain: "quiz-studio-12339.firebaseapp.com",
+        projectId: "quiz-studio-12339",
+        storageBucket: "quiz-studio-12339.firebasestorage.app",
+        messagingSenderId: "575996539322",
+        appId: "1:575996539322:web:d9a3baffda5c5867496d83"
+      };
 
-        if (!window.SUPABASE_CONFIG) {
-          showError(icon, title, message, homeBtn, 'Configuration missing.');
-          return;
-        }
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
 
-        const client = supabase.createClient(
-          window.SUPABASE_CONFIG.url,
-          window.SUPABASE_CONFIG.anonKey
-        );
+      const icon      = document.getElementById('statusIcon');
+      const title     = document.getElementById('statusTitle');
+      const message   = document.getElementById('statusMessage');
+      const countdown = document.getElementById('countdown');
+      const homeBtn   = document.getElementById('homeBtn');
 
-        const params = new URLSearchParams(window.location.search);
-        const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
-        const code = params.get('code');
-        const callbackError =
-          params.get('error_description') ||
-          hashParams.get('error_description') ||
-          params.get('error') ||
-          hashParams.get('error');
-
-        if (callbackError) {
-          showError(icon, title, message, homeBtn,
-            'Confirmation failed: ' + callbackError +
-            '. Please request a fresh confirmation email.');
-          return;
-        }
-
-        let error = null;
-        let session = null;
-
-        if (code) {
-          const result = await client.auth.exchangeCodeForSession(code);
-          error = result.error;
-          session = result.data?.session || null;
-        } else {
-          const result = await client.auth.getSession();
-          error = result.error;
-          session = result.data?.session || null;
-        }
-
-        if (error || !session) {
-          const reason = error ? error.message : 'No valid session was created from the confirmation link';
-          showError(icon, title, message, homeBtn,
-            'Confirmation failed: ' + reason + '. Check that Supabase Auth has the correct Site URL and Redirect URLs for this app, then request a fresh confirmation email.');
-          return;
-        }
-
-        // Success
-        icon.textContent = '✅';
-        title.textContent = 'Email Confirmed!';
-        message.textContent = 'Your account has been successfully verified. You can now sign in to Quiz Studio.';
+      function showError(msg) {
+        icon.textContent = '\u274C';
+        title.textContent = 'Confirmation Error';
+        message.textContent = msg;
         homeBtn.style.display = 'inline-block';
+      }
 
-        // Auto-redirect countdown
+      function startRedirect() {
         let seconds = 5;
-        countdown.textContent = 'Redirecting to Quiz Studio in ' + seconds + ' seconds…';
+        countdown.textContent = 'Redirecting to Quiz Studio in ' + seconds + ' seconds\u2026';
         const interval = setInterval(function () {
           seconds--;
           if (seconds <= 0) {
             clearInterval(interval);
             window.location.href = 'index.html';
           } else {
-            countdown.textContent = 'Redirecting to Quiz Studio in ' + seconds + ' seconds…';
+            countdown.textContent = 'Redirecting to Quiz Studio in ' + seconds + ' seconds\u2026';
           }
         }, 1000);
       }
 
-      function showError(icon, title, message, homeBtn, msg) {
-        icon.textContent = '❌';
-        title.textContent = 'Confirmation Error';
-        message.textContent = msg;
-        homeBtn.style.display = 'inline-block';
+      async function handleCallback() {
+        const params = new URLSearchParams(window.location.search);
+        const oobCode = params.get('oobCode');
+        const mode    = params.get('mode');
+
+        if (!oobCode) {
+          // Firebase email links are handled directly by Firebase — just redirect
+          icon.textContent = '\u2705';
+          title.textContent = 'All done!';
+          message.textContent = 'Your email action was processed. Redirecting\u2026';
+          homeBtn.style.display = 'inline-block';
+          startRedirect();
+          return;
+        }
+
+        if (mode === 'verifyEmail') {
+          try {
+            await applyActionCode(auth, oobCode);
+            icon.textContent = '\u2705';
+            title.textContent = 'Email Confirmed!';
+            message.textContent = 'Your account has been successfully verified. You can now sign in to Quiz Studio.';
+            homeBtn.style.display = 'inline-block';
+            startRedirect();
+          } catch (err) {
+            showError('Confirmation failed: ' + err.message + '. Please request a fresh confirmation email.');
+          }
+        } else if (mode === 'resetPassword') {
+          // Redirect to reset-password page with the code
+          window.location.href = 'reset-password.html' + window.location.search;
+        } else {
+          showError('Unknown action. Please return to Quiz Studio.');
+          homeBtn.style.display = 'inline-block';
+        }
       }
 
       handleCallback();
-    })();
     </script>
 </body>
 </html>

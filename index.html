@@ -423,8 +423,8 @@
     </div>
 
     <!-- Supabase & Auth Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/supabase-config.js"></script>
+    
+    <script type="module" src="js/firebase-config.js"></script>
     <script src="js/nav-auth.js"></script>
     <script>
         (function () {
@@ -435,19 +435,18 @@
                 if (profileLink) profileLink.style.display = hasSession ? '' : 'none';
             }
 
-            function initNavLinks() {
-                var client = window.SUPABASE_CLIENT;
-                if (!client && window.SUPABASE_CONFIG && window.supabase && window.supabase.createClient) {
-                    client = window.supabase.createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey);
+            async function initNavLinks() {
+                if (!window.FB_AUTH) {
+                    updateNavLinks(false);
+                    return;
                 }
-                if (!client) { updateNavLinks(false); return; }
 
-                client.auth.getSession().then(function (result) {
-                    updateNavLinks(!!(result.data && result.data.session));
-                });
+                const auth = window.FB_AUTH;
+                updateNavLinks(!!auth.currentUser);
 
-                client.auth.onAuthStateChange(function (_event, session) {
-                    updateNavLinks(!!session);
+                const { onAuthStateChanged } = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js');
+                onAuthStateChanged(auth, function (user) {
+                    updateNavLinks(!!user);
                 });
             }
 

@@ -1,8 +1,9 @@
-/* global supabase, SUPABASE_CONFIG */
+/* global FB_AUTH, FB_DB */
 (function () {
   'use strict';
 
-  var client = null;
+  var auth = null;
+  var db = null;
   var currentUser = null;
   var records = [];
   var activeRecord = null;
@@ -10,49 +11,46 @@
 
   var $ = function (id) { return document.getElementById(id); };
 
-  // ── Init ─────────────────────────────────────────────────────────────────
   async function init() {
-    if (!window.SUPABASE_CLIENT) {
-      showListMsg('Supabase configuration not found.', true);
+    if (!window.FB_AUTH || !window.FB_DB) {
+      showListMsg('Firebase configuration not found.', true);
       return;
     }
+    auth = window.FB_AUTH;
+    db = window.FB_DB;
 
-    client = window.SUPABASE_CLIENT;
-
-    var result = await client.auth.getSession();
-    if (!result.data.session) {
-      window.location.href = 'index.html';
-      return;
-    }
-
-    currentUser = result.data.session.user;
-
-    client.auth.onAuthStateChange(function (_event, session) {
-      if (!session) window.location.href = 'index.html';
+    var { onAuthStateChanged } = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js');
+    onAuthStateChanged(auth, async function (user) {
+      if (!user) {
+        window.location.href = 'index.html';
+        return;
+      }
+      currentUser = user;
+      await loadRecords();
     });
-
-    await loadRecords();
   }
 
-  // ── Load records ──────────────────────────────────────────────────────────
   async function loadRecords() {
-    showListMsg('Loading your quiz records…', false);
-    var result = await client
-      .from('quiz_records')
-      .select('id, student_name, subject, category, difficulty, theme, score, total_questions, percentage, completed_at')
-      .eq('user_id', currentUser.id)
-      .order('completed_at', { ascending: false });
-
-    if (result.error) {
-      showListMsg('Could not load records: ' + result.error.message, true);
-      return;
+    showListMsg('Loading your quiz records\u2026', false);
+    try {
+      var { collection, getDocs, query, where, orderBy } =
+        await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js');
+      var q = query(
+        collection(db, 'quiz_records'),
+        where('user_id', '==', currentUser.uid),
+        orderBy('completed_at', 'desc')
+      );
+      var snap = await getDocs(q);
+      records = [];
+      snap.forEach(function (d) {
+        records.push(Object.assign({ id: d.id }, d.data()));
+      });
+      renderList();
+    } catch (e) {
+      showListMsg('Could not load records: ' + e.message, true);
     }
-
-    records = result.data || [];
-    renderList();
   }
 
-  // ── Render list ───────────────────────────────────────────────────────────
   function renderList() {
     var listMsg = $('listMsg');
     var recordsList = $('recordsList');
@@ -72,68 +70,46 @@
 
     var html = '';
     records.forEach(function (rec) {
-      var date = new Date(rec.completed_at).toLocaleString();
+      var ts = rec.completed_at;
+      var dateStr = ts && ts.toDate ? ts.toDate().toLocaleString() : (ts ? new Date(ts).toLocaleString() : '');
       var pct = rec.percentage;
       var badgeClass = pct >= 80 ? 'badge-excellent' : pct >= 60 ? 'badge-good' : pct >= 40 ? 'badge-ok' : 'badge-poor';
-      var emoji = pct >= 80 ? '🎉' : pct >= 60 ? '👍' : pct >= 40 ? '📚' : '💪';
+      var emoji = pct >= 80 ? '\uD83C\uDF89' : pct >= 60 ? '\uD83D\uDC4D' : pct >= 40 ? '\uD83D\uDCDA' : '\uD83D\uDCAA';
 
       html += '<div class="record-card" data-id="' + rec.id + '">';
-      html += '<div class="record-main">';
-      html += '<div class="record-info">';
-      html += '<div class="record-date">' + date + '</div>';
+      html += '<div class="record-main"><div class="record-info">';
+      html += '<div class="record-date">' + dateStr + '</div>';
       html += '<div class="record-meta">';
-
       var parts = [];
       if (rec.subject) parts.push('Subject: ' + rec.subject.charAt(0).toUpperCase() + rec.subject.slice(1));
       if (rec.category && rec.category !== 'all') parts.push('Category: ' + rec.category);
       if (rec.difficulty && rec.difficulty !== 'all') parts.push('Level: ' + rec.difficulty);
       if (rec.theme && rec.theme !== 'all') parts.push('Theme: ' + rec.theme);
-      html += parts.length ? parts.join(' · ') : 'All categories';
-
-      html += '</div>';
-      html += '</div>';
+      html += parts.length ? parts.join(' \xB7 ') : 'All categories';
+      html += '</div></div>';
       html += '<div class="record-score">';
       html += '<span class="score-badge ' + badgeClass + '">' + emoji + ' ' + pct + '%</span>';
       html += '<span class="score-fraction">' + rec.score + ' / ' + rec.total_questions + '</span>';
-      html += '</div>';
-      html += '</div>';
+      html += '</div></div>';
       html += '<div class="record-actions">';
       html += '<button class="btn-record btn-review" data-id="' + rec.id + '">Review Answers</button>';
       html += '<button class="btn-record btn-delete" data-id="' + rec.id + '">Delete</button>';
-      html += '</div>';
-      html += '</div>';
+      html += '</div></div>';
     });
 
     recordsList.innerHTML = html;
 
     recordsList.querySelectorAll('.btn-review').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        openReview(btn.getAttribute('data-id'));
-      });
+      btn.addEventListener('click', function () { openReview(btn.getAttribute('data-id')); });
     });
-
     recordsList.querySelectorAll('.btn-delete').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        deleteRecord(btn.getAttribute('data-id'));
-      });
+      btn.addEventListener('click', function () { deleteRecord(btn.getAttribute('data-id')); });
     });
   }
 
-  // ── Review panel ──────────────────────────────────────────────────────────
-  async function openReview(id) {
-    var result = await client
-      .from('quiz_records')
-      .select('*')
-      .eq('id', id)
-      .eq('user_id', currentUser.id)
-      .maybeSingle();
-
-    if (result.error || !result.data) {
-      alert('Could not load this record.');
-      return;
-    }
-
-    activeRecord = result.data;
+  function openReview(id) {
+    activeRecord = records.find(function (r) { return r.id === id; });
+    if (!activeRecord) { alert('Could not load this record.'); return; }
     renderReview(activeRecord);
     showPanel('reviewPanel');
   }
@@ -143,8 +119,9 @@
     var title = $('reviewTitle');
     if (!container) return;
 
-    var date = new Date(rec.completed_at).toLocaleString();
-    if (title) title.textContent = 'Quiz Review — ' + date + ' (' + rec.score + '/' + rec.total_questions + ' · ' + rec.percentage + '%)';
+    var ts = rec.completed_at;
+    var dateStr = ts && ts.toDate ? ts.toDate().toLocaleString() : (ts ? new Date(ts).toLocaleString() : '');
+    if (title) title.textContent = 'Quiz Review \u2014 ' + dateStr + ' (' + rec.score + '/' + rec.total_questions + ' \xB7 ' + rec.percentage + '%)';
 
     var html = '';
     var questions = rec.questions || [];
@@ -169,7 +146,7 @@
       html += '<div class="review-item ' + (isCorrect ? 'correct' : 'incorrect') + '">';
       html += '<div class="review-header">';
       html += '<span class="review-question-num">Question ' + (index + 1) + '</span>';
-      html += '<span class="review-status ' + (isCorrect ? 'correct' : 'incorrect') + '">' + (isCorrect ? '✓ Correct' : '✗ Incorrect') + '</span>';
+      html += '<span class="review-status ' + (isCorrect ? 'correct' : 'incorrect') + '">' + (isCorrect ? '\u2713 Correct' : '\u2717 Incorrect') + '</span>';
       html += '</div>';
       html += '<div class="review-question-text">' + questionText + '</div>';
       html += '<div class="review-answer-section">';
@@ -180,43 +157,31 @@
       html += '<div class="review-answer-box correct-answer">';
       html += '<div class="review-answer-label">Correct Answer</div>';
       html += '<div class="review-answer-value">' + correctLetter + ' - ' + correctAnswerText + '</div>';
-      html += '</div>';
-      html += '</div>';
-      html += '</div>';
+      html += '</div></div></div>';
     });
 
     container.innerHTML = html;
   }
 
-  // ── Delete record ─────────────────────────────────────────────────────────
   async function deleteRecord(id) {
     if (!confirm('Delete this quiz record? This cannot be undone.')) return;
-
-    var result = await client
-      .from('quiz_records')
-      .delete()
-      .eq('id', id)
-      .eq('user_id', currentUser.id);
-
-    if (result.error) {
-      alert('Could not delete record: ' + result.error.message);
-      return;
+    try {
+      var { doc, deleteDoc } = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js');
+      await deleteDoc(doc(db, 'quiz_records', id));
+      records = records.filter(function (r) { return r.id !== id; });
+      renderList();
+    } catch (e) {
+      alert('Could not delete record: ' + e.message);
     }
-
-    records = records.filter(function (r) { return r.id !== id; });
-    renderList();
   }
 
-  // ── Panel navigation ──────────────────────────────────────────────────────
   function showPanel(panelId) {
-    var panels = ['listPanel', 'reviewPanel'];
-    panels.forEach(function (p) {
+    ['listPanel', 'reviewPanel'].forEach(function (p) {
       var el = $(p);
       if (el) el.style.display = p === panelId ? 'block' : 'none';
     });
   }
 
-  // ── Helpers ───────────────────────────────────────────────────────────────
   function showListMsg(msg, isError) {
     var el = $('listMsg');
     if (!el) return;
@@ -225,23 +190,15 @@
     el.style.display = 'block';
   }
 
-  // ── Wire events ───────────────────────────────────────────────────────────
   function wireEvents() {
     var backBtn = $('backToListBtn');
-    if (backBtn) backBtn.addEventListener('click', function () {
-      showPanel('listPanel');
-    });
-
+    if (backBtn) backBtn.addEventListener('click', function () { showPanel('listPanel'); });
     var backBtn2 = $('backToListBtn2');
-    if (backBtn2) backBtn2.addEventListener('click', function () {
-      showPanel('listPanel');
-    });
-
+    if (backBtn2) backBtn2.addEventListener('click', function () { showPanel('listPanel'); });
     var refreshBtn = $('refreshBtn');
     if (refreshBtn) refreshBtn.addEventListener('click', loadRecords);
   }
 
-  // ── Bootstrap ─────────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function () {
     wireEvents();
     init();

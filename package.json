@@ -7,7 +7,13 @@
     "start": "node server/server.js",
     "dev": "nodemon server/server.js",
     "serve": "node dev-server.js",
-    "test:rubik": "node scripts/test-rubiks-core.js"
+    "test:rubik": "node scripts/test-rubiks-core.js",
+    "migrate:preflight": "node scripts/preflight-supabase-migration.js",
+    "migrate:auth:firebase": "node scripts/migrate-auth-users-to-firebase.js",
+    "migrate:supabase:firebase": "node scripts/migrate-supabase-to-firebase.js",
+    "firebase:deploy:rules": "firebase deploy --only firestore:rules,storage",
+    "firebase:deploy:indexes": "firebase deploy --only firestore:indexes",
+    "firebase:deploy:security": "firebase deploy --only firestore:rules,firestore:indexes,storage"
   },
   "keywords": [
     "quiz",
@@ -24,6 +30,7 @@
     "sql.js": "^1.13.0"
   },
   "devDependencies": {
+    "firebase-admin": "^14.1.0",
     "nodemon": "^3.0.1"
   }
 }

@@ -1,0 +1,1828 @@
+{
+  "w6_tail": [
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which of the following are characteristics of all living things?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "make its own food, grow and reproduce",
+        "grow, reproduce and respond to changes",
+        "make its own food, reproduce and respond to changes",
+        "move from one place to another, reproduce and respond to changes"
+      ],
+      "answer": 3,
+      "correct_answer": "move from one place to another, reproduce and respond to changes",
+      "explanation": "Not all living things can make its own food, for example fungi. Not all living things can move from one place to another, for example plants.",
+      "id": "SCI1106"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which of the following is correct for flowering and non-flowering plants? flowering plants non-flowering plants (1) make their own food do not make their own food (2) do not attract insects attract insects (3) produce spores do not produce spores (4) produce fruits do not produce fruits",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) make their own food do not make their own food",
+        "(2) do not attract insects attract insects",
+        "(3) produce spores do not produce spores",
+        "(4) produce fruits do not produce fruits"
+      ],
+      "answer": 3,
+      "correct_answer": "(4) produce fruits do not produce fruits",
+      "explanation": "Flowering plants produce flowers which, upon going through pollination and fertilisation, develop into fruits. Non-flowering plants do not produce flowers and thus no fruits are developed.",
+      "id": "SCI1107"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which gases are found in air? A: oxygen B: nitrogen C: carbon dioxide D: water vapour",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "A and C only",
+        "B and D only",
+        "A, B and C only",
+        "A, B, C and D"
+      ],
+      "answer": 0,
+      "correct_answer": "A and C only",
+      "explanation": "Composition of air: Nitrogen (78%) Oxygen (21%) Carbon dioxide, water vapour and other gases (1%)",
+      "id": "SCI1108"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Study the diagram. Which arrow shows the correct direction in which water moves in a plant?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "P, Q and T only",
+        "Q, R and S only",
+        "Q, S and T only",
+        "P, S and U only"
+      ],
+      "answer": 0,
+      "correct_answer": "P, Q and T only",
+      "explanation": "Water enters a plant via its roots and is then transported to all other parts of the plant via the water-carrying tubes in the stem.",
+      "id": "SCI1109"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The diagram shows a fruit produced from a flower with one female part. The table shows the classification of flowers. Which represents the flower that the fruit was produced from? one ovule many ovule one ovary P Q many ovaries R S",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "P",
+        "Q",
+        "R",
+        "S"
+      ],
+      "answer": 0,
+      "correct_answer": "P",
+      "explanation": "Ovary develops into fruit while ovules develop into seeds. Since the papaya shown is a fruit with many seeds, the flower that the fruit was produced from would have many ovules.",
+      "id": "SCI1110"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Study the chart on classification of organisms. Which of the following is possible?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "A is a butterfly.",
+        "C is a mosquito.",
+        "B and D are birds.",
+        "A and B are mammals."
+      ],
+      "answer": 1,
+      "correct_answer": "C is a mosquito.",
+      "explanation": "A mosquito does not have feathers and it can fly.",
+      "id": "SCI1111"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The graph below shows the volume of blood passing through the small intestine during rest and during exercise over a period of time. Based on the graph above, how does exercising after a meal affect the absorption of digested food in the small intestine?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "Less blood flows to the small intestine so there is less absorption.",
+        "More blood flows to the small intestine so there is less absorption.",
+        "Less blood flows to the small intestine so there is more absorption.",
+        "More blood flows to the small intestine so there is more absorption."
+      ],
+      "answer": 0,
+      "correct_answer": "Less blood flows to the small intestine so there is less absorption.",
+      "explanation": "When you exercise, your body needs to send more blood and oxygen to your working muscles to keep them moving. This causes the body to divert blood away from the digestive system, as seen in the graph where the line for exercise is much lower than the line for rest. Since there is less blood flowing to the small intestine, it cannot pick up and transport nutrients as efficiently. Therefore, less absorption of digested food occurs during physical activity compared to when you are resting.",
+      "id": "SCI1112"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Substances are obtained from the water carrying tubes and food carrying tubes of a plant on a sunny day. Which of the following is correct? Main substances present in water carrying tubes food carrying tubes (1) water and mineral salts sugar and mineral salts (2) water, sugar and mineral salts sugar (3) water and mineral salts sugar (4) water, sugar and mineral salts water and mineral salts",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) water and mineral salts sugar and mineral salts",
+        "(2) water, sugar and mineral salts sugar",
+        "(3) water and mineral salts sugar",
+        "(4) water, sugar and mineral salts water and mineral salts"
+      ],
+      "answer": 3,
+      "correct_answer": "(4) water, sugar and mineral salts water and mineral salts",
+      "explanation": "The water carrying tubes of a plant carry water and mineral salts from the roots. The food carrying tubes carry sugar that is made by the leaves during photosynthesis.",
+      "id": "SCI1113"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Wan Ling placed the set-up shown in a dark room. She placed a similar set-up in another dark room at a lower temperature. After a few days, she recorded the number of seeds that germinated in each set-up. What was the hypothesis tested in this experiment?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "Seeds will only germinate if there is water.",
+        "Seeds will not germinate when kept in the dark.",
+        "Seeds will only germinate when the temperature is suitable.",
+        "Seeds will not germinate when they are placed too close together."
+      ],
+      "answer": 0,
+      "correct_answer": "Seeds will only germinate if there is water.",
+      "explanation": "Both the set-ups were placed in dark rooms but with different temperatures, that is, one of the rooms was cooler than the other. Therefore, the variable that was tested is temperature.",
+      "id": "SCI1114"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The graph shows the length of time for each stage in the life cycles of organisms P and Q. Which statement is correct?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "P was at the larva stage 7 days after the egg hatched.",
+        "Q spent the shortest time at the pupa stage in its life cycle.",
+        "P took a shorter time to become an adult as compared to Q.",
+        "Q spent a total of 11 days longer than P at the egg and larva stage."
+      ],
+      "answer": 1,
+      "correct_answer": "Q spent the shortest time at the pupa stage in its life cycle.",
+      "explanation": "7 days after the egg of P hatched, P was at the pupal stage. Q spent the shortest time (8 days) at the egg stage in its life cycle. Q spent 20 days while P spent 8 days at the egg and larval stages. Hence, Q spent 12 days longer than P at the egg and larval stages. P took a total of 12 days to become an adult while Q took a total of 34 days to become an adult.",
+      "id": "SCI1115"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "A and B are similar beakers containing the same volume of digestive juices. Equal amounts of potato are placed in the beakers. The potato in beaker B took a longer time to digest because it has a ________.",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "larger volume",
+        "smaller volume",
+        "larger exposed surface area",
+        "smaller exposed surface area"
+      ],
+      "answer": 2,
+      "correct_answer": "larger exposed surface area",
+      "explanation": "In beaker B, the potato is in one large piece. In beaker A the potato is cut into smaller pieces, which leads to more surfaces exposed, hence a larger exposed surface area. Therefore, the rate of digestion of the potato in beaker A is higher than that in beaker B.",
+      "id": "SCI1116"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Jiaxuan placed a plant under the sun for two hours. She wrapped one leaf in a clear plastic bag as shown. Which graph represents the amount of oxygen in the bag during the two hours?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 1,
+      "correct_answer": "(2)",
+      "explanation": "Under the sun, photosynthesis would take place and oxygen would be released via the stomata of the leaf. Hence, the amount of oxygen in the plastic bag would gradually increase.",
+      "id": "SCI1117"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Some animals are classified into four groups: insect, fish, mammal or amphibian. Which characteristic is used to classify them?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "type of body covering",
+        "way of reproducing",
+        "number of legs",
+        "way of moving"
+      ],
+      "answer": 0,
+      "correct_answer": "type of body covering",
+      "explanation": "The type of body covering differs in all four groups of animals given. Insects have exoskeleton, fish have scales, mammals have hair/fur, and amphibians have moist skin.",
+      "id": "SCI1118"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "{CHARACTER_0} collected seed P from a tree. He conducted an experiment by dropping a seed from a height and measured the distance, D travelled. {CHARACTER_0} presented his findings in the graph below. What could be variable X?",
+      "diagram": null,
+      "placeholder_roles": [
+        "protagonist"
+      ],
+      "options": [
+        "mass of seed",
+        "amount of wind",
+        "exposed surface area of seed",
+        "height from which seed is dropped"
+      ],
+      "answer": 0,
+      "correct_answer": "mass of seed",
+      "explanation": "As the mass of the seed increases, it becomes more difficult for it to be blown away by the wind from the fan.",
+      "id": "SCI1119"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Ali pumped more air into a ball. He observed that the size of the ball remained the same. Which of the following best explains his observation?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "Air has mass.",
+        "Air occupies space.",
+        "Air can be compressed.",
+        "Air does not have a definite shape."
+      ],
+      "answer": 3,
+      "correct_answer": "Air does not have a definite shape.",
+      "explanation": "Air consists of gases which do not have a definite volume and can be compressed.",
+      "id": "SCI1120"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "{CHARACTER_0} wants to read the volume of water in a measuring cylinder. Which method is correct?",
+      "diagram": null,
+      "placeholder_roles": [
+        "protagonist"
+      ],
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 0,
+      "correct_answer": "(1)",
+      "explanation": "Placing the measuring cylinder on the table ensures the water level is horizontal. Having the eye levelled at the horizontal water level helps in taking the reading accurately.",
+      "id": "SCI1121"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The table shows the state of three substances, P, Q and R at different temperatures. State of substance at Substance 10°C 30°C 50°C P liquid liquid liquid Q solid solid liquid R solid solid solid Which statement can be concluded?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "P has the highest boiling point.",
+        "Q has a lower melting point than P.",
+        "Q has a higher boiling point than R.",
+        "R has the highest freezing point."
+      ],
+      "answer": 0,
+      "correct_answer": "P has the highest boiling point.",
+      "explanation": "The table does not show temperatures at which the substances are in the gaseous state, hence we cannot tell about their boiling points. R is the only substance that is in solid state at 50°C. This shows that its melting/freezing point is the highest.",
+      "id": "SCI1122"
+    }
+  ],
+  "w7": [
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The diagrams show two animals. How are the animals similar?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "lay eggs",
+        "have scales",
+        "have moist skin",
+        "have a four-stage life cycle"
+      ],
+      "answer": 2,
+      "correct_answer": "have moist skin",
+      "explanation": "Frogs lay eggs, have moist skin and have a three-stage life cycle. Grasshoppers lay eggs, have exoskeleton and have three-stage life cycle.",
+      "id": "SCI1123"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which of the following shows the correct direction of food that is taken through the mouth?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "stomach, small intestine, large intestine, gullet",
+        "stomach, gullet, small intestine, large intestine",
+        "gullet, stomach, large intestine, small intestine",
+        "gullet, stomach, small intestine, large intestine"
+      ],
+      "answer": 3,
+      "correct_answer": "gullet, stomach, small intestine, large intestine",
+      "explanation": "Food passes through the digestive system in the following order: mouth, gullet, stomach, small intestine, large intestine.",
+      "id": "SCI1124"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which statement about the human digestive system is correct?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "Some food has been digested when it leaves the stomach.",
+        "The large intestine does not absorb any substance.",
+        "The large intestine digests and absorbs food.",
+        "The mouth does not digest food."
+      ],
+      "answer": 1,
+      "correct_answer": "The large intestine does not absorb any substance.",
+      "explanation": "Digestion takes place in the mouth, stomach and small intestine. In the small intestine, digestion is completed, and digested food is absorbed by the blood. Water is reabsorbed from the undigested food in the large intestine. The large intestine does not digest food.",
+      "id": "SCI1125"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Mr Mohammad removed the outer ring of the stem of a plant in a garden as shown in the diagram below. He continued to water the plant daily. Which of the following would be the most likely observation(s) of the plant after several weeks? A: Leaves P died B: Part R swelled C: The whole plant died",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "A only",
+        "B only",
+        "A and B only",
+        "A, B and C"
+      ],
+      "answer": 0,
+      "correct_answer": "A only",
+      "explanation": "A: leaf P did not die as it still receives water and can make its own food through photosynthesis. B: Part R will swell as food from the above cannot be delivered down to the roots, causing swelling at part R. C: The plant will continue to survive as the whole plant has water and leaves to make its own food through photosynthesis.",
+      "id": "SCI1126"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Moss is a tiny non-flowering plant. It grows well at the bottom of tree trunks in forests. A gardener wants to grow moss in a garden. How can he help the moss grow well?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "water the moss daily",
+        "attract butterflies to the garden",
+        "grow the moss under bright sunlight",
+        "attract animals that help disperse fruits"
+      ],
+      "answer": 2,
+      "correct_answer": "grow the moss under bright sunlight",
+      "explanation": "Moss is a non-flowering plant and thus there is no need for pollinators (butterflies). Since there is no fruit produced by moss, there is no need for animals to help disperse fruits. Moss grows well under shade. They may lose water quickly and die if exposed to direct sunlight.",
+      "id": "SCI1127"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The table shows the type of gases in air that are taken in and given out by a human. Gas Air taken (%) Air given out (%) nitrogen 78 78 oxygen 21 16 carbon dioxide less than 1 4 water vapour less than 1 2 Based on the information given, which statement is not correct?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "Carbon dioxide produced by the body is released into the air.",
+        "All the oxygen that enters the lungs goes into the blood.",
+        "At least four types of gases enter the respiratory system.",
+        "Water is lost through breathing."
+      ],
+      "answer": 1,
+      "correct_answer": "All the oxygen that enters the lungs goes into the blood.",
+      "explanation": "21% of oxygen is breathed in and 16% of oxygen is breathed out. Thus, only 5% of oxygen, not all of the oxygen, entered the blood.",
+      "id": "SCI1128"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which of the following do plants need to carry out photosynthesis? A: tiny openings on leaves B: chloroplasts C: food-carrying tubes D: water-carrying tubes",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "A and C only",
+        "B and D only",
+        "A, B and C only",
+        "A, B and D only"
+      ],
+      "answer": 1,
+      "correct_answer": "B and D only",
+      "explanation": "Plants need carbon dioxide (which enters the plant through stomata), light (trapped by chlorophyll contained in chloroplasts) and water (enters the plants through roots and carried by water-carrying tubes) to carry out photosynthesis. Note: Photosynthesis can be summarised by this equation: carbon dioxide + water → sugar (food) + oxygen",
+      "id": "SCI1129"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "What is the state of water when it is taken in and when it is given out by a plant? Taken in Given out (1) liquid liquid (2) gas gas (3) liquid gas (4) gas liquid",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) liquid liquid",
+        "(2) gas gas",
+        "(3) liquid gas",
+        "(4) gas liquid"
+      ],
+      "answer": 0,
+      "correct_answer": "(1) liquid liquid",
+      "explanation": "Liquid water enters the roots and water vapour leaves the plants through the stomata.",
+      "id": "SCI1130"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The graph shows the amount of rain in country W every year. The table shows some information about the growth of the rice and barley. Rice Barley Time to become adult plants (months) 5 4 Amount of rain suitable for growth (unit) 5 or more 2 or less Which plant(s) can grow in country W?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "rice only",
+        "barley only",
+        "both barley and rice",
+        "neither barley nor rice"
+      ],
+      "answer": 2,
+      "correct_answer": "both barley and rice",
+      "explanation": "There are 5 months of rain (5 units or more) from June to October which allow rice to be grown. There are 5 months of rain (2 units or less) from November to March which allow barley to be grown.",
+      "id": "SCI1131"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Sami observed the change in a plant. Which process(es) took place?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "pollination only",
+        "pollination and fertilisation only",
+        "fertilisation and dispersal only",
+        "fertilisation, dispersal and germination only"
+      ],
+      "answer": 3,
+      "correct_answer": "fertilisation, dispersal and germination only",
+      "explanation": "The diagram on the left shows flowers which need to undergo pollination and then fertilisation in order for fruits to be developed as shown in the diagram on the right. Seed dispersal and germination have not yet occurred. Note: Once fertilisation has occurred, the ovary of the flower will grow into a fruit while the ovules inside the ovary will develop into seeds.",
+      "id": "SCI1132"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Ken has two identical pots of plant P. He placed one plant in a room at 30 °C and the other at 40 °C. On each plant, he clipped dry pieces of a type of paper to the upper and lower surfaces of a leaf as shown. The paper turns pink when wet. The graph shows the time taken for the paper to turn pink. Based on the graph, which statement is a correct conclusion?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "Plant P at 30 °C lost more water.",
+        "Plant P at 40 °C has fewer openings on its leaves.",
+        "Plant P has more openings on the upper surface of its leaves.",
+        "Plant P lost water more quickly through the lower surface of its leaves."
+      ],
+      "answer": 3,
+      "correct_answer": "Plant P lost water more quickly through the lower surface of its leaves.",
+      "explanation": "The papers that are clipped to both surfaces of the leaf at 40 °C took a shorter time to turn pink than the papers that are clipped to the leaf at 30 °C. Hence, statement 1 is not correct. The results do not show whether the number of openings (stomata) will change with temperature. Hence, statement 2 is not correct. At both temperatures, the paper clipped to the lower leaf surface took a shorter time to turn pink, thus this means water escapes faster through the lower leaf surface. Note: The lower leaf surface loses water faster because the lower leaf surface has more openings (stomata) than the upper leaf surface.",
+      "id": "SCI1133"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Blood flows through blood vessels A to D as shown. Which blood vessels transport blood richer in oxygen?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "A and B only",
+        "A and D only",
+        "B and C only",
+        "C and D only"
+      ],
+      "answer": 0,
+      "correct_answer": "A and B only",
+      "explanation": "Blood that flows in the blood vessels from the lungs carry the most amount of oxygen. This blood rich in oxygen is then pumped by the heart to other parts of the body where the oxygen is gradually used up and the blood becomes richer in carbon dioxide. The blood which carries more carbon dioxide then goes back to the heart to be pumped to the lungs so that carbon dioxide is released to the environment and oxygen is taken into the lungs and into the blood to be transported to other parts of the body again.",
+      "id": "SCI1134"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The classification chart below shows how some plants are grouped. Which of the following headings correctly represents X and Y? X Y (1) bear fruits do not bear fruits (2) dispersed by water dispersed by splitting (3) reproduce by seeds reproduce by spores (4) dispersed by animals dispersed by wind",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) bear fruits do not bear fruits",
+        "(2) dispersed by water dispersed by splitting",
+        "(3) reproduce by seeds reproduce by spores",
+        "(4) dispersed by animals dispersed by wind"
+      ],
+      "answer": 0,
+      "correct_answer": "(1) bear fruits do not bear fruits",
+      "explanation": "Banana and tomato plants have fleshy fruits that are eaten by animals, which helps to spread their seeds. In group Y, the angsana and shorea trees produce seeds with wing-like structures that allow them to be carried away by the wind.",
+      "id": "SCI1135"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The diagram below represents the human digestive system. Based on the diagram above, which of the following statements about parts W, X, Y and Z are correct? A: Digestion is completed at part Y. B: Digestion of food starts at part Z. C: Food moves down part W into part X. D: Water is absorbed into the body at part Y.",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "A and B only",
+        "C and D only",
+        "B, C and D only",
+        "A, B, C and D"
+      ],
+      "answer": 0,
+      "correct_answer": "A and B only",
+      "explanation": "A: Digestion is completed at part Z (small intestine). B: Digestion of food starts at the mouth.",
+      "id": "SCI1136"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Study the classification chart and the three animals, P, Q and R. Which of the following shows the correct classification of animals in boxes X and Y? X Y (1) R P (2) Q P (3) P R (4) Q R",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) R P",
+        "(2) Q P",
+        "(3) P R",
+        "(4) Q R"
+      ],
+      "answer": 0,
+      "correct_answer": "(1) R P",
+      "explanation": "In the chart, animals in X have scales and a shell. We can observe from the diagram that animal Q, the turtle, has these characteristics. In the chart, animals in Y do not have scales. We can observe from the diagram that animal R, the frog, has this characteristic. Animal P, the lizard, has scales.",
+      "id": "SCI1137"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The diagram shows how water and substance P flow through different parts, A, B, C and M, of a plant. What do A, B and C represent? A B C (1) flower stem root (2) leaf root flower (3) leaf flower root (4) root leaf flower",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) flower stem root",
+        "(2) leaf root flower",
+        "(3) leaf flower root",
+        "(4) root leaf flower"
+      ],
+      "answer": 0,
+      "correct_answer": "(1) flower stem root",
+      "explanation": "In a plant, water from the roots moves up the stem to the leaves and flowers. Food or sugar, substance P, made in the leaves moves to all parts of the plants.",
+      "id": "SCI1138"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Plant B grows well in areas with clean air. The diagram shows plant B growing near a factory which gives out polluted gases. Based on the diagram, in which direction was the wind blowing?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "←",
+        "→",
+        "↑",
+        "↓"
+      ],
+      "answer": 0,
+      "correct_answer": "←",
+      "explanation": "Based on the diagram, we can observe that plant B grows mainly on the right side of the factory. This means that the air on the right side is clean. We can infer that the wind blows the polluted gases to the left of the factory.",
+      "id": "SCI1139"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "A tree supports only the organisms shown. Which of the following is correct?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "The birds form one community.",
+        "The grasshoppers form three populations.",
+        "The tree forms a habitat for the organisms.",
+        "The squirrels and the tree form one community."
+      ],
+      "answer": 3,
+      "correct_answer": "The squirrels and the tree form one community.",
+      "explanation": "Option (1): The birds form one population. Option (2): The grasshoppers form one population. Option (3): The animals live on the tree, which is their habitat. Option (4): The squirrels, birds, grasshoppers and tree form one community.",
+      "id": "SCI1140"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which of the following is not correct?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "Arrows in a food chain show the flow of energy.",
+        "Decomposers return nutrients to the environment.",
+        "Energy increases as it passes through a food chain.",
+        "Plants convert light energy from the Sun to potential energy."
+      ],
+      "answer": 2,
+      "correct_answer": "Energy increases as it passes through a food chain.",
+      "explanation": "Option (1): As one organism eats another organism, energy is transferred from the organism that is being eaten to the organism eating it. Option (2): As decomposers break down animal wastes and dead organisms, they release carbon dioxide into the air and minerals into the soil. Option (3): As energy passes through a food chain, it is released into the environment in the form of heat as animals undergo respiration. Hence, energy decreases along a food chain. Option (4): During photosynthesis, the energy in sunlight is stored in food.",
+      "id": "SCI1141"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "When fuels are burnt for energy, pollutants such as greenhouse gases may be produced. The table shows some information about three types of fuels, P, Q and R. Energy Amount of greenhouse gases Number of years fuel can Fuel produced produced last P high low 50 - 60 Q medium medium 50 - 60 R low high 100 - 110 Which of the following cannot be concluded based on the information above?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "Acid rain forms only from the burning of Q and R.",
+        "P, Q and R are non-renewable sources of energy.",
+        "Burning of P, Q and R contributes to global warming.",
+        "P is the best fuel to use to save the environment while it lasts."
+      ],
+      "answer": 2,
+      "correct_answer": "Burning of P, Q and R contributes to global warming.",
+      "explanation": "Option (1): We do not have information on whether burning of the fuels produces acidic gases. Option (2): P, Q and R will eventually run out, hence, they are all non-renewable. Option (3): Burning of P, Q and R gives out greenhouse gases, which trap heat from the Sun. Hence, they contribute to global warming. Option (4): Burning P produces the lowest amount of greenhouse gases and hence contributes least to global warming.",
+      "id": "SCI1142"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The graph shows the changes in the mass of a young plant and its seed leaves during germination. Which of the following best explains the changes shown in the graph?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "The leaves first appear around day X.",
+        "The roots grow out first followed by the shoot.",
+        "The young plant only starts to grow after day X.",
+        "The seed leaves provide food for the young plant until day X."
+      ],
+      "answer": 3,
+      "correct_answer": "The seed leaves provide food for the young plant until day X.",
+      "explanation": "graph explaination At X, the plant has developed true leaves and is able Mass of the young plant decreases to carry out photosynthesis. and then increases at X. Mass of seed leaves, the food store, The young plant uses up the food in the seed leaves decreases all the way. to undergo respiration and growth.",
+      "id": "SCI1143"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Laura cut the lower stem of a white flower into two equal parts. She placed them into containers with different coloured water as shown. After a short time, she observed that some parts of the flower turned red, some turned yellow, while the rest remained white. Laura made four statements: A The food made by the plant was red and yellow in colour. B The stem transported the different coloured water to the flower. C No coloured water was transported to the flower parts that remained white. D There were no water tubes in the flower parts that remained white. Which statements can be concluded from her observations?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "A and D only",
+        "B and C only",
+        "B and D only",
+        "B, C and D only"
+      ],
+      "answer": 0,
+      "correct_answer": "A and D only",
+      "explanation": "Statement A: The coloured water was transported up the plant through water-carrying tubes, not food-carrying tubes. Statement B: The coloured water moved up the plant through the stem to the flower. Statement C: The coloured water did not reach some parts of the flower, and hence, those parts remained white. Statement D: We cannot conclude that those parts of the flower that remained white do not have water-carrying tubes.",
+      "id": "SCI1144"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which statement is correct about the mushroom and the fern?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "Both grow only on trees.",
+        "Both reproduce from spores.",
+        "Both are non-flowering plants.",
+        "Both cannot make their own food."
+      ],
+      "answer": 3,
+      "correct_answer": "Both cannot make their own food.",
+      "explanation": "The mushroom is a fungus, and not a plant. Hence, it cannot make its own food. The fern is a non-flowering plant, hence, it can make its own food. Both reproduce through spores.",
+      "id": "SCI1145"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Thomas prepared two similar set-ups, P and Q, as shown in the diagram. He gave both set-ups the same amount of water and placed them in the sun for one day. Which of the following correctly shows the amount of carbon dioxide in P and Q throughout the day?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 0,
+      "correct_answer": "(1)",
+      "explanation": "In set-up P, light could pass through the glass jar, hence, the plant could receive sunlight and carry out photosynthesis during the day. At noon, this plant would use up the highest amount of carbon dioxide to photosynthesise as the intensity of the sunlight was the highest during noon. The amount of carbon dioxide gradually increased as the intensity of sunlight became lower after noon. In set-up Q, light could not pass through the black cloth, hence, the plant in this set-up could not receive sunlight and carry out photosynthesis. This plant would give out carbon dioxide during respiration, hence, the amount of carbon dioxide in jar Q increased.",
+      "id": "SCI1146"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Mazlan performed an experiment using two flowers from the same plant. One of the flowers is shown. He removed one part from flower A and one part from flower B. After some time, he recorded which flower could form a fruit. flower presence of a fruit A yes B no Which of the following correctly shows the part of each flower that has been removed? Part removed Flower A Flower B (1) Q S (2) R Q (3) S T (4) T R",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) Q S",
+        "(2) R Q",
+        "(3) S T",
+        "(4) T R"
+      ],
+      "answer": 0,
+      "correct_answer": "(1) Q S",
+      "explanation": "To form a fruit, parts S, the ovary, and T, the stigma, must be present.",
+      "id": "SCI1147"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which of the following organisms can make its own food?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "fern",
+        "mould",
+        "beetle",
+        "mushroom"
+      ],
+      "answer": 0,
+      "correct_answer": "fern",
+      "explanation": "A fern is a non-flowering plant that can make its own food through photosynthesis. Mould and mushroom are fungi while a beetle is an animal. They cannot make their own food.",
+      "id": "SCI1148"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Mingfa observed a living organism under a microscope. Based on Mingfa’s observation, which is the correct conclusion?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "Living things grow.",
+        "Living things respond to changes around them.",
+        "Living things need food.",
+        "Living things reproduce."
+      ],
+      "answer": 2,
+      "correct_answer": "Living things need food.",
+      "explanation": "Living things grow, respond, need food and reproduce. However, based on the diagram, the organism moved away from substance S after some time. Hence, it can be deduced that the organism responded to the presence of substance S. There is no increase in the size or number of the organism, hence option (1) and option (4) cannot be concluded. Option (3) cannot be concluded as the diagram does not show the organism feeding.",
+      "id": "SCI1149"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The arrows in the diagram below represent different processes. What do arrows A and B represent? A B (1) photosynthesis decomposition (2) breathing decomposition (3) photosynthesis breathing (4) breathing photosynthesis",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) photosynthesis decomposition",
+        "(2) breathing decomposition",
+        "(3) photosynthesis breathing",
+        "(4) breathing photosynthesis"
+      ],
+      "answer": 2,
+      "correct_answer": "(3) photosynthesis breathing",
+      "explanation": "Arrow A represents a process that an animal carries out and releases carbon dioxide into the surrounding. Hence, it represents breathing, whereby air containing carbon dioxide is expelled out of the animal’s lungs. Arrow B represents a process that a plant takes in carbon dioxide from the surroundings. Hence, it represents photosynthesis whereby carbon dioxide is taken in by the plant to produce glucose and oxygen in the presence of light.",
+      "id": "SCI1150"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The diagram below shows a food web in a habitat. S, T, U, V, W and X represent different organisms. Which of the following is a correct conclusion?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "X is a decomposer.",
+        "W eats plants and animals.",
+        "When V decreases in number, S will increase in number.",
+        "The energy from the Sun is transferred to S, and then to T, U, W and X."
+      ],
+      "answer": 2,
+      "correct_answer": "When V decreases in number, S will increase in number.",
+      "explanation": "Option (1) is wrong as X is an animal that feeds on W, not a decomposer. Option (2) is wrong as W eats U and V, which are both animals since they feed on T and do not make their own food. Option (3) is wrong as a decrease in the number of V will cause an increase in the number of T as there are fewer animals feeding on T, and this in turn will cause a decrease in the number of S as there are more animals feeding on S. Option (4) is correct as energy from the Sun is transferred to S, a producer, which can trap light energy and convert it into chemical energy while it makes its own food. The energy is later passed to T which consumes S, subsequently to U and V, and W and X through feeding relationship.",
+      "id": "SCI1151"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Fertilisers help tiny floating plants to grow quickly and cover the surface of ponds. The following events took place when fertilisers from a farm entered a nearby pond. A The population of fish decreased. B The population of underwater plants decreased. C The amount of oxygen in the water decreased. D Sunlight could not reach organisms in the pond. Which of the following shows the correct order of events?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "A, B, C, D",
+        "A, C, D, B",
+        "D, C, A, B",
+        "D, B, C, A"
+      ],
+      "answer": 0,
+      "correct_answer": "A, B, C, D",
+      "explanation": "As the fertilisers entered the pond, tiny floating plants grew quickly and covered the surface of the pond. Hence, they blocked sunlight from reaching the organisms in the pond, including the underwater plants. The underwater plants were therefore unable to make their own food through photosynthesis due to the lack of sunlight, hence some of them died due to the lack of food, resulting in a decrease in their population. (B) The underwater plants only took in oxygen to carry out respiration and did not release oxygen through photosynthesis. On top of that, decomposers that broke down the dead underwater plants also took in oxygen and carried out respiration. Hence, the amount of oxygen in the water decreased. (C) As the amount of oxygen in the water decreased, some fish died due to the lack of oxygen and hence their population decreased.(A)",
+      "id": "SCI1152"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The chart below shows how substances P and Q are transported in the human body. What are systems Y and Z and substances P and Q? System Y System Z P Q (1) respiratory circulatory carbon dioxide oxygen (2) circulatory respiratory carbon dioxide oxygen (3) respiratory circulatory oxygen carbon dioxide (4) circulatory respiratory oxygen carbon dioxide",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) respiratory circulatory carbon dioxide oxygen",
+        "(2) circulatory respiratory carbon dioxide oxygen",
+        "(3) respiratory circulatory oxygen carbon dioxide",
+        "(4) circulatory respiratory oxygen carbon dioxide"
+      ],
+      "answer": 0,
+      "correct_answer": "(1) respiratory circulatory carbon dioxide oxygen",
+      "explanation": "Oxygen from the surrounding air enters the human respiratory system before being passed to the circulatory system. Blood in the circulatory system then transports the oxygen to all other parts of the body. Carbon dioxide produced through respiration of cells in all parts of the body enters the blood in the circulatory system to be transported to the respiratory system to be removed from the body.",
+      "id": "SCI1153"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "A fruit was cut open as shown. Which of the following statements are correct? A The fruit and seeds were developed from a flower. B There were many ovules in the ovary. C The seeds were small and would be dispersed by wind. D Pollination and fertilisation had taken place.",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "A and B only",
+        "C and D only",
+        "A, B and D only",
+        "A, B, C and D"
+      ],
+      "answer": 0,
+      "correct_answer": "A and B only",
+      "explanation": "Statement A is correct as the fruit is developed from an ovary of a flower and the seeds are developed from the ovules of a flower after fertilisation. Statement B is correct as each seed is formed from one fertilised ovule. Since the fruit has many seeds, there were many ovules in the ovary. Statement C is incorrect as the seeds are inside a brightly-coloured fleshy fruit. Hence, the seeds are likely to be dispersed by animals which eat the fruit and expel the seeds in their droppings. Statement D is correct as a fruit can only be formed from a flower after pollination, transfer of pollen grain from an anther to a stigma, and fertilisation, fusion of nuclei of a male and a female sex cells, have taken place.",
+      "id": "SCI1154"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which of the following is not an impact of deforestation by cutting trees?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "soil erosion",
+        "loss of habitats",
+        "smoke and haze",
+        "more carbon dioxide in the air"
+      ],
+      "answer": 0,
+      "correct_answer": "soil erosion",
+      "explanation": "Deforestation by cutting trees causes soil erosion as topsoil is easily washed away by wind or water as there are no trees to cover the soil and no tree roots to hold the soil particles together. It also causes loss of habitats for organisms that used to live in the forests. The amount of carbon dioxide in the air also increases as there are fewer trees that take in carbon dioxide to carry out photosynthesis. Deforestation by cutting trees does not result in smoke and haze but deforestation by burning does.",
+      "id": "SCI1155"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which of the following shows how the mass of seed leaves change during germination?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 0,
+      "correct_answer": "(1)",
+      "explanation": "During germination, stored food in the seed leaves is used by the young plant for growth. Hence, the mass of the seed leaves decreases as the height of the young plant increases.",
+      "id": "SCI1156"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "After harvesting their crops, farmers may leave behind some dead plants on the ground. How does leaving behind dead plants benefit these farmers?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "To provide food for animals in the soil.",
+        "To allow the plants to carry out photosynthesis.",
+        "To make the soil fertile when the plants decompose.",
+        "To provide shelter and protection for animals in the soil."
+      ],
+      "answer": 2,
+      "correct_answer": "To make the soil fertile when the plants decompose.",
+      "explanation": "As decomposers decompose the dead plants on the ground, nutrients are returned to the soil to make it fertile for future crops.",
+      "id": "SCI1157"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The diagram shows a flower of plant Z. The reproductive parts are hidden in the flower. The flower gives off a strong smell. A gardener observes that the female part of the flower opens first for two days and then dies, before the male part opens and dies. How is plant Z pollinated? method within one flower or between two flowers (1) insect one flower (2) wind one flower (3) insect two flowers (4) wind two flowers",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) insect one flower",
+        "(2) wind one flower",
+        "(3) insect two flowers",
+        "(4) wind two flowers"
+      ],
+      "answer": 0,
+      "correct_answer": "(1) insect one flower",
+      "explanation": "The flower gives off a strong smell and the male and female parts of the flower are enclosed within the flower, indicating that the flower is pollinated by insects. Pollination takes place between two flowers as the male and female parts of the same flower do not open at the same time. Hence, pollen grains have to be transferred from a flower which has an opened male part to another flower which has an opened female part.",
+      "id": "SCI1158"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "A, B, C, D and E are organs in the digestive system. The graph below shows the amount of undigested food leaving each organ after a meal. Which of the following is correct? mouth gullet small intestine large intestine (1) A D B E (2) B C D A (3) B E C D (4) B E A D",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) A D B E",
+        "(2) B C D A",
+        "(3) B E C D",
+        "(4) B E A D"
+      ],
+      "answer": 0,
+      "correct_answer": "(1) A D B E",
+      "explanation": "As food passes through the organs in the digestive system, the amount of undigested food leaving each organ is as shown. Digestion only takes place in the mouth, stomach and small intestine. Hence, the amounts of undigested food leaving the mouth and gullet are the same (B and E), and the amounts of undigested food leaving the small and large intestines are the same (A and D).",
+      "id": "SCI1159"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which of the following is a function of the human skeletal system?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "protects organs in the body",
+        "protects the muscular system",
+        "transports blood around the body",
+        "transports food in the digestive system"
+      ],
+      "answer": 1,
+      "correct_answer": "protects the muscular system",
+      "explanation": "The skull and ribcage are parts of the skeletal system. The skull protects the brain while the ribcage protects the heart and lungs.",
+      "id": "SCI1160"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Study the chart below. Which of the following shows the characteristics represented by A and B? Characteristics A B (1) has fur has a beak (2) has six legs has feathers (3) has wings has fur (4) has hard body covering gives birth to young",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) has fur has a beak",
+        "(2) has six legs has feathers",
+        "(3) has wings has fur",
+        "(4) has hard body covering gives birth to young"
+      ],
+      "answer": 3,
+      "correct_answer": "(4) has hard body covering gives birth to young",
+      "explanation": "An insect has six legs and a hard body covering. A bird has a beak and feathers. Thus, the correct answer is (2).",
+      "id": "SCI1161"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which one of the following organisms is not a fungus?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "fern",
+        "yeast",
+        "mould",
+        "mushroom"
+      ],
+      "answer": 0,
+      "correct_answer": "fern",
+      "explanation": "A fern is a plant, not a fungus. Yeast, mould and mushroom are fungi.",
+      "id": "SCI1162"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which of the following correctly describes the transfer of energy in a community of organisms?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "Energy is transferred from predators to prey in a food web.",
+        "Energy is transferred from one plant-eater to another in a population.",
+        "Energy is transferred from producers to consumers in the same habitat.",
+        "Energy is transferred from decomposers to producers in the same community."
+      ],
+      "answer": 1,
+      "correct_answer": "Energy is transferred from one plant-eater to another in a population.",
+      "explanation": "Energy is transferred from prey to predator and not predator to prey. Plant-eaters do not feed on one another, so energy cannot be transferred from one plant-eater to another. When plant-eaters (consumers) feed on plants (producers), energy is transferred from producers to consumers. When decomposers feed on dead organisms, energy is transferred from dead organisms to decomposers.",
+      "id": "SCI1163"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Halim found an animal in a stream deep in a forest. Which of the following characteristics should he use to identify it as amphibian, fish or reptile?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "presence of gills",
+        "type of body covering",
+        "method of reproduction",
+        "whether it can live both on land and in water"
+      ],
+      "answer": 3,
+      "correct_answer": "whether it can live both on land and in water",
+      "explanation": "Both the fish and the young of the amphibian have gills. The amphibian has moist skin while the fish has scales and the reptile has dry scales. Amphibians, fishes and reptiles reproduce by laying eggs. Both the amphibian and the reptile can live both on land and in water.",
+      "id": "SCI1164"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The food relationship between three organisms is shown. R → S → T The following took place when a large number of organism T died. A The number of R decreased. B The number of S increased. C The number of S decreased. D There was insufficient food for S. Which of the following shows the correct sequence of events?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "A, B, D, C",
+        "A, D, C, B",
+        "B, A, D, C",
+        "B, D, C, A"
+      ],
+      "answer": 1,
+      "correct_answer": "A, D, C, B",
+      "explanation": "(B) T is the predator of S. When the number of predator of S decreased, the number of S increased. (A) S is the predator of R. When the number of S increased, the number of R decreased. (D) As a result, there was a shortage of food for S. (C) When less food was available for S, the number of S decreased eventually.",
+      "id": "SCI1165"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "A bowl of ice was placed in a room at 27°C {CHARACTER_0} observed the bowl after 5 hours. Which one of the following is correct? Observation Explanation (1) the ice cubes melted the ice cube lose heat to the water (2) the ice cubes did not melt the ice cube lose heat to the room (3) the ice cubes melted the ice cube gained heat from the room (4) the ice cubes did not melt the ice cube gained heat from the water",
+      "diagram": null,
+      "placeholder_roles": [
+        "protagonist"
+      ],
+      "options": [
+        "(1) the ice cubes melted the ice cube lose heat to the water",
+        "(2) the ice cubes did not melt the ice cube lose heat to the room",
+        "(3) the ice cubes melted the ice cube gained heat from the room",
+        "(4) the ice cubes did not melt the ice cube gained heat from the water"
+      ],
+      "answer": 1,
+      "correct_answer": "(2) the ice cubes did not melt the ice cube lose heat to the room",
+      "explanation": "Since the room is at a higher temperature than the ice cube, the ice cube will gain heat from the room and melt.",
+      "id": "SCI1166"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The diagram shows plant P growing on a tree trunk. Its roots grip the surface of the trunk but do not reach the ground. When tiny, dust-like substance from plant P land on other tree trunks, they grow into new plants. Which statement about plant P is correct?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "Wind is used for the dispersal of its spores.",
+        "P grows on a tree trunk so that it can avoid insects.",
+        "Its roots can absorb water droplets formed from condensation.",
+        "Fertilisation takes place after the dust-like substance are dispersed."
+      ],
+      "answer": 2,
+      "correct_answer": "Its roots can absorb water droplets formed from condensation.",
+      "explanation": "Plant P is a flowering plant so it reproduces through seeds, not through spores. Growing on the tree trunk does not help plant P to avoid insects. The roots of plant P are above the ground so they cannot absorb water from the soil. The other way for it to obtain water is by absorbing water droplets formed from condensation. The dust-like substances are the seeds of plant P. Dispersal of seeds occurs after fertilisation.",
+      "id": "SCI1167"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which of the following are correct? A carrying out reforestation helps to reduce soil erosion and floods B preventing disposal of waste into water helps to reduce pollution and haze C using less fuel helps to reduce haze and global warming",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "A and B only",
+        "A and C only",
+        "B and C only",
+        "A, B and C"
+      ],
+      "answer": 0,
+      "correct_answer": "A and B only",
+      "explanation": "Reforestation is the planting of trees in order to regrow a deforested area. With roots of trees to hold on to the topsoil, less soil will be washed off by rain. Disposal of waste into water will lead to water pollution. Preventing it does not reduce haze. Using less fuel will release less exhaust fumes. This helps to reduce haze and to release lesser carbon dioxide into the atmosphere. Carbon dioxide is a greenhouse gas that absorbs the Sun’s heat. Releasing less greenhouse gas helps to reduce global warming.",
+      "id": "SCI1168"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "{CHARACTER_0} grew some seeds of a plant on four trays inside a room. The experimental conditions and results are shown below. Based only on the results shown above, what is the correct conclusion for the germination of the seeds?",
+      "diagram": null,
+      "placeholder_roles": [
+        "protagonist"
+      ],
+      "options": [
+        "light is required",
+        "water is required",
+        "light, water and air are required",
+        "air, water and warmth are required"
+      ],
+      "answer": 2,
+      "correct_answer": "light, water and air are required",
+      "explanation": "Seeds require water, air and warmth for germination. Light is not required for germination as the seeds in tube B and tray D germinated. From the experiment, we cannot conclude that air or warmth is needed for germination.",
+      "id": "SCI1169"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "A student made three statements about sexual reproduction in plants and humans: A Fertilisation occurs in a female reproductive part. B Reproductive cells are produced in the anthers. C The fertilised egg is found in the ovary. Which of the following is correct? plants humans (1) B A, C (2) A, C C (3) A, B, C A (4) A, B, C A, C",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) B A, C",
+        "(2) A, C C",
+        "(3) A, B, C A",
+        "(4) A, B, C A, C"
+      ],
+      "answer": 0,
+      "correct_answer": "(1) B A, C",
+      "explanation": "In plants, fertilisation occurs in the ovary. In humans, fertilisation occurs in the fallopian tubes. The ovary and fallopian tubes are connected reproductive parts. The anther produce pollen grains, which contain male reproductive cells of plants. In plants, the fertilised egg is in the ovary while in humans, the fertilised egg is found outside the ovary.",
+      "id": "SCI1170"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "A farmer has two different plots of land, X and Y, growing similar tomato plants as shown below. He predicts that more tomatoes will be produced by adding 5 g of fertiliser to the soil around each plant. However, his wife predicts that adding 10 g of the same fertiliser will give better results. Which of the following arrangements should the farmer use to provide a correct test for both their predictions?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 1,
+      "correct_answer": "(2)",
+      "explanation": "In a fair experiment, only one variable can be changed. Since X and Y are different plots of land, the same arrangement is used for both plots.",
+      "id": "SCI1171"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "A scientist studied the effect of light on plant S. His observations are shown below. Which of the following will he most likely observe when plant S is grown under different amounts of light?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 0,
+      "correct_answer": "(1)",
+      "explanation": "The bar graph shows that a plant in lower amount of light will have fewer leaves than a plant in higher amount of light. The line graph shows that a plant in lower amount of light will be taller than a plant in higher amount of light.",
+      "id": "SCI1172"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Minah built a small pond in a garden on Day 1. Minah observed three types of animals, mosquito, butterfly and frog living in the garden. The number of days needed for their eggs to hatch is shown below. Characteristic mosquito butterfly frog number of days needed for eggs to hatch 1 3 21 On Day 15, what would Minah most likely find in the pond?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "mosquito larvae and butterfly larvae",
+        "mosquito larvae and tadpoles",
+        "frog eggs and mosquito larvae",
+        "frog eggs and butterfly larvae"
+      ],
+      "answer": 0,
+      "correct_answer": "mosquito larvae and butterfly larvae",
+      "explanation": "Butterfly larvae live on land, not in water. On day 15, the mosquito eggs would have hatched and become larvae and the frog eggs have not hatched.",
+      "id": "SCI1173"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The diagram shows a cylinder and a plunger. {CHARACTER_0} filled the cylinder with some water as shown. Why is {CHARACTER_0} able to push the plunger downwards without air or water escaping?",
+      "diagram": null,
+      "placeholder_roles": [
+        "protagonist"
+      ],
+      "options": [
+        "air has weight",
+        "air occupies space",
+        "air has no definite shape",
+        "air has no definite volume"
+      ],
+      "answer": 3,
+      "correct_answer": "air has no definite volume",
+      "explanation": "Air consists of gases, which do not have definite volume and so can be compressed. Water is a liquid, which has a definite volume, so it cannot be compressed. As Ahmad pushes the plunger down, the air is compressed while the water is not compressed.",
+      "id": "SCI1174"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The diagram shows the change of state of water. What are processes X and Y? X Y (1) freezing evaporation (2) condensation freezing (3) freezing condensation (4) condensation melting",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) freezing evaporation",
+        "(2) condensation freezing",
+        "(3) freezing condensation",
+        "(4) condensation melting"
+      ],
+      "answer": 3,
+      "correct_answer": "(4) condensation melting",
+      "explanation": "The change of state from gas to liquid is condensation. The change of state from solid to liquid is melting.",
+      "id": "SCI1175"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "An insect is covered in a shell that supports its body and protects its organs. This shell is made of material C. Which property of material C allows the shell to perform the functions described?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "strength",
+        "flexibility",
+        "waterproof",
+        "ability to float"
+      ],
+      "answer": 0,
+      "correct_answer": "strength",
+      "explanation": "Strength is the ability to withstand forces without breaking. Material C of the shell needs to withstand forces without breaking.",
+      "id": "SCI1176"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Aisha conducted an experiment by heating substance P. At the start, P was a solid at 30°C. After 15 minutes of heating, P reached a temperature of 100°C as shown. Based on Aisha’s experiment, which one of the following is possible? melting point of P (°C) boiling point of P (°C) (1) 20 105 (2) 25 100 (3) 30 95 (4) 50 110",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) 20 105",
+        "(2) 25 100",
+        "(3) 30 95",
+        "(4) 50 110"
+      ],
+      "answer": 0,
+      "correct_answer": "(1) 20 105",
+      "explanation": "P is a solid at 30°C. When heated, it melts, hence the melting point of P is higher than 30°C. P is a liquid at 100°C, thus its boiling point is higher than 100°C.",
+      "id": "SCI1177"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "A ball tied to a string was released. It swung and hit the plastic bottle. The bottle fell down. Which of the following shows the correct conversion of energy?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "kinetic energy of ball → potential energy of ball → kinetic energy of bottle",
+        "potential energy of ball → kinetic energy of ball → kinetic energy of bottle",
+        "kinetic energy of ball → kinetic energy of bottle → potential energy of bottle",
+        "potential energy of ball → potential energy of bottle → kinetic energy of bottle"
+      ],
+      "answer": 0,
+      "correct_answer": "kinetic energy of ball → potential energy of ball → kinetic energy of bottle",
+      "explanation": "At the highest position, the ball possessed potential energy. As the ball moved, the potential energy was converted into kinetic energy. The kinetic energy of the ball upon the transferred to the bottle upon collision.",
+      "id": "SCI1178"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which of the following is a possible effect on the water cycle when the temperature of the environment increases?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "Condensation of water vapour decreases resulting in more rain.",
+        "Condensation of water vapour increases resulting in less clouds.",
+        "Evaporation of water increases resulting in more rain.",
+        "Evaporation of water decreases resulting in less water vapour in the air."
+      ],
+      "answer": 2,
+      "correct_answer": "Evaporation of water increases resulting in more rain.",
+      "explanation": "When the temperature of the environment increases, water bodies gain more heat thus increasing the rate of evaporation. When there is more water vapour in the air, more water droplets can be condensed. This results in more clouds and rain.",
+      "id": "SCI1179"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Two magnets A and B were placed close together with their north poles as shown. When B was released, it moved along the surface of the floor. Which of the following shows the direction of the magnetic force acting on A and the direction of frictional force acting on B?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 0,
+      "correct_answer": "(1)",
+      "explanation": "When magnet B was released, it exerted a repulsion force onto magnet A. The direction of the magnetic force on magnet A was towards the left while the direction towards the right. Friction acts in a direction opposite to the direction of motion, hence the direction of frictional force on B was towards the left.",
+      "id": "SCI1180"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "An engineer set up a system using light bulb P and alarm Q to alert him when the temperature of an oven is too high. He used a metal rod that expands easily when temperature increases. The table shows his results at different temperatures. Temperature of the oven (°C) Light bulb P Alarm Q 26 off off 100 on off 300 on on Which of the following is his set-up?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 1,
+      "correct_answer": "(2)",
+      "explanation": "As the oven heats up, the metal rod expands and increases in length. When the temperature is 100°C, the first electrical contact is closed. The first loop must contain the dry cell and light bulb P. When the temperature is 300°C, the second electrical contact is closed. The second loop must contain alarm Q.",
+      "id": "SCI1181"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Bulbs A, B, C and D were connected in a circuit hidden in a wooden box shown below. All the light bulbs lit when the circuit was closed. Melissa removed one light bulb from the circuit each time and observed what happened to the rest of the light bulbs. Her observations are recorded in the table below. Bulb removed Bulb(s) lit A B, C and D B none C A and B D A and B Which of the following correctly shows the circuit hidden in the wooden box?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 0,
+      "correct_answer": "(1)",
+      "explanation": "In circuit (1), when bulb A is removed, only bulbs C and D are lit. Bulb B is not lit. In circuit (2), when bulb C is removed, bulbs A, B and D remain lit. In circuit (4), when bulb B is removed, bulbs A, C and D remain lit.",
+      "id": "SCI1182"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Sulaiman placed two empty identical containers, K and M, both initially at room temperature, on a table. He poured 500cm3 of boiling water into container K and 250cm3 of boiling water into container M. The temperatures of water in K and M were recorded every minute for some time. Which one of the following is the correct graph for his results?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 0,
+      "correct_answer": "(1)",
+      "explanation": "Both containers start from 100°C and cool to room temperature. The temperature of water in container K decreases slower than the temperature of water in container M as it contains more water.",
+      "id": "SCI1183"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "A compass has a small magnet that can rotate freely as shown. Four bar magnets were arranged such that they were attracted to one another. A compass was then placed near end P and the direction of the compass needle is as shown below. What would be the direction of the needle when the compass was placed at Q?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 0,
+      "correct_answer": "(1)",
+      "explanation": "Unlike poles attract. The North pole of the compass needle faces P, so end P of the magnet is the South pole.",
+      "id": "SCI1184"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "A spring is compressed and released at A. It moves to B as shown. The graph shows the amount of different types of energy of the spring at A. Which of the following graphs shows the amounts of different types of energy for the spring at B before it hits the ground?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 1,
+      "correct_answer": "(2)",
+      "explanation": "At B, the spring is uncompressed and should have zero elastic potential energy and the spring is near to the ground. Hence, the gravitational potential energy of the spring is low.",
+      "id": "SCI1185"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which of the following characteristic(s) is/are found in birds, but not in other animals? A: They lay eggs. B: They have wings. C: They have a streamlined body. D: They have feathers on their bodies.",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "B only",
+        "D only",
+        "A, B and D only",
+        "A, B, C and D"
+      ],
+      "answer": 0,
+      "correct_answer": "B only",
+      "explanation": "Only birds have feathers on their bodies. Other animals such as reptiles and insects also lay eggs. Many insects have wings. Other animals such as fish also have a streamlined body.",
+      "id": "SCI1186"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Sally placed an inflated balloon with a ball in it and a bag of ice on a beam balance under the hot sun. The set up was balanced at the start of the experiment. She recorded her observation after 3 hours. Which of the following statement(s) is/are possible observation(s) after 3 hours? A: The balloon expanded B: The set-up remained balanced. C: The side of the beam balance with the balloon moved downwards. D: The side of the beam balance with the bag of ice moved downwards.",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "B only",
+        "A and B only",
+        "C and D only",
+        "A, C and D only"
+      ],
+      "answer": 0,
+      "correct_answer": "B only",
+      "explanation": "A: The balloon can expand as the hot sun heats up the air in the balloon, causing the air to expand. B: There is no change in mass in either side, thus the set-up remains balanced. C and D is wrong.",
+      "id": "SCI1187"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Study the distribution of seeds by plant P. One of the following fruits is from plant P. Which one is this fruit?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 0,
+      "correct_answer": "(1)",
+      "explanation": "The seeds of plant P are distributed over a large area in all directions. They are likely to be dispersed by animals. The fruit in option (1) has hooks which are able to attach the fruit to the fur of animals. The animals move around to different places and carry the fruit with them. The fruit may then drop and be dispersed. The fruit in option (2) has a pod-like structure that disperses its seeds by splitting. The fruit in option (3) has a fibrous husk, so it disperses its seeds by water. The fruit in option (4) has a wing-like structure, so it disperses its seeds by wind.",
+      "id": "SCI1188"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The characteristics of two organisms are shown below. Organism Characteristic S T makes its own food no yes produces spores yes yes What could organism S and T be? S T (1) flowering plant mushroom (2) fern mushroom (3) fern flowering plant (4) mushroom fern",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) flowering plant mushroom",
+        "(2) fern mushroom",
+        "(3) fern flowering plant",
+        "(4) mushroom fern"
+      ],
+      "answer": 0,
+      "correct_answer": "(1) flowering plant mushroom",
+      "explanation": "Organism S does not make its own food, so it is not a plant. Since it produces spores, it could be a fungus such as a mushroom. Since organism T makes its own food and produces spores, it could be a non-flowering plant such as a fern.",
+      "id": "SCI1189"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The diagram shows the direction of blood flow in some parts of the body. What do A, B and C represent? A B C (1) lungs other parts of the body heart (2) heart lungs other parts of the body (3) lungs heart other parts of the body (4) heart other parts of the body lungs",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) lungs other parts of the body heart",
+        "(2) heart lungs other parts of the body",
+        "(3) lungs heart other parts of the body",
+        "(4) heart other parts of the body lungs"
+      ],
+      "answer": 0,
+      "correct_answer": "(1) lungs other parts of the body heart",
+      "explanation": "Gaseous exchange of carbon dioxide with oxygen takes place in the lungs. In the lungs, blood loses carbon dioxide and gains oxygen. Blood rich in oxygen flows from the lungs (C) to the heart (A) and then to the other parts of the body (B). The cells in the other parts of the body take in oxygen from the blood and produce carbon dioxide. Blood rich in carbon dioxide flows from the other parts of the body (B) to the heart (A) and then to the lungs (C). The cycle repeats.",
+      "id": "SCI1190"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Study the table below. parts of the digestive system J K L M removes water from food ✓ passes food to the bloodstream ✓ digestion takes place ✓ ✓ ✓ Which of the following correctly shows the parts labelled J, K, L and M?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 0,
+      "correct_answer": "(1)",
+      "explanation": "Part J removes water from food. It is the large intestine. Part L passes food to the bloodstream. It is the small intestine, where digestion also takes place. Digestion takes place in parts K and M. They are the stomach and the mouth respectively.",
+      "id": "SCI1191"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Thomas set up his stall on a field as shown. After one month, he noticed that the grass patch below the stall turned yellow. Which of the following best explains why the grass patch turned yellow?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "There is not enough water for the grass.",
+        "There is not enough oxygen for the grass.",
+        "There is not enough sunlight for the grass.",
+        "There is not enough carbon dioxide for the grass."
+      ],
+      "answer": 2,
+      "correct_answer": "There is not enough sunlight for the grass.",
+      "explanation": "The stall blocked sunlight from reaching the grass. Without enough sunlight, the grass could not carry out photosynthesis to produce food. The grass also produced less chlorophyll (a green pigment that traps light). Thus, the grass patch turned yellow.",
+      "id": "SCI1192"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Kerry put a plant in a beaker of red-coloured water. After one day, he cut the stem. A section of the stem is shown. Kerry observed that tube B turned red but not tube C. Why?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "Tube B transports food from the roots to all parts of the plant.",
+        "Tube B transports water from the roots to all parts of the plant.",
+        "Tube B transports food from the leaves to all parts of the plant.",
+        "Tube B transports water from the leaves to all parts of the plant."
+      ],
+      "answer": 0,
+      "correct_answer": "Tube B transports food from the roots to all parts of the plant.",
+      "explanation": "Tube B is the water-carrying tube that transports water and mineral salts from the roots to all parts of the plant. Thus, it was turned red by the red-coloured water. Tube C is the food- carrying tube that transports food from the leaves to all parts of the plant.",
+      "id": "SCI1193"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The diagram shows a food web. {CHARACTER_0} made three statements about the food web. A: T is a predator. B: There is only one producer. C: All the energy in S is transferred to W. Which statement(s) is/are correct?",
+      "diagram": null,
+      "placeholder_roles": [
+        "protagonist"
+      ],
+      "options": [
+        "A only",
+        "B only",
+        "A and B only",
+        "A, B and C"
+      ],
+      "answer": 0,
+      "correct_answer": "A only",
+      "explanation": "T is a plant-eater. It is not a predator. R is the only producer in the food web. We can see this as arrows point out of R only. Not all parts of S are eaten by W, so only some energy in S is transferred to W.",
+      "id": "SCI1194"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The diagram shows flowers of two plants. Plant A and plant B are of the same type. Which of the arrows show(s) pollination taking place?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "X only",
+        "Y only",
+        "W and Y only",
+        "W, Y and Z only"
+      ],
+      "answer": 0,
+      "correct_answer": "X only",
+      "explanation": "Pollination is the transfer of a pollen grain from an anther to a stigma. Arrows W, Y and Z show pollen grains being transferred from anthers to stigmas. Thus, they show pollination taking place.",
+      "id": "SCI1195"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Study the diagram below. Which of the following statements are correct? A: H and G are formed from a flower. B: H helps to disperse G. C: G is developed from an ovule.",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "A and B only",
+        "A and C only",
+        "B and C only",
+        "A, B and C"
+      ],
+      "answer": 0,
+      "correct_answer": "A and B only",
+      "explanation": "H and G are parts of a fruit, which is formed from a flower. When H dries up, the fruit splits open with an explosive force and G is dispersed. G is a seed. It is developed from a fertilised egg cell in the ovule.",
+      "id": "SCI1196"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which one of the following is a result of increased greenhouse effect?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "more deforestation",
+        "more water pollution",
+        "more floods and droughts",
+        "more air pollution and haze"
+      ],
+      "answer": 2,
+      "correct_answer": "more floods and droughts",
+      "explanation": "Increased greenhouse effect causes a rise in temperature (global warming). The higher temperature causes polar ice caps to melt and sea levels to rise. As a result, low-lying areas are flooded. Increased greenhouse effect also causes changes in weather patterns. Some places may experience long periods with no rainfall and suffer from droughts.",
+      "id": "SCI1197"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "{CHARACTER_0} conducted an experiment on photosynthesis in a dark room using the set-up below. She measured the amount of gas collected in the measuring cylinder after some time. {CHARACTER_0} repeated her experiment by increasing variable X and keeping all other variables constant. Her results are shown below. What could variable X be?",
+      "diagram": null,
+      "placeholder_roles": [
+        "protagonist"
+      ],
+      "options": [
+        "number of water plants",
+        "volume of water in the set-up",
+        "number of sheets of tracing paper",
+        "distance of water plants from the lamp"
+      ],
+      "answer": 0,
+      "correct_answer": "number of water plants",
+      "explanation": "The graph shows that the amount of gas collected increased when variable X was increased. When the number of water plants was increased, more plants carried out photosynthesis and produced more oxygen gas. The bubbles of oxygen gas rose and were collected in the measuring cylinder. Thus, variable X could be the number of water plants. The volume of water in the set-up would have little effect on the amount of gas collected. If the number of sheets of tracing paper and the distance of water plants from the lamp were increased, the amount of gas collected would decrease.",
+      "id": "SCI1198"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "{CHARACTER_0} conducted an experiment to study the food relationship between animals X, Y and P. Animal P feeds on leaves only. Animals X, Y and P had no disease. At the start, {CHARACTER_0} placed some animals P and X in a tank with some leaves. He counted the number of animals at the end of each week. After two weeks, he added animal Y. {CHARACTER_0} results are shown below. Which of the following is correct?",
+      "diagram": null,
+      "placeholder_roles": [
+        "protagonist"
+      ],
+      "options": [
+        "Animal Y fed on animal X.",
+        "Animal Y fed on animal P.",
+        "Animal X fed on animal Y.",
+        "Animal X fed on animals Y and P."
+      ],
+      "answer": 0,
+      "correct_answer": "Animal Y fed on animal X.",
+      "explanation": "In the first two weeks, the population size of animal P decreased while the population size of animal X increased. This shows that animal X fed on animal P. After animal Y was added, the population size of animal X decreased while the population size of animal Y increased. This shows that animal Y fed on animal X. When the population size of animal Y increased, the population size of animal P also increased. This shows that animal Y did not feed on animal P.",
+      "id": "SCI1199"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "The diagram shows the life cycle of a flowering plant. Which of the following is correct? process(es) at X process(es) at Y (1) fertilisation pollination (2) dispersal pollination and fertilisation (3) pollination and fertilisation dispersal and germination (4) pollination and germination fertilisation and dispersal",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1) fertilisation pollination",
+        "(2) dispersal pollination and fertilisation",
+        "(3) pollination and fertilisation dispersal and germination",
+        "(4) pollination and germination fertilisation and dispersal"
+      ],
+      "answer": 0,
+      "correct_answer": "(1) fertilisation pollination",
+      "explanation": "An adult flowering plant produces flowers. Pollination of a flower occurs when wind or animals transfer pollen grains from the anther to the stigma of the flower. A pollen tube develops from a pollen grain and transfers the male reproductive cell to the egg cell inside the ovule. The male reproductive cell fuses with the egg cell and fertilisation occurs. The ovule develops into a seed, which is dispersed far away from the parent plant to prevent overcrowding. Under the right conditions, the seed germinates into a young plant.",
+      "id": "SCI1200"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which of the following statements about condensation and evaporation are correct? A: Both processes involve a change in state. B: Both processes do not occur at fixed temperatures. C: One process involves heat gain while the other involves heat loss.",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "A and B only",
+        "A and C only",
+        "B and C only",
+        "A, B and C"
+      ],
+      "answer": 0,
+      "correct_answer": "A and B only",
+      "explanation": "In condensation, a gas loses heat to become a liquid while in evaporation, a liquid gains heat to become a gas. Both condensation and evaporation occur at any temperature between the melting point and boiling point.",
+      "id": "SCI1201"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Study the table below. state of substance at substance 20°C 40°C 60°C A solid solid solid B solid solid liquid C solid solid liquid Which of the following is a correct conclusion?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "The boiling point of substance C is 60 °C.",
+        "The melting point of substance B is 60 °C",
+        "Substance A has the highest freezing point.",
+        "Substance B has a lower boiling point than substance A."
+      ],
+      "answer": 3,
+      "correct_answer": "Substance B has a lower boiling point than substance A.",
+      "explanation": "Substances B and C are solids at 40°C and liquids at 60°C. We can infer that their melting points lie between 40°C and 60°C. So option (2) is wrong. Substance A is solid at the three temperatures and so its melting point and hence freezing point are above 60°C. So, option (3) is correct. The data can only tell us that the boiling points of the three substances are above 60°C.",
+      "id": "SCI1202"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "In the four circuits, all the bulbs and batteries are new and identical. Which of the following two bulbs have the same brightness?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "A and B",
+        "A and D",
+        "B and C",
+        "C and D"
+      ],
+      "answer": 0,
+      "correct_answer": "A and B",
+      "explanation": "Bulb A is connected to a battery. Bulb B is connected to two batteries in series. Bulb C and another bulb are connected in series to a battery. Bulb D and another bulb are connected to two batteries in series. The electric current through bulb B is the greatest while the current through bulb C is the smallest. The electric current through bulb A is the same as the current through bulb D.",
+      "id": "SCI1203"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Old car tyres are tied together to form a wall along racing tracks. This helps to protect spectators and drivers when accidents happen. Which properties of the old car tyres help to ensure safety?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "strength and flexibility",
+        "hardness and strength",
+        "hardness and flexibility",
+        "strength and smoothness"
+      ],
+      "answer": 0,
+      "correct_answer": "strength and flexibility",
+      "explanation": "When a racing car travelling at a high speed hits the wall, a tremendous force is applied. The rubber of the car tyres is a strong material that can withstand this large force without breaking. The wall thus protects spectators from the car. The rubber of the car tyres is also flexible enough to change its shape under the strong force, thereby absorbing the shock. This helps to minimise damage to the car and also reduce injury to the driver.",
+      "id": "SCI1204"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "A man used a hammer to drive a nail into a piece of wood. Which factor will not affect how deep the nail goes into the wood?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "mass of the nail",
+        "mass of the man",
+        "height the hammer was raised",
+        "friction between nail and wood"
+      ],
+      "answer": 3,
+      "correct_answer": "friction between nail and wood",
+      "explanation": "When the hammer hit the nail, the kinetic energy of the hammer was transferred to the nail. A nail with a greater mass could possess a greater kinetic energy. So, factor (1) could affect how deep the nail went into the wood. The kinetic energy of the hammer came from the energy, not his mass, the man exerted. So, factor (2) had no effect. The hammer at a higher position possessed a greater gravitational potential energy. It would then have more kinetic energy to drive the nail into the wood. So, factor (3) would affect how deep the nail went into the wood. The friction between the nail and wood could prevent the nail from going too deep into the wood. So, factor (4) would affect how deep the nail went into the wood.",
+      "id": "SCI1205"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Study the circuit below. After one of the bulbs had blown, all the other bulbs did not light up. Which bulb had blown?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": 1,
+      "correct_answer": "B",
+      "explanation": "If you cover bulb B with your finger, you will notice that there is no alternate path for current to flow through, thus none of the bulbs will light up.",
+      "id": "SCI1206"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Which of the following diagrams correctly shows how trees play a part in the water cycle?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 1,
+      "correct_answer": "(2)",
+      "explanation": "In the water cycle, water droplets fall as rain. When the water from the rain falls on the land, it seeps into the earth. Trees take in the water up through their roots. The trees then lose water through their leaves by evaporation. In this process, they give off the water as water vapour. Diagram (2) is eliminated as it does not have an arrow from trees to water vapour. Diagrams (3) and (4) are eliminated because the trees should not lose water to rivers and seas.",
+      "id": "SCI1207"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "A block of wood slid down a slope after it was released at the top as shown in Diagram 1. The graph shows the amount of different types of energy of the block at point P. The experiment was repeated with oil applied on the surface of the slope. Which graph correctly shows the amounts of different types of energy at P?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 1,
+      "correct_answer": "(2)",
+      "explanation": "before oil is applied after oil is applied kinetic energy Greater than E because less kinetic energy is lost to E at P heat due to friction. potential Equals to E since the block is at position P above E energy at P the ground. heat is produced due heat at P Less heat is produced. to friction",
+      "id": "SCI1208"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Toy blocks were held together by friction between the blocks. {CHARACTER_0} attached blocks Q and P to block L as shown in Diagram 1. When a third block R was added, blocks R and Q fell to the ground as shown in Diagram 2. Which one of the following is the reason why the two blocks fell?",
+      "diagram": null,
+      "placeholder_roles": [
+        "protagonist"
+      ],
+      "options": [
+        "The weight of R was greater than the weight of Q.",
+        "Friction between Q and P was less than the total weight of R and Q.",
+        "Friction between P and L was less than the total weight of R, Q and P.",
+        "The total weight of R and Q was greater than the total weight of Q and P."
+      ],
+      "answer": 1,
+      "correct_answer": "Friction between Q and P was less than the total weight of R and Q.",
+      "explanation": "diagram 1 diagram 2 Friction between P and Q > Friction between P and Q < weight of Q and cause weight of Q R effect Q remains stuck to P Q and R drop.",
+      "id": "SCI1209"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "{CHARACTER_0} has four different toy parachutes, A, B, C and D. The details of the four toy parachutes are given in the table. parachute area of hole (cm3) length of string (cm) mass (g) A 1 10 20 B 1 5 40 C 1 10 40 D 3 5 20 {CHARACTER_0} predicts that the length of string of a toy parachute does not affect the time needed for it to fall to the ground. Which pair of toy parachutes should he use to test his prediction?",
+      "diagram": null,
+      "placeholder_roles": [
+        "protagonist"
+      ],
+      "options": [
+        "A and B",
+        "A and D",
+        "B and C",
+        "C and D"
+      ],
+      "answer": 1,
+      "correct_answer": "A and D",
+      "explanation": "To investigate whether the length of string of the toy parachute affects the time needed for it to fall to the ground, Asman should only change the length of the string and keep all the rest of the variables such as area of hole and mass constant.",
+      "id": "SCI1210"
+    },
+    {
+      "category": "P6 Practice",
+      "difficulty": "PSLE",
+      "template": "Containers in set-ups A, B and C below are of the same size and thickness but made of different materials. The containers were filled with the same volume of water at 100 °C and left on a table. Which graph correctly shows the temperature of water in the three set-ups over a period of time?",
+      "diagram": null,
+      "placeholder_roles": null,
+      "options": [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)"
+      ],
+      "answer": 0,
+      "correct_answer": "(1)",
+      "explanation": "material glass iron wood comparing Poor heat heat Good heat conductor Poorest heat conductor conductor capacity Hot water in C would lose heat the Hot water in A Hot water in B would slowest and so its temperature would would lose heat lose heat the fastest decrease the slowest. Options (1) slowly and so its prediction and so its temperature and (2) are wrong as there must be temperature would decrease the some heat lost from the water to the would decrease fastest. surroundings. The temperature of the slowly. hot water cannot remain the same. Options (1) and (2) are wrong as there must be some heat lost from the water to the surroundings. The temperature of the hot water cannot remain the same.",
+      "id": "SCI1211"
+    }
+  ]
+}

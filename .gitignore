@@ -31,3 +31,10 @@ database/
 # Environment
 .env
 .env.local
+
+# Firebase local secrets
+firebase-service-account*.json
+*firebase-adminsdk*.json
+
+# Migration outputs
+migration/firebase-auth-temp-passwords*.json
