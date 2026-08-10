@@ -15,6 +15,13 @@
 
   function $(id) { return document.getElementById(id); }
 
+  function getSortableTime(value) {
+    if (!value) return 0;
+    if (value.toDate) return value.toDate().getTime();
+    var parsed = new Date(value);
+    return isNaN(parsed.getTime()) ? 0 : parsed.getTime();
+  }
+
   async function init() {
     if (!window.FB_AUTH || !window.FB_DB) {
       showError('Firebase configuration not found.');
@@ -68,16 +75,18 @@
 
   async function loadQuizStats() {
     try {
-      var { collection, getDocs, query, where, orderBy } =
+      var { collection, getDocs, query, where } =
         await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js');
       var q = query(
         collection(db, 'quiz_records'),
-        where('user_id', '==', currentUser.uid),
-        orderBy('completed_at', 'desc')
+        where('user_id', '==', currentUser.uid)
       );
       var snap = await getDocs(q);
       var records = [];
       snap.forEach(function (d) { records.push(d.data()); });
+      records.sort(function (a, b) {
+        return getSortableTime(b.completed_at) - getSortableTime(a.completed_at);
+      });
       renderSubjectBreakdown(records);
       renderRecentActivity(records.slice(0, 5));
     } catch (e) {
