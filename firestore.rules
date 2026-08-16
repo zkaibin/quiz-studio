@@ -32,7 +32,10 @@ service cloud.firestore {
     match /daily_challenges/{challengeId} {
       allow create: if signedIn()
         && request.resource.data.user_id == request.auth.uid;
-      allow read: if signedIn() && resource.data.user_id == request.auth.uid;
+      // resource == null covers the case where the document does not yet exist
+      // (e.g. the transaction existence-check reads a not-yet-created document).
+      allow read: if signedIn()
+        && (resource == null || resource.data.user_id == request.auth.uid);
       allow update: if false;
       allow delete: if false;
     }
