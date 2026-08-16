@@ -114,6 +114,20 @@
     });
   }
 
+  function replaceThemePlaceholders(text, placeholders) {
+    if (typeof text !== 'string' || !placeholders || placeholders.length === 0) return text;
+
+    var resolvedText = text;
+    placeholders.forEach(function (name, idx) {
+      resolvedText = resolvedText.replace(new RegExp('\\{CHARACTER_' + idx + '\\}', 'gi'), name);
+      resolvedText = resolvedText.replace(new RegExp('\\{DESCRIPTOR_' + idx + '\\}', 'gi'), name);
+    });
+
+    return resolvedText.replace(/\{NUMBER_(\d+)\}/gi, function (m, i) {
+      return String(parseInt(i, 10) + 1);
+    });
+  }
+
   /**
    * Apply themed character substitution to a single question object.
    * Populates question.placeholders and builds question.question text.
@@ -130,19 +144,22 @@
     if (q.placeholder_roles && q.placeholder_roles.length > 0 && allCharacters.length > 0) {
       var placeholders = assignCharactersToRoles(q.placeholder_roles, universeId, allCharacters);
       resolved.placeholders = placeholders;
-
-      /* Substitute {CHARACTER_N} and {DESCRIPTOR_N} in the template */
-      var text = template;
-      placeholders.forEach(function (name, idx) {
-        text = text.replace(new RegExp('\\{CHARACTER_' + idx + '\\}', 'g'), name);
-        text = text.replace(new RegExp('\\{DESCRIPTOR_' + idx + '\\}', 'g'), name);
-      });
-      /* Replace leftover {NUMBER_N} tokens */
-      text = text.replace(/\{NUMBER_(\d+)\}/g, function (m, i) { return String(parseInt(i, 10) + 1); });
-      resolved.question = text;
+      resolved.question = replaceThemePlaceholders(template, placeholders);
+      resolved.options = Array.isArray(q.options)
+        ? q.options.map(function (option) { return replaceThemePlaceholders(option, placeholders); })
+        : q.options;
+      if (typeof q.correct_answer === 'string') {
+        resolved.correct_answer = replaceThemePlaceholders(q.correct_answer, placeholders);
+      }
     } else {
       /* Fallback: use the original resolveTemplate logic */
       resolved.question = resolveTemplate(template);
+      resolved.options = Array.isArray(q.options)
+        ? q.options.map(function (option) { return resolveTemplate(option); })
+        : q.options;
+      if (typeof q.correct_answer === 'string') {
+        resolved.correct_answer = resolveTemplate(q.correct_answer);
+      }
     }
 
     return resolved;
@@ -176,9 +193,9 @@
   /** Replace {CHARACTER_0}, {CHARACTER_1}, {NUMBER_0} etc. with generic values */
   function resolveTemplate(template) {
     if (!template) return '';
-    return template.replace(/\{(CHARACTER|DESCRIPTOR|NUMBER)_(\d+)\}/g, function (match, type, idx) {
+    return template.replace(/\{(CHARACTER|DESCRIPTOR|NUMBER)_(\d+)\}/gi, function (match, type, idx) {
       var i = parseInt(idx, 10);
-      if (type === 'NUMBER') return String(i + 1);
+      if (type.toUpperCase() === 'NUMBER') return String(i + 1);
       return PLACEHOLDER_NAMES[i % PLACEHOLDER_NAMES.length] || ('P' + (i + 1));
     });
   }
