@@ -128,6 +128,7 @@
       $('avatarUrl').value = data.avatar_url || '';
       if ($('bio')) $('bio').value = data.bio || '';
       if ($('favouriteSubject')) $('favouriteSubject').value = data.favourite_subject || '';
+      if ($('schoolLevel')) $('schoolLevel').value = data.school_level || '';
       updateAvatarPreview(data.avatar_url || '');
     } else {
       updateAvatarPreview('');
@@ -149,6 +150,7 @@
         avatar_url: avatarUrl || null,
         bio: $('bio') ? ($('bio').value.trim() || null) : null,
         favourite_subject: $('favouriteSubject') ? ($('favouriteSubject').value || null) : null,
+        school_level: $('schoolLevel') ? ($('schoolLevel').value || null) : null,
         updated_at: new Date().toISOString()
       };
 

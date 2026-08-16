@@ -33,6 +33,7 @@
   /* JSON data sources per subject */
   var SUBJECT_DATA_FILES = {
     math: [
+      'data/questions-p1-p2.json',
       'data/questions-p3-p4.json',
       'data/questions-p5-p6.json',
       'data/questions-psle.json',
@@ -44,6 +45,18 @@
     ],
     english: ['data/questions-english.json'],
     chinese: ['data/questions-chinese.json']
+  };
+
+  /**
+   * For each school level, the set of question difficulty values that are
+   * appropriate.  Questions whose difficulty is not in the set are excluded
+   * when a user level is known.  Null means "no filter" (guest / unset).
+   */
+  var LEVEL_ALLOWED_DIFFICULTIES = {
+    'P1-P2': ['P1-P2'],
+    'P3-P4': ['P1-P2', 'P3-P4'],
+    'P5-P6': ['P1-P2', 'P3-P4', 'P5-P6'],
+    'PSLE':  ['P1-P2', 'P3-P4', 'P5-P6', 'PSLE', 'Challenging']
   };
 
   /* Fallback names used only when no theme data is available */
@@ -310,12 +323,33 @@
   }
 
   /**
+   * Get the school_level stored in the current user's profile.
+   * @returns {Promise<string|null>}  e.g. 'P3-P4' or null if not set / not logged in
+   */
+  async function getUserLevel() {
+    var db = global.FB_DB;
+    var auth = global.FB_AUTH;
+    if (!db || !auth || !auth.currentUser) return null;
+    try {
+      var fs = await getFirestore();
+      var snap = await fs.getDoc(fs.doc(db, 'users', auth.currentUser.uid));
+      if (!snap.exists()) return null;
+      return snap.data().school_level || null;
+    } catch (e) {
+      console.warn('getUserLevel error:', e);
+      return null;
+    }
+  }
+
+  /**
    * Load and shuffle questions for a subject.
-   * @param {string} subject
-   * @param {number} count   – number of questions to return
+   * @param {string}      subject
+   * @param {number}      count   – number of questions to return
+   * @param {string|null} [level] – school level (e.g. 'P3-P4'); filters questions
+   *                                by the LEVEL_ALLOWED_DIFFICULTIES map when set.
    * @returns {Promise<Array>}
    */
-  async function loadQuestions(subject, count) {
+  async function loadQuestions(subject, count, level) {
     var files = SUBJECT_DATA_FILES[subject] || [];
     var all = [];
     /* Load question files and theme data in parallel */
@@ -338,6 +372,12 @@
     var universe = pickRandomUniverse(themeData.universes);
     var universeId = universe ? universe.id : null;
     var allCharacters = themeData.characters || [];
+
+    /* Filter by school level when one is provided */
+    var allowedDifficulties = level ? LEVEL_ALLOWED_DIFFICULTIES[level] : null;
+    if (allowedDifficulties) {
+      all = all.filter(function (q) { return allowedDifficulties.indexOf(q.difficulty) !== -1; });
+    }
 
     /* Shuffle */
     for (var i = all.length - 1; i > 0; i--) {
@@ -460,6 +500,7 @@
     calculateChallengePoints: calculateChallengePoints,
     hasDoneToday: hasDoneToday,
     getAllStreaks: getAllStreaks,
+    getUserLevel: getUserLevel,
     loadQuestions: loadQuestions,
     saveChallenge: saveChallenge,
     loadThemeData: loadThemeData,
