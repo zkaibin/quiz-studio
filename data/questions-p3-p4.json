@@ -1167,14 +1167,14 @@
     "id": 218,
     "category": "Division",
     "difficulty": "P3-P4",
-    "template": "{CHARACTER_0} has 34 items to distribute equally among 11 groups. How many items per group?",
+    "template": "{CHARACTER_0} has 44 items to distribute equally among 11 groups. How many items per group?",
     "options": [
       "1",
       "2",
       "34/11",
       "4"
     ],
-    "answer": 2,
+    "answer": 3,
     "placeholder_roles": [
       "protagonist"
     ]

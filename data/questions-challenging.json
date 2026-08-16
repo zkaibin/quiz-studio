@@ -1639,13 +1639,13 @@
       "helper"
     ],
     "options": [
-      "98",
+      "49",
       "84",
       "105",
       "91"
     ],
     "answer": 0,
-    "correct_answer": "98"
+    "correct_answer": "49"
   },
   {
     "id": "Q835",
@@ -1864,8 +1864,8 @@
       "120",
       "90"
     ],
-    "answer": 0,
-    "correct_answer": "100"
+    "answer": 1,
+    "correct_answer": "108"
   },
   {
     "id": "Q847",
