@@ -1,0 +1,301 @@
+/* global window */
+/**
+ * daily-challenge.js — Daily Challenge module for Quiz Studio
+ *
+ * Rules:
+ *  - Each logged-in user may take 1 daily challenge per subject per calendar day.
+ *  - Difficulty tiers: easy (5 Q), intermediate (10 Q), advanced (15 Q).
+ *  - Perfect score (100%) earns 10× the normal point total for that quiz size.
+ *  - Non-perfect score earns normal points (1 pt/correct + size bonus).
+ *  - Completing 7 consecutive days of daily challenges for a subject earns
+ *    1 000 bonus points for that subject (tracked per subject independently).
+ *
+ * Firestore layout
+ *  daily_challenges/{uid}_{subject}_{YYYY-MM-DD}
+ *    user_id, subject, date, difficulty, score, total_questions,
+ *    points_earned, perfect, streak_at_save, completed_at
+ *
+ *  users/{uid}  (merged fields)
+ *    {subject}_streak          : number  — current consecutive-day streak
+ *    {subject}_streak_last_date: string  — YYYY-MM-DD of last completed challenge
+ */
+
+(function (global) {
+  'use strict';
+
+  var SUBJECTS = ['math', 'science', 'english', 'chinese'];
+
+  var DIFFICULTY_Q_COUNT = { easy: 5, intermediate: 10, advanced: 15 };
+
+  /* Normal bonus map (matches rewards.js) */
+  var BONUS_MAP = { 5: 3, 10: 8, 15: 15 };
+
+  /* JSON data sources per subject */
+  var SUBJECT_DATA_FILES = {
+    math: [
+      'data/questions-p3-p4.json',
+      'data/questions-p5-p6.json',
+      'data/questions-psle.json',
+      'data/questions-challenging.json'
+    ],
+    science: [
+      'data/questions-science.json',
+      'data/questions-science-p6.json'
+    ],
+    english: ['data/questions-english.json'],
+    chinese: ['data/questions-chinese.json']
+  };
+
+  /* Generic names for placeholder substitution */
+  var PLACEHOLDER_NAMES = ['Alex', 'Ben', 'Chloe', 'David', 'Emma'];
+
+  /* ------------------------------------------------------------------ */
+  /* Helpers                                                              */
+  /* ------------------------------------------------------------------ */
+
+  function getTodayString() {
+    var d = new Date();
+    var y = d.getFullYear();
+    var m = String(d.getMonth() + 1).padStart(2, '0');
+    var day = String(d.getDate()).padStart(2, '0');
+    return y + '-' + m + '-' + day;
+  }
+
+  function getYesterdayString() {
+    var d = new Date();
+    d.setDate(d.getDate() - 1);
+    var y = d.getFullYear();
+    var m = String(d.getMonth() + 1).padStart(2, '0');
+    var day = String(d.getDate()).padStart(2, '0');
+    return y + '-' + m + '-' + day;
+  }
+
+  function docId(uid, subject, date) {
+    return uid + '_' + subject + '_' + date;
+  }
+
+  /** Replace {CHARACTER_0}, {CHARACTER_1}, {NUMBER_0} etc. with generic values */
+  function resolveTemplate(template) {
+    if (!template) return '';
+    return template.replace(/\{(CHARACTER|DESCRIPTOR|NUMBER)_(\d+)\}/g, function (match, type, idx) {
+      var i = parseInt(idx, 10);
+      if (type === 'NUMBER') return String(i + 1);
+      return PLACEHOLDER_NAMES[i % PLACEHOLDER_NAMES.length] || ('P' + (i + 1));
+    });
+  }
+
+  /** Calculate points for a daily-challenge attempt */
+  function calculateChallengePoints(score, totalQuestions) {
+    var base = score;
+    var bonus = score === totalQuestions ? (BONUS_MAP[totalQuestions] || 0) : 0;
+    var normal = base + bonus;
+    if (score === totalQuestions) {
+      return normal * 10; // 10× for perfect score
+    }
+    return normal;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Firebase helpers (lazy-imported)                                     */
+  /* ------------------------------------------------------------------ */
+
+  var _firestoreModule = null;
+  async function getFirestore() {
+    if (!_firestoreModule) {
+      _firestoreModule = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js');
+    }
+    return _firestoreModule;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Public API                                                           */
+  /* ------------------------------------------------------------------ */
+
+  /**
+   * Check whether the current user has already completed today's challenge
+   * for the given subject.
+   * @param {string} subject  – 'math'|'science'|'english'|'chinese'
+   * @returns {Promise<{done:boolean, record:object|null}>}
+   */
+  async function hasDoneToday(subject) {
+    var db = global.FB_DB;
+    var auth = global.FB_AUTH;
+    if (!db || !auth || !auth.currentUser) return { done: false, record: null };
+    try {
+      var fs = await getFirestore();
+      var id = docId(auth.currentUser.uid, subject, getTodayString());
+      var snap = await fs.getDoc(fs.doc(db, 'daily_challenges', id));
+      if (snap.exists()) return { done: true, record: snap.data() };
+      return { done: false, record: null };
+    } catch (e) {
+      console.warn('hasDoneToday error:', e);
+      return { done: false, record: null };
+    }
+  }
+
+  /**
+   * Get streak info for all subjects for the current user.
+   * @returns {Promise<Object>} map of subject -> {streak, lastDate}
+   */
+  async function getAllStreaks() {
+    var result = {};
+    SUBJECTS.forEach(function (s) { result[s] = { streak: 0, lastDate: null }; });
+    var db = global.FB_DB;
+    var auth = global.FB_AUTH;
+    if (!db || !auth || !auth.currentUser) return result;
+    try {
+      var fs = await getFirestore();
+      var snap = await fs.getDoc(fs.doc(db, 'users', auth.currentUser.uid));
+      if (!snap.exists()) return result;
+      var data = snap.data();
+      SUBJECTS.forEach(function (s) {
+        result[s] = {
+          streak: data[s + '_streak'] || 0,
+          lastDate: data[s + '_streak_last_date'] || null
+        };
+      });
+    } catch (e) {
+      console.warn('getAllStreaks error:', e);
+    }
+    return result;
+  }
+
+  /**
+   * Load and shuffle questions for a subject.
+   * @param {string} subject
+   * @param {number} count   – number of questions to return
+   * @returns {Promise<Array>}
+   */
+  async function loadQuestions(subject, count) {
+    var files = SUBJECT_DATA_FILES[subject] || [];
+    var all = [];
+    await Promise.all(files.map(async function (path) {
+      try {
+        var ts = new Date().getTime();
+        var r = await fetch(path + '?v=' + ts);
+        if (!r.ok) return;
+        var qs = await r.json();
+        all = all.concat(qs);
+      } catch (e) {
+        console.warn('Could not load', path, e);
+      }
+    }));
+    /* Shuffle */
+    for (var i = all.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = all[i]; all[i] = all[j]; all[j] = tmp;
+    }
+    return all.slice(0, count).map(function (q) {
+      /* Resolve template placeholders to static text */
+      var resolved = Object.assign({}, q, { question: resolveTemplate(q.template || '') });
+      return resolved;
+    });
+  }
+
+  /**
+   * Save a completed daily-challenge attempt.
+   * Updates daily_challenges doc, user streak, and user total_points.
+   * @param {string} subject
+   * @param {string} difficulty  – 'easy'|'intermediate'|'advanced'
+   * @param {number} score
+   * @param {number} total
+   * @returns {Promise<{points:number, streakBonus:number, streak:number}>}
+   */
+  async function saveChallenge(subject, difficulty, score, total) {
+    var db = global.FB_DB;
+    var auth = global.FB_AUTH;
+    if (!db || !auth || !auth.currentUser) return { points: 0, streakBonus: 0, streak: 0 };
+    var uid = auth.currentUser.uid;
+    var today = getTodayString();
+    var yesterday = getYesterdayString();
+
+    try {
+      var fs = await getFirestore();
+      var challengeRef = fs.doc(db, 'daily_challenges', docId(uid, subject, today));
+      var userRef = fs.doc(db, 'users', uid);
+
+      var pts = calculateChallengePoints(score, total);
+      var perfect = score === total;
+      var streakBonus = 0;
+      var newStreak = 1;
+
+      var result = await fs.runTransaction(db, async function (tx) {
+        var challengeSnap = await tx.get(challengeRef);
+        if (challengeSnap.exists()) {
+          /* Already saved today – idempotent: return stored values */
+          var stored = challengeSnap.data();
+          return { points: stored.points_earned, streakBonus: 0, streak: stored.streak_at_save };
+        }
+
+        var userSnap = await tx.get(userRef);
+        var userData = userSnap.exists() ? userSnap.data() : {};
+
+        var lastDate = userData[subject + '_streak_last_date'] || null;
+        var currentStreak = userData[subject + '_streak'] || 0;
+
+        if (lastDate === yesterday) {
+          newStreak = currentStreak + 1;
+        } else if (lastDate === today) {
+          newStreak = currentStreak; // shouldn't reach here due to early exit, but safe
+        } else {
+          newStreak = 1; // broke streak or first time
+        }
+
+        /* 7-day streak bonus (triggers on multiples of 7) */
+        if (newStreak > 0 && newStreak % 7 === 0) {
+          streakBonus = 1000;
+        }
+
+        var totalPtsGain = pts + streakBonus;
+
+        tx.set(challengeRef, {
+          user_id: uid,
+          subject: subject,
+          date: today,
+          difficulty: difficulty,
+          score: score,
+          total_questions: total,
+          points_earned: pts,
+          streak_bonus: streakBonus,
+          perfect: perfect,
+          streak_at_save: newStreak,
+          completed_at: fs.serverTimestamp()
+        });
+
+        var currentTotal = userData.total_points || 0;
+        var currentQuizzes = userData.total_quizzes || 0;
+        var streakUpdate = {};
+        streakUpdate[subject + '_streak'] = newStreak;
+        streakUpdate[subject + '_streak_last_date'] = today;
+
+        tx.set(userRef, Object.assign({
+          total_points: currentTotal + totalPtsGain,
+          total_quizzes: currentQuizzes + 1
+        }, streakUpdate), { merge: true });
+
+        return { points: pts, streakBonus: streakBonus, streak: newStreak };
+      });
+
+      return result;
+    } catch (e) {
+      console.warn('saveChallenge error:', e);
+      return { points: 0, streakBonus: 0, streak: 0 };
+    }
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Exports                                                              */
+  /* ------------------------------------------------------------------ */
+
+  global.DailyChallenge = {
+    SUBJECTS: SUBJECTS,
+    DIFFICULTY_Q_COUNT: DIFFICULTY_Q_COUNT,
+    getTodayString: getTodayString,
+    resolveTemplate: resolveTemplate,
+    calculateChallengePoints: calculateChallengePoints,
+    hasDoneToday: hasDoneToday,
+    getAllStreaks: getAllStreaks,
+    loadQuestions: loadQuestions,
+    saveChallenge: saveChallenge
+  };
+})(window);

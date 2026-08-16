@@ -28,6 +28,15 @@ service cloud.firestore {
       allow delete: if signedIn() && resource.data.user_id == request.auth.uid;
     }
 
+    // Daily challenge records: one doc per user/subject/date
+    match /daily_challenges/{challengeId} {
+      allow create: if signedIn()
+        && request.resource.data.user_id == request.auth.uid;
+      allow read: if signedIn() && resource.data.user_id == request.auth.uid;
+      allow update: if false;
+      allow delete: if false;
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }
