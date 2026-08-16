@@ -266,7 +266,7 @@
     "id": "Q755",
     "category": "Chicken and Rabbit",
     "difficulty": "Challenging",
-    "template": "{CHARACTER_0} has chickens and ducks. There are 18 birds and 50 legs. If chickens have 2 legs and ducks have 2 legs, but {CHARACTER_0} counted wrong and some 'ducks' are actually geese with 2 legs each standing on one leg, giving the appearance of 32 total standing legs instead. How many are chickens? (Note: All birds have 2 legs, there are 18 birds total)",
+    "template": "{CHARACTER_0} has chickens and rabbits on a farm. There are 18 animals and 52 legs in total. How many are chickens?",
     "placeholder_roles": [
       "protagonist"
     ],
@@ -419,18 +419,18 @@
     "id": "Q764",
     "category": "Excess and Shortage",
     "difficulty": "Challenging",
-    "template": "{CHARACTER_0} packs books into boxes. Using 12 books per box leaves 7 books over. Using 15 books per box means the last box has only 4 books. How many books are there?",
+    "template": "{CHARACTER_0} packs books into boxes. Using 12 books per box leaves 7 books over. Using the same boxes with 15 books per box means the last box has only 4 books. How many books are there?",
     "placeholder_roles": [
       "protagonist"
     ],
     "options": [
       "67",
       "52",
-      "49",
+      "79",
       "64"
     ],
     "answer": 2,
-    "correct_answer": "49"
+    "correct_answer": "79"
   },
   {
     "id": "Q765",
@@ -453,7 +453,7 @@
     "id": "Q766",
     "category": "Excess and Shortage",
     "difficulty": "Challenging",
-    "template": "{CHARACTER_0} groups stickers into sets. Making sets of 8 leaves 3 stickers remaining. Making sets of 11 means the last set has only 6 stickers. How many stickers does {CHARACTER_0} have?",
+    "template": "{CHARACTER_0} groups stickers into sets. Making sets of 8 leaves 3 stickers remaining. Making sets of 11 means the last set has only 7 stickers. What is the smallest possible number of stickers?",
     "placeholder_roles": [
       "protagonist"
     ],
@@ -594,13 +594,13 @@
       "protagonist"
     ],
     "options": [
-      "98",
+      "49",
       "100",
       "96",
       "102"
     ],
     "answer": 0,
-    "correct_answer": "98"
+    "correct_answer": "49"
   },
   {
     "id": "Q775",
@@ -1502,8 +1502,8 @@
       "136",
       "120"
     ],
-    "answer": 0,
-    "correct_answer": "144"
+    "answer": 1,
+    "correct_answer": "128"
   },
   {
     "id": "Q827",
@@ -1864,8 +1864,8 @@
       "120",
       "90"
     ],
-    "answer": 1,
-    "correct_answer": "108"
+    "answer": 0,
+    "correct_answer": "100"
   },
   {
     "id": "Q847",
@@ -2491,7 +2491,7 @@
     "id": "Q883",
     "category": "Remainder",
     "difficulty": "Challenging",
-    "template": "{CHARACTER_0} numbered pages of a book. The digit 5 was written 25 times. How many pages are there if the book starts from page 1?",
+    "template": "{CHARACTER_0} numbered pages of a book starting from page 1. The digit 5 was written 25 times. What is the smallest possible number of pages?",
     "placeholder_roles": [
       "protagonist"
     ],
@@ -2501,8 +2501,8 @@
       "138",
       "145"
     ],
-    "answer": 2,
-    "correct_answer": "138"
+    "answer": 3,
+    "correct_answer": "145"
   },
   {
     "id": "Q884",
@@ -2565,12 +2565,12 @@
     ],
     "options": [
       "103",
-      "113",
+      "208",
       "123",
       "133"
     ],
     "answer": 1,
-    "correct_answer": "113"
+    "correct_answer": "208"
   },
   {
     "id": "Q888",
@@ -2593,7 +2593,7 @@
     "id": "Q889",
     "category": "Remainder",
     "difficulty": "Challenging",
-    "template": "{CHARACTER_0} writes numbers from 1 to N. The digit 7 appears exactly 20 times. What is N?",
+    "template": "{CHARACTER_0} writes numbers from 1 to N. The digit 7 appears exactly 20 times. What is the smallest possible value of N?",
     "placeholder_roles": [
       "protagonist"
     ],
@@ -2679,7 +2679,7 @@
     "id": "Q894",
     "category": "Repeated Identity",
     "difficulty": "Challenging",
-    "template": "{CHARACTER_0} has 5 times as many stamps as {CHARACTER_1}. If {CHARACTER_0} has 45 more stamps than {CHARACTER_1}, how many does {CHARACTER_1} have?",
+    "template": "{CHARACTER_0} has 5 times as many stamps as {CHARACTER_1}. If {CHARACTER_0} has 48 more stamps than {CHARACTER_1}, how many does {CHARACTER_1} have?",
     "placeholder_roles": [
       "protagonist",
       "helper"
@@ -2690,8 +2690,8 @@
       "10",
       "9"
     ],
-    "answer": 0,
-    "correct_answer": "11.25"
+    "answer": 1,
+    "correct_answer": "12"
   },
   {
     "id": "Q895",
@@ -3132,8 +3132,8 @@
       "70",
       "55"
     ],
-    "answer": 0,
-    "correct_answer": "65"
+    "answer": 2,
+    "correct_answer": "70"
   },
   {
     "id": "Q921",
@@ -3236,8 +3236,8 @@
       "41",
       "37"
     ],
-    "answer": 0,
-    "correct_answer": "45"
+    "answer": 1,
+    "correct_answer": "49"
   },
   {
     "id": "Q927",
