@@ -704,10 +704,17 @@
       /* ---- Init ---- */
       function init() {
         checkAuthNotice();
-        /* Wait for Firebase to be ready, then build cards */
+        /* Wait for both DailyChallenge module and Firebase to be ready,
+           then wait for auth state to resolve before building cards so
+           streak/completion status is read with a verified user. */
         function tryBuild(retries) {
-          if (window.DailyChallenge) {
-            buildCards();
+          if (window.DailyChallenge && window.FB_AUTH && window.FB_DB) {
+            import('https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js').then(function (m) {
+              var unsub = m.onAuthStateChanged(window.FB_AUTH, function () {
+                unsub();
+                buildCards();
+              });
+            });
           } else if (retries > 0) {
             setTimeout(function () { tryBuild(retries - 1); }, 200);
           }
