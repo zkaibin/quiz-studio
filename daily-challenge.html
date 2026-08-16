@@ -104,6 +104,16 @@
         .dc-diff-btn.intermediate { background: #dbeafe; color: #1e40af; }
         .dc-diff-btn.advanced     { background: #fee2e2; color: #991b1b; }
 
+        /* ---- Level banner ---- */
+        #levelBanner {
+            background: #ede9fe;
+            color: #4c1d95;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 0.87rem;
+            font-weight: 500;
+        }
+
         /* ---- Quiz overlay ---- */
         #quizOverlay {
             display: none;
@@ -327,6 +337,7 @@
                         <span class="dc-rule-pill">⭐ Perfect score → 10× points</span>
                         <span class="dc-rule-pill">🔥 7-day streak → +1 000 bonus</span>
                     </div>
+                    <div id="levelBanner" style="display:none;margin-top:14px;"></div>
                 </div>
 
                 <!-- Subject cards -->
@@ -408,7 +419,8 @@
         currentDifficulty: null,
         questions: [],
         answers: [],
-        submitted: false
+        submitted: false,
+        userLevel: null
       };
 
       function $(id) { return document.getElementById(id); }
@@ -432,7 +444,25 @@
         var DC = window.DailyChallenge;
         if (!DC) { console.error('DailyChallenge module not loaded'); return; }
 
-        var streaks = await DC.getAllStreaks();
+        var [streaks, userLevel] = await Promise.all([
+          DC.getAllStreaks(),
+          DC.getUserLevel()
+        ]);
+
+        state.userLevel = userLevel;
+
+        /* Show / update level banner */
+        var banner = $('levelBanner');
+        if (banner) {
+          if (userLevel) {
+            banner.style.display = 'block';
+            banner.innerHTML = '🎓 Questions matched to your level: <strong>' + userLevel + '</strong>'
+              + ' &nbsp;<a href="profile.html" style="font-size:0.82rem;color:#6366f1;">Change in profile</a>';
+          } else {
+            banner.style.display = 'block';
+            banner.innerHTML = '💡 <a href="profile.html" style="color:#6366f1;">Set your school level in your profile</a> to get questions matched to your grade.';
+          }
+        }
 
         /* Check today status for each subject in parallel */
         var statusArr = await Promise.all(SUBJECTS.map(function (s) {
@@ -502,7 +532,7 @@
         $('quizControls').style.display = 'flex';
         $('quizTitle').textContent = subjectInfo.icon + ' ' + subjectInfo.label.replace(subjectInfo.icon + ' ', '') + ' Daily Challenge';
 
-        var questions = await DC.loadQuestions(subjectKey, qCount);
+        var questions = await DC.loadQuestions(subjectKey, qCount, state.userLevel);
         if (!questions || questions.length === 0) {
           $('quizPaper').innerHTML = '<p style="color:red;padding:20px;">Could not load questions. Please try again.</p>';
           return;
@@ -510,7 +540,8 @@
 
         /* Show theme in subtitle if one was selected */
         var themeSuffix = questions.theme ? ' · 🎭 ' + questions.theme.name : '';
-        $('quizSubInfo').textContent = difficulty.charAt(0).toUpperCase() + difficulty.slice(1) + ' · ' + qCount + ' questions · Perfect score = 10× points' + themeSuffix;
+        var levelSuffix = state.userLevel ? ' · 🎓 ' + state.userLevel : '';
+        $('quizSubInfo').textContent = difficulty.charAt(0).toUpperCase() + difficulty.slice(1) + ' · ' + qCount + ' questions · Perfect score = 10× points' + levelSuffix + themeSuffix;
 
         /* Reset state */
         state.currentSubject = subjectKey;
