@@ -797,7 +797,7 @@
       "1/2",
       "3/4"
     ],
-    "answer": 0,
+    "answer": 2,
     "placeholder_roles": [
       "protagonist",
       "helper"
@@ -912,7 +912,7 @@
     "options": [
       "30",
       "40",
-      "45",
+      "3:15 PM",
       "50"
     ],
     "answer": 2,
@@ -1174,7 +1174,7 @@
     "options": [
       "8",
       "9",
-      "10",
+      "5",
       "11"
     ],
     "answer": 2,
@@ -1628,7 +1628,7 @@
     "options": [
       "9",
       "10",
-      "11",
+      "10.53",
       "12"
     ],
     "answer": 2,
@@ -1644,7 +1644,7 @@
     "options": [
       "10",
       "11",
-      "12",
+      "11.62",
       "13"
     ],
     "answer": 2,
@@ -1660,7 +1660,7 @@
     "options": [
       "0",
       "1",
-      "2",
+      "2.89",
       "3"
     ],
     "answer": 2,
@@ -1677,7 +1677,7 @@
       "12",
       "13",
       "14",
-      "15"
+      "14.79"
     ],
     "answer": 3,
     "placeholder_roles": [
@@ -1692,7 +1692,7 @@
     "options": [
       "6",
       "7",
-      "8",
+      "8.10",
       "9"
     ],
     "answer": 2,
@@ -1708,7 +1708,7 @@
     "options": [
       "0",
       "1",
-      "2",
+      "2.88",
       "3"
     ],
     "answer": 2,
@@ -1725,7 +1725,7 @@
       "4",
       "5",
       "6",
-      "7"
+      "6.65"
     ],
     "answer": 3,
     "placeholder_roles": [
@@ -1740,7 +1740,7 @@
     "options": [
       "8",
       "9",
-      "10",
+      "31/3",
       "11"
     ],
     "answer": 2,
@@ -1754,7 +1754,7 @@
     "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} walks 10 km, 7 km, and 15 km on three days, what is the average distance?",
     "options": [
-      "10",
+      "32/3",
       "11",
       "12",
       "13"
@@ -1802,7 +1802,7 @@
     "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} walks 9 km, 14 km, and 11 km on three days, what is the average distance?",
     "options": [
-      "11",
+      "34/3",
       "12",
       "13",
       "14"
@@ -1820,7 +1820,7 @@
     "options": [
       "6",
       "7",
-      "8",
+      "8.25",
       "9"
     ],
     "answer": 2,
@@ -1836,7 +1836,7 @@
     "options": [
       "14",
       "15",
-      "16",
+      "49/3",
       "17"
     ],
     "answer": 2,
@@ -1868,7 +1868,7 @@
     "options": [
       "6",
       "7",
-      "8",
+      "8.75",
       "9"
     ],
     "answer": 2,
@@ -1884,7 +1884,7 @@
     "options": [
       "6",
       "7",
-      "8",
+      "25/3",
       "9"
     ],
     "answer": 2,
@@ -1900,7 +1900,7 @@
     "options": [
       "5",
       "6",
-      "7",
+      "22/3",
       "8"
     ],
     "answer": 2,
@@ -1914,7 +1914,7 @@
     "difficulty": "P1-P2",
     "template": "{CHARACTER_0} collected 7, 6, 17, and 13 items. What is the average?",
     "options": [
-      "10",
+      "10.75",
       "11",
       "12",
       "13"
@@ -1932,7 +1932,7 @@
     "options": [
       "10",
       "11",
-      "12",
+      "37/3",
       "13"
     ],
     "answer": 2,
@@ -1948,7 +1948,7 @@
     "options": [
       "9",
       "10",
-      "11",
+      "144/13",
       "12"
     ],
     "answer": 2,
@@ -1965,7 +1965,7 @@
     "options": [
       "0",
       "1",
-      "2",
+      "19/9",
       "3"
     ],
     "answer": 2,
@@ -1981,7 +1981,7 @@
     "options": [
       "5",
       "6",
-      "7",
+      "95/12",
       "8"
     ],
     "answer": 2,
@@ -2015,7 +2015,7 @@
     "options": [
       "1",
       "2",
-      "3",
+      "3.75",
       "4"
     ],
     "answer": 2,
@@ -2032,7 +2032,7 @@
       "11",
       "12",
       "13",
-      "14"
+      "14.4"
     ],
     "answer": 3,
     "placeholder_roles": [
@@ -2046,7 +2046,7 @@
     "difficulty": "P1-P2",
     "template": "For every 11 items {CHARACTER_0} collects, {CHARACTER_1} collects 13. If {CHARACTER_0} collected 10, how many did {CHARACTER_1} collect?",
     "options": [
-      "11",
+      "130/11",
       "12",
       "13",
       "14"
@@ -2065,7 +2065,7 @@
     "options": [
       "11",
       "12",
-      "13",
+      "13.2",
       "14"
     ],
     "answer": 2,
@@ -2081,7 +2081,7 @@
     "options": [
       "3",
       "4",
-      "5",
+      "5.6",
       "6"
     ],
     "answer": 2,
@@ -2098,7 +2098,7 @@
     "options": [
       "0",
       "1",
-      "2",
+      "2.6",
       "3"
     ],
     "answer": 2,
@@ -2114,7 +2114,7 @@
     "template": "The ratio of {CHARACTER_0}'s items to {CHARACTER_1}'s items is 5:11. If {CHARACTER_0} has 3, how many does {CHARACTER_1} have?",
     "options": [
       "5",
-      "6",
+      "6.6",
       "7",
       "8"
     ],
@@ -2309,7 +2309,7 @@
     "options": [
       "31",
       "32",
-      "33",
+      "266",
       "34"
     ],
     "answer": 2,
@@ -2340,7 +2340,7 @@
     "difficulty": "P1-P2",
     "template": "If {CHARACTER_0} earns $14 per hour for 1 hours, how much total?",
     "options": [
-      "15",
+      "14",
       "16",
       "17",
       "18"
@@ -2375,7 +2375,7 @@
     "options": [
       "9",
       "10",
-      "11",
+      "28",
       "12"
     ],
     "answer": 2,
@@ -2408,7 +2408,7 @@
     "options": [
       "29",
       "30",
-      "31",
+      "238",
       "32"
     ],
     "answer": 2,
