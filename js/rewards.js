@@ -78,8 +78,23 @@
     }
   }
 
+  /**
+   * Calculate total points for a daily-challenge attempt.
+   * Perfect score (score === totalQuestions) earns 10× the normal total.
+   * @param {number} score          - number of correct answers
+   * @param {number} totalQuestions - total number of questions
+   * @returns {number} points earned
+   */
+  function calculateDailyChallengePoints(score, totalQuestions) {
+    var base = score;
+    var bonus = score === totalQuestions ? (BONUS_MAP[totalQuestions] || 0) : 0;
+    var normal = base + bonus;
+    return score === totalQuestions ? normal * 10 : normal;
+  }
+
   global.QuizRewards = {
     calculatePoints: calculatePoints,
+    calculateDailyChallengePoints: calculateDailyChallengePoints,
     saveQuizWithPoints: saveQuizWithPoints
   };
 })(window);

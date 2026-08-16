@@ -37,7 +37,7 @@
         return;
       }
       currentUser = user;
-      await Promise.all([loadProfile(), loadQuizStats()]);
+      await Promise.all([loadProfile(), loadQuizStats(), loadDailyStreaks()]);
     });
   }
 
@@ -153,6 +153,44 @@
     });
 
     container.innerHTML = html;
+  }
+
+  async function loadDailyStreaks() {
+    var container = $('streakCards');
+    if (!container) return;
+
+    var DC = window.DailyChallenge;
+    if (!DC) { container.innerHTML = '<span style="color:#9ca3af;font-size:0.9rem;">Daily challenge module not available.</span>'; return; }
+
+    try {
+      var streaks = await DC.getAllStreaks();
+      var statusArr = await Promise.all(DC.SUBJECTS.map(function (s) { return DC.hasDoneToday(s); }));
+
+      var SUBJECT_META = {
+        math:    { label: '🔢 Math',    icon: '🔢' },
+        science: { label: '🔬 Science',  icon: '🔬' },
+        english: { label: '📖 English',  icon: '📖' },
+        chinese: { label: '🀄 Chinese',  icon: '🀄' }
+      };
+
+      var html = '';
+      DC.SUBJECTS.forEach(function (s, i) {
+        var info = SUBJECT_META[s] || { label: s, icon: '📚' };
+        var streak = (streaks[s] || {}).streak || 0;
+        var done = statusArr[i].done;
+        html += '<div class="dash-streak-card' + (done ? ' done' : '') + '">'
+          + '<span class="dash-streak-icon">' + info.icon + '</span>'
+          + '<div class="dash-streak-label">' + info.label + '</div>'
+          + '<span class="dash-streak-value">'
+          + (streak > 0 ? '🔥 ' + streak + ' day' + (streak === 1 ? '' : 's') : '—')
+          + '</span>'
+          + (done ? '<div style="font-size:0.75rem;color:#15803d;margin-top:4px;">✅ Done today</div>' : '')
+          + '</div>';
+      });
+      container.innerHTML = html;
+    } catch (e) {
+      container.innerHTML = '<span style="color:#9ca3af;font-size:0.9rem;">Could not load streaks.</span>';
+    }
   }
 
   function showError(msg) {
