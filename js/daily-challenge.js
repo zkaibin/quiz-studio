@@ -108,9 +108,12 @@
         ? matching
         : available.filter(function (c) { return !used[c.name]; });
       var final = candidates.length > 0 ? candidates : available;
-      var chosen = final[Math.floor(Math.random() * final.length)].name;
-      used[chosen] = true;
-      return chosen;
+      if (final.length === 0) {
+        return { name: PLACEHOLDER_NAMES[0], gender: 'male' };
+      }
+      var chosen = final[Math.floor(Math.random() * final.length)];
+      used[chosen.name] = true;
+      return { name: chosen.name, gender: chosen.gender || 'male' };
     });
   }
 
@@ -118,9 +121,18 @@
     if (typeof text !== 'string' || !placeholders || placeholders.length === 0) return text;
 
     var resolvedText = text;
-    placeholders.forEach(function (name, idx) {
+    placeholders.forEach(function (placeholder, idx) {
+      var name = typeof placeholder === 'string' ? placeholder : placeholder.name;
+      var isFemale = !!(placeholder && typeof placeholder === 'object' && placeholder.gender === 'female');
       resolvedText = resolvedText.replace(new RegExp('\\{CHARACTER_' + idx + '\\}', 'gi'), name);
       resolvedText = resolvedText.replace(new RegExp('\\{DESCRIPTOR_' + idx + '\\}', 'gi'), name);
+      resolvedText = resolvedText.replace(new RegExp('\\{HE_SHE_CAP_' + idx + '\\}', 'gi'), isFemale ? 'She' : 'He');
+      resolvedText = resolvedText.replace(new RegExp('\\{HIS_HER_CAP_' + idx + '\\}', 'gi'), isFemale ? 'Her' : 'His');
+      resolvedText = resolvedText.replace(new RegExp('\\{HE_SHE_' + idx + '\\}', 'gi'), isFemale ? 'she' : 'he');
+      resolvedText = resolvedText.replace(new RegExp('\\{HIM_HER_' + idx + '\\}', 'gi'), isFemale ? 'her' : 'him');
+      resolvedText = resolvedText.replace(new RegExp('\\{HIS_HER_' + idx + '\\}', 'gi'), isFemale ? 'her' : 'his');
+      resolvedText = resolvedText.replace(new RegExp('\\{HIS_HERS_' + idx + '\\}', 'gi'), isFemale ? 'hers' : 'his');
+      resolvedText = resolvedText.replace(new RegExp('\\{HIMSELF_HERSELF_' + idx + '\\}', 'gi'), isFemale ? 'herself' : 'himself');
     });
 
     return resolvedText.replace(/\{NUMBER_(\d+)\}/gi, function (m, i) {
@@ -193,9 +205,19 @@
   /** Replace {CHARACTER_0}, {CHARACTER_1}, {NUMBER_0} etc. with generic values */
   function resolveTemplate(template) {
     if (!template) return '';
-    return template.replace(/\{(CHARACTER|DESCRIPTOR|NUMBER)_(\d+)\}/gi, function (match, type, idx) {
+    return template.replace(/\{(CHARACTER|DESCRIPTOR|NUMBER|HE_SHE|HIM_HER|HIS_HER|HIS_HERS|HIMSELF_HERSELF|HE_SHE_CAP|HIS_HER_CAP)_(\d+)\}/gi, function (match, type, idx) {
       var i = parseInt(idx, 10);
-      if (type.toUpperCase() === 'NUMBER') return String(i + 1);
+      switch (type.toUpperCase()) {
+        case 'NUMBER': return String(i + 1);
+        case 'HE_SHE': return 'he';
+        case 'HIM_HER': return 'him';
+        case 'HIS_HER': return 'his';
+        case 'HIS_HERS': return 'his';
+        case 'HIMSELF_HERSELF': return 'himself';
+        case 'HE_SHE_CAP': return 'He';
+        case 'HIS_HER_CAP': return 'His';
+        default: break;
+      }
       return PLACEHOLDER_NAMES[i % PLACEHOLDER_NAMES.length] || ('P' + (i + 1));
     });
   }
