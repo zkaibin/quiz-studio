@@ -75,13 +75,24 @@
     return _themeData;
   }
 
+  function getRandomIndex(max) {
+    if (!max || max <= 0) return 0;
+    var cryptoObj = global.crypto || global.msCrypto;
+    if (!cryptoObj || typeof cryptoObj.getRandomValues !== 'function') {
+      throw new Error('Secure randomness unavailable');
+    }
+    var values = new Uint32Array(1);
+    cryptoObj.getRandomValues(values);
+    return values[0] % max;
+  }
+
   /**
    * Pick a random universe from the loaded theme data.
    * Returns the universe object, or null if none available.
    */
   function pickRandomUniverse(universes) {
     if (!universes || universes.length === 0) return null;
-    return universes[Math.floor(Math.random() * universes.length)];
+    return universes[getRandomIndex(universes.length)];
   }
 
   /**
@@ -111,7 +122,7 @@
       if (final.length === 0) {
         return { name: PLACEHOLDER_NAMES[0], gender: 'male' };
       }
-      var chosen = final[Math.floor(Math.random() * final.length)];
+      var chosen = final[getRandomIndex(final.length)];
       used[chosen.name] = true;
       return { name: chosen.name, gender: chosen.gender || 'male' };
     });
@@ -330,7 +341,7 @@
 
     /* Shuffle */
     for (var i = all.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
+      var j = getRandomIndex(i + 1);
       var tmp = all[i]; all[i] = all[j]; all[j] = tmp;
     }
 
