@@ -501,13 +501,16 @@
         $('resultsBox').classList.remove('active');
         $('quizControls').style.display = 'flex';
         $('quizTitle').textContent = subjectInfo.icon + ' ' + subjectInfo.label.replace(subjectInfo.icon + ' ', '') + ' Daily Challenge';
-        $('quizSubInfo').textContent = difficulty.charAt(0).toUpperCase() + difficulty.slice(1) + ' · ' + qCount + ' questions · Perfect score = 10× points';
 
         var questions = await DC.loadQuestions(subjectKey, qCount);
         if (!questions || questions.length === 0) {
           $('quizPaper').innerHTML = '<p style="color:red;padding:20px;">Could not load questions. Please try again.</p>';
           return;
         }
+
+        /* Show theme in subtitle if one was selected */
+        var themeSuffix = questions.theme ? ' · 🎭 ' + questions.theme.name : '';
+        $('quizSubInfo').textContent = difficulty.charAt(0).toUpperCase() + difficulty.slice(1) + ' · ' + qCount + ' questions · Perfect score = 10× points' + themeSuffix;
 
         /* Reset state */
         state.currentSubject = subjectKey;
