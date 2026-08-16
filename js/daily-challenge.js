@@ -46,8 +46,107 @@
     chinese: ['data/questions-chinese.json']
   };
 
-  /* Generic names for placeholder substitution */
+  /* Fallback names used only when no theme data is available */
   var PLACEHOLDER_NAMES = ['Alex', 'Ben', 'Chloe', 'David', 'Emma'];
+
+  /* Cached theme data (loaded once per page session) */
+  var _themeData = null; // { universes: [], characters: [] }
+
+  /* ------------------------------------------------------------------ */
+  /* Theme / character helpers                                            */
+  /* ------------------------------------------------------------------ */
+
+  /** Fetch and cache universes + characters JSON files */
+  async function loadThemeData() {
+    if (_themeData) return _themeData;
+    try {
+      var ts = new Date().getTime();
+      var [univResp, charResp] = await Promise.all([
+        fetch('data/universes.json?v=' + ts),
+        fetch('data/characters.json?v=' + ts)
+      ]);
+      var universes = univResp.ok ? await univResp.json() : [];
+      var characters = charResp.ok ? await charResp.json() : [];
+      _themeData = { universes: universes, characters: characters };
+    } catch (e) {
+      console.warn('Could not load theme data:', e);
+      _themeData = { universes: [], characters: [] };
+    }
+    return _themeData;
+  }
+
+  /**
+   * Pick a random universe from the loaded theme data.
+   * Returns the universe object, or null if none available.
+   */
+  function pickRandomUniverse(universes) {
+    if (!universes || universes.length === 0) return null;
+    return universes[Math.floor(Math.random() * universes.length)];
+  }
+
+  /**
+   * Assign characters to placeholder roles for a given universe.
+   * Mirrors the logic in quiz.js assignCharactersToRoles().
+   * @param {string[]} roles        – e.g. ['protagonist', 'helper']
+   * @param {number}   universeId   – universe_id to filter characters by
+   * @param {object[]} allCharacters
+   * @returns {string[]}            – parallel array of character names
+   */
+  function assignCharactersToRoles(roles, universeId, allCharacters) {
+    var available = universeId
+      ? allCharacters.filter(function (c) { return c.universe_id === universeId; })
+      : allCharacters;
+
+    if (available.length === 0) available = allCharacters;
+
+    var used = {};
+    return roles.map(function (role) {
+      var matching = available.filter(function (c) {
+        return c.roles && c.roles.indexOf(role) !== -1 && !used[c.name];
+      });
+      var candidates = matching.length > 0
+        ? matching
+        : available.filter(function (c) { return !used[c.name]; });
+      var final = candidates.length > 0 ? candidates : available;
+      var chosen = final[Math.floor(Math.random() * final.length)].name;
+      used[chosen] = true;
+      return chosen;
+    });
+  }
+
+  /**
+   * Apply themed character substitution to a single question object.
+   * Populates question.placeholders and builds question.question text.
+   * @param {object}   q           – raw question from JSON
+   * @param {number}   universeId  – universe to use (0 / null = all)
+   * @param {object[]} allCharacters
+   * @returns {object} new question object with .question set
+   */
+  function applyThemeToQuestion(q, universeId, allCharacters) {
+    var resolved = Object.assign({}, q);
+    var template = q.template || '';
+
+    /* Assign themed characters if the question has placeholder_roles */
+    if (q.placeholder_roles && q.placeholder_roles.length > 0 && allCharacters.length > 0) {
+      var placeholders = assignCharactersToRoles(q.placeholder_roles, universeId, allCharacters);
+      resolved.placeholders = placeholders;
+
+      /* Substitute {CHARACTER_N} and {DESCRIPTOR_N} in the template */
+      var text = template;
+      placeholders.forEach(function (name, idx) {
+        text = text.replace(new RegExp('\\{CHARACTER_' + idx + '\\}', 'g'), name);
+        text = text.replace(new RegExp('\\{DESCRIPTOR_' + idx + '\\}', 'g'), name);
+      });
+      /* Replace leftover {NUMBER_N} tokens */
+      text = text.replace(/\{NUMBER_(\d+)\}/g, function (m, i) { return String(parseInt(i, 10) + 1); });
+      resolved.question = text;
+    } else {
+      /* Fallback: use the original resolveTemplate logic */
+      resolved.question = resolveTemplate(template);
+    }
+
+    return resolved;
+  }
 
   /* ------------------------------------------------------------------ */
   /* Helpers                                                              */
@@ -169,27 +268,43 @@
   async function loadQuestions(subject, count) {
     var files = SUBJECT_DATA_FILES[subject] || [];
     var all = [];
-    await Promise.all(files.map(async function (path) {
-      try {
-        var ts = new Date().getTime();
-        var r = await fetch(path + '?v=' + ts);
-        if (!r.ok) return;
-        var qs = await r.json();
-        all = all.concat(qs);
-      } catch (e) {
-        console.warn('Could not load', path, e);
-      }
-    }));
+    /* Load question files and theme data in parallel */
+    var [themeData] = await Promise.all([
+      loadThemeData(),
+      Promise.all(files.map(async function (path) {
+        try {
+          var ts = new Date().getTime();
+          var r = await fetch(path + '?v=' + ts);
+          if (!r.ok) return;
+          var qs = await r.json();
+          all = all.concat(qs);
+        } catch (e) {
+          console.warn('Could not load', path, e);
+        }
+      }))
+    ]);
+
+    /* Pick a random theme for this session */
+    var universe = pickRandomUniverse(themeData.universes);
+    var universeId = universe ? universe.id : null;
+    var allCharacters = themeData.characters || [];
+
     /* Shuffle */
     for (var i = all.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
       var tmp = all[i]; all[i] = all[j]; all[j] = tmp;
     }
-    return all.slice(0, count).map(function (q) {
-      /* Resolve template placeholders to static text */
-      var resolved = Object.assign({}, q, { question: resolveTemplate(q.template || '') });
-      return resolved;
+
+    var selected = all.slice(0, count).map(function (q) {
+      return applyThemeToQuestion(q, universeId, allCharacters);
     });
+
+    /* Attach theme metadata to the result for display purposes */
+    selected.theme = universe
+      ? { id: universeId, name: universe.universe_name }
+      : null;
+
+    return selected;
   }
 
   /**
@@ -296,6 +411,8 @@
     hasDoneToday: hasDoneToday,
     getAllStreaks: getAllStreaks,
     loadQuestions: loadQuestions,
-    saveChallenge: saveChallenge
+    saveChallenge: saveChallenge,
+    loadThemeData: loadThemeData,
+    pickRandomUniverse: pickRandomUniverse
   };
 })(window);
