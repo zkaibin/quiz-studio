@@ -75,13 +75,24 @@
     return _themeData;
   }
 
+  function getRandomIndex(max) {
+    if (!max || max <= 0) return 0;
+    var cryptoObj = global.crypto || global.msCrypto;
+    if (!cryptoObj || typeof cryptoObj.getRandomValues !== 'function') {
+      throw new Error('Secure randomness unavailable');
+    }
+    var values = new Uint32Array(1);
+    cryptoObj.getRandomValues(values);
+    return values[0] % max;
+  }
+
   /**
    * Pick a random universe from the loaded theme data.
    * Returns the universe object, or null if none available.
    */
   function pickRandomUniverse(universes) {
     if (!universes || universes.length === 0) return null;
-    return universes[Math.floor(Math.random() * universes.length)];
+    return universes[getRandomIndex(universes.length)];
   }
 
   /**
@@ -108,9 +119,35 @@
         ? matching
         : available.filter(function (c) { return !used[c.name]; });
       var final = candidates.length > 0 ? candidates : available;
-      var chosen = final[Math.floor(Math.random() * final.length)].name;
-      used[chosen] = true;
-      return chosen;
+      if (final.length === 0) {
+        return { name: PLACEHOLDER_NAMES[0], gender: 'male' };
+      }
+      var chosen = final[getRandomIndex(final.length)];
+      used[chosen.name] = true;
+      return { name: chosen.name, gender: chosen.gender || 'male' };
+    });
+  }
+
+  function replaceThemePlaceholders(text, placeholders) {
+    if (typeof text !== 'string' || !placeholders || placeholders.length === 0) return text;
+
+    var resolvedText = text;
+    placeholders.forEach(function (placeholder, idx) {
+      var name = typeof placeholder === 'string' ? placeholder : placeholder.name;
+      var isFemale = !!(placeholder && typeof placeholder === 'object' && placeholder.gender === 'female');
+      resolvedText = resolvedText.replace(new RegExp('\\{CHARACTER_' + idx + '\\}', 'gi'), name);
+      resolvedText = resolvedText.replace(new RegExp('\\{DESCRIPTOR_' + idx + '\\}', 'gi'), name);
+      resolvedText = resolvedText.replace(new RegExp('\\{HE_SHE_CAP_' + idx + '\\}', 'gi'), isFemale ? 'She' : 'He');
+      resolvedText = resolvedText.replace(new RegExp('\\{HIS_HER_CAP_' + idx + '\\}', 'gi'), isFemale ? 'Her' : 'His');
+      resolvedText = resolvedText.replace(new RegExp('\\{HE_SHE_' + idx + '\\}', 'gi'), isFemale ? 'she' : 'he');
+      resolvedText = resolvedText.replace(new RegExp('\\{HIM_HER_' + idx + '\\}', 'gi'), isFemale ? 'her' : 'him');
+      resolvedText = resolvedText.replace(new RegExp('\\{HIS_HER_' + idx + '\\}', 'gi'), isFemale ? 'her' : 'his');
+      resolvedText = resolvedText.replace(new RegExp('\\{HIS_HERS_' + idx + '\\}', 'gi'), isFemale ? 'hers' : 'his');
+      resolvedText = resolvedText.replace(new RegExp('\\{HIMSELF_HERSELF_' + idx + '\\}', 'gi'), isFemale ? 'herself' : 'himself');
+    });
+
+    return resolvedText.replace(/\{NUMBER_(\d+)\}/gi, function (m, i) {
+      return String(parseInt(i, 10) + 1);
     });
   }
 
@@ -130,19 +167,22 @@
     if (q.placeholder_roles && q.placeholder_roles.length > 0 && allCharacters.length > 0) {
       var placeholders = assignCharactersToRoles(q.placeholder_roles, universeId, allCharacters);
       resolved.placeholders = placeholders;
-
-      /* Substitute {CHARACTER_N} and {DESCRIPTOR_N} in the template */
-      var text = template;
-      placeholders.forEach(function (name, idx) {
-        text = text.replace(new RegExp('\\{CHARACTER_' + idx + '\\}', 'g'), name);
-        text = text.replace(new RegExp('\\{DESCRIPTOR_' + idx + '\\}', 'g'), name);
-      });
-      /* Replace leftover {NUMBER_N} tokens */
-      text = text.replace(/\{NUMBER_(\d+)\}/g, function (m, i) { return String(parseInt(i, 10) + 1); });
-      resolved.question = text;
+      resolved.question = replaceThemePlaceholders(template, placeholders);
+      resolved.options = Array.isArray(q.options)
+        ? q.options.map(function (option) { return replaceThemePlaceholders(option, placeholders); })
+        : q.options;
+      if (typeof q.correct_answer === 'string') {
+        resolved.correct_answer = replaceThemePlaceholders(q.correct_answer, placeholders);
+      }
     } else {
       /* Fallback: use the original resolveTemplate logic */
       resolved.question = resolveTemplate(template);
+      resolved.options = Array.isArray(q.options)
+        ? q.options.map(function (option) { return resolveTemplate(option); })
+        : q.options;
+      if (typeof q.correct_answer === 'string') {
+        resolved.correct_answer = resolveTemplate(q.correct_answer);
+      }
     }
 
     return resolved;
@@ -176,9 +216,19 @@
   /** Replace {CHARACTER_0}, {CHARACTER_1}, {NUMBER_0} etc. with generic values */
   function resolveTemplate(template) {
     if (!template) return '';
-    return template.replace(/\{(CHARACTER|DESCRIPTOR|NUMBER)_(\d+)\}/g, function (match, type, idx) {
+    return template.replace(/\{(CHARACTER|DESCRIPTOR|NUMBER|HE_SHE|HIM_HER|HIS_HER|HIS_HERS|HIMSELF_HERSELF|HE_SHE_CAP|HIS_HER_CAP)_(\d+)\}/gi, function (match, type, idx) {
       var i = parseInt(idx, 10);
-      if (type === 'NUMBER') return String(i + 1);
+      switch (type.toUpperCase()) {
+        case 'NUMBER': return String(i + 1);
+        case 'HE_SHE': return 'he';
+        case 'HIM_HER': return 'him';
+        case 'HIS_HER': return 'his';
+        case 'HIS_HERS': return 'his';
+        case 'HIMSELF_HERSELF': return 'himself';
+        case 'HE_SHE_CAP': return 'He';
+        case 'HIS_HER_CAP': return 'His';
+        default: break;
+      }
       return PLACEHOLDER_NAMES[i % PLACEHOLDER_NAMES.length] || ('P' + (i + 1));
     });
   }
@@ -291,7 +341,7 @@
 
     /* Shuffle */
     for (var i = all.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
+      var j = getRandomIndex(i + 1);
       var tmp = all[i]; all[i] = all[j]; all[j] = tmp;
     }
 
