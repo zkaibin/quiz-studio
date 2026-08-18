@@ -179,6 +179,8 @@
         .dc-q-text { font-size: 0.97rem; color: #1e293b; margin-bottom: 12px; line-height: 1.5; }
         .dc-q-diagram { margin-bottom: 10px; overflow-x: auto; }
         .dc-q-diagram svg { max-width: 100%; height: auto; }
+        .dc-q-experiment-setup { font-size: 0.92rem; color: #374151; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; line-height: 1.6; white-space: pre-wrap; }
+        .dc-q-experiment-data { font-size: 0.92rem; color: #374151; margin-bottom: 10px; line-height: 1.6; }
 
         .dc-options { display: flex; flex-direction: column; gap: 7px; }
         .dc-option {
@@ -558,6 +560,12 @@
         questions.forEach(function (q, qi) {
           html += '<div class="dc-question-block" id="qblock-' + qi + '">';
           html += '<div class="dc-q-num">Question ' + (qi + 1) + ' of ' + questions.length + '</div>';
+          if (q.experiment_setup) {
+            html += '<div class="dc-q-experiment-setup"><strong>🧪 Experiment Setup:</strong><br>' + q.experiment_setup + '</div>';
+          }
+          if (q.experiment_data) {
+            html += '<div class="dc-q-experiment-data">' + q.experiment_data + '</div>';
+          }
           if (q.diagram) {
             html += '<div class="dc-q-diagram">' + q.diagram + '</div>';
           }
@@ -679,6 +687,15 @@
           var correct = q.answer;
           var isCorrect = ua === correct;
           html += '<div style="border:1px solid ' + (isCorrect ? '#86efac' : '#fca5a5') + ';border-radius:8px;padding:12px;margin-bottom:10px;background:' + (isCorrect ? '#f0fdf4' : '#fff1f2') + ';">';
+          if (q.experiment_setup) {
+            html += '<div style="font-size:0.85rem;color:#374151;margin-bottom:6px;padding:8px;background:rgba(0,0,0,0.04);border-radius:6px;"><strong>🧪 Experiment Setup:</strong><br>' + q.experiment_setup + '</div>';
+          }
+          if (q.experiment_data) {
+            html += '<div style="font-size:0.85rem;color:#374151;margin-bottom:6px;">' + q.experiment_data + '</div>';
+          }
+          if (q.diagram) {
+            html += '<div style="margin-bottom:8px;overflow-x:auto;">' + q.diagram + '</div>';
+          }
           html += '<div style="font-weight:700;color:#1e293b;margin-bottom:6px;">' + (i + 1) + '. ' + escapeHtml(q.question || '') + '</div>';
           html += '<div style="font-size:0.88rem;">'
             + (isCorrect ? '✅' : '❌')
