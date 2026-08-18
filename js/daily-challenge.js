@@ -187,6 +187,13 @@
       if (typeof q.correct_answer === 'string') {
         resolved.correct_answer = replaceThemePlaceholders(q.correct_answer, placeholders);
       }
+      /* Also replace placeholders in experiment context fields */
+      if (typeof q.experiment_setup === 'string') {
+        resolved.experiment_setup = replaceThemePlaceholders(q.experiment_setup, placeholders);
+      }
+      if (typeof q.experiment_data === 'string') {
+        resolved.experiment_data = replaceThemePlaceholders(q.experiment_data, placeholders);
+      }
     } else {
       /* Fallback: use the original resolveTemplate logic */
       resolved.question = resolveTemplate(template);
@@ -196,6 +203,25 @@
       if (typeof q.correct_answer === 'string') {
         resolved.correct_answer = resolveTemplate(q.correct_answer);
       }
+      if (typeof q.experiment_setup === 'string') {
+        resolved.experiment_setup = resolveTemplate(q.experiment_setup);
+      }
+      if (typeof q.experiment_data === 'string') {
+        resolved.experiment_data = resolveTemplate(q.experiment_data);
+      }
+    }
+
+    /* Shuffle answer options so the correct answer appears in a random position */
+    if (Array.isArray(resolved.options) && resolved.options.length > 1 && typeof resolved.answer === 'number') {
+      var origAnswer = resolved.answer;
+      var indices = resolved.options.map(function (_, i) { return i; });
+      /* Fisher-Yates shuffle */
+      for (var si = indices.length - 1; si > 0; si--) {
+        var sj = getRandomIndex(si + 1);
+        var tmp = indices[si]; indices[si] = indices[sj]; indices[sj] = tmp;
+      }
+      resolved.options = indices.map(function (i) { return resolved.options[i]; });
+      resolved.answer = indices.indexOf(origAnswer);
     }
 
     return resolved;
