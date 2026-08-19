@@ -405,10 +405,14 @@
       all = all.filter(function (q) { return allowedDifficulties.indexOf(q.difficulty) !== -1; });
     }
 
-    /* Shuffle */
-    for (var i = all.length - 1; i > 0; i--) {
-      var j = getRandomIndex(i + 1);
-      var tmp = all[i]; all[i] = all[j]; all[j] = tmp;
+    if (global.QuizPersonalization && typeof global.QuizPersonalization.getPrioritizedQuestions === 'function') {
+      all = await global.QuizPersonalization.getPrioritizedQuestions(subject, all);
+    } else {
+      /* Shuffle */
+      for (var i = all.length - 1; i > 0; i--) {
+        var j = getRandomIndex(i + 1);
+        var tmp = all[i]; all[i] = all[j]; all[j] = tmp;
+      }
     }
 
     var selected = all.slice(0, count).map(function (q) {

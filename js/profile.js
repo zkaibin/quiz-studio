@@ -11,6 +11,19 @@
   var MAX_AVATAR_SIZE = 2 * 1024 * 1024;
   var $ = function (id) { return document.getElementById(id); };
 
+  function getAppearancePayload() {
+    return {
+      theme: $('appearanceTheme') ? $('appearanceTheme').value : 'default',
+      background: $('backgroundStyle') ? $('backgroundStyle').value : 'default'
+    };
+  }
+
+  function syncAppearanceFields(preferences) {
+    var resolved = preferences || {};
+    if ($('appearanceTheme')) $('appearanceTheme').value = resolved.theme || 'default';
+    if ($('backgroundStyle')) $('backgroundStyle').value = resolved.background || 'default';
+  }
+
   function setStatus(elementId, message, kind) {
     var el = $(elementId);
     if (!el) return;
@@ -129,8 +142,19 @@
       if ($('bio')) $('bio').value = data.bio || '';
       if ($('favouriteSubject')) $('favouriteSubject').value = data.favourite_subject || '';
       if ($('schoolLevel')) $('schoolLevel').value = data.school_level || '';
+      syncAppearanceFields(
+        data.appearance_preferences ||
+        (window.QuizPersonalization && window.QuizPersonalization.getAppearancePreferences
+          ? window.QuizPersonalization.getAppearancePreferences()
+          : null)
+      );
       updateAvatarPreview(data.avatar_url || '');
     } else {
+      syncAppearanceFields(
+        window.QuizPersonalization && window.QuizPersonalization.getAppearancePreferences
+          ? window.QuizPersonalization.getAppearancePreferences()
+          : null
+      );
       updateAvatarPreview('');
     }
   }
@@ -151,11 +175,17 @@
         bio: $('bio') ? ($('bio').value.trim() || null) : null,
         favourite_subject: $('favouriteSubject') ? ($('favouriteSubject').value || null) : null,
         school_level: $('schoolLevel') ? ($('schoolLevel').value || null) : null,
+        appearance_preferences: getAppearancePayload(),
         updated_at: new Date().toISOString()
       };
 
       var { doc, setDoc } = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js');
       await setDoc(doc(db, 'users', currentUser.uid), payload, { merge: true });
+
+      if (window.QuizPersonalization) {
+        window.QuizPersonalization.cacheAppearancePreferences(payload.appearance_preferences);
+        window.QuizPersonalization.applyAppearance(payload.appearance_preferences);
+      }
 
       selectedAvatarFile = null;
       if ($('avatarFile')) $('avatarFile').value = '';
@@ -228,6 +258,17 @@
 
     var removeAvatarBtn = $('removeAvatarBtn');
     if (removeAvatarBtn) removeAvatarBtn.addEventListener('click', removeAvatarSelection);
+
+    ['appearanceTheme', 'backgroundStyle'].forEach(function (id) {
+      var field = $(id);
+      if (field) {
+        field.addEventListener('change', function () {
+          if (window.QuizPersonalization) {
+            window.QuizPersonalization.applyAppearance(getAppearancePayload());
+          }
+        });
+      }
+    });
 
     ['fullName', 'displayName'].forEach(function (id) {
       var field = $(id);

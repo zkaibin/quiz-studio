@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile - Quiz Studio</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
-    <link rel="stylesheet" href="css/style.css?v=10">
+    <link rel="stylesheet" href="css/style.css?v=11">
     <style>
         .profile-wrap {
             max-width: 640px;
@@ -183,6 +183,12 @@
             font-size: 0.85rem;
             line-height: 1.4;
         }
+
+        .appearance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
     </style>
 </head>
 <body>
@@ -266,6 +272,34 @@
                     </form>
                 </div>
 
+                <div class="profile-card">
+                    <h2>Appearance</h2>
+                    <p class="profile-email-display">Choose your favourite colours and background for quiz pages.</p>
+                    <hr class="divider">
+                    <div class="appearance-grid">
+                        <div class="form-group">
+                            <label for="appearanceTheme">Colour Theme</label>
+                            <select id="appearanceTheme" class="input-field">
+                                <option value="default">Default Purple</option>
+                                <option value="ocean">Ocean Blue</option>
+                                <option value="sunset">Sunset Glow</option>
+                                <option value="forest">Forest Green</option>
+                                <option value="midnight">Midnight</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="backgroundStyle">Background</label>
+                            <select id="backgroundStyle" class="input-field">
+                                <option value="default">Classic Gradient</option>
+                                <option value="sunrise">Sunrise</option>
+                                <option value="aurora">Aurora</option>
+                                <option value="meadow">Meadow</option>
+                                <option value="night">Night Sky</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Change Password Card -->
                 <div class="profile-card">
                     <h2>Change Password</h2>
@@ -306,6 +340,7 @@
     </div>
 
     
+    <script src="js/quiz-personalization.js"></script>
     <script type="module" src="js/firebase-config.js"></script>
     <script src="js/nav-auth.js"></script>
     <script src="js/profile.js"></script>

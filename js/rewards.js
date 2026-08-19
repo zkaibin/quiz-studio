@@ -43,6 +43,9 @@
     try {
       var db = window.FB_DB;
       var auth = window.FB_AUTH;
+      if (window.QuizPersonalization && payload && payload.subject && payload.questions && payload.answers) {
+        await window.QuizPersonalization.recordQuestionResults(payload.subject, payload.questions, payload.answers);
+      }
       if (!db || !auth) return 0;
 
       var user = auth.currentUser;
