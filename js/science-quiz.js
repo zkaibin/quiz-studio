@@ -190,8 +190,12 @@ class ScienceQuizApp {
     // Get questions based on criteria
     let allQuestions = this.getFilteredQuestions(category, difficulty);
     
-    // Shuffle and select random questions
-    allQuestions = this.shuffleArray(allQuestions);
+    // Personalize question priority when history is available
+    if (window.QuizPersonalization && typeof window.QuizPersonalization.getPrioritizedQuestions === 'function') {
+      allQuestions = await window.QuizPersonalization.getPrioritizedQuestions('science', allQuestions);
+    } else {
+      allQuestions = this.shuffleArray(allQuestions);
+    }
     this.questions = allQuestions.slice(0, questionCount).map(q => {
       // Clone question object
       const question = JSON.parse(JSON.stringify(q));

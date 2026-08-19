@@ -18,11 +18,14 @@
     --dark-text: #1e293b;
     --border-color: #e2e8f0;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --body-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --surface-background: #ffffff;
+    --surface-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--body-background);
     color: var(--dark-text);
     min-height: 100vh;
     padding: 20px;
@@ -31,9 +34,9 @@ body {
 .container {
     max-width: 900px;
     margin: 0 auto;
-    background: white;
+    background: var(--surface-background);
     border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--surface-shadow);
     overflow: hidden;
     min-height: 100vh;
     display: flex;
