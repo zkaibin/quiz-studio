@@ -598,6 +598,23 @@
             justify-content: center;
         }
 
+        .stickfight-difficulty-group {
+            display: none;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stickfight-difficulty-group.single-player-only {
+            display: flex;
+        }
+
+        .stickfight-difficulty-label {
+            font-weight: 700;
+            color: #1e293b;
+        }
+
         .mode-btn.active {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             box-shadow: 0 6px 15px rgba(16, 185, 129, 0.35);
@@ -683,12 +700,19 @@
         .stickfight-shell:fullscreen .stickfight-health,
         .stickfight-shell:fullscreen .stickfight-controls,
         .stickfight-shell:fullscreen .score-display,
+        .stickfight-shell:fullscreen .stickfight-toolbar,
         .stickfight-shell.stickfight-fullscreen .stickfight-health,
         .stickfight-shell.stickfight-fullscreen .stickfight-controls,
-        .stickfight-shell.stickfight-fullscreen .score-display {
+        .stickfight-shell.stickfight-fullscreen .score-display,
+        .stickfight-shell.stickfight-fullscreen .stickfight-toolbar {
             max-width: 1280px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        .stickfight-shell:fullscreen .stickfight-controls,
+        .stickfight-shell.stickfight-fullscreen .stickfight-controls {
+            display: none;
         }
 
         .stickfight-shell:fullscreen .stickfight-arena,
