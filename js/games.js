@@ -1083,6 +1083,60 @@ const stickFightConfig = {
     roundTime: 60
 };
 
+const stickFightDifficultyConfig = {
+    easy: {
+        label: 'Easy',
+        cpuHealthMultiplier: 0.88,
+        cpuDamageMultiplier: 0.78,
+        moveThreshold: 76,
+        specialDistance: 245,
+        specialChance: 0.14,
+        finisherChance: 0.22,
+        meleeRange: 60,
+        meleeChance: 0.72,
+        kickChance: 0.2,
+        uppercutChance: 0.28,
+        dashRange: 110,
+        dashChance: 0.08,
+        jumpChance: 0.015,
+        actionCooldowns: { special: 42, melee: 28, dash: 34, jump: 20 }
+    },
+    intermediate: {
+        label: 'Intermediate',
+        cpuHealthMultiplier: 1,
+        cpuDamageMultiplier: 1,
+        moveThreshold: 56,
+        specialDistance: 210,
+        specialChance: 0.3,
+        finisherChance: 0.45,
+        meleeRange: 70,
+        meleeChance: 1,
+        kickChance: 0.35,
+        uppercutChance: 0.5,
+        dashRange: 130,
+        dashChance: 0.18,
+        jumpChance: 0.04,
+        actionCooldowns: { special: 28, melee: 18, dash: 24, jump: 14 }
+    },
+    advanced: {
+        label: 'Advanced',
+        cpuHealthMultiplier: 1.12,
+        cpuDamageMultiplier: 1.14,
+        moveThreshold: 42,
+        specialDistance: 170,
+        specialChance: 0.4,
+        finisherChance: 0.62,
+        meleeRange: 82,
+        meleeChance: 1,
+        kickChance: 0.46,
+        uppercutChance: 0.62,
+        dashRange: 150,
+        dashChance: 0.28,
+        jumpChance: 0.07,
+        actionCooldowns: { special: 18, melee: 12, dash: 16, jump: 10 }
+    }
+};
+
 const stickFightCharacters = {
     goku: {
         name: 'Goku',
@@ -1131,6 +1185,12 @@ function initStickFight() {
                 <div class="stickfight-mode-group">
                     <button class="btn mode-btn active" id="stickfight-mode-single" onclick="setStickFightMode('single')">1 Player</button>
                     <button class="btn mode-btn" id="stickfight-mode-duo" onclick="setStickFightMode('duo')">2 Players</button>
+                </div>
+                <div class="stickfight-difficulty-group" id="stickfight-difficulty-group">
+                    <span class="stickfight-difficulty-label">CPU Level</span>
+                    <button class="btn mode-btn" id="stickfight-difficulty-easy" onclick="setStickFightDifficulty('easy')">Easy</button>
+                    <button class="btn mode-btn active" id="stickfight-difficulty-intermediate" onclick="setStickFightDifficulty('intermediate')">Intermediate</button>
+                    <button class="btn mode-btn" id="stickfight-difficulty-advanced" onclick="setStickFightDifficulty('advanced')">Advanced</button>
                 </div>
                 <button class="btn" id="stickfight-mobile-toggle" onclick="toggleStickFightMobileMode()">📱 Mobile Mode</button>
                 <button class="btn" id="stickfight-fullscreen-toggle" onclick="toggleStickFightFullscreen()">⛶ Full Screen</button>
@@ -1202,6 +1262,7 @@ function initStickFight() {
         roundActive: false,
         timeLeft: stickFightConfig.roundTime,
         aiActionCooldown: 0,
+        difficulty: 'intermediate',
         fighters: [],
         projectiles: [],
         effects: [],
@@ -1250,6 +1311,15 @@ function setStickFightMode(mode) {
     startStickFightRound();
 }
 
+function setStickFightDifficulty(level) {
+    if (!stickFightState || !stickFightDifficultyConfig[level]) return;
+    stickFightState.difficulty = level;
+    syncStickFightUi();
+    if (stickFightState.mode === 'single') {
+        startStickFightRound();
+    }
+}
+
 function startStickFightRound() {
     if (!stickFightState) return;
 
@@ -1265,9 +1335,12 @@ function startStickFightRound() {
     stickFightState.touchGesture = null;
     stickFightState.projectiles = [];
     stickFightState.effects = [];
+    const difficulty = getStickFightDifficultyProfile();
     stickFightState.fighters = [
         createStickFighter('p1', 'goku', 150, { left: 'KeyA', right: 'KeyD', jump: 'KeyW', punch: 'KeyF', kick: 'KeyG', uppercut: 'KeyR', dash: 'KeyT', skill1: 'KeyY', skill2: 'KeyU' }),
-        createStickFighter('p2', 'vegeta', 570, { left: 'ArrowLeft', right: 'ArrowRight', jump: 'ArrowUp', punch: 'Slash', kick: 'Period', uppercut: 'Comma', dash: 'Semicolon', skill1: 'KeyK', skill2: 'KeyL' })
+        createStickFighter('p2', 'vegeta', 570, { left: 'ArrowLeft', right: 'ArrowRight', jump: 'ArrowUp', punch: 'Slash', kick: 'Period', uppercut: 'Comma', dash: 'Semicolon', skill1: 'KeyK', skill2: 'KeyL' }, stickFightState.mode === 'single'
+            ? { healthMultiplier: difficulty.cpuHealthMultiplier, damageMultiplier: difficulty.cpuDamageMultiplier }
+            : {})
     ];
 
     if (stickFightState.loop) clearInterval(stickFightState.loop);
@@ -1275,12 +1348,16 @@ function startStickFightRound() {
     window.stickFightInterval = stickFightState.loop;
 
     updateStickFightHud();
-    setStickFightStatus(stickFightState.mode === 'single' ? 'Fight! Goku versus Vegeta CPU.' : 'Fight! Goku versus Vegeta in local versus mode.');
+    setStickFightStatus(stickFightState.mode === 'single'
+        ? `Fight! Goku versus Vegeta CPU (${difficulty.label}).`
+        : 'Fight! Goku versus Vegeta in local versus mode.');
     drawStickFight();
 }
 
-function createStickFighter(id, characterKey, x, controls) {
+function createStickFighter(id, characterKey, x, controls, combatTuning = {}) {
     const character = stickFightCharacters[characterKey] || stickFightCharacters.goku;
+    const healthMultiplier = combatTuning.healthMultiplier ?? 1;
+    const damageMultiplier = combatTuning.damageMultiplier ?? 1;
     return {
         id,
         characterKey,
@@ -1300,7 +1377,9 @@ function createStickFighter(id, characterKey, x, controls) {
         specials: character.attacks,
         specialLabels: character.labels,
         controls,
-        health: stickFightConfig.maxHealth,
+        health: Math.max(1, Math.round(stickFightConfig.maxHealth * healthMultiplier)),
+        maxHealth: Math.max(1, Math.round(stickFightConfig.maxHealth * healthMultiplier)),
+        damageMultiplier,
         attackTimer: 0,
         attackCooldown: 0,
         attackType: null,
@@ -1320,8 +1399,10 @@ function toggleStickFightMobileMode(forceValue) {
 function syncStickFightUi() {
     if (!stickFightState) return;
 
+    const difficulty = getStickFightDifficultyProfile();
     const mobileToggle = document.getElementById('stickfight-mobile-toggle');
     const fullscreenToggle = document.getElementById('stickfight-fullscreen-toggle');
+    const difficultyGroup = document.getElementById('stickfight-difficulty-group');
     const mobilePanel = document.getElementById('stickfight-mobile-panel');
     const mobileHint = document.getElementById('stickfight-mobile-hint');
     const p1Controls = document.getElementById('stickfight-p1-controls');
@@ -1335,6 +1416,12 @@ function syncStickFightUi() {
     const skill2Button = document.getElementById('stickfight-mobile-skill2');
     const p1Character = stickFightCharacters.goku;
     const p2Character = stickFightCharacters.vegeta;
+    ['easy', 'intermediate', 'advanced'].forEach(level => {
+        const button = document.getElementById(`stickfight-difficulty-${level}`);
+        if (button) {
+            button.classList.toggle('active', stickFightState.difficulty === level);
+        }
+    });
 
     if (mobileToggle) {
         mobileToggle.classList.toggle('active', !!stickFightState.mobileMode);
@@ -1343,6 +1430,10 @@ function syncStickFightUi() {
 
     if (fullscreenToggle) {
         fullscreenToggle.textContent = isStickFightFullscreen() ? '🡼 Exit Full Screen' : '⛶ Full Screen';
+    }
+
+    if (difficultyGroup) {
+        difficultyGroup.classList.toggle('single-player-only', stickFightState.mode === 'single');
     }
 
     if (mobilePanel) {
@@ -1364,14 +1455,18 @@ function syncStickFightUi() {
     if (p1Name) p1Name.textContent = p1Character.name;
     if (p1Subtitle) p1Subtitle.textContent = p1Character.subtitle;
     if (p2Name) p2Name.textContent = stickFightState.mode === 'single' ? `${p2Character.name} CPU` : `${p2Character.name} (P2)`;
-    if (p2Subtitle) p2Subtitle.textContent = p2Character.subtitle;
+    if (p2Subtitle) {
+        p2Subtitle.textContent = stickFightState.mode === 'single'
+            ? `${p2Character.subtitle} • ${difficulty.label}`
+            : p2Character.subtitle;
+    }
     if (skill1Button) skill1Button.textContent = p1Character.labels.skill1;
     if (skill2Button) skill2Button.textContent = p1Character.labels.skill2;
 
     if (opponentTitle) opponentTitle.textContent = stickFightState.mode === 'single' ? `${p2Character.name} CPU` : `${p2Character.name} (Player 2)`;
     if (opponentControls) {
         opponentControls.innerHTML = stickFightState.mode === 'single'
-            ? `${p2Character.name} now counters with punches, kicks, uppercuts, dash strikes, ${p2Character.labels.skill1}, and ${p2Character.labels.skill2}.`
+            ? `${difficulty.label} CPU: ${p2Character.name} counters with punches, kicks, uppercuts, dash strikes, ${p2Character.labels.skill1}, and ${p2Character.labels.skill2}.`
             : `Move: ← / →<br>Jump: ↑<br>Punch: /<br>Kick: .<br>Uppercut: ,<br>Dash Strike: ;<br>${p2Character.labels.skill1}: K<br>${p2Character.labels.skill2}: L`;
     }
 }
@@ -1432,6 +1527,10 @@ function updateStickFightInput(code, isDown) {
 
 function getStickFightAttackDefinition(type) {
     return type ? stickFightAttackConfig[type] || null : null;
+}
+
+function getStickFightDifficultyProfile() {
+    return stickFightDifficultyConfig[stickFightState?.difficulty] || stickFightDifficultyConfig.intermediate;
 }
 
 function getStickFightFighter(id) {
@@ -1597,7 +1696,8 @@ function resolveStickFightAttack(attacker, defender) {
     const closeY = Math.abs(defender.y - attacker.y) <= verticalReach;
 
     if (closeEnough && closeY) {
-        defender.health = Math.max(0, defender.health - attackDefinition.damage);
+        const damage = Math.max(1, Math.round(attackDefinition.damage * (attacker.damageMultiplier ?? 1)));
+        defender.health = Math.max(0, defender.health - damage);
         defender.x += attacker.facing * attackDefinition.knockbackX;
         defender.vy = Math.min(defender.vy, attackDefinition.knockbackY);
         defender.hitFlash = 8;
@@ -1609,6 +1709,7 @@ function resolveStickFightAttack(attacker, defender) {
 function updateStickFightAI(cpu, target) {
     if (!cpu || !target) return;
 
+    const difficulty = getStickFightDifficultyProfile();
     const input = stickFightState.inputs.p2;
     input.left = false;
     input.right = false;
@@ -1618,7 +1719,7 @@ function updateStickFightAI(cpu, target) {
     const absDistance = Math.abs(distance);
     const isTargetAbove = target.y < cpu.y - 18;
 
-    if (absDistance > 56) {
+    if (absDistance > difficulty.moveThreshold) {
         input.right = distance > 0;
         input.left = distance < 0;
     }
@@ -1632,27 +1733,27 @@ function updateStickFightAI(cpu, target) {
         return;
     }
 
-    if (absDistance > 210 && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0 && Math.random() < 0.3) {
-        queueStickFightAttack('p2', target.health < 36 && Math.random() < 0.45 ? cpu.specials.skill2 : cpu.specials.skill1);
-        stickFightState.aiActionCooldown = 28;
-    } else if (absDistance < 70 && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0) {
-        if (target.y < cpu.y - 12 && Math.random() < 0.5) {
+    if (absDistance > difficulty.specialDistance && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0 && Math.random() < difficulty.specialChance) {
+        queueStickFightAttack('p2', target.health < 36 && Math.random() < difficulty.finisherChance ? cpu.specials.skill2 : cpu.specials.skill1);
+        stickFightState.aiActionCooldown = difficulty.actionCooldowns.special;
+    } else if (absDistance < difficulty.meleeRange && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0 && Math.random() < difficulty.meleeChance) {
+        if (target.y < cpu.y - 12 && Math.random() < difficulty.uppercutChance) {
             queueStickFightAttack('p2', 'uppercut');
         } else {
-            queueStickFightAttack('p2', Math.random() < 0.35 ? 'kick' : 'punch');
+            queueStickFightAttack('p2', Math.random() < difficulty.kickChance ? 'kick' : 'punch');
         }
-        stickFightState.aiActionCooldown = 18;
-    } else if (absDistance < 130 && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0 && Math.random() < 0.18) {
+        stickFightState.aiActionCooldown = difficulty.actionCooldowns.melee;
+    } else if (absDistance < difficulty.dashRange && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0 && Math.random() < difficulty.dashChance) {
         if (distance > 0) {
             input.right = true;
         } else {
             input.left = true;
         }
         queueStickFightAttack('p2', 'dash');
-        stickFightState.aiActionCooldown = 24;
-    } else if (absDistance < 120 && Math.random() < 0.04 && cpu.y >= stickFightConfig.groundY) {
+        stickFightState.aiActionCooldown = difficulty.actionCooldowns.dash;
+    } else if (absDistance < 120 && Math.random() < difficulty.jumpChance && cpu.y >= stickFightConfig.groundY) {
         input.jump = true;
-        stickFightState.aiActionCooldown = 14;
+        stickFightState.aiActionCooldown = difficulty.actionCooldowns.jump;
     }
 }
 
@@ -1663,8 +1764,8 @@ function updateStickFightHud() {
     const p2Health = document.getElementById('stickfight-p2-health');
     const status = document.getElementById('stickfight-status');
 
-    if (p1Health) p1Health.style.width = `${p1 ? p1.health : stickFightConfig.maxHealth}%`;
-    if (p2Health) p2Health.style.width = `${p2 ? p2.health : stickFightConfig.maxHealth}%`;
+    if (p1Health) p1Health.style.width = `${p1 ? (p1.health / (p1.maxHealth || stickFightConfig.maxHealth)) * 100 : 100}%`;
+    if (p2Health) p2Health.style.width = `${p2 ? (p2.health / (p2.maxHealth || stickFightConfig.maxHealth)) * 100 : 100}%`;
     if (status && stickFightState.roundActive && p1 && p2) {
         status.textContent = `${p1.name}: ${p1.health} HP | ${p2.name}: ${p2.health} HP | Time: ${Math.ceil(stickFightState.timeLeft)}s`;
     }
@@ -2031,7 +2132,7 @@ function resizeStickFightCanvas() {
     }
     let displayHeight = displayWidth * (stickFightConfig.height / stickFightConfig.width);
     if (fullscreen) {
-        const maxHeight = Math.max(240, window.innerHeight - 260);
+        const maxHeight = Math.max(240, window.innerHeight - 190);
         if (displayHeight > maxHeight) {
             displayHeight = maxHeight;
             displayWidth = displayHeight * (stickFightConfig.width / stickFightConfig.height);
@@ -2090,7 +2191,7 @@ function spawnStickFightProjectile(fighter, attackDefinition) {
         y: fighter.y - (attackDefinition.originY || 42),
         vx: fighter.facing * (attackDefinition.projectileSpeed || 8),
         radius: attackDefinition.radius || 14,
-        damage: attackDefinition.damage,
+        damage: Math.max(1, Math.round(attackDefinition.damage * (fighter.damageMultiplier ?? 1))),
         knockbackX: attackDefinition.knockbackX,
         knockbackY: attackDefinition.knockbackY,
         color: attackDefinition.effectColor,
