@@ -669,7 +669,12 @@
             aspect-ratio: 9 / 4;
         }
 
-        .stickfight-shell:fullscreen {
+        body.stickfight-fullscreen-active {
+            overflow: hidden;
+        }
+
+        .stickfight-shell:fullscreen,
+        .stickfight-shell.stickfight-fullscreen {
             background: radial-gradient(circle at top, #0f172a 0%, #020617 100%);
             padding: 18px;
             overflow: auto;
@@ -677,20 +682,25 @@
 
         .stickfight-shell:fullscreen .stickfight-health,
         .stickfight-shell:fullscreen .stickfight-controls,
-        .stickfight-shell:fullscreen .score-display {
+        .stickfight-shell:fullscreen .score-display,
+        .stickfight-shell.stickfight-fullscreen .stickfight-health,
+        .stickfight-shell.stickfight-fullscreen .stickfight-controls,
+        .stickfight-shell.stickfight-fullscreen .score-display {
             max-width: 1280px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .stickfight-shell:fullscreen .stickfight-arena {
+        .stickfight-shell:fullscreen .stickfight-arena,
+        .stickfight-shell.stickfight-fullscreen .stickfight-arena {
             min-height: 50vh;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .stickfight-shell:fullscreen .stickfight-canvas {
+        .stickfight-shell:fullscreen .stickfight-canvas,
+        .stickfight-shell.stickfight-fullscreen .stickfight-canvas {
             max-height: 72vh;
         }
 
