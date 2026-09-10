@@ -1213,6 +1213,7 @@ function initStickFight() {
         tapTimeout: null,
         gestureMoveTimeout: null,
         touchGesture: null,
+        pseudoFullscreen: false,
         renderScale: { x: 1, y: 1 }
     };
 
@@ -1341,7 +1342,7 @@ function syncStickFightUi() {
     }
 
     if (fullscreenToggle) {
-        fullscreenToggle.textContent = document.fullscreenElement === stickFightState.shell ? '🡼 Exit Full Screen' : '⛶ Full Screen';
+        fullscreenToggle.textContent = isStickFightFullscreen() ? '🡼 Exit Full Screen' : '⛶ Full Screen';
     }
 
     if (mobilePanel) {
@@ -1350,13 +1351,13 @@ function syncStickFightUi() {
 
     if (mobileHint) {
         mobileHint.textContent = stickFightState.mode === 'single'
-            ? 'Touch the buttons to move and attack. Swipe left or right in the arena to dash, swipe up to jump, and double tap for an uppercut.'
-            : 'Player 1 can use touch controls while Player 2 uses the keyboard. Swipe the arena to jump or dash and double tap for an uppercut.';
+            ? 'Touch buttons to move and attack. Swipe up to jump, swipe left or right to dash/move, swipe down for Skill 1, hold the arena for Skill 2, and double tap for an uppercut.'
+            : 'Player 1 can use touch controls while Player 2 uses keyboard. Swipe up to jump, swipe left or right to dash/move, swipe down for Skill 1, hold arena for Skill 2, and double tap for an uppercut.';
     }
 
     if (p1Controls) {
         p1Controls.innerHTML = stickFightState.mobileMode
-            ? `Touch Pad: Move / Jump<br>Tap left or right side of arena: Punch / Kick<br>Double tap arena: Uppercut<br>Swipe in arena: Move, jump, or dash<br>${p1Character.labels.skill1} / ${p1Character.labels.skill2}: Tap skill buttons`
+            ? `Touch Pad: Move / Jump<br>Tap left or right side of arena: Punch / Kick<br>Double tap arena: Uppercut<br>Swipe left or right: Move or dash strike<br>Swipe down: ${p1Character.labels.skill1}<br>Press and hold arena: ${p1Character.labels.skill2}`
             : `Move: A / D<br>Jump: W<br>Punch: F<br>Kick: G<br>Uppercut: R<br>Dash Strike: T<br>${p1Character.labels.skill1}: Y<br>${p1Character.labels.skill2}: U`;
     }
 
@@ -1471,7 +1472,7 @@ function updateStickFight() {
     applyStickFightInput(p2, stickFightState.inputs.p2);
     separateStickFighters(p1, p2);
     p1.facing = p1.x <= p2.x ? 1 : -1;
-    p2.facing = p2.x < p1.x ? -1 : 1;
+    p2.facing = p2.x >= p1.x ? -1 : 1;
 
     resolveStickFightAttack(p1, p2);
     resolveStickFightAttack(p2, p1);
@@ -1580,7 +1581,7 @@ function resolveStickFightAttack(attacker, defender) {
     if (!attacker || !defender || !attacker.attackType || attacker.attackTimer <= 0 || attacker.hitConnected) return;
 
     attacker.facing = attacker.x <= defender.x ? 1 : -1;
-    defender.facing = defender.x < attacker.x ? -1 : 1;
+    defender.facing = defender.x < attacker.x ? 1 : -1;
 
     const attackDefinition = getStickFightAttackDefinition(attacker.attackType);
     if (!attackDefinition || attackDefinition.projectile) return;
@@ -1920,8 +1921,12 @@ function stopStickFight() {
     if (stickFightState.cleanup?.length) {
         stickFightState.cleanup.forEach(cleanup => cleanup());
     }
-    if (document.fullscreenElement === stickFightState.shell && document.exitFullscreen) {
-        document.exitFullscreen().catch(() => {});
+    if (stickFightState.pseudoFullscreen) {
+        stickFightState.shell.classList.remove('stickfight-fullscreen');
+        document.body.classList.remove('stickfight-fullscreen-active');
+    }
+    if (isStickFightFullscreen()) {
+        exitStickFightFullscreen().catch(() => {});
     }
     window.stickFightInterval = null;
     stickFightState = null;
@@ -1998,21 +2003,28 @@ function bindStickFightViewport() {
     if (!stickFightState) return;
     const onResize = () => resizeStickFightCanvas();
     const onFullscreenChange = () => {
+        stickFightState.pseudoFullscreen = false;
+        stickFightState.shell.classList.remove('stickfight-fullscreen');
+        document.body.classList.remove('stickfight-fullscreen-active');
         syncStickFightUi();
         resizeStickFightCanvas();
     };
     window.addEventListener('resize', onResize);
     document.addEventListener('fullscreenchange', onFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+    document.addEventListener('msfullscreenchange', onFullscreenChange);
     stickFightState.cleanup.push(() => {
         window.removeEventListener('resize', onResize);
         document.removeEventListener('fullscreenchange', onFullscreenChange);
+        document.removeEventListener('webkitfullscreenchange', onFullscreenChange);
+        document.removeEventListener('msfullscreenchange', onFullscreenChange);
     });
 }
 
 function resizeStickFightCanvas() {
     if (!stickFightState?.canvas || !stickFightState.arena) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const fullscreen = document.fullscreenElement === stickFightState.shell;
+    const fullscreen = isStickFightFullscreen();
     let displayWidth = Math.max(320, stickFightState.arena.clientWidth - 6);
     if (!fullscreen) {
         displayWidth = Math.min(displayWidth, stickFightConfig.width);
@@ -2041,14 +2053,30 @@ function resizeStickFightCanvas() {
 async function toggleStickFightFullscreen() {
     if (!stickFightState?.shell) return;
     try {
-        if (document.fullscreenElement === stickFightState.shell) {
-            await document.exitFullscreen();
-        } else if (stickFightState.shell.requestFullscreen) {
-            await stickFightState.shell.requestFullscreen();
+        if (isStickFightFullscreen()) {
+            if (stickFightState.pseudoFullscreen) {
+                stickFightState.pseudoFullscreen = false;
+                stickFightState.shell.classList.remove('stickfight-fullscreen');
+                document.body.classList.remove('stickfight-fullscreen-active');
+            } else {
+                await exitStickFightFullscreen();
+            }
+        } else if (stickFightState.shell.requestFullscreen || stickFightState.shell.webkitRequestFullscreen || stickFightState.shell.msRequestFullscreen) {
+            await requestStickFightFullscreen(stickFightState.shell);
+        } else {
+            stickFightState.pseudoFullscreen = true;
+            stickFightState.shell.classList.add('stickfight-fullscreen');
+            document.body.classList.add('stickfight-fullscreen-active');
         }
     } catch (error) {
         console.warn('Unable to toggle fullscreen mode.', error);
-        setStickFightStatus('Fullscreen is not available in this browser.');
+        if (!stickFightState.pseudoFullscreen) {
+            stickFightState.pseudoFullscreen = true;
+            stickFightState.shell.classList.add('stickfight-fullscreen');
+            document.body.classList.add('stickfight-fullscreen-active');
+        } else {
+            setStickFightStatus('Fullscreen is not available in this browser.');
+        }
     }
     syncStickFightUi();
     resizeStickFightCanvas();
@@ -2149,6 +2177,14 @@ function handleStickFightTouchGesture(endX, endY) {
         return;
     }
 
+    if (absY > 56 && absY > absX && deltaY > 20) {
+        const p1 = getStickFightFighter('p1');
+        if (p1?.specials?.skill1) {
+            queueStickFightAttack('p1', p1.specials.skill1);
+        }
+        return;
+    }
+
     if (absX > 44 && absX > absY) {
         if (absX > 90 || duration < 180) {
             stickFightState.inputs.p1.left = deltaX < 0;
@@ -2158,6 +2194,14 @@ function handleStickFightTouchGesture(endX, endY) {
             nudgeStickFightMove(deltaX < 0 ? 'left' : 'right');
         }
         return;
+    }
+
+    if (duration >= 420 && absX < 28 && absY < 28) {
+        const p1 = getStickFightFighter('p1');
+        if (p1?.specials?.skill2) {
+            queueStickFightAttack('p1', p1.specials.skill2);
+            return;
+        }
     }
 
     if (duration < 260 && absX < 24 && absY < 24) {
@@ -2196,6 +2240,41 @@ function pulseStickFightJump(fighterId) {
         if (!stickFightState?.inputs?.[fighterId]) return;
         stickFightState.inputs[fighterId].jump = false;
     }, 120);
+}
+
+function getStickFightFullscreenElement() {
+    return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement || null;
+}
+
+function isStickFightFullscreen() {
+    if (!stickFightState?.shell) return false;
+    return getStickFightFullscreenElement() === stickFightState.shell || !!stickFightState.pseudoFullscreen;
+}
+
+async function requestStickFightFullscreen(element) {
+    if (element.requestFullscreen) {
+        return element.requestFullscreen();
+    }
+    if (element.webkitRequestFullscreen) {
+        return element.webkitRequestFullscreen();
+    }
+    if (element.msRequestFullscreen) {
+        return element.msRequestFullscreen();
+    }
+    return Promise.reject(new Error('Fullscreen API unavailable.'));
+}
+
+async function exitStickFightFullscreen() {
+    if (document.exitFullscreen) {
+        return document.exitFullscreen();
+    }
+    if (document.webkitExitFullscreen) {
+        return document.webkitExitFullscreen();
+    }
+    if (document.msExitFullscreen) {
+        return document.msExitFullscreen();
+    }
+    return Promise.resolve();
 }
 
 // ============= HANGMAN =============
