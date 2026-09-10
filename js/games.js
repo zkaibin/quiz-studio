@@ -1078,9 +1078,16 @@ const stickFightConfig = {
     groundY: 270,
     gravity: 0.7,
     moveSpeed: 4.6,
-    jumpVelocity: -12.5,
+    jumpVelocity: -15.2,
     maxHealth: 100,
     roundTime: 60
+};
+
+const stickFightAttackConfig = {
+    punch: { timer: 12, cooldown: 20, activeWindow: [3, 8], reach: 58, verticalReach: 70, damage: 8, knockbackX: 14, knockbackY: -2, moveScale: 0.55, drawOffset: 12, armY: -24, legY: 16, trailWidth: 7, effectColor: 'rgba(239, 68, 68, 0.45)' },
+    kick: { timer: 18, cooldown: 30, activeWindow: [6, 13], reach: 74, verticalReach: 70, damage: 12, knockbackX: 22, knockbackY: -4, moveScale: 0.55, drawOffset: 18, armY: -18, legY: 6, trailWidth: 9, effectColor: 'rgba(249, 115, 22, 0.45)' },
+    uppercut: { timer: 20, cooldown: 36, activeWindow: [7, 13], reach: 62, verticalReach: 88, damage: 16, knockbackX: 16, knockbackY: -11, moveScale: 0.35, drawOffset: 10, armY: -48, legY: 10, trailWidth: 8, effectColor: 'rgba(168, 85, 247, 0.45)' },
+    dash: { timer: 24, cooldown: 42, activeWindow: [9, 17], reach: 98, verticalReach: 76, damage: 18, knockbackX: 28, knockbackY: -6, moveScale: 0.25, drawOffset: 24, armY: -26, legY: 2, trailWidth: 10, effectColor: 'rgba(14, 165, 233, 0.42)', lungeSpeed: 6.4 }
 };
 
 let stickFightState = null;
@@ -1098,6 +1105,7 @@ function initStickFight() {
                     <button class="btn mode-btn active" id="stickfight-mode-single" onclick="setStickFightMode('single')">1 Player</button>
                     <button class="btn mode-btn" id="stickfight-mode-duo" onclick="setStickFightMode('duo')">2 Players</button>
                 </div>
+                <button class="btn" id="stickfight-mobile-toggle" onclick="toggleStickFightMobileMode()">📱 Mobile Mode</button>
                 <button class="btn" onclick="startStickFightRound()">Start Match</button>
             </div>
             <div class="stickfight-health">
@@ -1120,14 +1128,27 @@ function initStickFight() {
             <div class="stickfight-controls">
                 <div class="stickfight-control-card">
                     <strong>Player 1</strong>
-                    Move: A / D<br>
-                    Jump: W<br>
-                    Punch: F<br>
-                    Kick: G
+                    <span id="stickfight-p1-controls">Move: A / D<br>Jump: W<br>Punch: F<br>Kick: G<br>Uppercut: R<br>Dash Strike: T</span>
                 </div>
                 <div class="stickfight-control-card">
                     <strong id="stickfight-opponent-title">CPU Opponent</strong>
                     <span id="stickfight-opponent-controls">In 1-player mode, the CPU moves, jumps, and attacks automatically.</span>
+                </div>
+            </div>
+            <div class="stickfight-mobile-panel" id="stickfight-mobile-panel">
+                <div class="stickfight-mobile-hint" id="stickfight-mobile-hint">Touch the buttons to move and attack, or swipe in the arena to jump and dash.</div>
+                <div class="stickfight-mobile-layout">
+                    <div class="stickfight-mobile-pad">
+                        <button class="stickfight-touch-btn" data-stickfight-input="left">←</button>
+                        <button class="stickfight-touch-btn" data-stickfight-input="jump">↑</button>
+                        <button class="stickfight-touch-btn" data-stickfight-input="right">→</button>
+                    </div>
+                    <div class="stickfight-mobile-actions">
+                        <button class="stickfight-touch-btn attack" data-stickfight-attack="punch">Punch</button>
+                        <button class="stickfight-touch-btn attack" data-stickfight-attack="kick">Kick</button>
+                        <button class="stickfight-touch-btn attack special" data-stickfight-attack="uppercut">Uppercut</button>
+                        <button class="stickfight-touch-btn attack special" data-stickfight-attack="dash">Dash Strike</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1148,16 +1169,31 @@ function initStickFight() {
         fighters: [],
         loop: null,
         keydown: null,
-        keyup: null
+        keyup: null,
+        mobileMode: shouldEnableStickFightMobileMode(),
+        cleanup: [],
+        tapTimeout: null,
+        gestureMoveTimeout: null,
+        touchGesture: null
     };
 
     stickFightState.keydown = handleStickFightKeyDown;
     stickFightState.keyup = handleStickFightKeyUp;
     document.addEventListener('keydown', stickFightState.keydown);
     document.addEventListener('keyup', stickFightState.keyup);
+    bindStickFightMobileControls();
 
     updateStickFightScoreboard();
+    syncStickFightUi();
     setStickFightMode('single');
+}
+
+function shouldEnableStickFightMobileMode() {
+    return typeof window !== 'undefined' && (
+        window.matchMedia?.('(max-width: 768px)').matches ||
+        window.matchMedia?.('(pointer: coarse)').matches ||
+        'ontouchstart' in window
+    );
 }
 
 function setStickFightMode(mode) {
@@ -1169,15 +1205,8 @@ function setStickFightMode(mode) {
     if (duoBtn) duoBtn.classList.toggle('active', mode === 'duo');
 
     const p2Name = document.getElementById('stickfight-p2-name');
-    const opponentTitle = document.getElementById('stickfight-opponent-title');
-    const opponentControls = document.getElementById('stickfight-opponent-controls');
     if (p2Name) p2Name.textContent = mode === 'single' ? 'CPU' : 'Player 2';
-    if (opponentTitle) opponentTitle.textContent = mode === 'single' ? 'CPU Opponent' : 'Player 2';
-    if (opponentControls) {
-        opponentControls.innerHTML = mode === 'single'
-            ? 'In 1-player mode, the CPU moves, jumps, and attacks automatically.'
-            : 'Move: ← / →<br>Jump: ↑<br>Punch: /<br>Kick: .';
-    }
+    syncStickFightUi();
     startStickFightRound();
 }
 
@@ -1189,9 +1218,14 @@ function startStickFightRound() {
     stickFightState.roundActive = true;
     stickFightState.inputs.p1 = { left: false, right: false, jump: false };
     stickFightState.inputs.p2 = { left: false, right: false, jump: false };
+    if (stickFightState.tapTimeout) clearTimeout(stickFightState.tapTimeout);
+    if (stickFightState.gestureMoveTimeout) clearTimeout(stickFightState.gestureMoveTimeout);
+    stickFightState.tapTimeout = null;
+    stickFightState.gestureMoveTimeout = null;
+    stickFightState.touchGesture = null;
     stickFightState.fighters = [
-        createStickFighter('p1', 'Player 1', 150, '#2563eb', { left: 'KeyA', right: 'KeyD', jump: 'KeyW', punch: 'KeyF', kick: 'KeyG' }),
-        createStickFighter('p2', stickFightState.mode === 'single' ? 'CPU' : 'Player 2', 570, '#dc2626', { left: 'ArrowLeft', right: 'ArrowRight', jump: 'ArrowUp', punch: 'Slash', kick: 'Period' })
+        createStickFighter('p1', 'Player 1', 150, '#2563eb', { left: 'KeyA', right: 'KeyD', jump: 'KeyW', punch: 'KeyF', kick: 'KeyG', uppercut: 'KeyR', dash: 'KeyT' }),
+        createStickFighter('p2', stickFightState.mode === 'single' ? 'CPU' : 'Player 2', 570, '#dc2626', { left: 'ArrowLeft', right: 'ArrowRight', jump: 'ArrowUp', punch: 'Slash', kick: 'Period', uppercut: 'Comma', dash: 'Semicolon' })
     ];
 
     if (stickFightState.loop) clearInterval(stickFightState.loop);
@@ -1226,6 +1260,52 @@ function createStickFighter(id, name, x, color, controls) {
     };
 }
 
+function toggleStickFightMobileMode(forceValue) {
+    if (!stickFightState) return;
+    stickFightState.mobileMode = typeof forceValue === 'boolean' ? forceValue : !stickFightState.mobileMode;
+    releaseStickFightInputs('p1');
+    syncStickFightUi();
+}
+
+function syncStickFightUi() {
+    if (!stickFightState) return;
+
+    const mobileToggle = document.getElementById('stickfight-mobile-toggle');
+    const mobilePanel = document.getElementById('stickfight-mobile-panel');
+    const mobileHint = document.getElementById('stickfight-mobile-hint');
+    const p1Controls = document.getElementById('stickfight-p1-controls');
+    const opponentTitle = document.getElementById('stickfight-opponent-title');
+    const opponentControls = document.getElementById('stickfight-opponent-controls');
+
+    if (mobileToggle) {
+        mobileToggle.classList.toggle('active', !!stickFightState.mobileMode);
+        mobileToggle.textContent = stickFightState.mobileMode ? '📱 Mobile Mode On' : '📱 Mobile Mode';
+    }
+
+    if (mobilePanel) {
+        mobilePanel.classList.toggle('active', !!stickFightState.mobileMode);
+    }
+
+    if (mobileHint) {
+        mobileHint.textContent = stickFightState.mode === 'single'
+            ? 'Touch the buttons to move and attack. Swipe left or right in the arena to dash, swipe up to jump, and double tap for an uppercut.'
+            : 'Player 1 can use touch controls while Player 2 stays on keyboard. Swipe the arena to jump or dash and double tap for an uppercut.';
+    }
+
+    if (p1Controls) {
+        p1Controls.innerHTML = stickFightState.mobileMode
+            ? 'Touch Pad: Move / Jump<br>Tap left or right side of arena: Punch / Kick<br>Double tap arena: Uppercut<br>Swipe in arena: Move, jump, or dash'
+            : 'Move: A / D<br>Jump: W<br>Punch: F<br>Kick: G<br>Uppercut: R<br>Dash Strike: T';
+    }
+
+    if (opponentTitle) opponentTitle.textContent = stickFightState.mode === 'single' ? 'CPU Opponent' : 'Player 2';
+    if (opponentControls) {
+        opponentControls.innerHTML = stickFightState.mode === 'single'
+            ? 'In 1-player mode, the CPU now uses punches, kicks, uppercuts, and dash strikes automatically.'
+            : 'Move: ← / →<br>Jump: ↑<br>Punch: /<br>Kick: .<br>Uppercut: ,<br>Dash Strike: ;';
+    }
+}
+
 function handleStickFightKeyDown(event) {
     if (!stickFightState) return;
     const handled = updateStickFightInput(event.code, true);
@@ -1257,15 +1337,47 @@ function updateStickFightInput(code, isDown) {
             input.jump = isDown;
             handled = true;
         } else if (isDown && code === fighter.controls.punch) {
-            fighter.attackQueued = 'punch';
+            queueStickFightAttack(fighter.id, 'punch');
             handled = true;
         } else if (isDown && code === fighter.controls.kick) {
-            fighter.attackQueued = 'kick';
+            queueStickFightAttack(fighter.id, 'kick');
+            handled = true;
+        } else if (isDown && code === fighter.controls.uppercut) {
+            queueStickFightAttack(fighter.id, 'uppercut');
+            handled = true;
+        } else if (isDown && code === fighter.controls.dash) {
+            queueStickFightAttack(fighter.id, 'dash');
             handled = true;
         }
     });
 
     return handled;
+}
+
+function getStickFightAttackDefinition(type) {
+    return type ? stickFightAttackConfig[type] || null : null;
+}
+
+function getStickFightFighter(id) {
+    return stickFightState?.fighters?.find(fighter => fighter.id === id) || null;
+}
+
+function queueStickFightAttack(fighterId, attackType) {
+    if (!stickFightState) return;
+    const fighter = getStickFightFighter(fighterId);
+    if (!fighter || !stickFightAttackConfig[attackType]) return;
+
+    const input = stickFightState.inputs[fighterId];
+    if (attackType === 'dash' && input) {
+        if (input.left && !input.right) fighter.facing = -1;
+        if (input.right && !input.left) fighter.facing = 1;
+    }
+    fighter.attackQueued = attackType;
+}
+
+function releaseStickFightInputs(fighterId) {
+    if (!stickFightState?.inputs?.[fighterId]) return;
+    stickFightState.inputs[fighterId] = { left: false, right: false, jump: false };
 }
 
 function updateStickFight() {
@@ -1314,6 +1426,8 @@ function updateStickFight() {
 function applyStickFightInput(fighter, input) {
     if (!fighter || !input) return;
 
+    const currentAttack = getStickFightAttackDefinition(fighter.attackType);
+
     if (fighter.attackCooldown > 0) fighter.attackCooldown--;
     if (fighter.attackTimer > 0) fighter.attackTimer--;
     if (fighter.hitFlash > 0) fighter.hitFlash--;
@@ -1327,13 +1441,17 @@ function applyStickFightInput(fighter, input) {
     let move = 0;
     if (input.left) move -= 1;
     if (input.right) move += 1;
-    fighter.vx = move * stickFightConfig.moveSpeed * (fighter.attackTimer > 0 ? 0.55 : 1);
+    fighter.vx = move * stickFightConfig.moveSpeed * (currentAttack ? currentAttack.moveScale : 1);
     fighter.x += fighter.vx;
 
     const onGround = fighter.y >= stickFightConfig.groundY;
     if (input.jump && onGround) {
         fighter.vy = stickFightConfig.jumpVelocity;
         fighter.y = stickFightConfig.groundY - 1;
+    }
+
+    if (fighter.attackType === 'dash' && fighter.attackTimer > 0) {
+        fighter.x += fighter.facing * (currentAttack?.lungeSpeed || 0);
     }
 
     fighter.vy += stickFightConfig.gravity;
@@ -1346,10 +1464,15 @@ function applyStickFightInput(fighter, input) {
     fighter.x = Math.max(30, Math.min(stickFightConfig.width - 30, fighter.x));
 
     if (fighter.attackQueued && fighter.attackCooldown <= 0 && fighter.attackTimer <= 0) {
+        const attackDefinition = getStickFightAttackDefinition(fighter.attackQueued);
         fighter.attackType = fighter.attackQueued;
-        fighter.attackTimer = fighter.attackQueued === 'kick' ? 18 : 12;
-        fighter.attackCooldown = fighter.attackQueued === 'kick' ? 30 : 20;
+        fighter.attackTimer = attackDefinition.timer;
+        fighter.attackCooldown = attackDefinition.cooldown;
         fighter.hitConnected = false;
+        if (fighter.attackType === 'uppercut' && onGround) {
+            fighter.vy = Math.min(fighter.vy, -6.4);
+            fighter.y = Math.min(fighter.y, stickFightConfig.groundY - 1);
+        }
     }
     fighter.attackQueued = null;
 }
@@ -1379,20 +1502,23 @@ function resolveStickFightAttack(attacker, defender) {
     attacker.facing = attacker.x <= defender.x ? 1 : -1;
     defender.facing = defender.x < attacker.x ? -1 : 1;
 
-    const activeWindow = attacker.attackType === 'kick' ? [6, 13] : [3, 8];
-    const elapsed = (attacker.attackType === 'kick' ? 18 : 12) - attacker.attackTimer;
+    const attackDefinition = getStickFightAttackDefinition(attacker.attackType);
+    if (!attackDefinition) return;
+
+    const activeWindow = attackDefinition.activeWindow;
+    const elapsed = attackDefinition.timer - attacker.attackTimer;
     if (elapsed < activeWindow[0] || elapsed > activeWindow[1]) return;
 
-    const reach = attacker.attackType === 'kick' ? 74 : 58;
-    const verticalReach = 70;
+    const reach = attackDefinition.reach;
+    const verticalReach = attackDefinition.verticalReach;
     const distanceX = defender.x - attacker.x;
     const closeEnough = Math.abs(distanceX) <= reach && Math.sign(distanceX || attacker.facing) === attacker.facing;
     const closeY = Math.abs(defender.y - attacker.y) <= verticalReach;
 
     if (closeEnough && closeY) {
-        const damage = attacker.attackType === 'kick' ? 12 : 8;
-        defender.health = Math.max(0, defender.health - damage);
-        defender.x += attacker.facing * (attacker.attackType === 'kick' ? 22 : 14);
+        defender.health = Math.max(0, defender.health - attackDefinition.damage);
+        defender.x += attacker.facing * attackDefinition.knockbackX;
+        defender.vy = Math.min(defender.vy, attackDefinition.knockbackY);
         defender.hitFlash = 8;
         attacker.hitConnected = true;
     }
@@ -1424,9 +1550,21 @@ function updateStickFightAI(cpu, target) {
         return;
     }
 
-    if (absDistance < 72 && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0) {
-        cpu.attackQueued = Math.random() < 0.35 ? 'kick' : 'punch';
-        stickFightState.aiActionCooldown = 20;
+    if (absDistance < 70 && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0) {
+        if (target.y < cpu.y - 12 && Math.random() < 0.5) {
+            queueStickFightAttack('p2', 'uppercut');
+        } else {
+            queueStickFightAttack('p2', Math.random() < 0.35 ? 'kick' : 'punch');
+        }
+        stickFightState.aiActionCooldown = 18;
+    } else if (absDistance < 130 && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0 && Math.random() < 0.18) {
+        if (distance > 0) {
+            input.right = true;
+        } else {
+            input.left = true;
+        }
+        queueStickFightAttack('p2', 'dash');
+        stickFightState.aiActionCooldown = 24;
     } else if (absDistance < 120 && Math.random() < 0.04 && cpu.y >= stickFightConfig.groundY) {
         input.jump = true;
         stickFightState.aiActionCooldown = 14;
@@ -1475,7 +1613,10 @@ function drawStickFighter(fighter) {
     const { ctx } = stickFightState;
     const baseX = fighter.x;
     const baseY = fighter.y;
-    const attackOffset = fighter.attackTimer > 0 ? (fighter.attackType === 'kick' ? 18 : 12) : 0;
+    const attackDefinition = getStickFightAttackDefinition(fighter.attackType);
+    const attackOffset = fighter.attackTimer > 0 && attackDefinition ? attackDefinition.drawOffset : 0;
+    const attackArmY = attackDefinition?.armY ?? -24;
+    const attackLegY = attackDefinition?.legY ?? 16;
 
     ctx.save();
     ctx.translate(baseX, baseY);
@@ -1498,22 +1639,22 @@ function drawStickFighter(fighter) {
     ctx.moveTo(0, -38);
     ctx.lineTo(-18, -22);
     ctx.moveTo(0, -38);
-    ctx.lineTo(18 + attackOffset, fighter.attackType === 'punch' ? -24 : -18);
+    ctx.lineTo(18 + attackOffset, attackArmY);
     ctx.stroke();
 
     ctx.beginPath();
     ctx.moveTo(0, -15);
     ctx.lineTo(-14, 16);
     ctx.moveTo(0, -15);
-    ctx.lineTo(attackOffset > 0 ? 20 + attackOffset : 14, attackOffset > 0 ? 6 : 16);
+    ctx.lineTo(attackOffset > 0 ? 20 + attackOffset : 14, attackOffset > 0 ? attackLegY : 16);
     ctx.stroke();
 
     if (fighter.attackTimer > 0) {
-        ctx.strokeStyle = 'rgba(239, 68, 68, 0.45)';
-        ctx.lineWidth = fighter.attackType === 'kick' ? 9 : 7;
+        ctx.strokeStyle = attackDefinition?.effectColor || 'rgba(239, 68, 68, 0.45)';
+        ctx.lineWidth = attackDefinition?.trailWidth || 7;
         ctx.beginPath();
-        ctx.moveTo(16, fighter.attackType === 'kick' ? 0 : -24);
-        ctx.lineTo(45 + attackOffset, fighter.attackType === 'kick' ? -3 : -20);
+        ctx.moveTo(16, fighter.attackType === 'kick' || fighter.attackType === 'dash' ? 0 : -24);
+        ctx.lineTo(45 + attackOffset, fighter.attackType === 'uppercut' ? -34 : fighter.attackType === 'kick' ? -3 : -20);
         ctx.stroke();
     }
 
@@ -1556,8 +1697,144 @@ function stopStickFight() {
     if (stickFightState.loop) clearInterval(stickFightState.loop);
     if (stickFightState.keydown) document.removeEventListener('keydown', stickFightState.keydown);
     if (stickFightState.keyup) document.removeEventListener('keyup', stickFightState.keyup);
+    if (stickFightState.tapTimeout) clearTimeout(stickFightState.tapTimeout);
+    if (stickFightState.gestureMoveTimeout) clearTimeout(stickFightState.gestureMoveTimeout);
+    if (stickFightState.cleanup?.length) {
+        stickFightState.cleanup.forEach(cleanup => cleanup());
+    }
     window.stickFightInterval = null;
     stickFightState = null;
+}
+
+function bindStickFightMobileControls() {
+    if (!stickFightState) return;
+
+    const cleanup = [];
+    const controls = document.querySelectorAll('#game-stickfight [data-stickfight-input], #game-stickfight [data-stickfight-attack]');
+    controls.forEach(button => {
+        const inputType = button.dataset.stickfightInput;
+        const attackType = button.dataset.stickfightAttack;
+
+        const onPointerDown = (event) => {
+            if (!stickFightState?.mobileMode) return;
+            event.preventDefault();
+            if (inputType) {
+                stickFightState.inputs.p1[inputType] = true;
+            } else if (attackType) {
+                queueStickFightAttack('p1', attackType);
+            }
+        };
+
+        const onPointerUp = (event) => {
+            if (!stickFightState?.mobileMode || !inputType) return;
+            event.preventDefault();
+            stickFightState.inputs.p1[inputType] = false;
+        };
+
+        button.addEventListener('pointerdown', onPointerDown);
+        button.addEventListener('pointerup', onPointerUp);
+        button.addEventListener('pointercancel', onPointerUp);
+        button.addEventListener('pointerleave', onPointerUp);
+        cleanup.push(() => {
+            button.removeEventListener('pointerdown', onPointerDown);
+            button.removeEventListener('pointerup', onPointerUp);
+            button.removeEventListener('pointercancel', onPointerUp);
+            button.removeEventListener('pointerleave', onPointerUp);
+        });
+    });
+
+    if (stickFightState.canvas) {
+        const onPointerDown = (event) => {
+            if (!stickFightState?.mobileMode || event.pointerType === 'mouse') return;
+            stickFightState.touchGesture = {
+                x: event.clientX,
+                y: event.clientY,
+                time: Date.now()
+            };
+        };
+
+        const onPointerUp = (event) => {
+            if (!stickFightState?.mobileMode || event.pointerType === 'mouse' || !stickFightState.touchGesture) return;
+            event.preventDefault();
+            handleStickFightTouchGesture(event.clientX, event.clientY);
+            stickFightState.touchGesture = null;
+        };
+
+        stickFightState.canvas.addEventListener('pointerdown', onPointerDown);
+        stickFightState.canvas.addEventListener('pointerup', onPointerUp);
+        stickFightState.canvas.addEventListener('pointercancel', onPointerUp);
+        cleanup.push(() => {
+            stickFightState.canvas.removeEventListener('pointerdown', onPointerDown);
+            stickFightState.canvas.removeEventListener('pointerup', onPointerUp);
+            stickFightState.canvas.removeEventListener('pointercancel', onPointerUp);
+        });
+    }
+
+    stickFightState.cleanup = cleanup;
+}
+
+function handleStickFightTouchGesture(endX, endY) {
+    if (!stickFightState?.touchGesture || !stickFightState.canvas) return;
+
+    const { x, y, time } = stickFightState.touchGesture;
+    const deltaX = endX - x;
+    const deltaY = endY - y;
+    const absX = Math.abs(deltaX);
+    const absY = Math.abs(deltaY);
+    const duration = Date.now() - time;
+
+    if (absY > 50 && absY > absX && deltaY < -16) {
+        pulseStickFightJump('p1');
+        return;
+    }
+
+    if (absX > 44 && absX > absY) {
+        if (absX > 90 || duration < 180) {
+            stickFightState.inputs.p1.left = deltaX < 0;
+            stickFightState.inputs.p1.right = deltaX > 0;
+            queueStickFightAttack('p1', 'dash');
+        } else {
+            nudgeStickFightMove(deltaX < 0 ? 'left' : 'right');
+        }
+        return;
+    }
+
+    if (duration < 260 && absX < 24 && absY < 24) {
+        const rect = stickFightState.canvas.getBoundingClientRect();
+        const isRightTap = endX - rect.left > rect.width / 2;
+        if (stickFightState.tapTimeout) {
+            clearTimeout(stickFightState.tapTimeout);
+            stickFightState.tapTimeout = null;
+            queueStickFightAttack('p1', 'uppercut');
+        } else {
+            stickFightState.tapTimeout = setTimeout(() => {
+                queueStickFightAttack('p1', isRightTap ? 'kick' : 'punch');
+                stickFightState.tapTimeout = null;
+            }, 180);
+        }
+    }
+}
+
+function nudgeStickFightMove(direction) {
+    if (!stickFightState?.inputs?.p1) return;
+    stickFightState.inputs.p1.left = direction === 'left';
+    stickFightState.inputs.p1.right = direction === 'right';
+    if (stickFightState.gestureMoveTimeout) clearTimeout(stickFightState.gestureMoveTimeout);
+    stickFightState.gestureMoveTimeout = setTimeout(() => {
+        if (!stickFightState?.inputs?.p1) return;
+        stickFightState.inputs.p1.left = false;
+        stickFightState.inputs.p1.right = false;
+        stickFightState.gestureMoveTimeout = null;
+    }, 180);
+}
+
+function pulseStickFightJump(fighterId) {
+    if (!stickFightState?.inputs?.[fighterId]) return;
+    stickFightState.inputs[fighterId].jump = true;
+    setTimeout(() => {
+        if (!stickFightState?.inputs?.[fighterId]) return;
+        stickFightState.inputs[fighterId].jump = false;
+    }, 120);
 }
 
 // ============= HANGMAN =============
@@ -2745,4 +3022,3 @@ function endChengyu() {
         </style>
     `;
 }
-
