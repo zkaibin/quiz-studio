@@ -1083,11 +1083,38 @@ const stickFightConfig = {
     roundTime: 60
 };
 
+const stickFightCharacters = {
+    goku: {
+        name: 'Goku',
+        subtitle: 'Kamehameha • Spirit Bomb',
+        color: '#2563eb',
+        accent: '#f59e0b',
+        aura: 'rgba(96, 165, 250, 0.35)',
+        glow: 'rgba(191, 219, 254, 0.9)',
+        attacks: { skill1: 'kamehameha', skill2: 'spiritbomb' },
+        labels: { skill1: 'Kamehameha', skill2: 'Spirit Bomb' }
+    },
+    vegeta: {
+        name: 'Vegeta',
+        subtitle: 'Galick Gun • Big Bang Attack',
+        color: '#7c3aed',
+        accent: '#f472b6',
+        aura: 'rgba(192, 132, 252, 0.34)',
+        glow: 'rgba(233, 213, 255, 0.9)',
+        attacks: { skill1: 'galickgun', skill2: 'bigbang' },
+        labels: { skill1: 'Galick Gun', skill2: 'Big Bang Attack' }
+    }
+};
+
 const stickFightAttackConfig = {
     punch: { timer: 12, cooldown: 20, activeWindow: [3, 8], reach: 58, verticalReach: 70, damage: 8, knockbackX: 14, knockbackY: -2, moveScale: 0.55, drawOffset: 12, armY: -24, legY: 16, trailWidth: 7, effectColor: 'rgba(239, 68, 68, 0.45)' },
     kick: { timer: 18, cooldown: 30, activeWindow: [6, 13], reach: 74, verticalReach: 70, damage: 12, knockbackX: 22, knockbackY: -4, moveScale: 0.55, drawOffset: 18, armY: -18, legY: 6, trailWidth: 9, effectColor: 'rgba(249, 115, 22, 0.45)' },
     uppercut: { timer: 20, cooldown: 36, activeWindow: [7, 13], reach: 62, verticalReach: 88, damage: 16, knockbackX: 16, knockbackY: -11, moveScale: 0.35, drawOffset: 10, armY: -48, legY: 10, trailWidth: 8, effectColor: 'rgba(168, 85, 247, 0.45)' },
-    dash: { timer: 24, cooldown: 42, activeWindow: [9, 17], reach: 98, verticalReach: 76, damage: 18, knockbackX: 28, knockbackY: -6, moveScale: 0.25, drawOffset: 24, armY: -26, legY: 2, trailWidth: 10, effectColor: 'rgba(14, 165, 233, 0.42)', lungeSpeed: 6.4 }
+    dash: { timer: 24, cooldown: 42, activeWindow: [9, 17], reach: 98, verticalReach: 76, damage: 18, knockbackX: 28, knockbackY: -6, moveScale: 0.25, drawOffset: 24, armY: -26, legY: 2, trailWidth: 10, effectColor: 'rgba(14, 165, 233, 0.42)', lungeSpeed: 6.4 },
+    kamehameha: { timer: 32, cooldown: 96, projectile: true, projectileSpeed: 10.2, radius: 15, damage: 20, knockbackX: 24, knockbackY: -7, effectColor: 'rgba(56, 189, 248, 0.95)', glowColor: 'rgba(186, 230, 253, 0.98)', trailWidth: 12, spawnOffset: 36, originY: 42, sprite: 'beam', burstCount: 16 },
+    spiritbomb: { timer: 42, cooldown: 156, projectile: true, projectileSpeed: 5.7, radius: 24, damage: 30, knockbackX: 28, knockbackY: -10, effectColor: 'rgba(74, 222, 128, 0.96)', glowColor: 'rgba(220, 252, 231, 0.98)', trailWidth: 16, spawnOffset: 12, originY: 84, sprite: 'orb', burstCount: 22 },
+    galickgun: { timer: 30, cooldown: 94, projectile: true, projectileSpeed: 10.8, radius: 15, damage: 19, knockbackX: 22, knockbackY: -6, effectColor: 'rgba(168, 85, 247, 0.96)', glowColor: 'rgba(233, 213, 255, 0.98)', trailWidth: 12, spawnOffset: 34, originY: 40, sprite: 'beam', burstCount: 15 },
+    bigbang: { timer: 38, cooldown: 148, projectile: true, projectileSpeed: 6.6, radius: 22, damage: 28, knockbackX: 26, knockbackY: -9, effectColor: 'rgba(251, 191, 36, 0.98)', glowColor: 'rgba(254, 240, 138, 0.98)', trailWidth: 15, spawnOffset: 20, originY: 58, sprite: 'orb', burstCount: 20 }
 };
 
 let stickFightState = null;
@@ -1099,22 +1126,25 @@ function initStickFight() {
     if (!container) return;
 
     container.innerHTML = `
-        <div class="stickfight-shell">
+        <div class="stickfight-shell" id="stickfight-shell">
             <div class="stickfight-toolbar">
                 <div class="stickfight-mode-group">
                     <button class="btn mode-btn active" id="stickfight-mode-single" onclick="setStickFightMode('single')">1 Player</button>
                     <button class="btn mode-btn" id="stickfight-mode-duo" onclick="setStickFightMode('duo')">2 Players</button>
                 </div>
                 <button class="btn" id="stickfight-mobile-toggle" onclick="toggleStickFightMobileMode()">📱 Mobile Mode</button>
+                <button class="btn" id="stickfight-fullscreen-toggle" onclick="toggleStickFightFullscreen()">⛶ Full Screen</button>
                 <button class="btn" onclick="startStickFightRound()">Start Match</button>
             </div>
             <div class="stickfight-health">
                 <div class="fighter-panel">
-                    <div class="fighter-name" id="stickfight-p1-name">Player 1</div>
+                    <div class="fighter-name" id="stickfight-p1-name">Goku</div>
+                    <div class="fighter-subtitle" id="stickfight-p1-subtitle">Kamehameha • Spirit Bomb</div>
                     <div class="health-bar"><div class="health-fill" id="stickfight-p1-health"></div></div>
                 </div>
                 <div class="fighter-panel right">
-                    <div class="fighter-name" id="stickfight-p2-name">CPU</div>
+                    <div class="fighter-name" id="stickfight-p2-name">Vegeta CPU</div>
+                    <div class="fighter-subtitle" id="stickfight-p2-subtitle">Galick Gun • Big Bang Attack</div>
                     <div class="health-bar"><div class="health-fill" id="stickfight-p2-health"></div></div>
                 </div>
             </div>
@@ -1128,15 +1158,15 @@ function initStickFight() {
             <div class="stickfight-controls">
                 <div class="stickfight-control-card">
                     <strong>Player 1</strong>
-                    <span id="stickfight-p1-controls">Move: A / D<br>Jump: W<br>Punch: F<br>Kick: G<br>Uppercut: R<br>Dash Strike: T</span>
+                    <span id="stickfight-p1-controls">Move: A / D<br>Jump: W<br>Punch: F<br>Kick: G<br>Uppercut: R<br>Dash Strike: T<br>Kamehameha: Y<br>Spirit Bomb: U</span>
                 </div>
                 <div class="stickfight-control-card">
-                    <strong id="stickfight-opponent-title">CPU Opponent</strong>
-                    <span id="stickfight-opponent-controls">In 1-player mode, the CPU moves, jumps, and attacks automatically.</span>
+                    <strong id="stickfight-opponent-title">Vegeta CPU</strong>
+                    <span id="stickfight-opponent-controls">Vegeta now counters with punches, kicks, uppercuts, dash strikes, Galick Gun, and Big Bang Attack.</span>
                 </div>
             </div>
             <div class="stickfight-mobile-panel" id="stickfight-mobile-panel">
-                <div class="stickfight-mobile-hint" id="stickfight-mobile-hint">Touch the buttons to move and attack, or swipe in the arena to jump and dash.</div>
+                <div class="stickfight-mobile-hint" id="stickfight-mobile-hint">Touch the buttons to move and attack. Swipe left or right in the arena to dash, swipe up to jump, and double tap for an uppercut.</div>
                 <div class="stickfight-mobile-layout">
                     <div class="stickfight-mobile-pad">
                         <button class="stickfight-touch-btn" data-stickfight-input="left">←</button>
@@ -1148,6 +1178,8 @@ function initStickFight() {
                         <button class="stickfight-touch-btn attack" data-stickfight-attack="kick">Kick</button>
                         <button class="stickfight-touch-btn attack special" data-stickfight-attack="uppercut">Uppercut</button>
                         <button class="stickfight-touch-btn attack special" data-stickfight-attack="dash">Dash Strike</button>
+                        <button class="stickfight-touch-btn attack special" id="stickfight-mobile-skill1" data-stickfight-attack="kamehameha">Kamehameha</button>
+                        <button class="stickfight-touch-btn attack special" id="stickfight-mobile-skill2" data-stickfight-attack="spiritbomb">Spirit Bomb</button>
                     </div>
                 </div>
             </div>
@@ -1155,8 +1187,12 @@ function initStickFight() {
     `;
 
     const canvas = document.getElementById('stickfight-canvas');
+    const shell = document.getElementById('stickfight-shell');
+    const arena = shell?.querySelector('.stickfight-arena') || null;
     stickFightState = {
         mode: 'single',
+        shell,
+        arena,
         canvas,
         ctx: canvas.getContext('2d'),
         inputs: {
@@ -1167,6 +1203,8 @@ function initStickFight() {
         timeLeft: stickFightConfig.roundTime,
         aiActionCooldown: 0,
         fighters: [],
+        projectiles: [],
+        effects: [],
         loop: null,
         keydown: null,
         keyup: null,
@@ -1174,7 +1212,8 @@ function initStickFight() {
         cleanup: [],
         tapTimeout: null,
         gestureMoveTimeout: null,
-        touchGesture: null
+        touchGesture: null,
+        renderScale: { x: 1, y: 1 }
     };
 
     stickFightState.keydown = handleStickFightKeyDown;
@@ -1182,10 +1221,12 @@ function initStickFight() {
     document.addEventListener('keydown', stickFightState.keydown);
     document.addEventListener('keyup', stickFightState.keyup);
     bindStickFightMobileControls();
+    bindStickFightViewport();
 
     updateStickFightScoreboard();
     syncStickFightUi();
     setStickFightMode('single');
+    resizeStickFightCanvas();
 }
 
 function shouldEnableStickFightMobileMode() {
@@ -1204,8 +1245,6 @@ function setStickFightMode(mode) {
     if (singleBtn) singleBtn.classList.toggle('active', mode === 'single');
     if (duoBtn) duoBtn.classList.toggle('active', mode === 'duo');
 
-    const p2Name = document.getElementById('stickfight-p2-name');
-    if (p2Name) p2Name.textContent = mode === 'single' ? 'CPU' : 'Player 2';
     syncStickFightUi();
     startStickFightRound();
 }
@@ -1223,9 +1262,11 @@ function startStickFightRound() {
     stickFightState.tapTimeout = null;
     stickFightState.gestureMoveTimeout = null;
     stickFightState.touchGesture = null;
+    stickFightState.projectiles = [];
+    stickFightState.effects = [];
     stickFightState.fighters = [
-        createStickFighter('p1', 'Player 1', 150, '#2563eb', { left: 'KeyA', right: 'KeyD', jump: 'KeyW', punch: 'KeyF', kick: 'KeyG', uppercut: 'KeyR', dash: 'KeyT' }),
-        createStickFighter('p2', stickFightState.mode === 'single' ? 'CPU' : 'Player 2', 570, '#dc2626', { left: 'ArrowLeft', right: 'ArrowRight', jump: 'ArrowUp', punch: 'Slash', kick: 'Period', uppercut: 'Comma', dash: 'Semicolon' })
+        createStickFighter('p1', 'goku', 150, { left: 'KeyA', right: 'KeyD', jump: 'KeyW', punch: 'KeyF', kick: 'KeyG', uppercut: 'KeyR', dash: 'KeyT', skill1: 'KeyY', skill2: 'KeyU' }),
+        createStickFighter('p2', 'vegeta', 570, { left: 'ArrowLeft', right: 'ArrowRight', jump: 'ArrowUp', punch: 'Slash', kick: 'Period', uppercut: 'Comma', dash: 'Semicolon', skill1: 'KeyK', skill2: 'KeyL' })
     ];
 
     if (stickFightState.loop) clearInterval(stickFightState.loop);
@@ -1233,14 +1274,16 @@ function startStickFightRound() {
     window.stickFightInterval = stickFightState.loop;
 
     updateStickFightHud();
-    setStickFightStatus(stickFightState.mode === 'single' ? 'Fight! Defeat the CPU before time runs out.' : 'Fight! First player to drop the other to 0 wins.');
+    setStickFightStatus(stickFightState.mode === 'single' ? 'Fight! Goku versus Vegeta CPU.' : 'Fight! Goku versus Vegeta in local versus mode.');
     drawStickFight();
 }
 
-function createStickFighter(id, name, x, color, controls) {
+function createStickFighter(id, characterKey, x, controls) {
+    const character = stickFightCharacters[characterKey] || stickFightCharacters.goku;
     return {
         id,
-        name,
+        characterKey,
+        name: character.name,
         x,
         y: stickFightConfig.groundY,
         vx: 0,
@@ -1248,7 +1291,13 @@ function createStickFighter(id, name, x, color, controls) {
         width: 28,
         height: 78,
         facing: id === 'p1' ? 1 : -1,
-        color,
+        color: character.color,
+        accentColor: character.accent,
+        auraColor: character.aura,
+        glowColor: character.glow,
+        subtitle: character.subtitle,
+        specials: character.attacks,
+        specialLabels: character.labels,
         controls,
         health: stickFightConfig.maxHealth,
         attackTimer: 0,
@@ -1271,15 +1320,28 @@ function syncStickFightUi() {
     if (!stickFightState) return;
 
     const mobileToggle = document.getElementById('stickfight-mobile-toggle');
+    const fullscreenToggle = document.getElementById('stickfight-fullscreen-toggle');
     const mobilePanel = document.getElementById('stickfight-mobile-panel');
     const mobileHint = document.getElementById('stickfight-mobile-hint');
     const p1Controls = document.getElementById('stickfight-p1-controls');
     const opponentTitle = document.getElementById('stickfight-opponent-title');
     const opponentControls = document.getElementById('stickfight-opponent-controls');
+    const p1Name = document.getElementById('stickfight-p1-name');
+    const p1Subtitle = document.getElementById('stickfight-p1-subtitle');
+    const p2Name = document.getElementById('stickfight-p2-name');
+    const p2Subtitle = document.getElementById('stickfight-p2-subtitle');
+    const skill1Button = document.getElementById('stickfight-mobile-skill1');
+    const skill2Button = document.getElementById('stickfight-mobile-skill2');
+    const p1Character = stickFightCharacters.goku;
+    const p2Character = stickFightCharacters.vegeta;
 
     if (mobileToggle) {
         mobileToggle.classList.toggle('active', !!stickFightState.mobileMode);
         mobileToggle.textContent = stickFightState.mobileMode ? '📱 Mobile Mode On' : '📱 Mobile Mode';
+    }
+
+    if (fullscreenToggle) {
+        fullscreenToggle.textContent = document.fullscreenElement === stickFightState.shell ? '🡼 Exit Full Screen' : '⛶ Full Screen';
     }
 
     if (mobilePanel) {
@@ -1289,20 +1351,27 @@ function syncStickFightUi() {
     if (mobileHint) {
         mobileHint.textContent = stickFightState.mode === 'single'
             ? 'Touch the buttons to move and attack. Swipe left or right in the arena to dash, swipe up to jump, and double tap for an uppercut.'
-            : 'Player 1 can use touch controls while Player 2 stays on keyboard. Swipe the arena to jump or dash and double tap for an uppercut.';
+            : 'Player 1 can use touch controls while Player 2 uses the keyboard. Swipe the arena to jump or dash and double tap for an uppercut.';
     }
 
     if (p1Controls) {
         p1Controls.innerHTML = stickFightState.mobileMode
-            ? 'Touch Pad: Move / Jump<br>Tap left or right side of arena: Punch / Kick<br>Double tap arena: Uppercut<br>Swipe in arena: Move, jump, or dash'
-            : 'Move: A / D<br>Jump: W<br>Punch: F<br>Kick: G<br>Uppercut: R<br>Dash Strike: T';
+            ? `Touch Pad: Move / Jump<br>Tap left or right side of arena: Punch / Kick<br>Double tap arena: Uppercut<br>Swipe in arena: Move, jump, or dash<br>${p1Character.labels.skill1} / ${p1Character.labels.skill2}: Tap skill buttons`
+            : `Move: A / D<br>Jump: W<br>Punch: F<br>Kick: G<br>Uppercut: R<br>Dash Strike: T<br>${p1Character.labels.skill1}: Y<br>${p1Character.labels.skill2}: U`;
     }
 
-    if (opponentTitle) opponentTitle.textContent = stickFightState.mode === 'single' ? 'CPU Opponent' : 'Player 2';
+    if (p1Name) p1Name.textContent = p1Character.name;
+    if (p1Subtitle) p1Subtitle.textContent = p1Character.subtitle;
+    if (p2Name) p2Name.textContent = stickFightState.mode === 'single' ? `${p2Character.name} CPU` : `${p2Character.name} (P2)`;
+    if (p2Subtitle) p2Subtitle.textContent = p2Character.subtitle;
+    if (skill1Button) skill1Button.textContent = p1Character.labels.skill1;
+    if (skill2Button) skill2Button.textContent = p1Character.labels.skill2;
+
+    if (opponentTitle) opponentTitle.textContent = stickFightState.mode === 'single' ? `${p2Character.name} CPU` : `${p2Character.name} (Player 2)`;
     if (opponentControls) {
         opponentControls.innerHTML = stickFightState.mode === 'single'
-            ? 'In 1-player mode, the CPU now uses punches, kicks, uppercuts, and dash strikes automatically.'
-            : 'Move: ← / →<br>Jump: ↑<br>Punch: /<br>Kick: .<br>Uppercut: ,<br>Dash Strike: ;';
+            ? `${p2Character.name} now counters with punches, kicks, uppercuts, dash strikes, ${p2Character.labels.skill1}, and ${p2Character.labels.skill2}.`
+            : `Move: ← / →<br>Jump: ↑<br>Punch: /<br>Kick: .<br>Uppercut: ,<br>Dash Strike: ;<br>${p2Character.labels.skill1}: K<br>${p2Character.labels.skill2}: L`;
     }
 }
 
@@ -1348,6 +1417,12 @@ function updateStickFightInput(code, isDown) {
         } else if (isDown && code === fighter.controls.dash) {
             queueStickFightAttack(fighter.id, 'dash');
             handled = true;
+        } else if (isDown && code === fighter.controls.skill1) {
+            queueStickFightAttack(fighter.id, fighter.specials.skill1);
+            handled = true;
+        } else if (isDown && code === fighter.controls.skill2) {
+            queueStickFightAttack(fighter.id, fighter.specials.skill2);
+            handled = true;
         }
     });
 
@@ -1368,7 +1443,7 @@ function queueStickFightAttack(fighterId, attackType) {
     if (!fighter || !stickFightAttackConfig[attackType]) return;
 
     const input = stickFightState.inputs[fighterId];
-    if (attackType === 'dash' && input) {
+    if (input) {
         if (input.left && !input.right) fighter.facing = -1;
         if (input.right && !input.left) fighter.facing = 1;
     }
@@ -1400,6 +1475,8 @@ function updateStickFight() {
 
     resolveStickFightAttack(p1, p2);
     resolveStickFightAttack(p2, p1);
+    updateStickFightProjectiles();
+    updateStickFightEffects();
 
     const defeated = stickFightState.fighters.find(f => f.health <= 0);
     if (defeated) {
@@ -1441,7 +1518,7 @@ function applyStickFightInput(fighter, input) {
     let move = 0;
     if (input.left) move -= 1;
     if (input.right) move += 1;
-    fighter.vx = move * stickFightConfig.moveSpeed * (currentAttack ? currentAttack.moveScale : 1);
+    fighter.vx = move * stickFightConfig.moveSpeed * (currentAttack ? currentAttack.moveScale ?? 0.25 : 1);
     fighter.x += fighter.vx;
 
     const onGround = fighter.y >= stickFightConfig.groundY;
@@ -1472,6 +1549,9 @@ function applyStickFightInput(fighter, input) {
         if (fighter.attackType === 'uppercut' && onGround) {
             fighter.vy = Math.min(fighter.vy, -6.4);
             fighter.y = Math.min(fighter.y, stickFightConfig.groundY - 1);
+        } else if (attackDefinition.projectile) {
+            spawnStickFightProjectile(fighter, attackDefinition);
+            fighter.vx *= 0.35;
         }
     }
     fighter.attackQueued = null;
@@ -1503,7 +1583,7 @@ function resolveStickFightAttack(attacker, defender) {
     defender.facing = defender.x < attacker.x ? -1 : 1;
 
     const attackDefinition = getStickFightAttackDefinition(attacker.attackType);
-    if (!attackDefinition) return;
+    if (!attackDefinition || attackDefinition.projectile) return;
 
     const activeWindow = attackDefinition.activeWindow;
     const elapsed = attackDefinition.timer - attacker.attackTimer;
@@ -1521,6 +1601,7 @@ function resolveStickFightAttack(attacker, defender) {
         defender.vy = Math.min(defender.vy, attackDefinition.knockbackY);
         defender.hitFlash = 8;
         attacker.hitConnected = true;
+        spawnStickFightBurst(defender.x, defender.y - 44, attackDefinition.effectColor, 10);
     }
 }
 
@@ -1550,7 +1631,10 @@ function updateStickFightAI(cpu, target) {
         return;
     }
 
-    if (absDistance < 70 && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0) {
+    if (absDistance > 210 && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0 && Math.random() < 0.3) {
+        queueStickFightAttack('p2', target.health < 36 && Math.random() < 0.45 ? cpu.specials.skill2 : cpu.specials.skill1);
+        stickFightState.aiActionCooldown = 28;
+    } else if (absDistance < 70 && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0) {
         if (target.y < cpu.y - 12 && Math.random() < 0.5) {
             queueStickFightAttack('p2', 'uppercut');
         } else {
@@ -1580,7 +1664,7 @@ function updateStickFightHud() {
 
     if (p1Health) p1Health.style.width = `${p1 ? p1.health : stickFightConfig.maxHealth}%`;
     if (p2Health) p2Health.style.width = `${p2 ? p2.health : stickFightConfig.maxHealth}%`;
-    if (status && stickFightState.roundActive) {
+    if (status && stickFightState.roundActive && p1 && p2) {
         status.textContent = `${p1.name}: ${p1.health} HP | ${p2.name}: ${p2.health} HP | Time: ${Math.ceil(stickFightState.timeLeft)}s`;
     }
 }
@@ -1593,20 +1677,142 @@ function setStickFightStatus(message) {
 function drawStickFight() {
     if (!stickFightState || !stickFightState.ctx) return;
 
-    const { ctx } = stickFightState;
-    ctx.clearRect(0, 0, stickFightConfig.width, stickFightConfig.height);
+    const { ctx, canvas } = stickFightState;
+    const scaleX = stickFightState.renderScale?.x || 1;
+    const scaleY = stickFightState.renderScale?.y || 1;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.setTransform(scaleX, 0, 0, scaleY, 0, 0);
 
-    ctx.fillStyle = 'rgba(255,255,255,0.15)';
+    drawStickFightBackdrop();
+
+    if (!stickFightState.fighters.length) return;
+    stickFightState.projectiles.forEach(drawStickFightProjectile);
+    stickFightState.effects.forEach(drawStickFightEffect);
+    stickFightState.fighters.forEach(drawStickFighter);
+}
+
+function drawStickFightBackdrop() {
+    const { ctx } = stickFightState;
+    const sky = ctx.createLinearGradient(0, 0, 0, stickFightConfig.height);
+    sky.addColorStop(0, '#0f172a');
+    sky.addColorStop(0.32, '#2563eb');
+    sky.addColorStop(0.62, '#67e8f9');
+    sky.addColorStop(0.621, '#bef264');
+    sky.addColorStop(1, '#3f6212');
+    ctx.fillStyle = sky;
     ctx.fillRect(0, 0, stickFightConfig.width, stickFightConfig.height);
+
+    ctx.fillStyle = 'rgba(253, 224, 71, 0.92)';
+    ctx.beginPath();
+    ctx.arc(602, 58, 24, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = 'rgba(255,255,255,0.14)';
+    [[110, 58, 36], [185, 72, 28], [530, 82, 40]].forEach(([x, y, r]) => {
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.arc(x + r * 0.95, y + 4, r * 0.8, 0, Math.PI * 2);
+        ctx.arc(x - r * 0.9, y + 5, r * 0.7, 0, Math.PI * 2);
+        ctx.fill();
+    });
+
+    ctx.fillStyle = 'rgba(30, 41, 59, 0.4)';
+    ctx.beginPath();
+    ctx.moveTo(0, 215);
+    ctx.lineTo(120, 150);
+    ctx.lineTo(208, 214);
+    ctx.lineTo(315, 140);
+    ctx.lineTo(442, 212);
+    ctx.lineTo(560, 136);
+    ctx.lineTo(720, 214);
+    ctx.lineTo(720, 278);
+    ctx.lineTo(0, 278);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = 'rgba(15, 118, 110, 0.42)';
+    for (let index = 0; index < 8; index++) {
+        ctx.beginPath();
+        ctx.ellipse(50 + index * 95, 286, 50, 11, 0, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
     ctx.strokeStyle = '#14532d';
-    ctx.lineWidth = 4;
+    ctx.lineWidth = 5;
     ctx.beginPath();
     ctx.moveTo(0, 292);
     ctx.lineTo(stickFightConfig.width, 292);
     ctx.stroke();
+}
 
-    if (!stickFightState.fighters.length) return;
-    stickFightState.fighters.forEach(drawStickFighter);
+function drawStickFightFighterAura(fighter, auraPower) {
+    const { ctx } = stickFightState;
+    ctx.fillStyle = fighter.auraColor;
+    ctx.beginPath();
+    ctx.ellipse(0, -35, 26 + auraPower * 16, 50 + auraPower * 10, 0, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+function drawStickFightHair(fighter) {
+    const { ctx } = stickFightState;
+    ctx.fillStyle = fighter.accentColor;
+    ctx.beginPath();
+    if (fighter.characterKey === 'vegeta') {
+        ctx.moveTo(-12, -68);
+        ctx.lineTo(-5, -92);
+        ctx.lineTo(0, -71);
+        ctx.lineTo(6, -98);
+        ctx.lineTo(10, -70);
+        ctx.lineTo(16, -88);
+        ctx.lineTo(14, -64);
+    } else {
+        ctx.moveTo(-14, -68);
+        ctx.lineTo(-10, -86);
+        ctx.lineTo(-3, -73);
+        ctx.lineTo(3, -95);
+        ctx.lineTo(8, -72);
+        ctx.lineTo(16, -84);
+        ctx.lineTo(10, -64);
+    }
+    ctx.closePath();
+    ctx.fill();
+}
+
+function drawStickFightProjectile(projectile) {
+    const { ctx } = stickFightState;
+    ctx.save();
+    ctx.shadowBlur = 24;
+    ctx.shadowColor = projectile.glowColor;
+    if (projectile.sprite === 'beam') {
+        ctx.strokeStyle = projectile.color;
+        ctx.lineWidth = projectile.trailWidth;
+        ctx.beginPath();
+        ctx.moveTo(projectile.x - Math.sign(projectile.vx || 1) * 40, projectile.y);
+        ctx.lineTo(projectile.x + Math.sign(projectile.vx || 1) * 18, projectile.y);
+        ctx.stroke();
+    }
+    ctx.fillStyle = projectile.color;
+    ctx.beginPath();
+    ctx.arc(projectile.x, projectile.y, projectile.radius, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = projectile.glowColor;
+    ctx.globalAlpha = 0.7;
+    ctx.beginPath();
+    ctx.arc(projectile.x - Math.sign(projectile.vx || 1) * 5, projectile.y - 4, Math.max(4, projectile.radius * 0.42), 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+}
+
+function drawStickFightEffect(effect) {
+    const { ctx } = stickFightState;
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, effect.life / effect.maxLife);
+    ctx.fillStyle = effect.color;
+    ctx.beginPath();
+    ctx.arc(effect.x, effect.y, effect.size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
 }
 
 function drawStickFighter(fighter) {
@@ -1614,9 +1820,10 @@ function drawStickFighter(fighter) {
     const baseX = fighter.x;
     const baseY = fighter.y;
     const attackDefinition = getStickFightAttackDefinition(fighter.attackType);
-    const attackOffset = fighter.attackTimer > 0 && attackDefinition ? attackDefinition.drawOffset : 0;
+    const attackOffset = fighter.attackTimer > 0 && attackDefinition ? attackDefinition.drawOffset || 0 : 0;
     const attackArmY = attackDefinition?.armY ?? -24;
     const attackLegY = attackDefinition?.legY ?? 16;
+    const auraPower = fighter.attackTimer > 0 && attackDefinition?.projectile ? 1 : fighter.hitFlash > 0 ? 0.65 : 0.18;
 
     ctx.save();
     ctx.translate(baseX, baseY);
@@ -1626,14 +1833,23 @@ function drawStickFighter(fighter) {
     ctx.lineWidth = 6;
     ctx.strokeStyle = fighter.hitFlash > 0 ? '#f59e0b' : fighter.color;
 
+    if (auraPower > 0) {
+        drawStickFightFighterAura(fighter, auraPower);
+    }
+
     ctx.beginPath();
     ctx.arc(0, -60, 13, 0, Math.PI * 2);
     ctx.stroke();
+    drawStickFightHair(fighter);
 
     ctx.beginPath();
     ctx.moveTo(0, -47);
     ctx.lineTo(0, -15);
     ctx.stroke();
+
+    ctx.fillStyle = fighter.accentColor;
+    ctx.fillRect(-7, -40, 14, 16);
+    ctx.fillRect(-6, -12, 12, 8);
 
     ctx.beginPath();
     ctx.moveTo(0, -38);
@@ -1652,6 +1868,8 @@ function drawStickFighter(fighter) {
     if (fighter.attackTimer > 0) {
         ctx.strokeStyle = attackDefinition?.effectColor || 'rgba(239, 68, 68, 0.45)';
         ctx.lineWidth = attackDefinition?.trailWidth || 7;
+        ctx.shadowBlur = 18;
+        ctx.shadowColor = attackDefinition?.glowColor || attackDefinition?.effectColor || fighter.glowColor;
         ctx.beginPath();
         ctx.moveTo(16, fighter.attackType === 'kick' || fighter.attackType === 'dash' ? 0 : -24);
         ctx.lineTo(45 + attackOffset, fighter.attackType === 'uppercut' ? -34 : fighter.attackType === 'kick' ? -3 : -20);
@@ -1701,6 +1919,9 @@ function stopStickFight() {
     if (stickFightState.gestureMoveTimeout) clearTimeout(stickFightState.gestureMoveTimeout);
     if (stickFightState.cleanup?.length) {
         stickFightState.cleanup.forEach(cleanup => cleanup());
+    }
+    if (document.fullscreenElement === stickFightState.shell && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
     }
     window.stickFightInterval = null;
     stickFightState = null;
@@ -1771,6 +1992,146 @@ function bindStickFightMobileControls() {
     }
 
     stickFightState.cleanup = cleanup;
+}
+
+function bindStickFightViewport() {
+    if (!stickFightState) return;
+    const onResize = () => resizeStickFightCanvas();
+    const onFullscreenChange = () => {
+        syncStickFightUi();
+        resizeStickFightCanvas();
+    };
+    window.addEventListener('resize', onResize);
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    stickFightState.cleanup.push(() => {
+        window.removeEventListener('resize', onResize);
+        document.removeEventListener('fullscreenchange', onFullscreenChange);
+    });
+}
+
+function resizeStickFightCanvas() {
+    if (!stickFightState?.canvas || !stickFightState.arena) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const fullscreen = document.fullscreenElement === stickFightState.shell;
+    let displayWidth = Math.max(320, stickFightState.arena.clientWidth - 6);
+    if (!fullscreen) {
+        displayWidth = Math.min(displayWidth, stickFightConfig.width);
+    }
+    let displayHeight = displayWidth * (stickFightConfig.height / stickFightConfig.width);
+    if (fullscreen) {
+        const maxHeight = Math.max(240, window.innerHeight - 260);
+        if (displayHeight > maxHeight) {
+            displayHeight = maxHeight;
+            displayWidth = displayHeight * (stickFightConfig.width / stickFightConfig.height);
+        }
+    }
+    stickFightState.canvas.style.width = `${displayWidth}px`;
+    stickFightState.canvas.style.height = `${displayHeight}px`;
+    stickFightState.canvas.width = Math.round(displayWidth * dpr);
+    stickFightState.canvas.height = Math.round(displayHeight * dpr);
+    stickFightState.ctx = stickFightState.canvas.getContext('2d');
+    stickFightState.ctx.imageSmoothingEnabled = true;
+    stickFightState.renderScale = {
+        x: stickFightState.canvas.width / stickFightConfig.width,
+        y: stickFightState.canvas.height / stickFightConfig.height
+    };
+    drawStickFight();
+}
+
+async function toggleStickFightFullscreen() {
+    if (!stickFightState?.shell) return;
+    try {
+        if (document.fullscreenElement === stickFightState.shell) {
+            await document.exitFullscreen();
+        } else if (stickFightState.shell.requestFullscreen) {
+            await stickFightState.shell.requestFullscreen();
+        }
+    } catch (error) {
+        console.warn('Unable to toggle fullscreen mode.', error);
+        setStickFightStatus('Fullscreen is not available in this browser.');
+    }
+    syncStickFightUi();
+    resizeStickFightCanvas();
+}
+
+function spawnStickFightProjectile(fighter, attackDefinition) {
+    if (!stickFightState) return;
+    const projectile = {
+        ownerId: fighter.id,
+        x: fighter.x + fighter.facing * (attackDefinition.spawnOffset || 34),
+        y: fighter.y - (attackDefinition.originY || 42),
+        vx: fighter.facing * (attackDefinition.projectileSpeed || 8),
+        radius: attackDefinition.radius || 14,
+        damage: attackDefinition.damage,
+        knockbackX: attackDefinition.knockbackX,
+        knockbackY: attackDefinition.knockbackY,
+        color: attackDefinition.effectColor,
+        glowColor: attackDefinition.glowColor,
+        sprite: attackDefinition.sprite || 'orb',
+        life: attackDefinition.sprite === 'orb' ? 120 : 80,
+        trailWidth: attackDefinition.trailWidth || 10,
+        burstCount: attackDefinition.burstCount || 12
+    };
+    stickFightState.projectiles.push(projectile);
+    spawnStickFightBurst(projectile.x, projectile.y, projectile.color, Math.max(8, Math.round(projectile.radius / 2)));
+}
+
+function updateStickFightProjectiles() {
+    if (!stickFightState?.projectiles?.length) return;
+    const survivors = [];
+    stickFightState.projectiles.forEach(projectile => {
+        projectile.x += projectile.vx;
+        projectile.life--;
+        projectile.y += Math.sin(projectile.life / 10) * (projectile.sprite === 'orb' ? 0.45 : 0.18);
+        if (projectile.x < -80 || projectile.x > stickFightConfig.width + 80 || projectile.life <= 0) {
+            return;
+        }
+
+        const target = stickFightState.fighters.find(fighter => fighter.id !== projectile.ownerId);
+        if (target) {
+            const hitX = Math.abs(target.x - projectile.x) <= projectile.radius + 16;
+            const hitY = Math.abs((target.y - 42) - projectile.y) <= projectile.radius + 26;
+            if (hitX && hitY) {
+                target.health = Math.max(0, target.health - projectile.damage);
+                target.x += Math.sign(projectile.vx || 1) * projectile.knockbackX;
+                target.vy = Math.min(target.vy, projectile.knockbackY);
+                target.hitFlash = 10;
+                spawnStickFightBurst(projectile.x, projectile.y, projectile.color, projectile.burstCount);
+                return;
+            }
+        }
+        survivors.push(projectile);
+    });
+    stickFightState.projectiles = survivors;
+}
+
+function spawnStickFightBurst(x, y, color, count = 10) {
+    if (!stickFightState) return;
+    for (let index = 0; index < count; index++) {
+        const angle = (Math.PI * 2 * index) / count;
+        const speed = 0.8 + Math.random() * 2.8;
+        stickFightState.effects.push({
+            x,
+            y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 0.6,
+            life: 18 + Math.floor(Math.random() * 10),
+            maxLife: 28,
+            size: 2 + Math.random() * 4,
+            color
+        });
+    }
+}
+
+function updateStickFightEffects() {
+    if (!stickFightState?.effects?.length) return;
+    stickFightState.effects = stickFightState.effects.filter(effect => {
+        effect.x += effect.vx;
+        effect.y += effect.vy;
+        effect.vy += 0.08;
+        effect.life--;
+        return effect.life > 0;
+    });
 }
 
 function handleStickFightTouchGesture(endX, endY) {
