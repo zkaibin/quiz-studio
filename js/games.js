@@ -1158,7 +1158,6 @@ function initStickFight() {
 
     updateStickFightScoreboard();
     setStickFightMode('single');
-    startStickFightRound();
 }
 
 function setStickFightMode(mode) {
@@ -1282,13 +1281,13 @@ function updateStickFight() {
     }
 
     applyStickFightInput(p1, stickFightState.inputs.p1);
-    applyStickFightInput(p2, stickFightState.mode === 'single' ? stickFightState.inputs.p2 : stickFightState.inputs.p2);
+    applyStickFightInput(p2, stickFightState.inputs.p2);
+    separateStickFighters(p1, p2);
+    p1.facing = p1.x <= p2.x ? 1 : -1;
+    p2.facing = p2.x < p1.x ? -1 : 1;
 
     resolveStickFightAttack(p1, p2);
     resolveStickFightAttack(p2, p1);
-
-    updateStickFightHud();
-    drawStickFight();
 
     const defeated = stickFightState.fighters.find(f => f.health <= 0);
     if (defeated) {
@@ -1298,14 +1297,18 @@ function updateStickFight() {
     }
 
     stickFightState.timeLeft = Math.max(0, stickFightState.timeLeft - (1 / 60));
-    if (stickFightState.timeLeft === 0) {
+    if (stickFightState.timeLeft <= 0) {
         if (p1.health === p2.health) {
             finishStickFight('draw', '⏱️ Time up! The match ends in a draw.');
         } else {
             const winner = p1.health > p2.health ? p1 : p2;
             finishStickFight(winner.id, `⏱️ Time up! ${winner.name} wins on health.`);
         }
+        return;
     }
+
+    updateStickFightHud();
+    drawStickFight();
 }
 
 function applyStickFightInput(fighter, input) {
@@ -1349,6 +1352,25 @@ function applyStickFightInput(fighter, input) {
         fighter.hitConnected = false;
     }
     fighter.attackQueued = null;
+}
+
+function separateStickFighters(p1, p2) {
+    if (!p1 || !p2) return;
+    const minGap = 38;
+    const distance = Math.abs(p1.x - p2.x);
+    if (distance >= minGap) return;
+
+    const push = (minGap - distance) / 2;
+    if (p1.x <= p2.x) {
+        p1.x -= push;
+        p2.x += push;
+    } else {
+        p1.x += push;
+        p2.x -= push;
+    }
+
+    p1.x = Math.max(30, Math.min(stickFightConfig.width - 30, p1.x));
+    p2.x = Math.max(30, Math.min(stickFightConfig.width - 30, p2.x));
 }
 
 function resolveStickFightAttack(attacker, defender) {
