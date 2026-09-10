@@ -576,6 +576,114 @@
 
         .math-timer.urgent { color: #ef4444; }
 
+
+        /* Stick Fight */
+        .stickfight-shell {
+            display: grid;
+            gap: 18px;
+        }
+
+        .stickfight-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stickfight-mode-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.35);
+        }
+
+        .stickfight-health {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
+
+        .fighter-panel {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .fighter-panel.right {
+            text-align: right;
+        }
+
+        .fighter-name {
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .health-bar {
+            width: 100%;
+            height: 14px;
+            background: #e5e7eb;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .health-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            transition: width 0.12s linear;
+        }
+
+        .stickfight-arena {
+            background: linear-gradient(180deg, #dbeafe 0%, #e0f2fe 60%, #d9f99d 60%, #86efac 100%);
+            border-radius: 20px;
+            padding: 12px;
+            box-shadow: inset 0 0 0 3px rgba(44, 62, 80, 0.08);
+        }
+
+        .stickfight-canvas {
+            width: 100%;
+            max-width: 100%;
+            border: 3px solid #2c3e50;
+            border-radius: 14px;
+            display: block;
+            margin: 0 auto;
+            background: transparent;
+        }
+
+        .stickfight-status {
+            text-align: center;
+            font-size: 1.15em;
+            font-weight: 600;
+            color: #2c3e50;
+            min-height: 30px;
+        }
+
+        .stickfight-controls {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
+
+        .stickfight-control-card {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 16px;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .stickfight-control-card strong {
+            color: #1e293b;
+            display: block;
+            margin-bottom: 6px;
+        }
+
         /* Hangman */
         .hangman-drawing {
             text-align: center;
@@ -664,6 +772,9 @@
                 grid-template-columns: repeat(2, 120px);
                 grid-template-rows: repeat(2, 120px);
             }
+            .stickfight-health, .stickfight-controls {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -735,6 +846,13 @@
                 <div class="game-icon">➕</div>
                 <h3>Math Challenge</h3>
                 <p>Answer rapid-fire math questions before time runs out!</p>
+            </div>
+
+
+            <div class="game-card" onclick="openGame('stickfight')">
+                <div class="game-icon">🥋</div>
+                <h3>Stick Man Fighter</h3>
+                <p>Battle solo against the CPU or challenge a friend in a classic stick fight!</p>
             </div>
 
             <div class="game-card" onclick="openGame('hangman')">
