@@ -9,6 +9,7 @@ const gameModals = {
     whack: { title: '🔨 Whack-a-Mole', subtitle: 'Click the moles!' },
     '2048': { title: '🔢 2048', subtitle: 'Reach 2048!' },
     scramble: { title: '🔤 Word Scramble', subtitle: 'Unscramble the letters!' },
+    stickfight: { title: '🥋 Stick Man Fighter', subtitle: 'Solo vs CPU or battle a friend!' },
     mathchallenge: { title: '➕ Math Challenge', subtitle: 'Answer as many as you can!' },
     hangman: { title: '🪢 Hangman', subtitle: 'Guess the word!' },
     kpopemoji: { title: '🎤 K-POP Emoji Quiz', subtitle: 'Guess the group from the emojis!' },
@@ -65,6 +66,7 @@ function initGame(gameId) {
         case 'whack': initWhack(); break;
         case '2048': init2048(); break;
         case 'scramble': initScramble(); break;
+        case 'stickfight': initStickFight(); break;
         case 'mathchallenge': initMathChallenge(); break;
         case 'hangman': initHangman(); break;
         case 'kpopemoji': initKpopEmoji(); break;
@@ -84,6 +86,9 @@ function cleanupGame(gameId) {
     }
     if (gameId === 'mathchallenge' && window.mathTimer) {
         clearInterval(window.mathTimer);
+    }
+    if (gameId === 'stickfight') {
+        stopStickFight();
     }
 }
 
@@ -1064,6 +1069,495 @@ function endMathChallenge() {
             <button class="btn" onclick="initMathChallenge()">Play Again</button>
         </div>
     `;
+}
+
+// ============= STICK MAN FIGHTER =============
+const stickFightConfig = {
+    width: 720,
+    height: 320,
+    groundY: 270,
+    gravity: 0.7,
+    moveSpeed: 4.6,
+    jumpVelocity: -12.5,
+    maxHealth: 100,
+    roundTime: 60
+};
+
+let stickFightState = null;
+
+function initStickFight() {
+    stopStickFight();
+
+    const container = document.getElementById('game-stickfight');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="stickfight-shell">
+            <div class="stickfight-toolbar">
+                <div class="stickfight-mode-group">
+                    <button class="btn mode-btn active" id="stickfight-mode-single" onclick="setStickFightMode('single')">1 Player</button>
+                    <button class="btn mode-btn" id="stickfight-mode-duo" onclick="setStickFightMode('duo')">2 Players</button>
+                </div>
+                <button class="btn" onclick="startStickFightRound()">Start Match</button>
+            </div>
+            <div class="stickfight-health">
+                <div class="fighter-panel">
+                    <div class="fighter-name" id="stickfight-p1-name">Player 1</div>
+                    <div class="health-bar"><div class="health-fill" id="stickfight-p1-health"></div></div>
+                </div>
+                <div class="fighter-panel right">
+                    <div class="fighter-name" id="stickfight-p2-name">CPU</div>
+                    <div class="health-bar"><div class="health-fill" id="stickfight-p2-health"></div></div>
+                </div>
+            </div>
+            <div class="stickfight-status" id="stickfight-status">Pick a mode and start the match.</div>
+            <div class="stickfight-arena">
+                <canvas id="stickfight-canvas" class="stickfight-canvas" width="720" height="320"></canvas>
+            </div>
+            <div class="score-display">
+                Player 1 Wins: <span id="stickfight-score-p1">0</span> | Opponent Wins: <span id="stickfight-score-p2">0</span> | Draws: <span id="stickfight-score-draw">0</span>
+            </div>
+            <div class="stickfight-controls">
+                <div class="stickfight-control-card">
+                    <strong>Player 1</strong>
+                    Move: A / D<br>
+                    Jump: W<br>
+                    Punch: F<br>
+                    Kick: G
+                </div>
+                <div class="stickfight-control-card">
+                    <strong id="stickfight-opponent-title">CPU Opponent</strong>
+                    <span id="stickfight-opponent-controls">In 1-player mode, the CPU moves, jumps, and attacks automatically.</span>
+                </div>
+            </div>
+        </div>
+    `;
+
+    const canvas = document.getElementById('stickfight-canvas');
+    stickFightState = {
+        mode: 'single',
+        canvas,
+        ctx: canvas.getContext('2d'),
+        inputs: {
+            p1: { left: false, right: false, jump: false },
+            p2: { left: false, right: false, jump: false }
+        },
+        roundActive: false,
+        timeLeft: stickFightConfig.roundTime,
+        aiActionCooldown: 0,
+        fighters: [],
+        loop: null,
+        keydown: null,
+        keyup: null
+    };
+
+    stickFightState.keydown = handleStickFightKeyDown;
+    stickFightState.keyup = handleStickFightKeyUp;
+    document.addEventListener('keydown', stickFightState.keydown);
+    document.addEventListener('keyup', stickFightState.keyup);
+
+    updateStickFightScoreboard();
+    setStickFightMode('single');
+}
+
+function setStickFightMode(mode) {
+    if (!stickFightState) return;
+    stickFightState.mode = mode;
+    const singleBtn = document.getElementById('stickfight-mode-single');
+    const duoBtn = document.getElementById('stickfight-mode-duo');
+    if (singleBtn) singleBtn.classList.toggle('active', mode === 'single');
+    if (duoBtn) duoBtn.classList.toggle('active', mode === 'duo');
+
+    const p2Name = document.getElementById('stickfight-p2-name');
+    const opponentTitle = document.getElementById('stickfight-opponent-title');
+    const opponentControls = document.getElementById('stickfight-opponent-controls');
+    if (p2Name) p2Name.textContent = mode === 'single' ? 'CPU' : 'Player 2';
+    if (opponentTitle) opponentTitle.textContent = mode === 'single' ? 'CPU Opponent' : 'Player 2';
+    if (opponentControls) {
+        opponentControls.innerHTML = mode === 'single'
+            ? 'In 1-player mode, the CPU moves, jumps, and attacks automatically.'
+            : 'Move: ← / →<br>Jump: ↑<br>Punch: /<br>Kick: .';
+    }
+    startStickFightRound();
+}
+
+function startStickFightRound() {
+    if (!stickFightState) return;
+
+    stickFightState.timeLeft = stickFightConfig.roundTime;
+    stickFightState.aiActionCooldown = 0;
+    stickFightState.roundActive = true;
+    stickFightState.inputs.p1 = { left: false, right: false, jump: false };
+    stickFightState.inputs.p2 = { left: false, right: false, jump: false };
+    stickFightState.fighters = [
+        createStickFighter('p1', 'Player 1', 150, '#2563eb', { left: 'KeyA', right: 'KeyD', jump: 'KeyW', punch: 'KeyF', kick: 'KeyG' }),
+        createStickFighter('p2', stickFightState.mode === 'single' ? 'CPU' : 'Player 2', 570, '#dc2626', { left: 'ArrowLeft', right: 'ArrowRight', jump: 'ArrowUp', punch: 'Slash', kick: 'Period' })
+    ];
+
+    if (stickFightState.loop) clearInterval(stickFightState.loop);
+    stickFightState.loop = setInterval(updateStickFight, 1000 / 60);
+    window.stickFightInterval = stickFightState.loop;
+
+    updateStickFightHud();
+    setStickFightStatus(stickFightState.mode === 'single' ? 'Fight! Defeat the CPU before time runs out.' : 'Fight! First player to drop the other to 0 wins.');
+    drawStickFight();
+}
+
+function createStickFighter(id, name, x, color, controls) {
+    return {
+        id,
+        name,
+        x,
+        y: stickFightConfig.groundY,
+        vx: 0,
+        vy: 0,
+        width: 28,
+        height: 78,
+        facing: id === 'p1' ? 1 : -1,
+        color,
+        controls,
+        health: stickFightConfig.maxHealth,
+        attackTimer: 0,
+        attackCooldown: 0,
+        attackType: null,
+        hitConnected: false,
+        attackQueued: null,
+        hitFlash: 0
+    };
+}
+
+function handleStickFightKeyDown(event) {
+    if (!stickFightState) return;
+    const handled = updateStickFightInput(event.code, true);
+    if (handled) event.preventDefault();
+}
+
+function handleStickFightKeyUp(event) {
+    if (!stickFightState) return;
+    const handled = updateStickFightInput(event.code, false);
+    if (handled) event.preventDefault();
+}
+
+function updateStickFightInput(code, isDown) {
+    if (!stickFightState || !stickFightState.fighters.length) return false;
+
+    let handled = false;
+    stickFightState.fighters.forEach((fighter, index) => {
+        if (stickFightState.mode === 'single' && index === 1) return;
+        const input = stickFightState.inputs[fighter.id];
+        if (!input) return;
+
+        if (code === fighter.controls.left) {
+            input.left = isDown;
+            handled = true;
+        } else if (code === fighter.controls.right) {
+            input.right = isDown;
+            handled = true;
+        } else if (code === fighter.controls.jump) {
+            input.jump = isDown;
+            handled = true;
+        } else if (isDown && code === fighter.controls.punch) {
+            fighter.attackQueued = 'punch';
+            handled = true;
+        } else if (isDown && code === fighter.controls.kick) {
+            fighter.attackQueued = 'kick';
+            handled = true;
+        }
+    });
+
+    return handled;
+}
+
+function updateStickFight() {
+    if (!stickFightState || !stickFightState.roundActive) {
+        drawStickFight();
+        return;
+    }
+
+    const [p1, p2] = stickFightState.fighters;
+
+    if (stickFightState.mode === 'single') {
+        updateStickFightAI(p2, p1);
+    }
+
+    applyStickFightInput(p1, stickFightState.inputs.p1);
+    applyStickFightInput(p2, stickFightState.inputs.p2);
+    separateStickFighters(p1, p2);
+    p1.facing = p1.x <= p2.x ? 1 : -1;
+    p2.facing = p2.x < p1.x ? -1 : 1;
+
+    resolveStickFightAttack(p1, p2);
+    resolveStickFightAttack(p2, p1);
+
+    const defeated = stickFightState.fighters.find(f => f.health <= 0);
+    if (defeated) {
+        const winner = defeated.id === 'p1' ? p2 : p1;
+        finishStickFight(winner === p1 ? 'p1' : 'p2', `🥊 ${winner.name} wins by knockout!`);
+        return;
+    }
+
+    stickFightState.timeLeft = Math.max(0, stickFightState.timeLeft - (1 / 60));
+    if (stickFightState.timeLeft <= 0) {
+        if (p1.health === p2.health) {
+            finishStickFight('draw', '⏱️ Time up! The match ends in a draw.');
+        } else {
+            const winner = p1.health > p2.health ? p1 : p2;
+            finishStickFight(winner.id, `⏱️ Time up! ${winner.name} wins on health.`);
+        }
+        return;
+    }
+
+    updateStickFightHud();
+    drawStickFight();
+}
+
+function applyStickFightInput(fighter, input) {
+    if (!fighter || !input) return;
+
+    if (fighter.attackCooldown > 0) fighter.attackCooldown--;
+    if (fighter.attackTimer > 0) fighter.attackTimer--;
+    if (fighter.hitFlash > 0) fighter.hitFlash--;
+
+    if (fighter.attackTimer <= 0) {
+        fighter.attackTimer = 0;
+        fighter.attackType = null;
+        fighter.hitConnected = false;
+    }
+
+    let move = 0;
+    if (input.left) move -= 1;
+    if (input.right) move += 1;
+    fighter.vx = move * stickFightConfig.moveSpeed * (fighter.attackTimer > 0 ? 0.55 : 1);
+    fighter.x += fighter.vx;
+
+    const onGround = fighter.y >= stickFightConfig.groundY;
+    if (input.jump && onGround) {
+        fighter.vy = stickFightConfig.jumpVelocity;
+        fighter.y = stickFightConfig.groundY - 1;
+    }
+
+    fighter.vy += stickFightConfig.gravity;
+    fighter.y += fighter.vy;
+    if (fighter.y > stickFightConfig.groundY) {
+        fighter.y = stickFightConfig.groundY;
+        fighter.vy = 0;
+    }
+
+    fighter.x = Math.max(30, Math.min(stickFightConfig.width - 30, fighter.x));
+
+    if (fighter.attackQueued && fighter.attackCooldown <= 0 && fighter.attackTimer <= 0) {
+        fighter.attackType = fighter.attackQueued;
+        fighter.attackTimer = fighter.attackQueued === 'kick' ? 18 : 12;
+        fighter.attackCooldown = fighter.attackQueued === 'kick' ? 30 : 20;
+        fighter.hitConnected = false;
+    }
+    fighter.attackQueued = null;
+}
+
+function separateStickFighters(p1, p2) {
+    if (!p1 || !p2) return;
+    const minGap = 38;
+    const distance = Math.abs(p1.x - p2.x);
+    if (distance >= minGap) return;
+
+    const push = (minGap - distance) / 2;
+    if (p1.x <= p2.x) {
+        p1.x -= push;
+        p2.x += push;
+    } else {
+        p1.x += push;
+        p2.x -= push;
+    }
+
+    p1.x = Math.max(30, Math.min(stickFightConfig.width - 30, p1.x));
+    p2.x = Math.max(30, Math.min(stickFightConfig.width - 30, p2.x));
+}
+
+function resolveStickFightAttack(attacker, defender) {
+    if (!attacker || !defender || !attacker.attackType || attacker.attackTimer <= 0 || attacker.hitConnected) return;
+
+    attacker.facing = attacker.x <= defender.x ? 1 : -1;
+    defender.facing = defender.x < attacker.x ? -1 : 1;
+
+    const activeWindow = attacker.attackType === 'kick' ? [6, 13] : [3, 8];
+    const elapsed = (attacker.attackType === 'kick' ? 18 : 12) - attacker.attackTimer;
+    if (elapsed < activeWindow[0] || elapsed > activeWindow[1]) return;
+
+    const reach = attacker.attackType === 'kick' ? 74 : 58;
+    const verticalReach = 70;
+    const distanceX = defender.x - attacker.x;
+    const closeEnough = Math.abs(distanceX) <= reach && Math.sign(distanceX || attacker.facing) === attacker.facing;
+    const closeY = Math.abs(defender.y - attacker.y) <= verticalReach;
+
+    if (closeEnough && closeY) {
+        const damage = attacker.attackType === 'kick' ? 12 : 8;
+        defender.health = Math.max(0, defender.health - damage);
+        defender.x += attacker.facing * (attacker.attackType === 'kick' ? 22 : 14);
+        defender.hitFlash = 8;
+        attacker.hitConnected = true;
+    }
+}
+
+function updateStickFightAI(cpu, target) {
+    if (!cpu || !target) return;
+
+    const input = stickFightState.inputs.p2;
+    input.left = false;
+    input.right = false;
+    input.jump = false;
+
+    const distance = target.x - cpu.x;
+    const absDistance = Math.abs(distance);
+    const isTargetAbove = target.y < cpu.y - 18;
+
+    if (absDistance > 56) {
+        input.right = distance > 0;
+        input.left = distance < 0;
+    }
+
+    if (isTargetAbove && cpu.y >= stickFightConfig.groundY) {
+        input.jump = true;
+    }
+
+    if (stickFightState.aiActionCooldown > 0) {
+        stickFightState.aiActionCooldown--;
+        return;
+    }
+
+    if (absDistance < 72 && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0) {
+        cpu.attackQueued = Math.random() < 0.35 ? 'kick' : 'punch';
+        stickFightState.aiActionCooldown = 20;
+    } else if (absDistance < 120 && Math.random() < 0.04 && cpu.y >= stickFightConfig.groundY) {
+        input.jump = true;
+        stickFightState.aiActionCooldown = 14;
+    }
+}
+
+function updateStickFightHud() {
+    if (!stickFightState) return;
+    const [p1, p2] = stickFightState.fighters;
+    const p1Health = document.getElementById('stickfight-p1-health');
+    const p2Health = document.getElementById('stickfight-p2-health');
+    const status = document.getElementById('stickfight-status');
+
+    if (p1Health) p1Health.style.width = `${p1 ? p1.health : stickFightConfig.maxHealth}%`;
+    if (p2Health) p2Health.style.width = `${p2 ? p2.health : stickFightConfig.maxHealth}%`;
+    if (status && stickFightState.roundActive) {
+        status.textContent = `${p1.name}: ${p1.health} HP | ${p2.name}: ${p2.health} HP | Time: ${Math.ceil(stickFightState.timeLeft)}s`;
+    }
+}
+
+function setStickFightStatus(message) {
+    const status = document.getElementById('stickfight-status');
+    if (status) status.textContent = message;
+}
+
+function drawStickFight() {
+    if (!stickFightState || !stickFightState.ctx) return;
+
+    const { ctx } = stickFightState;
+    ctx.clearRect(0, 0, stickFightConfig.width, stickFightConfig.height);
+
+    ctx.fillStyle = 'rgba(255,255,255,0.15)';
+    ctx.fillRect(0, 0, stickFightConfig.width, stickFightConfig.height);
+    ctx.strokeStyle = '#14532d';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(0, 292);
+    ctx.lineTo(stickFightConfig.width, 292);
+    ctx.stroke();
+
+    if (!stickFightState.fighters.length) return;
+    stickFightState.fighters.forEach(drawStickFighter);
+}
+
+function drawStickFighter(fighter) {
+    const { ctx } = stickFightState;
+    const baseX = fighter.x;
+    const baseY = fighter.y;
+    const attackOffset = fighter.attackTimer > 0 ? (fighter.attackType === 'kick' ? 18 : 12) : 0;
+
+    ctx.save();
+    ctx.translate(baseX, baseY);
+    ctx.scale(fighter.facing, 1);
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = fighter.hitFlash > 0 ? '#f59e0b' : fighter.color;
+
+    ctx.beginPath();
+    ctx.arc(0, -60, 13, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(0, -47);
+    ctx.lineTo(0, -15);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(0, -38);
+    ctx.lineTo(-18, -22);
+    ctx.moveTo(0, -38);
+    ctx.lineTo(18 + attackOffset, fighter.attackType === 'punch' ? -24 : -18);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(0, -15);
+    ctx.lineTo(-14, 16);
+    ctx.moveTo(0, -15);
+    ctx.lineTo(attackOffset > 0 ? 20 + attackOffset : 14, attackOffset > 0 ? 6 : 16);
+    ctx.stroke();
+
+    if (fighter.attackTimer > 0) {
+        ctx.strokeStyle = 'rgba(239, 68, 68, 0.45)';
+        ctx.lineWidth = fighter.attackType === 'kick' ? 9 : 7;
+        ctx.beginPath();
+        ctx.moveTo(16, fighter.attackType === 'kick' ? 0 : -24);
+        ctx.lineTo(45 + attackOffset, fighter.attackType === 'kick' ? -3 : -20);
+        ctx.stroke();
+    }
+
+    ctx.restore();
+}
+
+function finishStickFight(result, message) {
+    if (!stickFightState) return;
+    stickFightState.roundActive = false;
+    if (stickFightState.loop) {
+        clearInterval(stickFightState.loop);
+        stickFightState.loop = null;
+        window.stickFightInterval = null;
+    }
+
+    if (result === 'p1') {
+        localStorage.setItem('stickfight-score-p1', String((parseInt(localStorage.getItem('stickfight-score-p1') || '0', 10)) + 1));
+    } else if (result === 'p2') {
+        localStorage.setItem('stickfight-score-p2', String((parseInt(localStorage.getItem('stickfight-score-p2') || '0', 10)) + 1));
+    } else {
+        localStorage.setItem('stickfight-score-draw', String((parseInt(localStorage.getItem('stickfight-score-draw') || '0', 10)) + 1));
+    }
+
+    updateStickFightScoreboard();
+    setStickFightStatus(message);
+    drawStickFight();
+}
+
+function updateStickFightScoreboard() {
+    const p1 = document.getElementById('stickfight-score-p1');
+    const p2 = document.getElementById('stickfight-score-p2');
+    const draw = document.getElementById('stickfight-score-draw');
+    if (p1) p1.textContent = localStorage.getItem('stickfight-score-p1') || '0';
+    if (p2) p2.textContent = localStorage.getItem('stickfight-score-p2') || '0';
+    if (draw) draw.textContent = localStorage.getItem('stickfight-score-draw') || '0';
+}
+
+function stopStickFight() {
+    if (!stickFightState) return;
+    if (stickFightState.loop) clearInterval(stickFightState.loop);
+    if (stickFightState.keydown) document.removeEventListener('keydown', stickFightState.keydown);
+    if (stickFightState.keyup) document.removeEventListener('keyup', stickFightState.keyup);
+    window.stickFightInterval = null;
+    stickFightState = null;
 }
 
 // ============= HANGMAN =============
