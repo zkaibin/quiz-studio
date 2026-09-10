@@ -257,14 +257,10 @@ class ScienceQuizApp {
     this.questions.forEach((question, index) => {
       const options = question.options;
       const selectedAnswer = this.answers[index];
-      const diagramHtml = question.diagram
-        ? `<div class="question-diagram">${question.diagram}</div>`
-        : '';
 
       html += `
         <div class="question-item" data-question-index="${index}">
           <div class="question-number">Question ${index + 1}</div>
-          ${diagramHtml}
           <div class="question-text">${this.buildQuestionText(question)}</div>
           <div class="options">
       `;
