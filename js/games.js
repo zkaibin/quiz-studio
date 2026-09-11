@@ -1078,6 +1078,8 @@ const stickFightConfig = {
     groundY: 270,
     gravity: 0.7,
     moveSpeed: 4.6,
+    cpuMoveSpeedMultiplier: 0.55,
+    cpuActionCooldownMultiplier: 2.1,
     jumpVelocity: -15.2,
     maxHealth: 100,
     maxEnergy: 100,
@@ -1099,7 +1101,7 @@ const stickFightDifficultyConfig = {
         uppercutChance: 0.28,
         dashRange: 110,
         dashChance: 0.08,
-        jumpChance: 0.015,
+        jumpChance: 0.006,
         actionCooldowns: { special: 42, melee: 28, dash: 34, jump: 20 }
     },
     intermediate: {
@@ -1116,7 +1118,7 @@ const stickFightDifficultyConfig = {
         uppercutChance: 0.5,
         dashRange: 130,
         dashChance: 0.18,
-        jumpChance: 0.04,
+        jumpChance: 0.014,
         actionCooldowns: { special: 28, melee: 18, dash: 24, jump: 14 }
     },
     advanced: {
@@ -1133,7 +1135,7 @@ const stickFightDifficultyConfig = {
         uppercutChance: 0.62,
         dashRange: 150,
         dashChance: 0.28,
-        jumpChance: 0.07,
+        jumpChance: 0.024,
         actionCooldowns: { special: 18, melee: 12, dash: 16, jump: 10 }
     }
 };
@@ -1208,6 +1210,66 @@ const stickFightCharacters = {
         glow: 'rgba(254, 249, 195, 0.95)',
         attacks: { skill1: 'erasercannon', skill2: 'giganticmeteor' },
         labels: { skill1: 'Eraser Cannon', skill2: 'Gigantic Meteor' }
+    },
+    android18: {
+        name: 'Android 18',
+        subtitle: 'Destructo Disc • Energy Barrage',
+        color: '#be185d',
+        accent: '#f8fafc',
+        aura: 'rgba(244, 114, 182, 0.34)',
+        glow: 'rgba(251, 207, 232, 0.95)',
+        attacks: { skill1: 'kamehameha', skill2: 'spiritbomb' },
+        labels: { skill1: 'Destructo Disc', skill2: 'Energy Barrage' }
+    },
+    android17: {
+        name: 'Android 17',
+        subtitle: 'Energy Wave • Barrier Burst',
+        color: '#1d4ed8',
+        accent: '#f97316',
+        aura: 'rgba(96, 165, 250, 0.34)',
+        glow: 'rgba(191, 219, 254, 0.95)',
+        attacks: { skill1: 'galickgun', skill2: 'bigbang' },
+        labels: { skill1: 'Energy Wave', skill2: 'Barrier Burst' }
+    },
+    krillin: {
+        name: 'Krillin',
+        subtitle: 'Destructo Disc • Solar Flare',
+        color: '#b45309',
+        accent: '#fef3c7',
+        aura: 'rgba(251, 191, 36, 0.3)',
+        glow: 'rgba(254, 243, 199, 0.95)',
+        attacks: { skill1: 'kamehameha', skill2: 'masenko' },
+        labels: { skill1: 'Destructo Disc', skill2: 'Solar Flare' }
+    },
+    cell: {
+        name: 'Cell',
+        subtitle: 'Special Beam Cannon • Solar Kamehameha',
+        color: '#166534',
+        accent: '#84cc16',
+        aura: 'rgba(132, 204, 22, 0.34)',
+        glow: 'rgba(217, 249, 157, 0.95)',
+        attacks: { skill1: 'specialbeamcannon', skill2: 'superkamehameha' },
+        labels: { skill1: 'Special Beam Cannon', skill2: 'Solar Kamehameha' }
+    },
+    majinbuu: {
+        name: 'Majin Buu',
+        subtitle: 'Candy Beam • Planet Burst',
+        color: '#be185d',
+        accent: '#f9a8d4',
+        aura: 'rgba(244, 114, 182, 0.38)',
+        glow: 'rgba(251, 207, 232, 0.95)',
+        attacks: { skill1: 'deathbeam', skill2: 'spiritbomb' },
+        labels: { skill1: 'Candy Beam', skill2: 'Planet Burst' }
+    },
+    android16: {
+        name: 'Android 16',
+        subtitle: 'Hell Flash • Rocket Burst',
+        color: '#15803d',
+        accent: '#fb923c',
+        aura: 'rgba(74, 222, 128, 0.34)',
+        glow: 'rgba(187, 247, 208, 0.95)',
+        attacks: { skill1: 'galickgun', skill2: 'bigbang' },
+        labels: { skill1: 'Hell Flash', skill2: 'Rocket Burst' }
     }
 };
 
@@ -1242,6 +1304,162 @@ Object.assign(stickFightAttackConfig, {
 });
 
 let stickFightState = null;
+const stickFightAudio = {
+    context: null,
+    master: null,
+    musicGain: null,
+    musicTimer: null,
+    musicStep: 0,
+    musicEnabled: localStorage.getItem('stickfight-music') !== 'off',
+    sfxEnabled: localStorage.getItem('stickfight-sfx') !== 'off'
+};
+
+function ensureStickFightAudio() {
+    if (!stickFightAudio.context) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return false;
+        stickFightAudio.context = new AudioContextClass();
+        stickFightAudio.master = stickFightAudio.context.createGain();
+        stickFightAudio.master.gain.value = 0.18;
+        stickFightAudio.master.connect(stickFightAudio.context.destination);
+        stickFightAudio.musicGain = stickFightAudio.context.createGain();
+        stickFightAudio.musicGain.gain.value = 0.22;
+        stickFightAudio.musicGain.connect(stickFightAudio.master);
+    }
+    if (stickFightAudio.context.state === 'suspended') stickFightAudio.context.resume();
+    return true;
+}
+
+function playStickFightTone(frequency, duration, type = 'square', volume = 0.12, delay = 0, endFrequency = frequency) {
+    if (!stickFightAudio.sfxEnabled || !ensureStickFightAudio()) return;
+    const context = stickFightAudio.context;
+    const start = context.currentTime + delay;
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+    oscillator.type = type;
+    oscillator.frequency.setValueAtTime(frequency, start);
+    oscillator.frequency.exponentialRampToValueAtTime(Math.max(20, endFrequency), start + duration);
+    gain.gain.setValueAtTime(0.001, start);
+    gain.gain.exponentialRampToValueAtTime(volume, start + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.001, start + duration);
+    oscillator.connect(gain);
+    gain.connect(stickFightAudio.master);
+    oscillator.start(start);
+    oscillator.stop(start + duration + 0.02);
+}
+
+function playStickFightNoise(duration = 0.08, volume = 0.14, filterFrequency = 900) {
+    if (!stickFightAudio.sfxEnabled || !ensureStickFightAudio()) return;
+    const context = stickFightAudio.context;
+    const buffer = context.createBuffer(1, context.sampleRate * duration, context.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let index = 0; index < data.length; index++) data[index] = Math.random() * 2 - 1;
+    const source = context.createBufferSource();
+    const filter = context.createBiquadFilter();
+    const gain = context.createGain();
+    filter.type = 'bandpass';
+    filter.frequency.value = filterFrequency;
+    filter.Q.value = 1.2;
+    gain.gain.setValueAtTime(volume, context.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, context.currentTime + duration);
+    source.buffer = buffer;
+    source.connect(filter);
+    filter.connect(gain);
+    gain.connect(stickFightAudio.master);
+    source.start();
+}
+
+function playStickFightSfx(type) {
+    if (type === 'punch') {
+        playStickFightTone(180, 0.12, 'sine', 0.2, 0, 62);
+        playStickFightNoise(0.06, 0.11, 1500);
+    }
+    if (type === 'kick') {
+        playStickFightTone(125, 0.18, 'sine', 0.22, 0, 42);
+        playStickFightNoise(0.1, 0.14, 700);
+    }
+    if (type === 'uppercut') {
+        playStickFightTone(150, 0.24, 'sawtooth', 0.16, 0, 620);
+        playStickFightNoise(0.08, 0.08, 1800);
+    }
+    if (type === 'dash') {
+        playStickFightNoise(0.22, 0.09, 500);
+        playStickFightTone(70, 0.2, 'sine', 0.12, 0, 180);
+    }
+    if (type === 'special') {
+        playStickFightTone(180, 0.38, 'sine', 0.12, 0, 520);
+        playStickFightTone(270, 0.3, 'triangle', 0.08, 0.08, 760);
+        playStickFightNoise(0.18, 0.06, 2400);
+    }
+    if (type === 'hit') {
+        playStickFightTone(230, 0.14, 'sine', 0.18, 0, 70);
+        playStickFightNoise(0.08, 0.13, 1200);
+    }
+    if (type === 'projectile-hit') {
+        playStickFightTone(130, 0.4, 'sine', 0.2, 0, 35);
+        playStickFightTone(360, 0.22, 'triangle', 0.1, 0.04, 90);
+        playStickFightNoise(0.2, 0.12, 1000);
+    }
+    if (type === 'ko') {
+        playStickFightTone(280, 0.22, 'sawtooth', 0.14, 0, 90);
+        playStickFightTone(150, 0.52, 'sine', 0.2, 0.12, 38);
+        playStickFightNoise(0.28, 0.14, 650);
+    }
+}
+
+function playStickFightMusicVoice(frequency, duration, type, volume, delay = 0) {
+    const context = stickFightAudio.context;
+    const start = context.currentTime + delay;
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+    oscillator.type = type;
+    oscillator.frequency.value = frequency;
+    gain.gain.setValueAtTime(0.001, start);
+    gain.gain.exponentialRampToValueAtTime(volume, start + 0.025);
+    gain.gain.exponentialRampToValueAtTime(0.001, start + duration);
+    oscillator.connect(gain);
+    gain.connect(stickFightAudio.musicGain);
+    oscillator.start(start);
+    oscillator.stop(start + duration + 0.03);
+}
+
+function scheduleStickFightMusic() {
+    if (!stickFightAudio.musicEnabled || !ensureStickFightAudio() || stickFightAudio.musicTimer) return;
+    const bassNotes = [73.42, 73.42, 87.31, 65.41, 73.42, 73.42, 98, 65.41];
+    const melody = [293.66, 349.23, 440, 523.25, 440, 349.23, 293.66, 261.63];
+    const playNote = () => {
+        if (!stickFightAudio.musicEnabled) return;
+        const step = stickFightAudio.musicStep % bassNotes.length;
+        playStickFightMusicVoice(bassNotes[step], 0.42, 'sawtooth', 0.11);
+        playStickFightMusicVoice(melody[step], 0.22, 'square', 0.045);
+        if (step % 2 === 0) {
+            playStickFightMusicVoice(melody[step] / 2, 0.16, 'triangle', 0.06, 0.12);
+            playStickFightNoise(0.035, 0.025, 4200);
+        }
+        stickFightAudio.musicStep++;
+    };
+    playNote();
+    stickFightAudio.musicTimer = setInterval(playNote, 250);
+}
+
+function stopStickFightMusic() {
+    if (stickFightAudio.musicTimer) clearInterval(stickFightAudio.musicTimer);
+    stickFightAudio.musicTimer = null;
+}
+
+function toggleStickFightAudio(kind) {
+    ensureStickFightAudio();
+    if (kind === 'music') {
+        stickFightAudio.musicEnabled = !stickFightAudio.musicEnabled;
+        localStorage.setItem('stickfight-music', stickFightAudio.musicEnabled ? 'on' : 'off');
+        if (stickFightAudio.musicEnabled) scheduleStickFightMusic();
+        else stopStickFightMusic();
+    } else {
+        stickFightAudio.sfxEnabled = !stickFightAudio.sfxEnabled;
+        localStorage.setItem('stickfight-sfx', stickFightAudio.sfxEnabled ? 'on' : 'off');
+    }
+    syncStickFightUi();
+}
 
 function initStickFight() {
     stopStickFight();
@@ -1274,6 +1492,8 @@ function initStickFight() {
                 </div>
                 <button class="btn" id="stickfight-mobile-toggle" onclick="toggleStickFightMobileMode()">📱 Mobile Mode</button>
                 <button class="btn" id="stickfight-fullscreen-toggle" onclick="toggleStickFightFullscreen()">⛶ Full Screen</button>
+                <button class="btn audio-toggle" id="stickfight-music-toggle" onclick="toggleStickFightAudio('music')" aria-label="Toggle background music"></button>
+                <button class="btn audio-toggle" id="stickfight-sfx-toggle" onclick="toggleStickFightAudio('sfx')" aria-label="Toggle fighting sound effects"></button>
                 <button class="btn" onclick="startStickFightRound()">Start Match</button>
             </div>
             <div class="stickfight-health">
@@ -1355,6 +1575,12 @@ function initStickFight() {
         projectiles: [],
         effects: [],
         loop: null,
+        victoryLoop: null,
+        matchResult: null,
+        winnerId: null,
+        loserId: null,
+        endingFall: false,
+        victoryFrame: 0,
         keydown: null,
         keyup: null,
         mobileMode: shouldEnableStickFightMobileMode(),
@@ -1431,6 +1657,13 @@ function setStickFightDifficulty(level) {
 function startStickFightRound() {
     if (!stickFightState) return;
 
+    if (stickFightState.victoryLoop) clearInterval(stickFightState.victoryLoop);
+    stickFightState.victoryLoop = null;
+    stickFightState.matchResult = null;
+    stickFightState.winnerId = null;
+    stickFightState.loserId = null;
+    stickFightState.endingFall = false;
+    stickFightState.victoryFrame = 0;
     stickFightState.timeLeft = stickFightConfig.roundTime;
     stickFightState.roundActive = true;
     stickFightState.inputs.p1 = { left: false, right: false, jump: false };
@@ -1487,6 +1720,7 @@ function createStickFighter(id, characterKey, x, controls, combatTuning = {}) {
         specials: character.attacks,
         specialLabels: character.labels,
         controls,
+        isCpu: isStickFightCpu(id),
         health: Math.max(1, Math.round(stickFightConfig.maxHealth * healthMultiplier)),
         maxHealth: Math.max(1, Math.round(stickFightConfig.maxHealth * healthMultiplier)),
         energy: stickFightConfig.maxEnergy,
@@ -1515,6 +1749,8 @@ function syncStickFightUi() {
     const difficulty = getStickFightDifficultyProfile();
     const mobileToggle = document.getElementById('stickfight-mobile-toggle');
     const fullscreenToggle = document.getElementById('stickfight-fullscreen-toggle');
+    const musicToggle = document.getElementById('stickfight-music-toggle');
+    const sfxToggle = document.getElementById('stickfight-sfx-toggle');
     const difficultyGroup = document.getElementById('stickfight-difficulty-group');
     const mobilePanel = document.getElementById('stickfight-mobile-panel');
     const mobileHint = document.getElementById('stickfight-mobile-hint');
@@ -1550,6 +1786,8 @@ function syncStickFightUi() {
     if (fullscreenToggle) {
         fullscreenToggle.textContent = isStickFightFullscreen() ? '🡼 Exit Full Screen' : '⛶ Full Screen';
     }
+    if (musicToggle) musicToggle.textContent = stickFightAudio.musicEnabled ? '🎵 Music On' : '🔇 Music Off';
+    if (sfxToggle) sfxToggle.textContent = stickFightAudio.sfxEnabled ? '🔊 SFX On' : '🔇 SFX Off';
 
     if (difficultyGroup) {
         difficultyGroup.classList.toggle('single-player-only', isStickFightCpu('p1') || isStickFightCpu('p2'));
@@ -1598,6 +1836,9 @@ function syncStickFightUi() {
 
 function handleStickFightKeyDown(event) {
     if (!stickFightState) return;
+
+    ensureStickFightAudio();
+    scheduleStickFightMusic();
     const handled = updateStickFightInput(event.code, true);
     if (handled) event.preventDefault();
 }
@@ -1656,6 +1897,10 @@ function getStickFightAttackDefinition(type) {
 
 function getStickFightDifficultyProfile() {
     return stickFightDifficultyConfig[stickFightState?.difficulty] || stickFightDifficultyConfig.intermediate;
+}
+
+function getStickFightCpuCooldown(frames) {
+    return Math.max(1, Math.round(frames * stickFightConfig.cpuActionCooldownMultiplier));
 }
 
 function getStickFightFighter(id) {
@@ -1746,7 +1991,8 @@ function applyStickFightInput(fighter, input) {
     let move = 0;
     if (input.left) move -= 1;
     if (input.right) move += 1;
-    fighter.vx = move * stickFightConfig.moveSpeed * (currentAttack ? currentAttack.moveScale ?? 0.25 : 1);
+    const movementMultiplier = fighter.isCpu ? stickFightConfig.cpuMoveSpeedMultiplier : 1;
+    fighter.vx = move * stickFightConfig.moveSpeed * movementMultiplier * (currentAttack ? currentAttack.moveScale ?? 0.25 : 1);
     fighter.x += fighter.vx;
 
     const onGround = fighter.y >= stickFightConfig.groundY;
@@ -1756,7 +2002,7 @@ function applyStickFightInput(fighter, input) {
     }
 
     if (fighter.attackType === 'dash' && fighter.attackTimer > 0) {
-        fighter.x += fighter.facing * (currentAttack?.lungeSpeed || 0);
+        fighter.x += fighter.facing * (currentAttack?.lungeSpeed || 0) * movementMultiplier;
     }
 
     fighter.vy += stickFightConfig.gravity;
@@ -1789,6 +2035,7 @@ function applyStickFightInput(fighter, input) {
             spawnStickFightProjectile(fighter, attackDefinition);
             fighter.vx *= 0.35;
         }
+        playStickFightSfx(attackDefinition.projectile ? 'special' : fighter.attackType);
     }
     fighter.attackQueued = null;
 }
@@ -1840,6 +2087,7 @@ function resolveStickFightAttack(attacker, defender) {
         defender.hitFlash = 8;
         attacker.hitConnected = true;
         spawnStickFightBurst(defender.x, defender.y - 44, attackDefinition.effectColor, 10);
+        playStickFightSfx('hit');
     }
 }
 
@@ -1870,16 +2118,28 @@ function updateStickFightAI(cpu, target) {
         return;
     }
 
-    if (absDistance > difficulty.specialDistance && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0 && Math.random() < difficulty.specialChance) {
-        queueStickFightAttack(cpu.id, target.health < 36 && Math.random() < difficulty.finisherChance ? cpu.specials.skill2 : cpu.specials.skill1);
-        cpu.aiActionCooldown = difficulty.actionCooldowns.special;
+    const skill1 = cpu.specials.skill1;
+    const skill2 = cpu.specials.skill2;
+    const skill1Definition = getStickFightAttackDefinition(skill1);
+    const skill2Definition = getStickFightAttackDefinition(skill2);
+    const canUseSkill1 = !!skill1Definition && cpu.energy >= skill1Definition.energyCost;
+    const canUseSkill2 = !!skill2Definition && cpu.energy >= skill2Definition.energyCost;
+    const shouldUseSpecial = absDistance > difficulty.specialDistance
+        ? Math.random() < difficulty.specialChance
+        : absDistance > difficulty.meleeRange * 1.5 && Math.random() < difficulty.specialChance * 0.3;
+
+    if ((canUseSkill1 || canUseSkill2) && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0 && shouldUseSpecial) {
+        const wantsFinisher = target.health < 36 && Math.random() < difficulty.finisherChance;
+        const selectedSkill = wantsFinisher && canUseSkill2 ? skill2 : canUseSkill1 ? skill1 : skill2;
+        queueStickFightAttack(cpu.id, selectedSkill);
+        cpu.aiActionCooldown = getStickFightCpuCooldown(difficulty.actionCooldowns.special);
     } else if (absDistance < difficulty.meleeRange && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0 && Math.random() < difficulty.meleeChance) {
         if (target.y < cpu.y - 12 && Math.random() < difficulty.uppercutChance) {
             queueStickFightAttack(cpu.id, 'uppercut');
         } else {
             queueStickFightAttack(cpu.id, Math.random() < difficulty.kickChance ? 'kick' : 'punch');
         }
-        cpu.aiActionCooldown = difficulty.actionCooldowns.melee;
+        cpu.aiActionCooldown = getStickFightCpuCooldown(difficulty.actionCooldowns.melee);
     } else if (absDistance < difficulty.dashRange && cpu.attackCooldown <= 0 && cpu.attackTimer <= 0 && Math.random() < difficulty.dashChance) {
         if (distance > 0) {
             input.right = true;
@@ -1887,10 +2147,10 @@ function updateStickFightAI(cpu, target) {
             input.left = true;
         }
         queueStickFightAttack(cpu.id, 'dash');
-        cpu.aiActionCooldown = difficulty.actionCooldowns.dash;
+        cpu.aiActionCooldown = getStickFightCpuCooldown(difficulty.actionCooldowns.dash);
     } else if (absDistance < 120 && Math.random() < difficulty.jumpChance && cpu.y >= stickFightConfig.groundY) {
         input.jump = true;
-        cpu.aiActionCooldown = difficulty.actionCooldowns.jump;
+        cpu.aiActionCooldown = getStickFightCpuCooldown(difficulty.actionCooldowns.jump);
     }
 }
 
@@ -1966,6 +2226,7 @@ function drawStickFight() {
     stickFightState.projectiles.forEach(drawStickFightProjectile);
     stickFightState.effects.forEach(drawStickFightEffect);
     stickFightState.fighters.forEach(drawStickFighter);
+    drawStickFightResultOverlay();
 }
 
 function drawStickFightBackdrop() {
@@ -2042,6 +2303,102 @@ function drawStickFightHair(fighter) {
         ctx.lineTo(10, -70);
         ctx.lineTo(16, -88);
         ctx.lineTo(14, -64);
+    } else if (fighter.characterKey === 'gohan') {
+        ctx.moveTo(-14, -67);
+        ctx.lineTo(-9, -88);
+        ctx.lineTo(-2, -76);
+        ctx.lineTo(4, -98);
+        ctx.lineTo(10, -76);
+        ctx.lineTo(17, -86);
+        ctx.lineTo(13, -63);
+    } else if (fighter.characterKey === 'piccolo') {
+        ctx.moveTo(-13, -67);
+        ctx.lineTo(-8, -78);
+        ctx.lineTo(-4, -68);
+        ctx.lineTo(0, -101);
+        ctx.lineTo(5, -70);
+        ctx.lineTo(12, -80);
+        ctx.lineTo(15, -65);
+    } else if (fighter.characterKey === 'trunks') {
+        ctx.moveTo(-15, -66);
+        ctx.quadraticCurveTo(-18, -86, -7, -91);
+        ctx.quadraticCurveTo(5, -97, 16, -84);
+        ctx.lineTo(14, -61);
+        ctx.lineTo(7, -73);
+        ctx.lineTo(0, -65);
+        ctx.lineTo(-7, -74);
+    } else if (fighter.characterKey === 'frieza') {
+        ctx.ellipse(0, -76, 12, 15, 0, Math.PI, Math.PI * 2);
+        ctx.fillStyle = fighter.color;
+        ctx.beginPath();
+        ctx.arc(0, -78, 5, 0, Math.PI * 2);
+        ctx.fill();
+        return;
+    } else if (fighter.characterKey === 'broly') {
+        ctx.moveTo(-16, -65);
+        ctx.lineTo(-19, -82);
+        ctx.lineTo(-10, -78);
+        ctx.lineTo(-13, -98);
+        ctx.lineTo(-3, -87);
+        ctx.lineTo(2, -108);
+        ctx.lineTo(7, -88);
+        ctx.lineTo(18, -100);
+        ctx.lineTo(13, -78);
+        ctx.lineTo(19, -82);
+        ctx.lineTo(13, -64);
+    } else if (fighter.characterKey === 'android18') {
+        ctx.moveTo(-14, -66);
+        ctx.quadraticCurveTo(-18, -83, -9, -91);
+        ctx.quadraticCurveTo(0, -98, 10, -90);
+        ctx.quadraticCurveTo(18, -82, 14, -64);
+        ctx.lineTo(7, -70);
+        ctx.lineTo(0, -63);
+        ctx.lineTo(-8, -71);
+    } else if (fighter.characterKey === 'android17') {
+        ctx.moveTo(-14, -66);
+        ctx.lineTo(-12, -84);
+        ctx.lineTo(-4, -91);
+        ctx.lineTo(4, -87);
+        ctx.lineTo(14, -94);
+        ctx.lineTo(15, -64);
+        ctx.lineTo(7, -72);
+        ctx.lineTo(0, -65);
+        ctx.lineTo(-7, -73);
+    } else if (fighter.characterKey === 'krillin') {
+        ctx.fillStyle = fighter.accentColor;
+        ctx.arc(0, -72, 10, Math.PI, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = fighter.color;
+        [-6, 0, 6].forEach(x => {
+            ctx.beginPath();
+            ctx.arc(x, -66, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        return;
+    } else if (fighter.characterKey === 'cell') {
+        ctx.moveTo(-13, -66);
+        ctx.lineTo(-12, -86);
+        ctx.lineTo(-5, -78);
+        ctx.lineTo(0, -104);
+        ctx.lineTo(5, -78);
+        ctx.lineTo(13, -87);
+        ctx.lineTo(14, -65);
+    } else if (fighter.characterKey === 'majinbuu') {
+        ctx.moveTo(-12, -66);
+        ctx.quadraticCurveTo(-5, -78, 0, -82);
+        ctx.quadraticCurveTo(7, -87, 12, -101);
+        ctx.lineTo(14, -66);
+        ctx.lineTo(7, -72);
+        ctx.lineTo(0, -65);
+        ctx.lineTo(-7, -73);
+    } else if (fighter.characterKey === 'android16') {
+        ctx.moveTo(-14, -66);
+        ctx.lineTo(-10, -87);
+        ctx.lineTo(-3, -78);
+        ctx.lineTo(2, -96);
+        ctx.lineTo(8, -79);
+        ctx.lineTo(15, -88);
+        ctx.lineTo(14, -64);
     } else {
         ctx.moveTo(-14, -68);
         ctx.lineTo(-10, -86);
@@ -2053,6 +2410,126 @@ function drawStickFightHair(fighter) {
     }
     ctx.closePath();
     ctx.fill();
+}
+
+function drawStickFightCharacterDetails(fighter) {
+    const { ctx } = stickFightState;
+    ctx.save();
+    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = fighter.color;
+
+    ctx.fillStyle = fighter.characterKey === 'piccolo' ? '#14532d' : fighter.accentColor;
+    ctx.fillRect(-7, -40, 14, 16);
+    ctx.fillStyle = fighter.characterKey === 'frieza' ? '#f5d0fe' : fighter.color;
+    ctx.fillRect(-6, -12, 12, 8);
+
+    ctx.fillStyle = fighter.characterKey === 'goku' || fighter.characterKey === 'gohan' ? '#f97316' : fighter.color;
+    ctx.fillRect(-9, -25, 18, 4);
+
+    ctx.strokeStyle = fighter.characterKey === 'piccolo' ? '#facc15' : fighter.accentColor;
+    ctx.beginPath();
+    ctx.moveTo(-17, -24);
+    ctx.lineTo(-10, -20);
+    ctx.moveTo(17, -24);
+    ctx.lineTo(10, -20);
+    ctx.stroke();
+
+    ctx.strokeStyle = '#f8fafc';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-5, -59);
+    ctx.lineTo(-1, -58);
+    ctx.moveTo(4, -59);
+    ctx.lineTo(8, -58);
+    ctx.stroke();
+
+    if (fighter.characterKey === 'piccolo') {
+        ctx.fillStyle = 'rgba(22, 101, 52, 0.9)';
+        ctx.beginPath();
+        ctx.moveTo(-14, -39);
+        ctx.lineTo(-25, -18);
+        ctx.lineTo(-10, -22);
+        ctx.lineTo(-7, -38);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(14, -39);
+        ctx.lineTo(25, -18);
+        ctx.lineTo(10, -22);
+        ctx.lineTo(7, -38);
+        ctx.fill();
+    }
+
+    if (fighter.characterKey === 'android18') {
+        ctx.fillStyle = '#111827';
+        ctx.fillRect(-8, -40, 16, 17);
+        ctx.fillStyle = '#dc2626';
+        ctx.fillRect(-8, -24, 16, 3);
+    }
+
+    if (fighter.characterKey === 'android17') {
+        ctx.fillStyle = '#1e3a8a';
+        ctx.fillRect(-8, -40, 16, 17);
+        ctx.fillStyle = '#f97316';
+        ctx.fillRect(-9, -26, 18, 4);
+    }
+
+    if (fighter.characterKey === 'krillin') {
+        ctx.fillStyle = '#f97316';
+        ctx.fillRect(-8, -40, 16, 17);
+        ctx.fillStyle = '#fef3c7';
+        ctx.fillRect(-8, -24, 16, 3);
+        ctx.strokeStyle = '#fef3c7';
+        ctx.beginPath();
+        ctx.moveTo(-5, -34);
+        ctx.lineTo(5, -34);
+        ctx.stroke();
+    }
+
+    if (fighter.characterKey === 'cell') {
+        ctx.fillStyle = '#365314';
+        ctx.fillRect(-8, -40, 16, 17);
+        ctx.fillStyle = '#84cc16';
+        ctx.fillRect(-8, -25, 16, 3);
+        ctx.fillStyle = '#bef264';
+        ctx.beginPath();
+        ctx.arc(-5, -35, 2, 0, Math.PI * 2);
+        ctx.arc(5, -29, 2, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    if (fighter.characterKey === 'majinbuu') {
+        ctx.fillStyle = '#f9a8d4';
+        ctx.fillRect(-8, -40, 16, 17);
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(-8, -25, 16, 3);
+        ctx.strokeStyle = '#fef08a';
+        ctx.beginPath();
+        ctx.moveTo(-6, -33);
+        ctx.lineTo(6, -33);
+        ctx.stroke();
+    }
+
+    if (fighter.characterKey === 'android16') {
+        ctx.fillStyle = '#166534';
+        ctx.fillRect(-8, -40, 16, 17);
+        ctx.fillStyle = '#fb923c';
+        ctx.fillRect(-8, -25, 16, 3);
+        ctx.strokeStyle = '#fef3c7';
+        ctx.beginPath();
+        ctx.moveTo(-7, -35);
+        ctx.lineTo(7, -35);
+        ctx.stroke();
+    }
+
+    if (fighter.characterKey === 'trunks') {
+        ctx.strokeStyle = fighter.accentColor;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(-8, -39);
+        ctx.lineTo(8, -39);
+        ctx.stroke();
+    }
+    ctx.restore();
 }
 
 function drawStickFightProjectile(projectile) {
@@ -2111,10 +2588,13 @@ function drawStickFighter(fighter) {
     const attackOffset = fighter.attackTimer > 0 && attackDefinition ? attackDefinition.drawOffset || 0 : 0;
     const attackArmY = attackDefinition?.armY ?? -24;
     const attackLegY = attackDefinition?.legY ?? 16;
-    const auraPower = fighter.attackTimer > 0 && attackDefinition?.projectile ? 1 : fighter.hitFlash > 0 ? 0.65 : 0.18;
+    const celebrating = !stickFightState.roundActive && stickFightState.winnerId === fighter.id;
+    const defeated = !stickFightState.roundActive && stickFightState.loserId === fighter.id;
+    const auraPower = defeated ? 0 : fighter.attackTimer > 0 && attackDefinition?.projectile ? 1 : fighter.hitFlash > 0 ? 0.65 : 0.18;
 
     ctx.save();
-    ctx.translate(baseX, baseY);
+    ctx.translate(baseX, baseY - (defeated ? 2 : 0));
+    if (defeated) ctx.rotate(Math.PI / 2);
     ctx.scale(fighter.facing, 1);
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
@@ -2138,22 +2618,35 @@ function drawStickFighter(fighter) {
     ctx.fillStyle = fighter.accentColor;
     ctx.fillRect(-7, -40, 14, 16);
     ctx.fillRect(-6, -12, 12, 8);
+    drawStickFightCharacterDetails(fighter);
 
     ctx.beginPath();
     ctx.moveTo(0, -38);
-    ctx.lineTo(-18, -22);
-    ctx.moveTo(0, -38);
-    ctx.lineTo(18 + attackOffset, attackArmY);
+    if (celebrating) {
+        ctx.lineTo(-22, -66);
+        ctx.moveTo(0, -38);
+        ctx.lineTo(22, -66);
+    } else {
+        ctx.lineTo(-18, -22);
+        ctx.moveTo(0, -38);
+        ctx.lineTo(18 + attackOffset, attackArmY);
+    }
     ctx.stroke();
 
     ctx.beginPath();
     ctx.moveTo(0, -15);
-    ctx.lineTo(-14, 16);
-    ctx.moveTo(0, -15);
-    ctx.lineTo(attackOffset > 0 ? 20 + attackOffset : 14, attackOffset > 0 ? attackLegY : 16);
+    if (celebrating) {
+        ctx.lineTo(-22, 18);
+        ctx.moveTo(0, -15);
+        ctx.lineTo(22, 18);
+    } else {
+        ctx.lineTo(-14, 16);
+        ctx.moveTo(0, -15);
+        ctx.lineTo(attackOffset > 0 ? 20 + attackOffset : 14, attackOffset > 0 ? attackLegY : 16);
+    }
     ctx.stroke();
 
-    if (fighter.attackTimer > 0) {
+    if (fighter.attackTimer > 0 && !defeated) {
         ctx.strokeStyle = attackDefinition?.effectColor || 'rgba(239, 68, 68, 0.45)';
         ctx.lineWidth = attackDefinition?.trailWidth || 7;
         ctx.shadowBlur = 18;
@@ -2167,14 +2660,93 @@ function drawStickFighter(fighter) {
     ctx.restore();
 }
 
+function drawStickFightResultOverlay() {
+    if (!stickFightState?.matchResult) return;
+    const { ctx } = stickFightState;
+    const winner = stickFightState.fighters.find(fighter => fighter.id === stickFightState.winnerId);
+    const isDraw = stickFightState.matchResult === 'draw';
+    const pulse = 0.92 + Math.sin(stickFightState.victoryFrame / 10) * 0.08;
+
+    ctx.save();
+    ctx.fillStyle = 'rgba(2, 6, 23, 0.68)';
+    ctx.fillRect(12, 12, 220, 62);
+    ctx.strokeStyle = isDraw ? '#facc15' : winner?.accentColor || '#facc15';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(12, 12, 220, 62);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.shadowColor = isDraw ? '#facc15' : winner?.glowColor || '#fef08a';
+    ctx.shadowBlur = 10;
+    ctx.globalAlpha = pulse;
+    ctx.font = '900 22px sans-serif';
+    ctx.fillStyle = isDraw ? '#fef08a' : winner?.accentColor || '#fef08a';
+    ctx.fillText(isDraw ? 'DRAW' : 'VICTORY', 122, 31);
+    ctx.shadowBlur = 0;
+    ctx.globalAlpha = 1;
+    ctx.font = '700 14px sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(isDraw ? 'No winner this round' : `${winner?.name || 'Fighter'} wins!`, 122, 51);
+    ctx.font = '600 10px sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.78)';
+    ctx.fillText('Press Start Match for a rematch', 122, 66);
+    ctx.restore();
+}
+
 function finishStickFight(result, message) {
     if (!stickFightState) return;
     stickFightState.roundActive = false;
+    stickFightState.matchResult = null;
+    stickFightState.winnerId = result === 'draw' ? null : result;
+    stickFightState.loserId = result === 'p1' ? 'p2' : result === 'p2' ? 'p1' : null;
+    stickFightState.victoryFrame = 0;
+    stickFightState.fighters.forEach(fighter => {
+        fighter.vx = 0;
+        fighter.attackType = null;
+        fighter.attackTimer = 0;
+        fighter.attackQueued = null;
+    });
+    if (stickFightState.victoryLoop) clearInterval(stickFightState.victoryLoop);
+    const winner = stickFightState.fighters.find(fighter => fighter.id === stickFightState.winnerId);
+    if (winner) {
+        winner.y = stickFightConfig.groundY;
+        winner.vy = 0;
+    }
+    const loser = stickFightState.fighters.find(fighter => fighter.id === stickFightState.loserId);
+    stickFightState.endingFall = !!loser && loser.y < stickFightConfig.groundY - 1;
+    if (loser && stickFightState.endingFall) {
+        loser.vy = Math.max(loser.vy, 1.5);
+    } else if (loser) {
+        loser.y = stickFightConfig.groundY;
+        loser.vy = 0;
+    }
+    stickFightState.victoryLoop = setInterval(() => {
+        if (!stickFightState) return;
+        stickFightState.victoryFrame++;
+        if (stickFightState.endingFall && loser) {
+            loser.vy += stickFightConfig.gravity;
+            loser.y += loser.vy;
+            if (loser.y >= stickFightConfig.groundY) {
+                loser.y = stickFightConfig.groundY;
+                loser.vy = 0;
+                stickFightState.endingFall = false;
+                completeStickFight(result, message);
+            }
+        }
+        drawStickFight();
+    }, 1000 / 30);
     if (stickFightState.loop) {
         clearInterval(stickFightState.loop);
         stickFightState.loop = null;
         window.stickFightInterval = null;
     }
+    if (!stickFightState.endingFall) completeStickFight(result, message);
+}
+
+function completeStickFight(result, message) {
+    if (!stickFightState || stickFightState.matchResult) return;
+    stickFightState.matchResult = result;
+    stopStickFightMusic();
+    playStickFightSfx('ko');
 
     if (result === 'p1') {
         localStorage.setItem('stickfight-score-p1', String((parseInt(localStorage.getItem('stickfight-score-p1') || '0', 10)) + 1));
@@ -2201,8 +2773,8 @@ function updateStickFightScoreboard() {
 function stopStickFight() {
     if (!stickFightState) return;
     if (stickFightState.loop) clearInterval(stickFightState.loop);
-    if (stickFightState.keydown) document.removeEventListener('keydown', stickFightState.keydown);
-    if (stickFightState.keyup) document.removeEventListener('keyup', stickFightState.keyup);
+    if (stickFightState.victoryLoop) clearInterval(stickFightState.victoryLoop);
+    stopStickFightMusic();
     if (stickFightState.tapTimeout) clearTimeout(stickFightState.tapTimeout);
     if (stickFightState.gestureMoveTimeout) clearTimeout(stickFightState.gestureMoveTimeout);
     if (stickFightState.cleanup?.length) {
@@ -2415,6 +2987,7 @@ function updateStickFightProjectiles() {
                 target.vy = Math.min(target.vy, projectile.knockbackY);
                 target.hitFlash = 10;
                 spawnStickFightBurst(projectile.x, projectile.y, projectile.color, projectile.burstCount);
+                playStickFightSfx('projectile-hit');
                 return;
             }
         }
