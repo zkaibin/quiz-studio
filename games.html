@@ -598,6 +598,31 @@
             justify-content: center;
         }
 
+        .stickfight-character-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stickfight-character-group label {
+            color: #1e293b;
+            font-size: 0.82em;
+            font-weight: 700;
+        }
+
+        .stickfight-character-group select {
+            min-width: 112px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 9px 28px 9px 10px;
+            background: #ffffff;
+            color: #1e293b;
+            font: inherit;
+            font-weight: 700;
+        }
+
         .stickfight-difficulty-group {
             display: none;
             gap: 10px;
@@ -655,11 +680,38 @@
             background: #e5e7eb;
             border-radius: 999px;
             overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            color: #475569;
+            font-size: 0.72em;
+            font-weight: 700;
+            margin-top: 7px;
+            margin-bottom: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
 
         .health-fill {
             height: 100%;
             background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            transition: width 0.12s linear;
+        }
+
+        .energy-bar {
+            width: 100%;
+            height: 10px;
+            background: #e5e7eb;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .energy-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
             transition: width 0.12s linear;
         }
 
@@ -708,6 +760,13 @@
             max-width: 1280px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        .stickfight-shell:fullscreen .stickfight-health,
+        .stickfight-shell.stickfight-fullscreen .stickfight-health {
+            display: grid;
+            position: relative;
+            z-index: 2;
         }
 
         .stickfight-shell:fullscreen .stickfight-controls,
