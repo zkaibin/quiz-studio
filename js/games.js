@@ -1081,6 +1081,11 @@ const stickFightConfig = {
     cpuMoveSpeedMultiplier: 0.55,
     cpuActionCooldownMultiplier: 2.1,
     jumpVelocity: -15.2,
+    flightCeiling: 72,
+    flightLift: 0.48,
+    flightMaxRiseSpeed: -3.8,
+    flightHoverSpeed: -1.8,
+    flightActivationFrames: 6,
     maxHealth: 100,
     maxEnergy: 100,
     roundTime: 180
@@ -1524,7 +1529,7 @@ function initStickFight() {
             <div class="stickfight-controls">
                 <div class="stickfight-control-card">
                     <strong>Player 1</strong>
-                    <span id="stickfight-p1-controls">Move: A / D<br>Jump: W<br>Punch: F<br>Kick: G<br>Uppercut: R<br>Dash Strike: T<br>Kamehameha: Y<br>Spirit Bomb: U</span>
+                    <span id="stickfight-p1-controls">Move: A / D<br>Hold W: Fly<br>Punch: F<br>Kick: G<br>Uppercut: R<br>Dash Strike: T<br>Kamehameha: Y<br>Spirit Bomb: U</span>
                 </div>
                 <div class="stickfight-control-card">
                     <strong id="stickfight-opponent-title">Vegeta CPU</strong>
@@ -1732,7 +1737,8 @@ function createStickFighter(id, characterKey, x, controls, combatTuning = {}) {
         attackType: null,
         hitConnected: false,
         attackQueued: null,
-        hitFlash: 0
+        hitFlash: 0,
+        jumpHoldFrames: 0
     };
 }
 
@@ -1806,15 +1812,15 @@ function syncStickFightUi() {
     if (mobileHint) {
         mobileHint.textContent = isStickFightCpu('p1')
             ? 'Both fighters are CPU controlled. Watch the battle unfold.'
-            : 'Touch buttons to move and attack. Swipe up to jump, swipe left or right to dash/move, swipe down for Skill 1, hold the arena for Skill 2, and double tap for an uppercut.';
+            : 'Touch buttons to move and attack. Hold up to fly, swipe left or right to dash/move, swipe down for Skill 1, hold the arena for Skill 2, and double tap for an uppercut.';
     }
 
     if (p1Controls) {
         p1Controls.innerHTML = isStickFightCpu('p1')
             ? `${difficulty.label} CPU: ${p1Character.name} uses punches, kicks, uppercuts, dash strikes, ${p1Character.labels.skill1}, and ${p1Character.labels.skill2}.`
             : stickFightState.mobileMode
-            ? `Touch Pad: Move / Jump<br>Tap left or right side of arena: Punch / Kick<br>Double tap arena: Uppercut<br>Swipe left or right: Move or dash strike<br>Swipe down: ${p1Character.labels.skill1}<br>Press and hold arena: ${p1Character.labels.skill2}`
-            : `Move: A / D<br>Jump: W<br>Punch: F<br>Kick: G<br>Uppercut: R<br>Dash Strike: T<br>${p1Character.labels.skill1}: Y<br>${p1Character.labels.skill2}: U`;
+            ? `Touch Pad: Move / Fly<br>Tap left or right side of arena: Punch / Kick<br>Double tap arena: Uppercut<br>Swipe left or right: Move or dash strike<br>Swipe down: ${p1Character.labels.skill1}<br>Press and hold arena: ${p1Character.labels.skill2}`
+            : `Move: A / D<br>Hold W: Fly<br>Punch: F<br>Kick: G<br>Uppercut: R<br>Dash Strike: T<br>${p1Character.labels.skill1}: Y<br>${p1Character.labels.skill2}: U`;
     }
 
     if (p1Name) p1Name.textContent = `${p1Character.name}${isStickFightCpu('p1') ? ' CPU' : ' (P1)'}`;
@@ -1830,7 +1836,7 @@ function syncStickFightUi() {
     if (opponentControls) {
         opponentControls.innerHTML = isStickFightCpu('p2')
             ? `${difficulty.label} CPU: ${p2Character.name} uses punches, kicks, uppercuts, dash strikes, ${p2Character.labels.skill1}, and ${p2Character.labels.skill2}.`
-            : `Move: ← / →<br>Jump: ↑<br>Punch: /<br>Kick: .<br>Uppercut: ,<br>Dash Strike: ;<br>${p2Character.labels.skill1}: K<br>${p2Character.labels.skill2}: L`;
+            : `Move: ← / →<br>Hold ↑: Fly<br>Punch: /<br>Kick: .<br>Uppercut: ,<br>Dash Strike: ;<br>${p2Character.labels.skill1}: K<br>${p2Character.labels.skill2}: L`;
     }
 }
 
@@ -1996,6 +2002,11 @@ function applyStickFightInput(fighter, input) {
     fighter.x += fighter.vx;
 
     const onGround = fighter.y >= stickFightConfig.groundY;
+    if (input.jump && !fighter.isCpu) {
+        fighter.jumpHoldFrames++;
+    } else {
+        fighter.jumpHoldFrames = 0;
+    }
     if (input.jump && onGround) {
         fighter.vy = stickFightConfig.jumpVelocity;
         fighter.y = stickFightConfig.groundY - 1;
@@ -2005,8 +2016,21 @@ function applyStickFightInput(fighter, input) {
         fighter.x += fighter.facing * (currentAttack?.lungeSpeed || 0) * movementMultiplier;
     }
 
+    const isFlying = input.jump && !fighter.isCpu
+        && fighter.jumpHoldFrames >= stickFightConfig.flightActivationFrames
+        && !onGround;
+    if (isFlying) {
+        fighter.vy = Math.max(
+            stickFightConfig.flightMaxRiseSpeed,
+            Math.min(fighter.vy - stickFightConfig.flightLift, stickFightConfig.flightHoverSpeed)
+        );
+    }
     fighter.vy += stickFightConfig.gravity;
     fighter.y += fighter.vy;
+    if (isFlying && fighter.y < stickFightConfig.flightCeiling) {
+        fighter.y = stickFightConfig.flightCeiling;
+        fighter.vy = 0;
+    }
     if (fighter.y > stickFightConfig.groundY) {
         fighter.y = stickFightConfig.groundY;
         fighter.vy = 0;
@@ -2590,7 +2614,10 @@ function drawStickFighter(fighter) {
     const attackLegY = attackDefinition?.legY ?? 16;
     const celebrating = !stickFightState.roundActive && stickFightState.winnerId === fighter.id;
     const defeated = !stickFightState.roundActive && stickFightState.loserId === fighter.id;
-    const auraPower = defeated ? 0 : fighter.attackTimer > 0 && attackDefinition?.projectile ? 1 : fighter.hitFlash > 0 ? 0.65 : 0.18;
+    const isFlying = !defeated && !fighter.isCpu
+        && fighter.jumpHoldFrames >= stickFightConfig.flightActivationFrames
+        && fighter.y < stickFightConfig.groundY;
+    const auraPower = defeated ? 0 : isFlying ? 0.85 : fighter.attackTimer > 0 && attackDefinition?.projectile ? 1 : fighter.hitFlash > 0 ? 0.65 : 0.18;
 
     ctx.save();
     ctx.translate(baseX, baseY - (defeated ? 2 : 0));
@@ -2603,6 +2630,19 @@ function drawStickFighter(fighter) {
 
     if (auraPower > 0) {
         drawStickFightFighterAura(fighter, auraPower);
+    }
+
+    if (isFlying) {
+        ctx.strokeStyle = fighter.glowColor;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(-10, 12);
+        ctx.lineTo(-16, 25);
+        ctx.moveTo(0, 12);
+        ctx.lineTo(0, 30);
+        ctx.moveTo(10, 12);
+        ctx.lineTo(16, 25);
+        ctx.stroke();
     }
 
     ctx.beginPath();
