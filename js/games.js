@@ -1166,7 +1166,7 @@ const stickFightCharacters = {
         accent: '#f8fafc',
         aura: 'rgba(74, 222, 128, 0.34)',
         glow: 'rgba(220, 252, 231, 0.9)',
-        attacks: { skill1: 'kamehameha', skill2: 'spiritbomb' },
+        attacks: { skill1: 'masenko', skill2: 'superkamehameha' },
         labels: { skill1: 'Masenko', skill2: 'Super Kamehameha' }
     },
     piccolo: {
@@ -1176,7 +1176,7 @@ const stickFightCharacters = {
         accent: '#facc15',
         aura: 'rgba(132, 204, 22, 0.34)',
         glow: 'rgba(236, 252, 203, 0.9)',
-        attacks: { skill1: 'galickgun', skill2: 'bigbang' },
+        attacks: { skill1: 'specialbeamcannon', skill2: 'hellzonegrenade' },
         labels: { skill1: 'Special Beam Cannon', skill2: 'Hellzone Grenade' }
     },
     trunks: {
@@ -1186,7 +1186,7 @@ const stickFightCharacters = {
         accent: '#c4b5fd',
         aura: 'rgba(45, 212, 191, 0.34)',
         glow: 'rgba(204, 251, 241, 0.9)',
-        attacks: { skill1: 'galickgun', skill2: 'bigbang' },
+        attacks: { skill1: 'burningattack', skill2: 'finalflash' },
         labels: { skill1: 'Burning Attack', skill2: 'Final Flash' }
     },
     frieza: {
@@ -1196,7 +1196,7 @@ const stickFightCharacters = {
         accent: '#f5d0fe',
         aura: 'rgba(217, 70, 239, 0.3)',
         glow: 'rgba(250, 232, 255, 0.9)',
-        attacks: { skill1: 'galickgun', skill2: 'spiritbomb' },
+        attacks: { skill1: 'deathbeam', skill2: 'deathball' },
         labels: { skill1: 'Death Beam', skill2: 'Death Ball' }
     },
     broly: {
@@ -1206,7 +1206,7 @@ const stickFightCharacters = {
         accent: '#fde047',
         aura: 'rgba(34, 197, 94, 0.4)',
         glow: 'rgba(254, 249, 195, 0.95)',
-        attacks: { skill1: 'kamehameha', skill2: 'spiritbomb' },
+        attacks: { skill1: 'erasercannon', skill2: 'giganticmeteor' },
         labels: { skill1: 'Eraser Cannon', skill2: 'Gigantic Meteor' }
     }
 };
@@ -1227,6 +1227,19 @@ const stickFightAttackConfig = {
     galickgun: { timer: 30, cooldown: 94, projectile: true, energyCost: 35, projectileSpeed: 10.8, radius: 15, damage: 19, knockbackX: 22, knockbackY: -6, effectColor: 'rgba(168, 85, 247, 0.96)', glowColor: 'rgba(233, 213, 255, 0.98)', trailWidth: 12, spawnOffset: 34, originY: 40, sprite: 'beam', burstCount: 15 },
     bigbang: { timer: 38, cooldown: 148, projectile: true, energyCost: 55, projectileSpeed: 6.6, radius: 22, damage: 28, knockbackX: 26, knockbackY: -9, effectColor: 'rgba(251, 191, 36, 0.98)', glowColor: 'rgba(254, 240, 138, 0.98)', trailWidth: 15, spawnOffset: 20, originY: 58, sprite: 'orb', burstCount: 20 }
 };
+
+Object.assign(stickFightAttackConfig, {
+    masenko: { ...stickFightAttackConfig.kamehameha, damage: 22, effectColor: 'rgba(250, 204, 21, 0.96)', glowColor: 'rgba(254, 249, 195, 0.98)' },
+    superkamehameha: { ...stickFightAttackConfig.spiritbomb, damage: 32, effectColor: 'rgba(96, 165, 250, 0.98)', glowColor: 'rgba(219, 234, 254, 0.98)' },
+    specialbeamcannon: { ...stickFightAttackConfig.galickgun, damage: 23, effectColor: 'rgba(132, 204, 22, 0.96)', glowColor: 'rgba(236, 252, 203, 0.98)' },
+    hellzonegrenade: { ...stickFightAttackConfig.bigbang, damage: 30, effectColor: 'rgba(190, 242, 100, 0.98)', glowColor: 'rgba(247, 254, 231, 0.98)' },
+    burningattack: { ...stickFightAttackConfig.galickgun, damage: 21, effectColor: 'rgba(45, 212, 191, 0.96)', glowColor: 'rgba(204, 251, 241, 0.98)' },
+    finalflash: { ...stickFightAttackConfig.bigbang, damage: 34, effectColor: 'rgba(250, 204, 21, 0.98)', glowColor: 'rgba(254, 249, 195, 0.98)' },
+    deathbeam: { ...stickFightAttackConfig.galickgun, damage: 22, effectColor: 'rgba(217, 70, 239, 0.98)', glowColor: 'rgba(250, 232, 255, 0.98)' },
+    deathball: { ...stickFightAttackConfig.spiritbomb, damage: 34, effectColor: 'rgba(126, 34, 206, 0.98)', glowColor: 'rgba(245, 208, 254, 0.98)' },
+    erasercannon: { ...stickFightAttackConfig.kamehameha, damage: 24, effectColor: 'rgba(34, 197, 94, 0.98)', glowColor: 'rgba(220, 252, 231, 0.98)' },
+    giganticmeteor: { ...stickFightAttackConfig.spiritbomb, damage: 36, effectColor: 'rgba(234, 179, 8, 0.98)', glowColor: 'rgba(254, 249, 195, 0.98)' }
+});
 
 let stickFightState = null;
 
@@ -1269,16 +1282,16 @@ function initStickFight() {
                     <div class="fighter-subtitle" id="stickfight-p1-subtitle">Kamehameha • Spirit Bomb</div>
                     <div class="bar-label"><span>Blood</span><span id="stickfight-p1-health-value">100 / 100</span></div>
                     <div class="health-bar"><div class="health-fill" id="stickfight-p1-health"></div></div>
-                    <div class="bar-label"><span>Energy</span><span id="stickfight-p1-energy-value">0 / 100</span></div>
-                    <div class="energy-bar"><div class="energy-fill" id="stickfight-p1-energy"></div></div>
+                    <div class="bar-label"><span>Energy</span><span id="stickfight-p1-energy-value">100 / 100</span></div>
+                    <div class="energy-bar"><div class="energy-fill" id="stickfight-p1-energy" style="width: 100%"></div></div>
                 </div>
                 <div class="fighter-panel right">
                     <div class="fighter-name" id="stickfight-p2-name">Vegeta CPU</div>
                     <div class="fighter-subtitle" id="stickfight-p2-subtitle">Galick Gun • Big Bang Attack</div>
                     <div class="bar-label"><span>Blood</span><span id="stickfight-p2-health-value">100 / 100</span></div>
                     <div class="health-bar"><div class="health-fill" id="stickfight-p2-health"></div></div>
-                    <div class="bar-label"><span>Energy</span><span id="stickfight-p2-energy-value">0 / 100</span></div>
-                    <div class="energy-bar"><div class="energy-fill" id="stickfight-p2-energy"></div></div>
+                    <div class="bar-label"><span>Energy</span><span id="stickfight-p2-energy-value">100 / 100</span></div>
+                    <div class="energy-bar"><div class="energy-fill" id="stickfight-p2-energy" style="width: 100%"></div></div>
                 </div>
             </div>
             <div class="stickfight-status" id="stickfight-status">Pick a mode and start the match.</div>
@@ -1476,7 +1489,7 @@ function createStickFighter(id, characterKey, x, controls, combatTuning = {}) {
         controls,
         health: Math.max(1, Math.round(stickFightConfig.maxHealth * healthMultiplier)),
         maxHealth: Math.max(1, Math.round(stickFightConfig.maxHealth * healthMultiplier)),
-        energy: 0,
+        energy: stickFightConfig.maxEnergy,
         maxEnergy: stickFightConfig.maxEnergy,
         damageMultiplier,
         aiActionCooldown: 0,
@@ -1758,6 +1771,7 @@ function applyStickFightInput(fighter, input) {
     if (fighter.attackQueued && fighter.attackCooldown <= 0 && fighter.attackTimer <= 0) {
         const attackDefinition = getStickFightAttackDefinition(fighter.attackQueued);
         if (attackDefinition.projectile && fighter.energy < attackDefinition.energyCost) {
+            setStickFightStatus(`${fighter.name} needs ${attackDefinition.energyCost} energy to use ${fighter.specialLabels[Object.keys(fighter.specials).find(key => fighter.specials[key] === fighter.attackQueued) || 'skill1']}.`);
             fighter.attackQueued = null;
             return;
         }
