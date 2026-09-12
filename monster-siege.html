@@ -29,6 +29,7 @@
           <div class="health-track"><div id="health-bar" class="health-bar"></div></div>
         </div>
         <div class="hud-stat"><span>WAVE</span><strong id="wave-text">1</strong></div>
+        <div class="hud-stat"><span>LEVEL</span><strong id="level-text">1 / 10</strong></div>
         <div class="hud-stat"><span>SCORE</span><strong id="score-text">000000</strong></div>
         <div class="hud-stat"><span>ESSENCE</span><strong id="essence-text">0</strong></div>
       </div>
@@ -39,13 +40,20 @@
           <p class="eyebrow">THE GATES ARE OPEN</p>
           <h2>Make them regret<br>coming through.</h2>
           <p>Move with <b>WASD</b> or the arrow keys. On mobile, use the virtual stick and hold AUTO-FIRE.</p>
-          <button id="start-button" class="action-button">Deploy operative <span>↗</span></button>
+          <p id="save-status" class="save-status">Checking for a saved run...</p>
+          <div class="start-actions">
+            <button id="continue-button" class="action-button hidden">Continue run <span>↗</span></button>
+            <button id="start-button" class="action-button">Start new run <span>↗</span></button>
+          </div>
         </div>
         <div id="game-over" class="overlay-panel hidden">
           <p class="eyebrow">SIGNAL LOST</p>
           <h2>They broke the line.</h2>
           <p id="final-stats">You held out for 0 waves.</p>
-          <button id="restart-button" class="action-button">Run it back <span>↻</span></button>
+          <div class="start-actions">
+            <button id="restart-button" class="action-button">Start new run <span>↻</span></button>
+            <button id="resume-after-death" class="action-button secondary-action hidden">Resume checkpoint <span>↗</span></button>
+          </div>
         </div>
         <div id="wave-banner" class="wave-banner"></div>
         <div class="crosshair-hint">MOUSE / TOUCH TO AIM</div>
@@ -61,6 +69,8 @@
       </div>
     </section>
   </main>
+  <script type="module" src="js/firebase-config.js"></script>
+  <script src="js/nav-auth.js"></script>
   <script src="js/monster-siege.js"></script>
 </body>
 </html>

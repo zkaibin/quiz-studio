@@ -40,6 +40,10 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    match /monster_siege_progress/{userId} {
+      allow read, create, update, delete: if isOwner(userId);
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }

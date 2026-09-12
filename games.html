@@ -719,6 +719,20 @@
             transition: width 0.12s linear;
         }
 
+        .fighter-guard {
+            color: #475569;
+            font-size: 0.72em;
+            font-weight: 700;
+            margin-top: 7px;
+            min-height: 1em;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .fighter-guard.active {
+            color: #0891b2;
+        }
+
         .stickfight-arena {
             background: radial-gradient(circle at top, rgba(255, 255, 255, 0.65), rgba(219, 234, 254, 0.2)),
                 linear-gradient(180deg, #0f172a 0%, #1d4ed8 30%, #67e8f9 60%, #bef264 60%, #4d7c0f 100%);
@@ -950,6 +964,11 @@
 
         .stickfight-touch-btn.attack.special {
             background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+        }
+
+        .stickfight-touch-btn.shield {
+            background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+            box-shadow: 0 10px 18px rgba(8, 145, 178, 0.22);
         }
 
         .stickfight-touch-btn:active,

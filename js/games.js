@@ -1088,6 +1088,8 @@ const stickFightConfig = {
     flightActivationFrames: 6,
     maxHealth: 100,
     maxEnergy: 100,
+    shieldDamageMultiplier: 0.25,
+    shieldKnockbackMultiplier: 0.35,
     roundTime: 180
 };
 
@@ -1405,6 +1407,10 @@ function playStickFightSfx(type) {
         playStickFightTone(360, 0.22, 'triangle', 0.1, 0.04, 90);
         playStickFightNoise(0.2, 0.12, 1000);
     }
+    if (type === 'shield') {
+        playStickFightTone(420, 0.16, 'triangle', 0.14, 0, 680);
+        playStickFightNoise(0.06, 0.08, 2800);
+    }
     if (type === 'ko') {
         playStickFightTone(280, 0.22, 'sawtooth', 0.14, 0, 90);
         playStickFightTone(150, 0.52, 'sine', 0.2, 0.12, 38);
@@ -1509,6 +1515,7 @@ function initStickFight() {
                     <div class="health-bar"><div class="health-fill" id="stickfight-p1-health"></div></div>
                     <div class="bar-label"><span>Energy</span><span id="stickfight-p1-energy-value">100 / 100</span></div>
                     <div class="energy-bar"><div class="energy-fill" id="stickfight-p1-energy" style="width: 100%"></div></div>
+                    <div class="fighter-guard" id="stickfight-p1-guard">Guard ready</div>
                 </div>
                 <div class="fighter-panel right">
                     <div class="fighter-name" id="stickfight-p2-name">Vegeta CPU</div>
@@ -1517,6 +1524,7 @@ function initStickFight() {
                     <div class="health-bar"><div class="health-fill" id="stickfight-p2-health"></div></div>
                     <div class="bar-label"><span>Energy</span><span id="stickfight-p2-energy-value">100 / 100</span></div>
                     <div class="energy-bar"><div class="energy-fill" id="stickfight-p2-energy" style="width: 100%"></div></div>
+                    <div class="fighter-guard" id="stickfight-p2-guard">Guard ready</div>
                 </div>
             </div>
             <div class="stickfight-status" id="stickfight-status">Pick a mode and start the match.</div>
@@ -1529,11 +1537,11 @@ function initStickFight() {
             <div class="stickfight-controls">
                 <div class="stickfight-control-card">
                     <strong>Player 1</strong>
-                    <span id="stickfight-p1-controls">Move: A / D<br>Hold W: Fly<br>Punch: F<br>Kick: G<br>Uppercut: R<br>Dash Strike: T<br>Kamehameha: Y<br>Spirit Bomb: U</span>
+                    <span id="stickfight-p1-controls">Move: A / D<br>Hold W: Fly<br>Hold S: Shield<br>Punch: F<br>Kick: G<br>Uppercut: R<br>Dash Strike: T<br>Kamehameha: Y<br>Spirit Bomb: U</span>
                 </div>
                 <div class="stickfight-control-card">
                     <strong id="stickfight-opponent-title">Vegeta CPU</strong>
-                    <span id="stickfight-opponent-controls">Vegeta now counters with punches, kicks, uppercuts, dash strikes, Galick Gun, and Big Bang Attack.</span>
+                    <span id="stickfight-opponent-controls">Vegeta now counters with punches, kicks, uppercuts, dash strikes, Galick Gun, Big Bang Attack, and shields.</span>
                 </div>
             </div>
             <div class="stickfight-mobile-panel" id="stickfight-mobile-panel">
@@ -1551,6 +1559,7 @@ function initStickFight() {
                         <button class="stickfight-touch-btn attack special" data-stickfight-attack="dash">Dash Strike</button>
                         <button class="stickfight-touch-btn attack special" id="stickfight-mobile-skill1" data-stickfight-attack="kamehameha">Kamehameha</button>
                         <button class="stickfight-touch-btn attack special" id="stickfight-mobile-skill2" data-stickfight-attack="spiritbomb">Spirit Bomb</button>
+                        <button class="stickfight-touch-btn shield" data-stickfight-input="shield">Hold Shield</button>
                     </div>
                 </div>
             </div>
@@ -1569,8 +1578,8 @@ function initStickFight() {
         canvas,
         ctx: canvas.getContext('2d'),
         inputs: {
-            p1: { left: false, right: false, jump: false },
-            p2: { left: false, right: false, jump: false }
+            p1: { left: false, right: false, jump: false, shield: false },
+            p2: { left: false, right: false, jump: false, shield: false }
         },
         roundActive: false,
         timeLeft: stickFightConfig.roundTime,
@@ -1671,8 +1680,8 @@ function startStickFightRound() {
     stickFightState.victoryFrame = 0;
     stickFightState.timeLeft = stickFightConfig.roundTime;
     stickFightState.roundActive = true;
-    stickFightState.inputs.p1 = { left: false, right: false, jump: false };
-    stickFightState.inputs.p2 = { left: false, right: false, jump: false };
+    stickFightState.inputs.p1 = { left: false, right: false, jump: false, shield: false };
+    stickFightState.inputs.p2 = { left: false, right: false, jump: false, shield: false };
     if (stickFightState.tapTimeout) clearTimeout(stickFightState.tapTimeout);
     if (stickFightState.gestureMoveTimeout) clearTimeout(stickFightState.gestureMoveTimeout);
     stickFightState.tapTimeout = null;
@@ -1684,10 +1693,10 @@ function startStickFightRound() {
     const p1CharacterKey = stickFightState.characterSelections.p1;
     const p2CharacterKey = stickFightState.characterSelections.p2;
     stickFightState.fighters = [
-        createStickFighter('p1', p1CharacterKey, 150, { left: 'KeyA', right: 'KeyD', jump: 'KeyW', punch: 'KeyF', kick: 'KeyG', uppercut: 'KeyR', dash: 'KeyT', skill1: 'KeyY', skill2: 'KeyU' }, isStickFightCpu('p1')
+        createStickFighter('p1', p1CharacterKey, 150, { left: 'KeyA', right: 'KeyD', jump: 'KeyW', shield: 'KeyS', punch: 'KeyF', kick: 'KeyG', uppercut: 'KeyR', dash: 'KeyT', skill1: 'KeyY', skill2: 'KeyU' }, isStickFightCpu('p1')
             ? { healthMultiplier: difficulty.cpuHealthMultiplier, damageMultiplier: difficulty.cpuDamageMultiplier }
             : {}),
-        createStickFighter('p2', p2CharacterKey, 570, { left: 'ArrowLeft', right: 'ArrowRight', jump: 'ArrowUp', punch: 'Slash', kick: 'Period', uppercut: 'Comma', dash: 'Semicolon', skill1: 'KeyK', skill2: 'KeyL' }, isStickFightCpu('p2')
+        createStickFighter('p2', p2CharacterKey, 570, { left: 'ArrowLeft', right: 'ArrowRight', jump: 'ArrowUp', shield: 'ShiftRight', punch: 'Slash', kick: 'Period', uppercut: 'Comma', dash: 'Semicolon', skill1: 'KeyK', skill2: 'KeyL' }, isStickFightCpu('p2')
             ? { healthMultiplier: difficulty.cpuHealthMultiplier, damageMultiplier: difficulty.cpuDamageMultiplier }
             : {})
     ];
@@ -1738,7 +1747,8 @@ function createStickFighter(id, characterKey, x, controls, combatTuning = {}) {
         hitConnected: false,
         attackQueued: null,
         hitFlash: 0,
-        jumpHoldFrames: 0
+        jumpHoldFrames: 0,
+        shielding: false
     };
 }
 
@@ -1819,8 +1829,8 @@ function syncStickFightUi() {
         p1Controls.innerHTML = isStickFightCpu('p1')
             ? `${difficulty.label} CPU: ${p1Character.name} uses punches, kicks, uppercuts, dash strikes, ${p1Character.labels.skill1}, and ${p1Character.labels.skill2}.`
             : stickFightState.mobileMode
-            ? `Touch Pad: Move / Fly<br>Tap left or right side of arena: Punch / Kick<br>Double tap arena: Uppercut<br>Swipe left or right: Move or dash strike<br>Swipe down: ${p1Character.labels.skill1}<br>Press and hold arena: ${p1Character.labels.skill2}`
-            : `Move: A / D<br>Hold W: Fly<br>Punch: F<br>Kick: G<br>Uppercut: R<br>Dash Strike: T<br>${p1Character.labels.skill1}: Y<br>${p1Character.labels.skill2}: U`;
+            ? `Touch Pad: Move / Fly<br>Hold Shield to guard<br>Tap left or right side of arena: Punch / Kick<br>Double tap arena: Uppercut<br>Swipe left or right: Move or dash strike<br>Swipe down: ${p1Character.labels.skill1}<br>Press and hold arena: ${p1Character.labels.skill2}`
+            : `Move: A / D<br>Hold W: Fly<br>Hold S: Shield<br>Punch: F<br>Kick: G<br>Uppercut: R<br>Dash Strike: T<br>${p1Character.labels.skill1}: Y<br>${p1Character.labels.skill2}: U`;
     }
 
     if (p1Name) p1Name.textContent = `${p1Character.name}${isStickFightCpu('p1') ? ' CPU' : ' (P1)'}`;
@@ -1835,8 +1845,8 @@ function syncStickFightUi() {
     if (opponentTitle) opponentTitle.textContent = `${p2Character.name}${isStickFightCpu('p2') ? ' CPU' : ' (Player 2)'}`;
     if (opponentControls) {
         opponentControls.innerHTML = isStickFightCpu('p2')
-            ? `${difficulty.label} CPU: ${p2Character.name} uses punches, kicks, uppercuts, dash strikes, ${p2Character.labels.skill1}, and ${p2Character.labels.skill2}.`
-            : `Move: ← / →<br>Hold ↑: Fly<br>Punch: /<br>Kick: .<br>Uppercut: ,<br>Dash Strike: ;<br>${p2Character.labels.skill1}: K<br>${p2Character.labels.skill2}: L`;
+            ? `${difficulty.label} CPU: ${p2Character.name} uses punches, kicks, uppercuts, dash strikes, shields, ${p2Character.labels.skill1}, and ${p2Character.labels.skill2}.`
+            : `Move: ← / →<br>Hold ↑: Fly<br>Hold Right Shift: Shield<br>Punch: /<br>Kick: .<br>Uppercut: ,<br>Dash Strike: ;<br>${p2Character.labels.skill1}: K<br>${p2Character.labels.skill2}: L`;
     }
 }
 
@@ -1872,6 +1882,9 @@ function updateStickFightInput(code, isDown) {
             handled = true;
         } else if (code === fighter.controls.jump) {
             input.jump = isDown;
+            handled = true;
+        } else if (code === fighter.controls.shield) {
+            input.shield = isDown;
             handled = true;
         } else if (isDown && code === fighter.controls.punch) {
             queueStickFightAttack(fighter.id, 'punch');
@@ -1928,7 +1941,7 @@ function queueStickFightAttack(fighterId, attackType) {
 
 function releaseStickFightInputs(fighterId) {
     if (!stickFightState?.inputs?.[fighterId]) return;
-    stickFightState.inputs[fighterId] = { left: false, right: false, jump: false };
+    stickFightState.inputs[fighterId] = { left: false, right: false, jump: false, shield: false };
 }
 
 function updateStickFight() {
@@ -1987,6 +2000,7 @@ function applyStickFightInput(fighter, input) {
     if (fighter.attackCooldown > 0) fighter.attackCooldown--;
     if (fighter.attackTimer > 0) fighter.attackTimer--;
     if (fighter.hitFlash > 0) fighter.hitFlash--;
+    fighter.shielding = !!input.shield;
 
     if (fighter.attackTimer <= 0) {
         fighter.attackTimer = 0;
@@ -2104,15 +2118,30 @@ function resolveStickFightAttack(attacker, defender) {
 
     if (closeEnough && closeY) {
         const damage = Math.max(1, Math.round(attackDefinition.damage * (attacker.damageMultiplier ?? 1)));
-        defender.health = Math.max(0, defender.health - damage);
+        applyStickFightDamage(attacker, defender, damage, attackDefinition.knockbackX, attackDefinition.knockbackY, attacker.facing);
         grantStickFightEnergy(attacker, attackDefinition.energyGain ?? damage);
-        defender.x += attacker.facing * attackDefinition.knockbackX;
-        defender.vy = Math.min(defender.vy, attackDefinition.knockbackY);
-        defender.hitFlash = 8;
         attacker.hitConnected = true;
         spawnStickFightBurst(defender.x, defender.y - 44, attackDefinition.effectColor, 10);
         playStickFightSfx('hit');
     }
+}
+
+function applyStickFightDamage(attacker, defender, damage, knockbackX = 0, knockbackY = 0, knockbackDirection = 1) {
+    if (!defender) return 0;
+    const blocked = !!defender.shielding;
+    const damageMultiplier = blocked ? stickFightConfig.shieldDamageMultiplier : 1;
+    const knockbackMultiplier = blocked ? stickFightConfig.shieldKnockbackMultiplier : 1;
+    const actualDamage = Math.max(1, Math.round(damage * damageMultiplier));
+
+    defender.health = Math.max(0, defender.health - actualDamage);
+    defender.x += knockbackDirection * knockbackX * knockbackMultiplier;
+    defender.vy = Math.min(defender.vy, knockbackY * knockbackMultiplier);
+    defender.hitFlash = blocked ? 4 : 8;
+    if (blocked) {
+        spawnStickFightBurst(defender.x, defender.y - 44, '#67e8f9', 8);
+        playStickFightSfx('shield');
+    }
+    return actualDamage;
 }
 
 function updateStickFightAI(cpu, target) {
@@ -2123,10 +2152,16 @@ function updateStickFightAI(cpu, target) {
     input.left = false;
     input.right = false;
     input.jump = false;
+    input.shield = false;
 
     const distance = target.x - cpu.x;
     const absDistance = Math.abs(distance);
     const isTargetAbove = target.y < cpu.y - 18;
+    const targetAttack = target.attackTimer > 0 || stickFightState.projectiles.some(projectile => projectile.ownerId === target.id);
+
+    if (targetAttack && absDistance < 230 && Math.random() < 0.16) {
+        input.shield = true;
+    }
 
     if (absDistance > difficulty.moveThreshold) {
         input.right = distance > 0;
@@ -2189,6 +2224,8 @@ function updateStickFightHud() {
     const p2HealthValue = document.getElementById('stickfight-p2-health-value');
     const p1EnergyValue = document.getElementById('stickfight-p1-energy-value');
     const p2EnergyValue = document.getElementById('stickfight-p2-energy-value');
+    const p1Guard = document.getElementById('stickfight-p1-guard');
+    const p2Guard = document.getElementById('stickfight-p2-guard');
     const status = document.getElementById('stickfight-status');
 
     if (p1Health) p1Health.style.width = `${p1 ? (p1.health / (p1.maxHealth || stickFightConfig.maxHealth)) * 100 : 100}%`;
@@ -2199,6 +2236,14 @@ function updateStickFightHud() {
     if (p2HealthValue) p2HealthValue.textContent = `${p2?.health ?? 0} / ${p2?.maxHealth ?? stickFightConfig.maxHealth}`;
     if (p1EnergyValue) p1EnergyValue.textContent = `${p1?.energy ?? 0} / ${p1?.maxEnergy ?? stickFightConfig.maxEnergy}`;
     if (p2EnergyValue) p2EnergyValue.textContent = `${p2?.energy ?? 0} / ${p2?.maxEnergy ?? stickFightConfig.maxEnergy}`;
+    if (p1Guard) {
+        p1Guard.textContent = p1?.shielding ? 'Shield active: 75% blocked' : 'Guard ready';
+        p1Guard.classList.toggle('active', !!p1?.shielding);
+    }
+    if (p2Guard) {
+        p2Guard.textContent = p2?.shielding ? 'Shield active: 75% blocked' : 'Guard ready';
+        p2Guard.classList.toggle('active', !!p2?.shielding);
+    }
     if (status && stickFightState.roundActive && p1 && p2) {
         status.textContent = `${p1.name}: ${p1.health} HP, ${p1.energy} EN | ${p2.name}: ${p2.health} HP, ${p2.energy} EN | Time: ${Math.ceil(stickFightState.timeLeft)}s`;
     }
@@ -2632,6 +2677,20 @@ function drawStickFighter(fighter) {
         drawStickFightFighterAura(fighter, auraPower);
     }
 
+    if (fighter.shielding && !defeated) {
+        ctx.strokeStyle = 'rgba(103, 232, 249, 0.95)';
+        ctx.fillStyle = 'rgba(34, 211, 238, 0.16)';
+        ctx.lineWidth = 3;
+        ctx.shadowBlur = 16;
+        ctx.shadowColor = '#67e8f9';
+        ctx.beginPath();
+        ctx.arc(9, -38, 38, -Math.PI * 0.72, Math.PI * 0.72);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+    }
+
     if (isFlying) {
         ctx.strokeStyle = fighter.glowColor;
         ctx.lineWidth = 3;
@@ -3020,12 +3079,9 @@ function updateStickFightProjectiles() {
             const hitX = Math.abs(target.x - projectile.x) <= projectile.radius + 16;
             const hitY = Math.abs((target.y - 42) - projectile.y) <= projectile.radius + 26;
             if (hitX && hitY) {
-                target.health = Math.max(0, target.health - projectile.damage);
                 const attacker = stickFightState.fighters.find(fighter => fighter.id === projectile.ownerId);
+                applyStickFightDamage(attacker, target, projectile.damage, projectile.knockbackX, projectile.knockbackY, Math.sign(projectile.vx || 1));
                 if (attacker) grantStickFightEnergy(attacker, projectile.energyGain);
-                target.x += Math.sign(projectile.vx || 1) * projectile.knockbackX;
-                target.vy = Math.min(target.vy, projectile.knockbackY);
-                target.hitFlash = 10;
                 spawnStickFightBurst(projectile.x, projectile.y, projectile.color, projectile.burstCount);
                 playStickFightSfx('projectile-hit');
                 return;
