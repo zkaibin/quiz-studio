@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Velocity Rush - Quiz Studio</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏎️</text></svg>">
+  <link rel="stylesheet" href="css/car-racing.css">
+</head>
+<body>
+  <main id="racer-shell" class="racer-shell">
+    <a class="back-btn" href="games.html">← Back to Games</a>
+    <header class="game-header">
+      <div>
+        <p class="eyebrow">VELOCITY RUSH · SKYLINE CIRCUIT</p>
+        <h1>Velocity Rush</h1>
+        <p class="subtitle">Thread the traffic, charge your boost, and own the neon night.</p>
+      </div>
+      <div class="header-actions">
+        <button id="fullscreen-button" class="fullscreen-button" type="button" aria-label="Enter fullscreen">⛶ <span>FULLSCREEN</span></button>
+        <div id="control-chip" class="header-chip"><span class="live-dot"></span> DESKTOP CONTROL</div>
+      </div>
+    </header>
+
+    <section class="game-frame" aria-label="Velocity Rush game">
+      <div class="hud">
+        <div class="hud-panel">
+          <span class="hud-label">SPEED</span>
+          <strong id="speed-text">0 KM/H</strong>
+        </div>
+        <div class="hud-panel">
+          <span class="hud-label">SHIELD</span>
+          <strong id="shield-text">100%</strong>
+          <div class="meter-track"><div id="shield-bar" class="meter-fill shield-fill"></div></div>
+        </div>
+        <div class="hud-panel">
+          <span class="hud-label">BOOST</span>
+          <strong id="boost-text">100%</strong>
+          <div class="meter-track"><div id="boost-bar" class="meter-fill boost-fill"></div></div>
+        </div>
+        <div class="hud-panel compact">
+          <span class="hud-label">DISTANCE</span>
+          <strong id="distance-text">0 M</strong>
+        </div>
+        <div class="hud-panel compact">
+          <span class="hud-label">SCORE</span>
+          <strong id="score-text">000000</strong>
+        </div>
+      </div>
+
+      <div id="track-wrap" class="track-wrap">
+        <canvas id="race-canvas" aria-label="Velocity Rush race track"></canvas>
+
+        <div id="start-screen" class="overlay-panel">
+          <div class="crest">✦</div>
+          <p class="eyebrow">START YOUR ENGINE</p>
+          <h2>Race the skyline.<br>Stay in one piece.</h2>
+          <p>Desktop: steer with <b>A / D</b> or the arrow keys and hit <b>Space</b> for nitro.</p>
+          <p>Mobile: the game automatically prefers motion steering when your device supports it, and falls back to touch steering when it does not.</p>
+          <p id="motion-status" class="save-status">Checking motion steering availability...</p>
+          <div class="start-actions">
+            <button id="start-button" class="action-button">Start race <span>↗</span></button>
+            <button id="motion-button" class="action-button secondary-action hidden" type="button">Enable motion steering <span>📱</span></button>
+          </div>
+        </div>
+
+        <div id="game-over" class="overlay-panel hidden">
+          <p class="eyebrow">RUN TERMINATED</p>
+          <h2>The traffic won<br>this round.</h2>
+          <p id="final-stats">You reached 0 m.</p>
+          <div class="start-actions">
+            <button id="restart-button" class="action-button">Race again <span>↻</span></button>
+          </div>
+        </div>
+
+        <div id="announcement" class="announcement hidden"></div>
+
+        <div id="touch-controls" class="touch-controls" aria-label="Mobile controls">
+          <div class="touch-steering">
+            <button id="touch-left" class="touch-button steer-button" type="button" aria-label="Steer left">←</button>
+            <button id="touch-right" class="touch-button steer-button" type="button" aria-label="Steer right">→</button>
+          </div>
+          <button id="touch-boost" class="touch-button boost-button" type="button" aria-label="Activate boost">BOOST</button>
+        </div>
+      </div>
+
+      <div class="game-footer">
+        <p class="desktop-controls"><span class="key">A / D</span> STEER <span class="key">SPACE</span> BOOST</p>
+        <p class="mobile-controls"><span class="key">TILT</span> STEER <span class="key">BOOST</span> SURGE <span class="key">TOUCH</span> FALLBACK</p>
+        <p class="legend"><span class="legend-dot shield-dot"></span> Blue capsules restore shield <span class="legend-dot boost-dot"></span> Gold capsules refill nitro</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/car-racing.js"></script>
+</body>
+</html>
