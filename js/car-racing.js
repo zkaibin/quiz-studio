@@ -87,6 +87,21 @@
     return String(Math.max(0, Math.floor(value))).padStart(6, '0');
   }
 
+  function roundedRectPath(x, y, width, height, radius) {
+    const r = Math.min(radius, width / 2, height / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + width - r, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + r);
+    ctx.lineTo(x + width, y + height - r);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - r, y + height);
+    ctx.lineTo(x + r, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
   function resize() {
     const box = refs.wrap.getBoundingClientRect();
     state.dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -121,11 +136,21 @@
     let x = startX;
     while (x < state.width + 80) {
       const width = rand(24, 64);
+      const height = rand(state.height * 0.1, state.height * 0.28);
+      const windows = [];
+      for (let row = 0; row < height - 12; row += 16) {
+        for (let col = 0; col < width - 8; col += 10) {
+          if (Math.random() > 0.58) {
+            windows.push({ x: 4 + col, y: 6 + row });
+          }
+        }
+      }
       state.skyline.push({
         x,
         width,
-        height: rand(state.height * 0.1, state.height * 0.28),
-        glow: Math.random() < 0.4
+        height,
+        glow: Math.random() < 0.4,
+        windows
       });
       x += width + rand(6, 20);
     }
@@ -409,13 +434,9 @@
       ctx.fillRect(x, y, building.width, building.height);
       if (building.glow) {
         ctx.fillStyle = 'rgba(99,243,255,0.28)';
-        for (let row = 0; row < building.height - 12; row += 16) {
-          for (let col = 0; col < building.width - 8; col += 10) {
-            if (Math.random() > 0.58) {
-              ctx.fillRect(x + 4 + col, y + 6 + row, 4, 8);
-            }
-          }
-        }
+        building.windows.forEach((windowLight) => {
+          ctx.fillRect(x + windowLight.x, y + windowLight.y, 4, 8);
+        });
       }
     });
   }
@@ -515,13 +536,11 @@
 
     ctx.shadowBlur = 0;
     ctx.fillStyle = '#07111e';
-    ctx.beginPath();
-    ctx.roundRect(-width * 0.26, -height * 0.18, width * 0.52, height * 0.36, 12);
+    roundedRectPath(-width * 0.26, -height * 0.18, width * 0.52, height * 0.36, 12);
     ctx.fill();
 
     ctx.fillStyle = 'rgba(255,255,255,0.16)';
-    ctx.beginPath();
-    ctx.roundRect(-width * 0.18, -height * 0.08, width * 0.36, height * 0.16, 8);
+    roundedRectPath(-width * 0.18, -height * 0.08, width * 0.36, height * 0.16, 8);
     ctx.fill();
 
     ctx.fillStyle = player ? '#63f3ff' : '#ffd166';
