@@ -14,6 +14,7 @@
     boostBar: document.getElementById('boost-bar'),
     distance: document.getElementById('distance-text'),
     score: document.getElementById('score-text'),
+    best: document.getElementById('best-text'),
     mapOpponents: document.getElementById('map-opponents'),
     mapPlayer: document.getElementById('map-player'),
     mapPosition: document.getElementById('map-position'),
@@ -23,6 +24,7 @@
     motionStatus: document.getElementById('motion-status'),
     motionButton: document.getElementById('motion-button'),
     fullscreenButton: document.getElementById('fullscreen-button'),
+    viewButton: document.getElementById('view-button'),
     touchControls: document.getElementById('touch-controls'),
     touchLeft: document.getElementById('touch-left'),
     touchRight: document.getElementById('touch-right'),
@@ -57,17 +59,24 @@
     boostActive: false,
     difficulty: 'medium',
     collisionFlash: 0,
+    bestDistance: 0,
+    recordAnnounced: false,
     pickupTimer: 2,
     lastTimestamp: 0,
     opponentsPassed: 0,
-    player: { x: 0, y: 0, w: 48, h: 90, tilt: 0, glow: 0 },
+    player: { x: 0, y: 0, w: 48, h: 90, tilt: 0, glow: 0, vx: 0 },
+    curvature: 0,
+    cameraBank: 0,
+    cameraView: 'chase',
+    perspectiveDepth: 210,
     opponents: [],
     obstacles: [],
     pickups: [],
     particles: [],
     skyline: [],
     stars: [],
-    cityObjects: []
+    cityObjects: [],
+    trackProfile: []
   };
 
   const input = {
@@ -94,6 +103,9 @@
     hard: { label: 'HARD GRID', count: 7, speed: [230, 290] }
   };
   const laneCenters = [-0.75, -0.25, 0.25, 0.75];
+  const WORLD_DISTANCE_RATE = 0.22;
+  const PERSPECTIVE_DEPTHS = { chase: 210, cockpit: 120 };
+  const MAX_RENDER_LOOKAHEAD = 380;
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
@@ -191,14 +203,60 @@
   }
 
   function roadCenterAt(distance) {
-    const normalizedDistance = Math.max(0, distance);
-    const sweepingTurn = Math.sin(normalizedDistance * 0.0048) * state.width * 0.13;
-    const cityBend = Math.sin(normalizedDistance * 0.0105 + 1.2) * state.width * 0.055;
-    return state.width / 2 + sweepingTurn + cityBend;
+    if (state.trackProfile.length === 0) {
+      return state.width / 2;
+    }
+
+    const normalizedDistance = clamp(distance, 0, state.raceLength);
+    for (let index = 1; index < state.trackProfile.length; index += 1) {
+      const next = state.trackProfile[index];
+      if (normalizedDistance <= next.distance) {
+        const previous = state.trackProfile[index - 1];
+        const progress = (normalizedDistance - previous.distance) / (next.distance - previous.distance);
+        const easedProgress = progress * progress * (3 - 2 * progress);
+        return previous.center + (next.center - previous.center) * easedProgress;
+      }
+    }
+    return state.trackProfile[state.trackProfile.length - 1].center;
+  }
+
+  function curvatureAt(distance) {
+    const step = 14;
+    return (roadCenterAt(distance + step) - roadCenterAt(distance - step)) / (step * 2);
+  }
+
+  function generateTrack() {
+    const segmentLength = 180;
+    const segmentCount = Math.ceil(state.raceLength / segmentLength);
+    const maxOffset = Math.min(state.width * 0.18, 180);
+    let turnDirection = Math.random() > 0.5 ? 1 : -1;
+    state.trackProfile = [{ distance: 0, center: state.width / 2 }];
+
+    for (let index = 1; index <= segmentCount; index += 1) {
+      const offset = turnDirection * rand(maxOffset * 0.45, maxOffset);
+      state.trackProfile.push({
+        distance: Math.min(index * segmentLength, state.raceLength),
+        center: state.width / 2 + offset
+      });
+      if (Math.random() > 0.28) {
+        turnDirection *= -1;
+      }
+    }
+  }
+
+  function yForDistanceAhead(distanceAhead) {
+    const horizonY = state.height * 0.15;
+    const baseY = state.height;
+    const span = baseY - horizonY;
+    const d = Math.max(distanceAhead, -(state.perspectiveDepth * 0.98));
+    return horizonY + (span * state.perspectiveDepth) / (state.perspectiveDepth + d);
   }
 
   function screenDistanceAtY(y) {
-    return state.distance + (state.player.y - y) / 0.72;
+    const horizonY = state.height * 0.15;
+    const baseY = state.height;
+    const u = clamp(y - horizonY, 1, baseY - horizonY);
+    return state.distance + (state.perspectiveDepth * (baseY - y)) / u;
   }
 
   function resetGame() {
@@ -215,10 +273,17 @@
     state.pickupTimer = 2.8;
     state.lastTimestamp = 0;
     state.opponentsPassed = 0;
+    state.curvature = 0;
+    state.cameraBank = 0;
+    generateTrack();
+    state.roadCenter = roadCenterAt(0);
+    state.bestDistance = Number(localStorage.getItem('velocity-rush-best') || 0);
+    state.recordAnnounced = false;
     state.player.x = state.roadCenter;
     state.player.y = state.height - 110;
     state.player.tilt = 0;
     state.player.glow = 0;
+    state.player.vx = 0;
     createRaceGrid();
     createObstacles();
     state.pickups = [];
@@ -275,6 +340,7 @@
     refs.boostBar.style.width = `${clamp(state.boost, 0, 100)}%`;
     refs.distance.textContent = `${Math.floor(state.distance)} M`;
     refs.score.textContent = formatScore(state.score);
+    refs.best.textContent = `${Math.floor(state.bestDistance)} M`;
     updateMap();
   }
 
@@ -338,7 +404,7 @@
   }
 
   function updateOpponentScreenPosition(car) {
-    car.y = state.player.y - (car.progress - state.distance) * 0.72;
+    car.y = yForDistanceAhead(car.progress - state.distance);
     const perspective = clamp((car.y / state.height) * 1.18, 0.55, 1.12);
     car.x = roadCenterAt(car.progress) + car.lane * roadSlice(car.y).half;
     const scale = clamp(0.56 + perspective * 0.45, 0.62, 1.08);
@@ -414,32 +480,49 @@
 
   function update(dt) {
     const boostHeld = input.boost && state.boost > 0;
-    const previousRoadCenter = state.roadCenter;
     state.boostActive = boostHeld;
     const targetSpeed = boostHeld ? 340 : 230 + Math.min(85, state.distance * 0.18);
     state.speed += (targetSpeed - state.speed) * Math.min(1, dt * 2.1);
     state.boost = clamp(state.boost + (boostHeld ? -34 : 9) * dt, 0, 100);
-    state.distance += state.speed * dt * 0.11;
+    state.distance += state.speed * dt * WORLD_DISTANCE_RATE;
+    if (state.distance > state.bestDistance) {
+      state.bestDistance = state.distance;
+      if (!state.recordAnnounced && state.bestDistance >= 25) {
+        state.recordAnnounced = true;
+        announce('NEW BEST RUN');
+      }
+    }
     state.roadCenter = roadCenterAt(state.distance);
-    state.player.x += state.roadCenter - previousRoadCenter;
     state.score += state.speed * dt * (boostHeld ? 1.25 : 0.85);
     state.roadScroll = (state.roadScroll + state.speed * dt) % 80;
-    state.sceneryScroll = (state.sceneryScroll + state.speed * dt * 0.36) % state.height;
+    state.sceneryScroll = (state.sceneryScroll + state.speed * dt * 0.72) % state.height;
     state.collisionFlash = Math.max(0, state.collisionFlash - dt * 1.8);
 
     const steer = currentSteer();
-    const turnRate = controlState.motionActive ? 270 : 320;
-    state.player.x += steer * turnRate * dt;
+    const maxLateralSpeed = controlState.motionActive ? 320 : 380;
+    const lateralAccel = 1700;
+    const targetVX = steer * maxLateralSpeed;
+    state.player.vx += clamp(targetVX - state.player.vx, -lateralAccel * dt, lateralAccel * dt);
+    state.player.x += state.player.vx * dt;
     const verticalDirection = (input.forward ? -1 : 0) + (input.brake ? 1 : 0);
     const verticalRate = boostHeld ? 250 : 190;
     state.player.y += verticalDirection * verticalRate * dt;
     state.player.y = clamp(state.player.y, state.height * 0.3, state.height - 82);
-    state.player.tilt += (steer * 0.42 - state.player.tilt) * Math.min(1, dt * 10);
+    const tiltTarget = clamp(state.player.vx / maxLateralSpeed, -1, 1) * 0.5;
+    state.player.tilt += (tiltTarget - state.player.tilt) * Math.min(1, dt * 8);
     state.player.glow += ((boostHeld ? 1 : 0) - state.player.glow) * Math.min(1, dt * 5);
+
+    const lookAheadDistance = clamp(state.distance + state.speed * 0.32, 0, state.raceLength);
+    const curvatureSample = curvatureAt(lookAheadDistance);
+    state.curvature += (curvatureSample - state.curvature) * Math.min(1, dt * 3);
+    const steerBank = clamp(-state.player.vx / 1100, -0.05, 0.05);
+    const bankTarget = clamp(-state.curvature * 5.5, -0.16, 0.16) + steerBank;
+    state.cameraBank += (bankTarget - state.cameraBank) * Math.min(1, dt * 3.2);
 
     const bounds = roadBounds();
     if (state.player.x < bounds.left + 20 || state.player.x > bounds.right - 20) {
       state.player.x = clamp(state.player.x, bounds.left + 14, bounds.right - 14);
+      state.player.vx *= 0.35;
       state.shield -= 22 * dt;
       state.score = Math.max(0, state.score - 30 * dt);
     }
@@ -451,7 +534,7 @@
     }
 
     state.opponents.forEach((car) => {
-      car.progress = Math.min(state.raceLength, car.progress + car.speed * dt * 0.11);
+      car.progress = Math.min(state.raceLength, car.progress + car.speed * dt * WORLD_DISTANCE_RATE);
       car.lane += Math.sin((state.distance * 0.025) + car.progress * 0.01) * car.sway * 0.0015;
       car.lane = clamp(car.lane, -0.82, 0.82);
       updateOpponentScreenPosition(car);
@@ -479,7 +562,7 @@
       if (obstacle.hit) {
         return;
       }
-      obstacle.y = state.player.y - (obstacle.progress - state.distance) * 0.72;
+      obstacle.y = yForDistanceAhead(obstacle.progress - state.distance);
       const perspective = clamp((obstacle.y / state.height) * 1.18, 0.55, 1.12);
       obstacle.x = roadCenterAt(obstacle.progress) + obstacle.lane * roadSlice(obstacle.y).half;
       obstacle.w = (obstacle.type === 'barrier' ? 42 : 24) * perspective;
@@ -495,8 +578,7 @@
     });
 
     state.pickups.forEach((pickup) => {
-      pickup.progress += state.speed * dt * 0.11;
-      pickup.y = state.player.y - (pickup.progress - state.distance) * 0.72;
+      pickup.y = yForDistanceAhead(pickup.progress - state.distance);
       pickup.x = roadCenterAt(pickup.progress) + pickup.lane * roadSlice(pickup.y).half;
       if (pickupIntersects(pickup)) {
         pickup.y = state.height + 100;
@@ -580,8 +662,12 @@
 
   function drawCityObjects() {
     state.cityObjects.forEach((building) => {
-      const y = state.player.y - (building.distance - state.distance) * 0.72;
-      if (y < state.height * 0.12 || y > state.height + 40) {
+      const distanceAhead = building.distance - state.distance;
+      if (distanceAhead < -60 || distanceAhead > MAX_RENDER_LOOKAHEAD) {
+        return;
+      }
+      const y = yForDistanceAhead(distanceAhead);
+      if (y > state.height + 40) {
         return;
       }
       const slice = roadSlice(y);
@@ -609,10 +695,10 @@
   }
 
   function drawRoad() {
-    const topY = state.height * 0.15;
+    const topY = Math.max(state.height * 0.15, yForDistanceAhead(MAX_RENDER_LOOKAHEAD));
     const bottomY = state.height;
     const slices = [];
-    for (let y = topY; y <= bottomY; y += 24) {
+    for (let y = topY; y <= bottomY; y += 16) {
       slices.push({ y, ...roadSlice(y) });
     }
 
@@ -653,10 +739,23 @@
       ctx.stroke();
     });
 
+    const edgeMarkerOffset = state.roadScroll % 64;
+    ctx.fillStyle = 'rgba(107, 245, 255, 0.72)';
+    for (let y = topY - 64 + edgeMarkerOffset; y < state.height + 64; y += 64) {
+      const perspective = clamp(y / state.height, 0, 1);
+      const markerHeight = 8 + perspective * 30;
+      const markerSlice = roadSlice(y + markerHeight / 2);
+      [-1, 1].forEach((side) => {
+        const edge = markerSlice.center + side * (markerSlice.half - 8);
+        ctx.fillRect(edge - 3, y, 6, markerHeight);
+      });
+    }
+
     ctx.strokeStyle = 'rgba(255,255,255,0.68)';
     ctx.lineWidth = 4;
     for (let lane = -0.5; lane <= 0.5; lane += 0.5) {
-      for (let y = topY - 40; y < state.height + 60; y += 80) {
+      const laneMarkOffset = state.roadScroll % 80;
+      for (let y = topY - 80 + laneMarkOffset; y < state.height + 60; y += 80) {
         const perspective = clamp(y / state.height, 0, 1);
         const dashHeight = 14 + perspective * 38;
         ctx.globalAlpha = 0.2 + perspective * 0.7;
@@ -676,8 +775,12 @@
 
   function drawCrossroads() {
     [360, 760, 1190, 1580].forEach((crossingDistance) => {
-      const y = state.player.y - (crossingDistance - state.distance) * 0.72;
-      if (y < state.height * 0.12 || y > state.height + 40) {
+      const distanceAhead = crossingDistance - state.distance;
+      if (distanceAhead < -60 || distanceAhead > MAX_RENDER_LOOKAHEAD) {
+        return;
+      }
+      const y = yForDistanceAhead(distanceAhead);
+      if (y > state.height + 40) {
         return;
       }
 
@@ -801,8 +904,11 @@
   }
 
   function drawRaceLines() {
-    drawCheckeredLine(state.player.y + state.distance * 0.72, 'START');
-    drawCheckeredLine(state.player.y - (state.raceLength - state.distance) * 0.72, 'FINISH');
+    drawCheckeredLine(yForDistanceAhead(-state.distance), 'START');
+    const finishAhead = state.raceLength - state.distance;
+    if (finishAhead <= MAX_RENDER_LOOKAHEAD) {
+      drawCheckeredLine(yForDistanceAhead(finishAhead), 'FINISH');
+    }
   }
 
   function drawCar(x, y, width, height, color, glow, tilt = 0, player = false) {
@@ -903,8 +1009,135 @@
     ctx.restore();
   }
 
+  function applyCameraTransform() {
+    const pivotX = state.width / 2;
+    const pivotY = state.player.y - 60;
+    const zoom = 1 + (state.boostActive ? 0.035 : 0) + clamp((state.speed - 260) / 900, 0, 0.05);
+    ctx.translate(pivotX, pivotY);
+    ctx.rotate(state.cameraBank);
+    ctx.scale(zoom, zoom);
+    ctx.translate(-pivotX, -pivotY);
+  }
+
+  function drawSpeedLines() {
+    const intensity = clamp((state.speed - 220) / 160, 0, 1) + (state.boostActive ? 0.35 : 0);
+    if (intensity <= 0.03) {
+      return;
+    }
+    const vpX = state.width / 2 - state.cameraBank * state.width * 1.4;
+    const vpY = state.height * 0.34;
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    const count = 18;
+    for (let i = 0; i < count; i += 1) {
+      const angle = (i / count) * Math.PI * 2;
+      const dx = Math.cos(angle);
+      const dy = Math.sin(angle) * 0.6;
+      const startRadius = state.width * 0.3;
+      const length = 36 + intensity * 240;
+      const x1 = vpX + dx * startRadius;
+      const y1 = vpY + dy * startRadius;
+      const x2 = vpX + dx * (startRadius + length);
+      const y2 = vpY + dy * (startRadius + length);
+      ctx.strokeStyle = `rgba(255,255,255,${0.04 + intensity * 0.12})`;
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawCockpitOverlay() {
+    const w = state.width;
+    const h = state.height;
+    ctx.save();
+
+    const vignette = ctx.createRadialGradient(w / 2, h * 0.4, h * 0.22, w / 2, h * 0.4, h * 0.82);
+    vignette.addColorStop(0, 'rgba(0,0,0,0)');
+    vignette.addColorStop(1, 'rgba(2,6,12,0.58)');
+    ctx.fillStyle = vignette;
+    ctx.fillRect(0, 0, w, h);
+
+    ctx.fillStyle = 'rgba(6,12,20,0.94)';
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(w * 0.1, 0);
+    ctx.lineTo(w * 0.02, h * 0.34);
+    ctx.lineTo(0, h * 0.3);
+    ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(w, 0);
+    ctx.lineTo(w * 0.9, 0);
+    ctx.lineTo(w * 0.98, h * 0.34);
+    ctx.lineTo(w, h * 0.3);
+    ctx.closePath();
+    ctx.fill();
+
+    [-1, 1].forEach((side) => {
+      const mx = w / 2 + side * w * 0.37;
+      const my = h * 0.09;
+      ctx.fillStyle = 'rgba(8,16,26,0.92)';
+      roundedRectPath(mx - 26, my, 52, 30, 8);
+      ctx.fill();
+      ctx.fillStyle = 'rgba(120,190,255,0.22)';
+      roundedRectPath(mx - 20, my + 4, 40, 20, 6);
+      ctx.fill();
+    });
+
+    const hoodTop = h * 0.8;
+    ctx.fillStyle = '#0a1119';
+    ctx.beginPath();
+    ctx.moveTo(-40, h + 40);
+    ctx.lineTo(w * 0.16, hoodTop);
+    ctx.lineTo(w * 0.5, hoodTop - h * 0.025);
+    ctx.lineTo(w * 0.84, hoodTop);
+    ctx.lineTo(w + 40, h + 40);
+    ctx.closePath();
+    ctx.fill();
+
+    const hoodGlow = state.boostActive ? 0.55 : 0.2;
+    ctx.strokeStyle = `rgba(99,243,255,${hoodGlow})`;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(w * 0.16, hoodTop);
+    ctx.lineTo(w * 0.5, hoodTop - h * 0.025);
+    ctx.lineTo(w * 0.84, hoodTop);
+    ctx.stroke();
+
+    const wheelRadius = Math.min(130, w * 0.17);
+    const wheelAngle = clamp(state.player.vx / 380, -1, 1) * 0.6;
+    ctx.save();
+    ctx.translate(w / 2, h + 40);
+    ctx.rotate(wheelAngle);
+    ctx.strokeStyle = 'rgba(15,22,32,0.96)';
+    ctx.lineWidth = 16;
+    ctx.beginPath();
+    ctx.arc(0, 0, wheelRadius, Math.PI * 1.06, Math.PI * 1.94);
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(99,243,255,0.55)';
+    ctx.lineWidth = 3;
+    [-0.55, 0, 0.55].forEach((spokeAngle) => {
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(Math.sin(spokeAngle) * wheelRadius * 0.94, -Math.cos(spokeAngle) * wheelRadius * 0.94);
+      ctx.stroke();
+    });
+    ctx.fillStyle = 'rgba(15,22,32,0.96)';
+    ctx.beginPath();
+    ctx.arc(0, 0, 16, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    ctx.restore();
+  }
+
   function draw() {
     ctx.clearRect(0, 0, state.width, state.height);
+    ctx.save();
+    applyCameraTransform();
     drawSky();
     drawCityObjects();
     drawRoad();
@@ -918,9 +1151,17 @@
       drawCar(car.x, car.y, car.w, car.h, car.color, car.glow, car.sway * 0.15);
     });
 
-    drawPlayerEffects();
-    drawCar(state.player.x, state.player.y, state.player.w, state.player.h, '#63f3ff', '#63f3ff', state.player.tilt, true);
+    if (state.cameraView !== 'cockpit') {
+      drawPlayerEffects();
+      drawCar(state.player.x, state.player.y, state.player.w, state.player.h, '#63f3ff', '#63f3ff', state.player.tilt, true);
+    }
     drawParticles();
+    ctx.restore();
+
+    drawSpeedLines();
+    if (state.cameraView === 'cockpit') {
+      drawCockpitOverlay();
+    }
 
     if (state.collisionFlash > 0) {
       ctx.fillStyle = `rgba(255, 97, 125, ${state.collisionFlash * 0.22})`;
@@ -949,6 +1190,7 @@
     state.running = false;
     const position = getRacePosition();
     const best = Math.max(Math.floor(state.distance), Number(localStorage.getItem('velocity-rush-best') || 0));
+    state.bestDistance = best;
     localStorage.setItem('velocity-rush-best', String(best));
     if (reason === 'finish') {
       refs.finishTitle.textContent = position === 1 ? 'The race is yours.' : `You finished ${ordinal(position)}.`;
@@ -1093,6 +1335,17 @@
     refs.shell.classList.toggle('racer-fullscreen', Boolean(active));
   }
 
+  function setCameraView(view) {
+    state.cameraView = view;
+    state.perspectiveDepth = PERSPECTIVE_DEPTHS[view] ?? PERSPECTIVE_DEPTHS.chase;
+    refs.viewButton.querySelector('span').textContent = view === 'cockpit' ? 'CHASE VIEW' : 'COCKPIT VIEW';
+    refs.viewButton.setAttribute('aria-label', view === 'cockpit' ? 'Switch to chase view' : 'Switch to cockpit view');
+  }
+
+  function toggleCameraView() {
+    setCameraView(state.cameraView === 'cockpit' ? 'chase' : 'cockpit');
+  }
+
   function setTouchSteer(direction) {
     input.touchSteer = direction;
     refs.touchLeft.classList.toggle('active', direction < 0);
@@ -1139,6 +1392,7 @@
   document.addEventListener('fullscreenchange', updateFullscreenLabel);
   document.addEventListener('webkitfullscreenchange', updateFullscreenLabel);
   refs.fullscreenButton.addEventListener('click', toggleFullscreen);
+  refs.viewButton.addEventListener('click', toggleCameraView);
   refs.startButton.addEventListener('click', startRace);
   refs.restartButton.addEventListener('click', startRace);
   refs.motionButton.addEventListener('click', async () => {
@@ -1177,6 +1431,9 @@
     if (key === ' ' || key === 'spacebar' || key === 'shift') {
       input.boost = true;
       event.preventDefault();
+    }
+    if ((key === 'v' || key === 'c') && !event.repeat) {
+      toggleCameraView();
     }
   });
 
@@ -1217,5 +1474,6 @@
 
   resize();
   setDifficulty(state.difficulty);
+  setCameraView(state.cameraView);
   draw();
 })();

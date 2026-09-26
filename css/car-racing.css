@@ -139,6 +139,8 @@ h1 {
 
 .hud-panel.compact strong { font-size: 28px; }
 
+.best-panel strong { color: var(--accent-2); }
+
 .hud-label {
   display: block;
   margin-bottom: 8px;
