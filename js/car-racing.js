@@ -14,6 +14,11 @@
     boostBar: document.getElementById('boost-bar'),
     distance: document.getElementById('distance-text'),
     score: document.getElementById('score-text'),
+    mapOpponents: document.getElementById('map-opponents'),
+    mapPlayer: document.getElementById('map-player'),
+    mapPosition: document.getElementById('map-position'),
+    mapDistance: document.getElementById('map-distance'),
+    finishTitle: document.getElementById('finish-title'),
     controlChip: document.getElementById('control-chip'),
     motionStatus: document.getElementById('motion-status'),
     motionButton: document.getElementById('motion-button'),
@@ -21,7 +26,10 @@
     touchControls: document.getElementById('touch-controls'),
     touchLeft: document.getElementById('touch-left'),
     touchRight: document.getElementById('touch-right'),
+    touchForward: document.getElementById('touch-forward'),
+    touchBrake: document.getElementById('touch-brake'),
     touchBoost: document.getElementById('touch-boost'),
+    difficultyButtons: [...document.querySelectorAll('[data-difficulty]')],
     startButton: document.getElementById('start-button'),
     restartButton: document.getElementById('restart-button')
   };
@@ -42,26 +50,31 @@
     sceneryScroll: 0,
     speed: 0,
     distance: 0,
+    raceLength: 1800,
     shield: 100,
     boost: 100,
     score: 0,
     boostActive: false,
+    difficulty: 'medium',
     collisionFlash: 0,
-    spawnTimer: 0,
     pickupTimer: 2,
     lastTimestamp: 0,
     opponentsPassed: 0,
     player: { x: 0, y: 0, w: 48, h: 90, tilt: 0, glow: 0 },
     opponents: [],
+    obstacles: [],
     pickups: [],
     particles: [],
     skyline: [],
-    stars: []
+    stars: [],
+    cityObjects: []
   };
 
   const input = {
     left: false,
     right: false,
+    forward: false,
+    brake: false,
     boost: false,
     touchSteer: 0,
     motionSteer: 0
@@ -74,6 +87,13 @@
     motionListening: false,
     receivedMotion: false
   };
+
+  const trafficProfiles = {
+    easy: { label: 'EASY GRID', count: 3, speed: [205, 245] },
+    medium: { label: 'MEDIUM GRID', count: 5, speed: [215, 265] },
+    hard: { label: 'HARD GRID', count: 7, speed: [230, 290] }
+  };
+  const laneCenters = [-0.75, -0.25, 0.25, 0.75];
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
@@ -113,7 +133,7 @@
     state.width = box.width;
     state.height = box.height;
     state.roadWidth = Math.min(Math.max(280, box.width * 0.44), 520);
-    state.roadCenter = box.width / 2;
+    state.roadCenter = roadCenterAt(state.distance);
     state.player.y = box.height - 110;
     if (!state.running) {
       state.player.x = state.roadCenter;
@@ -132,6 +152,20 @@
       alpha: rand(0.25, 0.85)
     }));
     state.skyline = [];
+    state.cityObjects = [];
+    for (let distance = 40; distance < state.raceLength + 300; distance += rand(70, 125)) {
+      [-1, 1].forEach((side) => {
+        state.cityObjects.push({
+          distance,
+          side,
+          offset: rand(28, 74),
+          width: rand(38, 86),
+          height: rand(75, 190),
+          color: Math.random() > 0.5 ? '#18283d' : '#202d42',
+          lights: Math.random() > 0.25
+        });
+      });
+    }
     const startX = -40;
     let x = startX;
     while (x < state.width + 80) {
@@ -156,6 +190,17 @@
     }
   }
 
+  function roadCenterAt(distance) {
+    const normalizedDistance = Math.max(0, distance);
+    const sweepingTurn = Math.sin(normalizedDistance * 0.0048) * state.width * 0.13;
+    const cityBend = Math.sin(normalizedDistance * 0.0105 + 1.2) * state.width * 0.055;
+    return state.width / 2 + sweepingTurn + cityBend;
+  }
+
+  function screenDistanceAtY(y) {
+    return state.distance + (state.player.y - y) / 0.72;
+  }
+
   function resetGame() {
     state.running = true;
     state.roadScroll = 0;
@@ -167,7 +212,6 @@
     state.score = 0;
     state.boostActive = false;
     state.collisionFlash = 0;
-    state.spawnTimer = 0.35;
     state.pickupTimer = 2.8;
     state.lastTimestamp = 0;
     state.opponentsPassed = 0;
@@ -175,13 +219,51 @@
     state.player.y = state.height - 110;
     state.player.tilt = 0;
     state.player.glow = 0;
-    state.opponents = [];
+    createRaceGrid();
+    createObstacles();
     state.pickups = [];
     state.particles = [];
     refs.start.classList.add('hidden');
     refs.over.classList.add('hidden');
+    refs.finishTitle.textContent = 'The race is yours.';
     announce('RACE ON');
     updateHud();
+  }
+
+  function ordinal(value) {
+    const suffix = value % 100 >= 11 && value % 100 <= 13 ? 'TH' : ({ 1: 'ST', 2: 'ND', 3: 'RD' }[value % 10] || 'TH');
+    return `${value}${suffix}`;
+  }
+
+  function getRacePosition() {
+    return 1 + state.opponents.filter((car) => car.progress > state.distance).length;
+  }
+
+  function updateMap() {
+    const playerPercent = clamp(state.distance / state.raceLength, 0, 1) * 100;
+    refs.mapPlayer.style.bottom = `${playerPercent}%`;
+    refs.mapPosition.textContent = ordinal(getRacePosition());
+    refs.mapDistance.textContent = `${Math.floor(state.distance)} / ${state.raceLength} M`;
+    refs.mapOpponents.innerHTML = state.opponents.map((car) => {
+      const percent = clamp(car.progress / state.raceLength, 0, 1) * 100;
+      return `<span class="map-marker opponent-marker" style="bottom:${percent}%" aria-label="Opponent at ${Math.floor(car.progress)} meters"></span>`;
+    }).join('');
+  }
+
+  function createObstacles() {
+    state.obstacles = [];
+    for (let index = 0; index < 10; index += 1) {
+      state.obstacles.push({
+        progress: 155 + index * 165 + rand(-18, 18),
+        lane: index % 2 === 0 ? -0.25 : 0.25,
+        type: index % 3 === 0 ? 'barrier' : 'cone',
+        hit: false,
+        x: 0,
+        y: -100,
+        w: 30,
+        h: 24
+      });
+    }
   }
 
   function updateHud() {
@@ -193,6 +275,7 @@
     refs.boostBar.style.width = `${clamp(state.boost, 0, 100)}%`;
     refs.distance.textContent = `${Math.floor(state.distance)} M`;
     refs.score.textContent = formatScore(state.score);
+    updateMap();
   }
 
   function announce(message) {
@@ -203,16 +286,22 @@
   }
 
   function roadBounds(y = state.player.y) {
-    const perspective = clamp((y / state.height) * 1.18, 0.55, 1.12);
-    const half = state.roadWidth * perspective * 0.5;
     return {
-      left: state.roadCenter - half,
-      right: state.roadCenter + half
+      left: roadSlice(y).center - roadSlice(y).half,
+      right: roadSlice(y).center + roadSlice(y).half
     };
   }
 
-  function spawnOpponent() {
-    const laneOffset = rand(-0.36, 0.36) * state.roadWidth;
+  function roadSlice(y) {
+    const t = clamp((y - state.height * 0.15) / (state.height * 0.85), 0, 1);
+    return {
+      center: roadCenterAt(screenDistanceAtY(y)),
+      half: state.roadWidth * (0.22 + (0.6 - 0.22) * t)
+    };
+  }
+
+  function spawnOpponent(index) {
+    const traffic = trafficProfiles[state.difficulty];
     const palette = [
       { body: '#ff6f61', glow: '#ffc2b0' },
       { body: '#63f3ff', glow: '#ccfbff' },
@@ -222,23 +311,49 @@
     const theme = palette[Math.floor(Math.random() * palette.length)];
     const size = rand(0.88, 1.15);
     state.opponents.push({
-      x: state.roadCenter + laneOffset,
+      x: state.roadCenter,
       y: -130,
+      lane: laneCenters[index % laneCenters.length] + rand(-0.025, 0.025),
+      progress: -150 - index * 70 + rand(-8, 8),
       w: 40 * size,
       h: 82 * size,
-      speed: rand(150, 260),
+      baseW: 40 * size,
+      baseH: 82 * size,
+      speed: rand(traffic.speed[0], traffic.speed[1]),
       sway: rand(-0.32, 0.32),
       color: theme.body,
       glow: theme.glow,
-      passed: false
+      passed: false,
+      marker: null
     });
+  }
+
+  function createRaceGrid() {
+    state.opponents = [];
+    const count = trafficProfiles[state.difficulty].count;
+    for (let index = 0; index < count; index += 1) {
+      spawnOpponent(index);
+    }
+    updateMap();
+  }
+
+  function updateOpponentScreenPosition(car) {
+    car.y = state.player.y - (car.progress - state.distance) * 0.72;
+    const perspective = clamp((car.y / state.height) * 1.18, 0.55, 1.12);
+    car.x = roadCenterAt(car.progress) + car.lane * roadSlice(car.y).half;
+    const scale = clamp(0.56 + perspective * 0.45, 0.62, 1.08);
+    car.screenScale = scale;
+    car.w = car.baseW * scale;
+    car.h = car.baseH * scale;
   }
 
   function spawnPickup() {
     const type = Math.random() < 0.55 ? 'boost' : 'shield';
     state.pickups.push({
       type,
-      x: state.roadCenter + rand(-0.32, 0.32) * state.roadWidth,
+      lane: laneCenters[Math.floor(Math.random() * laneCenters.length)],
+      progress: state.distance + 150,
+      x: state.roadCenter,
       y: -70,
       size: type === 'boost' ? 18 : 20
     });
@@ -299,11 +414,14 @@
 
   function update(dt) {
     const boostHeld = input.boost && state.boost > 0;
+    const previousRoadCenter = state.roadCenter;
     state.boostActive = boostHeld;
     const targetSpeed = boostHeld ? 340 : 230 + Math.min(85, state.distance * 0.18);
     state.speed += (targetSpeed - state.speed) * Math.min(1, dt * 2.1);
     state.boost = clamp(state.boost + (boostHeld ? -34 : 9) * dt, 0, 100);
     state.distance += state.speed * dt * 0.11;
+    state.roadCenter = roadCenterAt(state.distance);
+    state.player.x += state.roadCenter - previousRoadCenter;
     state.score += state.speed * dt * (boostHeld ? 1.25 : 0.85);
     state.roadScroll = (state.roadScroll + state.speed * dt) % 80;
     state.sceneryScroll = (state.sceneryScroll + state.speed * dt * 0.36) % state.height;
@@ -312,6 +430,10 @@
     const steer = currentSteer();
     const turnRate = controlState.motionActive ? 270 : 320;
     state.player.x += steer * turnRate * dt;
+    const verticalDirection = (input.forward ? -1 : 0) + (input.brake ? 1 : 0);
+    const verticalRate = boostHeld ? 250 : 190;
+    state.player.y += verticalDirection * verticalRate * dt;
+    state.player.y = clamp(state.player.y, state.height * 0.3, state.height - 82);
     state.player.tilt += (steer * 0.42 - state.player.tilt) * Math.min(1, dt * 10);
     state.player.glow += ((boostHeld ? 1 : 0) - state.player.glow) * Math.min(1, dt * 5);
 
@@ -322,12 +444,6 @@
       state.score = Math.max(0, state.score - 30 * dt);
     }
 
-    state.spawnTimer -= dt;
-    if (state.spawnTimer <= 0) {
-      spawnOpponent();
-      state.spawnTimer = clamp(rand(0.52, 1.08) - state.distance * 0.0025, 0.34, 1.08);
-    }
-
     state.pickupTimer -= dt;
     if (state.pickupTimer <= 0) {
       spawnPickup();
@@ -335,21 +451,20 @@
     }
 
     state.opponents.forEach((car) => {
-      car.y += (state.speed - car.speed) * dt + 90 * dt;
-      car.x += Math.sin((state.distance * 0.025) + car.y * 0.01) * car.sway * 22 * dt;
+      car.progress = Math.min(state.raceLength, car.progress + car.speed * dt * 0.11);
+      car.lane += Math.sin((state.distance * 0.025) + car.progress * 0.01) * car.sway * 0.0015;
+      car.lane = clamp(car.lane, -0.82, 0.82);
+      updateOpponentScreenPosition(car);
 
-      if (!car.passed && car.y > state.player.y + 70) {
+      if (!car.passed && car.progress < state.distance - 6) {
         car.passed = true;
         state.opponentsPassed += 1;
         state.score += 120;
-        if (state.opponentsPassed % 8 === 0) {
-          state.boost = clamp(state.boost + 12, 0, 100);
-          announce('FLOW STATE');
-        }
+        state.boost = clamp(state.boost + 8, 0, 100);
       }
 
-      if (intersectsPlayer(car)) {
-        car.y = state.height + 200;
+      if (car.y > -120 && car.y < state.height + 120 && intersectsPlayer(car)) {
+        car.progress = Math.max(0, state.distance - 30);
         state.shield -= 24;
         state.score = Math.max(0, state.score - 180);
         state.collisionFlash = 1;
@@ -359,10 +474,30 @@
         }
       }
     });
-    state.opponents = state.opponents.filter((car) => car.y < state.height + 140);
+
+    state.obstacles.forEach((obstacle) => {
+      if (obstacle.hit) {
+        return;
+      }
+      obstacle.y = state.player.y - (obstacle.progress - state.distance) * 0.72;
+      const perspective = clamp((obstacle.y / state.height) * 1.18, 0.55, 1.12);
+      obstacle.x = roadCenterAt(obstacle.progress) + obstacle.lane * roadSlice(obstacle.y).half;
+      obstacle.w = (obstacle.type === 'barrier' ? 42 : 24) * perspective;
+      obstacle.h = (obstacle.type === 'barrier' ? 24 : 30) * perspective;
+      if (obstacle.y > -100 && obstacle.y < state.height + 100 && intersectsPlayer(obstacle)) {
+        obstacle.hit = true;
+        state.shield -= obstacle.type === 'barrier' ? 18 : 10;
+        state.score = Math.max(0, state.score - 90);
+        state.collisionFlash = 0.7;
+        emitImpact(obstacle.x, obstacle.y, '#ffc857');
+        announce(obstacle.type === 'barrier' ? 'BARRIER HIT' : 'ROAD HAZARD');
+      }
+    });
 
     state.pickups.forEach((pickup) => {
-      pickup.y += state.speed * dt + 110 * dt;
+      pickup.progress += state.speed * dt * 0.11;
+      pickup.y = state.player.y - (pickup.progress - state.distance) * 0.72;
+      pickup.x = roadCenterAt(pickup.progress) + pickup.lane * roadSlice(pickup.y).half;
       if (pickupIntersects(pickup)) {
         pickup.y = state.height + 100;
         if (pickup.type === 'boost') {
@@ -390,7 +525,9 @@
     state.particles = state.particles.filter((particle) => particle.life > 0);
 
     if (state.shield <= 0) {
-      finishRun();
+      finishRun('crash');
+    } else if (state.distance >= state.raceLength) {
+      finishRun('finish');
     }
 
     updateHud();
@@ -441,18 +578,52 @@
     });
   }
 
+  function drawCityObjects() {
+    state.cityObjects.forEach((building) => {
+      const y = state.player.y - (building.distance - state.distance) * 0.72;
+      if (y < state.height * 0.12 || y > state.height + 40) {
+        return;
+      }
+      const slice = roadSlice(y);
+      const perspective = clamp((y / state.height) * 1.18, 0.55, 1.12);
+      const width = building.width * perspective;
+      const height = building.height * perspective;
+      const x = slice.center + building.side * (slice.half + building.offset * perspective);
+      const left = building.side < 0 ? x - width : x;
+      const top = y - height;
+      ctx.fillStyle = building.color;
+      ctx.fillRect(left, top, width, height);
+      ctx.fillStyle = 'rgba(99,243,255,0.2)';
+      ctx.fillRect(left, top, width, 3);
+      if (building.lights) {
+        ctx.fillStyle = 'rgba(255,200,87,0.65)';
+        for (let row = top + 14; row < y - 8; row += 18) {
+          for (let column = left + 8; column < left + width - 5; column += 14) {
+            if ((Math.floor(row + column) + Math.floor(building.distance)) % 3 !== 0) {
+              ctx.fillRect(column, row, 4, 6);
+            }
+          }
+        }
+      }
+    });
+  }
+
   function drawRoad() {
     const topY = state.height * 0.15;
     const bottomY = state.height;
-    const topHalf = state.roadWidth * 0.22;
-    const bottomHalf = state.roadWidth * 0.6;
+    const slices = [];
+    for (let y = topY; y <= bottomY; y += 24) {
+      slices.push({ y, ...roadSlice(y) });
+    }
 
     ctx.fillStyle = '#09111b';
     ctx.beginPath();
-    ctx.moveTo(state.roadCenter - bottomHalf - 80, bottomY);
-    ctx.lineTo(state.roadCenter - topHalf - 40, topY);
-    ctx.lineTo(state.roadCenter + topHalf + 40, topY);
-    ctx.lineTo(state.roadCenter + bottomHalf + 80, bottomY);
+    slices.forEach((slice, index) => {
+      const edge = slice.half + 80;
+      if (index === 0) ctx.moveTo(slice.center - edge, slice.y);
+      else ctx.lineTo(slice.center - edge, slice.y);
+    });
+    slices.slice().reverse().forEach((slice) => ctx.lineTo(slice.center + slice.half + 80, slice.y));
     ctx.closePath();
     ctx.fill();
 
@@ -462,39 +633,100 @@
     roadGradient.addColorStop(1, '#0f141a');
     ctx.fillStyle = roadGradient;
     ctx.beginPath();
-    ctx.moveTo(state.roadCenter - bottomHalf, bottomY);
-    ctx.lineTo(state.roadCenter - topHalf, topY);
-    ctx.lineTo(state.roadCenter + topHalf, topY);
-    ctx.lineTo(state.roadCenter + bottomHalf, bottomY);
+    slices.forEach((slice, index) => {
+      if (index === 0) ctx.moveTo(slice.center - slice.half, slice.y);
+      else ctx.lineTo(slice.center - slice.half, slice.y);
+    });
+    slices.slice().reverse().forEach((slice) => ctx.lineTo(slice.center + slice.half, slice.y));
     ctx.closePath();
     ctx.fill();
 
     ctx.strokeStyle = '#6bf5ff';
     ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(state.roadCenter - bottomHalf + 10, bottomY);
-    ctx.lineTo(state.roadCenter - topHalf + 3, topY);
-    ctx.moveTo(state.roadCenter + bottomHalf - 10, bottomY);
-    ctx.lineTo(state.roadCenter + topHalf - 3, topY);
-    ctx.stroke();
+    [-1, 1].forEach((side) => {
+      ctx.beginPath();
+      slices.forEach((slice, index) => {
+        const edge = slice.center + side * (slice.half - 8);
+        if (index === 0) ctx.moveTo(edge, slice.y);
+        else ctx.lineTo(edge, slice.y);
+      });
+      ctx.stroke();
+    });
 
     ctx.strokeStyle = 'rgba(255,255,255,0.68)';
     ctx.lineWidth = 4;
     for (let lane = -0.5; lane <= 0.5; lane += 0.5) {
-      for (let y = -100; y < state.height + 100; y += 80) {
-        const worldY = y + state.roadScroll;
-        const t = clamp(worldY / state.height, 0, 1);
-        const laneX = state.roadCenter + lane * (topHalf + (bottomHalf - topHalf) * t);
-        const laneY = worldY;
-        const dashHeight = 12 + t * 30;
-        ctx.globalAlpha = 0.2 + t * 0.7;
+      for (let y = topY - 40; y < state.height + 60; y += 80) {
+        const perspective = clamp(y / state.height, 0, 1);
+        const dashHeight = 14 + perspective * 38;
+        ctx.globalAlpha = 0.2 + perspective * 0.7;
         ctx.beginPath();
-        ctx.moveTo(laneX, laneY);
-        ctx.lineTo(laneX, laneY + dashHeight);
+        for (let step = 0; step <= 4; step += 1) {
+          const dashY = y + (dashHeight * step) / 4;
+          const slice = roadSlice(dashY);
+          const laneX = slice.center + lane * slice.half;
+          if (step === 0) ctx.moveTo(laneX, dashY);
+          else ctx.lineTo(laneX, dashY);
+        }
         ctx.stroke();
       }
     }
     ctx.globalAlpha = 1;
+  }
+
+  function drawCrossroads() {
+    [360, 760, 1190, 1580].forEach((crossingDistance) => {
+      const y = state.player.y - (crossingDistance - state.distance) * 0.72;
+      if (y < state.height * 0.12 || y > state.height + 40) {
+        return;
+      }
+
+      const perspective = clamp(y / state.height, 0.2, 1);
+      const bandHeight = 18 + perspective * 46;
+      const slice = roadSlice(y);
+      const roadTop = y - bandHeight / 2;
+
+      const street = ctx.createLinearGradient(0, roadTop, 0, roadTop + bandHeight);
+      street.addColorStop(0, '#303a46');
+      street.addColorStop(0.5, '#202a36');
+      street.addColorStop(1, '#303a46');
+      ctx.fillStyle = street;
+      ctx.fillRect(0, roadTop, state.width, bandHeight);
+
+      ctx.strokeStyle = 'rgba(191, 207, 220, 0.55)';
+      ctx.lineWidth = 2 + perspective;
+      [roadTop + 2, roadTop + bandHeight - 2].forEach((curbY) => {
+        ctx.beginPath();
+        ctx.moveTo(0, curbY);
+        ctx.lineTo(state.width, curbY);
+        ctx.stroke();
+      });
+
+      ctx.save();
+      ctx.fillStyle = 'rgba(245, 248, 250, 0.86)';
+      const stripeCount = 3;
+      const stripeHeight = Math.max(2, 3.5 * perspective);
+      const stripePitch = stripeHeight + Math.max(2, 2.5 * perspective);
+      [-1, 1].forEach((side) => {
+        for (let stripe = 0; stripe < stripeCount; stripe += 1) {
+          const stripeY = y + side * (bandHeight * 0.28 + stripe * stripePitch);
+          const stripeSlice = roadSlice(stripeY);
+          ctx.fillRect(stripeSlice.center - stripeSlice.half + 8, stripeY, stripeSlice.half * 2 - 16, stripeHeight);
+        }
+      });
+
+      ctx.strokeStyle = 'rgba(255, 200, 87, 0.62)';
+      ctx.lineWidth = Math.max(1, perspective * 2);
+      ctx.setLineDash([12 * perspective, 12 * perspective]);
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(slice.center - slice.half - 8, y);
+      ctx.moveTo(slice.center + slice.half + 8, y);
+      ctx.lineTo(state.width, y);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.restore();
+    });
   }
 
   function drawRoadGlow() {
@@ -508,6 +740,69 @@
       ctx.fillRect(bounds.right + 2, y, 6, 20 + t * 32);
     }
     ctx.globalCompositeOperation = 'source-over';
+  }
+
+  function drawObstacles() {
+    state.obstacles.forEach((obstacle) => {
+      if (obstacle.hit || obstacle.y < -80 || obstacle.y > state.height + 80) {
+        return;
+      }
+      ctx.save();
+      ctx.translate(obstacle.x, obstacle.y);
+      if (obstacle.type === 'barrier') {
+        ctx.shadowColor = '#ff617d';
+        ctx.shadowBlur = 14;
+        ctx.fillStyle = '#ff617d';
+        ctx.fillRect(-obstacle.w / 2, -obstacle.h / 2, obstacle.w, obstacle.h);
+        ctx.fillStyle = '#fff1f4';
+        for (let stripe = -obstacle.w / 2; stripe < obstacle.w / 2; stripe += 12) {
+          ctx.save();
+          ctx.translate(stripe, 0);
+          ctx.rotate(-0.45);
+          ctx.fillRect(-3, -obstacle.h / 2, 6, obstacle.h);
+          ctx.restore();
+        }
+      } else {
+        ctx.shadowColor = '#ffc857';
+        ctx.shadowBlur = 12;
+        ctx.fillStyle = '#ffc857';
+        ctx.beginPath();
+        ctx.moveTo(0, -obstacle.h / 2);
+        ctx.lineTo(obstacle.w / 2, obstacle.h / 2);
+        ctx.lineTo(-obstacle.w / 2, obstacle.h / 2);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = '#fff4c9';
+        ctx.fillRect(-obstacle.w * 0.25, 0, obstacle.w * 0.5, 3);
+      }
+      ctx.restore();
+    });
+  }
+
+  function drawCheckeredLine(y, label) {
+    if (y < -40 || y > state.height + 40) {
+      return;
+    }
+    const bounds = roadBounds(y);
+    const width = bounds.right - bounds.left;
+    const tileWidth = width / 10;
+    ctx.save();
+    for (let index = 0; index < 10; index += 1) {
+      ctx.fillStyle = index % 2 === 0 ? '#f7fbff' : '#111b2b';
+      ctx.fillRect(bounds.left + index * tileWidth, y - 8, tileWidth + 1, 16);
+    }
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '700 10px Space Mono, monospace';
+    ctx.textAlign = 'center';
+    ctx.shadowColor = '#63f3ff';
+    ctx.shadowBlur = 12;
+    ctx.fillText(label, roadSlice(y).center, y - 16);
+    ctx.restore();
+  }
+
+  function drawRaceLines() {
+    drawCheckeredLine(state.player.y + state.distance * 0.72, 'START');
+    drawCheckeredLine(state.player.y - (state.raceLength - state.distance) * 0.72, 'FINISH');
   }
 
   function drawCar(x, y, width, height, color, glow, tilt = 0, player = false) {
@@ -611,8 +906,12 @@
   function draw() {
     ctx.clearRect(0, 0, state.width, state.height);
     drawSky();
+    drawCityObjects();
     drawRoad();
+    drawCrossroads();
+    drawRaceLines();
     drawRoadGlow();
+    drawObstacles();
     drawPickups();
 
     state.opponents.forEach((car) => {
@@ -643,14 +942,22 @@
     }
   }
 
-  function finishRun() {
+  function finishRun(reason) {
     if (!state.running) {
       return;
     }
     state.running = false;
+    const position = getRacePosition();
     const best = Math.max(Math.floor(state.distance), Number(localStorage.getItem('velocity-rush-best') || 0));
     localStorage.setItem('velocity-rush-best', String(best));
-    refs.final.textContent = `You blasted through ${Math.floor(state.distance)} m, scored ${formatScore(state.score)}, and your best run is ${best} m.`;
+    if (reason === 'finish') {
+      refs.finishTitle.textContent = position === 1 ? 'The race is yours.' : `You finished ${ordinal(position)}.`;
+      refs.final.textContent = `You crossed the finish line in ${ordinal(position)} place with ${formatScore(state.score)} points. Best run: ${best} m.`;
+      announce(`${ordinal(position)} PLACE`);
+    } else {
+      refs.finishTitle.textContent = 'The grid got away.';
+      refs.final.textContent = `You reached ${Math.floor(state.distance)} m in ${ordinal(position)} place, scored ${formatScore(state.score)}, and your best run is ${best} m.`;
+    }
     refs.over.classList.remove('hidden');
     draw();
   }
@@ -797,6 +1104,21 @@
     refs.touchBoost.classList.toggle('active', active);
   }
 
+  function setDifficulty(difficulty) {
+    if (!trafficProfiles[difficulty]) {
+      return;
+    }
+    state.difficulty = difficulty;
+    refs.difficultyButtons.forEach((button) => {
+      const selected = button.dataset.difficulty === difficulty;
+      button.classList.toggle('active', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
+    if (state.running) {
+      announce(trafficProfiles[difficulty].label);
+    }
+  }
+
   function bindHoldButton(element, onStart, onEnd) {
     element.addEventListener('pointerdown', (event) => {
       event.preventDefault();
@@ -826,7 +1148,13 @@
 
   bindHoldButton(refs.touchLeft, () => setTouchSteer(-1), () => setTouchSteer(input.touchSteer < 0 ? 0 : input.touchSteer));
   bindHoldButton(refs.touchRight, () => setTouchSteer(1), () => setTouchSteer(input.touchSteer > 0 ? 0 : input.touchSteer));
+  bindHoldButton(refs.touchForward, () => { input.forward = true; }, () => { input.forward = false; });
+  bindHoldButton(refs.touchBrake, () => { input.brake = true; }, () => { input.brake = false; });
   bindHoldButton(refs.touchBoost, () => setBoost(true), () => setBoost(false));
+
+  refs.difficultyButtons.forEach((button) => {
+    button.addEventListener('click', () => setDifficulty(button.dataset.difficulty));
+  });
 
   window.addEventListener('keydown', (event) => {
     const key = event.key.toLowerCase();
@@ -836,6 +1164,14 @@
     }
     if (key === 'arrowright' || key === 'd') {
       input.right = true;
+      event.preventDefault();
+    }
+    if (key === 'arrowup' || key === 'w') {
+      input.forward = true;
+      event.preventDefault();
+    }
+    if (key === 'arrowdown' || key === 's') {
+      input.brake = true;
       event.preventDefault();
     }
     if (key === ' ' || key === 'spacebar' || key === 'shift') {
@@ -851,6 +1187,12 @@
     }
     if (key === 'arrowright' || key === 'd') {
       input.right = false;
+    }
+    if (key === 'arrowup' || key === 'w') {
+      input.forward = false;
+    }
+    if (key === 'arrowdown' || key === 's') {
+      input.brake = false;
     }
     if (key === ' ' || key === 'spacebar' || key === 'shift') {
       input.boost = false;
@@ -874,5 +1216,6 @@
   }
 
   resize();
+  setDifficulty(state.difficulty);
   draw();
 })();

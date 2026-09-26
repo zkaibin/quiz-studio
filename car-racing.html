@@ -51,12 +51,39 @@
       <div id="track-wrap" class="track-wrap">
         <canvas id="race-canvas" aria-label="Velocity Rush race track"></canvas>
 
+        <aside class="track-map-panel" aria-label="Track map">
+          <div class="track-map-heading">
+            <span class="eyebrow">CIRCUIT MAP</span>
+            <strong id="map-position">1ST</strong>
+          </div>
+          <div class="track-map">
+            <span class="map-label finish-label">FINISH</span>
+            <span class="map-label start-label">START</span>
+            <div class="map-track-line">
+              <span class="map-finish-line"></span>
+              <div id="map-opponents"></div>
+              <span id="map-player" class="map-marker player-marker" aria-label="Your car"></span>
+              <span class="map-start-line"></span>
+            </div>
+          </div>
+          <p id="map-distance">0 / 1800 M</p>
+        </aside>
+
         <div id="start-screen" class="overlay-panel">
           <div class="crest">✦</div>
           <p class="eyebrow">START YOUR ENGINE</p>
           <h2>Race the skyline.<br>Stay in one piece.</h2>
           <p>Desktop: steer with <b>A / D</b> or the arrow keys and hit <b>Space</b> for nitro.</p>
+          <p>Use <b>W / S</b> or <b>↑ / ↓</b> to move forward and back on the track.</p>
           <p>Mobile: the game automatically prefers motion steering when your device supports it, and falls back to touch steering when it does not.</p>
+          <div class="difficulty-picker" aria-label="Traffic level">
+            <span class="difficulty-label">TRAFFIC</span>
+            <div class="difficulty-options">
+              <button class="difficulty-button" type="button" data-difficulty="easy" aria-pressed="false">Easy</button>
+              <button class="difficulty-button active" type="button" data-difficulty="medium" aria-pressed="true">Medium</button>
+              <button class="difficulty-button" type="button" data-difficulty="hard" aria-pressed="false">Hard</button>
+            </div>
+          </div>
           <p id="motion-status" class="save-status">Checking motion steering availability...</p>
           <div class="start-actions">
             <button id="start-button" class="action-button">Start race <span>↗</span></button>
@@ -66,7 +93,7 @@
 
         <div id="game-over" class="overlay-panel hidden">
           <p class="eyebrow">RUN TERMINATED</p>
-          <h2>The traffic won<br>this round.</h2>
+          <h2 id="finish-title">The grid got away.</h2>
           <p id="final-stats">You reached 0 m.</p>
           <div class="start-actions">
             <button id="restart-button" class="action-button">Race again <span>↻</span></button>
@@ -80,12 +107,16 @@
             <button id="touch-left" class="touch-button steer-button" type="button" aria-label="Steer left">←</button>
             <button id="touch-right" class="touch-button steer-button" type="button" aria-label="Steer right">→</button>
           </div>
+          <div class="touch-movement">
+            <button id="touch-forward" class="touch-button movement-button" type="button" aria-label="Move forward">↑</button>
+            <button id="touch-brake" class="touch-button movement-button" type="button" aria-label="Move back">↓</button>
+          </div>
           <button id="touch-boost" class="touch-button boost-button" type="button" aria-label="Activate boost">BOOST</button>
         </div>
       </div>
 
       <div class="game-footer">
-        <p class="desktop-controls"><span class="key">A / D</span> STEER <span class="key">SPACE</span> BOOST</p>
+        <p class="desktop-controls"><span class="key">A / D</span> STEER <span class="key">W / S</span> MOVE <span class="key">SPACE</span> BOOST</p>
         <p class="mobile-controls"><span class="key">TILT</span> STEER <span class="key">BOOST</span> SURGE <span class="key">TOUCH</span> FALLBACK</p>
         <p class="legend"><span class="legend-dot shield-dot"></span> Blue capsules restore shield <span class="legend-dot boost-dot"></span> Gold capsules refill nitro</p>
       </div>
