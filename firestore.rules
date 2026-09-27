@@ -9,6 +9,32 @@ service cloud.firestore {
       return signedIn() && request.auth.uid == userId;
     }
 
+    function validVelocityProgressData(data) {
+      return data.keys().hasOnly(['money', 'bestDistance', 'playerBrand', 'upgrades', 'updatedAt', 'reason'])
+        && data.money is int && data.money >= 0 && data.money <= 500000
+        && data.bestDistance is int && data.bestDistance >= 0 && data.bestDistance <= 50000
+        && data.playerBrand in ['falcon', 'nova', 'apex']
+        && data.reason is string && data.reason.size() <= 32
+        && data.updatedAt is timestamp
+        && data.upgrades is map
+        && data.upgrades.keys().hasOnly(['engine', 'handling', 'armor'])
+        && data.upgrades.engine is int && data.upgrades.engine >= 0 && data.upgrades.engine <= 3
+        && data.upgrades.handling is int && data.upgrades.handling >= 0 && data.upgrades.handling <= 3
+        && data.upgrades.armor is int && data.upgrades.armor >= 0 && data.upgrades.armor <= 3;
+    }
+
+    function validVelocityProgressTransition(nextData, previousData) {
+      return nextData.money <= previousData.money + 4000
+        && nextData.bestDistance >= previousData.bestDistance
+        && nextData.bestDistance <= previousData.bestDistance + 2200
+        && nextData.upgrades.engine >= previousData.upgrades.engine
+        && nextData.upgrades.engine <= previousData.upgrades.engine + 1
+        && nextData.upgrades.handling >= previousData.upgrades.handling
+        && nextData.upgrades.handling <= previousData.upgrades.handling + 1
+        && nextData.upgrades.armor >= previousData.upgrades.armor
+        && nextData.upgrades.armor <= previousData.upgrades.armor + 1;
+    }
+
     // User profile + totals doc
     // NOTE: Read is public to preserve existing public leaderboard behavior.
     // If you want stricter privacy later, move leaderboard fields into a separate public collection.
@@ -45,7 +71,12 @@ service cloud.firestore {
     }
 
     match /velocity_rush_progress/{userId} {
-      allow read, create, update, delete: if isOwner(userId);
+      allow read, delete: if isOwner(userId);
+      allow create: if isOwner(userId)
+        && validVelocityProgressData(request.resource.data);
+      allow update: if isOwner(userId)
+        && validVelocityProgressData(request.resource.data)
+        && validVelocityProgressTransition(request.resource.data, resource.data);
     }
 
     match /{document=**} {

@@ -19,3 +19,4 @@ const app = initializeApp(firebaseConfig);
 window.FB_AUTH    = getAuth(app);
 window.FB_DB      = getFirestore(app);
 window.FB_STORAGE = getStorage(app);
+window.FB_FIREBASE_CDN_BASE = 'https://www.gstatic.com/firebasejs/11.10.0';

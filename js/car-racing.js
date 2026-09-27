@@ -123,6 +123,7 @@
   const UPGRADE_COSTS = { engine: [300, 520, 760], handling: [240, 420, 640], armor: [260, 460, 690] };
   const UPGRADE_LABELS = { engine: 'Engine', handling: 'Handling', armor: 'Armor' };
   const persistence = { ready: null, auth: null, db: null, firestore: null, profile: null };
+  const FIREBASE_CDN_BASE = window.FB_FIREBASE_CDN_BASE || 'https://www.gstatic.com/firebasejs/11.10.0';
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
@@ -1310,6 +1311,14 @@
     return Boolean(window.FB_AUTH && window.FB_DB);
   }
 
+  async function loadFirestoreModule() {
+    return import(`${FIREBASE_CDN_BASE}/firebase-firestore.js`);
+  }
+
+  async function loadAuthModule() {
+    return import(`${FIREBASE_CDN_BASE}/firebase-auth.js`);
+  }
+
   async function initPersistence() {
     persistence.ready = (async () => {
       try {
@@ -1321,14 +1330,14 @@
           applyProgress(normalizedProgress());
           return;
         }
-        persistence.firestore = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js');
+        persistence.firestore = await loadFirestoreModule();
         const user = persistence.auth.currentUser || await new Promise((resolve) => {
           let unsub;
           const timeout = setTimeout(() => {
             if (unsub) unsub();
             resolve(null);
           }, 3500);
-          import('https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js').then(({ onAuthStateChanged }) => {
+          loadAuthModule().then(({ onAuthStateChanged }) => {
             unsub = onAuthStateChanged(persistence.auth, (value) => {
               clearTimeout(timeout);
               if (unsub) unsub();
