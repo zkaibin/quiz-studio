@@ -33,7 +33,11 @@
     touchBoost: document.getElementById('touch-boost'),
     difficultyButtons: [...document.querySelectorAll('[data-difficulty]')],
     startButton: document.getElementById('start-button'),
-    restartButton: document.getElementById('restart-button')
+    restartButton: document.getElementById('restart-button'),
+    money: document.getElementById('money-text'),
+    progressStatus: document.getElementById('progress-status'),
+    carButtons: [...document.querySelectorAll('[data-car]')],
+    upgradeButtons: [...document.querySelectorAll('[data-upgrade]')]
   };
 
   const ctx = refs.canvas.getContext('2d');
@@ -62,6 +66,8 @@
     bestDistance: 0,
     recordAnnounced: false,
     pickupTimer: 2,
+    money: 0,
+    garageSavedBest: 0,
     lastTimestamp: 0,
     opponentsPassed: 0,
     player: { x: 0, y: 0, w: 48, h: 90, tilt: 0, glow: 0, vx: 0 },
@@ -69,6 +75,8 @@
     cameraBank: 0,
     cameraView: 'chase',
     perspectiveDepth: 210,
+    playerBrand: 'falcon',
+    upgrades: { engine: 0, handling: 0, armor: 0 },
     opponents: [],
     obstacles: [],
     pickups: [],
@@ -76,6 +84,7 @@
     skyline: [],
     stars: [],
     cityObjects: [],
+    trafficLights: [],
     trackProfile: []
   };
 
@@ -106,6 +115,14 @@
   const WORLD_DISTANCE_RATE = 0.22;
   const PERSPECTIVE_DEPTHS = { chase: 210, cockpit: 120 };
   const MAX_RENDER_LOOKAHEAD = 380;
+  const BRAND_PROFILES = {
+    falcon: { name: 'Falcon V8', body: '#63f3ff', glow: '#63f3ff', stripe: '#ffffff', topBoost: 1, handling: 1, armor: 1 },
+    nova: { name: 'Nova GT', body: '#ff6f61', glow: '#ffc2b0', stripe: '#ffe7c7', topBoost: 1.06, handling: 0.94, armor: 0.95 },
+    apex: { name: 'Apex RS', body: '#9c7dff', glow: '#d4c5ff', stripe: '#f4edff', topBoost: 0.96, handling: 1.08, armor: 1.08 }
+  };
+  const UPGRADE_COSTS = { engine: [300, 520, 760], handling: [240, 420, 640], armor: [260, 460, 690] };
+  const UPGRADE_LABELS = { engine: 'Engine', handling: 'Handling', armor: 'Armor' };
+  const persistence = { ready: null, auth: null, db: null, firestore: null, profile: null };
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
@@ -277,7 +294,7 @@
     state.cameraBank = 0;
     generateTrack();
     state.roadCenter = roadCenterAt(0);
-    state.bestDistance = Number(localStorage.getItem('velocity-rush-best') || 0);
+    state.bestDistance = state.garageSavedBest;
     state.recordAnnounced = false;
     state.player.x = state.roadCenter;
     state.player.y = state.height - 110;
@@ -341,6 +358,8 @@
     refs.distance.textContent = `${Math.floor(state.distance)} M`;
     refs.score.textContent = formatScore(state.score);
     refs.best.textContent = `${Math.floor(state.bestDistance)} M`;
+    refs.money.textContent = `$${Math.floor(state.money)}`;
+    refreshUpgradeButtons();
     updateMap();
   }
 
@@ -390,7 +409,8 @@
       color: theme.body,
       glow: theme.glow,
       passed: false,
-      marker: null
+      marker: null,
+      type: Math.random() > 0.45 ? 'car' : 'truck'
     });
   }
 
@@ -481,7 +501,11 @@
   function update(dt) {
     const boostHeld = input.boost && state.boost > 0;
     state.boostActive = boostHeld;
-    const targetSpeed = boostHeld ? 340 : 230 + Math.min(85, state.distance * 0.18);
+    const brand = BRAND_PROFILES[state.playerBrand] || BRAND_PROFILES.falcon;
+    const engineBonus = state.upgrades.engine * 16;
+    const targetSpeed = boostHeld
+      ? (340 + engineBonus * 1.4) * brand.topBoost
+      : (230 + engineBonus + Math.min(85, state.distance * 0.18)) * brand.topBoost;
     state.speed += (targetSpeed - state.speed) * Math.min(1, dt * 2.1);
     state.boost = clamp(state.boost + (boostHeld ? -34 : 9) * dt, 0, 100);
     state.distance += state.speed * dt * WORLD_DISTANCE_RATE;
@@ -499,8 +523,9 @@
     state.collisionFlash = Math.max(0, state.collisionFlash - dt * 1.8);
 
     const steer = currentSteer();
-    const maxLateralSpeed = controlState.motionActive ? 320 : 380;
-    const lateralAccel = 1700;
+    const handlingBoost = 1 + state.upgrades.handling * 0.08;
+    const maxLateralSpeed = (controlState.motionActive ? 320 : 380) * handlingBoost * (BRAND_PROFILES[state.playerBrand]?.handling || 1);
+    const lateralAccel = 1700 * handlingBoost;
     const targetVX = steer * maxLateralSpeed;
     state.player.vx += clamp(targetVX - state.player.vx, -lateralAccel * dt, lateralAccel * dt);
     state.player.x += state.player.vx * dt;
@@ -523,7 +548,8 @@
     if (state.player.x < bounds.left + 20 || state.player.x > bounds.right - 20) {
       state.player.x = clamp(state.player.x, bounds.left + 14, bounds.right - 14);
       state.player.vx *= 0.35;
-      state.shield -= 22 * dt;
+      const armorGuard = (BRAND_PROFILES[state.playerBrand]?.armor || 1) * (1 + state.upgrades.armor * 0.1);
+      state.shield -= (22 * dt) / armorGuard;
       state.score = Math.max(0, state.score - 30 * dt);
     }
 
@@ -548,7 +574,8 @@
 
       if (car.y > -120 && car.y < state.height + 120 && intersectsPlayer(car)) {
         car.progress = Math.max(0, state.distance - 30);
-        state.shield -= 24;
+        const armorGuard = (BRAND_PROFILES[state.playerBrand]?.armor || 1) * (1 + state.upgrades.armor * 0.1);
+        state.shield -= 24 / armorGuard;
         state.score = Math.max(0, state.score - 180);
         state.collisionFlash = 1;
         emitImpact(state.player.x, state.player.y - 18, '#ff617d');
@@ -569,7 +596,8 @@
       obstacle.h = (obstacle.type === 'barrier' ? 24 : 30) * perspective;
       if (obstacle.y > -100 && obstacle.y < state.height + 100 && intersectsPlayer(obstacle)) {
         obstacle.hit = true;
-        state.shield -= obstacle.type === 'barrier' ? 18 : 10;
+        const armorGuard = (BRAND_PROFILES[state.playerBrand]?.armor || 1) * (1 + state.upgrades.armor * 0.1);
+        state.shield -= (obstacle.type === 'barrier' ? 18 : 10) / armorGuard;
         state.score = Math.max(0, state.score - 90);
         state.collisionFlash = 0.7;
         emitImpact(obstacle.x, obstacle.y, '#ffc857');
@@ -774,6 +802,7 @@
   }
 
   function drawCrossroads() {
+    state.trafficLights = [];
     [360, 760, 1190, 1580].forEach((crossingDistance) => {
       const distanceAhead = crossingDistance - state.distance;
       if (distanceAhead < -60 || distanceAhead > MAX_RENDER_LOOKAHEAD) {
@@ -788,6 +817,7 @@
       const bandHeight = 18 + perspective * 46;
       const slice = roadSlice(y);
       const roadTop = y - bandHeight / 2;
+      state.trafficLights.push({ y, left: slice.center - slice.half - 18, right: slice.center + slice.half + 18, ahead: distanceAhead });
 
       const street = ctx.createLinearGradient(0, roadTop, 0, roadTop + bandHeight);
       street.addColorStop(0, '#303a46');
@@ -829,6 +859,40 @@
       ctx.stroke();
       ctx.setLineDash([]);
       ctx.restore();
+    });
+  }
+
+  function drawTrafficLights() {
+    state.trafficLights.forEach((signal) => {
+      const perspective = clamp(signal.y / state.height, 0.18, 1);
+      const poleHeight = 34 + perspective * 38;
+      const poleWidth = Math.max(2, perspective * 4);
+      const headW = 14 + perspective * 14;
+      const headH = 24 + perspective * 22;
+      const cycle = Math.floor((state.distance + signal.ahead) / 140) % 3;
+      const activeColor = cycle === 0 ? '#ff4f5f' : cycle === 1 ? '#ffd166' : '#66ff86';
+
+      [signal.left, signal.right].forEach((x) => {
+        ctx.fillStyle = '#6b7280';
+        ctx.fillRect(x - poleWidth / 2, signal.y - poleHeight, poleWidth, poleHeight);
+        ctx.fillStyle = '#111b2b';
+        roundedRectPath(x - headW / 2, signal.y - poleHeight - headH, headW, headH, 5);
+        ctx.fill();
+        ['#40161b', '#3f3313', '#17361d'].forEach((offColor, index) => {
+          ctx.fillStyle = offColor;
+          ctx.beginPath();
+          ctx.arc(x, signal.y - poleHeight - headH + 6 + index * (headH / 3.2), Math.max(2.2, perspective * 4), 0, Math.PI * 2);
+          ctx.fill();
+        });
+        const activeY = signal.y - poleHeight - headH + 6 + cycle * (headH / 3.2);
+        ctx.fillStyle = activeColor;
+        ctx.shadowColor = activeColor;
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.arc(x, activeY, Math.max(2.8, perspective * 4.3), 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
     });
   }
 
@@ -911,7 +975,7 @@
     }
   }
 
-  function drawCar(x, y, width, height, color, glow, tilt = 0, player = false) {
+  function drawCar(x, y, width, height, color, glow, tilt = 0, player = false, model = 'car') {
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(tilt);
@@ -944,16 +1008,26 @@
     roundedRectPath(-width * 0.18, -height * 0.08, width * 0.36, height * 0.16, 8);
     ctx.fill();
 
-    ctx.fillStyle = player ? '#63f3ff' : '#ffd166';
+    const profile = BRAND_PROFILES[state.playerBrand] || BRAND_PROFILES.falcon;
+    const accent = player ? profile.stripe : '#ffd166';
+    ctx.fillStyle = accent;
     ctx.fillRect(-width * 0.16, -height * 0.42, width * 0.32, 6);
     ctx.fillStyle = '#ff617d';
     ctx.fillRect(-width * 0.16, height * 0.33, width * 0.32, 6);
 
-    ctx.fillStyle = '#0c1118';
-    ctx.fillRect(-width * 0.56, -height * 0.2, width * 0.15, height * 0.26);
-    ctx.fillRect(width * 0.41, -height * 0.2, width * 0.15, height * 0.26);
-    ctx.fillRect(-width * 0.56, height * 0.08, width * 0.15, height * 0.26);
-    ctx.fillRect(width * 0.41, height * 0.08, width * 0.15, height * 0.26);
+    const wheelTone = model === 'truck' ? '#121519' : '#0c1118';
+    const wheelHeight = model === 'truck' ? height * 0.3 : height * 0.26;
+    ctx.fillStyle = wheelTone;
+    ctx.fillRect(-width * 0.56, -height * 0.2, width * 0.15, wheelHeight);
+    ctx.fillRect(width * 0.41, -height * 0.2, width * 0.15, wheelHeight);
+    ctx.fillRect(-width * 0.56, height * 0.08, width * 0.15, wheelHeight);
+    ctx.fillRect(width * 0.41, height * 0.08, width * 0.15, wheelHeight);
+
+    if (model === 'truck') {
+      ctx.fillStyle = 'rgba(12,17,24,0.75)';
+      roundedRectPath(-width * 0.24, -height * 0.36, width * 0.48, height * 0.18, 6);
+      ctx.fill();
+    }
     ctx.restore();
   }
 
@@ -1142,18 +1216,20 @@
     drawCityObjects();
     drawRoad();
     drawCrossroads();
+    drawTrafficLights();
     drawRaceLines();
     drawRoadGlow();
     drawObstacles();
     drawPickups();
 
     state.opponents.forEach((car) => {
-      drawCar(car.x, car.y, car.w, car.h, car.color, car.glow, car.sway * 0.15);
+      drawCar(car.x, car.y, car.w, car.h, car.color, car.glow, car.sway * 0.15, false, car.type);
     });
 
     if (state.cameraView !== 'cockpit') {
       drawPlayerEffects();
-      drawCar(state.player.x, state.player.y, state.player.w, state.player.h, '#63f3ff', '#63f3ff', state.player.tilt, true);
+      const profile = BRAND_PROFILES[state.playerBrand] || BRAND_PROFILES.falcon;
+      drawCar(state.player.x, state.player.y, state.player.w, state.player.h, profile.body, profile.glow, state.player.tilt, true, 'car');
     }
     drawParticles();
     ctx.restore();
@@ -1189,19 +1265,177 @@
     }
     state.running = false;
     const position = getRacePosition();
-    const best = Math.max(Math.floor(state.distance), Number(localStorage.getItem('velocity-rush-best') || 0));
+    const best = Math.max(Math.floor(state.distance), Math.floor(state.garageSavedBest));
     state.bestDistance = best;
-    localStorage.setItem('velocity-rush-best', String(best));
+    state.garageSavedBest = best;
+    const payout = calculatePayout(reason, position);
+    state.money += payout;
     if (reason === 'finish') {
       refs.finishTitle.textContent = position === 1 ? 'The race is yours.' : `You finished ${ordinal(position)}.`;
-      refs.final.textContent = `You crossed the finish line in ${ordinal(position)} place with ${formatScore(state.score)} points. Best run: ${best} m.`;
+      refs.final.textContent = `You crossed the finish line in ${ordinal(position)} place with ${formatScore(state.score)} points, earned $${payout}, and your best run is ${best} m.`;
       announce(`${ordinal(position)} PLACE`);
     } else {
       refs.finishTitle.textContent = 'The grid got away.';
-      refs.final.textContent = `You reached ${Math.floor(state.distance)} m in ${ordinal(position)} place, scored ${formatScore(state.score)}, and your best run is ${best} m.`;
+      refs.final.textContent = `You reached ${Math.floor(state.distance)} m in ${ordinal(position)} place, scored ${formatScore(state.score)}, earned $${payout}, and your best run is ${best} m.`;
     }
     refs.over.classList.remove('hidden');
+    updateHud();
+    saveProfile('finish');
     draw();
+  }
+
+  function normalizedProgress(raw = {}) {
+    const selectedBrand = BRAND_PROFILES[raw.playerBrand] ? raw.playerBrand : 'falcon';
+    const upgrades = {
+      engine: clamp(Number(raw.upgrades?.engine || 0), 0, 3),
+      handling: clamp(Number(raw.upgrades?.handling || 0), 0, 3),
+      armor: clamp(Number(raw.upgrades?.armor || 0), 0, 3)
+    };
+    return {
+      money: Math.max(0, Math.floor(Number(raw.money || 0))),
+      bestDistance: Math.max(0, Math.floor(Number(raw.bestDistance || 0))),
+      playerBrand: selectedBrand,
+      upgrades
+    };
+  }
+
+  async function initPersistence() {
+    persistence.ready = (async () => {
+      try {
+        persistence.auth = window.FB_AUTH;
+        persistence.db = window.FB_DB;
+        if (!persistence.auth || !persistence.db) {
+          refs.progressStatus.textContent = 'Guest mode active. Progress resets each visit.';
+          applyProgress(normalizedProgress());
+          return;
+        }
+        persistence.firestore = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js');
+        const user = persistence.auth.currentUser || await new Promise((resolve) => {
+          let unsub;
+          const timeout = setTimeout(() => {
+            if (unsub) unsub();
+            resolve(null);
+          }, 3500);
+          import('https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js').then(({ onAuthStateChanged }) => {
+            unsub = onAuthStateChanged(persistence.auth, (value) => {
+              clearTimeout(timeout);
+              if (unsub) unsub();
+              resolve(value);
+            });
+          }).catch(() => resolve(null));
+        });
+
+        if (!user) {
+          refs.progressStatus.textContent = 'Guest mode active. Progress resets each visit.';
+          applyProgress(normalizedProgress());
+          return;
+        }
+
+        const snap = await persistence.firestore.getDoc(persistence.firestore.doc(persistence.db, 'velocity_rush_progress', user.uid));
+        persistence.profile = snap.exists() ? normalizedProgress(snap.data()) : normalizedProgress();
+        applyProgress(persistence.profile);
+        refs.progressStatus.textContent = snap.exists()
+          ? `Profile loaded: $${persistence.profile.money} · Best ${persistence.profile.bestDistance} m.`
+          : 'Signed in. Race earnings and upgrades will be saved.';
+      } catch (error) {
+        console.warn('Velocity Rush persistence unavailable.', error);
+        refs.progressStatus.textContent = 'Offline mode: progress will not be saved.';
+        applyProgress(normalizedProgress());
+      }
+    })();
+    return persistence.ready;
+  }
+
+  function applyProgress(profile) {
+    state.money = profile.money;
+    state.garageSavedBest = profile.bestDistance;
+    state.bestDistance = profile.bestDistance;
+    state.playerBrand = profile.playerBrand;
+    state.upgrades = { ...profile.upgrades };
+    setCarBrand(state.playerBrand, false);
+    refreshUpgradeButtons();
+    updateHud();
+  }
+
+  function currentProfilePayload() {
+    return {
+      money: Math.floor(state.money),
+      bestDistance: Math.floor(state.garageSavedBest),
+      playerBrand: state.playerBrand,
+      upgrades: { ...state.upgrades },
+      updatedAt: persistence.firestore?.serverTimestamp ? persistence.firestore.serverTimestamp() : new Date().toISOString()
+    };
+  }
+
+  async function saveProfile(reason = 'manual') {
+    if (!persistence.ready) return;
+    await persistence.ready;
+    const user = persistence.auth?.currentUser;
+    if (!user || !persistence.firestore) return;
+    try {
+      await persistence.firestore.setDoc(
+        persistence.firestore.doc(persistence.db, 'velocity_rush_progress', user.uid),
+        { ...currentProfilePayload(), reason },
+        { merge: true }
+      );
+      refs.progressStatus.textContent = `Profile saved · $${Math.floor(state.money)} · ${Math.floor(state.garageSavedBest)} m best.`;
+    } catch (error) {
+      console.warn('Unable to save Velocity Rush profile.', error);
+    }
+  }
+
+  function calculatePayout(reason, position) {
+    const finishBonus = reason === 'finish' ? 140 : 30;
+    const placeBonus = Math.max(0, 4 - position) * 45;
+    const distanceBonus = Math.floor(state.distance / 20);
+    const scoreBonus = Math.floor(state.score / 220);
+    return Math.max(20, finishBonus + placeBonus + distanceBonus + scoreBonus);
+  }
+
+  function refreshUpgradeButtons() {
+    refs.upgradeButtons.forEach((button) => {
+      const key = button.dataset.upgrade;
+      const level = state.upgrades[key] || 0;
+      const costs = UPGRADE_COSTS[key] || [];
+      const maxed = level >= costs.length;
+      const nextCost = maxed ? null : costs[level];
+      button.textContent = maxed
+        ? `${UPGRADE_LABELS[key]} L${level} · MAXED`
+        : `${UPGRADE_LABELS[key]} L${level} · $${nextCost}`;
+      const affordable = !maxed && state.money >= nextCost;
+      button.disabled = maxed;
+      button.classList.toggle('affordable', affordable);
+    });
+  }
+
+  function setCarBrand(brand, persist = true) {
+    if (!BRAND_PROFILES[brand]) return;
+    state.playerBrand = brand;
+    refs.carButtons.forEach((button) => {
+      const selected = button.dataset.car === brand;
+      button.classList.toggle('active', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
+    if (persist) {
+      saveProfile('car-select');
+    }
+  }
+
+  function purchaseUpgrade(key) {
+    const costs = UPGRADE_COSTS[key];
+    if (!costs) return;
+    const level = state.upgrades[key] || 0;
+    if (level >= costs.length) return;
+    const cost = costs[level];
+    if (state.money < cost) {
+      announce('NOT ENOUGH CASH');
+      return;
+    }
+    state.money -= cost;
+    state.upgrades[key] = level + 1;
+    announce(`${UPGRADE_LABELS[key].toUpperCase()} UPGRADED`);
+    updateHud();
+    saveProfile('upgrade');
   }
 
   function updateMotionCopy(message, showButton = false) {
@@ -1410,6 +1644,14 @@
     button.addEventListener('click', () => setDifficulty(button.dataset.difficulty));
   });
 
+  refs.carButtons.forEach((button) => {
+    button.addEventListener('click', () => setCarBrand(button.dataset.car));
+  });
+
+  refs.upgradeButtons.forEach((button) => {
+    button.addEventListener('click', () => purchaseUpgrade(button.dataset.upgrade));
+  });
+
   window.addEventListener('keydown', (event) => {
     const key = event.key.toLowerCase();
     if (key === 'arrowleft' || key === 'a') {
@@ -1475,5 +1717,6 @@
   resize();
   setDifficulty(state.difficulty);
   setCameraView(state.cameraView);
+  initPersistence();
   draw();
 })();
