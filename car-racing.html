@@ -51,6 +51,10 @@
           <span class="hud-label">BEST RUN</span>
           <strong id="best-text">0 M</strong>
         </div>
+        <div class="hud-panel compact money-panel">
+          <span class="hud-label">MONEY</span>
+          <strong id="money-text">$0</strong>
+        </div>
       </div>
 
       <div id="track-wrap" class="track-wrap">
@@ -81,6 +85,22 @@
           <p>Desktop: steer with <b>A / D</b> or the arrow keys and hit <b>Space</b> for nitro.</p>
           <p>Use <b>W / S</b> or <b>↑ / ↓</b> to move forward and back on the track.</p>
           <p>Mobile: the game automatically prefers motion steering when your device supports it, and falls back to touch steering when it does not.</p>
+          <div class="garage-picker" aria-label="Car garage">
+            <span class="difficulty-label">CAR BRAND</span>
+            <div class="car-options" role="radiogroup" aria-label="Select car brand">
+              <button class="car-button active" type="button" role="radio" data-car="falcon" aria-checked="true">Falcon V8</button>
+              <button class="car-button" type="button" role="radio" data-car="nova" aria-checked="false">Nova GT</button>
+              <button class="car-button" type="button" role="radio" data-car="apex" aria-checked="false">Apex RS</button>
+            </div>
+          </div>
+          <div class="garage-picker" aria-label="Garage upgrades">
+            <span class="difficulty-label">GARAGE UPGRADES</span>
+            <div class="upgrade-options">
+              <button class="upgrade-button" type="button" data-upgrade="engine">Engine L0 · $300</button>
+              <button class="upgrade-button" type="button" data-upgrade="handling">Handling L0 · $240</button>
+              <button class="upgrade-button" type="button" data-upgrade="armor">Armor L0 · $260</button>
+            </div>
+          </div>
           <div class="difficulty-picker" aria-label="Traffic level">
             <span class="difficulty-label">TRAFFIC</span>
             <div class="difficulty-options">
@@ -90,6 +110,7 @@
             </div>
           </div>
           <p id="motion-status" class="save-status">Checking motion steering availability...</p>
+          <p id="progress-status" class="save-status">Loading garage profile...</p>
           <div class="start-actions">
             <button id="start-button" class="action-button">Start race <span>↗</span></button>
             <button id="motion-button" class="action-button secondary-action hidden" type="button">Enable motion steering <span>📱</span></button>
@@ -128,6 +149,8 @@
     </section>
   </main>
 
+  <script type="module" src="js/firebase-config.js"></script>
+  <script src="js/nav-auth.js"></script>
   <script src="js/car-racing.js"></script>
 </body>
 </html>
