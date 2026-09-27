@@ -24,6 +24,22 @@ service cloud.firestore {
     }
 
     function validVelocityProgressTransition(nextData, previousData) {
+      let engineCost = previousData.upgrades.engine == 0 ? 300
+        : previousData.upgrades.engine == 1 ? 520
+        : previousData.upgrades.engine == 2 ? 760
+        : 999999;
+      let handlingCost = previousData.upgrades.handling == 0 ? 240
+        : previousData.upgrades.handling == 1 ? 420
+        : previousData.upgrades.handling == 2 ? 640
+        : 999999;
+      let armorCost = previousData.upgrades.armor == 0 ? 260
+        : previousData.upgrades.armor == 1 ? 460
+        : previousData.upgrades.armor == 2 ? 690
+        : 999999;
+      let requiredSpend =
+        (nextData.upgrades.engine == previousData.upgrades.engine ? 0 : engineCost) +
+        (nextData.upgrades.handling == previousData.upgrades.handling ? 0 : handlingCost) +
+        (nextData.upgrades.armor == previousData.upgrades.armor ? 0 : armorCost);
       return nextData.money <= previousData.money + 4000
         && nextData.bestDistance >= previousData.bestDistance
         && nextData.bestDistance <= previousData.bestDistance + 2200
@@ -32,7 +48,8 @@ service cloud.firestore {
         && nextData.upgrades.handling >= previousData.upgrades.handling
         && nextData.upgrades.handling <= previousData.upgrades.handling + 1
         && nextData.upgrades.armor >= previousData.upgrades.armor
-        && nextData.upgrades.armor <= previousData.upgrades.armor + 1;
+        && nextData.upgrades.armor <= previousData.upgrades.armor + 1
+        && (requiredSpend == 0 || nextData.money <= previousData.money - requiredSpend);
     }
 
     // User profile + totals doc

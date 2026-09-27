@@ -1361,7 +1361,6 @@
       } catch (error) {
         console.warn('Velocity Rush persistence unavailable.', error);
         refs.progressStatus.textContent = 'Offline mode: progress will not be saved.';
-        applyProgress(normalizedProgress());
       }
     })();
     return persistence.ready;
@@ -1396,8 +1395,7 @@
     try {
       await persistence.firestore.setDoc(
         persistence.firestore.doc(persistence.db, 'velocity_rush_progress', user.uid),
-        { ...currentProfilePayload(), reason },
-        { merge: true }
+        { ...currentProfilePayload(), reason }
       );
       refs.progressStatus.textContent = `Profile saved · $${Math.floor(state.money)} · ${Math.floor(state.garageSavedBest)} m best.`;
     } catch (error) {
