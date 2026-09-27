@@ -87,10 +87,10 @@
           <p>Mobile: the game automatically prefers motion steering when your device supports it, and falls back to touch steering when it does not.</p>
           <div class="garage-picker" aria-label="Car garage">
             <span class="difficulty-label">CAR BRAND</span>
-            <div class="car-options">
-              <button class="car-button active" type="button" data-car="falcon" aria-pressed="true">Falcon V8</button>
-              <button class="car-button" type="button" data-car="nova" aria-pressed="false">Nova GT</button>
-              <button class="car-button" type="button" data-car="apex" aria-pressed="false">Apex RS</button>
+            <div class="car-options" role="radiogroup" aria-label="Select car brand">
+              <button class="car-button active" type="button" role="radio" data-car="falcon" aria-checked="true">Falcon V8</button>
+              <button class="car-button" type="button" role="radio" data-car="nova" aria-checked="false">Nova GT</button>
+              <button class="car-button" type="button" role="radio" data-car="apex" aria-checked="false">Apex RS</button>
             </div>
           </div>
           <div class="garage-picker" aria-label="Garage upgrades">

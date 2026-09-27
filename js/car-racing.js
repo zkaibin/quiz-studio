@@ -1299,9 +1299,21 @@
     };
   }
 
+  async function waitForFirebaseGlobals(timeoutMs = 3500) {
+    const start = Date.now();
+    while (Date.now() - start < timeoutMs) {
+      if (window.FB_AUTH && window.FB_DB) {
+        return true;
+      }
+      await new Promise((resolve) => window.setTimeout(resolve, 80));
+    }
+    return Boolean(window.FB_AUTH && window.FB_DB);
+  }
+
   async function initPersistence() {
     persistence.ready = (async () => {
       try {
+        await waitForFirebaseGlobals();
         persistence.auth = window.FB_AUTH;
         persistence.db = window.FB_DB;
         if (!persistence.auth || !persistence.db) {
@@ -1403,7 +1415,8 @@
         ? `${UPGRADE_LABELS[key]} L${level} · MAXED`
         : `${UPGRADE_LABELS[key]} L${level} · $${nextCost}`;
       const affordable = !maxed && state.money >= nextCost;
-      button.disabled = maxed;
+      button.disabled = maxed || !affordable;
+      button.title = maxed ? 'Max upgrade reached' : affordable ? '' : `Need $${nextCost}`;
       button.classList.toggle('affordable', affordable);
     });
   }
@@ -1414,7 +1427,7 @@
     refs.carButtons.forEach((button) => {
       const selected = button.dataset.car === brand;
       button.classList.toggle('active', selected);
-      button.setAttribute('aria-pressed', String(selected));
+      button.setAttribute('aria-checked', String(selected));
     });
     if (persist) {
       saveProfile('car-select');
