@@ -40,6 +40,10 @@ service cloud.firestore {
         (nextData.upgrades.engine == previousData.upgrades.engine ? 0 : engineCost) +
         (nextData.upgrades.handling == previousData.upgrades.handling ? 0 : handlingCost) +
         (nextData.upgrades.armor == previousData.upgrades.armor ? 0 : armorCost);
+      let increasedCount =
+        (nextData.upgrades.engine == previousData.upgrades.engine ? 0 : 1) +
+        (nextData.upgrades.handling == previousData.upgrades.handling ? 0 : 1) +
+        (nextData.upgrades.armor == previousData.upgrades.armor ? 0 : 1);
       return nextData.money <= previousData.money + 4000
         && nextData.bestDistance >= previousData.bestDistance
         && nextData.bestDistance <= previousData.bestDistance + 2200
@@ -49,7 +53,11 @@ service cloud.firestore {
         && nextData.upgrades.handling <= previousData.upgrades.handling + 1
         && nextData.upgrades.armor >= previousData.upgrades.armor
         && nextData.upgrades.armor <= previousData.upgrades.armor + 1
-        && (requiredSpend == 0 || nextData.money <= previousData.money - requiredSpend);
+        && increasedCount <= 1
+        && (
+          (requiredSpend == 0 && nextData.money >= previousData.money) ||
+          (requiredSpend > 0 && nextData.money <= previousData.money - requiredSpend)
+        );
     }
 
     // User profile + totals doc

@@ -1383,7 +1383,7 @@
       bestDistance: Math.floor(state.garageSavedBest),
       playerBrand: state.playerBrand,
       upgrades: { ...state.upgrades },
-      updatedAt: persistence.firestore?.serverTimestamp ? persistence.firestore.serverTimestamp() : new Date().toISOString()
+      updatedAt: persistence.firestore.serverTimestamp()
     };
   }
 
