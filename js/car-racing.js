@@ -30,6 +30,7 @@
     touchRight: document.getElementById('touch-right'),
     touchForward: document.getElementById('touch-forward'),
     touchBrake: document.getElementById('touch-brake'),
+    touchCamera: document.getElementById('touch-camera'),
     touchBoost: document.getElementById('touch-boost'),
     difficultyButtons: [...document.querySelectorAll('[data-difficulty]')],
     startButton: document.getElementById('start-button'),
@@ -1594,6 +1595,10 @@
     state.perspectiveDepth = PERSPECTIVE_DEPTHS[view] ?? PERSPECTIVE_DEPTHS.chase;
     refs.viewButton.querySelector('span').textContent = view === 'cockpit' ? 'CHASE VIEW' : 'COCKPIT VIEW';
     refs.viewButton.setAttribute('aria-label', view === 'cockpit' ? 'Switch to chase view' : 'Switch to cockpit view');
+    if (refs.touchCamera) {
+      refs.touchCamera.querySelector('span').textContent = view === 'cockpit' ? 'CHASE' : 'COCKPIT';
+      refs.touchCamera.setAttribute('aria-label', view === 'cockpit' ? 'Switch to chase view' : 'Switch to cockpit view');
+    }
   }
 
   function toggleCameraView() {
@@ -1647,6 +1652,7 @@
   document.addEventListener('webkitfullscreenchange', updateFullscreenLabel);
   refs.fullscreenButton.addEventListener('click', toggleFullscreen);
   refs.viewButton.addEventListener('click', toggleCameraView);
+  refs.touchCamera?.addEventListener('click', toggleCameraView);
   refs.startButton.addEventListener('click', startRace);
   refs.restartButton.addEventListener('click', startRace);
   refs.motionButton.addEventListener('click', async () => {
