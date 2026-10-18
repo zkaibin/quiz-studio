@@ -179,6 +179,43 @@
   }
   bindTouch('t-left', 'left'); bindTouch('t-right', 'right'); bindTouch('t-gas', 'up'); bindTouch('t-brake', 'down');
 
+  // Touch devices (iOS Safari/Chrome may not match pointer: coarse in every mode)
+  var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) ||
+    (window.matchMedia && window.matchMedia('(pointer: coarse), (hover: none)').matches);
+  if (isTouchDevice) document.body.classList.add('ds-touch-enabled');
+
+  var tiltOn = false, tiltAxis = 0, tiltBtn = document.getElementById('t-tilt');
+  function onTilt(e) {
+    var ang = (screen.orientation && typeof screen.orientation.angle === 'number') ? screen.orientation.angle : (window.orientation || 0);
+    var v;
+    if (typeof e.gamma === 'number' && typeof e.beta === 'number') {
+      // tilt the phone like a steering wheel (landscape: beta carries the roll)
+      if (ang === 90) v = e.beta; else if (ang === 270 || ang === -90) v = -e.beta; else v = e.gamma;
+    } else return;
+    tiltAxis = Math.max(-1, Math.min(1, v / 25));
+    if (Math.abs(tiltAxis) < 0.08) tiltAxis = 0;
+  }
+  function setTilt(on) {
+    tiltOn = on; tiltAxis = 0;
+    tiltBtn.textContent = '📱 TILT: ' + (on ? 'ON' : 'OFF');
+    tiltBtn.classList.toggle('on', on); tiltBtn.setAttribute('aria-pressed', on);
+    if (on) window.addEventListener('deviceorientation', onTilt);
+    else window.removeEventListener('deviceorientation', onTilt);
+  }
+  tiltBtn.addEventListener('click', function () {
+    if (tiltOn) { setTilt(false); return; }
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+      // iOS 13+: must be requested from a user gesture
+      DeviceOrientationEvent.requestPermission().then(function (r) {
+        if (r === 'granted') setTilt(true); else tiltBtn.textContent = '📱 TILT: DENIED';
+      }).catch(function () { tiltBtn.textContent = '📱 TILT: N/A'; });
+    } else if ('DeviceOrientationEvent' in window) setTilt(true);
+    else tiltBtn.textContent = '📱 TILT: N/A';
+  });
+  ['click'].forEach(function (ev) {
+    document.getElementById('t-camera').addEventListener(ev, function () { camMode = (camMode + 1) % 2; });
+  });
+
   function bindChips(attr, key) {
     var chips = document.querySelectorAll('[data-' + attr + ']');
     chips.forEach(function (chip) {
@@ -224,6 +261,7 @@
     var left = keys.left || touch.left, right = keys.right || touch.right;
     var hand = keys.hand;
     var steerIn = (right ? 1 : 0) - (left ? 1 : 0);
+    if (tiltOn && !steerIn) steerIn = tiltAxis;
     p.steer += (steerIn - p.steer) * Math.min(1, dt * (steerIn ? 5 : 8));
 
     var sign = p.v >= 0 ? 1 : -1;

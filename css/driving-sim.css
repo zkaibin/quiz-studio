@@ -24,4 +24,9 @@ kbd { display: inline-block; min-width: 22px; padding: 1px 6px; margin: 0 1px; b
 .ds-touch-group { display: flex; gap: 12px; pointer-events: auto; }
 .ds-touch button { width: 78px; height: 78px; border-radius: 50%; border: 2px solid rgba(255,255,255,.35); background: rgba(10,16,30,.55); color: #fff; font-size: 16px; font-weight: 700; touch-action: none; }
 .ds-touch button.down { background: rgba(79,195,247,.55); }
-@media (pointer: coarse) { .ds-touch { display: flex; } .ds-keys { display: none; } }
+.ds-touch-top { position: fixed; z-index: 3; top: 12px; right: 12px; display: flex; flex-direction: column; gap: 8px; pointer-events: auto; }
+.ds-touch .ds-touch-top button { width: auto; height: auto; padding: 10px 14px; border-radius: 12px; font-size: 13px; }
+.ds-touch .ds-touch-top button.on { background: rgba(79,195,247,.55); border-color: #4fc3f7; }
+@media (pointer: coarse), (hover: none) { .ds-touch { display: flex; } .ds-keys { display: none; } }
+.ds-touch-enabled .ds-touch { display: flex; }
+.ds-touch-enabled .ds-keys { display: none; }
