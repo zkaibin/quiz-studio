@@ -14,6 +14,14 @@
   var G = 9.81;
   var CAR = { mass: 1300, tmax: 260, radius: 0.32, final: 3.4, eff: 0.9, idle: 900, redline: 7000,
               ratios: [3.6, 2.2, 1.5, 1.1, 0.9, 0.75], reverse: 3.2, wheelbase: 2.7, cdA: 0.7 };
+  var GARAGE_CARS = {
+    sedan: { name: 'City Sedan', cost: 0, color: '#1e88e5', mass: 1300, power: 1, handling: 1, armor: 1, topSpeed: 85 },
+    sport: { name: 'Sport Coupe', cost: 900, color: '#e53935', mass: 1180, power: 1.2, handling: 1.12, armor: 0.9, topSpeed: 93 },
+    utility: { name: 'Utility SUV', cost: 1400, color: '#43a047', mass: 1650, power: 1.08, handling: 0.9, armor: 1.3, topSpeed: 82 }
+  };
+  var UPGRADE_COSTS = { engine: [250, 450, 700], handling: [200, 350, 550], armor: [225, 400, 625] };
+  var UPGRADE_LABELS = { engine: 'Engine', handling: 'Handling', armor: 'Armor' };
+  var GARAGE_KEY = 'realDriveGarage';
   var TRAFFIC_COUNT = { low: 10, medium: 20, high: 32 };
   var TRAFFIC_COLORS = ['#c62828', '#1565c0', '#2e7d32', '#f9a825', '#6a1b9a', '#eceff1', '#37474f', '#ef6c00'];
 
@@ -24,6 +32,10 @@
   var menu = document.getElementById('ds-menu');
   var overScreen = document.getElementById('ds-over');
   var pauseScreen = document.getElementById('ds-pause');
+  var garagePoints = document.getElementById('ds-points');
+  var garageStatus = document.getElementById('ds-garage-status');
+  var garageCarButtons = document.querySelectorAll('[data-car]');
+  var garageUpgradeButtons = document.querySelectorAll('[data-upgrade]');
   var W = 0, H = 0;
 
   function resize() {
@@ -76,6 +88,31 @@
   // ---------- State ----------
   var settings = { gearbox: 'auto', traffic: 'medium' };
   var state = 'menu';
+  function loadGarage() {
+    try {
+      var saved = JSON.parse(localStorage.getItem(GARAGE_KEY) || '{}');
+      var ownedCars = ['sedan'];
+      if (Array.isArray(saved.ownedCars)) {
+        saved.ownedCars.forEach(function (car) {
+          if (GARAGE_CARS[car] && ownedCars.indexOf(car) === -1) ownedCars.push(car);
+        });
+      }
+      var upgrades = {};
+      Object.keys(UPGRADE_COSTS).forEach(function (key) {
+        var level = Number(saved.upgrades && saved.upgrades[key]);
+        upgrades[key] = Number.isFinite(level) ? Math.max(0, Math.min(UPGRADE_COSTS[key].length, Math.floor(level))) : 0;
+      });
+      return {
+        points: Number.isFinite(Number(saved.points)) ? Math.max(0, Math.floor(Number(saved.points))) : 0,
+        ownedCars: ownedCars,
+        selectedCar: ownedCars.indexOf(saved.selectedCar) !== -1 ? saved.selectedCar : 'sedan',
+        upgrades: upgrades
+      };
+    } catch (e) {
+      return { points: 0, ownedCars: ['sedan'], selectedCar: 'sedan', upgrades: { engine: 0, handling: 0, armor: 0 } };
+    }
+  }
+  var garage = loadGarage();
   var best = 0;
   try { best = parseInt(localStorage.getItem('realDriveBest') || '0', 10) || 0; } catch (e) { /* storage unavailable */ }
   var player, traffic, keys = {}, touch = {}, msgs = [], shake = 0, flash = 0;
@@ -227,6 +264,61 @@
   }
   bindChips('gearbox', 'gearbox'); bindChips('traffic', 'traffic');
 
+  function saveGarage() {
+    try { localStorage.setItem(GARAGE_KEY, JSON.stringify(garage)); } catch (e) { /* storage unavailable */ }
+  }
+  function updateGarageUI() {
+    garagePoints.textContent = String(garage.points);
+    garageCarButtons.forEach(function (button) {
+      var key = button.getAttribute('data-car'), car = GARAGE_CARS[key];
+      var owned = garage.ownedCars.indexOf(key) !== -1;
+      var selected = garage.selectedCar === key;
+      button.textContent = car.name + (selected ? ' · Selected' : owned ? ' · Select' : ' · ' + car.cost + ' pts');
+      button.classList.toggle('active', selected);
+      button.disabled = selected;
+      button.setAttribute('aria-pressed', String(selected));
+    });
+    garageUpgradeButtons.forEach(function (button) {
+      var key = button.getAttribute('data-upgrade'), level = garage.upgrades[key];
+      var costs = UPGRADE_COSTS[key], maxed = level >= costs.length, cost = maxed ? 0 : costs[level];
+      button.textContent = maxed ? UPGRADE_LABELS[key] + ' L' + level + ' · MAX' :
+        UPGRADE_LABELS[key] + ' L' + level + ' · ' + cost + ' pts';
+      button.disabled = maxed || garage.points < cost;
+      button.classList.toggle('affordable', !maxed && garage.points >= cost);
+      button.title = maxed ? 'Maximum upgrade reached' : garage.points >= cost ? '' : 'Need ' + cost + ' points';
+    });
+  }
+  garageCarButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      var key = button.getAttribute('data-car'), car = GARAGE_CARS[key];
+      if (!car || garage.selectedCar === key) return;
+      if (garage.ownedCars.indexOf(key) === -1) {
+        if (garage.points < car.cost) {
+          garageStatus.textContent = 'You need ' + car.cost + ' points to unlock the ' + car.name + '.';
+          return;
+        }
+        garage.points -= car.cost;
+        garage.ownedCars.push(key);
+      }
+      garage.selectedCar = key;
+      garageStatus.textContent = car.name + ' selected. Your upgrades apply to every car.';
+      saveGarage();
+      updateGarageUI();
+    });
+  });
+  garageUpgradeButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      var key = button.getAttribute('data-upgrade'), level = garage.upgrades[key], costs = UPGRADE_COSTS[key];
+      if (!costs || level >= costs.length || garage.points < costs[level]) return;
+      garage.points -= costs[level];
+      garage.upgrades[key] = level + 1;
+      garageStatus.textContent = UPGRADE_LABELS[key] + ' upgraded to level ' + garage.upgrades[key] + '.';
+      saveGarage();
+      updateGarageUI();
+    });
+  });
+  updateGarageUI();
+
   function startGame() {
     initAudio();
     if (audio && audio.ac.state === 'suspended') audio.ac.resume();
@@ -241,14 +333,23 @@
   document.getElementById('ds-start').addEventListener('click', startGame);
   document.getElementById('ds-restart').addEventListener('click', startGame);
   document.getElementById('ds-resume').addEventListener('click', togglePause);
+  document.getElementById('ds-garage-return').addEventListener('click', function () {
+    overScreen.classList.add('ds-hidden');
+    menu.classList.remove('ds-hidden');
+    state = 'menu';
+    updateGarageUI();
+  });
 
   function endGame() {
     state = 'over';
     var total = Math.max(0, Math.round(player.score));
+    garage.points += total;
+    saveGarage();
+    updateGarageUI();
     if (total > best) { best = total; try { localStorage.setItem('realDriveBest', String(best)); } catch (e) { /* ignore */ } }
     document.getElementById('ds-summary').textContent =
       'Distance ' + (player.dist / 1000).toFixed(2) + ' km · Score ' + total + ' · Near misses ' + player.nearMiss +
-      ' · Fines $' + player.fines + ' · Best ' + best;
+      ' · Fines $' + player.fines + ' · +' + total + ' points · Garage ' + garage.points + ' · Best ' + best;
     overScreen.classList.remove('ds-hidden');
     if (audio) audio.g.gain.value = 0;
   }
@@ -256,6 +357,8 @@
   // ---------- Simulation ----------
   function update(dt) {
     var p = player;
+    var vehicle = GARAGE_CARS[garage.selectedCar];
+    var engineLevel = garage.upgrades.engine, handlingLevel = garage.upgrades.handling;
     p.time += dt;
     var up = keys.up || touch.up, down = keys.down || touch.down;
     var left = keys.left || touch.left, right = keys.right || touch.right;
@@ -288,14 +391,14 @@
     var force = 0;
     if ((throttle || reverse) && p.shiftT <= 0 && p.rpm < CAR.redline + 200) {
       var r = Math.max(p.rpm, CAR.idle);
-      var torque = CAR.tmax * Math.max(0.25, 1 - Math.pow((r - 4800) / 4500, 2));
+      var torque = CAR.tmax * vehicle.power * (1 + engineLevel * 0.12) * Math.max(0.25, 1 - Math.pow((r - 4800) / 4500, 2));
       force = torque * total * CAR.eff / CAR.radius * (reverse ? 0.5 : throttle);
-      force = Math.min(force, 0.95 * CAR.mass * G);
+      force = Math.min(force, 0.95 * vehicle.mass * G);
       if (reverse) force = -force;
     }
     var v = p.v, av = Math.abs(v);
-    var resist = 0.5 * 1.2 * CAR.cdA * av * av + 0.015 * CAR.mass * G * (av > 0.05 ? 1 : 0);
-    var accel = (force - sign * resist) / CAR.mass;
+    var resist = 0.5 * 1.2 * CAR.cdA * av * av + 0.015 * vehicle.mass * G * (av > 0.05 ? 1 : 0);
+    var accel = (force - sign * resist) / vehicle.mass;
     var decel = brake * 11 + (hand ? 6 : 0);
     p.offroad = Math.abs(p.x) > HALF_ROAD + 0.9;
     if (p.offroad) decel += 5 + av * 0.12;
@@ -305,11 +408,11 @@
       var d = decel * dt;
       if (Math.abs(nv) <= d) nv = 0; else nv -= Math.sign(nv) * d;
     }
-    p.v = Math.max(-8, Math.min(nv, 85));
+    p.v = Math.max(-8, Math.min(nv, vehicle.topSpeed + engineLevel * 2.5));
     av = Math.abs(p.v);
 
     // yaw / steering (kinematic bicycle with grip assist)
-    var delta = p.steer * 0.45 / (1 + av * 0.35);
+    var delta = p.steer * 0.45 * vehicle.handling * (1 + handlingLevel * 0.1) / (1 + av * 0.35);
     var yawRate = av * Math.tan(delta) / CAR.wheelbase * (p.v < 0 ? -1 : 1);
     if (hand && av > 8) yawRate *= 2.6;
     var kappa = segAt(p.z).curve / (SEG * SEG);
@@ -390,7 +493,9 @@
 
   function damage(amount, label) {
     if (amount < 2) return;
-    player.damage = Math.min(100, player.damage + amount);
+    var vehicle = GARAGE_CARS[garage.selectedCar];
+    var armorLevel = garage.upgrades.armor;
+    player.damage = Math.min(100, player.damage + amount / (vehicle.armor * (1 + armorLevel * 0.15)));
     shake = 0.5; beep();
     say(label + ' −' + Math.round(amount) + '% integrity', '#ff8a65');
   }
@@ -574,7 +679,7 @@
       ctx.translate(W / 2 + p.h * 120, 0);
       ctx.rotate(-p.h * 0.5);
       var bounce = p.offroad ? Math.sin(p.time * 60) * 2 : 0;
-      drawCarRear(0, cy + bounce, 1.9 * pw, '#1e88e5', p.brake, lightsOn || dark > 0.4);
+      drawCarRear(0, cy + bounce, 1.9 * pw, vehicle.color, p.brake, lightsOn || dark > 0.4);
       ctx.restore();
     } else {
       drawCockpit();

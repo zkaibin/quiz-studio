@@ -15,7 +15,18 @@ html, body { margin: 0; height: 100%; background: #05070d; color: #e8edf7; font-
 .ds-options > span { font-size: 12px; letter-spacing: 2px; color: #8895b3; margin-right: 6px; }
 .ds-chip { padding: 8px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.25); background: transparent; color: #dfe6f5; cursor: pointer; font-size: 14px; }
 .ds-chip.active { background: #4fc3f7; color: #04121c; border-color: #4fc3f7; font-weight: 600; }
+.ds-garage { width: min(100%, 580px); padding: 12px; border: 1px solid rgba(79,195,247,.3); border-radius: 12px; background: rgba(16,25,42,.65); }
+.ds-garage-heading { display: flex; justify-content: space-between; margin-bottom: 8px; color: #4fc3f7; font-size: 12px; letter-spacing: 2px; }
+.ds-garage-heading span { color: #ffd54f; }
+.ds-garage-cars, .ds-garage-upgrades { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+.ds-garage-car, .ds-upgrade { padding: 8px 12px; border: 1px solid rgba(255,255,255,.25); border-radius: 8px; background: rgba(5,8,16,.5); color: #dfe6f5; cursor: pointer; font-size: 13px; }
+.ds-garage-car.active { border-color: #4fc3f7; box-shadow: inset 0 0 0 1px #4fc3f7; color: #7de0ff; }
+.ds-garage-car:disabled, .ds-upgrade:disabled { cursor: default; opacity: .55; }
+.ds-upgrade { flex: 1; min-width: 125px; }
+.ds-upgrade.affordable { border-color: #ffd54f; color: #ffe082; }
+.ds-garage-status { min-height: 16px; font-size: 12px; }
 .ds-button { margin-top: 6px; padding: 14px 32px; border: 0; border-radius: 10px; background: linear-gradient(135deg, #4fc3f7, #3a7bd5); color: #04121c; font-size: 17px; font-weight: 700; cursor: pointer; }
+.ds-secondary-button { margin-top: 0; padding: 10px 20px; border: 1px solid rgba(255,255,255,.3); background: transparent; color: #dfe6f5; font-size: 14px; }
 .ds-button:hover { filter: brightness(1.1); }
 .ds-keys { border-collapse: collapse; font-size: 13px; color: #b9c4dc; }
 .ds-keys td { padding: 4px 8px; text-align: left; }
