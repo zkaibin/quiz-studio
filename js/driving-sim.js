@@ -561,6 +561,7 @@
 
   function render() {
     var p = player;
+    var vehicle = GARAGE_CARS[garage.selectedCar];
     var dark = darkness();
     var hood = camMode === 1;
     var camH = hood ? 1.15 : 2.0;
