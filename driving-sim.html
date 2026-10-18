@@ -17,6 +17,20 @@
         <p class="ds-eyebrow">DRIVING SIMULATOR</p>
         <h1>Real Drive</h1>
         <p>Cruise the highway, obey the speed limits, avoid traffic and keep your car in one piece.</p>
+        <section class="ds-garage" aria-label="Car garage">
+          <div class="ds-garage-heading"><strong>GARAGE</strong><span><span id="ds-points">0</span> POINTS</span></div>
+          <div class="ds-garage-cars">
+            <button type="button" class="ds-garage-car active" data-car="sedan">City Sedan</button>
+            <button type="button" class="ds-garage-car" data-car="sport">Sport Coupe</button>
+            <button type="button" class="ds-garage-car" data-car="utility">Utility SUV</button>
+          </div>
+          <div class="ds-garage-upgrades" aria-label="Car upgrades">
+            <button type="button" class="ds-upgrade" data-upgrade="engine">Engine</button>
+            <button type="button" class="ds-upgrade" data-upgrade="handling">Handling</button>
+            <button type="button" class="ds-upgrade" data-upgrade="armor">Armor</button>
+          </div>
+          <p id="ds-garage-status" class="ds-garage-status" aria-live="polite">Earn points by driving to unlock cars and upgrades.</p>
+        </section>
         <div class="ds-options">
           <span>GEARBOX</span>
           <button type="button" class="ds-chip active" data-gearbox="auto" aria-pressed="true">Automatic</button>
@@ -44,6 +58,7 @@
         <h2>Drive over</h2>
         <p id="ds-summary"></p>
         <button id="ds-restart" class="ds-button">Drive again ↻</button>
+        <button id="ds-garage-return" class="ds-button ds-secondary-button">Return to garage</button>
       </div>
 
       <div id="ds-pause" class="ds-overlay ds-hidden">
