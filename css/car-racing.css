@@ -628,3 +628,18 @@ h1 {
     gap: 7px;
   }
 }
+
+.camera-touch-button {
+  display: none;
+  position: absolute;
+  z-index: 5;
+  top: 12px;
+  left: 12px;
+  padding: 8px 12px;
+  border-radius: 14px;
+  font-size: 12px;
+}
+
+@media (pointer: coarse), (max-width: 680px) {
+  .camera-touch-button { display: block; }
+}
