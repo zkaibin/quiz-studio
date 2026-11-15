@@ -330,7 +330,7 @@ import * as THREE from './vendor/three/three.module.min.js';
 
   function animate(now) {
     requestAnimationFrame(animate);
-    const delta = Math.min((now - lastTime) / 1000, 0.05);
+    const delta = THREE.MathUtils.clamp((now - lastTime) / 1000, 0, 0.05);
     lastTime = now;
     if (running) update(delta);
     renderer.render(scene, camera);
