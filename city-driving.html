@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#a9d8e9">
+  <title>City Driving - Quiz Studio</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚕</text></svg>">
+  <link rel="stylesheet" href="css/city-driving.css">
+</head>
+<body>
+  <main class="city-game">
+    <a class="back-link" href="games.html">← Back to Games</a>
+    <div id="city-scene" class="scene" aria-label="Three-dimensional Singapore city driving game"></div>
+
+    <section class="hud" aria-label="Driving dashboard">
+      <div class="hud-brand"><span class="live-dot"></span><span id="drive-state">READY</span><strong>CITY DRIVE <span>· SG</span></strong></div>
+      <div class="hud-stats">
+        <div><span class="stat-label">SPEED</span><strong><span id="speed">0</span><small> km/h</small></strong></div>
+        <div><span class="stat-label">DISTANCE</span><strong><span id="distance">0.0</span><small> km</small></strong></div>
+        <div><span class="stat-label">ROAD</span><strong class="road-name">LEFT-HAND TRAFFIC</strong></div>
+      </div>
+      <button id="pause-drive" class="pause-button" type="button" aria-label="Pause driving" disabled>Ⅱ</button>
+    </section>
+
+    <div class="location-tag"><span>●</span> SINGAPORE <b>·</b> CITY CENTRE</div>
+    <div id="hint" class="driving-hint">W / ↑ accelerate <b>·</b> A D / ← → steer <b>·</b> S / ↓ brake <b>·</b> P pause</div>
+
+    <div class="touch-controls" aria-label="Touch driving controls">
+      <div class="touch-row">
+        <button type="button" data-control="left" aria-label="Steer left">←</button>
+        <button type="button" data-control="right" aria-label="Steer right">→</button>
+      </div>
+      <div class="touch-row">
+        <button type="button" data-control="brake" aria-label="Brake">BRAKE</button>
+        <button type="button" data-control="gas" aria-label="Accelerate">GAS</button>
+      </div>
+    </div>
+
+    <section id="welcome" class="overlay">
+      <div class="welcome-card">
+        <p class="eyebrow">YOUR CITY, YOUR DRIVE</p>
+        <h1>City <span>Driving</span></h1>
+        <p class="intro">Take the wheel on a sunlit Singapore street. Keep left, weave through traffic, and cruise past shophouses and the city skyline.</p>
+        <div class="route-pill"><span>ROUTE</span> Downtown · Marina Bay · Chinatown</div>
+        <button id="start-drive" class="primary-button" type="button">Start your drive <span>↗</span></button>
+        <p class="welcome-note">No rush. Just enjoy the ride.</p>
+      </div>
+    </section>
+
+    <section id="paused" class="overlay hidden" aria-live="polite">
+      <div class="welcome-card pause-card">
+        <p class="eyebrow">PULLING OVER</p>
+        <h2>Drive paused</h2>
+        <p class="intro">Take a breather. Your city is waiting.</p>
+        <button id="resume-drive" class="primary-button" type="button">Back on the road <span>↗</span></button>
+        <button id="end-drive" class="text-button" type="button">End this drive</button>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="js/city-driving.js"></script>
+</body>
+</html>
