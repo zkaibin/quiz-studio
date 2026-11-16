@@ -27,15 +27,17 @@
     <div id="hint" class="driving-hint">W / ↑ accelerate <b>·</b> A D / ← → steer <b>·</b> S / ↓ brake <b>·</b> P pause</div>
 
     <div class="touch-controls" aria-label="Touch driving controls">
-      <div class="touch-row">
+      <div class="touch-steer">
         <button type="button" data-control="left" aria-label="Steer left">←</button>
         <button type="button" data-control="right" aria-label="Steer right">→</button>
       </div>
-      <div class="touch-row">
+      <div class="tilt-meter" aria-hidden="true"><i id="tilt-needle"></i></div>
+      <div class="touch-pedals">
         <button type="button" data-control="brake" aria-label="Brake">BRAKE</button>
         <button type="button" data-control="gas" aria-label="Accelerate">GAS</button>
       </div>
     </div>
+    <button id="tilt-toggle" class="tilt-toggle" type="button" hidden>TILT STEER: OFF</button>
 
     <section id="welcome" class="overlay">
       <div class="welcome-card">
@@ -43,8 +45,23 @@
         <h1>City <span>Driving</span></h1>
         <p class="intro">Take the wheel on a sunlit Singapore street. Keep left, weave through traffic, and cruise past shophouses and the city skyline.</p>
         <div class="route-pill"><span>ROUTE</span> Downtown · Marina Bay · Chinatown</div>
+        <div class="car-pill"><span>CAR</span> <b id="current-car">Honda Civic Type R</b></div>
         <button id="start-drive" class="primary-button" type="button">Start your drive <span>↗</span></button>
+        <button id="open-garage" class="secondary-button" type="button">Garage · Cars &amp; upgrades</button>
         <p class="welcome-note">No rush. Just enjoy the ride.</p>
+      </div>
+    </section>
+
+    <section id="garage" class="overlay hidden" aria-label="Garage">
+      <div class="welcome-card garage-card">
+        <div class="garage-head">
+          <div><p class="eyebrow">GARAGE</p><h2>Choose your ride</h2></div>
+          <div class="points-badge"><span>POINTS</span><b id="garage-points">–</b></div>
+        </div>
+        <p id="garage-status" class="garage-status"></p>
+        <div id="car-list" class="car-list"></div>
+        <div id="car-detail" class="car-detail"></div>
+        <button id="close-garage" class="primary-button" type="button">Done <span>✓</span></button>
       </div>
     </section>
 

@@ -71,3 +71,50 @@ button { font: inherit; }
   .hud-stats small { font-size: 8px; }
   .hud-stats .road-name { max-width: 53px; font-size: 7px; }
 }
+
+/* Garage, car selection and mobile controls */
+.car-pill { display: inline-flex; gap: 9px; align-items: center; margin: 0 0 22px 8px; padding: 9px 11px; border-radius: 7px; background: #f4ece6; color: #7a4a3a; font-size: 11px; font-weight: 650; }
+.car-pill span { color: #b08c7d; font-size: 9px; font-weight: 800; letter-spacing: .9px; }
+.secondary-button { display: block; width: 100%; margin-top: 10px; padding: 13px 18px; border: 1px solid #cfdad6; border-radius: 10px; background: #fff; color: #234; font-size: 13px; font-weight: 700; cursor: pointer; }
+.secondary-button:hover { background: #f1f6f4; }
+.garage-card { width: min(100%, 470px); max-height: calc(100% - 20px); overflow-y: auto; padding: 24px; }
+.garage-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.garage-head h2 { font-size: 28px; }
+.points-badge { display: grid; gap: 2px; padding: 8px 12px; border-radius: 10px; background: #183940; color: #fff; text-align: center; }
+.points-badge span { font-size: 8px; font-weight: 800; letter-spacing: 1px; color: #9fc3c8; }
+.points-badge b { font-size: 18px; }
+.garage-status { min-height: 16px; margin: 10px 0; color: #a2533f; font-size: 12px; font-weight: 650; }
+.garage-status a { color: #d66b50; }
+.car-list { display: grid; gap: 7px; margin-bottom: 14px; }
+.car-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; border: 2px solid #e1e9e6; border-radius: 11px; background: #fff; color: #18373d; text-align: left; cursor: pointer; }
+.car-row.selected { border-color: #d96f50; background: #fff6f2; }
+.car-row strong { display: block; font-size: 13px; }
+.car-row small { color: #809094; font-size: 10px; }
+.car-row .badge { padding: 4px 8px; border-radius: 6px; background: #edf3ee; color: #49615d; font-size: 10px; font-weight: 800; white-space: nowrap; }
+.car-row.locked .badge { background: #fbe9e3; color: #b8553c; }
+.car-detail { margin-bottom: 16px; padding: 12px; border-radius: 12px; background: #f3f7f5; }
+.swatches { display: flex; gap: 8px; margin-bottom: 12px; }
+.swatches button { width: 26px; height: 26px; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 0 1px #b9c6c3; cursor: pointer; }
+.swatches button.on { box-shadow: 0 0 0 3px #d96f50; }
+.stat-line { display: grid; grid-template-columns: 78px 1fr 62px; align-items: center; gap: 8px; margin: 6px 0; font-size: 11px; font-weight: 700; color: #49615d; }
+.stat-bar { height: 7px; border-radius: 4px; background: #dde6e3; overflow: hidden; }
+.stat-bar i { display: block; height: 100%; background: linear-gradient(90deg, #e3a652, #d96f50); }
+.stat-line button, .buy-car { padding: 6px 8px; border: 0; border-radius: 7px; background: #183940; color: #fff; font-size: 10px; font-weight: 800; cursor: pointer; }
+.stat-line button:disabled, .buy-car:disabled { opacity: .4; cursor: default; }
+.buy-car { width: 100%; padding: 11px; font-size: 12px; background: #d96f50; }
+.upgrade-title { margin: 12px 0 2px; color: #839397; font-size: 9px; font-weight: 800; letter-spacing: 1px; }
+
+.touch-controls { align-items: flex-end; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: none; }
+.touch-steer, .touch-pedals { display: flex; gap: 12px; pointer-events: auto; }
+.touch-pedals button[data-control="gas"] { min-width: 96px; height: 96px; background: rgba(60,150,100,.72); border-radius: 50%; }
+.touch-pedals button[data-control="brake"] { min-width: 80px; height: 80px; background: rgba(190,70,60,.72); border-radius: 50%; }
+.touch-steer button { min-width: 84px; height: 84px; border-radius: 50%; font-size: 30px; }
+.tilt-meter { display: none; position: relative; width: 130px; height: 8px; margin-bottom: 30px; border-radius: 4px; background: rgba(255,255,255,.4); }
+.tilt-meter i { position: absolute; top: -4px; left: 50%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: #d96f50; }
+.touch-controls.tilt-on .touch-steer { display: none; }
+.touch-controls.tilt-on .tilt-meter { display: block; }
+.tilt-toggle { position: absolute; z-index: 3; top: 68px; left: 22px; padding: 8px 12px; border: 1px solid rgba(255,255,255,.55); border-radius: 999px; background: rgba(15,35,43,.55); color: #fff; font-size: 11px; font-weight: 750; }
+.tilt-toggle.on { background: rgba(60,150,100,.85); }
+.tilt-toggle[hidden] { display: none; }
+@media (max-width: 700px) { .tilt-toggle { top: 56px; left: 12px; } .garage-card { margin: 56px 0 0; } }
+@media (max-height: 520px) { .garage-card, .welcome-card { margin-top: 0; padding: 16px; } }
