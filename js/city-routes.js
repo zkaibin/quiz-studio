@@ -486,4 +486,16 @@ export const ROUTES = [
   }
 ];
 
+// Each route is a trip with a start, a destination and a length in metres; longer trips pay more.
+const TRIPS = {
+  downtown: ['Raffles Place', 'Chinatown Point', 2200],
+  marina: ['Marina Bay Sands', 'Merlion Park', 2000],
+  gardens: ['Marina Barrage', 'Gardens by the Bay', 2400],
+  heritage: ['Chinatown', 'Little India', 2600],
+  civic: ['City Hall', 'Orchard Road', 3000],
+  changi: ['East Coast Park', 'Changi Airport', 4200],
+  sentosa: ['VivoCity', 'Sentosa Merlion', 3400]
+};
+for (const r of ROUTES) [r.from, r.to, r.length] = TRIPS[r.id];
+
 export const DEFAULT_ROUTE_ID = ROUTES[0].id;

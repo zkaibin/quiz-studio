@@ -159,6 +159,7 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
   const BLOCK_COUNT = 8;
   const BLOCK_LENGTH = 64;
   const hemiLight = scene.children.find((o) => o.isHemisphereLight);
+  const tripReward = (r) => Math.round(r.length / 100);
   let route = ROUTES[0];
   let areaLabel = route.area;
 
@@ -223,7 +224,7 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
     }
     areaLabel = route.area;
     locationName.textContent = areaLabel;
-    routeNameOutput.textContent = route.blurb;
+    routeNameOutput.textContent = `${route.from} → ${route.to} · ${(route.length / 1000).toFixed(1)} km · ${tripReward(route)} pts`;
     routeList.querySelectorAll('button').forEach((button) => {
       button.classList.toggle('on', button.dataset.route === route.id);
     });
@@ -310,6 +311,8 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
   let playerX = -1.75;
   let lastTime = 0;
   let collisionCooldown = 0;
+  let crashes = 0;
+  let tripDone = false;
   let steerInput = 0;
   let wheelAngle = 0;
   const tiltToggle = document.getElementById('tilt-toggle');
@@ -402,6 +405,13 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
     hasStarted = true;
     speed = 0;
     distance = 0;
+    crashes = 0;
+    tripDone = false;
+    tripPanel.hidden = false;
+    tripFrom.textContent = `● ${route.from}`;
+    tripTo.textContent = `${route.to} ⚑`;
+    tripRewardOut.textContent = signedIn() ? `Up to ${tripReward(route) + CLEAN_BONUS} pts` : 'Sign in to earn pts';
+    updateTrip();
     playerX = -1.75;
     player.position.x = playerX;
     player.rotation.set(0, 0, 0);
@@ -435,6 +445,7 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
     stateOutput.textContent = 'READY';
     hud.classList.remove('active');
     pauseButton.disabled = true;
+    tripPanel.hidden = true;
   });
   pauseButton.addEventListener('click', togglePause);
   window.addEventListener('keydown', (event) => {
@@ -534,6 +545,7 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
           Math.abs(car.position.z - player.position.z) < 3.1 &&
           Math.abs(car.position.x - player.position.x) < 1.55) {
         collisionCooldown = 1.3;
+        crashes++;
         speed *= 0.45;
         resetTraffic(car, index);
       }
@@ -551,7 +563,59 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
     camera.lookAt(player.position.x * 0.2, 1.1, -16);
     speedOutput.textContent = String(Math.round(speed * 3.6));
     distanceOutput.textContent = (distance / 1000).toFixed(1);
+    updateTrip();
+    if (distance >= route.length && !tripDone) finishTrip();
   }
+
+  const CLEAN_BONUS = 15;
+  const tripPanel = document.getElementById('trip');
+  const tripFrom = document.getElementById('trip-from');
+  const tripTo = document.getElementById('trip-to');
+  const tripFill = document.getElementById('trip-fill');
+  const tripRemaining = document.getElementById('trip-remaining');
+  const tripRewardOut = document.getElementById('trip-reward');
+  const tripPanelDone = document.getElementById('trip-complete');
+  const tripSummary = document.getElementById('trip-summary');
+  const tripPointsOut = document.getElementById('trip-points');
+
+  function updateTrip() {
+    const ratio = Math.min(1, distance / route.length);
+    tripFill.style.width = `${ratio * 100}%`;
+    tripRemaining.textContent = `${Math.max(0, Math.ceil(route.length - distance))} m to go`;
+  }
+
+  async function finishTrip() {
+    tripDone = true;
+    running = false;
+    hasStarted = false;
+    speed = 0;
+    hud.classList.remove('active');
+    pauseButton.disabled = true;
+    stateOutput.textContent = 'ARRIVED';
+    tripPanel.hidden = true;
+    const earned = Math.max(Math.round(tripReward(route) / 2), tripReward(route) - crashes * 2) + (crashes === 0 ? CLEAN_BONUS : 0);
+    tripSummary.textContent = `${route.from} → ${route.to} · ${(route.length / 1000).toFixed(1)} km · ${crashes === 0 ? 'no collisions, clean drive bonus!' : `${crashes} collision${crashes === 1 ? '' : 's'}`}`;
+    tripPointsOut.textContent = signedIn() ? 'Saving points…' : 'Sign in on the home page to earn points.';
+    tripPanelDone.classList.remove('hidden');
+    hint.style.display = 'none';
+    if (!signedIn()) return;
+    try {
+      await store.awardPoints(earned);
+      tripPointsOut.textContent = `+${earned} points · total ${store.points}`;
+    } catch (error) {
+      console.warn('Could not save trip points.', error);
+      tripPointsOut.textContent = `+${earned} points could not be saved. Please try again later.`;
+    }
+  }
+  document.getElementById('trip-again').addEventListener('click', () => {
+    tripPanelDone.classList.add('hidden');
+    startDrive();
+  });
+  document.getElementById('trip-menu').addEventListener('click', () => {
+    tripPanelDone.classList.add('hidden');
+    startPanel.classList.remove('hidden');
+    stateOutput.textContent = 'READY';
+  });
 
   // ----- Garage -----
   const store = createGarageStore();
@@ -667,7 +731,7 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
     garageStatus.textContent = 'Loading garage…';
     await store.ready;
     if (!signedIn()) await store.init();
-    else await store.refresh().catch(() => {});
+    else await store.refresh().catch((error) => { store.loadError = 'Could not refresh your garage. Please try again.'; console.warn(error); });
     garageStatus.textContent = store.loadError;
     const selected = CARS.find((c) => c.id === (signedIn() ? store.garage.selected : CARS[0].id));
     previewCar(selected);

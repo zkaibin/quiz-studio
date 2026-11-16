@@ -24,6 +24,11 @@
     </section>
 
     <div class="location-tag"><span>●</span> SINGAPORE <b>·</b> <em id="location-name">CITY CENTRE</em></div>
+    <div id="trip" class="trip-bar" hidden>
+      <div class="trip-ends"><span id="trip-from">Start</span><span id="trip-to">Finish</span></div>
+      <div class="trip-track"><i id="trip-fill"></i></div>
+      <div class="trip-meta"><span id="trip-remaining">0 m to go</span><span id="trip-reward"></span></div>
+    </div>
     <div id="hint" class="driving-hint">W / ↑ accelerate <b>·</b> A D / ← → steer <b>·</b> S / ↓ brake <b>·</b> P pause</div>
 
     <div class="touch-controls" aria-label="Touch driving controls">
@@ -63,6 +68,17 @@
         <div id="car-list" class="car-list"></div>
         <div id="car-detail" class="car-detail"></div>
         <button id="close-garage" class="primary-button" type="button">Done <span>✓</span></button>
+      </div>
+    </section>
+
+    <section id="trip-complete" class="overlay hidden" aria-live="polite">
+      <div class="welcome-card pause-card">
+        <p class="eyebrow">TRIP COMPLETE</p>
+        <h2 id="trip-title">You have arrived</h2>
+        <p id="trip-summary" class="intro"></p>
+        <p id="trip-points" class="trip-points"></p>
+        <button id="trip-again" class="primary-button" type="button">Drive again <span>↗</span></button>
+        <button id="trip-menu" class="text-button" type="button">Choose another route</button>
       </div>
     </section>
 
