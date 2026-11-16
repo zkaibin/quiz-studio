@@ -34,6 +34,13 @@ button { font: inherit; }
 .welcome-card h2 { font-size: 38px; letter-spacing: -1.5px; }
 .intro { margin: 17px 0 20px; color: #607477; font-size: 14px; line-height: 1.7; }
 .route-pill { display: inline-flex; gap: 9px; align-items: center; margin-bottom: 22px; padding: 9px 11px; border-radius: 7px; background: #edf3ee; color: #49615d; font-size: 11px; font-weight: 650; }
+.route-pill b { font-weight: 650; }
+.route-list { display: flex; flex-wrap: wrap; gap: 6px; margin: -8px 0 20px; }
+.route-list button { padding: 6px 10px; border: 1px solid #cfdad6; border-radius: 999px; background: #fff; color: #3d5a58; font-size: 11px; font-weight: 700; cursor: pointer; }
+.route-list button:hover { background: #f1f6f4; }
+.route-list button.on { border-color: #d96f50; background: #d96f50; color: #fff; }
+.location-tag em { font-style: normal; text-transform: uppercase; }
+.welcome-card { max-height: calc(100vh - 48px); overflow-y: auto; }
 .route-pill span { color: #8b9b93; font-size: 9px; font-weight: 800; letter-spacing: .9px; }
 .primary-button { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 15px 18px; border: 0; border-radius: 10px; background: #d96f50; color: #fff; font-size: 14px; font-weight: 750; cursor: pointer; box-shadow: 0 8px 18px rgba(217,111,80,.22); }
 .primary-button:hover { background: #c85f43; transform: translateY(-1px); }

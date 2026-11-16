@@ -1,0 +1,489 @@
+// Selectable Singapore routes and the stylised landmark models used along them.
+import * as THREE from './vendor/three/three.module.min.js';
+
+const materialCache = new Map();
+function mat(color, { rough = 0.8, metal = 0, emissive = 0, glow = 0, opacity = 1 } = {}) {
+  const key = [color, rough, metal, emissive, glow, opacity].join('|');
+  if (!materialCache.has(key)) {
+    materialCache.set(key, new THREE.MeshStandardMaterial({
+      color, roughness: rough, metalness: metal,
+      emissive, emissiveIntensity: glow,
+      transparent: opacity < 1, opacity
+    }));
+  }
+  return materialCache.get(key);
+}
+
+const unitBox = new THREE.BoxGeometry(1, 1, 1);
+const box = (g, m, x, y, z, sx, sy, sz) => {
+  const mesh = new THREE.Mesh(unitBox, m);
+  mesh.position.set(x, y, z);
+  mesh.scale.set(sx, sy, sz);
+  g.add(mesh);
+  return mesh;
+};
+const cyl = (g, m, x, y, z, rTop, rBot, h, seg = 16) => {
+  const mesh = new THREE.Mesh(new THREE.CylinderGeometry(rTop, rBot, h, seg), m);
+  mesh.position.set(x, y + h / 2, z);
+  g.add(mesh);
+  return mesh;
+};
+const dome = (g, m, x, y, z, rx, ry, rz, seg = 20) => {
+  const mesh = new THREE.Mesh(new THREE.SphereGeometry(1, seg, 10, 0, Math.PI * 2, 0, Math.PI / 2), m);
+  mesh.position.set(x, y, z);
+  mesh.scale.set(rx, ry, rz);
+  g.add(mesh);
+  return mesh;
+};
+const ball = (g, m, x, y, z, r) => {
+  const mesh = new THREE.Mesh(new THREE.SphereGeometry(r, 14, 10), m);
+  mesh.position.set(x, y, z);
+  g.add(mesh);
+  return mesh;
+};
+
+const C = {
+  white: mat(0xf1efe6, { rough: 0.7 }),
+  cream: mat(0xe9dcc0),
+  stone: mat(0xc9c3b2),
+  glass: mat(0x5d98ab, { rough: 0.2, metal: 0.3 }),
+  glassDark: mat(0x2f5f73, { rough: 0.2, metal: 0.35 }),
+  glassClear: mat(0xbfe6ee, { rough: 0.1, metal: 0.1, opacity: 0.5 }),
+  win: mat(0x3a6573, { rough: 0.3, metal: 0.2 }),
+  dark: mat(0x23353a),
+  red: mat(0xb8432f),
+  gold: mat(0xe1b24a, { rough: 0.35, metal: 0.55 }),
+  tealRoof: mat(0x2f7d72),
+  green: mat(0x3f8a55),
+  darkGreen: mat(0x276b45),
+  water: mat(0x4aa3c6, { rough: 0.2 }),
+  concrete: mat(0xb5b8b4),
+  steel: mat(0xc3ccd1, { rough: 0.35, metal: 0.5 }),
+  sand: mat(0xdcc9a1),
+  blue: mat(0x2f6fb0),
+  orange: mat(0xe08a3c)
+};
+const pastel = [0xf1a7b5, 0x7ec8b8, 0xf3d27a, 0x8fb3e0, 0xf0a86b, 0xb7a0d8].map((c) => mat(c));
+
+// Stacks of window strips on a tower face (local +x is the road side).
+function windowStrips(g, w, h, d, x, y0, rows, material = C.win) {
+  for (let i = 0; i < rows; i++) box(g, material, x + w / 2 + 0.05, y0 + (i + 0.5) * (h / rows), 0, 0.1, h / rows * 0.45, d * 0.86);
+}
+
+function tieredRoofs(g, bodyMat, roofMat, tiers, w, d, tierH) {
+  let y = 0;
+  for (let i = 0; i < tiers; i++) {
+    const s = 1 - i * 0.2;
+    box(g, bodyMat, 0, y + tierH / 2, 0, w * s, tierH, d * s);
+    y += tierH;
+    box(g, roofMat, 0, y + 0.35, 0, w * s + 4, 0.7, d * s + 4);
+    for (const sx of [-1, 1]) for (const sz of [-1, 1]) {
+      const tip = box(g, roofMat, sx * (w * s / 2 + 2), y + 1, sz * (d * s / 2 + 2), 1.4, 1.2, 1.4);
+      tip.rotation.z = sx * 0.4;
+    }
+    y += 0.7;
+  }
+  return y;
+}
+
+const builders = {
+  mbs(g) {
+    const sky = [];
+    for (const [i, z] of [-14, 0, 14].entries()) {
+      const tower = new THREE.Group();
+      tower.position.set(0, 0, z);
+      tower.rotation.x = (i - 1) * -0.045;
+      box(tower, C.white, 0, 25, 0, 11, 50, 9);
+      windowStrips(tower, 11, 50, 9, 0, 1, 13, C.glassDark);
+      g.add(tower);
+      sky.push(tower);
+    }
+    box(g, C.white, 0, 52, 0, 12, 2.2, 56);
+    box(g, C.white, 0, 53.5, 22, 7, 1.4, 20);
+    box(g, C.water, 2, 53.2, -4, 5, 0.3, 26);
+    for (let i = 0; i < 6; i++) ball(g, C.darkGreen, -3.5, 54, -20 + i * 5, 1.1);
+    box(g, C.stone, 0, 0.6, 0, 22, 1.2, 50);
+  },
+  merlion(g) {
+    cyl(g, C.stone, 0, 0, 0, 6, 7, 1.6, 24);
+    cyl(g, C.white, 0, 1.6, 0, 2, 3.4, 7, 16);
+    cyl(g, C.white, -0.6, 8.4, 0, 2.6, 2, 2.2, 16);
+    ball(g, C.white, 0.6, 12, 0, 2.7);
+    for (let i = 0; i < 8; i++) {
+      const a = (i / 8) * Math.PI * 2;
+      ball(g, C.stone, -0.5 + Math.cos(a) * 0.5, 12.5 + Math.sin(a) * 2.2, Math.sin(a * 2) * 1.6, 0.9);
+    }
+    ball(g, C.dark, 2.7, 12.5, -1, 0.35);
+    ball(g, C.dark, 2.7, 12.5, 1, 0.35);
+    for (let i = 0; i < 10; i++) {
+      const t = i / 9;
+      box(g, C.water, 3 + t * 10, 11.2 - t * t * 8, 0, 1.1, 0.5, 0.5);
+    }
+    const tail = cyl(g, C.white, -3, 1.6, 0, 0.7, 1.6, 5, 10);
+    tail.rotation.z = 0.7;
+    box(g, C.water, 6, 0.2, 0, 12, 0.3, 16);
+  },
+  esplanade(g) {
+    const shell = mat(0xc6b78f, { rough: 0.4, metal: 0.45 });
+    for (const [z, rx, rz] of [[-10, 15, 11], [11, 12, 9]]) {
+      dome(g, shell, 0, 0, z, rx, 9, rz, 18);
+      for (let i = 0; i < 38; i++) {
+        const a = Math.random() * Math.PI * 2;
+        const e = Math.acos(Math.random() * 0.95);
+        const spike = new THREE.Mesh(new THREE.ConeGeometry(0.45, 2.4, 5), shell);
+        spike.position.set(Math.cos(a) * Math.sin(e) * rx, Math.cos(e) * 9, z + Math.sin(a) * Math.sin(e) * rz);
+        spike.lookAt(spike.position.x * 2, spike.position.y * 1.6 + 9, spike.position.z * 2 - z);
+        spike.rotateX(Math.PI / 2);
+        g.add(spike);
+      }
+    }
+    box(g, C.stone, 0, 0.5, 0, 34, 1, 40);
+  },
+  artscience(g) {
+    cyl(g, C.white, 0, 0, 0, 7, 8, 5, 24);
+    for (let i = 0; i < 10; i++) {
+      const a = (i / 10) * Math.PI * 2;
+      const finger = new THREE.Group();
+      finger.position.set(Math.cos(a) * 5, 4, Math.sin(a) * 5);
+      finger.rotation.set(Math.sin(a) * 0.5, 0, -Math.cos(a) * 0.5);
+      box(finger, C.cream, 0, 8, 0, 2.2, 16, 1);
+      g.add(finger);
+    }
+    box(g, C.water, 0, 0.1, 0, 28, 0.3, 28);
+    box(g, C.stone, 0, 0.6, 0, 18, 1.2, 18);
+  },
+  flyer(g) {
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(19, 0.55, 8, 48), C.steel);
+    ring.position.set(0, 22, 0);
+    g.add(ring);
+    const inner = new THREE.Mesh(new THREE.TorusGeometry(17.6, 0.25, 6, 48), C.steel);
+    inner.position.set(0, 22, 0);
+    g.add(inner);
+    for (let i = 0; i < 28; i++) {
+      const a = (i / 28) * Math.PI * 2;
+      box(g, C.glassClear, Math.sin(a) * 19.6, 22 + Math.cos(a) * 19.6, 0, 1.6, 1.6, 1.6);
+    }
+    for (let i = 0; i < 6; i++) {
+      const spoke = box(g, C.steel, 0, 22, 0, 0.18, 36, 0.18);
+      spoke.rotation.z = (i / 6) * Math.PI;
+    }
+    for (const s of [-1, 1]) {
+      const leg = box(g, C.steel, 0, 11, s * 5, 1, 24, 1);
+      leg.rotation.x = s * 0.22;
+    }
+    box(g, C.glass, 0, 2, 0, 12, 4, 32);
+  },
+  supertrees(g) {
+    const hues = [[0x8a3e86, 0x3a1038], [0xc0457d, 0x4b1230], [0x4f9b5a, 0x12351a]];
+    [[0, -11, 26], [-2, 6, 33], [-5, 19, 21]].forEach(([x, z, h], i) => {
+      const [col, glow] = hues[i % hues.length];
+      cyl(g, mat(0x5e5148), x, 0, z, 0.9, 1.7, h, 10);
+      cyl(g, mat(col, { emissive: glow, glow: 0.8 }), x, h - 1, z, 9, 2, 6, 14);
+      cyl(g, mat(col, { emissive: glow, glow: 0.8 }), x, h + 4.8, z, 3, 9, 1.4, 14);
+      for (let k = 0; k < 7; k++) {
+        const a = (k / 7) * Math.PI * 2;
+        box(g, mat(0x6bbd6e), x + Math.cos(a) * 3, h * 0.55, z + Math.sin(a) * 3, 0.3, h * 0.55, 0.3);
+      }
+    });
+    box(g, C.steel, -2, 20, -2, 1.4, 0.5, 34);
+  },
+  flowerdome(g) {
+    dome(g, C.glassClear, 0, 0, 0, 24, 12, 16, 28);
+    const ribs = new THREE.Mesh(
+      new THREE.SphereGeometry(1, 14, 6, 0, Math.PI * 2, 0, Math.PI / 2),
+      new THREE.MeshBasicMaterial({ color: 0xe8f4f4, wireframe: true })
+    );
+    ribs.scale.set(24.1, 12.1, 16.1);
+    g.add(ribs);
+    box(g, C.green, 0, 0.8, 0, 40, 1.6, 26);
+    for (let i = 0; i < 6; i++) ball(g, pastel[i], -14 + i * 5.6, 2.4, (i % 2 ? 4 : -4), 1.5);
+  },
+  cloudforest(g) {
+    dome(g, C.glassClear, 0, 0, 0, 18, 22, 16, 24);
+    const mountain = new THREE.Mesh(new THREE.ConeGeometry(8, 20, 10), mat(0x5c8f64));
+    mountain.position.set(0, 10, 0);
+    g.add(mountain);
+    box(g, C.white, 5, 10, 0, 0.8, 18, 1.6);
+    box(g, C.green, 0, 0.8, 0, 38, 1.6, 34);
+  },
+  raffles(g) {
+    box(g, C.white, 0, 8, 0, 20, 16, 34);
+    box(g, C.white, 0, 20, 0, 14, 8, 22);
+    const roofA = cyl(g, C.red, 0, 24, 0, 6, 15, 5, 4);
+    roofA.rotation.y = Math.PI / 4;
+    roofA.scale.set(1.2, 1, 1.7);
+    for (let z = -15; z <= 15; z += 3) {
+      cyl(g, C.white, 10.5, 0, z, 0.4, 0.4, 7, 8);
+      box(g, C.dark, 10.2, 11, z, 0.2, 2.6, 1.2);
+    }
+    box(g, C.red, 10.6, 7.2, 0, 1.4, 0.5, 34);
+    box(g, C.red, 10.2, 3.5, 0, 0.3, 2, 6);
+  },
+  standrews(g) {
+    box(g, C.white, 0, 7, 0, 14, 14, 26);
+    const roof = cyl(g, C.stone, 0, 14, 0, 0.5, 8, 5, 4);
+    roof.rotation.y = Math.PI / 4;
+    roof.scale.set(1, 1, 1.7);
+    box(g, C.white, 6, 13, 0, 6, 26, 6);
+    const spire = new THREE.Mesh(new THREE.ConeGeometry(4, 16, 8), C.white);
+    spire.position.set(6, 34, 0);
+    g.add(spire);
+    for (const z of [-8, -3, 3, 8]) box(g, C.dark, 7.1, 7, z, 0.2, 5, 1.6);
+    box(g, C.dark, 9.1, 7, 0, 0.2, 5, 2.6);
+  },
+  supremecourt(g) {
+    box(g, C.white, 0, 9, 0, 22, 18, 40);
+    box(g, C.stone, 0, 19, 0, 20, 1.6, 36);
+    cyl(g, C.white, -2, 19.6, 0, 7, 7.5, 6, 24);
+    dome(g, mat(0x8aa39a, { rough: 0.4, metal: 0.3 }), -2, 25.6, 0, 8, 5, 8, 24);
+    for (let z = -18; z <= 18; z += 4.5) cyl(g, C.white, 11.5, 0, z, 0.65, 0.65, 14, 10);
+    box(g, C.stone, 11.8, 14.4, 0, 1.6, 1.2, 38);
+    box(g, C.stone, 12, 0.3, 0, 3, 0.6, 40);
+  },
+  fullerton(g) {
+    box(g, C.cream, 0, 10, 0, 24, 20, 46);
+    box(g, C.stone, 0, 20.5, 0, 25, 1, 47);
+    for (let z = -21; z <= 21; z += 3) {
+      cyl(g, C.white, 12.8, 0, z, 0.55, 0.55, 15, 8);
+      box(g, C.dark, 12.1, 10, z + 1.5, 0.15, 4, 1.4);
+    }
+    box(g, C.stone, 12.6, 15.3, 0, 1.4, 1, 46);
+    box(g, C.stone, 0, 23, 0, 12, 4, 14);
+  },
+  ion(g) {
+    box(g, C.glass, 0, 7, 0, 26, 14, 34);
+    box(g, C.red, 13.2, 11, 0, 0.5, 2.4, 18);
+    const tower = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 38, 28), C.glass);
+    tower.scale.set(8, 1, 12);
+    tower.position.set(-2, 33, 0);
+    g.add(tower);
+    for (let i = 0; i < 9; i++) {
+      const band = new THREE.Mesh(new THREE.CylinderGeometry(1.01, 1.01, 0.8, 28), C.white);
+      band.scale.set(8.1, 1, 12.1);
+      band.position.set(-2, 18 + i * 4.2, 0);
+      g.add(band);
+    }
+  },
+  tangs(g) {
+    box(g, C.cream, 0, 8, 0, 24, 16, 34);
+    box(g, C.red, 12.2, 8, 0, 0.6, 16, 34);
+    const roofs = new THREE.Group();
+    roofs.position.y = 16;
+    g.add(roofs);
+    tieredRoofs(roofs, C.red, C.tealRoof, 2, 18, 26, 4);
+    for (let z = -14; z <= 14; z += 7) box(g, C.gold, 12.6, 12, z, 0.2, 2, 3);
+  },
+  buddhatooth(g) {
+    box(g, C.stone, 0, 0.5, 0, 24, 1, 28);
+    const t = new THREE.Group();
+    t.position.y = 1;
+    g.add(t);
+    const top = tieredRoofs(t, C.red, C.tealRoof, 3, 20, 22, 6);
+    cyl(t, C.gold, 0, top, 0, 0.2, 1.6, 4, 8);
+    for (const z of [-7, 0, 7]) box(t, C.gold, 8 * 1.3, 3, z, 0.2, 4, 2.4);
+  },
+  mariamman(g) {
+    box(g, C.cream, 0, 3, 0, 18, 6, 26);
+    let y = 6;
+    for (let i = 0; i < 6; i++) {
+      const w = 15 - i * 2;
+      box(g, pastel[i % pastel.length], 0, y + 1.4, 0, w, 2.8, w * 1.3);
+      box(g, C.white, 0, y + 2.9, 0, w + 0.6, 0.35, w * 1.3 + 0.6);
+      for (let k = -1; k <= 1; k++) ball(g, C.gold, w / 2 + 0.1, y + 1.4, k * (w * 0.35), 0.45);
+      y += 3.1;
+    }
+    const roof = cyl(g, C.red, 0, y, 0, 3.2, 3.2, 6, 12);
+    roof.rotation.x = Math.PI / 2;
+    roof.position.y = y + 1.5;
+    for (const z of [-3, 0, 3]) cyl(g, C.gold, 0, y + 3, z, 0.1, 0.45, 2, 6);
+  },
+  sultan(g) {
+    box(g, C.cream, 0, 6, 0, 24, 12, 30);
+    const goldDome = mat(0xe0b64a, { rough: 0.3, metal: 0.6 });
+    cyl(g, C.cream, 0, 12, 0, 8, 8, 4, 24);
+    dome(g, goldDome, 0, 16, 0, 8.5, 9, 8.5, 28);
+    cyl(g, C.gold, 0, 25, 0, 0.1, 0.6, 3, 6);
+    for (const z of [-11, 11]) {
+      dome(g, goldDome, 4, 12, z, 3.2, 3.4, 3.2, 16);
+      cyl(g, C.cream, 11, 0, z * 1.18, 1.6, 1.8, 22, 10);
+      dome(g, goldDome, 11, 22, z * 1.18, 2.3, 2.6, 2.3, 12);
+    }
+    for (let z = -12; z <= 12; z += 4) box(g, C.dark, 12.1, 5, z, 0.15, 5, 1.6);
+  },
+  shophouses(g) {
+    for (let i = 0; i < 5; i++) {
+      const z = -16 + i * 8;
+      const h = 11 + (i % 3) * 2;
+      box(g, pastel[i % pastel.length], 0, h / 2, z, 12, h, 7.6);
+      box(g, C.white, 6.1, h - 0.5, z, 0.3, 0.7, 7.8);
+      const roof = cyl(g, C.red, 0, h, z, 0.1, 4.6, 2.2, 4);
+      roof.rotation.y = Math.PI / 4;
+      roof.scale.set(1.5, 1, 1);
+      for (const y of [3, 8]) {
+        box(g, C.green, 6.1, y, z - 1.5, 0.2, 2.8, 1.5);
+        box(g, C.green, 6.1, y, z + 1.5, 0.2, 2.8, 1.5);
+      }
+      box(g, C.dark, 6.1, 1.2, z, 0.2, 2.4, 2.4);
+      box(g, C.gold, 6.35, 5.2, z, 0.5, 0.18, 7);
+    }
+  },
+  pinnacle(g) {
+    for (let i = 0; i < 7; i++) {
+      box(g, i % 2 ? C.cream : C.white, 0, 22, -21 + i * 7, 9, 44, 5.6);
+    }
+    for (let i = 0; i < 7; i++) {
+      const z = -21 + i * 7;
+      for (let y = 4; y < 44; y += 4.4) box(g, C.win, 4.55, y, z, 0.1, 1.5, 4);
+    }
+    box(g, C.steel, 0, 25, 0, 10, 1.4, 44);
+    box(g, C.steel, 0, 44.4, 0, 10, 1.6, 44);
+    for (let i = 0; i < 6; i++) ball(g, C.green, 4.5, 45.7, -18 + i * 7, 1.1);
+  },
+  financial(g) {
+    [[-4, -12, 54, 12, 14], [2, 4, 68, 12, 12], [-6, 17, 44, 10, 10]].forEach(([x, z, h, w, d], i) => {
+      box(g, i === 1 ? C.glassDark : C.glass, x, h / 2, z, w, h, d);
+      for (let y = 3; y < h; y += 3.4) box(g, C.white, x + w / 2 + 0.05, y, z, 0.1, 0.35, d);
+      box(g, C.steel, x, h + 1.2, z, w * 0.6, 2.4, d * 0.6);
+      if (i === 1) cyl(g, C.steel, x, h + 2.4, z, 0.1, 0.4, 9, 6);
+    });
+    box(g, C.glassClear, 8, 5, 0, 5, 10, 40);
+  },
+  jewel(g) {
+    dome(g, C.glassClear, 0, 0, 0, 24, 15, 24, 28);
+    const ribs = new THREE.Mesh(
+      new THREE.SphereGeometry(1, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2),
+      new THREE.MeshBasicMaterial({ color: 0xf2f7f7, wireframe: true })
+    );
+    ribs.scale.set(24.1, 15.1, 24.1);
+    g.add(ribs);
+    cyl(g, mat(0xcfe9f5, { opacity: 0.8 }), 0, 0, 0, 4.4, 3.2, 17, 20);
+    cyl(g, C.green, 0, 0, 0, 12, 12, 1.4, 24);
+    for (let i = 0; i < 10; i++) {
+      const a = (i / 10) * Math.PI * 2;
+      ball(g, C.darkGreen, Math.cos(a) * 9, 2.4, Math.sin(a) * 9, 1.4);
+    }
+    box(g, C.glass, 0, 1.5, 0, 52, 3, 50);
+  },
+  changitower(g) {
+    cyl(g, C.concrete, 0, 0, 0, 1.8, 2.8, 34, 14);
+    cyl(g, C.white, 0, 34, 0, 5.4, 4, 4, 16);
+    cyl(g, C.glassDark, 0, 38, 0, 5.6, 5.6, 3, 16);
+    cyl(g, C.red, 0, 41, 0, 3, 5.8, 1.2, 16);
+    cyl(g, C.steel, 0, 42.2, 0, 0.1, 0.4, 8, 6);
+    box(g, C.glass, 0, 3, 0, 14, 6, 20);
+  },
+  sentosamerlion(g) {
+    g.scale.set(1.5, 1.5, 1.5);
+    builders.merlion(g);
+  },
+  globe(g) {
+    cyl(g, C.steel, 0, 0, 0, 5, 7, 2.4, 20);
+    ball(g, mat(0x2d6fc2, { rough: 0.3, metal: 0.4 }), 0, 12, 0, 9.5);
+    for (const tilt of [0, 0.7, -0.7]) {
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(10, 0.3, 6, 40), C.gold);
+      ring.position.y = 12;
+      ring.rotation.set(Math.PI / 2 + tilt, 0, 0);
+      g.add(ring);
+    }
+    box(g, C.stone, 0, 0.5, 0, 26, 1, 26);
+  },
+  cablecar(g) {
+    for (const z of [-24, 24]) {
+      box(g, C.red, 0, 18, z, 2, 36, 2);
+      box(g, C.red, 0, 33, z, 6, 1, 1);
+    }
+    box(g, C.dark, 0, 33, 0, 0.12, 0.12, 50);
+    for (const z of [-10, 12]) {
+      box(g, C.red, 0, 29.5, z, 3.4, 2.2, 3.4);
+      box(g, C.glassClear, 0, 29.5, z, 3.5, 1.3, 3.5);
+      box(g, C.dark, 0, 31.2, z, 0.12, 2.2, 0.12);
+    }
+  },
+  ship(g) {
+    box(g, mat(0x25364a), 0, 2, 0, 12, 4, 60);
+    box(g, C.red, 0, 4.4, 0, 12.2, 0.8, 60.2);
+    const colours = [C.orange, C.blue, C.red, C.green, C.white];
+    for (let z = -22; z <= 14; z += 6) {
+      for (let y = 0; y < 3; y++) box(g, colours[(Math.abs(z) / 6 + y) % colours.length | 0], 0, 5.6 + y * 2.4, z, 9, 2.3, 5.4);
+    }
+    box(g, C.white, 0, 9, 24, 10, 10, 8);
+    box(g, C.glassDark, 5.1, 12, 24, 0.2, 1.6, 7);
+  }
+};
+
+const LANDMARK_NAMES = {
+  mbs: 'Marina Bay Sands', merlion: 'Merlion Park', esplanade: 'Esplanade – Theatres on the Bay',
+  artscience: 'ArtScience Museum', flyer: 'Singapore Flyer', supertrees: 'Supertree Grove',
+  flowerdome: 'Flower Dome', cloudforest: 'Cloud Forest', raffles: 'Raffles Hotel',
+  standrews: "St Andrew's Cathedral", supremecourt: 'Supreme Court', fullerton: 'Fullerton Hotel',
+  ion: 'ION Orchard', tangs: 'Tangs Orchard', buddhatooth: 'Buddha Tooth Relic Temple',
+  mariamman: 'Sri Mariamman Temple', sultan: 'Sultan Mosque', shophouses: 'Little India Shophouses',
+  pinnacle: 'Pinnacle@Duxton', financial: 'Marina Bay Financial Centre', jewel: 'Jewel Changi Airport',
+  changitower: 'Changi Control Tower', sentosamerlion: 'Sentosa Merlion', globe: 'Universal Studios Globe',
+  cablecar: 'Singapore Cable Car', ship: 'Container Ship · Singapore Strait'
+};
+
+// Footprint depth (x extent behind the road-facing front) used to set each model back from the road.
+const DEPTH = {
+  mbs: 22, merlion: 14, esplanade: 34, artscience: 22, flyer: 14, supertrees: 24, flowerdome: 46, cloudforest: 38,
+  raffles: 22, standrews: 14, supremecourt: 24, fullerton: 24, ion: 28, tangs: 24, buddhatooth: 24,
+  mariamman: 18, sultan: 26, shophouses: 12, pinnacle: 10, financial: 22, jewel: 52, changitower: 14,
+  sentosamerlion: 20, globe: 26, cablecar: 6, ship: 14
+};
+
+export function buildLandmark(id) {
+  const root = new THREE.Group();
+  const inner = new THREE.Group();
+  inner.position.x = -DEPTH[id] / 2;
+  root.add(inner);
+  builders[id](inner);
+  root.userData = { id, name: LANDMARK_NAMES[id] };
+  return root;
+}
+
+export function disposeLandmarks(group) {
+  group.traverse((o) => {
+    if (o.geometry && o.geometry !== unitBox) o.geometry.dispose();
+    if (o.material && o.material.isMeshBasicMaterial) o.material.dispose();
+  });
+}
+
+export const ROUTES = [
+  {
+    id: 'downtown', name: 'Downtown Classic', area: 'CITY CENTRE', blurb: 'Downtown · Marina Bay · Chinatown',
+    sky: 0xa9d5e5, ground: 0x91ad89, hemi: 2.0, sun: 2.4, sunColor: 0xffefd2,
+    landmarks: ['financial', 'buddhatooth', 'mbs', 'pinnacle', 'fullerton']
+  },
+  {
+    id: 'marina', name: 'Marina Bay Waterfront', area: 'MARINA BAY', blurb: 'Bayfront promenade at golden hour',
+    sky: 0xf3b98d, ground: 0xc4bda4, water: -1, waterColor: 0x4c93b5, hemi: 1.7, sun: 2.2, sunColor: 0xffb878,
+    landmarks: ['mbs', 'flyer', 'artscience', 'financial'], waterLandmarks: ['merlion', 'esplanade', 'ship']
+  },
+  {
+    id: 'gardens', name: 'Gardens by the Bay', area: 'BAYFRONT SOUTH', blurb: 'Supertrees and conservatories after dusk',
+    sky: 0x27345f, ground: 0x4e8a5a, hemi: 1.6, sun: 1.3, sunColor: 0x9fb4ff,
+    landmarks: ['supertrees', 'flowerdome', 'supertrees', 'cloudforest', 'mbs']
+  },
+  {
+    id: 'heritage', name: 'Heritage Trail', area: 'CHINATOWN · LITTLE INDIA', blurb: 'Temples, mosque and shophouses',
+    sky: 0xf0dcb8, ground: 0xa89f84, hemi: 1.9, sun: 2.2, sunColor: 0xffe2b0,
+    landmarks: ['buddhatooth', 'mariamman', 'sultan', 'shophouses', 'pinnacle']
+  },
+  {
+    id: 'civic', name: 'Civic District & Orchard', area: 'CIVIC DISTRICT', blurb: 'Colonial icons and Orchard Road malls',
+    sky: 0xb7d8ea, ground: 0x9fb48f, hemi: 2.0, sun: 2.4, sunColor: 0xfff1d6,
+    landmarks: ['supremecourt', 'standrews', 'raffles', 'fullerton', 'ion', 'tangs']
+  },
+  {
+    id: 'changi', name: 'East Coast to Changi', area: 'EAST COAST', blurb: 'Seaside run to the airport',
+    sky: 0x9fd4ea, ground: 0xc9c29c, water: 1, waterColor: 0x3f9ac0, hemi: 2.1, sun: 2.5, sunColor: 0xfff4dc,
+    landmarks: ['jewel', 'changitower', 'flyer'], waterLandmarks: ['ship']
+  },
+  {
+    id: 'sentosa', name: 'Sentosa Gateway', area: 'SENTOSA', blurb: 'Island resort and cable car views',
+    sky: 0x8fd7ee, ground: 0x8fc079, water: 1, waterColor: 0x3aa6c9, hemi: 2.2, sun: 2.5, sunColor: 0xfff6e0,
+    landmarks: ['sentosamerlion', 'globe', 'cablecar'], waterLandmarks: ['ship', 'cablecar']
+  }
+];
+
+export const DEFAULT_ROUTE_ID = ROUTES[0].id;

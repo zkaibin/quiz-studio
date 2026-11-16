@@ -24,24 +24,41 @@ function sanitize(data) {
 export function createGarageStore() {
   const store = { user: null, db: null, fs: null, points: 0, garage: sanitize(null), ready: null };
 
-  store.ready = (async () => {
-    try {
-      await import('./firebase-config.js');
-      store.fs = await import(FS);
-      store.db = window.FB_DB;
-      const auth = window.FB_AUTH;
-      store.user = auth.currentUser || await new Promise((resolve) => {
-        const timeout = setTimeout(() => resolve(null), 4000);
-        import(AUTH).then(({ onAuthStateChanged }) => {
-          const off = onAuthStateChanged(auth, (u) => { clearTimeout(timeout); off(); resolve(u); });
-        });
+  store.loadError = '';
+
+  // Auth and garage loading are separate so a Firestore failure never looks like being signed out.
+  async function resolveUser() {
+    await import('./firebase-config.js');
+    store.fs = store.fs || await import(FS);
+    store.db = window.FB_DB;
+    const auth = window.FB_AUTH;
+    if (typeof auth.authStateReady === 'function') await auth.authStateReady();
+    store.user = auth.currentUser || await new Promise((resolve) => {
+      const timeout = setTimeout(() => resolve(null), 6000);
+      import(AUTH).then(({ onAuthStateChanged }) => {
+        const off = onAuthStateChanged(auth, (u) => { clearTimeout(timeout); off(); resolve(u); });
       });
-      if (store.user) await store.refresh();
+    });
+  }
+
+  store.init = async () => {
+    store.loadError = '';
+    try {
+      if (!store.user) await resolveUser();
     } catch (error) {
-      console.warn('City Driving garage unavailable.', error);
+      console.warn('City Driving auth unavailable.', error);
       store.user = null;
+      return;
     }
-  })();
+    if (store.user) {
+      try { await store.refresh(); } catch (error) {
+        console.warn('City Driving garage failed to load.', error);
+        store.loadError = 'Signed in, but your garage could not be loaded. Please try again.';
+      }
+    }
+  };
+
+  store.ready = store.init();
 
   store.refresh = async () => {
     const { doc, getDoc } = store.fs;
