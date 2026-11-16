@@ -1,4 +1,6 @@
 import * as THREE from './vendor/three/three.module.min.js';
+import { CARS, UPGRADES, MAX_UPGRADE_LEVEL, defaultUpgrades, upgradeCost, computeStats, buildCarModel } from './city-cars.js';
+import { createGarageStore } from './city-garage.js';
 
 (() => {
   const mount = document.getElementById('city-scene');
@@ -13,9 +15,10 @@ import * as THREE from './vendor/three/three.module.min.js';
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0xa9d5e5);
   scene.fog = new THREE.Fog(0xa9d5e5, 85, 370);
-  const camera = new THREE.PerspectiveCamera(64, mount.clientWidth / mount.clientHeight, 0.1, 500);
-  camera.position.set(0, 7.2, 12);
-  camera.lookAt(0, 1, -18);
+  const baseFov = 62;
+  const camera = new THREE.PerspectiveCamera(baseFov, mount.clientWidth / mount.clientHeight, 0.1, 500);
+  camera.position.set(0, 5.0, 11.8);
+  camera.lookAt(0, 1.1, -16);
   scene.add(new THREE.HemisphereLight(0xe4f6ff, 0x7d826d, 2.0));
   const sunlight = new THREE.DirectionalLight(0xffefd2, 2.4);
   sunlight.position.set(-35, 55, 20);
@@ -70,14 +73,16 @@ import * as THREE from './vendor/three/three.module.min.js';
   }
 
   const roadMarks = [];
-  function roadMark(x, z, width, length, material) {
+  const dashSpacing = 13;
+  const dashCount = 41;
+  function roadMark(x, z, width, length, material, moves = false) {
     const mark = new THREE.Mesh(new THREE.BoxGeometry(width, 0.025, length), material);
     mark.position.set(x, 0.012, z);
     scene.add(mark);
-    roadMarks.push(mark);
+    if (moves) roadMarks.push(mark);
   }
   for (const x of [-7.1, -3.55, 3.55, 7.1]) {
-    for (let z = -490; z < 40; z += 13) roadMark(x, z, x === -3.55 || x === 3.55 ? 0.1 : 0.16, 6, materials.white);
+    for (let i = 0; i < dashCount; i++) roadMark(x, -490 + i * dashSpacing, x === -3.55 || x === 3.55 ? 0.1 : 0.16, 6, materials.white, true);
   }
   roadMark(-0.09, -215, 0.12, 510, materials.lane);
   roadMark(0.09, -215, 0.12, 510, materials.lane);
@@ -151,33 +156,36 @@ import * as THREE from './vendor/three/three.module.min.js';
     addBuilding(block, 1, -16, 0);
     addBuilding(block, -1, -44, 1);
     addBuilding(block, 1, -44, 1);
-    addPalm(block, -9.3, -8);
-    addPalm(block, 9.3, -8);
-    addLamp(block, -8.7, -34);
-    addLamp(block, 8.7, -34);
+    for (let k = 0; k < 4; k++) {
+      addPalm(block, -9.3, -8 - k * 16);
+      addPalm(block, 9.3, -16 - k * 16);
+      addLamp(block, -8.7, -2 - k * 16);
+      addLamp(block, 8.7, -10 - k * 16);
+    }
+    for (let k = 0; k < 16; k++) {
+      for (const side of [-1, 1]) box(block, k % 2 ? materials.red : materials.white, side * 7.75, 0.28, -k * 4, 0.16, 0.3, 1.4);
+    }
     urbanBlocks.push(block);
     scene.add(block);
   }
 
   const player = new THREE.Group();
-  const playerBody = box(player, materials.car, 0, 0.75, 0, 1.85, 0.72, 4.1);
-  box(player, materials.dark, 0, 1.3, -0.25, 1.42, 0.65, 1.95);
-  box(player, materials.glass, 0, 1.36, -0.29, 1.28, 0.46, 1.68);
-  box(player, materials.white, 0, 1.08, -1.65, 1.6, 0.12, 0.65);
-  for (const x of [-0.62, 0.62]) {
-    box(player, materials.lamp, x, 0.77, -2.06, 0.3, 0.16, 0.08);
-    box(player, materials.red, x, 0.75, 2.07, 0.28, 0.18, 0.08);
-  }
-  for (const x of [-0.98, 0.98]) {
-    for (const z of [-1.25, 1.25]) {
-      const wheel = new THREE.Mesh(new THREE.CylinderGeometry(0.39, 0.39, 0.24, 12), materials.tire);
-      wheel.rotation.z = Math.PI / 2;
-      wheel.position.set(x, 0.4, z);
-      player.add(wheel);
-    }
-  }
   player.position.set(-1.75, 0, 2.6);
   scene.add(player);
+  let carModel = null;
+  let currentCar = CARS[0];
+  let stats = computeStats(currentCar);
+  function showCar(car, colorHex, upgrades) {
+    currentCar = car;
+    stats = computeStats(car, upgrades);
+    if (carModel) {
+      player.remove(carModel);
+      carModel.traverse((o) => { if (o.geometry) o.geometry.dispose(); });
+    }
+    carModel = buildCarModel(THREE, car, colorHex);
+    player.add(carModel);
+  }
+  showCar(CARS[0], CARS[0].colors[0], defaultUpgrades());
 
   const trafficMaterials = [materials.blue, materials.yellow, materials.shop2, materials.tower1, materials.red];
   const traffic = [];
@@ -232,6 +240,67 @@ import * as THREE from './vendor/three/three.module.min.js';
   let playerX = -1.75;
   let lastTime = 0;
   let collisionCooldown = 0;
+  let steerInput = 0;
+  let wheelAngle = 0;
+  const tiltToggle = document.getElementById('tilt-toggle');
+  const touchControls = document.querySelector('.touch-controls');
+  const tiltNeedle = document.getElementById('tilt-needle');
+  const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+  const tilt = { enabled: false, listening: false, raw: 0, neutral: null, value: 0 };
+
+  function screenAngle() {
+    return (screen.orientation && typeof screen.orientation.angle === 'number') ? screen.orientation.angle : (window.orientation || 0);
+  }
+  // Derive the wheel angle from the gravity direction in screen space; stable even when the phone is held upright.
+  function onOrientation(event) {
+    if (event.beta == null || event.gamma == null) return;
+    const beta = THREE.MathUtils.degToRad(event.beta);
+    const gamma = THREE.MathUtils.degToRad(event.gamma);
+    const ux = -Math.cos(beta) * Math.sin(gamma);
+    const uy = Math.sin(beta);
+    const a = THREE.MathUtils.degToRad(screenAngle());
+    const sx = ux * Math.cos(a) - uy * Math.sin(a);
+    const sy = ux * Math.sin(a) + uy * Math.cos(a);
+    if (Math.hypot(sx, sy) < 0.3) return;
+    tilt.raw = THREE.MathUtils.radToDeg(Math.atan2(-sx, sy));
+    if (tilt.neutral === null) tilt.neutral = tilt.raw;
+    let delta = tilt.raw - tilt.neutral;
+    delta = ((delta + 540) % 360) - 180;
+    const dead = 3;
+    const magnitude = Math.max(0, Math.abs(delta) - dead) / (28 - dead);
+    tilt.value = THREE.MathUtils.clamp(Math.sign(delta) * magnitude, -1, 1);
+  }
+  async function setTilt(enabled) {
+    if (enabled) {
+      try {
+        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+          if (await DeviceOrientationEvent.requestPermission() !== 'granted') enabled = false;
+        }
+      } catch (error) {
+        enabled = false;
+      }
+    }
+    if (enabled && !tilt.listening) {
+      window.addEventListener('deviceorientation', onOrientation);
+      tilt.listening = true;
+    }
+    tilt.enabled = enabled && 'DeviceOrientationEvent' in window;
+    tilt.neutral = null;
+    tilt.value = 0;
+    tiltToggle.textContent = `TILT STEER: ${tilt.enabled ? 'ON' : 'OFF'}`;
+    tiltToggle.classList.toggle('on', tilt.enabled);
+    touchControls.classList.toggle('tilt-on', tilt.enabled);
+  }
+  if (isTouchDevice && 'DeviceOrientationEvent' in window) {
+    tiltToggle.hidden = false;
+    tiltToggle.addEventListener('click', () => setTilt(!tilt.enabled));
+  }
+  window.addEventListener('orientationchange', () => { tilt.neutral = null; });
+
+  function steerAxis() {
+    const buttons = (isPressed('right') ? 1 : 0) - (isPressed('left') ? 1 : 0);
+    return buttons || (tilt.enabled ? tilt.value : 0);
+  }
 
   function isPressed(action) {
     if (action === 'left') return controls.left || keys.has('ArrowLeft') || keys.has('a');
@@ -245,6 +314,7 @@ import * as THREE from './vendor/three/three.module.min.js';
     hud.classList.toggle('active', value);
     pauseButton.disabled = !value;
     stateOutput.textContent = value ? 'ON THE ROAD' : 'READY';
+    if (value) tilt.neutral = null;
     startPanel.classList.toggle('hidden', value);
     pausePanel.classList.toggle('hidden', value || !hasStarted);
     hint.style.display = value ? '' : 'none';
@@ -253,11 +323,18 @@ import * as THREE from './vendor/three/three.module.min.js';
   let hasStarted = false;
 
   function startDrive() {
+    if (isTouchDevice && !tilt.asked && 'DeviceOrientationEvent' in window) {
+      tilt.asked = true;
+      setTilt(true);
+    } else {
+      tilt.neutral = null;
+    }
     hasStarted = true;
     speed = 0;
     distance = 0;
     playerX = -1.75;
     player.position.x = playerX;
+    player.rotation.set(0, 0, 0);
     for (let i = 0; i < traffic.length; i++) resetTraffic(traffic[i], i, true);
     distanceOutput.textContent = '0.0';
     setRunning(true);
@@ -333,18 +410,31 @@ import * as THREE from './vendor/three/three.module.min.js';
     const delta = THREE.MathUtils.clamp((now - lastTime) / 1000, 0, 0.05);
     lastTime = now;
     if (running) update(delta);
+    else if (!hasStarted || !garagePanel.classList.contains('hidden')) player.rotation.y += delta * 0.5;
     renderer.render(scene, camera);
   }
 
   function update(delta) {
-    if (isPressed('gas')) speed = Math.min(42, speed + 10 * delta);
-    else speed = Math.max(0, speed - 1.8 * delta);
-    if (isPressed('brake')) speed = Math.max(0, speed - 21 * delta);
-    const steer = (isPressed('right') ? 1 : 0) - (isPressed('left') ? 1 : 0);
-    playerX = THREE.MathUtils.clamp(playerX + steer * (3.4 + speed * 0.08) * delta, -6.1, 6.1);
+    const gas = isPressed('gas');
+    const braking = isPressed('brake');
+    if (gas && !braking) {
+      const ratio = Math.min(1, speed / stats.top);
+      speed += stats.accel * (1 - ratio * ratio) * delta;
+    }
+    // Rolling resistance plus aerodynamic drag
+    speed -= (0.6 + speed * speed * 0.0016) * delta * (gas ? 0.3 : 1);
+    if (braking) speed -= stats.brake * delta;
+    speed = THREE.MathUtils.clamp(speed, 0, stats.top);
+    const steer = steerAxis();
+    steerInput = THREE.MathUtils.lerp(steerInput, steer, 0.25);
+    const lateral = (3.2 + Math.min(speed, 40) * 0.1) * stats.handling;
+    playerX = THREE.MathUtils.clamp(playerX + steerInput * lateral * delta, -6.1, 6.1);
     player.position.x = THREE.MathUtils.lerp(player.position.x, playerX, 0.22);
-    player.rotation.z = THREE.MathUtils.lerp(player.rotation.z, -steer * 0.06, 0.1);
-    player.rotation.y = THREE.MathUtils.lerp(player.rotation.y, -steer * 0.06, 0.12);
+    player.rotation.z = THREE.MathUtils.lerp(player.rotation.z, -steerInput * 0.05, 0.1);
+    player.rotation.y = THREE.MathUtils.lerp(player.rotation.y, -steerInput * 0.07, 0.12);
+    wheelAngle += (speed * delta) / (carModel.userData.wheelRadius || 0.35);
+    carModel.userData.wheels.forEach((w) => { w.rotation.x = -wheelAngle; });
+    if (tiltNeedle) tiltNeedle.style.left = `${50 + steerInput * 45}%`;
 
     const meters = speed * delta;
     distance += meters;
@@ -354,7 +444,8 @@ import * as THREE from './vendor/three/three.module.min.js';
       if (block.position.z > 65) block.position.z -= urbanBlocks.length * 64;
     });
     roadMarks.forEach((mark) => {
-      if (mark.position.z > 30) mark.position.z -= 520;
+      mark.position.z += cityStep;
+      if (mark.position.z > 40) mark.position.z -= dashSpacing * dashCount;
     });
 
     collisionCooldown = Math.max(0, collisionCooldown - delta);
@@ -367,16 +458,157 @@ import * as THREE from './vendor/three/three.module.min.js';
           Math.abs(car.position.z - player.position.z) < 3.1 &&
           Math.abs(car.position.x - player.position.x) < 1.55) {
         collisionCooldown = 1.3;
-        speed *= 0.42;
+        speed *= 0.45;
         resetTraffic(car, index);
       }
     });
 
-    camera.position.x = THREE.MathUtils.lerp(camera.position.x, player.position.x * 0.34, 0.035);
-    camera.lookAt(player.position.x * 0.2, 1.0, -18);
+    const speedRatio = Math.min(1, speed / 60);
+    const fov = baseFov + speedRatio * 16;
+    if (Math.abs(camera.fov - fov) > 0.05) {
+      camera.fov = THREE.MathUtils.lerp(camera.fov, fov, 0.08);
+      camera.updateProjectionMatrix();
+    }
+    const shake = speedRatio * 0.012;
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, player.position.x * 0.34, 0.035) + (Math.random() - 0.5) * shake;
+    camera.position.y = 5.0 - speedRatio * 0.5 + (Math.random() - 0.5) * shake;
+    camera.lookAt(player.position.x * 0.2, 1.1, -16);
     speedOutput.textContent = String(Math.round(speed * 3.6));
     distanceOutput.textContent = (distance / 1000).toFixed(1);
   }
+
+  // ----- Garage -----
+  const store = createGarageStore();
+  const garagePanel = document.getElementById('garage');
+  const carList = document.getElementById('car-list');
+  const carDetail = document.getElementById('car-detail');
+  const garageStatus = document.getElementById('garage-status');
+  const garagePoints = document.getElementById('garage-points');
+  const currentCarLabel = document.getElementById('current-car');
+  let viewingId = CARS[0].id;
+  let busy = false;
+
+  const signedIn = () => !!store.user;
+  const isOwned = (id) => (signedIn() ? store.garage.owned.includes(id) : id === CARS[0].id);
+  const upgradesOf = (id) => (signedIn() && store.garage.upgrades[id]) || defaultUpgrades();
+  const colorOf = (car) => (signedIn() && store.garage.colors[car.id]) || car.colors[0];
+
+  function applyDriveCar(car) {
+    showCar(car, colorOf(car), upgradesOf(car.id));
+    currentCarLabel.textContent = car.name;
+  }
+
+  function statLine(label, value, max, extra = '') {
+    return `<div class="stat-line"><span>${label}</span><div class="stat-bar"><i style="width:${Math.min(100, (value / max) * 100)}%"></i></div>${extra || `<span>${Math.round(value)}</span>`}</div>`;
+  }
+
+  function renderGarage() {
+    garagePoints.textContent = signedIn() ? store.points : '–';
+    if (!signedIn()) {
+      garageStatus.innerHTML = 'Sign in on the <a href="index.html">home page</a> to unlock more cars and upgrades with your quiz points.';
+    }
+    carList.innerHTML = CARS.map((car) => {
+      const owned = isOwned(car.id);
+      const badge = owned ? (signedIn() && store.garage.selected === car.id ? 'IN USE' : 'OWNED') : `${car.price} pts`;
+      return `<button type="button" class="car-row ${viewingId === car.id ? 'selected' : ''} ${owned ? '' : 'locked'}" data-car="${car.id}"><div><strong>${car.name}</strong><small>${car.tag}</small></div><span class="badge">${badge}</span></button>`;
+    }).join('');
+    const car = CARS.find((c) => c.id === viewingId);
+    const owned = isOwned(car.id);
+    const up = upgradesOf(car.id);
+    const st = computeStats(car, up);
+    const swatches = car.colors.map((c) => `<button type="button" data-color="${c}" class="${colorOf(car) === c ? 'on' : ''}" style="background:#${c.toString(16).padStart(6, '0')}" aria-label="Paint colour"></button>`).join('');
+    let html = `<div class="swatches">${swatches}</div>`;
+    html += statLine('Top speed', st.top * 3.6, 360, `<span>${Math.round(st.top * 3.6)} km/h</span>`);
+    html += statLine('Accel 0-100', st.accel, 14, `<span>${(27.8 / (st.accel * 0.85)).toFixed(1)} s</span>`);
+    html += statLine('Handling', st.handling, 1.8, `<span>${Math.round(st.handling * 60)}</span>`);
+    html += statLine('Braking', st.brake, 50, `<span>${Math.round(st.brake * 2)}</span>`);
+    if (owned && signedIn()) {
+      html += '<p class="upgrade-title">UPGRADES</p>';
+      for (const u of UPGRADES) {
+        const level = up[u.id];
+        const max = level >= MAX_UPGRADE_LEVEL;
+        const cost = max ? 0 : upgradeCost(u.id, level);
+        html += `<div class="stat-line"><span>${u.label} ${level}/${MAX_UPGRADE_LEVEL}</span><div class="stat-bar"><i style="width:${(level / MAX_UPGRADE_LEVEL) * 100}%"></i></div><button type="button" data-upgrade="${u.id}" title="${u.blurb}" ${max || store.points < cost ? 'disabled' : ''}>${max ? 'MAX' : `+ ${cost} pts`}</button></div>`;
+      }
+    } else if (!owned) {
+      html += `<button type="button" class="buy-car" data-buy="${car.id}" ${signedIn() && store.points >= car.price ? '' : 'disabled'}>${signedIn() ? `Buy for ${car.price} points` : 'Sign in to unlock'}</button>`;
+    }
+    carDetail.innerHTML = html;
+  }
+
+  async function guarded(task) {
+    if (busy) return;
+    busy = true;
+    try {
+      await task();
+      garageStatus.textContent = '';
+    } catch (error) {
+      garageStatus.textContent = error.message || 'Something went wrong.';
+    }
+    busy = false;
+    renderGarage();
+  }
+
+  function previewCar(car) {
+    viewingId = car.id;
+    showCar(car, colorOf(car), upgradesOf(car.id));
+  }
+
+  carList.addEventListener('click', (event) => {
+    const row = event.target.closest('[data-car]');
+    if (!row) return;
+    const car = CARS.find((c) => c.id === row.dataset.car);
+    previewCar(car);
+    if (signedIn() && isOwned(car.id) && store.garage.selected !== car.id) {
+      store.garage.selected = car.id;
+      guarded(() => store.save());
+    }
+    renderGarage();
+  });
+  carDetail.addEventListener('click', (event) => {
+    const car = CARS.find((c) => c.id === viewingId);
+    const color = event.target.closest('[data-color]');
+    const buy = event.target.closest('[data-buy]');
+    const upgrade = event.target.closest('[data-upgrade]');
+    if (color) {
+      const value = Number(color.dataset.color);
+      carModel.userData.paint.color.setHex(value);
+      if (signedIn() && isOwned(car.id)) {
+        store.garage.colors[car.id] = value;
+        guarded(() => store.save());
+      }
+      renderGarage();
+    } else if (buy) {
+      guarded(async () => { await store.buyCar(car); previewCar(car); });
+    } else if (upgrade) {
+      guarded(async () => { await store.buyUpgrade(car.id, upgrade.dataset.upgrade); previewCar(car); });
+    }
+  });
+
+  document.getElementById('open-garage').addEventListener('click', async () => {
+    startPanel.classList.add('hidden');
+    garagePanel.classList.remove('hidden');
+    garageStatus.textContent = 'Loading garage…';
+    await store.ready;
+    garageStatus.textContent = '';
+    if (signedIn()) await store.refresh().catch(() => {});
+    const selected = CARS.find((c) => c.id === (signedIn() ? store.garage.selected : CARS[0].id));
+    previewCar(selected);
+    renderGarage();
+  });
+  document.getElementById('close-garage').addEventListener('click', () => {
+    const car = CARS.find((c) => c.id === (signedIn() && isOwned(viewingId) ? viewingId : (signedIn() ? store.garage.selected : CARS[0].id)));
+    if (signedIn() && store.garage.selected !== car.id) {
+      store.garage.selected = car.id;
+      store.save().catch(() => {});
+    }
+    applyDriveCar(car);
+    garagePanel.classList.add('hidden');
+    startPanel.classList.remove('hidden');
+  });
+  store.ready.then(() => {
+    if (signedIn()) applyDriveCar(CARS.find((c) => c.id === store.garage.selected) || CARS[0]);
+  });
 
   requestAnimationFrame(animate);
 })();

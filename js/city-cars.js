@@ -1,0 +1,228 @@
+// Car catalog, upgrade maths and 3D model builders for City Driving.
+
+export const UPGRADES = [
+  { id: 'engine', label: 'Engine', blurb: '+top speed, +acceleration', baseCost: 10 },
+  { id: 'tires', label: 'Tires', blurb: '+steering grip', baseCost: 8 },
+  { id: 'brakes', label: 'Brakes', blurb: '+stopping power', baseCost: 8 }
+];
+export const MAX_UPGRADE_LEVEL = 5;
+
+// Speeds are in m/s (x3.6 for km/h). Prices are in quiz reward points.
+export const CARS = [
+  {
+    id: 'civic', name: 'Honda Civic Type R', tag: 'Hot hatch', price: 0, colors: [0xf2f2f2, 0xc8102e, 0x1b1d22, 0x1d4e9c],
+    top: 52, accel: 6.2, brake: 24, handling: 1.0, build: { L: 4.56, W: 1.88, nose: 0.6, hood: 0.92, belt: 1.0, cowlU: 0.85, deckH: 1.1, tailH: 1.0, rf: 0.25, rr: -1.75, rearBase: -2.15, roofH: 1.44, wing: 'high', grille: 'wide' }
+  },
+  {
+    id: 'audi', name: 'Audi RS 5', tag: 'Quattro coupe', price: 40, colors: [0x9aa0a6, 0x1b1d22, 0xc8102e, 0x2f5fa7],
+    top: 66, accel: 8.0, brake: 27, handling: 1.05, build: { L: 4.78, W: 1.9, nose: 0.6, hood: 0.98, belt: 1.02, cowlU: 0.75, deckH: 1.08, tailH: 0.92, rf: -0.05, rr: -1.4, rearBase: -1.95, roofH: 1.4, wing: 'lip', grille: 'audi' }
+  },
+  {
+    id: 'bmw', name: 'BMW M4', tag: 'Track coupe', price: 60, colors: [0x2b6fd0, 0xf2f2f2, 0x1b1d22, 0xe4a11b],
+    top: 68, accel: 8.4, brake: 27, handling: 1.1, build: { L: 4.79, W: 1.9, nose: 0.58, hood: 0.96, belt: 1.0, cowlU: 0.8, deckH: 1.08, tailH: 0.92, rf: -0.05, rr: -1.35, rearBase: -1.95, roofH: 1.38, wing: 'lip', grille: 'bmw' }
+  },
+  {
+    id: 'porsche', name: 'Porsche 911', tag: 'Rear-engine icon', price: 100, colors: [0xffc20e, 0xc8102e, 0x1b1d22, 0xd9dde0],
+    top: 74, accel: 9.2, brake: 30, handling: 1.2, build: { L: 4.52, W: 1.85, nose: 0.55, hood: 0.92, belt: 0.98, cowlU: 1.0, deckH: 1.12, tailH: 1.0, rf: 0.3, rr: -1.4, rearBase: -2.0, roofH: 1.3, wing: 'duck', grille: 'porsche' }
+  },
+  {
+    id: 'lambo', name: 'Lamborghini Huracán', tag: 'Supercar', price: 200, colors: [0x7bc01a, 0xff7a00, 0x1b1d22, 0xd9a400],
+    top: 82, accel: 10.2, brake: 32, handling: 1.15, build: { L: 4.52, W: 2.0, nose: 0.42, hood: 0.7, belt: 0.8, cowlU: 1.25, deckH: 0.95, tailH: 0.82, rf: 0.5, rr: -0.5, rearBase: -1.4, roofH: 1.16, wing: 'high', grille: 'lambo' }
+  }
+];
+
+export const defaultUpgrades = () => ({ engine: 0, tires: 0, brakes: 0 });
+export const upgradeCost = (id, level) => Math.round(UPGRADES.find((u) => u.id === id).baseCost * Math.pow(1.7, level));
+
+export function computeStats(car, up = defaultUpgrades()) {
+  return {
+    top: car.top * (1 + 0.04 * up.engine),
+    accel: car.accel * (1 + 0.06 * up.engine),
+    handling: car.handling * (1 + 0.08 * up.tires),
+    brake: car.brake * (1 + 0.08 * up.brakes)
+  };
+}
+
+export function buildCarModel(THREE, car, colorHex) {
+  const b = car.build;
+  const group = new THREE.Group();
+  const paint = new THREE.MeshPhysicalMaterial({ color: colorHex, roughness: 0.28, metalness: 0.55, clearcoat: 1, clearcoatRoughness: 0.08 });
+  const glass = new THREE.MeshPhysicalMaterial({ color: 0x0f1c24, roughness: 0.05, metalness: 0.3, clearcoat: 1 });
+  const black = new THREE.MeshStandardMaterial({ color: 0x0c0e10, roughness: 0.7 });
+  const chrome = new THREE.MeshStandardMaterial({ color: 0xdadde0, roughness: 0.2, metalness: 0.95 });
+  const head = new THREE.MeshStandardMaterial({ color: 0xfff6d8, emissive: 0xffe9a8, emissiveIntensity: 0.8 });
+  const tail = new THREE.MeshStandardMaterial({ color: 0xff2a2a, emissive: 0xff1010, emissiveIntensity: 0.9 });
+  const tire = new THREE.MeshStandardMaterial({ color: 0x151717, roughness: 0.95 });
+
+  const curve = (pts, count) => new THREE.CatmullRomCurve3(pts.map(([u, v]) => new THREE.Vector3(u, v, 0)), false, 'centripetal').getPoints(count);
+
+  // Lofts smooth rounded-rectangle cross sections along the car length (u: front +, converted to world -z).
+  const loft = (stations, material, { rounding = 3.2, tumble = 0.1, capShrink = 0.9 } = {}) => {
+    const M = 28;
+    const positions = [];
+    const indices = [];
+    stations.forEach((st) => {
+      const yc = (st.top + st.bot) / 2;
+      const hh = (st.top - st.bot) / 2;
+      for (let k = 0; k < M; k++) {
+        const t = (k / M) * Math.PI * 2;
+        const c = Math.cos(t);
+        const sn = Math.sin(t);
+        const e = 2 / rounding;
+        const x = st.w * Math.sign(c) * Math.pow(Math.abs(c), e) * (1 - tumble * Math.max(0, sn));
+        const y = yc + hh * Math.sign(sn) * Math.pow(Math.abs(sn), e);
+        positions.push(x, y, -st.u);
+      }
+    });
+    for (let i = 0; i < stations.length - 1; i++) {
+      for (let k = 0; k < M; k++) {
+        const A = i * M + k;
+        const B = i * M + ((k + 1) % M);
+        const C = (i + 1) * M + k;
+        const D = (i + 1) * M + ((k + 1) % M);
+        indices.push(A, B, C, B, D, C);
+      }
+    }
+    const cap = (index, flip) => {
+      const st = stations[index];
+      const center = positions.length / 3;
+      positions.push(0, (st.top + st.bot) / 2, -st.u);
+      for (let k = 0; k < M; k++) {
+        const p = index * M + k;
+        const q = index * M + ((k + 1) % M);
+        indices.push(center, flip ? q : p, flip ? p : q);
+      }
+    };
+    cap(0, true);
+    cap(stations.length - 1, false);
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geo.setIndex(indices);
+    geo.computeVertexNormals();
+    const mesh = new THREE.Mesh(geo, material);
+    group.add(mesh);
+    return mesh;
+  };
+  const add = (geo, material, x, y, z) => {
+    const mesh = new THREE.Mesh(geo, material);
+    mesh.position.set(x, y, z);
+    group.add(mesh);
+    return mesh;
+  };
+  const box = (w, h, d, material, x, y, z) => add(new THREE.BoxGeometry(w, h, d), material, x, y, z);
+
+  const front = b.L / 2;
+  const rear = -b.L / 2;
+  const smooth = (x) => x * x * (3 - 2 * x);
+  const bodyTop = curve([
+    [front, b.nose - 0.04], [front - 0.22, b.nose + 0.1], [front - 0.9, b.hood - 0.02], [b.cowlU + 0.5, b.hood],
+    [b.cowlU, b.belt], [(b.cowlU + rear) / 2, (b.belt + b.deckH) / 2 + 0.02], [rear + 0.9, b.deckH], [rear + 0.2, b.deckH - 0.01], [rear, b.tailH]
+  ], 90);
+  const bodyBottom = 0.3;
+  loft(bodyTop.map((p) => {
+    const toFront = front - p.x;
+    const toRear = p.x - rear;
+    const taper = 1 - 0.14 * (1 - smooth(Math.min(1, toFront / 1.1))) - 0.07 * (1 - smooth(Math.min(1, toRear / 0.9)));
+    const endLift = Math.max(0, 0.22 - Math.min(toFront, toRear)) * 1.1;
+    return { u: p.x, top: p.y, bot: bodyBottom + endLift, w: (b.W / 2) * taper };
+  }), paint, { rounding: 3.4, tumble: 0.08 });
+
+  const roofMid = (b.rf + b.rr) / 2;
+  const cabinTop = curve([
+    [b.cowlU, b.belt - 0.02], [(b.cowlU + b.rf) / 2, (b.belt + b.roofH) / 2 + 0.02], [b.rf, b.roofH - 0.04], [roofMid, b.roofH + 0.02],
+    [b.rr, b.roofH - 0.04], [(b.rr + b.rearBase) / 2, (b.roofH + b.deckH) / 2 + 0.02], [b.rearBase, b.deckH - 0.01]
+  ], 60);
+  const cabinStations = cabinTop.map((p) => ({ u: p.x, top: p.y, bot: b.belt - 0.2, w: (b.W / 2) * 0.88 }));
+  loft(cabinStations, glass, { rounding: 3, tumble: 0.3 });
+  loft(cabinTop.filter((p) => p.x < b.rf - 0.04 && p.x > b.rr + 0.04).map((p) => ({ u: p.x, top: p.y + 0.025, bot: p.y - 0.05, w: (b.W / 2) * 0.7 })), paint, { rounding: 3, tumble: 0.2 });
+
+  // Mirrors
+  for (const s of [-1, 1]) box(0.16, 0.1, 0.12, paint, s * (b.W / 2 + 0.01), b.belt + 0.04, -(b.cowlU - 0.2));
+  // Underbody and splitter
+  box(b.W * 0.72, 0.08, b.L - 0.7, black, 0, 0.3, 0);
+  box(b.W * 0.8, 0.05, 0.2, black, 0, 0.3, -(front - 0.08));
+
+  // Lights
+  const lightY = b.nose + 0.08;
+  const nz = -(front - 0.1);
+  if (b.grille === 'porsche') {
+    for (const s of [-1, 1]) {
+      const lamp = add(new THREE.SphereGeometry(0.17, 14, 10), head, s * (b.W / 2 - 0.4), b.hood - 0.08, -(front - 0.6));
+      lamp.scale.set(1, 1, 0.8);
+      box(0.12, 0.12, 0.05, chrome, s * 0.45, 0.45, nz - 0.02);
+    }
+    box(0.9, 0.12, 0.05, black, 0, 0.42, nz - 0.02);
+  } else if (b.grille === 'lambo') {
+    for (const s of [-1, 1]) {
+      box(0.5, 0.06, 0.05, head, s * (b.W / 2 - 0.5), lightY + 0.1, nz + 0.03);
+      box(0.35, 0.12, 0.05, black, s * 0.55, 0.45, nz - 0.01);
+    }
+    box(0.7, 0.14, 0.05, black, 0, 0.45, nz - 0.01);
+  } else {
+    for (const s of [-1, 1]) box(0.5, 0.09, 0.05, head, s * (b.W / 2 - 0.5), lightY + 0.06, nz + 0.03);
+    if (b.grille === 'audi') {
+      box(0.95, 0.34, 0.05, black, 0, lightY - 0.06, nz - 0.01);
+      for (let i = 0; i < 4; i++) {
+        const ring = add(new THREE.TorusGeometry(0.045, 0.012, 6, 16), chrome, -0.13 + i * 0.088, lightY + 0.14, nz - 0.04);
+        ring.scale.set(1, 1, 1);
+      }
+    } else if (b.grille === 'bmw') {
+      for (const s of [-1, 1]) box(0.34, 0.3, 0.05, black, s * 0.2, lightY - 0.06, nz - 0.01);
+      box(0.04, 0.3, 0.06, chrome, 0, lightY - 0.06, nz - 0.02);
+    } else {
+      box(1.0, 0.2, 0.05, black, 0, lightY - 0.1, nz - 0.01);
+    }
+    box(b.W * 0.62, 0.14, 0.05, black, 0, 0.45, nz - 0.01);
+  }
+  const rz = -(rear - 0.02);
+  if (b.grille === 'porsche') {
+    box(b.W - 0.55, 0.08, 0.05, tail, 0, b.tailH - 0.12, rz - 0.04);
+  } else {
+    for (const s of [-1, 1]) box(0.6, 0.12, 0.05, tail, s * (b.W / 2 - 0.4), b.tailH - 0.06, rz + 0.01);
+  }
+  box(b.W * 0.6, 0.18, 0.06, black, 0, 0.5, rz + 0.01);
+  for (const s of [-0.5, -0.32, 0.32, 0.5]) add(new THREE.CylinderGeometry(0.05, 0.05, 0.1, 10), chrome, s, 0.42, rz + 0.06).rotation.x = Math.PI / 2;
+
+  // Wings and spoilers
+  if (b.wing === 'high') {
+    for (const s of [-1, 1]) box(0.06, 0.28, 0.2, black, s * (b.W / 2 - 0.3), b.tailH + 0.12, rz - 0.12);
+    box(b.W - 0.1, 0.05, 0.38, black, 0, b.tailH + 0.28, rz - 0.12);
+  } else if (b.wing === 'lip') {
+    box(b.W - 0.4, 0.05, 0.16, black, 0, b.deckH + 0.03, rz - 0.15);
+  } else if (b.wing === 'duck') {
+    box(b.W - 0.5, 0.06, 0.2, paint, 0, b.tailH + 0.02, rz - 0.25);
+  }
+
+  // Wheels
+  const wheels = [];
+  const radius = b.W > 1.95 ? 0.37 : 0.35;
+  const wheelX = b.W / 2 - 0.12;
+  for (const x of [-wheelX, wheelX]) {
+    for (const z of [-(front - 0.95), (-rear) - 0.9]) {
+      const arch = new THREE.Mesh(new THREE.CylinderGeometry(radius + 0.07, radius + 0.07, 0.04, 24), black);
+      arch.rotation.z = Math.PI / 2;
+      arch.position.set(Math.sign(x) * (b.W / 2 - 0.01), radius, z);
+      group.add(arch);
+      const pivot = new THREE.Group();
+      pivot.position.set(x, radius, z);
+      const spin = new THREE.Group();
+      const tyre = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, 0.28, 24), tire);
+      tyre.rotation.z = Math.PI / 2;
+      const rim = new THREE.Mesh(new THREE.CylinderGeometry(radius * 0.68, radius * 0.68, 0.3, 20), chrome);
+      rim.rotation.z = Math.PI / 2;
+      spin.add(tyre, rim);
+      for (let i = 0; i < 5; i++) {
+        const spoke = new THREE.Mesh(new THREE.BoxGeometry(0.31, 0.06, radius * 1.1), black);
+        spoke.rotation.x = (i / 5) * Math.PI;
+        spin.add(spoke);
+      }
+      pivot.add(spin);
+      group.add(pivot);
+      wheels.push(spin);
+    }
+  }
+  group.userData.wheels = wheels;
+  group.userData.wheelRadius = radius;
+  group.userData.paint = paint;
+  return group;
+}
