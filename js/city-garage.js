@@ -52,7 +52,7 @@ export function createGarageStore() {
     }
     if (store.user) {
       try { await store.refresh(); } catch (error) {
-        console.warn('City Driving garage failed to load.', error);
+        console.warn('City Driving data failed to load.', error);
         store.loadError = 'Signed in, but your garage could not be loaded. Please try again.';
       }
     }
@@ -60,14 +60,40 @@ export function createGarageStore() {
 
   store.ready = store.init();
 
+  // Points and garage load independently so a garage failure never zeroes the points balance.
   store.refresh = async () => {
     const { doc, getDoc } = store.fs;
-    const [userSnap, garageSnap] = await Promise.all([
+    store.loadError = '';
+    const [userRes, garageRes] = await Promise.allSettled([
       getDoc(doc(store.db, 'users', store.user.uid)),
       getDoc(doc(store.db, 'city_driving_garage', store.user.uid))
     ]);
-    store.points = userSnap.exists() ? (userSnap.data().total_points || 0) : 0;
-    store.garage = sanitize(garageSnap.exists() ? garageSnap.data() : null);
+    if (userRes.status === 'fulfilled') {
+      store.points = userRes.value.exists() ? (userRes.value.data().total_points || 0) : 0;
+    } else {
+      console.warn('City Driving points failed to load.', userRes.reason);
+    }
+    if (garageRes.status === 'fulfilled') {
+      store.garage = sanitize(garageRes.value.exists() ? garageRes.value.data() : null);
+    } else {
+      console.warn('City Driving garage failed to load.', garageRes.reason);
+      store.garage = sanitize(null);
+      store.loadError = 'Signed in, but your garage could not be loaded. Showing the starter car; please try again.';
+    }
+  };
+
+  // Adds trip rewards to the shared quiz points total.
+  store.awardPoints = async (amount) => {
+    if (!store.user || amount <= 0) return false;
+    const { doc, runTransaction } = store.fs;
+    const userRef = doc(store.db, 'users', store.user.uid);
+    store.points = await runTransaction(store.db, async (tx) => {
+      const snap = await tx.get(userRef);
+      const total = (snap.exists() ? (snap.data().total_points || 0) : 0) + amount;
+      tx.set(userRef, { total_points: total }, { merge: true });
+      return total;
+    });
+    return true;
   };
 
   store.save = async () => {
