@@ -1,6 +1,7 @@
 import * as THREE from './vendor/three/three.module.min.js';
 import { CARS, UPGRADES, MAX_UPGRADE_LEVEL, defaultUpgrades, upgradeCost, computeStats, buildCarModel } from './city-cars.js';
 import { createGarageStore } from './city-garage.js';
+import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
 
 (() => {
   const mount = document.getElementById('city-scene');
@@ -126,7 +127,7 @@ import { createGarageStore } from './city-garage.js';
     const width = shop ? 9 + random() * 3 : 11 + random() * 3;
     const depth = shop ? 15 + random() * 4 : 20 + random() * 7;
     const height = shop ? 8 + random() * 5 : 20 + random() * 46;
-    const x = side * (11.5 + (slot === 0 ? 0 : 6));
+    const x = side * (width / 2 + 11.5 + (slot === 0 ? 0 : 6));
     const facade = shop
       ? [materials.shop1, materials.shop2, materials.shop3][Math.floor(random() * 3)]
       : [materials.tower1, materials.tower2, materials.tower3][Math.floor(random() * 3)];
@@ -149,25 +150,94 @@ import { createGarageStore } from './city-garage.js';
     }
   }
 
-  for (let i = 0; i < 8; i++) {
+  const water = new THREE.Mesh(new THREE.PlaneGeometry(102, 510), mat(0x4c93b5, 0.25, 0.05));
+  water.rotation.x = -Math.PI / 2;
+  scene.add(water);
+  const locationName = document.getElementById('location-name');
+  const routeNameOutput = document.getElementById('route-name');
+  const routeList = document.getElementById('route-list');
+  const BLOCK_COUNT = 8;
+  const BLOCK_LENGTH = 64;
+  const hemiLight = scene.children.find((o) => o.isHemisphereLight);
+  let route = ROUTES[0];
+  let areaLabel = route.area;
+
+  function buildBlock(i) {
     const block = new THREE.Group();
-    block.position.z = -i * 64;
-    addBuilding(block, -1, -16, 0);
-    addBuilding(block, 1, -16, 0);
-    addBuilding(block, -1, -44, 1);
-    addBuilding(block, 1, -44, 1);
+    block.position.z = -i * BLOCK_LENGTH;
+    block.userData.landmarks = [];
+    for (const side of [-1, 1]) {
+      const onWater = route.water === side;
+      let id = null;
+      if (onWater) {
+        if (i % 2 === 0 && route.waterLandmarks) id = route.waterLandmarks[(i / 2) % route.waterLandmarks.length | 0];
+      } else if (route.water || (i % 2 === 0) === (side === -1)) {
+        id = route.landmarks[i % route.landmarks.length];
+      }
+      if (!onWater) addBuilding(block, side, -16, 0);
+      if (id) {
+        const landmark = buildLandmark(id);
+        landmark.position.set(side * (onWater ? 22 : 12), 0, -44);
+        if (side === 1) landmark.rotation.y = Math.PI;
+        block.add(landmark);
+        block.userData.landmarks.push(landmark.userData.name);
+      } else if (!onWater) {
+        addBuilding(block, side, -44, 1);
+      }
+    }
     for (let k = 0; k < 4; k++) {
-      addPalm(block, -9.3, -8 - k * 16);
-      addPalm(block, 9.3, -16 - k * 16);
+      if (route.water !== -1) addPalm(block, -9.3, -8 - k * 16);
+      if (route.water !== 1) addPalm(block, 9.3, -16 - k * 16);
       addLamp(block, -8.7, -2 - k * 16);
       addLamp(block, 8.7, -10 - k * 16);
     }
     for (let k = 0; k < 16; k++) {
       for (const side of [-1, 1]) box(block, k % 2 ? materials.red : materials.white, side * 7.75, 0.28, -k * 4, 0.16, 0.3, 1.4);
     }
-    urbanBlocks.push(block);
-    scene.add(block);
+    return block;
   }
+
+  function applyRoute(next) {
+    route = next;
+    seed = 28 + ROUTES.indexOf(route) * 97;
+    while (urbanBlocks.length) {
+      const old = urbanBlocks.pop();
+      scene.remove(old);
+      disposeLandmarks(old);
+    }
+    for (let i = 0; i < BLOCK_COUNT; i++) {
+      const block = buildBlock(i);
+      urbanBlocks.push(block);
+      scene.add(block);
+    }
+    scene.background.set(route.sky);
+    scene.fog.color.set(route.sky);
+    materials.ground.color.set(route.ground);
+    hemiLight.intensity = route.hemi;
+    sunlight.intensity = route.sun;
+    sunlight.color.set(route.sunColor);
+    water.visible = !!route.water;
+    if (route.water) {
+      water.material.color.set(route.waterColor);
+      water.position.set(route.water * 64, -0.08, -215);
+    }
+    areaLabel = route.area;
+    locationName.textContent = areaLabel;
+    routeNameOutput.textContent = route.blurb;
+    routeList.querySelectorAll('button').forEach((button) => {
+      button.classList.toggle('on', button.dataset.route === route.id);
+    });
+    try { localStorage.setItem('cityDrivingRoute', route.id); } catch (error) { /* storage unavailable */ }
+  }
+
+  routeList.innerHTML = ROUTES.map((r) => `<button type="button" data-route="${r.id}">${r.name}</button>`).join('');
+  routeList.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-route]');
+    if (button) applyRoute(ROUTES.find((r) => r.id === button.dataset.route));
+  });
+  let savedRoute = null;
+  try { savedRoute = localStorage.getItem('cityDrivingRoute'); } catch (error) { /* storage unavailable */ }
+  applyRoute(ROUTES.find((r) => r.id === savedRoute) || ROUTES[0]);
 
   const player = new THREE.Group();
   player.position.set(-1.75, 0, 2.6);
@@ -441,8 +511,14 @@ import { createGarageStore } from './city-garage.js';
     const cityStep = meters;
     urbanBlocks.forEach((block) => {
       block.position.z += cityStep;
-      if (block.position.z > 65) block.position.z -= urbanBlocks.length * 64;
+      if (block.position.z > 65) block.position.z -= BLOCK_COUNT * BLOCK_LENGTH;
     });
+    let nearby = areaLabel;
+    urbanBlocks.forEach((block) => {
+      const near = Math.abs(block.position.z - 44 - player.position.z) < 34;
+      if (near && block.userData.landmarks.length) nearby = block.userData.landmarks[0];
+    });
+    if (locationName.textContent !== nearby) locationName.textContent = nearby;
     roadMarks.forEach((mark) => {
       mark.position.z += cityStep;
       if (mark.position.z > 40) mark.position.z -= dashSpacing * dashCount;
@@ -590,8 +666,9 @@ import { createGarageStore } from './city-garage.js';
     garagePanel.classList.remove('hidden');
     garageStatus.textContent = 'Loading garage…';
     await store.ready;
-    garageStatus.textContent = '';
-    if (signedIn()) await store.refresh().catch(() => {});
+    if (!signedIn()) await store.init();
+    else await store.refresh().catch(() => {});
+    garageStatus.textContent = store.loadError;
     const selected = CARS.find((c) => c.id === (signedIn() ? store.garage.selected : CARS[0].id));
     previewCar(selected);
     renderGarage();
