@@ -3,6 +3,7 @@ import * as THREE from './vendor/three/three.module.min.js';
 import { lcg } from './city-gfx.js';
 import { buildLandmark, disposeLandmarks } from './city-routes.js';
 import { PITCH as P, GRID, FACE, cellInfo, seedOf } from './city-map.js';
+import { createEffects, createCars } from './city-smash.js';
 
 const LOAD = 270;
 const UNLOAD = 340;
@@ -18,12 +19,29 @@ const EDGES = {
   S: { x: P, z: P, yaw: -Math.PI / 2, side: -1 }
 };
 
+// Collision footprint (half sizes along the frame's x / z), the speed needed to smash it and how it falls.
+const PROPS = {
+  lamp: { hx: 0.3, hz: 0.3, min: 6, mode: 'topple', drag: 0.85, colors: [0x39464b, 0xf2e9b0] },
+  tree: { hx: 0.45, hz: 0.45, min: 9, mode: 'topple', drag: 0.7, colors: [0x6b4a2f, 0x3d6b3a, 0x2f5a30] },
+  palm: { hx: 0.35, hz: 0.35, min: 7, mode: 'topple', drag: 0.75, colors: [0x7a5b3a, 0x3d8a4e] },
+  sign: { hx: 0.25, hz: 0.25, min: 3, mode: 'topple', drag: 0.94, colors: [0x39464b, 0xf2f2f2] },
+  bin: { hx: 0.35, hz: 0.35, min: 1.5, mode: 'launch', drag: 0.96, colors: [0x2f7d4f, 0x1f2a2e] },
+  hydrant: { hx: 0.25, hz: 0.25, min: 2, mode: 'launch', drag: 0.95, colors: [0xc0392b, 0xe8e0d0] },
+  hedge: { hx: 0.45, hz: 2.7, min: 4, mode: 'launch', drag: 0.9, colors: [0x3f7d3a, 0x5b8f45, 0x7a6a55] },
+  busstop: { hx: 1.15, hz: 2.2, min: 9, mode: 'topple', drag: 0.7, colors: [0x9ecbd8, 0x2b5aa0, 0x39464b] }
+};
+const PED_COLORS = [0xd94f4f, 0x3b82c4, 0xf2f2f2, 0x2b2b2b];
+
 export function createFreeCity({ scene, kit }) {
   const { M, box, walls, lineMat, curbMat, mergeStatics, freeTexture } = kit;
   const root = new THREE.Group();
   root.visible = false;
   scene.add(root);
   const chunks = new Map();
+  const stats = { props: 0, peds: 0, cars: 0 };
+  const broken = new Set();
+  const effects = createEffects(root);
+  const cars = createCars({ root, effects, stats });
 
   const asphaltMat = new THREE.MeshStandardMaterial({ map: freeTexture(kit.asphalt), roughness: 0.88, metalness: 0.02 });
   const walkMat = new THREE.MeshStandardMaterial({ map: freeTexture(kit.pavers), color: 0xd9d3c3, roughness: 0.9 });
@@ -60,37 +78,79 @@ export function createFreeCity({ scene, kit }) {
     return g;
   }
 
+  // Fixtures register a collision box and are tracked in the merged mesh so they can be knocked out of it later.
+  function addProp(chunk, f, kind, lx, lz, rand, build) {
+    const seed = Math.floor(rand() * 1e9) + 1;
+    const id = `${chunk.i},${chunk.j}:${chunk.n++}`;
+    if (broken.has(id)) return;
+    const holder = new THREE.Group();
+    holder.userData.breakId = id;
+    f.add(holder);
+    build(holder, lcg(seed));
+    f.updateWorldMatrix(true, false);
+    const w = new THREE.Vector3(lx, 0, lz).applyMatrix4(f.matrixWorld);
+    const spec = PROPS[kind];
+    chunk.props.push({ id, kind, spec, x: w.x, z: w.z, yaw: f.rotation.y, f, lx, lz, build: (parent) => build(parent, lcg(seed)), chunk });
+  }
+
+  function treeOrPalm(chunk, f, x, z, rand) {
+    if (rand() > 0.5) addProp(chunk, f, 'tree', x, z, rand, (parent, r) => kit.addRainTree(parent, x, z, r));
+    else addProp(chunk, f, 'palm', x, z, rand, (parent, r) => kit.addPalm(parent, x, z, r));
+  }
+
+  function hedge(chunk, f, x, z, len, rand) {
+    addProp(chunk, f, 'hedge', x, z, rand, (parent) => kit.addHedge(parent, x, z, len));
+  }
+
   function addPed(chunk, parent, rand, side) {
     const z0 = 24 + rand() * (P - 48);
     const ped = kit.addPedestrian(parent, side * (9 + rand() * 2), z0, rand);
     ped.userData.ped.z0 = z0;
+    ped.userData.id = `${chunk.i},${chunk.j}:p${chunk.n++}`;
+    if (broken.has(ped.userData.id)) { parent.remove(ped); return; }
     chunk.peds.push(ped);
+  }
+
+  function addParkedCars(chunk, f, rand) {
+    const count = rand() < 0.5 ? 1 + Math.floor(rand() * 2) : 0;
+    for (let k = 0; k < count; k++) {
+      const side = rand() < 0.5 ? -1 : 1;
+      const z = 30 + rand() * (P - 60);
+      const facing = rand() < 0.5 ? 0 : Math.PI;
+      const id = `${chunk.i},${chunk.j}:c${chunk.n++}`;
+      const w = new THREE.Vector3(side * 6.7, 0, z);
+      f.updateWorldMatrix(true, false);
+      w.applyMatrix4(f.matrixWorld);
+      cars.addParked(chunk.key, id, w.x, w.z, -f.rotation.y + facing);
+    }
   }
 
   // Lamps, trees, bus stops and pedestrians along a road leaving the intersection; local +z runs down the road.
   function decorateArm(chunk, g, yaw, rand) {
     const f = frame(g, 0, 0, yaw);
+    addParkedCars(chunk, f, rand);
     box(f, lineMat, 0, 0.005, P / 2, 0.12, 0.01, P - 40);
     for (const x of [-7.35, 7.35]) box(f, lineMat, x, 0.004, P / 2, 0.14, 0.01, P - 16);
     for (let z = 24; z < P - 20; z += 8) for (const x of [-3.55, 3.55]) box(f, lineMat, x, 0.004, z + 1.6, 0.14, 0.01, 3.2);
     for (let k = 0; k < 5; k++) {
-      kit.addLamp(f, -8.7, 22 + k * 16);
-      kit.addLamp(f, 8.7, 30 + k * 16);
+      const za = 22 + k * 16; const zb = 30 + k * 16;
+      addProp(chunk, f, 'lamp', -8.7, za, rand, (parent) => kit.addLamp(parent, -8.7, za));
+      addProp(chunk, f, 'lamp', 8.7, zb, rand, (parent) => kit.addLamp(parent, 8.7, zb));
     }
     for (let k = 0; k < 3; k++) {
       for (const side of [-1, 1]) {
         const z = 36 + k * 32;
-        if (rand() > 0.5) kit.addRainTree(f, side * 9.6, z, rand); else kit.addPalm(f, side * 9.4, z, rand);
-        kit.addHedge(f, side * 8.35, z - 4.2, 5.5);
+        treeOrPalm(chunk, f, side * 9.5, z, rand);
+        hedge(chunk, f, side * 8.35, z - 4.2, 5.5, rand);
       }
     }
-    if (rand() < 0.4) kit.addBusStop(f, 1, 54);
-    if (rand() < 0.4) kit.addBusStop(f, -1, 46);
-    kit.addBin(f, -1, 34);
-    kit.addBin(f, 1, 34);
-    kit.addHydrant(f, 1, 72);
-    kit.addSignPost(f, -1, 78);
-    kit.addSignPost(f, 1, 86);
+    if (rand() < 0.4) addProp(chunk, f, 'busstop', 9.8, 54, rand, (parent) => kit.addBusStop(parent, 1, 54));
+    if (rand() < 0.4) addProp(chunk, f, 'busstop', -9.8, 46, rand, (parent) => kit.addBusStop(parent, -1, 46));
+    addProp(chunk, f, 'bin', -8.6, 34, rand, (parent) => kit.addBin(parent, -1, 34));
+    addProp(chunk, f, 'bin', 8.6, 34, rand, (parent) => kit.addBin(parent, 1, 34));
+    addProp(chunk, f, 'hydrant', 8.4, 72, rand, (parent) => kit.addHydrant(parent, 1, 72));
+    addProp(chunk, f, 'sign', -8.6, 78, rand, (parent) => kit.addSignPost(parent, -1, 78));
+    addProp(chunk, f, 'sign', 8.6, 86, rand, (parent) => kit.addSignPost(parent, 1, 86));
     for (const side of [-1, 1]) {
       const n = 1 + Math.floor(rand() * 3);
       for (let k = 0; k < n; k++) addPed(chunk, f, rand, side);
@@ -141,7 +201,7 @@ export function createFreeCity({ scene, kit }) {
     }
   }
 
-  function parkInterior(g, rand) {
+  function parkInterior(chunk, g, rand) {
     plane(g, parkMat, FACE, P - FACE, FACE, P - FACE, SIDEWALK_Y + 0.01, 6);
     const pw = 26 + rand() * 12; const pd = 20 + rand() * 10;
     const px = P / 2 + (rand() - 0.5) * 20; const pz = P / 2 + (rand() - 0.5) * 20;
@@ -150,20 +210,20 @@ export function createFreeCity({ scene, kit }) {
     for (let n = 0; n < 16; n++) {
       const x = 17 + rand() * (P - 34); const z = 17 + rand() * (P - 34);
       if (Math.abs(x - px) < pw / 2 + 3 && Math.abs(z - pz) < pd / 2 + 3) continue;
-      if (rand() > 0.5) kit.addRainTree(g, x, z, rand); else kit.addPalm(g, x, z, rand);
+      treeOrPalm(chunk, g, x, z, rand);
     }
   }
 
-  function hedgeRing(g, rand) {
+  function hedgeRing(chunk, g, rand) {
     for (const e of Object.values(EDGES)) {
       const f = frame(g, e.x, e.z, e.yaw);
-      for (let z = 14; z < P - 20; z += 6) kit.addHedge(f, e.side * (FACE - 0.9), z, 5.6);
-      if (rand() > 0.3) kit.addRainTree(f, e.side * (FACE + 2.5), 14 + rand() * 6, rand);
-      if (rand() > 0.3) kit.addPalm(f, e.side * (FACE + 2.5), P - 20 - rand() * 6, rand);
+      for (let z = 14; z < P - 20; z += 6) hedge(chunk, f, e.side * (FACE - 0.9), z, 5.6, rand);
+      if (rand() > 0.3) { const z = 14 + rand() * 6; addProp(chunk, f, 'tree', e.side * (FACE + 2.5), z, rand, (parent, r) => kit.addRainTree(parent, e.side * (FACE + 2.5), z, r)); }
+      if (rand() > 0.3) { const z = P - 20 - rand() * 6; addProp(chunk, f, 'palm', e.side * (FACE + 2.5), z, rand, (parent, r) => kit.addPalm(parent, e.side * (FACE + 2.5), z, r)); }
     }
   }
 
-  function buildBlock(g, cell, rand) {
+  function buildBlock(chunk, g, cell, rand) {
     const { kind } = cell;
     plane(g, walkMat, 8.03, P - 8.03, 8.03, P - 8.03, SIDEWALK_Y, 2);
     box(g, curbMat, 7.78, 0.02, P / 2, 0.5, 0.2, P - 15.5);
@@ -171,8 +231,8 @@ export function createFreeCity({ scene, kit }) {
     box(g, curbMat, P / 2, 0.02, 7.78, P - 15.5, 0.2, 0.5);
     box(g, curbMat, P / 2, 0.02, P - 7.78, P - 15.5, 0.2, 0.5);
     if (kind === 'park') {
-      parkInterior(g, rand);
-      hedgeRing(g, rand);
+      parkInterior(chunk, g, rand);
+      hedgeRing(chunk, g, rand);
       return;
     }
     if (kind === 'landmark') {
@@ -186,9 +246,9 @@ export function createFreeCity({ scene, kit }) {
       f.add(model);
       for (const [a, b] of [[0, 0], [0, 1], [1, 0], [1, 1]]) {
         const x = 18 + a * (P - 36); const z = 18 + b * (P - 36);
-        if (rand() > 0.5) kit.addRainTree(g, x, z, rand); else kit.addPalm(g, x, z, rand);
+        treeOrPalm(chunk, g, x, z, rand);
       }
-      hedgeRing(g, rand);
+      hedgeRing(chunk, g, rand);
       return;
     }
     for (const [name, e] of Object.entries(EDGES)) {
@@ -229,7 +289,7 @@ export function createFreeCity({ scene, kit }) {
     const g = new THREE.Group();
     g.position.set(i * P, 0, j * P);
     const rand = lcg(seedOf(i, j));
-    const chunk = { g, i, j, peds: [] };
+    const chunk = { g, i, j, peds: [], props: [], ranges: new Map(), n: 0, key: `${i},${j}` };
     const east = i < GRID; const south = j < GRID;
     plane(g, asphaltMat, -8, east ? P - 8 : 8, -8, 8, -0.04, 8);
     if (south) plane(g, asphaltMat, -8, 8, 8, P - 8, -0.04, 8);
@@ -240,9 +300,9 @@ export function createFreeCity({ scene, kit }) {
     }
     if (south) decorateArm(chunk, g, 0, rand);
     if (east) decorateArm(chunk, g, Math.PI / 2, rand);
-    if (east && south) buildBlock(g, cellInfo(i, j), rand);
+    if (east && south) buildBlock(chunk, g, cellInfo(i, j), rand);
     buildQuay(g, i, j);
-    mergeStatics(g);
+    mergeStatics(g, chunk.ranges);
     g.updateMatrixWorld(true);
     root.add(g);
     return chunk;
@@ -250,6 +310,7 @@ export function createFreeCity({ scene, kit }) {
 
   function dropChunk(key) {
     const { g } = chunks.get(key);
+    cars.removeChunk(key);
     root.remove(g);
     g.traverse((o) => { if (o.userData.merged && o.geometry) o.geometry.dispose(); });
     disposeLandmarks(g);
@@ -305,6 +366,10 @@ export function createFreeCity({ scene, kit }) {
 
   function clear() {
     for (const key of [...chunks.keys()]) dropChunk(key);
+    effects.clear();
+    cars.clear();
+    broken.clear();
+    stats.props = 0; stats.peds = 0; stats.cars = 0;
   }
 
   function setVisible(on) {
@@ -312,5 +377,79 @@ export function createFreeCity({ scene, kit }) {
     if (!on) clear();
   }
 
-  return { update, prefill, clear, setVisible, get loaded() { return chunks.size; } };
+  function breakProp(prop, dirx, dirz, speed) {
+    const { spec } = prop;
+    broken.add(prop.id);
+    stats.props++;
+    for (const { mesh, start, count } of prop.chunk.ranges.get(prop.id) || []) {
+      mesh.geometry.index.array.fill(0, start, start + count);
+      mesh.geometry.index.needsUpdate = true;
+    }
+    prop.broken = true;
+    effects.wreck({ frame: prop.f, build: prop.build, x: prop.lx, z: prop.lz, dirx, dirz, speed, mode: spec.mode });
+    effects.burst(prop.x, 0.8, prop.z, spec.colors, 12, 5 + Math.min(speed, 20) * 0.3, dirx, dirz);
+  }
+
+  const pedPos = new THREE.Vector3();
+
+  // Checks the player's car (three circles along its length) against fixtures, pedestrians and traffic; returns a push-out, new speed and shake.
+  function interact(p) {
+    const dirx = Math.sin(p.heading); const dirz = -Math.cos(p.heading);
+    const sign = p.speed >= 0 ? 1 : -1;
+    const radius = 0.95;
+    const centres = [-1.5, 0, 1.5].map((o) => ({ x: p.x + dirx * o, z: p.z + dirz * o }));
+    let dx = 0; let dz = 0; let speed = p.speed; let shake = 0;
+    for (const chunk of chunks.values()) {
+      if (distanceTo(chunk.i, chunk.j, p.x, p.z) > 8) continue;
+      for (const prop of chunk.props) {
+        if (prop.broken || Math.abs(prop.x - p.x) > 7 || Math.abs(prop.z - p.z) > 7) continue;
+        const { spec } = prop;
+        const cos = Math.cos(prop.yaw); const sin = Math.sin(prop.yaw);
+        for (const c of centres) {
+          const rx = c.x - prop.x; const rz = c.z - prop.z;
+          const a = rx * cos - rz * sin; const b = rx * sin + rz * cos;
+          const ex = a - Math.max(-spec.hx, Math.min(spec.hx, a));
+          const ez = b - Math.max(-spec.hz, Math.min(spec.hz, b));
+          const d = Math.hypot(ex, ez);
+          if (d >= radius) continue;
+          if (Math.abs(speed) >= spec.min) {
+            breakProp(prop, dirx * sign, dirz * sign, Math.abs(speed));
+            speed *= spec.drag;
+            shake = Math.max(shake, Math.min(0.45, Math.abs(speed) * 0.02));
+          } else {
+            // Too slow to knock it over: it acts as a solid obstacle and the car is pushed back out
+            const nx = d > 1e-4 ? (ex * cos + ez * sin) / d : -dirx * sign;
+            const nz = d > 1e-4 ? (-ex * sin + ez * cos) / d : -dirz * sign;
+            dx += nx * (radius - d); dz += nz * (radius - d);
+            if (speed * (nx * dirx + nz * dirz) < 0) speed *= 0.3;
+          }
+          break;
+        }
+      }
+      if (Math.abs(speed) > 1.5) {
+        for (let k = chunk.peds.length - 1; k >= 0; k--) {
+          const ped = chunk.peds[k];
+          ped.getWorldPosition(pedPos);
+          if (!centres.some((c) => Math.hypot(c.x - pedPos.x, c.z - pedPos.z) < radius + 0.4)) continue;
+          chunk.peds.splice(k, 1);
+          broken.add(ped.userData.id);
+          stats.peds++;
+          const power = Math.abs(speed);
+          effects.knockPed(ped, dirx * sign * power * 0.8 + (Math.random() - 0.5) * 3, dirz * sign * power * 0.8 + (Math.random() - 0.5) * 3, 3 + power * 0.18);
+          effects.burst(pedPos.x, 1, pedPos.z, PED_COLORS, 6, 4, dirx * sign, dirz * sign);
+          speed *= 0.97;
+          shake = Math.max(shake, 0.15);
+        }
+      }
+    }
+    const hit = cars.collidePlayer({ x: p.x, z: p.z, heading: p.heading, speed });
+    return { dx: dx + hit.dx, dz: dz + hit.dz, speed: hit.speed, shake: Math.max(shake, hit.shake) };
+  }
+
+  function animate(delta, player) {
+    effects.update(delta);
+    cars.update(delta, player);
+  }
+
+  return { update, prefill, clear, setVisible, interact, animate, stats, get loaded() { return chunks.size; } };
 }

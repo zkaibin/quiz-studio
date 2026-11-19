@@ -89,6 +89,18 @@ export function isDrivable(x, z) {
   return offX <= DRIVE_LIMIT || offZ <= DRIVE_LIMIT;
 }
 
+// Free roam: roads, the pavement strip in front of buildings and the open park blocks are drivable; building interiors are not.
+export function isFreeDrivable(x, z) {
+  const sea = 13;
+  if (x < -sea || z < -sea || x > SIZE + sea || z > SIZE + sea) return false;
+  if (isDrivable(x, z) || x < 0 || z < 0 || x > SIZE || z > SIZE) return true;
+  const i = Math.min(GRID - 1, Math.floor(x / PITCH));
+  const j = Math.min(GRID - 1, Math.floor(z / PITCH));
+  if (cellInfo(i, j).kind === 'park') return true;
+  const lx = x - i * PITCH; const lz = z - j * PITCH;
+  return Math.min(lx, PITCH - lx, lz, PITCH - lz) < FACE - 0.6;
+}
+
 // Distance from the nearest road centre line on the axis the car is driving along; used for kerb scraping.
 export function kerbOffset(x, z) {
   const offX = Math.abs(x - Math.round(x / PITCH) * PITCH);

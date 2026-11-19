@@ -14,6 +14,7 @@ button { font: inherit; }
 .hud.active .live-dot { background: #51aa79; box-shadow: 0 0 0 4px rgba(81,170,121,.15); }
 .hud-stats { display: flex; align-items: center; gap: 19px; padding-left: 18px; border-left: 1px solid #dfe6e4; }
 .hud-stats > div { display: grid; gap: 3px; }
+.hud-stats > div[hidden] { display: none; }
 .stat-label { color: #839397; font-size: 8px; font-weight: 800; letter-spacing: 1px; }
 .hud-stats strong { color: #19333b; font-size: 17px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .hud-stats small { color: #809094; font-size: 10px; font-weight: 600; }
@@ -114,6 +115,7 @@ button { font: inherit; }
 .touch-controls { align-items: flex-end; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: none; }
 .touch-steer, .touch-pedals { display: flex; gap: 12px; pointer-events: auto; }
 .touch-pedals button[data-control="gas"] { min-width: 96px; height: 96px; background: rgba(60,150,100,.72); border-radius: 50%; }
+.touch-pedals button[data-control="reverse"] { min-width: 64px; height: 64px; background: rgba(90,100,120,.72); border-radius: 50%; }
 .touch-pedals button[data-control="brake"] { min-width: 80px; height: 80px; background: rgba(190,70,60,.72); border-radius: 50%; }
 .touch-steer button { min-width: 84px; height: 84px; border-radius: 50%; font-size: 30px; }
 .tilt-meter { display: none; position: relative; width: 130px; height: 8px; margin-bottom: 30px; border-radius: 4px; background: rgba(255,255,255,.4); }

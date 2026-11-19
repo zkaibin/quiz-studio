@@ -301,11 +301,13 @@ export function mergeVehicle(model) {
   mergeStatics(model);
 }
 
-export function mergeStatics(root) {
+// Optional `track` (Map) receives, per userData.breakId ancestor, the merged index ranges so a part can be hidden later.
+export function mergeStatics(root, track = null) {
   root.updateMatrixWorld(true);
   const inv = new THREE.Matrix4().copy(root.matrixWorld).invert();
   const groups = new Map();
   const doomed = [];
+  const owners = new Map();
   root.traverse((o) => {
     if (!o.isMesh || Array.isArray(o.material) || o.userData.dynamic) return;
     let p = o.parent;
@@ -315,6 +317,9 @@ export function mergeStatics(root) {
     const key = o.material.uuid;
     if (!groups.has(key)) groups.set(key, { material: o.material, parts: [] });
     groups.get(key).parts.push(o);
+    if (track) {
+      for (let q = o; q && q !== root; q = q.parent) if (q.userData.breakId) { owners.set(o, q.userData.breakId); break; }
+    }
     doomed.push(o);
   });
   const m = new THREE.Matrix4();
@@ -334,7 +339,9 @@ export function mergeStatics(root) {
     const uvs = new Float32Array(verts * 2);
     const ind = new Uint32Array(idx);
     let vo = 0; let io = 0;
+    const spans = [];
     for (const { mesh, count, triCount } of prepared) {
+      if (owners.has(mesh)) spans.push({ id: owners.get(mesh), start: io, count: triCount });
       const geo = mesh.geometry;
       m.multiplyMatrices(inv, mesh.matrixWorld);
       n.getNormalMatrix(m);
@@ -360,6 +367,10 @@ export function mergeStatics(root) {
     mesh.receiveShadow = true;
     mesh.userData.merged = true;
     root.add(mesh);
+    for (const span of spans) {
+      if (!track.has(span.id)) track.set(span.id, []);
+      track.get(span.id).push({ mesh, start: span.start, count: span.count });
+    }
   }
   for (const mesh of doomed) {
     mesh.removeFromParent();

@@ -6,7 +6,7 @@ import { createWorld, BLOCK_COUNT, BLOCK_LENGTH, LANES } from './city-world.js';
 import { createTraffic, PLAYER_Z, PLAYER_GRID_LANE } from './city-traffic.js';
 import { lcg } from './city-gfx.js';
 import { createFreeCity } from './city-free.js';
-import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, kerbOffset, spawnFor, DISTRICT_COLORS } from './city-map.js';
+import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOffset, spawnFor, DISTRICT_COLORS } from './city-map.js';
 
 (() => {
   const mount = document.getElementById('city-scene');
@@ -136,7 +136,7 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, kerbOffset, spawnFor, 
   trafficSystem.populate(16);
 
   const keys = new Set();
-  const controls = { left: false, right: false, gas: false, brake: false };
+  const controls = { left: false, right: false, gas: false, brake: false, reverse: false };
   const hud = document.querySelector('.hud');
   const speedOutput = document.getElementById('speed');
   const distanceOutput = document.getElementById('distance');
@@ -165,6 +165,9 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, kerbOffset, spawnFor, 
   let prevSpeed = 0;
   let accelSmooth = 0;
   let rollSmooth = 0;
+  let impactShake = 0;
+  const smashOutput = document.getElementById('smashed');
+  const smashStat = document.getElementById('smash-stat');
   const tiltToggle = document.getElementById('tilt-toggle');
   const touchControls = document.querySelector('.touch-controls');
   const tiltNeedle = document.getElementById('tilt-needle');
@@ -238,10 +241,11 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, kerbOffset, spawnFor, 
   }
 
   function isPressed(action) {
-    if (action === 'left') return controls.left || keys.has('ArrowLeft') || keys.has('a');
-    if (action === 'right') return controls.right || keys.has('ArrowRight') || keys.has('d');
-    if (action === 'gas') return controls.gas || keys.has('ArrowUp') || keys.has('w');
-    return controls.brake || keys.has('ArrowDown') || keys.has('s') || keys.has(' ');
+    if (action === 'left') return controls.left || keys.has('arrowleft') || keys.has('a');
+    if (action === 'right') return controls.right || keys.has('arrowright') || keys.has('d');
+    if (action === 'gas') return controls.gas || keys.has('arrowup') || keys.has('w');
+    if (action === 'reverse') return controls.reverse || keys.has('arrowdown') || keys.has('s');
+    return controls.brake || keys.has(' ');
   }
 
   function setRunning(value) {
@@ -328,6 +332,8 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, kerbOffset, spawnFor, 
     scene.fog.near = 70;
     scene.fog.far = 320;
     freeCity.setVisible(true);
+    smashStat.hidden = false;
+    impactShake = 0;
     const spawn = spawnFor(route.id);
     player.position.set(spawn.x, 0, spawn.z);
     heading = spawn.heading;
@@ -342,6 +348,8 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, kerbOffset, spawnFor, 
     if (!freeActive) return;
     freeActive = false;
     freeCity.setVisible(false);
+    smashStat.hidden = true;
+    player.position.y = 0;
     world.setFreeMode(false);
     blocks.forEach((block) => { block.visible = true; });
     scene.fog.near = 110;
@@ -358,16 +366,20 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, kerbOffset, spawnFor, 
   function updateFree(delta, forward) {
     const px = player.position.x;
     const pz = player.position.z;
-    distance += forward * delta;
+    distance += Math.abs(forward) * delta;
     world.followPlayer(px, pz);
     freeCity.update(px, pz, Date.now() / 1000);
+    freeCity.animate(delta, { x: px, z: pz, heading, speed });
+    impactShake = Math.max(0, impactShake - delta * 1.2);
+    const { props, peds, cars } = freeCity.stats;
+    smashOutput.textContent = String(props + peds + cars);
     const info = infoAt(px, pz);
     const place = info.landmark && Math.hypot(px - (info.landmark.i + 0.5) * PITCH, pz - (info.landmark.j + 0.5) * PITCH) < 90
       ? `${info.district} · ${info.landmark.id.toUpperCase()}` : info.district.toUpperCase();
     if (locationName.textContent !== place) locationName.textContent = place;
     if (roadName.textContent !== info.street.toUpperCase()) roadName.textContent = info.street.toUpperCase();
 
-    const speedRatio = Math.min(1, speed / 60);
+    const speedRatio = Math.min(1, Math.abs(speed) / 60);
     const fov = baseFov + speedRatio * 16;
     if (Math.abs(camera.fov - fov) > 0.05) {
       camera.fov = THREE.MathUtils.lerp(camera.fov, fov, 0.08);
@@ -376,9 +388,9 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, kerbOffset, spawnFor, 
     // Chase camera trails the car's heading with a little lag so turns feel natural
     camHeading += Math.atan2(Math.sin(heading - camHeading), Math.cos(heading - camHeading)) * Math.min(1, delta * 4);
     const sx = Math.sin(camHeading); const cz = Math.cos(camHeading);
-    camera.position.set(px - sx * 11.8, 5.0 - speedRatio * 0.5, pz + cz * 11.8);
+    camera.position.set(px - sx * 11.8 + (Math.random() - 0.5) * impactShake, 5.0 - speedRatio * 0.5 + (Math.random() - 0.5) * impactShake, pz + cz * 11.8 + (Math.random() - 0.5) * impactShake);
     camera.lookAt(px + sx * 16, 1.1, pz - cz * 16);
-    speedOutput.textContent = String(Math.round(speed * 3.6));
+    speedOutput.textContent = String(Math.round(Math.abs(speed) * 3.6));
     distanceOutput.textContent = (distance / 1000).toFixed(1);
     mapTimer -= delta;
     if (mapTimer <= 0) {
@@ -556,15 +568,21 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, kerbOffset, spawnFor, 
       }
     }
     const gas = driving && isPressed('gas');
-    const braking = driving ? isPressed('brake') : true;
+    const reverse = driving && isPressed('reverse');
+    const revTop = Math.min(14, stats.top * 0.25);
+    // Down / S brakes while rolling forwards, then engages reverse gear once the car has stopped (free roam only)
+    let braking = driving ? isPressed('brake') || (reverse && (!freeActive || speed > 0.4)) || (gas && speed < -0.1) : true;
     if (gas && !braking) {
       const ratio = Math.min(1, speed / stats.top);
       speed += stats.accel * (1 - ratio * ratio) * delta;
+    } else if (reverse && freeActive && !braking) {
+      const ratio = Math.min(1, -speed / revTop);
+      speed -= stats.accel * 0.5 * (1 - ratio * ratio) * delta;
     }
-    // Rolling resistance plus aerodynamic drag
-    speed -= (0.6 + speed * speed * 0.0016) * delta * (gas ? 0.3 : 1);
-    if (braking) speed -= stats.brake * delta;
-    speed = THREE.MathUtils.clamp(speed, 0, stats.top);
+    // Rolling resistance plus aerodynamic drag, always opposing the direction of travel
+    const drag = (0.6 + speed * speed * 0.0016) * delta * (gas || reverse ? 0.3 : 1) + (braking ? stats.brake * delta : 0);
+    speed = speed > 0 ? Math.max(0, speed - drag) : Math.min(0, speed + drag);
+    speed = THREE.MathUtils.clamp(speed, freeActive ? -revTop : 0, stats.top);
 
     // Kinematic bicycle model: the front wheels steer, the body only turns while the wheels roll.
     const input = driving ? steerAxis() : 0;
@@ -584,18 +602,29 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, kerbOffset, spawnFor, 
       const step = speed * delta;
       const nx = player.position.x + Math.sin(heading) * step;
       const nz = player.position.z - Math.cos(heading) * step;
-      if (isDrivable(nx, nz)) {
+      if (isFreeDrivable(nx, nz)) {
         player.position.x = nx;
         player.position.z = nz;
-      } else if (isDrivable(nx, player.position.z)) {
+      } else if (isFreeDrivable(nx, player.position.z)) {
         player.position.x = nx;
         speed *= 1 - Math.min(0.9, delta * 3);
-      } else if (isDrivable(player.position.x, nz)) {
+      } else if (isFreeDrivable(player.position.x, nz)) {
         player.position.z = nz;
         speed *= 1 - Math.min(0.9, delta * 3);
       } else {
         speed *= 1 - Math.min(0.9, delta * 6);
       }
+      // Crash into fixtures, pedestrians and traffic; the push-out is only applied when it keeps the car on drivable ground
+      const crash = freeCity.interact({ x: player.position.x, z: player.position.z, heading, speed });
+      if (isFreeDrivable(player.position.x + crash.dx, player.position.z + crash.dz)) {
+        player.position.x += crash.dx;
+        player.position.z += crash.dz;
+      }
+      speed = crash.speed;
+      impactShake = Math.max(impactShake, crash.shake);
+      // Pavement and park lawn sit slightly above the asphalt
+      const lift = isDrivable(player.position.x, player.position.z) ? 0 : 0.13;
+      player.position.y = THREE.MathUtils.lerp(player.position.y, lift, Math.min(1, delta * 14));
       forward = speed;
     } else {
       heading = THREE.MathUtils.clamp(heading + turnRate * delta, -headingLimit - 0.05, headingLimit + 0.05);
@@ -621,7 +650,7 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, kerbOffset, spawnFor, 
     player.rotation.y = -heading;
     player.rotation.z = -rollSmooth;
     player.rotation.x = THREE.MathUtils.clamp(accelSmooth * 0.0016, -0.04, 0.02);
-    if (carModel.userData.tail) carModel.userData.tail.emissiveIntensity = (driving ? isPressed('brake') : true) ? 3.2 : (route.night ? 1.3 : 0.8);
+    if (carModel.userData.tail) carModel.userData.tail.emissiveIntensity = (driving ? (isPressed('brake') || (isPressed('reverse') && speed > 0.4)) : true) ? 3.2 : (route.night ? 1.3 : 0.8);
     if (tiltNeedle) tiltNeedle.style.left = `${50 + steerInput * 45}%`;
 
     distance += forward * delta;
