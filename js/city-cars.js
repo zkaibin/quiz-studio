@@ -1,3 +1,5 @@
+import { mergeVehicle } from './city-gfx.js';
+
 // Car catalog, upgrade maths and 3D model builders for City Driving.
 
 export const UPGRADES = [
@@ -195,6 +197,19 @@ export function buildCarModel(THREE, car, colorHex) {
 
   // Wheels
   const wheels = [];
+  const frontPivots = [];
+  const WHEEL_STYLES = {
+    civic: { spokes: 5, thick: 0.09, rim: 0x23262a, caliper: 0xc8102e, lugs: true },
+    audi: { spokes: 10, thick: 0.035, rim: 0xb9bec4, caliper: 0xc8102e, lugs: true },
+    bmw: { spokes: 5, thick: 0.07, rim: 0x2b2e33, caliper: 0x2b6fd0, lugs: false },
+    porsche: { spokes: 5, thick: 0.05, rim: 0xcfd2d6, caliper: 0xffc20e, lugs: true },
+    lambo: { spokes: 6, thick: 0.11, rim: 0x111214, caliper: 0xff7a00, lugs: false }
+  };
+  const wheelStyle = WHEEL_STYLES[car.id] || WHEEL_STYLES.civic;
+  const rimMat = new THREE.MeshStandardMaterial({ color: wheelStyle.rim, roughness: 0.25, metalness: 0.9 });
+  const spokeMat = rimMat;
+  const discMat = new THREE.MeshStandardMaterial({ color: 0x8a8d90, roughness: 0.4, metalness: 0.9 });
+  const caliperMat = new THREE.MeshStandardMaterial({ color: wheelStyle.caliper, roughness: 0.4 });
   const radius = b.W > 1.95 ? 0.37 : 0.35;
   const wheelX = b.W / 2 - 0.12;
   for (const x of [-wheelX, wheelX]) {
@@ -206,22 +221,63 @@ export function buildCarModel(THREE, car, colorHex) {
       const pivot = new THREE.Group();
       pivot.position.set(x, radius, z);
       const spin = new THREE.Group();
-      const tyre = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, 0.28, 24), tire);
+      const sd = Math.sign(x);
+      const tyre = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, 0.28, 28), tire);
       tyre.rotation.z = Math.PI / 2;
-      const rim = new THREE.Mesh(new THREE.CylinderGeometry(radius * 0.68, radius * 0.68, 0.3, 20), chrome);
+      const rim = new THREE.Mesh(new THREE.CylinderGeometry(radius * 0.7, radius * 0.7, 0.3, 24), rimMat);
       rim.rotation.z = Math.PI / 2;
-      spin.add(tyre, rim);
-      for (let i = 0; i < 5; i++) {
-        const spoke = new THREE.Mesh(new THREE.BoxGeometry(0.31, 0.06, radius * 1.1), black);
-        spoke.rotation.x = (i / 5) * Math.PI;
+      const disc = new THREE.Mesh(new THREE.CylinderGeometry(radius * 0.55, radius * 0.55, 0.24, 24), discMat);
+      disc.rotation.z = Math.PI / 2;
+      spin.add(tyre, disc, rim);
+      const n = wheelStyle.spokes;
+      for (let i = 0; i < n; i++) {
+        const spoke = new THREE.Mesh(new THREE.BoxGeometry(0.02, wheelStyle.thick, radius * 1.3), spokeMat);
+        spoke.position.x = sd * 0.15;
+        spoke.rotation.x = (i / n) * Math.PI * (n % 2 ? 1 : 2) * (n % 2 ? 1 : 0.5);
         spin.add(spoke);
       }
+      if (wheelStyle.lugs) {
+        const hub = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.02, 12), chrome);
+        hub.rotation.z = Math.PI / 2;
+        hub.position.x = sd * 0.15;
+        spin.add(hub);
+      }
+      const caliper = new THREE.Mesh(new THREE.BoxGeometry(0.08, radius * 0.55, 0.16), caliperMat);
+      caliper.position.set(sd * 0.09, radius * 0.3, -0.12);
+      pivot.add(caliper);
       pivot.add(spin);
       group.add(pivot);
       wheels.push(spin);
+      if (z < 0) frontPivots.push(pivot);
     }
   }
+  // Per-model distinguishing details
+  if (car.id === 'civic') {
+    for (const sd of [-1, 1]) box(0.05, 0.06, 0.5, black, sd * (b.W / 2 - 0.02), 0.38, 0);
+    box(0.5, 0.04, 0.5, black, 0, b.hood + 0.01, -(front - 1.1));
+  } else if (car.id === 'audi') {
+    box(b.W * 0.7, 0.03, 0.04, chrome, 0, b.belt - 0.02, rz + 0.04);
+    for (const sd of [-1, 1]) box(0.3, 0.07, 0.03, black, sd * 0.55, 0.52, rz + 0.04);
+  } else if (car.id === 'bmw') {
+    box(0.4, 0.03, 0.9, black, 0, b.hood + 0.01, -(front - 1.3));
+    for (const sd of [-1, 1]) box(0.04, 0.12, 0.3, black, sd * (b.W / 2 + 0.005), 0.55, -(front - 1.75));
+  } else if (car.id === 'porsche') {
+    box(b.W - 0.4, 0.05, 0.05, chrome, 0, b.tailH - 0.2, rz + 0.04);
+    for (const sd of [-1, 1]) box(0.06, 0.1, 0.4, black, sd * (b.W / 2 + 0.005), 0.6, (-rear) - 1.5);
+  } else if (car.id === 'lambo') {
+    for (const sd of [-1, 1]) {
+      box(0.05, 0.18, 0.7, black, sd * (b.W / 2 + 0.005), 0.6, (-rear) - 1.3);
+      box(0.3, 0.02, 0.6, black, sd * 0.3, b.hood + 0.01, -(front - 1.0));
+    }
+    box(b.W * 0.85, 0.1, 0.35, black, 0, 0.36, rz);
+  }
+  group.userData.frontPivots = frontPivots;
+  group.userData.tail = tail;
+  group.userData.halfLen = b.L / 2;
+  group.userData.halfWidth = b.W / 2;
   group.userData.wheels = wheels;
+  mergeVehicle(group);
+  group.traverse((o) => { if (o.isMesh) o.castShadow = true; });
   group.userData.wheelRadius = radius;
   group.userData.paint = paint;
   return group;

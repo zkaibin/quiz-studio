@@ -29,6 +29,12 @@
       <div class="trip-track"><i id="trip-fill"></i></div>
       <div class="trip-meta"><span id="trip-remaining">0 m to go</span><span id="trip-reward"></span></div>
     </div>
+    <aside id="race-panel" class="race-panel" hidden aria-label="Race standings">
+      <div class="race-place"><span class="stat-label">POSITION</span><strong><span id="race-pos">1</span><small id="race-total">/6</small></strong></div>
+      <div class="race-time"><span class="stat-label">TIME</span><strong id="race-time">0:00.0</strong></div>
+      <ol id="race-board" class="race-board"></ol>
+    </aside>
+    <div id="countdown" class="countdown" hidden aria-live="assertive">3</div>
     <div id="hint" class="driving-hint">W / ↑ accelerate <b>·</b> A D / ← → steer <b>·</b> S / ↓ brake <b>·</b> P pause</div>
 
     <div class="touch-controls" aria-label="Touch driving controls">
@@ -48,9 +54,13 @@
       <div class="welcome-card">
         <p class="eyebrow">YOUR CITY, YOUR DRIVE</p>
         <h1>City <span>Driving</span></h1>
-        <p class="intro">Take the wheel on a sunlit Singapore street. Keep left, weave through traffic, and cruise past shophouses and the city skyline.</p>
+        <p class="intro">Take the wheel on a Singapore street. Keep left, weave through buses, taxis and lorries, or line up on the grid and race computer-controlled cars to the finish gate.</p>
         <div class="route-pill"><span>ROUTE</span> <b id="route-name">Downtown · Marina Bay · Chinatown</b></div>
         <div id="route-list" class="route-list" role="group" aria-label="Choose a route"></div>
+        <div id="mode-list" class="mode-list" role="group" aria-label="Choose a mode">
+          <button type="button" data-mode="free">Free drive</button>
+          <button type="button" data-mode="race">Race the city</button>
+        </div>
         <div class="car-pill"><span>CAR</span> <b id="current-car">Honda Civic Type R</b></div>
         <button id="start-drive" class="primary-button" type="button">Start your drive <span>↗</span></button>
         <button id="open-garage" class="secondary-button" type="button">Garage · Cars &amp; upgrades</button>
@@ -76,6 +86,7 @@
         <p class="eyebrow">TRIP COMPLETE</p>
         <h2 id="trip-title">You have arrived</h2>
         <p id="trip-summary" class="intro"></p>
+        <ol id="results-board" class="results-board" hidden></ol>
         <p id="trip-points" class="trip-points"></p>
         <button id="trip-again" class="primary-button" type="button">Drive again <span>↗</span></button>
         <button id="trip-menu" class="text-button" type="button">Choose another route</button>
