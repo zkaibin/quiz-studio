@@ -103,6 +103,15 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
   headlights.position.set(0, 0.85, -1.8);
   headlights.target.position.set(0, 0, -30);
   player.add(headlights, headlights.target);
+  // Flying cars: nitrogen tank (0..1), altitude and vertical speed in metres
+  let nitro = 1;
+  let altitude = 0;
+  let climb = 0;
+  let nitroFx = 0;
+  const flyStat = document.getElementById('fly-stat');
+  const altOutput = document.getElementById('altitude');
+  const nitroBar = document.getElementById('nitro-fill');
+  const nitroButton = document.querySelector('[data-control="nitro"]');
   let carModel = null;
   let currentCar = CARS[0];
   let stats = computeStats(currentCar);
@@ -117,6 +126,11 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
     carModel = buildCarModel(THREE, car, colorHex);
     wheelbase = carModel.userData.halfLen * 2 - 1.85;
     player.add(carModel);
+    altitude = 0;
+    climb = 0;
+    nitro = 1;
+    flyStat.hidden = !car.fly;
+    nitroButton.hidden = !car.fly;
   }
   showCar(CARS[0], CARS[0].colors[0], defaultUpgrades());
 
@@ -136,7 +150,7 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
   trafficSystem.populate(16);
 
   const keys = new Set();
-  const controls = { left: false, right: false, gas: false, brake: false, reverse: false };
+  const controls = { left: false, right: false, gas: false, brake: false, reverse: false, nitro: false };
   const hud = document.querySelector('.hud');
   const speedOutput = document.getElementById('speed');
   const distanceOutput = document.getElementById('distance');
@@ -244,6 +258,7 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
     if (action === 'left') return controls.left || keys.has('arrowleft') || keys.has('a');
     if (action === 'right') return controls.right || keys.has('arrowright') || keys.has('d');
     if (action === 'gas') return controls.gas || keys.has('arrowup') || keys.has('w');
+    if (action === 'nitro') return controls.nitro || keys.has('shift') || keys.has('e');
     if (action === 'reverse') return controls.reverse || keys.has('arrowdown') || keys.has('s');
     return controls.brake || keys.has(' ');
   }
@@ -350,6 +365,9 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
     freeCity.setVisible(false);
     smashStat.hidden = true;
     player.position.y = 0;
+    altitude = 0;
+    climb = 0;
+    if (carModel.userData.setThrust) carModel.userData.setThrust(0, 0);
     world.setFreeMode(false);
     blocks.forEach((block) => { block.visible = true; });
     scene.fog.near = 110;
@@ -388,8 +406,8 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
     // Chase camera trails the car's heading with a little lag so turns feel natural
     camHeading += Math.atan2(Math.sin(heading - camHeading), Math.cos(heading - camHeading)) * Math.min(1, delta * 4);
     const sx = Math.sin(camHeading); const cz = Math.cos(camHeading);
-    camera.position.set(px - sx * 11.8 + (Math.random() - 0.5) * impactShake, 5.0 - speedRatio * 0.5 + (Math.random() - 0.5) * impactShake, pz + cz * 11.8 + (Math.random() - 0.5) * impactShake);
-    camera.lookAt(px + sx * 16, 1.1, pz - cz * 16);
+    camera.position.set(px - sx * 11.8 + (Math.random() - 0.5) * impactShake, 5.0 - speedRatio * 0.5 + altitude * 0.9 + (Math.random() - 0.5) * impactShake, pz + cz * 11.8 + (Math.random() - 0.5) * impactShake);
+    camera.lookAt(px + sx * 16, 1.1 + altitude * 0.9, pz - cz * 16);
     speedOutput.textContent = String(Math.round(Math.abs(speed) * 3.6));
     distanceOutput.textContent = (distance / 1000).toFixed(1);
     mapTimer -= delta;
@@ -582,7 +600,7 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
     // Rolling resistance plus aerodynamic drag, always opposing the direction of travel
     const drag = (0.6 + speed * speed * 0.0016) * delta * (gas || reverse ? 0.3 : 1) + (braking ? stats.brake * delta : 0);
     speed = speed > 0 ? Math.max(0, speed - drag) : Math.min(0, speed + drag);
-    speed = THREE.MathUtils.clamp(speed, freeActive ? -revTop : 0, stats.top);
+    speed = THREE.MathUtils.clamp(speed, freeActive ? -revTop : 0, stats.top * (altitude > 1 ? 1.08 : 1));
 
     // Kinematic bicycle model: the front wheels steer, the body only turns while the wheels roll.
     const input = driving ? steerAxis() : 0;
@@ -602,7 +620,8 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
       const step = speed * delta;
       const nx = player.position.x + Math.sin(heading) * step;
       const nz = player.position.z - Math.cos(heading) * step;
-      if (isFreeDrivable(nx, nz)) {
+      const airborne = altitude > 1.5;
+      if (airborne || isFreeDrivable(nx, nz)) {
         player.position.x = nx;
         player.position.z = nz;
       } else if (isFreeDrivable(nx, player.position.z)) {
@@ -615,7 +634,7 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
         speed *= 1 - Math.min(0.9, delta * 6);
       }
       // Crash into fixtures, pedestrians and traffic; the push-out is only applied when it keeps the car on drivable ground
-      const crash = freeCity.interact({ x: player.position.x, z: player.position.z, heading, speed });
+      const crash = airborne ? { dx: 0, dz: 0, speed, shake: 0 } : freeCity.interact({ x: player.position.x, z: player.position.z, heading, speed });
       if (isFreeDrivable(player.position.x + crash.dx, player.position.z + crash.dz)) {
         player.position.x += crash.dx;
         player.position.z += crash.dz;
@@ -624,7 +643,32 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
       impactShake = Math.max(impactShake, crash.shake);
       // Pavement and park lawn sit slightly above the asphalt
       const lift = isDrivable(player.position.x, player.position.z) ? 0 : 0.13;
-      player.position.y = THREE.MathUtils.lerp(player.position.y, lift, Math.min(1, delta * 14));
+      if (currentCar.fly) {
+        const maxAlt = currentCar.maxAlt || 30;
+        const thrusting = driving && isPressed('nitro') && nitro > 0;
+        // Hold Shift / E (or NITRO) to burn nitrogen and climb; release to glide down and recharge on landing
+        climb += (thrusting ? 24 : -8.8) * delta;
+        climb = THREE.MathUtils.clamp(climb, -14, 10);
+        if (thrusting) nitro = Math.max(0, nitro - delta * 0.12);
+        else nitro = Math.min(1, nitro + delta * (altitude < 0.2 ? 0.3 : 0.02));
+        altitude += climb * delta;
+        // Never touch down on buildings or water: hover just above them until over a road again
+        const floor = isDrivable(player.position.x, player.position.z) || isFreeDrivable(player.position.x, player.position.z) ? 0 : (altitude > 0.5 ? 3 : 0);
+        if (altitude >= maxAlt) { altitude = maxAlt; climb = Math.min(climb, 0); }
+        if (altitude <= floor) {
+          if (floor === 0 && altitude < -climb * delta - 0.01 && climb < -9) impactShake = Math.max(impactShake, 0.12);
+          altitude = floor;
+          climb = Math.max(climb, 0);
+          if (floor === 0 && !thrusting) climb = 0;
+        }
+        nitroFx = THREE.MathUtils.lerp(nitroFx, thrusting ? 1 : (altitude > 0.3 ? 0.18 : 0), Math.min(1, delta * 10));
+        carModel.userData.setThrust(nitroFx, clock);
+        nitroBar.style.width = `${Math.round(nitro * 100)}%`;
+        altOutput.textContent = String(Math.round(altitude));
+        player.position.y = Math.max(altitude, lift);
+      } else {
+        player.position.y = THREE.MathUtils.lerp(player.position.y, lift, Math.min(1, delta * 14));
+      }
       forward = speed;
     } else {
       heading = THREE.MathUtils.clamp(heading + turnRate * delta, -headingLimit - 0.05, headingLimit + 0.05);

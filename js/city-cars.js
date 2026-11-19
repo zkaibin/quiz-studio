@@ -30,6 +30,14 @@ export const CARS = [
   {
     id: 'lambo', name: 'Lamborghini Huracán', tag: 'Supercar', price: 200, colors: [0x7bc01a, 0xff7a00, 0x1b1d22, 0xd9a400],
     top: 82, accel: 10.2, brake: 32, handling: 1.15, build: { L: 4.52, W: 2.0, nose: 0.42, hood: 0.7, belt: 0.8, cowlU: 1.25, deckH: 0.95, tailH: 0.82, rf: 0.5, rr: -0.5, rearBase: -1.4, roofH: 1.16, wing: 'high', grille: 'lambo' }
+  },
+  {
+    id: 'volt', name: 'Volt Roadster X', tag: 'Flying hypercar · 30 m', price: 320, fly: true, maxAlt: 30, colors: [0xd7dde3, 0x1d4e9c, 0xc8102e, 0x1b1d22],
+    top: 92, accel: 11.5, brake: 34, handling: 1.2, build: { L: 4.26, W: 1.92, nose: 0.46, hood: 0.78, belt: 0.84, cowlU: 0.7, deckH: 0.96, tailH: 0.88, rf: 0.15, rr: -0.95, rearBase: -1.7, roofH: 1.2, wing: 'lip', grille: 'ev' }
+  },
+  {
+    id: 'aether', name: 'Aether Nova GT', tag: 'Flying hypercar · 30 m', price: 500, fly: true, maxAlt: 30, colors: [0x1b1d22, 0x7a5cff, 0xd7dde3, 0x00b3a4],
+    top: 100, accel: 13, brake: 36, handling: 1.25, build: { L: 4.5, W: 1.98, nose: 0.4, hood: 0.7, belt: 0.78, cowlU: 0.9, deckH: 0.9, tailH: 0.8, rf: 0.3, rr: -0.75, rearBase: -1.6, roofH: 1.12, wing: 'high', grille: 'ev' }
   }
 ];
 
@@ -203,7 +211,9 @@ export function buildCarModel(THREE, car, colorHex) {
     audi: { spokes: 10, thick: 0.035, rim: 0xb9bec4, caliper: 0xc8102e, lugs: true },
     bmw: { spokes: 5, thick: 0.07, rim: 0x2b2e33, caliper: 0x2b6fd0, lugs: false },
     porsche: { spokes: 5, thick: 0.05, rim: 0xcfd2d6, caliper: 0xffc20e, lugs: true },
-    lambo: { spokes: 6, thick: 0.11, rim: 0x111214, caliper: 0xff7a00, lugs: false }
+    lambo: { spokes: 6, thick: 0.11, rim: 0x111214, caliper: 0xff7a00, lugs: false },
+    volt: { spokes: 8, thick: 0.03, rim: 0xc9ced3, caliper: 0x1d4e9c, lugs: false },
+    aether: { spokes: 12, thick: 0.025, rim: 0x2a2d33, caliper: 0x7a5cff, lugs: false }
   };
   const wheelStyle = WHEEL_STYLES[car.id] || WHEEL_STYLES.civic;
   const rimMat = new THREE.MeshStandardMaterial({ color: wheelStyle.rim, roughness: 0.25, metalness: 0.9 });
@@ -270,6 +280,47 @@ export function buildCarModel(THREE, car, colorHex) {
       box(0.3, 0.02, 0.6, black, sd * 0.3, b.hood + 0.01, -(front - 1.0));
     }
     box(b.W * 0.85, 0.1, 0.35, black, 0, 0.36, rz);
+  }
+  if (car.fly) {
+    // Nitrogen thrusters: dark nozzles under each corner and at the tail, with flames driven by userData.setThrust(0..1)
+    const flameMat = new THREE.MeshBasicMaterial({ color: 0x7fd8ff, transparent: true, opacity: 0.85, depthWrite: false });
+    const coreMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9, depthWrite: false });
+    const flames = [];
+    const nozzle = (x, y, z, r, flameLen, down) => {
+      const n = add(new THREE.CylinderGeometry(r, r * 0.8, 0.12, 14), black, x, y, z);
+      if (!down) n.rotation.x = Math.PI / 2;
+      for (const [mat, k] of [[flameMat, 1], [coreMat, 0.55]]) {
+        const f = new THREE.Mesh(new THREE.ConeGeometry(r * 0.9 * k, flameLen * k, 12, 1, true), mat);
+        f.userData.dynamic = true;
+        f.userData.len = flameLen * k;
+        f.userData.down = down;
+        f.userData.base = down ? new THREE.Vector3(x, y - 0.06, z) : new THREE.Vector3(x, y, z + 0.06);
+        f.visible = false;
+        group.add(f);
+        flames.push(f);
+      }
+    };
+    for (const sx of [-1, 1]) {
+      for (const z of [-(front - 0.95), (-rear) - 0.9]) nozzle(sx * (b.W / 2 - 0.5), 0.28, z, 0.13, 1.1, true);
+      nozzle(sx * 0.4, b.tailH - 0.3, rz + 0.04, 0.1, 1.4, false);
+    }
+    box(b.W * 0.5, 0.025, 0.04, new THREE.MeshStandardMaterial({ color: 0x7fd8ff, emissive: 0x4fc3ff, emissiveIntensity: 1.5 }), 0, lightY + 0.12, nz - 0.03);
+    group.userData.setThrust = (t, time) => {
+      for (const f of flames) {
+        f.visible = t > 0.02;
+        if (!f.visible) continue;
+        const flick = 0.85 + 0.15 * Math.sin(time * 70 + f.userData.base.x * 9);
+        const len = f.userData.len * t * flick;
+        f.scale.set(1, Math.max(0.01, t * flick), 1);
+        if (f.userData.down) {
+          f.rotation.set(Math.PI, 0, 0);
+          f.position.set(f.userData.base.x, f.userData.base.y - len / 2, f.userData.base.z);
+        } else {
+          f.rotation.set(-Math.PI / 2, 0, 0);
+          f.position.set(f.userData.base.x, f.userData.base.y, f.userData.base.z + len / 2);
+        }
+      }
+    };
   }
   group.userData.frontPivots = frontPivots;
   group.userData.tail = tail;

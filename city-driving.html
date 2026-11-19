@@ -19,6 +19,7 @@
         <div><span class="stat-label">SPEED</span><strong><span id="speed">0</span><small> km/h</small></strong></div>
         <div><span class="stat-label">DISTANCE</span><strong><span id="distance">0.0</span><small> km</small></strong></div>
         <div id="smash-stat" hidden><span class="stat-label">SMASHED</span><strong><span id="smashed">0</span></strong></div>
+        <div id="fly-stat" hidden><span class="stat-label">ALT · NITRO</span><strong><span id="altitude">0</span><small> m</small></strong><div class="nitro-meter"><i id="nitro-fill"></i></div></div>
         <div><span class="stat-label">ROAD</span><strong class="road-name">LEFT-HAND TRAFFIC</strong></div>
       </div>
       <button id="pause-drive" class="pause-button" type="button" aria-label="Pause driving" disabled>Ⅱ</button>
@@ -37,7 +38,7 @@
       <ol id="race-board" class="race-board"></ol>
     </aside>
     <div id="countdown" class="countdown" hidden aria-live="assertive">3</div>
-    <div id="hint" class="driving-hint">W / ↑ accelerate <b>·</b> A D / ← → steer <b>·</b> S / ↓ brake, then reverse <b>·</b> Space handbrake <b>·</b> P pause</div>
+    <div id="hint" class="driving-hint">W / ↑ accelerate <b>·</b> A D / ← → steer <b>·</b> S / ↓ brake, then reverse <b>·</b> Space handbrake <b>·</b> Shift / E nitro lift (flying cars) <b>·</b> P pause</div>
 
     <div class="touch-controls" aria-label="Touch driving controls">
       <div class="touch-steer">
@@ -46,6 +47,7 @@
       </div>
       <div class="tilt-meter" aria-hidden="true"><i id="tilt-needle"></i></div>
       <div class="touch-pedals">
+        <button type="button" data-control="nitro" aria-label="Nitrogen thrusters" hidden>NITRO</button>
         <button type="button" data-control="reverse" aria-label="Brake and reverse">REV</button>
         <button type="button" data-control="brake" aria-label="Brake">BRAKE</button>
         <button type="button" data-control="gas" aria-label="Accelerate">GAS</button>
