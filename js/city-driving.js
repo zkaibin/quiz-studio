@@ -5,6 +5,8 @@ import { ROUTES } from './city-routes.js';
 import { createWorld, BLOCK_COUNT, BLOCK_LENGTH, LANES } from './city-world.js';
 import { createTraffic, PLAYER_Z, PLAYER_GRID_LANE } from './city-traffic.js';
 import { lcg } from './city-gfx.js';
+import { createFreeCity } from './city-free.js';
+import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, kerbOffset, spawnFor, DISTRICT_COLORS } from './city-map.js';
 
 (() => {
   const mount = document.getElementById('city-scene');
@@ -28,11 +30,16 @@ import { lcg } from './city-gfx.js';
   let rand = lcg(1);
   const trafficSystem = createTraffic({ scene, rand: () => rand() });
   const finishGate = world.createFinishGate();
+  const freeCity = createFreeCity({ scene, kit: world.kit });
 
   const locationName = document.getElementById('location-name');
   const routeNameOutput = document.getElementById('route-name');
   const routeList = document.getElementById('route-list');
   const modeList = document.getElementById('mode-list');
+  const routeLabelOutput = document.getElementById('route-label');
+  const roadName = document.querySelector('.road-name');
+  const minimap = document.getElementById('minimap');
+  const minimapCtx = minimap.getContext('2d');
   const tripReward = (r) => Math.round(r.length / 100);
   const RACE_BONUS = [30, 20, 10];
   let route = ROUTES[0];
@@ -67,6 +74,11 @@ import { lcg } from './city-gfx.js';
   }
 
   function updateRouteLabel() {
+    routeLabelOutput.textContent = mode === 'free' ? 'START' : 'ROUTE';
+    if (mode === 'free') {
+      routeNameOutput.textContent = `${route.area} · drive anywhere in the city`;
+      return;
+    }
     const bonus = mode === 'race' ? ` · race +${RACE_BONUS[0]} pts` : '';
     routeNameOutput.textContent = `${route.from} → ${route.to} · ${(route.length / 1000).toFixed(1)} km · ${tripReward(route)} pts${bonus}`;
   }
@@ -166,6 +178,10 @@ import { lcg } from './city-gfx.js';
   const countdownOut = document.getElementById('countdown');
   const resultsBoard = document.getElementById('results-board');
   const isRace = () => mode === 'race';
+  const isFree = () => mode === 'free';
+  let freeActive = false;
+  let camHeading = 0;
+  let mapTimer = 0;
 
   function screenAngle() {
     return (screen.orientation && typeof screen.orientation.angle === 'number') ? screen.orientation.angle : (window.orientation || 0);
@@ -260,6 +276,117 @@ import { lcg } from './city-gfx.js';
     carModel.userData.frontPivots.forEach((p) => { p.rotation.y = 0; });
   }
 
+  // Static map layer for the minimap: district colours per block and the road grid.
+  const mapLayer = document.createElement('canvas');
+  mapLayer.width = mapLayer.height = minimap.width;
+  (() => {
+    const c = mapLayer.getContext('2d');
+    const k = mapLayer.width / SIZE;
+    c.fillStyle = '#7fb2c9';
+    c.fillRect(0, 0, mapLayer.width, mapLayer.height);
+    for (let i = 0; i < GRID; i++) {
+      for (let j = 0; j < GRID; j++) {
+        c.fillStyle = DISTRICT_COLORS[cellInfo(i, j).kind];
+        c.fillRect(i * PITCH * k, j * PITCH * k, PITCH * k + 0.5, PITCH * k + 0.5);
+      }
+    }
+    c.strokeStyle = '#fbfaf3';
+    c.lineWidth = 1.2;
+    c.beginPath();
+    for (let n = 0; n <= GRID; n++) {
+      c.moveTo(n * PITCH * k, 0); c.lineTo(n * PITCH * k, SIZE * k);
+      c.moveTo(0, n * PITCH * k); c.lineTo(SIZE * k, n * PITCH * k);
+    }
+    c.stroke();
+  })();
+
+  function drawMinimap() {
+    const k = minimap.width / SIZE;
+    minimapCtx.drawImage(mapLayer, 0, 0);
+    minimapCtx.save();
+    minimapCtx.translate(player.position.x * k, player.position.z * k);
+    minimapCtx.rotate(heading);
+    minimapCtx.fillStyle = '#d9482b';
+    minimapCtx.strokeStyle = '#fff';
+    minimapCtx.lineWidth = 1.5;
+    minimapCtx.beginPath();
+    minimapCtx.moveTo(0, -7); minimapCtx.lineTo(5, 6); minimapCtx.lineTo(0, 3); minimapCtx.lineTo(-5, 6);
+    minimapCtx.closePath();
+    minimapCtx.fill();
+    minimapCtx.stroke();
+    minimapCtx.restore();
+  }
+
+  function enterFree() {
+    if (!freeActive) roadName.dataset.default = roadName.textContent;
+    freeActive = true;
+    world.setFreeMode(true);
+    blocks.forEach((block) => { block.visible = false; });
+    trafficSystem.clearTraffic();
+    trafficSystem.clearRacers();
+    finishGate.visible = false;
+    scene.fog.near = 70;
+    scene.fog.far = 320;
+    freeCity.setVisible(true);
+    const spawn = spawnFor(route.id);
+    player.position.set(spawn.x, 0, spawn.z);
+    heading = spawn.heading;
+    camHeading = heading;
+    world.followPlayer(spawn.x, spawn.z);
+    freeCity.prefill(spawn.x, spawn.z, Date.now() / 1000);
+    minimap.hidden = false;
+    mapTimer = 0;
+  }
+
+  function leaveFree() {
+    if (!freeActive) return;
+    freeActive = false;
+    freeCity.setVisible(false);
+    world.setFreeMode(false);
+    blocks.forEach((block) => { block.visible = true; });
+    scene.fog.near = 110;
+    scene.fog.far = 430;
+    minimap.hidden = true;
+    roadName.textContent = roadName.dataset.default || 'LEFT-HAND TRAFFIC';
+    locationName.textContent = areaLabel;
+    camera.position.set(0, 5.0, 11.8);
+    camera.lookAt(0, 1.1, -16);
+    trafficSystem.populate(16);
+    resetCarPose();
+  }
+
+  function updateFree(delta, forward) {
+    const px = player.position.x;
+    const pz = player.position.z;
+    distance += forward * delta;
+    world.followPlayer(px, pz);
+    freeCity.update(px, pz, Date.now() / 1000);
+    const info = infoAt(px, pz);
+    const place = info.landmark && Math.hypot(px - (info.landmark.i + 0.5) * PITCH, pz - (info.landmark.j + 0.5) * PITCH) < 90
+      ? `${info.district} · ${info.landmark.id.toUpperCase()}` : info.district.toUpperCase();
+    if (locationName.textContent !== place) locationName.textContent = place;
+    if (roadName.textContent !== info.street.toUpperCase()) roadName.textContent = info.street.toUpperCase();
+
+    const speedRatio = Math.min(1, speed / 60);
+    const fov = baseFov + speedRatio * 16;
+    if (Math.abs(camera.fov - fov) > 0.05) {
+      camera.fov = THREE.MathUtils.lerp(camera.fov, fov, 0.08);
+      camera.updateProjectionMatrix();
+    }
+    // Chase camera trails the car's heading with a little lag so turns feel natural
+    camHeading += Math.atan2(Math.sin(heading - camHeading), Math.cos(heading - camHeading)) * Math.min(1, delta * 4);
+    const sx = Math.sin(camHeading); const cz = Math.cos(camHeading);
+    camera.position.set(px - sx * 11.8, 5.0 - speedRatio * 0.5, pz + cz * 11.8);
+    camera.lookAt(px + sx * 16, 1.1, pz - cz * 16);
+    speedOutput.textContent = String(Math.round(speed * 3.6));
+    distanceOutput.textContent = (distance / 1000).toFixed(1);
+    mapTimer -= delta;
+    if (mapTimer <= 0) {
+      mapTimer = 0.1;
+      drawMinimap();
+    }
+  }
+
   function clearSession() {
     racePanel.hidden = true;
     countdownOut.hidden = true;
@@ -267,6 +394,7 @@ import { lcg } from './city-gfx.js';
     tripPanel.hidden = true;
     phase = 'idle';
     trafficSystem.clearRacers();
+    leaveFree();
     resetCarPose();
   }
 
@@ -287,12 +415,17 @@ import { lcg } from './city-gfx.js';
     wheelAngle = 0;
     collisionCooldown = 0;
     resetCarPose();
-    tripPanel.hidden = false;
+    if (isFree()) enterFree(); else leaveFree();
+    tripPanel.hidden = isFree();
     tripFrom.textContent = `● ${route.from}`;
     tripTo.textContent = `${route.to} ⚑`;
     tripRewardOut.textContent = signedIn() ? `Up to ${tripReward(route) + CLEAN_BONUS + (isRace() ? RACE_BONUS[0] : 0)} pts` : 'Sign in to earn pts';
     updateTrip();
-    if (isRace()) {
+    if (isFree()) {
+      racePanel.hidden = true;
+      countdownOut.hidden = true;
+      phase = 'drive';
+    } else if (isRace()) {
       trafficSystem.populate(9);
       trafficSystem.setupRace({ playerCar: currentCar, playerColor: colorOf(currentCar), count: 5 });
       racePanel.hidden = false;
@@ -436,24 +569,47 @@ import { lcg } from './city-gfx.js';
     // Kinematic bicycle model: the front wheels steer, the body only turns while the wheels roll.
     const input = driving ? steerAxis() : 0;
     steerInput = THREE.MathUtils.lerp(steerInput, input, Math.min(1, delta * 10));
-    const maxSteer = (0.5 / (1 + (speed / 9) ** 2)) * (0.85 + 0.15 * stats.handling);
+    const free = freeActive;
+    const maxSteer = (0.5 / (1 + (speed / 9) ** 2)) * (0.85 + 0.15 * stats.handling) * (free ? 1.35 : 1);
     const headingLimit = 0.3;
     let steerTarget = steerInput * maxSteer;
-    if (Math.abs(input) < 0.05) steerTarget = THREE.MathUtils.clamp(-heading * 0.9, -maxSteer * 1.6, maxSteer * 1.6);
+    if (!free && Math.abs(input) < 0.05) steerTarget = THREE.MathUtils.clamp(-heading * 0.9, -maxSteer * 1.6, maxSteer * 1.6);
     steer = THREE.MathUtils.lerp(steer, steerTarget, Math.min(1, delta * (Math.abs(input) > 0.05 ? 9 : 6)));
-    if ((heading >= headingLimit && steer > 0) || (heading <= -headingLimit && steer < 0)) steer *= 0.5;
+    if (!free && ((heading >= headingLimit && steer > 0) || (heading <= -headingLimit && steer < 0))) steer *= 0.5;
     const turnRate = (speed / wheelbase) * Math.tan(steer);
-    heading = THREE.MathUtils.clamp(heading + turnRate * delta, -headingLimit - 0.05, headingLimit + 0.05);
-    let x = player.position.x + speed * Math.sin(heading) * delta;
-    // Kerb: scraping the side bleeds speed and turns the nose back onto the road
-    const edge = Math.abs(x) - 6.6;
-    if (edge > 0) {
-      speed *= 1 - Math.min(0.9, delta * 1.2 * (1 + edge));
-      heading -= Math.sign(x) * Math.min(Math.abs(heading) + 0.05, delta * 1.4) * (Math.sign(heading) === Math.sign(x) ? 1 : 0.2);
-      x = THREE.MathUtils.clamp(x, -7.25, 7.25);
+    let forward;
+    if (free) {
+      // Open city: the heading is unbounded and the car moves in world x/z; leaving the road surface scrapes and slides.
+      heading += turnRate * delta;
+      const step = speed * delta;
+      const nx = player.position.x + Math.sin(heading) * step;
+      const nz = player.position.z - Math.cos(heading) * step;
+      if (isDrivable(nx, nz)) {
+        player.position.x = nx;
+        player.position.z = nz;
+      } else if (isDrivable(nx, player.position.z)) {
+        player.position.x = nx;
+        speed *= 1 - Math.min(0.9, delta * 3);
+      } else if (isDrivable(player.position.x, nz)) {
+        player.position.z = nz;
+        speed *= 1 - Math.min(0.9, delta * 3);
+      } else {
+        speed *= 1 - Math.min(0.9, delta * 6);
+      }
+      forward = speed;
+    } else {
+      heading = THREE.MathUtils.clamp(heading + turnRate * delta, -headingLimit - 0.05, headingLimit + 0.05);
+      let x = player.position.x + speed * Math.sin(heading) * delta;
+      // Kerb: scraping the side bleeds speed and turns the nose back onto the road
+      const edge = Math.abs(x) - 6.6;
+      if (edge > 0) {
+        speed *= 1 - Math.min(0.9, delta * 1.2 * (1 + edge));
+        heading -= Math.sign(x) * Math.min(Math.abs(heading) + 0.05, delta * 1.4) * (Math.sign(heading) === Math.sign(x) ? 1 : 0.2);
+        x = THREE.MathUtils.clamp(x, -7.25, 7.25);
+      }
+      player.position.x = x;
+      forward = speed * Math.cos(heading);
     }
-    player.position.x = x;
-    const forward = speed * Math.cos(heading);
 
     wheelAngle += (speed * delta) / (carModel.userData.wheelRadius || 0.35);
     carModel.userData.wheels.forEach((w) => { w.rotation.x = -wheelAngle; });
@@ -470,6 +626,10 @@ import { lcg } from './city-gfx.js';
 
     distance += forward * delta;
     if (driving) raceTime += delta;
+    if (freeActive) {
+      updateFree(delta, forward);
+      return;
+    }
     wrapBlocks(forward * delta);
     world.scroll(forward * delta, delta);
     world.animatePedestrians(blocks, clock, delta);
