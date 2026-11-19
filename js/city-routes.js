@@ -461,7 +461,7 @@ export const ROUTES = [
   },
   {
     id: 'gardens', name: 'Gardens by the Bay', area: 'BAYFRONT SOUTH', blurb: 'Supertrees and conservatories after dusk',
-    sky: 0x27345f, ground: 0x4e8a5a, hemi: 1.6, sun: 1.3, sunColor: 0x9fb4ff,
+    night: true, sky: 0x27345f, ground: 0x4e8a5a, hemi: 1.6, sun: 1.3, sunColor: 0x9fb4ff,
     landmarks: ['supertrees', 'flowerdome', 'supertrees', 'cloudforest', 'mbs']
   },
   {

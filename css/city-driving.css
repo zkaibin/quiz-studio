@@ -134,3 +134,26 @@ button { font: inherit; }
 .trip-meta { color: #758681; font-size: 10px; }
 .trip-points { margin: 0 0 18px; color: #d96f50; font-size: 26px; font-weight: 800; }
 @media (max-width: 640px) { .trip-bar { top: 76px; right: 10px; width: 200px; } }
+
+/* Race mode */
+.mode-list { display: flex; gap: 6px; margin: 0 0 14px; }
+.mode-list button { flex: 1; padding: 10px; border: 1px solid #cfdad6; border-radius: 10px; background: #fff; color: #3d5a58; font-size: 12px; font-weight: 750; cursor: pointer; }
+.mode-list button.on { border-color: #183940; background: #183940; color: #fff; }
+.race-panel { position: absolute; z-index: 2; top: 178px; right: 22px; width: 200px; padding: 10px 12px; border: 1px solid rgba(255,255,255,.6); border-radius: 12px; background: rgba(250,253,252,.86); backdrop-filter: blur(14px); color: #19333b; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; }
+.race-panel[hidden] { display: none; }
+.race-panel strong { display: block; font-size: 24px; font-variant-numeric: tabular-nums; }
+.race-panel small { color: #809094; font-size: 12px; }
+.race-time strong { font-size: 17px; padding-top: 5px; }
+.race-board { grid-column: 1 / -1; margin: 4px 0 0; padding: 0; list-style: none; font-size: 11px; font-weight: 700; }
+.race-board li { display: flex; justify-content: space-between; gap: 8px; padding: 3px 6px; border-radius: 6px; }
+.race-board li.you { background: #d96f50; color: #fff; }
+.race-board li span:last-child { opacity: .75; font-variant-numeric: tabular-nums; }
+.countdown { position: absolute; z-index: 3; top: 30%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-size: clamp(80px, 16vw, 170px); font-weight: 900; text-shadow: 0 6px 30px rgba(10,25,30,.55); pointer-events: none; }
+.countdown[hidden] { display: none; }
+.countdown.pop { animation: countPop .9s ease-out; }
+@keyframes countPop { from { transform: translate(-50%, -50%) scale(1.5); opacity: 0; } 30% { opacity: 1; } to { transform: translate(-50%, -50%) scale(1); } }
+.results-board { margin: 0 0 16px; padding: 0; list-style: none; font-size: 13px; font-weight: 700; color: #3d5a58; }
+.results-board li { display: flex; justify-content: space-between; padding: 6px 10px; border-radius: 8px; }
+.results-board li.you { background: #fff1ec; color: #b8553c; }
+@media (max-width: 640px) { .race-panel { top: 150px; right: 10px; width: 170px; } }
+@media (max-height: 560px) { .race-board { display: none; } }

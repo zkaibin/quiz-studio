@@ -1,251 +1,100 @@
 import * as THREE from './vendor/three/three.module.min.js';
 import { CARS, UPGRADES, MAX_UPGRADE_LEVEL, defaultUpgrades, upgradeCost, computeStats, buildCarModel } from './city-cars.js';
 import { createGarageStore } from './city-garage.js';
-import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
+import { ROUTES } from './city-routes.js';
+import { createWorld, BLOCK_COUNT, BLOCK_LENGTH, LANES } from './city-world.js';
+import { createTraffic, PLAYER_Z, PLAYER_GRID_LANE } from './city-traffic.js';
+import { lcg } from './city-gfx.js';
 
 (() => {
   const mount = document.getElementById('city-scene');
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
   renderer.setSize(mount.clientWidth, mount.clientHeight);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.12;
+  renderer.toneMappingExposure = 1.05;
   mount.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0xa9d5e5);
-  scene.fog = new THREE.Fog(0xa9d5e5, 85, 370);
+  scene.fog = new THREE.Fog(0xa9d5e5, 110, 430);
   const baseFov = 62;
-  const camera = new THREE.PerspectiveCamera(baseFov, mount.clientWidth / mount.clientHeight, 0.1, 500);
+  const camera = new THREE.PerspectiveCamera(baseFov, mount.clientWidth / mount.clientHeight, 0.1, 700);
   camera.position.set(0, 5.0, 11.8);
   camera.lookAt(0, 1.1, -16);
-  scene.add(new THREE.HemisphereLight(0xe4f6ff, 0x7d826d, 2.0));
-  const sunlight = new THREE.DirectionalLight(0xffefd2, 2.4);
-  sunlight.position.set(-35, 55, 20);
-  scene.add(sunlight);
 
-  const mat = (color, roughness = 0.82, metalness = 0) => new THREE.MeshStandardMaterial({ color, roughness, metalness });
-  const materials = {
-    asphalt: mat(0x444b4c), ground: mat(0x91ad89), sidewalk: mat(0xc5c2ad),
-    lane: mat(0xf4db9c, 0.7), white: mat(0xf4f2dc, 0.65),
-    car: mat(0xd9684c, 0.35, 0.12), dark: mat(0x18272a, 0.6), glass: mat(0x8db6bc, 0.25, 0.08),
-    tire: mat(0x202626, 0.95), lamp: mat(0xffe6a3, 0.3), trunk: mat(0x80634c),
-    leaf: mat(0x387b5b), shop1: mat(0xe8c5a1), shop2: mat(0x9cc5bd), shop3: mat(0xd9a28b),
-    tower1: mat(0xd2d8d1), tower2: mat(0x94b3bc), tower3: mat(0xe6d7bd), window: mat(0x477481, 0.3, 0.15),
-    sign: mat(0x276e67), red: mat(0xdc7055), blue: mat(0x43899a), yellow: mat(0xd8ae55)
-  };
-  const boxGeo = new THREE.BoxGeometry(1, 1, 1);
-  const cylinderGeo = new THREE.CylinderGeometry(1, 1, 1, 8);
+  const world = createWorld({ scene, renderer });
+  let rand = lcg(1);
+  const trafficSystem = createTraffic({ scene, rand: () => rand() });
+  const finishGate = world.createFinishGate();
 
-  function box(parent, material, x, y, z, sx, sy, sz) {
-    const mesh = new THREE.Mesh(boxGeo, material);
-    mesh.position.set(x, y, z);
-    mesh.scale.set(sx, sy, sz);
-    parent.add(mesh);
-    return mesh;
-  }
-
-  function cylinder(parent, material, x, y, z, radius, height, sides = 8) {
-    const geometry = sides === 8 ? cylinderGeo : new THREE.CylinderGeometry(radius, radius, height, sides);
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.position.set(x, y, z);
-    mesh.scale.set(radius, height, radius);
-    parent.add(mesh);
-    return mesh;
-  }
-
-  const ground = new THREE.Mesh(new THREE.PlaneGeometry(230, 510), materials.ground);
-  ground.rotation.x = -Math.PI / 2;
-  ground.position.set(0, -0.15, -215);
-  scene.add(ground);
-  const road = new THREE.Mesh(new THREE.PlaneGeometry(16, 510), materials.asphalt);
-  road.rotation.x = -Math.PI / 2;
-  road.position.set(0, -0.04, -215);
-  scene.add(road);
-
-  for (const x of [-7.65, 7.65]) {
-    const curb = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.16, 510), materials.sidewalk);
-    curb.position.set(x, 0.02, -215);
-    scene.add(curb);
-    const verge = new THREE.Mesh(new THREE.BoxGeometry(2.5, 0.12, 510), materials.ground);
-    verge.position.set(x + Math.sign(x) * 1.5, -0.02, -215);
-    scene.add(verge);
-  }
-
-  const roadMarks = [];
-  const dashSpacing = 13;
-  const dashCount = 41;
-  function roadMark(x, z, width, length, material, moves = false) {
-    const mark = new THREE.Mesh(new THREE.BoxGeometry(width, 0.025, length), material);
-    mark.position.set(x, 0.012, z);
-    scene.add(mark);
-    if (moves) roadMarks.push(mark);
-  }
-  for (const x of [-7.1, -3.55, 3.55, 7.1]) {
-    for (let i = 0; i < dashCount; i++) roadMark(x, -490 + i * dashSpacing, x === -3.55 || x === 3.55 ? 0.1 : 0.16, 6, materials.white, true);
-  }
-  roadMark(-0.09, -215, 0.12, 510, materials.lane);
-  roadMark(0.09, -215, 0.12, 510, materials.lane);
-
-  const urbanBlocks = [];
-  let seed = 28;
-  const random = () => {
-    seed = (seed * 16807) % 2147483647;
-    return (seed - 1) / 2147483646;
-  };
-
-  function addPalm(group, x, z) {
-    const palm = new THREE.Group();
-    palm.position.set(x, 0, z);
-    group.add(palm);
-    const trunkMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.27, 4.7, 7), materials.trunk);
-    trunkMesh.position.y = 2.35;
-    palm.add(trunkMesh);
-    for (let i = 0; i < 6; i++) {
-      const angle = (i / 6) * Math.PI * 2;
-      const frond = new THREE.Mesh(new THREE.BoxGeometry(0.33, 0.13, 2.5), materials.leaf);
-      frond.position.set(Math.sin(angle) * 0.9, 4.65, Math.cos(angle) * 0.9);
-      frond.rotation.y = -angle;
-      frond.rotation.x = -0.35;
-      palm.add(frond);
-    }
-  }
-
-  function addLamp(group, x, z) {
-    const post = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.1, 5, 7), materials.dark);
-    post.position.set(x, 2.5, z);
-    group.add(post);
-    box(group, materials.dark, x - Math.sign(x) * 0.65, 4.85, z, 1.3, 0.09, 0.09);
-    const light = new THREE.Mesh(new THREE.SphereGeometry(0.17, 8, 6), materials.lamp);
-    light.position.set(x - Math.sign(x) * 1.25, 4.72, z);
-    group.add(light);
-  }
-
-  function addBuilding(group, side, z, slot) {
-    const shop = slot === 0;
-    const width = shop ? 9 + random() * 3 : 11 + random() * 3;
-    const depth = shop ? 15 + random() * 4 : 20 + random() * 7;
-    const height = shop ? 8 + random() * 5 : 20 + random() * 46;
-    const x = side * (width / 2 + 11.5 + (slot === 0 ? 0 : 6));
-    const facade = shop
-      ? [materials.shop1, materials.shop2, materials.shop3][Math.floor(random() * 3)]
-      : [materials.tower1, materials.tower2, materials.tower3][Math.floor(random() * 3)];
-    box(group, facade, x, height / 2, z, width, height, depth);
-    box(group, shop ? materials.red : materials.window, x - side * (width / 2 + 0.04), shop ? 2 : height / 2, z, 0.1, shop ? 2.5 : height * 0.7, depth * 0.78);
-    if (shop) {
-      box(group, materials.sign, x - side * (width / 2 + 0.11), 4.1, z, 0.16, 0.55, depth * 0.84);
-      for (let window = -1; window <= 1; window++) {
-        box(group, materials.window, x - side * (width / 2 + 0.12), 1.8, z + window * 4.2, 0.12, 1.65, 2.7);
-        box(group, materials.white, x - side * (width / 2 + 0.2), 0.12, z + window * 4.2, 0.35, 0.12, 2.8);
-      }
-    } else {
-      const rows = Math.max(3, Math.floor(height / 5));
-      for (let row = 0; row < rows; row++) {
-        for (let col = -1; col <= 1; col++) {
-          box(group, materials.window, x - side * (width / 2 + 0.06), 3 + row * 4.2, z + col * depth * 0.25, 0.12, 1.5, 1.5);
-        }
-      }
-      box(group, facade, x, height + 0.35, z, width * 0.88, 0.7, depth * 0.88);
-    }
-  }
-
-  const water = new THREE.Mesh(new THREE.PlaneGeometry(102, 510), mat(0x4c93b5, 0.25, 0.05));
-  water.rotation.x = -Math.PI / 2;
-  scene.add(water);
   const locationName = document.getElementById('location-name');
   const routeNameOutput = document.getElementById('route-name');
   const routeList = document.getElementById('route-list');
-  const BLOCK_COUNT = 8;
-  const BLOCK_LENGTH = 64;
-  const hemiLight = scene.children.find((o) => o.isHemisphereLight);
+  const modeList = document.getElementById('mode-list');
   const tripReward = (r) => Math.round(r.length / 100);
+  const RACE_BONUS = [30, 20, 10];
   let route = ROUTES[0];
   let areaLabel = route.area;
-
-  function buildBlock(i) {
-    const block = new THREE.Group();
-    block.position.z = -i * BLOCK_LENGTH;
-    block.userData.landmarks = [];
-    for (const side of [-1, 1]) {
-      const onWater = route.water === side;
-      let id = null;
-      if (onWater) {
-        if (i % 2 === 0 && route.waterLandmarks) id = route.waterLandmarks[(i / 2) % route.waterLandmarks.length | 0];
-      } else if (route.water || (i % 2 === 0) === (side === -1)) {
-        id = route.landmarks[i % route.landmarks.length];
-      }
-      if (!onWater) addBuilding(block, side, -16, 0);
-      if (id) {
-        const landmark = buildLandmark(id);
-        landmark.position.set(side * (onWater ? 22 : 12), 0, -44);
-        if (side === 1) landmark.rotation.y = Math.PI;
-        block.add(landmark);
-        block.userData.landmarks.push(landmark.userData.name);
-      } else if (!onWater) {
-        addBuilding(block, side, -44, 1);
-      }
-    }
-    for (let k = 0; k < 4; k++) {
-      if (route.water !== -1) addPalm(block, -9.3, -8 - k * 16);
-      if (route.water !== 1) addPalm(block, 9.3, -16 - k * 16);
-      addLamp(block, -8.7, -2 - k * 16);
-      addLamp(block, 8.7, -10 - k * 16);
-    }
-    for (let k = 0; k < 16; k++) {
-      for (const side of [-1, 1]) box(block, k % 2 ? materials.red : materials.white, side * 7.75, 0.28, -k * 4, 0.16, 0.3, 1.4);
-    }
-    return block;
-  }
+  let mode = 'free';
+  const blocks = [];
 
   function applyRoute(next) {
     route = next;
-    seed = 28 + ROUTES.indexOf(route) * 97;
-    while (urbanBlocks.length) {
-      const old = urbanBlocks.pop();
+    rand = lcg(28 + ROUTES.indexOf(route) * 97);
+    while (blocks.length) {
+      const old = blocks.pop();
       scene.remove(old);
-      disposeLandmarks(old);
+      world.disposeBlock(old);
     }
+    world.setRoute(route);
     for (let i = 0; i < BLOCK_COUNT; i++) {
-      const block = buildBlock(i);
-      urbanBlocks.push(block);
+      const block = world.buildBlock(route, i, rand);
+      blocks.push(block);
       scene.add(block);
     }
-    scene.background.set(route.sky);
-    scene.fog.color.set(route.sky);
-    materials.ground.color.set(route.ground);
-    hemiLight.intensity = route.hemi;
-    sunlight.intensity = route.sun;
-    sunlight.color.set(route.sunColor);
-    water.visible = !!route.water;
-    if (route.water) {
-      water.material.color.set(route.waterColor);
-      water.position.set(route.water * 64, -0.08, -215);
+    if (headlights) {
+      headlights.intensity = route.night ? 1400 : 0;
     }
     areaLabel = route.area;
     locationName.textContent = areaLabel;
-    routeNameOutput.textContent = `${route.from} → ${route.to} · ${(route.length / 1000).toFixed(1)} km · ${tripReward(route)} pts`;
+    updateRouteLabel();
     routeList.querySelectorAll('button').forEach((button) => {
       button.classList.toggle('on', button.dataset.route === route.id);
     });
     try { localStorage.setItem('cityDrivingRoute', route.id); } catch (error) { /* storage unavailable */ }
   }
 
-  routeList.innerHTML = ROUTES.map((r) => `<button type="button" data-route="${r.id}">${r.name}</button>`).join('');
-  routeList.addEventListener('click', (event) => {
-    const button = event.target.closest('[data-route]');
-    if (button) applyRoute(ROUTES.find((r) => r.id === button.dataset.route));
-  });
-  let savedRoute = null;
-  try { savedRoute = localStorage.getItem('cityDrivingRoute'); } catch (error) { /* storage unavailable */ }
-  applyRoute(ROUTES.find((r) => r.id === savedRoute) || ROUTES[0]);
+  function updateRouteLabel() {
+    const bonus = mode === 'race' ? ` · race +${RACE_BONUS[0]} pts` : '';
+    routeNameOutput.textContent = `${route.from} → ${route.to} · ${(route.length / 1000).toFixed(1)} km · ${tripReward(route)} pts${bonus}`;
+  }
 
+  function setMode(next) {
+    mode = next === 'race' ? 'race' : 'free';
+    modeList.querySelectorAll('button').forEach((button) => button.classList.toggle('on', button.dataset.mode === mode));
+    updateRouteLabel();
+    try { localStorage.setItem('cityDrivingMode', mode); } catch (error) { /* storage unavailable */ }
+  }
+  modeList.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-mode]');
+    if (button) setMode(button.dataset.mode);
+  });
+
+  // ----- Player car -----
   const player = new THREE.Group();
-  player.position.set(-1.75, 0, 2.6);
+  player.rotation.order = 'YXZ';
+  player.position.set(LANES[PLAYER_GRID_LANE], 0, PLAYER_Z);
   scene.add(player);
+  const headlights = new THREE.SpotLight(0xfff1cf, 0, 80, 0.5, 0.65, 2);
+  headlights.position.set(0, 0.85, -1.8);
+  headlights.target.position.set(0, 0, -30);
+  player.add(headlights, headlights.target);
   let carModel = null;
   let currentCar = CARS[0];
   let stats = computeStats(currentCar);
+  let wheelbase = 2.7;
   function showCar(car, colorHex, upgrades) {
     currentCar = car;
     stats = computeStats(car, upgrades);
@@ -254,46 +103,25 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
       carModel.traverse((o) => { if (o.geometry) o.geometry.dispose(); });
     }
     carModel = buildCarModel(THREE, car, colorHex);
+    wheelbase = carModel.userData.halfLen * 2 - 1.85;
     player.add(carModel);
   }
   showCar(CARS[0], CARS[0].colors[0], defaultUpgrades());
 
-  const trafficMaterials = [materials.blue, materials.yellow, materials.shop2, materials.tower1, materials.red];
-  const traffic = [];
-  function makeTrafficCar(index) {
-    const car = new THREE.Group();
-    const color = trafficMaterials[index % trafficMaterials.length];
-    box(car, color, 0, 0.72, 0, 1.8, 0.68, 3.7);
-    box(car, materials.dark, 0, 1.2, -0.12, 1.42, 0.5, 1.7);
-    box(car, materials.glass, 0, 1.25, -0.14, 1.27, 0.37, 1.45);
-    for (const x of [-0.65, 0.65]) {
-      box(car, materials.lamp, x, 0.76, -1.85, 0.25, 0.13, 0.07);
-      box(car, materials.red, x, 0.75, 1.86, 0.25, 0.13, 0.07);
-    }
-    for (const x of [-0.93, 0.93]) {
-      for (const z of [-1.12, 1.12]) {
-        const wheel = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.34, 0.2, 10), materials.tire);
-        wheel.rotation.z = Math.PI / 2;
-        wheel.position.set(x, 0.37, z);
-        car.add(wheel);
-      }
-    }
-    car.userData = { oncoming: index % 4 === 3, lane: index % 2, cooldown: 0 };
-    resetTraffic(car, index, true);
-    scene.add(car);
-    traffic.push(car);
-  }
-
-  function resetTraffic(car, index, initial = false) {
-    const oncoming = car.userData.oncoming;
-    car.position.x = oncoming
-      ? (car.userData.lane === 0 ? 1.8 : 5.2)
-      : (car.userData.lane === 0 ? -1.75 : -5.25);
-    car.position.z = initial ? -38 - index * 30 : -220 - random() * 190;
-    car.rotation.y = oncoming ? Math.PI : 0;
-    car.userData.cooldown = 0.8;
-  }
-  for (let i = 0; i < 11; i++) makeTrafficCar(i);
+  routeList.innerHTML = ROUTES.map((r) => `<button type="button" data-route="${r.id}">${r.name}</button>`).join('');
+  routeList.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-route]');
+    if (button) applyRoute(ROUTES.find((r) => r.id === button.dataset.route));
+  });
+  let savedRoute = null;
+  let savedMode = null;
+  try {
+    savedRoute = localStorage.getItem('cityDrivingRoute');
+    savedMode = localStorage.getItem('cityDrivingMode');
+  } catch (error) { /* storage unavailable */ }
+  setMode(savedMode);
+  applyRoute(ROUTES.find((r) => r.id === savedRoute) || ROUTES[0]);
+  trafficSystem.populate(16);
 
   const keys = new Set();
   const controls = { left: false, right: false, gas: false, brake: false };
@@ -306,20 +134,38 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
   const pauseButton = document.getElementById('pause-drive');
   const hint = document.getElementById('hint');
   let running = false;
+  let phase = 'idle';
+  let countdownT = 0;
   let speed = 0;
   let distance = 0;
-  let playerX = -1.75;
+  let heading = 0;
+  let steer = 0;
+  let steerInput = 0;
+  let wheelAngle = 0;
   let lastTime = 0;
   let collisionCooldown = 0;
   let crashes = 0;
   let tripDone = false;
-  let steerInput = 0;
-  let wheelAngle = 0;
+  let raceTime = 0;
+  let clock = 0;
+  let boardTimer = 0;
+  let hasStarted = false;
+  let prevSpeed = 0;
+  let accelSmooth = 0;
+  let rollSmooth = 0;
   const tiltToggle = document.getElementById('tilt-toggle');
   const touchControls = document.querySelector('.touch-controls');
   const tiltNeedle = document.getElementById('tilt-needle');
   const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
   const tilt = { enabled: false, listening: false, raw: 0, neutral: null, value: 0 };
+  const racePanel = document.getElementById('race-panel');
+  const racePos = document.getElementById('race-pos');
+  const raceTotal = document.getElementById('race-total');
+  const raceTimeOut = document.getElementById('race-time');
+  const raceBoard = document.getElementById('race-board');
+  const countdownOut = document.getElementById('countdown');
+  const resultsBoard = document.getElementById('results-board');
+  const isRace = () => mode === 'race';
 
   function screenAngle() {
     return (screen.orientation && typeof screen.orientation.angle === 'number') ? screen.orientation.angle : (window.orientation || 0);
@@ -386,14 +232,43 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
     running = value;
     hud.classList.toggle('active', value);
     pauseButton.disabled = !value;
-    stateOutput.textContent = value ? 'ON THE ROAD' : 'READY';
+    stateOutput.textContent = value ? (phase === 'countdown' ? 'GET READY' : (isRace() ? 'RACING' : 'ON THE ROAD')) : 'READY';
     if (value) tilt.neutral = null;
     startPanel.classList.toggle('hidden', value);
     pausePanel.classList.toggle('hidden', value || !hasStarted);
     hint.style.display = value ? '' : 'none';
     if (value) lastTime = performance.now();
   }
-  let hasStarted = false;
+
+  const formatTime = (t) => `${Math.floor(t / 60)}:${(t % 60).toFixed(1).padStart(4, '0')}`;
+  const ordinal = (n) => n + (n === 1 ? 'st' : n === 2 ? 'nd' : n === 3 ? 'rd' : 'th');
+
+  function showCountdown(text) {
+    countdownOut.hidden = false;
+    countdownOut.textContent = text;
+    countdownOut.classList.remove('pop');
+    void countdownOut.offsetWidth;
+    countdownOut.classList.add('pop');
+  }
+
+  function resetCarPose() {
+    heading = 0;
+    steer = 0;
+    steerInput = 0;
+    player.position.set(LANES[PLAYER_GRID_LANE], 0, PLAYER_Z);
+    player.rotation.set(0, 0, 0);
+    carModel.userData.frontPivots.forEach((p) => { p.rotation.y = 0; });
+  }
+
+  function clearSession() {
+    racePanel.hidden = true;
+    countdownOut.hidden = true;
+    finishGate.visible = false;
+    tripPanel.hidden = true;
+    phase = 'idle';
+    trafficSystem.clearRacers();
+    resetCarPose();
+  }
 
   function startDrive() {
     if (isTouchDevice && !tilt.asked && 'DeviceOrientationEvent' in window) {
@@ -404,19 +279,36 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
     }
     hasStarted = true;
     speed = 0;
+    prevSpeed = 0;
     distance = 0;
     crashes = 0;
     tripDone = false;
+    raceTime = 0;
+    wheelAngle = 0;
+    collisionCooldown = 0;
+    resetCarPose();
     tripPanel.hidden = false;
     tripFrom.textContent = `● ${route.from}`;
     tripTo.textContent = `${route.to} ⚑`;
-    tripRewardOut.textContent = signedIn() ? `Up to ${tripReward(route) + CLEAN_BONUS} pts` : 'Sign in to earn pts';
+    tripRewardOut.textContent = signedIn() ? `Up to ${tripReward(route) + CLEAN_BONUS + (isRace() ? RACE_BONUS[0] : 0)} pts` : 'Sign in to earn pts';
     updateTrip();
-    playerX = -1.75;
-    player.position.x = playerX;
-    player.rotation.set(0, 0, 0);
-    for (let i = 0; i < traffic.length; i++) resetTraffic(traffic[i], i, true);
+    if (isRace()) {
+      trafficSystem.populate(9);
+      trafficSystem.setupRace({ playerCar: currentCar, playerColor: colorOf(currentCar), count: 5 });
+      racePanel.hidden = false;
+      raceTotal.textContent = `/${trafficSystem.racers.length + 1}`;
+      phase = 'countdown';
+      countdownT = 3;
+      showCountdown('3');
+    } else {
+      trafficSystem.populate(16);
+      trafficSystem.clearRacers();
+      racePanel.hidden = true;
+      countdownOut.hidden = true;
+      phase = 'drive';
+    }
     distanceOutput.textContent = '0.0';
+    updateRaceBoard();
     setRunning(true);
   }
   function togglePause() {
@@ -445,8 +337,10 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
     stateOutput.textContent = 'READY';
     hud.classList.remove('active');
     pauseButton.disabled = true;
-    tripPanel.hidden = true;
+    clearSession();
+    trafficSystem.populate(16);
   });
+
   pauseButton.addEventListener('click', togglePause);
   window.addEventListener('keydown', (event) => {
     const key = event.key.toLowerCase();
@@ -486,18 +380,50 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
   }
   window.addEventListener('resize', resize);
 
+
   function animate(now) {
     requestAnimationFrame(animate);
     const delta = THREE.MathUtils.clamp((now - lastTime) / 1000, 0, 0.05);
     lastTime = now;
     if (running) update(delta);
-    else if (!hasStarted || !garagePanel.classList.contains('hidden')) player.rotation.y += delta * 0.5;
+    else idle(delta);
     renderer.render(scene, camera);
   }
 
+  // Menu / garage: the car turns on the spot while the street keeps moving around it.
+  function idle(delta) {
+    clock += delta;
+    if (!hasStarted) {
+      player.rotation.y += delta * 0.5;
+      world.animatePedestrians(blocks, clock, delta);
+      trafficSystem.update(delta, { playerForward: 0, playerX: player.position.x, playerSpeed: 0, distance: 0, time: 0, go: false, playerTop: stats.top, playerAccel: stats.accel, length: route.length });
+    }
+  }
+
+  const wrapBlocks = (meters) => {
+    blocks.forEach((block) => {
+      block.position.z += meters;
+      if (block.position.z > 65) block.position.z -= BLOCK_COUNT * BLOCK_LENGTH;
+    });
+  };
+
   function update(delta) {
-    const gas = isPressed('gas');
-    const braking = isPressed('brake');
+    clock += delta;
+    const driving = phase === 'drive';
+    if (phase === 'countdown') {
+      countdownT -= delta;
+      const shown = Math.ceil(countdownT);
+      if (countdownT <= 0) {
+        phase = 'drive';
+        stateOutput.textContent = 'RACING';
+        showCountdown('GO!');
+        setTimeout(() => { if (phase === 'drive') countdownOut.hidden = true; }, 900);
+      } else if (countdownOut.textContent !== String(shown)) {
+        showCountdown(String(shown));
+      }
+    }
+    const gas = driving && isPressed('gas');
+    const braking = driving ? isPressed('brake') : true;
     if (gas && !braking) {
       const ratio = Math.min(1, speed / stats.top);
       speed += stats.accel * (1 - ratio * ratio) * delta;
@@ -506,50 +432,72 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
     speed -= (0.6 + speed * speed * 0.0016) * delta * (gas ? 0.3 : 1);
     if (braking) speed -= stats.brake * delta;
     speed = THREE.MathUtils.clamp(speed, 0, stats.top);
-    const steer = steerAxis();
-    steerInput = THREE.MathUtils.lerp(steerInput, steer, 0.25);
-    const lateral = (3.2 + Math.min(speed, 40) * 0.1) * stats.handling;
-    playerX = THREE.MathUtils.clamp(playerX + steerInput * lateral * delta, -6.1, 6.1);
-    player.position.x = THREE.MathUtils.lerp(player.position.x, playerX, 0.22);
-    player.rotation.z = THREE.MathUtils.lerp(player.rotation.z, -steerInput * 0.05, 0.1);
-    player.rotation.y = THREE.MathUtils.lerp(player.rotation.y, -steerInput * 0.07, 0.12);
+
+    // Kinematic bicycle model: the front wheels steer, the body only turns while the wheels roll.
+    const input = driving ? steerAxis() : 0;
+    steerInput = THREE.MathUtils.lerp(steerInput, input, Math.min(1, delta * 10));
+    const maxSteer = (0.5 / (1 + (speed / 9) ** 2)) * (0.85 + 0.15 * stats.handling);
+    const headingLimit = 0.3;
+    let steerTarget = steerInput * maxSteer;
+    if (Math.abs(input) < 0.05) steerTarget = THREE.MathUtils.clamp(-heading * 0.9, -maxSteer * 1.6, maxSteer * 1.6);
+    steer = THREE.MathUtils.lerp(steer, steerTarget, Math.min(1, delta * (Math.abs(input) > 0.05 ? 9 : 6)));
+    if ((heading >= headingLimit && steer > 0) || (heading <= -headingLimit && steer < 0)) steer *= 0.5;
+    const turnRate = (speed / wheelbase) * Math.tan(steer);
+    heading = THREE.MathUtils.clamp(heading + turnRate * delta, -headingLimit - 0.05, headingLimit + 0.05);
+    let x = player.position.x + speed * Math.sin(heading) * delta;
+    // Kerb: scraping the side bleeds speed and turns the nose back onto the road
+    const edge = Math.abs(x) - 6.6;
+    if (edge > 0) {
+      speed *= 1 - Math.min(0.9, delta * 1.2 * (1 + edge));
+      heading -= Math.sign(x) * Math.min(Math.abs(heading) + 0.05, delta * 1.4) * (Math.sign(heading) === Math.sign(x) ? 1 : 0.2);
+      x = THREE.MathUtils.clamp(x, -7.25, 7.25);
+    }
+    player.position.x = x;
+    const forward = speed * Math.cos(heading);
+
     wheelAngle += (speed * delta) / (carModel.userData.wheelRadius || 0.35);
     carModel.userData.wheels.forEach((w) => { w.rotation.x = -wheelAngle; });
+    carModel.userData.frontPivots.forEach((p) => { p.rotation.y = -steer; });
+    const accel = (speed - prevSpeed) / Math.max(delta, 1e-3);
+    prevSpeed = speed;
+    accelSmooth = THREE.MathUtils.lerp(accelSmooth, THREE.MathUtils.clamp(accel, -25, 12), Math.min(1, delta * 5));
+    rollSmooth = THREE.MathUtils.lerp(rollSmooth, THREE.MathUtils.clamp(turnRate * speed * 0.0016, -0.05, 0.05), Math.min(1, delta * 6));
+    player.rotation.y = -heading;
+    player.rotation.z = -rollSmooth;
+    player.rotation.x = THREE.MathUtils.clamp(accelSmooth * 0.0016, -0.04, 0.02);
+    if (carModel.userData.tail) carModel.userData.tail.emissiveIntensity = (driving ? isPressed('brake') : true) ? 3.2 : (route.night ? 1.3 : 0.8);
     if (tiltNeedle) tiltNeedle.style.left = `${50 + steerInput * 45}%`;
 
-    const meters = speed * delta;
-    distance += meters;
-    const cityStep = meters;
-    urbanBlocks.forEach((block) => {
-      block.position.z += cityStep;
-      if (block.position.z > 65) block.position.z -= BLOCK_COUNT * BLOCK_LENGTH;
-    });
+    distance += forward * delta;
+    if (driving) raceTime += delta;
+    wrapBlocks(forward * delta);
+    world.scroll(forward * delta, delta);
+    world.animatePedestrians(blocks, clock, delta);
     let nearby = areaLabel;
-    urbanBlocks.forEach((block) => {
+    blocks.forEach((block) => {
       const near = Math.abs(block.position.z - 44 - player.position.z) < 34;
       if (near && block.userData.landmarks.length) nearby = block.userData.landmarks[0];
     });
     if (locationName.textContent !== nearby) locationName.textContent = nearby;
-    roadMarks.forEach((mark) => {
-      mark.position.z += cityStep;
-      if (mark.position.z > 40) mark.position.z -= dashSpacing * dashCount;
-    });
 
+    trafficSystem.update(delta, {
+      playerForward: forward, playerX: player.position.x, playerSpeed: speed, distance, time: raceTime,
+      go: driving, playerTop: stats.top, playerAccel: stats.accel, length: route.length
+    });
     collisionCooldown = Math.max(0, collisionCooldown - delta);
-    traffic.forEach((car, index) => {
-      const relativeSpeed = car.userData.oncoming ? speed + 18 : speed - 23;
-      car.position.z += relativeSpeed * delta;
-      car.userData.cooldown = Math.max(0, car.userData.cooldown - delta);
-      if (car.position.z > 9) resetTraffic(car, index);
-      if (collisionCooldown === 0 && car.userData.cooldown === 0 &&
-          Math.abs(car.position.z - player.position.z) < 3.1 &&
-          Math.abs(car.position.x - player.position.x) < 1.55) {
+    if (collisionCooldown === 0 && driving) {
+      const hit = trafficSystem.findCollision(player.position.x);
+      if (hit) {
         collisionCooldown = 1.3;
         crashes++;
         speed *= 0.45;
-        resetTraffic(car, index);
+        heading += Math.sign(player.position.x - hit.x || 1) * -0.03;
+        trafficSystem.resolveCollision(hit, player.position.x);
       }
-    });
+    }
+
+    finishGate.position.set(0, 0, PLAYER_Z - (route.length - distance));
+    finishGate.visible = finishGate.position.z > -420 && finishGate.position.z < 14;
 
     const speedRatio = Math.min(1, speed / 60);
     const fov = baseFov + speedRatio * 16;
@@ -558,12 +506,17 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
       camera.updateProjectionMatrix();
     }
     const shake = speedRatio * 0.012;
-    camera.position.x = THREE.MathUtils.lerp(camera.position.x, player.position.x * 0.34, 0.035) + (Math.random() - 0.5) * shake;
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, player.position.x * 0.34, 0.06) + (Math.random() - 0.5) * shake;
     camera.position.y = 5.0 - speedRatio * 0.5 + (Math.random() - 0.5) * shake;
-    camera.lookAt(player.position.x * 0.2, 1.1, -16);
+    camera.lookAt(player.position.x * 0.2 + heading * 14, 1.1, -16);
     speedOutput.textContent = String(Math.round(speed * 3.6));
     distanceOutput.textContent = (distance / 1000).toFixed(1);
     updateTrip();
+    boardTimer -= delta;
+    if (isRace() && boardTimer <= 0) {
+      boardTimer = 0.2;
+      updateRaceBoard();
+    }
     if (distance >= route.length && !tripDone) finishTrip();
   }
 
@@ -577,6 +530,7 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
   const tripPanelDone = document.getElementById('trip-complete');
   const tripSummary = document.getElementById('trip-summary');
   const tripPointsOut = document.getElementById('trip-points');
+  const tripTitle = document.getElementById('trip-title');
 
   function updateTrip() {
     const ratio = Math.min(1, distance / route.length);
@@ -584,24 +538,46 @@ import { ROUTES, buildLandmark, disposeLandmarks } from './city-routes.js';
     tripRemaining.textContent = `${Math.max(0, Math.ceil(route.length - distance))} m to go`;
   }
 
+  function updateRaceBoard() {
+    if (!isRace()) return;
+    const rows = trafficSystem.standings(distance, route.length, raceTime).sort((a, b) => b.progress - a.progress);
+    racePos.textContent = String(rows.findIndex((r) => r.you) + 1);
+    raceTimeOut.textContent = formatTime(raceTime);
+    raceBoard.innerHTML = rows.map((r, i) => `<li class="${r.you ? 'you' : ''}"><span>${i + 1}. ${r.you ? 'You' : r.name}</span><span>${r.finished ? 'FIN' : `${Math.max(0, Math.round(route.length - r.progress))} m`}</span></li>`).join('');
+  }
+
   async function finishTrip() {
     tripDone = true;
     running = false;
     hasStarted = false;
+    const racing = isRace();
+    const place = racing ? trafficSystem.finishedCount() + 1 : 0;
+    const rows = racing ? trafficSystem.standings(distance, route.length, raceTime, raceTime) : [];
     speed = 0;
     hud.classList.remove('active');
     pauseButton.disabled = true;
-    stateOutput.textContent = 'ARRIVED';
-    tripPanel.hidden = true;
-    const earned = Math.max(Math.round(tripReward(route) / 2), tripReward(route) - crashes * 2) + (crashes === 0 ? CLEAN_BONUS : 0);
-    tripSummary.textContent = `${route.from} → ${route.to} · ${(route.length / 1000).toFixed(1)} km · ${crashes === 0 ? 'no collisions, clean drive bonus!' : `${crashes} collision${crashes === 1 ? '' : 's'}`}`;
+    stateOutput.textContent = racing ? 'FINISHED' : 'ARRIVED';
+    clearSession();
+    const raceBonus = racing ? (RACE_BONUS[place - 1] || 0) : 0;
+    const earned = Math.max(Math.round(tripReward(route) / 2), tripReward(route) - crashes * 2) + (crashes === 0 ? CLEAN_BONUS : 0) + raceBonus;
+    const crashText = crashes === 0 ? 'no collisions, clean drive bonus!' : `${crashes} collision${crashes === 1 ? '' : 's'}`;
+    tripTitle.textContent = racing ? `You finished ${ordinal(place)}!` : 'You have arrived';
+    tripSummary.textContent = `${route.from} → ${route.to} · ${(route.length / 1000).toFixed(1)} km · ${racing ? `${formatTime(raceTime)} · ` : ''}${crashText}`;
+    resultsBoard.hidden = !racing;
+    if (racing) {
+      const ranked = rows;
+      // The player has just crossed the line, so unfinished cars are classified by their remaining distance.
+      ranked.sort((a, b) => (b.finished ? 1 : 0) - (a.finished ? 1 : 0) || (a.finished ? a.time - b.time : b.progress - a.progress));
+      resultsBoard.innerHTML = ranked.map((r, i) => `<li class="${r.you ? 'you' : ''}"><span>${i + 1}. ${r.you ? 'You' : `${r.name} · ${r.car}`}</span><span>${r.finished ? formatTime(r.time) : 'DNF'}</span></li>`).join('');
+    }
     tripPointsOut.textContent = signedIn() ? 'Saving points…' : 'Sign in on the home page to earn points.';
     tripPanelDone.classList.remove('hidden');
     hint.style.display = 'none';
+    trafficSystem.populate(16);
     if (!signedIn()) return;
     try {
       await store.awardPoints(earned);
-      tripPointsOut.textContent = `+${earned} points · total ${store.points}`;
+      tripPointsOut.textContent = `+${earned} points${raceBonus ? ` (incl. ${raceBonus} race bonus)` : ''} · total ${store.points}`;
     } catch (error) {
       console.warn('Could not save trip points.', error);
       tripPointsOut.textContent = `+${earned} points could not be saved. Please try again later.`;
