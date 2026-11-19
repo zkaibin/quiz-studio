@@ -157,3 +157,7 @@ button { font: inherit; }
 .results-board li.you { background: #fff1ec; color: #b8553c; }
 @media (max-width: 640px) { .race-panel { top: 150px; right: 10px; width: 170px; } }
 @media (max-height: 560px) { .race-board { display: none; } }
+
+.minimap { position: absolute; z-index: 2; top: 18px; left: 22px; width: 176px; height: 176px; border: 2px solid rgba(255,255,255,.75); border-radius: 14px; box-shadow: 0 12px 35px rgba(34,63,67,.18); background: #7fb2c9; }
+.minimap[hidden] { display: none; }
+@media (max-width: 720px) { .minimap { width: 120px; height: 120px; top: 70px; left: 12px; } }

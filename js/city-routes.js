@@ -128,8 +128,8 @@ const builders = {
     for (const [z, rx, rz] of [[-10, 15, 11], [11, 12, 9]]) {
       dome(g, shell, 0, 0, z, rx, 9, rz, 18);
       for (let i = 0; i < 38; i++) {
-        const a = Math.random() * Math.PI * 2;
-        const e = Math.acos(Math.random() * 0.95);
+        const a = (((i * 0.6180339) % 1) + z * 0.013) * Math.PI * 2;
+        const e = Math.acos((((i * 0.7548777) + 0.31) % 1) * 0.95);
         const spike = new THREE.Mesh(new THREE.ConeGeometry(0.45, 2.4, 5), shell);
         spike.position.set(Math.cos(a) * Math.sin(e) * rx, Math.cos(e) * 9, z + Math.sin(a) * Math.sin(e) * rz);
         spike.lookAt(spike.position.x * 2, spike.position.y * 1.6 + 9, spike.position.z * 2 - z);

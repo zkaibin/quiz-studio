@@ -181,6 +181,7 @@ export function createWorld({ scene, renderer }) {
   waterTex.repeat.set(12, LENGTH / 10);
   scrolling(waterTex, 10);
 
+  const routeStart = scene.children.length;
   const groundMat = new THREE.MeshStandardMaterial({ map: grass, color: 0x91ad89, roughness: 0.95 });
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(420, LENGTH), groundMat);
   ground.rotation.x = -Math.PI / 2;
@@ -242,6 +243,9 @@ export function createWorld({ scene, renderer }) {
   water.rotation.x = -Math.PI / 2;
   water.receiveShadow = true;
   scene.add(water);
+
+  const routeObjs = scene.children.slice(routeStart);
+  let freeMode = false;
 
   // ----- Facades and signs -----
   const facadeMats = new Map();
@@ -530,14 +534,17 @@ export function createWorld({ scene, renderer }) {
     roofMesh.position.set(cx, H, 0);
     g.add(roofMesh);
     box(g, M.concrete, cx, H + 2.25, 0, 0.3, 0.2, d + 0.9);
+    g.userData.d = d;
+    return g;
   }
 
-  function addTower(parent, side, zc, rand, plaza) {
+  function addTower(parent, side, zc, rand, plaza, { kind: forced = null, boost = 0 } = {}) {
     const kinds = ['glass', 'hdb', 'concrete'];
-    const kind = kinds[Math.floor(rand() * kinds.length)];
+    const picked = kinds[Math.floor(rand() * kinds.length)];
+    const kind = forced || picked;
     const w = 11 + rand() * 4;
     const d = 20 + rand() * 7;
-    const H = 20 + rand() * 46;
+    const H = 20 + rand() * 46 + boost;
     const offset = plaza ? 6 : 0;
     const cx = side * (FACE + offset + w / 2);
     const tints = { glass: [0xffffff, 0xd9f0ee, 0xe3e9f7], hdb: [0xf3e6c8, 0xdfeaf2, 0xf2d8d0, 0xe6efd6], concrete: [0xffffff, 0xece6da, 0xdfe6e8] };
@@ -569,6 +576,8 @@ export function createWorld({ scene, renderer }) {
       box(g, M.wood, side * (FACE + 4.5), 0.45, 0, 0.5, 0.08, 2.2);
       box(g, M.pole, side * (FACE + 4.5), 0.22, 0, 0.45, 0.4, 2.0);
     }
+    g.userData.d = d;
+    return g;
   }
 
   function addSkyline(parent, side, rand, far) {
@@ -679,7 +688,9 @@ export function createWorld({ scene, renderer }) {
     return gate;
   }
 
+  let currentRoute = null;
   function setRoute(route) {
+    currentRoute = route;
     const night = !!route.night;
     nightGlow = night ? 0.9 : 0;
     for (const material of facadeMats.values()) material.emissiveIntensity = nightGlow;
@@ -704,7 +715,7 @@ export function createWorld({ scene, renderer }) {
     sun.intensity = route.sun;
     sun.color.set(route.sunColor);
     scene.environmentIntensity = night ? 0.35 : 0.9;
-    water.visible = !!route.water;
+    water.visible = !freeMode && !!route.water;
     if (route.water) {
       water.material.color.set(route.waterColor);
       water.position.set(route.water * (64 + 130 - 50), -0.08, CENTER_Z);
@@ -725,5 +736,37 @@ export function createWorld({ scene, renderer }) {
     });
   }
 
-  return { buildBlock, disposeBlock, setRoute, scroll, animatePedestrians, createFinishGate, sun, hemi };
+  // Free roam hides the fixed route street and lets sky, clouds and shadows follow the car around the open city.
+  function setFreeMode(on) {
+    freeMode = on;
+    for (const o of routeObjs) o.visible = !on;
+    if (on) water.visible = false;
+    else if (currentRoute) water.visible = !!currentRoute.water;
+    if (!on) followPlayer(0, -30, true);
+  }
+
+  function followPlayer(x, z, reset = false) {
+    const sky = reset ? [0, 0] : [x, z];
+    skyDome.position.set(sky[0], 0, sky[1]);
+    stars.position.set(sky[0], 0, sky[1]);
+    clouds.position.set(sky[0], 0, sky[1]);
+    sun.position.set(x + SUN_OFFSET.x, SUN_OFFSET.y, z + SUN_OFFSET.z);
+    sun.target.position.set(x, 0, z);
+  }
+
+  const freeTexture = (tex) => {
+    const t = tex.clone();
+    t.repeat.set(1, 1);
+    t.offset.set(0, 0);
+    t.needsUpdate = true;
+    own.push(t);
+    return t;
+  };
+
+  const kit = {
+    M, shared, box, cyl, mesh, walls, lineMat, curbMat, mergeStatics, freeTexture, asphalt, pavers, grass, waterTex,
+    addShophouse, addTower, addLamp, addPalm, addRainTree, addHedge, addPedestrian, addBusStop, addTrafficSignals, addSignPost, addBin, addHydrant
+  };
+
+  return { buildBlock, disposeBlock, setRoute, scroll, animatePedestrians, createFinishGate, setFreeMode, followPlayer, kit, sun, hemi };
 }
