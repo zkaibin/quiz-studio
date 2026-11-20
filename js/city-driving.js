@@ -8,6 +8,7 @@ import { createWorld, BLOCK_COUNT, BLOCK_LENGTH, LANES } from './city-world.js';
 import { createTraffic, PLAYER_Z, PLAYER_GRID_LANE } from './city-traffic.js';
 import { lcg } from './city-gfx.js';
 import { createFreeCity } from './city-free.js';
+import { createRealCity } from './city-real.js';
 import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOffset, spawnFor, DISTRICT_COLORS } from './city-map.js';
 
 (() => {
@@ -33,6 +34,8 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   const trafficSystem = createTraffic({ scene, rand: () => rand() });
   const finishGate = world.createFinishGate();
   const freeCity = createFreeCity({ scene, kit: world.kit });
+  const realCity = createRealCity({ scene });
+  let realActive = false;
   let savedCity = null;
   try { savedCity = localStorage.getItem('cityDrivingCity'); } catch (error) { /* storage unavailable */ }
   setCity(CITY_BY_ID[savedCity] ? savedCity : DEFAULT_CITY_ID);
@@ -80,7 +83,11 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   }
 
   function updateRouteLabel() {
-    routeLabelOutput.textContent = mode === 'free' ? 'START' : 'ROUTE';
+    routeLabelOutput.textContent = mode === 'race' ? 'ROUTE' : 'START';
+    if (mode === 'real') {
+      routeNameOutput.textContent = `Real ${currentCity().name} streets from OpenStreetMap`;
+      return;
+    }
     if (mode === 'free') {
       routeNameOutput.textContent = `${route.area} · drive anywhere in the city`;
       return;
@@ -90,10 +97,21 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   }
 
   function setMode(next) {
-    mode = next === 'race' ? 'race' : 'free';
+    mode = next === 'race' || next === 'real' ? next : 'free';
     modeList.querySelectorAll('button').forEach((button) => button.classList.toggle('on', button.dataset.mode === mode));
     updateRouteLabel();
     try { localStorage.setItem('cityDrivingMode', mode); } catch (error) { /* storage unavailable */ }
+  }
+  const startButton = document.getElementById('start-drive');
+  const realButton = modeList.querySelector('[data-mode="real"]');
+  function refreshRealMap() {
+    const id = currentCity().id;
+    realButton.hidden = true;
+    realCity.available(id).then((ok) => {
+      if (id !== currentCity().id) return;
+      realButton.hidden = !ok;
+      if (!ok && mode === 'real') setMode('free');
+    });
   }
   modeList.addEventListener('click', (event) => {
     const button = event.target.closest('[data-mode]');
@@ -177,6 +195,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   setMode(savedMode);
   applyRoute(routesFor(currentCity().id).find((r) => r.id === savedRoute) || routesFor(currentCity().id)[0]);
   trafficSystem.populate(16);
+  refreshRealMap();
 
   const keys = new Set();
   const controls = { left: false, right: false, gas: false, brake: false, reverse: false, nitro: false };
@@ -224,7 +243,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   const countdownOut = document.getElementById('countdown');
   const resultsBoard = document.getElementById('results-board');
   const isRace = () => mode === 'race';
-  const isFree = () => mode === 'free';
+  const isFree = () => mode === 'free' || mode === 'real';
   let freeActive = false;
   let camHeading = 0;
   let mapTimer = 0;
@@ -358,6 +377,9 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     updateCityText();
     buildMapLayer();
     applyRoute(routesFor(city.id)[0]);
+    realCity.unload();
+    if (mode === 'real') setMode('free');
+    refreshRealMap();
   }
   const globeOverlay = document.getElementById('globe');
   const globe = createGlobe({
@@ -381,10 +403,11 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   document.getElementById('close-globe').addEventListener('click', closeGlobe);
 
   function drawMinimap() {
-    const k = minimap.width / SIZE;
-    minimapCtx.drawImage(mapLayer, 0, 0);
+    const k = minimap.width / (realActive ? realCity.half * 2 : SIZE);
+    const offset = realActive ? realCity.half : 0;
+    minimapCtx.drawImage(realActive ? realCity.mapLayer(minimap.width) : mapLayer, 0, 0);
     minimapCtx.save();
-    minimapCtx.translate(player.position.x * k, player.position.z * k);
+    minimapCtx.translate((player.position.x + offset) * k, (player.position.z + offset) * k);
     minimapCtx.rotate(heading);
     minimapCtx.fillStyle = '#d9482b';
     minimapCtx.strokeStyle = '#fff';
@@ -407,15 +430,17 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     finishGate.visible = false;
     scene.fog.near = 70;
     scene.fog.far = 320;
-    freeCity.setVisible(true);
-    smashStat.hidden = false;
+    realActive = mode === 'real' && realCity.ready;
+    freeCity.setVisible(!realActive);
+    realCity.setVisible(realActive);
+    smashStat.hidden = realActive;
     impactShake = 0;
-    const spawn = spawnFor(route.id);
+    const spawn = realActive ? realCity.spawn() : spawnFor(route.id);
     player.position.set(spawn.x, 0, spawn.z);
     heading = spawn.heading;
     camHeading = heading;
     world.followPlayer(spawn.x, spawn.z);
-    freeCity.prefill(spawn.x, spawn.z, Date.now() / 1000);
+    if (!realActive) freeCity.prefill(spawn.x, spawn.z, Date.now() / 1000);
     minimap.hidden = false;
     mapTimer = 0;
   }
@@ -423,7 +448,9 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   function leaveFree() {
     if (!freeActive) return;
     freeActive = false;
+    realActive = false;
     freeCity.setVisible(false);
+    realCity.setVisible(false);
     smashStat.hidden = true;
     player.position.y = 0;
     altitude = 0;
@@ -447,16 +474,20 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     const pz = player.position.z;
     distance += Math.abs(forward) * delta;
     world.followPlayer(px, pz);
-    freeCity.update(px, pz, Date.now() / 1000);
-    freeCity.animate(delta, { x: px, z: pz, heading, speed });
     impactShake = Math.max(0, impactShake - delta * 1.2);
-    const { props, peds, cars } = freeCity.stats;
-    smashOutput.textContent = String(props + peds + cars);
-    const info = infoAt(px, pz);
-    const place = info.landmark && Math.hypot(px - (info.landmark.i + 0.5) * PITCH, pz - (info.landmark.j + 0.5) * PITCH) < 90
-      ? `${info.district} · ${landmarkName(info.landmark.id).toUpperCase()}` : info.district.toUpperCase();
-    if (locationName.textContent !== place) locationName.textContent = place;
-    if (roadName.textContent !== info.street.toUpperCase()) roadName.textContent = info.street.toUpperCase();
+    if (realActive) {
+      if (locationName.textContent !== 'REAL MAP') locationName.textContent = 'REAL MAP';
+    } else {
+      freeCity.update(px, pz, Date.now() / 1000);
+      freeCity.animate(delta, { x: px, z: pz, heading, speed });
+      const { props, peds, cars } = freeCity.stats;
+      smashOutput.textContent = String(props + peds + cars);
+      const info = infoAt(px, pz);
+      const place = info.landmark && Math.hypot(px - (info.landmark.i + 0.5) * PITCH, pz - (info.landmark.j + 0.5) * PITCH) < 90
+        ? `${info.district} · ${landmarkName(info.landmark.id).toUpperCase()}` : info.district.toUpperCase();
+      if (locationName.textContent !== place) locationName.textContent = place;
+      if (roadName.textContent !== info.street.toUpperCase()) roadName.textContent = info.street.toUpperCase();
+    }
 
     const speedRatio = Math.min(1, Math.abs(speed) / 60);
     const fov = baseFov + speedRatio * 16;
@@ -495,6 +526,16 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
       setTilt(true);
     } else {
       tilt.neutral = null;
+    }
+    if (mode === 'real' && !realCity.ready) {
+      startButton.disabled = true;
+      realCity.load(currentCity().id).then((ok) => {
+        startButton.disabled = false;
+        if (!ok) setMode('free');
+        refreshRealMap();
+        startDrive();
+      });
+      return;
     }
     hasStarted = true;
     speed = 0;
@@ -683,28 +724,29 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
       const nx = player.position.x + Math.sin(heading) * step;
       const nz = player.position.z - Math.cos(heading) * step;
       const airborne = altitude > 1.5;
-      if (airborne || isFreeDrivable(nx, nz)) {
+      const canDrive = realActive ? realCity.isDrivable : isFreeDrivable;
+      if (airborne || canDrive(nx, nz)) {
         player.position.x = nx;
         player.position.z = nz;
-      } else if (isFreeDrivable(nx, player.position.z)) {
+      } else if (canDrive(nx, player.position.z)) {
         player.position.x = nx;
         speed *= 1 - Math.min(0.9, delta * 3);
-      } else if (isFreeDrivable(player.position.x, nz)) {
+      } else if (canDrive(player.position.x, nz)) {
         player.position.z = nz;
         speed *= 1 - Math.min(0.9, delta * 3);
       } else {
         speed *= 1 - Math.min(0.9, delta * 6);
       }
       // Crash into fixtures, pedestrians and traffic; the push-out is only applied when it keeps the car on drivable ground
-      const crash = airborne ? { dx: 0, dz: 0, speed, shake: 0 } : freeCity.interact({ x: player.position.x, z: player.position.z, heading, speed });
-      if (isFreeDrivable(player.position.x + crash.dx, player.position.z + crash.dz)) {
+      const crash = airborne || realActive ? { dx: 0, dz: 0, speed, shake: 0 } : freeCity.interact({ x: player.position.x, z: player.position.z, heading, speed });
+      if (canDrive(player.position.x + crash.dx, player.position.z + crash.dz)) {
         player.position.x += crash.dx;
         player.position.z += crash.dz;
       }
       speed = crash.speed;
       impactShake = Math.max(impactShake, crash.shake);
       // Pavement and park lawn sit slightly above the asphalt
-      const lift = isDrivable(player.position.x, player.position.z) ? 0 : 0.13;
+      const lift = realActive || isDrivable(player.position.x, player.position.z) ? 0 : 0.13;
       if (currentCar.fly) {
         const maxAlt = currentCar.maxAlt || 30;
         const thrusting = driving && isPressed('nitro') && nitro > 0;
@@ -715,7 +757,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
         else nitro = Math.min(1, nitro + delta * (altitude < 0.2 ? 0.3 : 0.02));
         altitude += climb * delta;
         // Never touch down on buildings or water: hover just above them until over a road again
-        const floor = isDrivable(player.position.x, player.position.z) || isFreeDrivable(player.position.x, player.position.z) ? 0 : (altitude > 0.5 ? 3 : 0);
+        const floor = (realActive ? canDrive(player.position.x, player.position.z) : isDrivable(player.position.x, player.position.z) || isFreeDrivable(player.position.x, player.position.z)) ? 0 : (altitude > 0.5 ? 3 : 0);
         if (altitude >= maxAlt) { altitude = maxAlt; climb = Math.min(climb, 0); }
         if (altitude <= floor) {
           if (floor === 0 && altitude < -climb * delta - 0.01 && climb < -9) impactShake = Math.max(impactShake, 0.12);
