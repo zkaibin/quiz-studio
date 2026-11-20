@@ -755,9 +755,9 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
         const maxAlt = currentCar.maxAlt || 30;
         const thrusting = driving && isPressed('nitro') && nitro > 0;
         // Hold Shift / E (or NITRO) to burn nitrogen and climb; release to glide down and recharge on landing
-        climb += (thrusting ? 24 : -8.8) * delta;
-        climb = THREE.MathUtils.clamp(climb, -14, 10);
-        if (thrusting) nitro = Math.max(0, nitro - delta * 0.12);
+        climb += (thrusting ? 28 : -8.8) * delta;
+        climb = THREE.MathUtils.clamp(climb, -14, 14);
+        if (thrusting) nitro = Math.max(0, nitro - delta * 0.035);
         else nitro = Math.min(1, nitro + delta * (altitude < 0.2 ? 0.3 : 0.02));
         altitude += climb * delta;
         // Never touch down on buildings or water: hover just above them until over a road again
