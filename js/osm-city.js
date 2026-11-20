@@ -1,14 +1,7 @@
-#!/usr/bin/env node
-// Converts OpenStreetMap data (Overpass JSON with `out geom`) into a binary glTF (.glb) the City Driving game loads in "Real map" mode.
-// Usage:
-//   node scripts/osm-to-glb.mjs --city singapore [--radius 1500] [--out assets/cities/singapore.glb]
-//   node scripts/osm-to-glb.mjs --city tokyo --input overpass.json      (skip the download)
-// Output coordinates are metres around the city centre: +x east, +z south, +y up (matches the game, where north = small z).
-// Scene extras carry building footprints and road centre lines, which the game uses for collisions and the minimap.
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
+// Converts OpenStreetMap data (Overpass JSON with `out geom`) into per-layer triangle meshes plus footprint / road extras.
+// Runs in the browser (City Driving "Real map" mode) and in Node tests; it must stay free of DOM and Node-only APIs.
+// Output coordinates are metres around the city centre: +x east, +z south, +y up (matches the game, where north = small z).
 const EARTH = 6378137;
 const ROAD_WIDTH = { motorway: 14, trunk: 12, primary: 11, secondary: 9.5, tertiary: 8, motorway_link: 7, trunk_link: 7, primary_link: 7, secondary_link: 6.5, tertiary_link: 6.5, unclassified: 6.5, residential: 6.5, living_street: 5.5, service: 4, road: 6 };
 const GROUND_Y = 0;
@@ -174,90 +167,9 @@ export function buildScene(osm, { lat, lon, radius, name = 'city' }) {
   return { meshes, extras: { city: name, center: { lat, lon }, radius, half, footprints, roads: roadLines } };
 }
 
-// Minimal glTF 2.0 binary writer: one node + mesh per layer, shared binary buffer.
-export function writeGlb({ meshes, extras }) {
-  const chunks = []; const bufferViews = []; const accessors = []; let offset = 0;
-  const addView = (typed, target) => {
-    const bytes = Buffer.from(typed.buffer, typed.byteOffset, typed.byteLength);
-    const pad = (4 - (bytes.length % 4)) % 4;
-    chunks.push(bytes, Buffer.alloc(pad));
-    bufferViews.push({ buffer: 0, byteOffset: offset, byteLength: bytes.length, target });
-    offset += bytes.length + pad;
-    return bufferViews.length - 1;
-  };
-  const addAccessor = (typed, componentType, type, count, target, bounds) => {
-    accessors.push({ bufferView: addView(typed, target), componentType, count, type, ...(bounds || {}) });
-    return accessors.length - 1;
-  };
-  const materials = []; const gltfMeshes = []; const nodes = [];
-  for (const m of meshes) {
-    const pos = new Float32Array(m.pos);
-    const min = [Infinity, Infinity, Infinity]; const max = [-Infinity, -Infinity, -Infinity];
-    for (let i = 0; i < pos.length; i += 3) for (let k = 0; k < 3; k++) { min[k] = Math.min(min[k], pos[i + k]); max[k] = Math.max(max[k], pos[i + k]); }
-    const attributes = {
-      POSITION: addAccessor(pos, 5126, 'VEC3', pos.length / 3, 34962, { min, max }),
-      NORMAL: addAccessor(new Float32Array(m.nor), 5126, 'VEC3', m.nor.length / 3, 34962)
-    };
-    if (m.vertexColors) attributes.COLOR_0 = addAccessor(new Float32Array(m.col), 5126, 'VEC3', m.col.length / 3, 34962);
-    const indices = addAccessor(new Uint32Array(m.idx), 5125, 'SCALAR', m.idx.length, 34963);
-    materials.push({ name: m.name, doubleSided: true, pbrMetallicRoughness: { baseColorFactor: [...m.color, 1], metallicFactor: m.metallic, roughnessFactor: m.roughness } });
-    gltfMeshes.push({ name: m.name, primitives: [{ attributes, indices, material: materials.length - 1, mode: 4 }] });
-    nodes.push({ name: m.name, mesh: gltfMeshes.length - 1 });
-  }
-  const json = {
-    asset: { version: '2.0', generator: 'quiz-studio osm-to-glb', copyright: 'Map data © OpenStreetMap contributors (ODbL)' },
-    scene: 0,
-    scenes: [{ name: 'city', nodes: nodes.map((_, i) => i), extras }],
-    nodes, meshes: gltfMeshes, materials, accessors, bufferViews, buffers: [{ byteLength: offset }]
-  };
-  let jsonBytes = Buffer.from(JSON.stringify(json));
-  jsonBytes = Buffer.concat([jsonBytes, Buffer.alloc((4 - (jsonBytes.length % 4)) % 4, 0x20)]);
-  const bin = Buffer.concat(chunks);
-  const header = Buffer.alloc(12);
-  header.write('glTF', 0, 'ascii'); header.writeUInt32LE(2, 4); header.writeUInt32LE(12 + 8 + jsonBytes.length + 8 + bin.length, 8);
-  const jh = Buffer.alloc(8); jh.writeUInt32LE(jsonBytes.length, 0); jh.write('JSON', 4, 'ascii');
-  const bh = Buffer.alloc(8); bh.writeUInt32LE(bin.length, 0); bh.write('BIN\0', 4, 'ascii');
-  return Buffer.concat([header, jh, jsonBytes, bh, bin]);
-}
-
 export function overpassQuery(lat, lon, radius) {
   const dLat = (radius / EARTH) * 180 / Math.PI; const dLon = dLat / Math.cos((lat * Math.PI) / 180);
   const b = `${lat - dLat},${lon - dLon},${lat + dLat},${lon + dLon}`;
   const sets = ['way["building"]', 'relation["building"]', 'way["highway"]', 'way["natural"="water"]', 'relation["natural"="water"]', 'way["waterway"="riverbank"]', 'way["leisure"~"^(park|garden|pitch|recreation_ground|nature_reserve)$"]', 'way["landuse"~"^(grass|forest|meadow|village_green)$"]', 'way["natural"="wood"]'];
   return `[out:json][timeout:180];(${sets.map((s) => `${s}(${b});`).join('')});out geom;`;
-}
-
-function parseArgs(argv) {
-  const args = {};
-  for (let i = 0; i < argv.length; i++) if (argv[i].startsWith('--')) args[argv[i].slice(2)] = argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[++i] : true;
-  return args;
-}
-
-async function main() {
-  const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-  const args = parseArgs(process.argv.slice(2));
-  const { CITY_BY_ID } = await import(path.join(root, 'js/city-cities.js'));
-  const city = CITY_BY_ID[args.city];
-  if (!city) throw new Error(`Pass --city <${Object.keys(CITY_BY_ID).join('|')}>`);
-  const radius = Number(args.radius) || 1500;
-  const out = path.resolve(args.out || path.join(root, 'assets/cities', `${city.id}.glb`));
-  let osm;
-  if (args.input) {
-    osm = JSON.parse(await readFile(args.input, 'utf8'));
-  } else {
-    const endpoint = args.overpass || 'https://overpass-api.de/api/interpreter';
-    console.log(`Downloading ${city.name} (${radius} m radius) from ${endpoint} ...`);
-    const res = await fetch(endpoint, { method: 'POST', body: new URLSearchParams({ data: overpassQuery(city.lat, city.lon, radius) }), headers: { 'User-Agent': 'quiz-studio-osm-to-glb/1.0' } });
-    if (!res.ok) throw new Error(`Overpass responded ${res.status}`);
-    osm = await res.json();
-  }
-  const scene = buildScene(osm, { lat: city.lat, lon: city.lon, radius, name: city.id });
-  const glb = writeGlb(scene);
-  await mkdir(path.dirname(out), { recursive: true });
-  await writeFile(out, glb);
-  console.log(`Wrote ${out}: ${scene.extras.footprints.length} buildings, ${scene.extras.roads.length} roads, ${(glb.length / 1048576).toFixed(2)} MB`);
-}
-
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  main().catch((error) => { console.error(error.message); process.exit(1); });
 }

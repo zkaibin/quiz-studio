@@ -1,9 +1,11 @@
-// "Real map" layer: loads a GLB exported from OpenStreetMap (scripts/osm-to-glb.mjs) and exposes collision / minimap helpers built from the scene extras.
+// "Real map" layer: downloads OpenStreetMap data from Overpass, converts it client-side (osm-city.js) and exposes collision / minimap helpers built from the scene extras.
 import * as THREE from './vendor/three/three.module.min.js';
-import { GLTFLoader } from './vendor/three/GLTFLoader.js';
+import { buildScene, overpassQuery } from './osm-city.js';
 
 const CELL = 64;
-const url = (id) => `assets/cities/${id}.glb`;
+const RADIUS = 1500;
+const CACHE_NAME = 'city-driving-osm-v1';
+const ENDPOINTS = ['https://overpass-api.de/api/interpreter', 'https://overpass.kumi.systems/api/interpreter'];
 
 export function createRealCity({ scene }) {
   const root = new THREE.Group();
@@ -13,7 +15,6 @@ export function createRealCity({ scene }) {
   let data = null;
   let grid = new Map();
   let mapCache = null;
-  const availability = new Map();
 
   function pointInPolygon(x, z, p) {
     let inside = false;
@@ -42,37 +43,75 @@ export function createRealCity({ scene }) {
     }
   }
 
-  // Cheap HEAD probe so the menu only offers "Real map" for cities that have an exported GLB.
-  async function available(id) {
-    if (availability.has(id)) return availability.get(id);
-    let ok = false;
-    try { ok = (await fetch(url(id), { method: 'HEAD' })).ok; } catch (error) { /* offline or file:// */ }
-    availability.set(id, ok);
-    return ok;
+  const supported = typeof fetch === 'function';
+  const cacheKey = (id) => `/city-osm/${id}-${RADIUS}.json`;
+
+  async function readCache(id) {
+    try {
+      const hit = await (await caches.open(CACHE_NAME)).match(cacheKey(id));
+      return hit ? await hit.json() : null;
+    } catch (error) { return null; }
   }
 
-  async function load(id) {
+  async function writeCache(id, text) {
+    try { await (await caches.open(CACHE_NAME)).put(cacheKey(id), new Response(text, { headers: { 'Content-Type': 'application/json' } })); } catch (error) { /* quota or private mode: just skip caching */ }
+  }
+
+  async function download(city, onStatus) {
+    let lastError = new Error('Overpass unavailable');
+    for (const endpoint of ENDPOINTS) {
+      try {
+        onStatus(`Downloading ${city.name} map data…`);
+        const res = await fetch(endpoint, { method: 'POST', body: new URLSearchParams({ data: overpassQuery(city.lat, city.lon, RADIUS) }) });
+        if (!res.ok) throw new Error(`Overpass responded ${res.status}`);
+        return await res.text();
+      } catch (error) { lastError = error; }
+    }
+    throw lastError;
+  }
+
+  const available = () => supported;
+  async function isCached(id) { return !!(await readCache(id)); }
+
+  // Downloads (or reuses the cached) OpenStreetMap data, converts it to meshes in the browser and adds them to the scene.
+  async function load(city, onStatus = () => {}) {
+    const id = city.id;
     if (loadedId === id && data) return true;
     unload();
     try {
-      const gltf = await new GLTFLoader().loadAsync(url(id));
-      const extras = gltf.scene.userData;
-      if (!extras || !extras.footprints) throw new Error('GLB is missing city extras');
-      gltf.scene.traverse((o) => {
-        if (!o.isMesh) return;
-        o.receiveShadow = true;
-        o.castShadow = o.name === 'buildings';
-        o.material.side = THREE.FrontSide;
-      });
-      data = extras;
+      let osm = await readCache(id);
+      if (!osm) {
+        const text = await download(city, onStatus);
+        osm = JSON.parse(text);
+        writeCache(id, text);
+      }
+      onStatus('Building the city…');
+      await new Promise((resolve) => setTimeout(resolve, 30));
+      const built = buildScene(osm, { lat: city.lat, lon: city.lon, radius: RADIUS, name: id });
+      const group = new THREE.Group();
+      for (const m of built.meshes) {
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(m.pos, 3));
+        geometry.setAttribute('normal', new THREE.Float32BufferAttribute(m.nor, 3));
+        if (m.vertexColors) geometry.setAttribute('color', new THREE.Float32BufferAttribute(m.col, 3));
+        geometry.setIndex(m.idx);
+        geometry.computeBoundingSphere();
+        const material = new THREE.MeshStandardMaterial({ color: new THREE.Color(...m.color), vertexColors: m.vertexColors, roughness: m.roughness, metalness: m.metallic });
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.name = m.name;
+        mesh.receiveShadow = true;
+        mesh.castShadow = m.name === 'buildings';
+        group.add(mesh);
+      }
+      if (!built.extras.footprints.length && !built.extras.roads.length) throw new Error('No map data returned');
+      data = built.extras;
       index(data.footprints);
-      root.add(gltf.scene);
+      root.add(group);
       loadedId = id;
       mapCache = null;
       return true;
     } catch (error) {
       console.warn('Real map unavailable', error);
-      availability.set(id, false);
       return false;
     }
   }
@@ -147,9 +186,10 @@ export function createRealCity({ scene }) {
   }
 
   return {
-    available, load, unload, isDrivable, spawn, mapLayer,
+    available, isCached, load, unload, isDrivable, spawn, mapLayer,
     setVisible(on) { root.visible = on; },
     get ready() { return !!data; },
+    get loadedId() { return loadedId; },
     get half() { return data ? data.half : 0; }
   };
 }
