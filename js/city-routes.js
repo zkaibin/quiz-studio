@@ -1,90 +1,8 @@
 // Selectable Singapore routes and the stylised landmark models used along them.
 import * as THREE from './vendor/three/three.module.min.js';
 
-const materialCache = new Map();
-function mat(color, { rough = 0.8, metal = 0, emissive = 0, glow = 0, opacity = 1 } = {}) {
-  const key = [color, rough, metal, emissive, glow, opacity].join('|');
-  if (!materialCache.has(key)) {
-    materialCache.set(key, new THREE.MeshStandardMaterial({
-      color, roughness: rough, metalness: metal,
-      emissive, emissiveIntensity: glow,
-      transparent: opacity < 1, opacity
-    }));
-  }
-  return materialCache.get(key);
-}
-
-const unitBox = new THREE.BoxGeometry(1, 1, 1);
-const box = (g, m, x, y, z, sx, sy, sz) => {
-  const mesh = new THREE.Mesh(unitBox, m);
-  mesh.position.set(x, y, z);
-  mesh.scale.set(sx, sy, sz);
-  g.add(mesh);
-  return mesh;
-};
-const cyl = (g, m, x, y, z, rTop, rBot, h, seg = 16) => {
-  const mesh = new THREE.Mesh(new THREE.CylinderGeometry(rTop, rBot, h, seg), m);
-  mesh.position.set(x, y + h / 2, z);
-  g.add(mesh);
-  return mesh;
-};
-const dome = (g, m, x, y, z, rx, ry, rz, seg = 20) => {
-  const mesh = new THREE.Mesh(new THREE.SphereGeometry(1, seg, 10, 0, Math.PI * 2, 0, Math.PI / 2), m);
-  mesh.position.set(x, y, z);
-  mesh.scale.set(rx, ry, rz);
-  g.add(mesh);
-  return mesh;
-};
-const ball = (g, m, x, y, z, r) => {
-  const mesh = new THREE.Mesh(new THREE.SphereGeometry(r, 14, 10), m);
-  mesh.position.set(x, y, z);
-  g.add(mesh);
-  return mesh;
-};
-
-const C = {
-  white: mat(0xf1efe6, { rough: 0.7 }),
-  cream: mat(0xe9dcc0),
-  stone: mat(0xc9c3b2),
-  glass: mat(0x5d98ab, { rough: 0.2, metal: 0.3 }),
-  glassDark: mat(0x2f5f73, { rough: 0.2, metal: 0.35 }),
-  glassClear: mat(0xbfe6ee, { rough: 0.1, metal: 0.1, opacity: 0.5 }),
-  win: mat(0x3a6573, { rough: 0.3, metal: 0.2 }),
-  dark: mat(0x23353a),
-  red: mat(0xb8432f),
-  gold: mat(0xe1b24a, { rough: 0.35, metal: 0.55 }),
-  tealRoof: mat(0x2f7d72),
-  green: mat(0x3f8a55),
-  darkGreen: mat(0x276b45),
-  water: mat(0x4aa3c6, { rough: 0.2 }),
-  concrete: mat(0xb5b8b4),
-  steel: mat(0xc3ccd1, { rough: 0.35, metal: 0.5 }),
-  sand: mat(0xdcc9a1),
-  blue: mat(0x2f6fb0),
-  orange: mat(0xe08a3c)
-};
-const pastel = [0xf1a7b5, 0x7ec8b8, 0xf3d27a, 0x8fb3e0, 0xf0a86b, 0xb7a0d8].map((c) => mat(c));
-
-// Stacks of window strips on a tower face (local +x is the road side).
-function windowStrips(g, w, h, d, x, y0, rows, material = C.win) {
-  for (let i = 0; i < rows; i++) box(g, material, x + w / 2 + 0.05, y0 + (i + 0.5) * (h / rows), 0, 0.1, h / rows * 0.45, d * 0.86);
-}
-
-function tieredRoofs(g, bodyMat, roofMat, tiers, w, d, tierH) {
-  let y = 0;
-  for (let i = 0; i < tiers; i++) {
-    const s = 1 - i * 0.2;
-    box(g, bodyMat, 0, y + tierH / 2, 0, w * s, tierH, d * s);
-    y += tierH;
-    box(g, roofMat, 0, y + 0.35, 0, w * s + 4, 0.7, d * s + 4);
-    for (const sx of [-1, 1]) for (const sz of [-1, 1]) {
-      const tip = box(g, roofMat, sx * (w * s / 2 + 2), y + 1, sz * (d * s / 2 + 2), 1.4, 1.2, 1.4);
-      tip.rotation.z = sx * 0.4;
-    }
-    y += 0.7;
-  }
-  return y;
-}
+import { WORLD_BUILDERS, WORLD_NAMES, WORLD_DEPTH } from './city-landmarks-world.js';
+import { mat, box, cyl, dome, ball, unitBox, C, pastel, windowStrips, tieredRoofs } from './city-landmark-kit.js';
 
 const builders = {
   mbs(g) {
@@ -412,6 +330,7 @@ const builders = {
 };
 
 const LANDMARK_NAMES = {
+  ...WORLD_NAMES,
   mbs: 'Marina Bay Sands', merlion: 'Merlion Park', esplanade: 'Esplanade – Theatres on the Bay',
   artscience: 'ArtScience Museum', flyer: 'Singapore Flyer', supertrees: 'Supertree Grove',
   flowerdome: 'Flower Dome', cloudforest: 'Cloud Forest', raffles: 'Raffles Hotel',
@@ -425,18 +344,21 @@ const LANDMARK_NAMES = {
 
 // Footprint depth (x extent behind the road-facing front) used to set each model back from the road.
 const DEPTH = {
+  ...WORLD_DEPTH,
   mbs: 22, merlion: 14, esplanade: 34, artscience: 22, flyer: 14, supertrees: 24, flowerdome: 46, cloudforest: 38,
   raffles: 22, standrews: 14, supremecourt: 24, fullerton: 24, ion: 28, tangs: 24, buddhatooth: 24,
   mariamman: 18, sultan: 26, shophouses: 12, pinnacle: 10, financial: 22, jewel: 52, changitower: 14,
   sentosamerlion: 20, globe: 26, cablecar: 6, ship: 14
 };
 
+export const landmarkName = (id) => LANDMARK_NAMES[id] || id;
+
 export function buildLandmark(id) {
   const root = new THREE.Group();
   const inner = new THREE.Group();
   inner.position.x = -DEPTH[id] / 2;
   root.add(inner);
-  builders[id](inner);
+  (builders[id] || WORLD_BUILDERS[id])(inner);
   root.userData = { id, name: LANDMARK_NAMES[id] };
   return root;
 }
@@ -448,7 +370,7 @@ export function disposeLandmarks(group) {
   });
 }
 
-export const ROUTES = [
+const SG_ROUTES = [
   {
     id: 'downtown', name: 'Downtown Classic', area: 'CITY CENTRE', blurb: 'Downtown · Marina Bay · Chinatown',
     sky: 0xa9d5e5, ground: 0x91ad89, hemi: 2.0, sun: 2.4, sunColor: 0xffefd2,
@@ -486,6 +408,71 @@ export const ROUTES = [
   }
 ];
 
+const NEW_ROUTES = [
+  {
+    id: 'ny-midtown', city: 'newyork', name: 'Midtown Manhattan', area: 'MIDTOWN', blurb: 'Empire State, Flatiron and Times Square',
+    sky: 0xa8cce3, ground: 0x8aa282, hemi: 2.0, sun: 2.4, sunColor: 0xffefd2,
+    landmarks: ['empire', 'flatiron', 'timessq', 'wtc'],
+    trip: ['Penn Station', 'Times Square', 2600]
+  },
+  {
+    id: 'ny-harbor', city: 'newyork', name: 'Lower Manhattan Harbor', area: 'BATTERY PARK', blurb: 'One WTC and Lady Liberty at sunset',
+    sky: 0xf2a98a, ground: 0xb8b39c, water: -1, waterColor: 0x3d6f8f, hemi: 1.7, sun: 2.2, sunColor: 0xffa86c,
+    landmarks: ['wtc', 'empire', 'flatiron'], waterLandmarks: ['liberty', 'ship'],
+    trip: ['Wall Street', 'Battery Park', 2200]
+  },
+  {
+    id: 'sh-pudong', city: 'shanghai', name: 'Pudong Skyline', area: 'LUJIAZUI', blurb: 'The super-tall trio and Pearl Tower',
+    sky: 0xb4c5d0, ground: 0x93a58c, hemi: 1.9, sun: 2.1, sunColor: 0xfff0dc,
+    landmarks: ['shtower', 'jinmao', 'swfc', 'pearl'],
+    trip: ['Century Avenue', 'Lujiazui', 2600]
+  },
+  {
+    id: 'sh-bund', city: 'shanghai', name: 'The Bund at Night', area: 'THE BUND', blurb: 'Colonial waterfront facing the neon skyline',
+    night: true, sky: 0x1d2646, ground: 0x4b5f55, water: 1, waterColor: 0x23405c, hemi: 1.5, sun: 1.2, sunColor: 0x9fb4ff,
+    landmarks: ['bund', 'bund', 'pearl'], waterLandmarks: ['pearl', 'ship'],
+    trip: ['Nanjing Road', 'The Bund', 2400]
+  },
+  {
+    id: 'tk-shibuya', city: 'tokyo', name: 'Shibuya & Shinjuku', area: 'SHIBUYA', blurb: 'Scramble crossing and the Tokyo Met Government towers',
+    night: true, sky: 0x20224a, ground: 0x4a5a58, hemi: 1.6, sun: 1.2, sunColor: 0xb4a4ff,
+    landmarks: ['shibuya', 'tocho', 'shibuya', 'tokyotower'],
+    trip: ['Shibuya Station', 'Shinjuku', 3000]
+  },
+  {
+    id: 'tk-skytree', city: 'tokyo', name: 'Asakusa & Skytree', area: 'ASAKUSA', blurb: 'Kaminarimon gate under the Skytree',
+    sky: 0xf0d6b8, ground: 0xa0a687, hemi: 1.9, sun: 2.2, sunColor: 0xffe0b4,
+    landmarks: ['kaminarimon', 'skytree', 'tokyotower'],
+    trip: ['Asakusa', 'Oshiage', 2200]
+  },
+  {
+    id: 'ld-westminster', city: 'london', name: 'Westminster & the Eye', area: 'WESTMINSTER', blurb: 'Big Ben, the London Eye and St Paul’s',
+    sky: 0xb9c4cc, ground: 0x7f9a70, hemi: 1.8, sun: 1.9, sunColor: 0xfff0d8,
+    landmarks: ['bigben', 'londoneye', 'stpauls', 'shard'],
+    trip: ['Westminster', 'St Paul’s', 2800]
+  },
+  {
+    id: 'ld-thames', city: 'london', name: 'Thames Tower Bridge', area: 'SOUTH BANK', blurb: 'The Shard and Tower Bridge at golden hour',
+    sky: 0xf0b890, ground: 0x9aa383, water: -1, waterColor: 0x4a6b7a, hemi: 1.7, sun: 2.1, sunColor: 0xffb878,
+    landmarks: ['shard', 'stpauls', 'bigben'], waterLandmarks: ['towerbridge'],
+    trip: ['London Bridge', 'Tower Bridge', 2000]
+  },
+  {
+    id: 'db-downtown', city: 'dubai', name: 'Downtown Dubai', area: 'DOWNTOWN', blurb: 'Burj Khalifa, Emirates Towers and the Museum of the Future',
+    sky: 0xe9d7b4, ground: 0xc8b787, hemi: 2.1, sun: 2.7, sunColor: 0xfff0cc,
+    landmarks: ['burj', 'emirates', 'museum', 'dubaiframe'],
+    trip: ['Dubai Mall', 'Sheikh Zayed Road', 3000]
+  },
+  {
+    id: 'db-coast', city: 'dubai', name: 'Jumeirah Coast', area: 'JUMEIRAH', blurb: 'Burj Al Arab on the Gulf',
+    sky: 0xf0b88a, ground: 0xd6c394, water: 1, waterColor: 0x2f9db8, hemi: 1.8, sun: 2.4, sunColor: 0xffb070,
+    landmarks: ['burj', 'dubaiframe'], waterLandmarks: ['burjalarab', 'ship'],
+    trip: ['Jumeirah Beach', 'Burj Al Arab', 3200]
+  }
+];
+
+export const ROUTES = [...SG_ROUTES.map((r) => ({ ...r, city: 'singapore' })), ...NEW_ROUTES];
+
 // Each route is a trip with a start, a destination and a length in metres; longer trips pay more.
 const TRIPS = {
   downtown: ['Raffles Place', 'Chinatown Point', 2200],
@@ -496,6 +483,7 @@ const TRIPS = {
   changi: ['East Coast Park', 'Changi Airport', 4200],
   sentosa: ['VivoCity', 'Sentosa Merlion', 3400]
 };
-for (const r of ROUTES) [r.from, r.to, r.length] = TRIPS[r.id];
+for (const r of ROUTES) [r.from, r.to, r.length] = r.trip || TRIPS[r.id];
 
 export const DEFAULT_ROUTE_ID = ROUTES[0].id;
+export const routesFor = (cityId) => ROUTES.filter((r) => r.city === cityId);

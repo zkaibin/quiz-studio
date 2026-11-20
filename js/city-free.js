@@ -4,6 +4,7 @@ import { lcg } from './city-gfx.js';
 import { buildLandmark, disposeLandmarks } from './city-routes.js';
 import { PITCH as P, GRID, FACE, cellInfo, seedOf } from './city-map.js';
 import { createEffects, createCars } from './city-smash.js';
+import { createStyles } from './city-styles.js';
 
 const LOAD = 270;
 const UNLOAD = 340;
@@ -40,6 +41,8 @@ export function createFreeCity({ scene, kit }) {
   const chunks = new Map();
   const stats = { props: 0, peds: 0, cars: 0 };
   const broken = new Set();
+  const styles = createStyles(kit, FACE);
+  let style = { lowrise: 'shophouse', residential: 'tower', downtownBoost: 24 };
   const effects = createEffects(root);
   const cars = createCars({ root, effects, stats });
 
@@ -48,10 +51,8 @@ export function createFreeCity({ scene, kit }) {
   const parkMat = new THREE.MeshStandardMaterial({ map: freeTexture(kit.grass), color: 0x86a97d, roughness: 0.95 });
   const pondMat = new THREE.MeshStandardMaterial({ map: freeTexture(kit.waterTex), color: 0x4c93b5, roughness: 0.18, metalness: 0.25 });
   const seaTex = freeTexture(kit.waterTex);
-  const sea = new THREE.Mesh(
-    new THREE.PlaneGeometry(1500, 1500),
-    new THREE.MeshStandardMaterial({ map: seaTex, color: 0x4c93b5, roughness: 0.18, metalness: 0.25, envMapIntensity: 1.4 })
-  );
+  const seaMat = new THREE.MeshStandardMaterial({ map: seaTex, color: 0x4c93b5, roughness: 0.18, metalness: 0.25, envMapIntensity: 1.4 });
+  const sea = new THREE.Mesh(new THREE.PlaneGeometry(1500, 1500), seaMat);
   sea.geometry.attributes.uv.array.forEach((v, k, arr) => { arr[k] = v * 150; });
   sea.rotation.x = -Math.PI / 2;
   sea.position.y = -0.3;
@@ -171,13 +172,14 @@ export function createFreeCity({ scene, kit }) {
   function towerBuilder(kind, boost, plaza) {
     return (f, side, rand) => kit.addTower(f, side, 0, rand, plaza ? rand() > 0.4 : false, { kind: typeof kind === 'function' ? kind(rand) : kind, boost });
   }
-  const shopBuilder = (f, side, rand) => kit.addShophouse(f, side, 0, rand);
+  const shopBuilder = (f, side, rand) => (style.lowrise === 'shophouse' ? kit.addShophouse(f, side, 0, rand) : styles.build(style.lowrise, f, side, 0, rand));
+  const residentialBuilder = (f, side, rand) => (style.residential === 'tower' ? towerBuilder('hdb', -4, false)(f, side, rand) : shopBuilder(f, side, rand));
 
   function styleFor(kind, edge, rand) {
     switch (kind) {
-      case 'downtown': return towerBuilder((r) => (r() < 0.65 ? 'glass' : 'concrete'), 24, true);
+      case 'downtown': return towerBuilder((r) => (r() < 0.65 ? 'glass' : 'concrete'), style.downtownBoost, true);
       case 'shophouse': return shopBuilder;
-      case 'residential': return towerBuilder('hdb', -4, false);
+      case 'residential': return residentialBuilder;
       case 'mixed': return edge === 'N' || edge === 'S' ? towerBuilder(null, 6, true) : shopBuilder;
       default: return rand() < 0.5 ? shopBuilder : towerBuilder(null, 0, true);
     }
@@ -185,7 +187,7 @@ export function createFreeCity({ scene, kit }) {
 
   function centreTowers(g, kind, rand) {
     const profile = {
-      downtown: ['glass', 70, 80], civic: ['concrete', 26, 36], mixed: ['concrete', 34, 44], shophouse: ['concrete', 12, 10], residential: ['hdb', 30, 34]
+      downtown: ['glass', 50 + style.downtownBoost, 80], civic: ['concrete', 26, 36], mixed: ['concrete', 34, 44], shophouse: ['concrete', 12, 10], residential: style.residential === 'tower' ? ['hdb', 30, 34] : ['concrete', 12, 10]
     }[kind];
     if (!profile) return;
     const [wallKind, base, spread] = profile;
@@ -372,6 +374,13 @@ export function createFreeCity({ scene, kit }) {
     stats.props = 0; stats.peds = 0; stats.cars = 0;
   }
 
+  function setStyle(next) {
+    style = { lowrise: 'shophouse', residential: 'tower', downtownBoost: 24, ...next };
+    seaMat.color.setHex(style.sea ?? 0x4c93b5);
+    pondMat.color.setHex(style.pond ?? 0x4c93b5);
+    parkMat.color.setHex(style.park ?? 0x86a97d);
+  }
+
   function setVisible(on) {
     root.visible = on;
     if (!on) clear();
@@ -451,5 +460,5 @@ export function createFreeCity({ scene, kit }) {
     cars.update(delta, player);
   }
 
-  return { update, prefill, clear, setVisible, interact, animate, stats, get loaded() { return chunks.size; } };
+  return { update, prefill, clear, setVisible, setStyle, interact, animate, stats, get loaded() { return chunks.size; } };
 }

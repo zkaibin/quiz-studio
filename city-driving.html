@@ -11,10 +11,10 @@
 <body>
   <main class="city-game">
     <a class="back-link" href="games.html">← Back to Games</a>
-    <div id="city-scene" class="scene" aria-label="Three-dimensional Singapore city driving game"></div>
+    <div id="city-scene" class="scene" aria-label="Three-dimensional city driving game"></div>
 
     <section class="hud" aria-label="Driving dashboard">
-      <div class="hud-brand"><span class="live-dot"></span><span id="drive-state">READY</span><strong>CITY DRIVE <span>· SG</span></strong></div>
+      <div class="hud-brand"><span class="live-dot"></span><span id="drive-state">READY</span><strong>CITY DRIVE <span id="city-code">· SG</span></strong></div>
       <div class="hud-stats">
         <div><span class="stat-label">SPEED</span><strong><span id="speed">0</span><small> km/h</small></strong></div>
         <div><span class="stat-label">DISTANCE</span><strong><span id="distance">0.0</span><small> km</small></strong></div>
@@ -25,7 +25,7 @@
       <button id="pause-drive" class="pause-button" type="button" aria-label="Pause driving" disabled>Ⅱ</button>
     </section>
 
-    <div class="location-tag"><span>●</span> SINGAPORE <b>·</b> <em id="location-name">CITY CENTRE</em></div>
+    <div class="location-tag"><span>●</span> <span id="city-tag">SINGAPORE</span> <b>·</b> <em id="location-name">CITY CENTRE</em></div>
     <canvas id="minimap" class="minimap" width="176" height="176" aria-label="City map" hidden></canvas>
     <div id="trip" class="trip-bar" hidden>
       <div class="trip-ends"><span id="trip-from">Start</span><span id="trip-to">Finish</span></div>
@@ -59,7 +59,8 @@
       <div class="welcome-card">
         <p class="eyebrow">YOUR CITY, YOUR DRIVE</p>
         <h1>City <span>Driving</span></h1>
-        <p class="intro">Take the wheel in Singapore. Keep left and roam the whole city, turning into any street you like, or line up on the grid and race computer-controlled cars along a route to the finish gate.</p>
+        <p class="intro" id="city-intro">Take the wheel and roam the whole city, turning into any street you like, or line up on the grid and race computer-controlled cars along a route to the finish gate.</p>
+        <button id="open-globe" class="globe-button" type="button"><span class="globe-icon" aria-hidden="true"></span><span><small>CITY</small><b id="city-name">Singapore</b></span><em>Choose on the globe ↗</em></button>
         <div class="route-pill"><span id="route-label">ROUTE</span> <b id="route-name">Downtown · Marina Bay · Chinatown</b></div>
         <div id="route-list" class="route-list" role="group" aria-label="Choose a route"></div>
         <div id="mode-list" class="mode-list" role="group" aria-label="Choose a mode">
@@ -71,6 +72,18 @@
         <button id="open-garage" class="secondary-button" type="button">Garage · Cars &amp; upgrades</button>
         <p class="welcome-note" id="welcome-note">No rush. Just enjoy the ride.</p>
       </div>
+    </section>
+
+    <section id="globe" class="globe-overlay hidden" aria-label="Choose a city on the globe">
+      <div id="globe-stage" class="globe-stage"></div>
+      <div id="globe-labels" class="globe-labels"></div>
+      <div class="globe-hud">
+        <p class="eyebrow">EARTH · LIVE VIEW</p>
+        <h2>Pick your city</h2>
+        <p>Drag to spin, scroll to zoom, tap a beacon. Yellow arcs show flights from the selected city.</p>
+      </div>
+      <aside id="globe-card" class="welcome-card globe-card" hidden></aside>
+      <button id="close-globe" class="globe-close" type="button">← Back</button>
     </section>
 
     <section id="garage" class="overlay hidden" aria-label="Garage">
