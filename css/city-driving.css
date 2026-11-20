@@ -168,3 +168,35 @@ button { font: inherit; }
 .nitro-meter i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, #4fc3ff, #b8ecff); }
 .touch-pedals button[data-control="nitro"] { min-width: 72px; height: 72px; background: rgba(60,140,230,.78); border-radius: 50%; }
 .touch-pedals button[hidden] { display: none; }
+
+.globe-button { display: flex; align-items: center; gap: 12px; width: 100%; margin: 0 0 16px; padding: 11px 14px; border: 1px solid #cfdad6; border-radius: 12px; background: linear-gradient(120deg, #f4faf8, #e6f1f6); color: #234; text-align: left; cursor: pointer; }
+.globe-button:hover { border-color: #7fb2c9; background: #eef7fb; }
+.globe-button small { display: block; color: #8b9b93; font-size: 9px; font-weight: 800; letter-spacing: .9px; }
+.globe-button b { font-size: 15px; }
+.globe-button em { margin-left: auto; color: #2f7fa3; font-size: 11px; font-style: normal; font-weight: 750; }
+.globe-icon { flex: none; width: 34px; height: 34px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #8fd0ff, #2a6bb0 55%, #123a66); box-shadow: 0 0 0 3px rgba(95,212,255,.25); }
+.globe-overlay { position: absolute; z-index: 6; inset: 0; overflow: hidden; background: radial-gradient(ellipse at 60% 50%, #0d2340, #050a16 75%); color: #e8f2ff; }
+.globe-overlay.hidden { display: none; }
+.globe-stage, .globe-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+.globe-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.globe-label { position: absolute; top: 0; left: 0; display: flex; align-items: center; gap: 6px; margin: -34px 0 0 -6px; padding: 0; border: 0; background: none; color: #fff; font: 700 11px/1 inherit; letter-spacing: .5px; text-shadow: 0 1px 4px #000; pointer-events: auto; cursor: pointer; will-change: transform; }
+.globe-label i { width: 8px; height: 8px; border: 2px solid #ffd23b; border-radius: 50%; background: rgba(255,210,59,.25); }
+.globe-label span { padding: 3px 7px; border: 1px solid rgba(127,230,255,.5); border-radius: 4px; background: rgba(8,24,48,.72); }
+.globe-label.on span { border-color: #ffd23b; background: rgba(60,44,0,.8); color: #ffe48a; }
+.globe-label.here::after { content: 'YOU'; color: #7fe6ff; font-size: 8px; letter-spacing: 1.4px; }
+.globe-hud { position: absolute; top: 24px; left: clamp(20px, 5vw, 70px); max-width: 320px; pointer-events: none; }
+.globe-hud .eyebrow { color: #7fe6ff; }
+.globe-hud h2 { margin: 0 0 8px; font-size: 34px; letter-spacing: -1px; }
+.globe-hud p:last-child { margin: 0; color: #9fb6d4; font-size: 12px; line-height: 1.6; }
+.globe-card { position: absolute; right: clamp(16px, 5vw, 70px); bottom: 28px; width: min(100%, 340px); margin: 0; padding: 24px; background: rgba(8,24,48,.82); border-color: rgba(127,230,255,.35); color: #e8f2ff; }
+.globe-card h2 { color: #fff; font-size: 34px; }
+.globe-card .intro { margin: 10px 0 12px; color: #a9c0da; }
+.globe-card .eyebrow { margin-bottom: 8px; color: #ffd23b; }
+.globe-coords { margin: 8px 0 0; color: #7fe6ff; font: 600 12px/1 ui-monospace, Menlo, monospace; }
+.globe-meta { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; }
+.globe-meta span { padding: 4px 8px; border-radius: 4px; background: rgba(127,230,255,.12); color: #a9ddf0; font-size: 9px; font-weight: 800; letter-spacing: 1px; }
+.globe-earth { text-decoration: none; text-align: center; background: transparent; border-color: rgba(127,230,255,.4); color: #bfeaff; }
+.globe-earth:hover { background: rgba(127,230,255,.12); }
+.globe-close { position: absolute; top: 24px; right: clamp(16px, 5vw, 70px); padding: 10px 16px; border: 1px solid rgba(127,230,255,.4); border-radius: 999px; background: rgba(8,24,48,.7); color: #e8f2ff; font-weight: 700; cursor: pointer; }
+.globe-close:hover { background: rgba(127,230,255,.18); }
+@media (max-width: 760px) { .globe-card { right: 12px; left: 12px; bottom: 12px; width: auto; padding: 16px; } .globe-hud { top: 64px; } }

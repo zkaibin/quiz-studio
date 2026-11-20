@@ -1,12 +1,14 @@
 import * as THREE from './vendor/three/three.module.min.js';
 import { CARS, UPGRADES, MAX_UPGRADE_LEVEL, defaultUpgrades, upgradeCost, computeStats, buildCarModel } from './city-cars.js';
 import { createGarageStore } from './city-garage.js';
-import { ROUTES } from './city-routes.js';
+import { ROUTES, routesFor, landmarkName } from './city-routes.js';
+import { CITY_BY_ID, DEFAULT_CITY_ID } from './city-cities.js';
+import { createGlobe } from './city-globe.js';
 import { createWorld, BLOCK_COUNT, BLOCK_LENGTH, LANES } from './city-world.js';
 import { createTraffic, PLAYER_Z, PLAYER_GRID_LANE } from './city-traffic.js';
 import { lcg } from './city-gfx.js';
 import { createFreeCity } from './city-free.js';
-import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOffset, spawnFor, DISTRICT_COLORS } from './city-map.js';
+import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOffset, spawnFor, DISTRICT_COLORS } from './city-map.js';
 
 (() => {
   const mount = document.getElementById('city-scene');
@@ -31,6 +33,10 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
   const trafficSystem = createTraffic({ scene, rand: () => rand() });
   const finishGate = world.createFinishGate();
   const freeCity = createFreeCity({ scene, kit: world.kit });
+  let savedCity = null;
+  try { savedCity = localStorage.getItem('cityDrivingCity'); } catch (error) { /* storage unavailable */ }
+  setCity(CITY_BY_ID[savedCity] ? savedCity : DEFAULT_CITY_ID);
+  freeCity.setStyle(currentCity().style);
 
   const locationName = document.getElementById('location-name');
   const routeNameOutput = document.getElementById('route-name');
@@ -42,7 +48,7 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
   const minimapCtx = minimap.getContext('2d');
   const tripReward = (r) => Math.round(r.length / 100);
   const RACE_BONUS = [30, 20, 10];
-  let route = ROUTES[0];
+  let route = routesFor(currentCity().id)[0];
   let areaLabel = route.area;
   let mode = 'free';
   const blocks = [];
@@ -134,7 +140,30 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
   }
   showCar(CARS[0], CARS[0].colors[0], defaultUpgrades());
 
-  routeList.innerHTML = ROUTES.map((r) => `<button type="button" data-route="${r.id}">${r.name}</button>`).join('');
+  const cityTag = document.getElementById('city-tag');
+  const cityCode = document.getElementById('city-code');
+  const cityIntro = document.getElementById('city-intro');
+  const cityNameOutput = document.getElementById('city-name');
+  const CITY_CODES = { singapore: 'SG', newyork: 'NYC', shanghai: 'SH', tokyo: 'TYO', london: 'LDN', dubai: 'DXB' };
+  const trafficLabel = () => (currentCity().drive === 'left' ? 'LEFT-HAND TRAFFIC' : 'RIGHT-HAND TRAFFIC');
+
+  function updateCityText() {
+    const city = currentCity();
+    cityTag.textContent = city.name.toUpperCase();
+    cityCode.textContent = `· ${CITY_CODES[city.id] || ''}`;
+    cityNameOutput.textContent = `${city.name}, ${city.country}`;
+    document.title = `City Driving · ${city.name}`;
+    mount.setAttribute('aria-label', `Three-dimensional ${city.name} city driving game`);
+    cityIntro.textContent = `Take the wheel in ${city.name}. Keep ${city.drive} and roam the whole city, turning into any street you like, or line up on the grid and race computer-controlled cars along a route to the finish gate.`;
+    roadName.textContent = trafficLabel();
+    roadName.dataset.default = roadName.textContent;
+  }
+
+  function renderRoutes() {
+    routeList.innerHTML = routesFor(currentCity().id).map((r) => `<button type="button" data-route="${r.id}">${r.name}</button>`).join('');
+  }
+  renderRoutes();
+  updateCityText();
   routeList.addEventListener('click', (event) => {
     const button = event.target.closest('[data-route]');
     if (button) applyRoute(ROUTES.find((r) => r.id === button.dataset.route));
@@ -146,7 +175,7 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
     savedMode = localStorage.getItem('cityDrivingMode');
   } catch (error) { /* storage unavailable */ }
   setMode(savedMode);
-  applyRoute(ROUTES.find((r) => r.id === savedRoute) || ROUTES[0]);
+  applyRoute(routesFor(currentCity().id).find((r) => r.id === savedRoute) || routesFor(currentCity().id)[0]);
   trafficSystem.populate(16);
 
   const keys = new Set();
@@ -298,10 +327,10 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
   // Static map layer for the minimap: district colours per block and the road grid.
   const mapLayer = document.createElement('canvas');
   mapLayer.width = mapLayer.height = minimap.width;
-  (() => {
+  function buildMapLayer() {
     const c = mapLayer.getContext('2d');
     const k = mapLayer.width / SIZE;
-    c.fillStyle = '#7fb2c9';
+    c.fillStyle = currentCity().style.minimapSea || '#7fb2c9';
     c.fillRect(0, 0, mapLayer.width, mapLayer.height);
     for (let i = 0; i < GRID; i++) {
       for (let j = 0; j < GRID; j++) {
@@ -317,7 +346,39 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
       c.moveTo(0, n * PITCH * k); c.lineTo(SIZE * k, n * PITCH * k);
     }
     c.stroke();
-  })();
+  }
+  buildMapLayer();
+
+  // Switching city: swap the map, style and routes, then pick that city's first route.
+  function selectCity(city) {
+    setCity(city.id);
+    freeCity.setStyle(city.style);
+    try { localStorage.setItem('cityDrivingCity', city.id); } catch (error) { /* storage unavailable */ }
+    renderRoutes();
+    updateCityText();
+    buildMapLayer();
+    applyRoute(routesFor(city.id)[0]);
+  }
+  const globeOverlay = document.getElementById('globe');
+  const globe = createGlobe({
+    stage: document.getElementById('globe-stage'),
+    labels: document.getElementById('globe-labels'),
+    card: document.getElementById('globe-card'),
+    getCurrentId: () => currentCity().id,
+    onDrive: (city) => {
+      if (city.id !== currentCity().id) selectCity(city);
+      closeGlobe();
+    }
+  });
+  function closeGlobe() {
+    globeOverlay.classList.add('hidden');
+    globe.close();
+  }
+  document.getElementById('open-globe').addEventListener('click', () => {
+    globeOverlay.classList.remove('hidden');
+    globe.open(currentCity().id);
+  });
+  document.getElementById('close-globe').addEventListener('click', closeGlobe);
 
   function drawMinimap() {
     const k = minimap.width / SIZE;
@@ -373,7 +434,7 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
     scene.fog.near = 110;
     scene.fog.far = 430;
     minimap.hidden = true;
-    roadName.textContent = roadName.dataset.default || 'LEFT-HAND TRAFFIC';
+    roadName.textContent = roadName.dataset.default || trafficLabel();
     locationName.textContent = areaLabel;
     camera.position.set(0, 5.0, 11.8);
     camera.lookAt(0, 1.1, -16);
@@ -393,7 +454,7 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
     smashOutput.textContent = String(props + peds + cars);
     const info = infoAt(px, pz);
     const place = info.landmark && Math.hypot(px - (info.landmark.i + 0.5) * PITCH, pz - (info.landmark.j + 0.5) * PITCH) < 90
-      ? `${info.district} · ${info.landmark.id.toUpperCase()}` : info.district.toUpperCase();
+      ? `${info.district} · ${landmarkName(info.landmark.id).toUpperCase()}` : info.district.toUpperCase();
     if (locationName.textContent !== place) locationName.textContent = place;
     if (roadName.textContent !== info.street.toUpperCase()) roadName.textContent = info.street.toUpperCase();
 
@@ -548,6 +609,7 @@ import { PITCH, GRID, SIZE, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOf
     requestAnimationFrame(animate);
     const delta = THREE.MathUtils.clamp((now - lastTime) / 1000, 0, 0.05);
     lastTime = now;
+    if (!globeOverlay.classList.contains('hidden')) return;
     if (running) update(delta);
     else idle(delta);
     renderer.render(scene, camera);
