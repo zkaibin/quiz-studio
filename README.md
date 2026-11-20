@@ -620,16 +620,15 @@ MIT License - feel free to use for educational purposes!
 
 Created for Singapore Primary School mathematics practice with a fun, character-based twist!
 
-## City Driving: real-map GLB export
+## City Driving: real map (client-side)
 
-Export real OpenStreetMap buildings, roads, water and parks for a city as a GLB the game loads (needs network access to Overpass):
+Choosing **Real map** in City Driving prompts the player to download the city's OpenStreetMap data from Overpass (needs network access). `js/osm-city.js` converts it to meshes in the browser, the result is used in place of the generated city, and the download is cached (Cache API) for next time.
 
 ```bash
-npm run city:glb -- --city singapore --radius 1500   # writes assets/cities/singapore.glb
-npm run test:city-glb
+npm run test:city-osm
 ```
 
-When `assets/cities/<city>.glb` exists, a **Real map** mode appears in the City Driving menu. Map data © OpenStreetMap contributors (ODbL).
+Map data © OpenStreetMap contributors (ODbL).
 
 ---
 

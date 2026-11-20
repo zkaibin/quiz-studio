@@ -104,14 +104,10 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   }
   const startButton = document.getElementById('start-drive');
   const realButton = modeList.querySelector('[data-mode="real"]');
+  const welcomeNote = document.getElementById('welcome-note');
   function refreshRealMap() {
-    const id = currentCity().id;
-    realButton.hidden = true;
-    realCity.available(id).then((ok) => {
-      if (id !== currentCity().id) return;
-      realButton.hidden = !ok;
-      if (!ok && mode === 'real') setMode('free');
-    });
+    realButton.hidden = !realCity.available();
+    if (realButton.hidden && mode === 'real') setMode('free');
   }
   modeList.addEventListener('click', (event) => {
     const button = event.target.closest('[data-mode]');
@@ -527,13 +523,21 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     } else {
       tilt.neutral = null;
     }
-    if (mode === 'real' && !realCity.ready) {
-      startButton.disabled = true;
-      realCity.load(currentCity().id).then((ok) => {
-        startButton.disabled = false;
-        if (!ok) setMode('free');
-        refreshRealMap();
-        startDrive();
+    if (mode === 'real' && (!realCity.ready || realCity.loadedId !== currentCity().id)) {
+      const city = currentCity();
+      realCity.isCached(city.id).then((cached) => {
+        if (!cached && !window.confirm(`Download the real ${city.name} map from OpenStreetMap (about 10-30 MB)? It will be converted in your browser and saved for next time.`)) {
+          setMode('free');
+          startDrive();
+          return;
+        }
+        startButton.disabled = true;
+        realCity.load(city, (text) => { welcomeNote.textContent = text; }).then((ok) => {
+          startButton.disabled = false;
+          welcomeNote.textContent = ok ? 'No rush. Just enjoy the ride.' : 'Could not load the real map. Check your connection; using Free roam.';
+          if (!ok) setMode('free');
+          startDrive();
+        });
       });
       return;
     }

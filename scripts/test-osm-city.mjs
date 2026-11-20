@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { buildScene, writeGlb, triangulate } from './osm-to-glb.mjs';
+import { buildScene, triangulate } from '../js/osm-city.js';
 
 const lat = 1.283; const lon = 103.86;
 const sq = (dLat, dLon, s = 0.0002) => [[dLat, dLon], [dLat, dLon + s], [dLat + s, dLon + s], [dLat + s, dLon]].map(([a, b]) => ({ lat: lat + a, lon: lon + b }));
@@ -37,12 +37,4 @@ for (let i = 0; i < b.idx.length; i += 3) {
   assert.ok(n[0] * want[0] + n[1] * want[1] + n[2] * want[2] > 0, 'triangle winding matches its normal');
 }
 
-const glb = writeGlb(scene);
-assert.equal(glb.toString('ascii', 0, 4), 'glTF');
-assert.equal(glb.readUInt32LE(8), glb.length);
-const jsonLen = glb.readUInt32LE(12);
-const json = JSON.parse(glb.toString('utf8', 20, 20 + jsonLen));
-assert.equal(json.meshes.length, 5);
-assert.equal(json.scenes[0].extras.footprints.length, 1);
-assert.equal(glb.readUInt32LE(20 + jsonLen + 4), 0x004e4942);
-console.log('osm-to-glb tests passed');
+console.log('osm-city tests passed');
