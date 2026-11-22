@@ -152,12 +152,22 @@ export function createTraffic({ scene, rand }) {
     r.cooldown = Math.max(0, r.cooldown - dt);
     r.laneTimer = Math.max(0, r.laneTimer - dt);
     r.thinkTimer -= dt;
+    // Hold the grid still until the countdown releases the field.
+    if (!ctx.go) {
+      r.targetSpeed = 0;
+      r.speed = 0;
+      r.steer = 0;
+      r.yaw = 0;
+      r.z = PLAYER_Z - (r.dist - ctx.distance);
+      r.model.position.set(r.x, 0, r.z);
+      r.model.rotation.y = 0;
+      return;
+    }
     const gapToPlayer = r.dist - ctx.distance;
     let rubber = 1;
     if (gapToPlayer > 160) rubber = 0.9;
     else if (gapToPlayer < -110) rubber = 1.06;
     r.targetSpeed = ctx.playerTop * r.pace * rubber * (1 + 0.035 * Math.sin(ctx.time * 0.45 + r.phase));
-    if (!ctx.go) r.targetSpeed = 0;
 
     if (r.thinkTimer <= 0) {
       r.thinkTimer = 0.25;
