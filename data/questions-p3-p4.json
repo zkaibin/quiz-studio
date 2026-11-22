@@ -14,7 +14,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "21",
+    "explanation": "The correct answer is 21. Add the parts carefully, watching place value."
   },
   {
     "id": 11,
@@ -31,7 +33,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "62",
+    "explanation": "The correct answer is 62. Subtract from the total and check with addition."
   },
   {
     "id": 12,
@@ -47,7 +51,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "84",
+    "explanation": "The correct answer is 84. Use groups or times-tables to find the product."
   },
   {
     "id": 13,
@@ -63,7 +69,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "120",
+    "explanation": "The correct answer is 120. Use groups or times-tables to find the product."
   },
   {
     "id": 14,
@@ -79,7 +87,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "12",
+    "explanation": "The correct answer is 12. Share equally or use multiplication to check your quotient."
   },
   {
     "id": 15,
@@ -95,7 +105,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "32",
+    "explanation": "The correct answer is 32. Share equally or use multiplication to check your quotient."
   },
   {
     "id": 16,
@@ -112,7 +124,9 @@
     "placeholder_roles": [
       "protagonist",
       "protagonist"
-    ]
+    ],
+    "correct_answer": "55",
+    "explanation": "The correct answer is 55. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": 26,
@@ -129,7 +143,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "12",
+    "explanation": "The correct answer is 12. Subtract from the total and check with addition."
   },
   {
     "id": 29,
@@ -146,7 +162,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "8",
+    "explanation": "The correct answer is 8. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": 49,
@@ -163,7 +181,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "33",
+    "explanation": "The correct answer is 33. Add the parts carefully, watching place value."
   },
   {
     "id": 50,
@@ -180,7 +200,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "16",
+    "explanation": "The correct answer is 16. Subtract from the total and check with addition."
   },
   {
     "id": 51,
@@ -196,7 +218,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "42",
+    "explanation": "The correct answer is 42. Use groups or times-tables to find the product."
   },
   {
     "id": 52,
@@ -212,7 +236,9 @@
     "answer": 1,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "6",
+    "explanation": "The correct answer is 6. Share equally or use multiplication to check your quotient."
   },
   {
     "id": 53,
@@ -229,7 +255,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "41",
+    "explanation": "The correct answer is 41. Add the parts carefully, watching place value."
   },
   {
     "id": 54,
@@ -245,7 +273,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "18",
+    "explanation": "The correct answer is 18. Subtract from the total and check with addition."
   },
   {
     "id": 55,
@@ -261,7 +291,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "20",
+    "explanation": "The correct answer is 20. Use groups or times-tables to find the product."
   },
   {
     "id": 56,
@@ -277,7 +309,9 @@
     "answer": 1,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "6",
+    "explanation": "The correct answer is 6. Share equally or use multiplication to check your quotient."
   },
   {
     "id": 57,
@@ -294,7 +328,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "40",
+    "explanation": "The correct answer is 40. Add the parts carefully, watching place value."
   },
   {
     "id": 58,
@@ -311,7 +347,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "15",
+    "explanation": "The correct answer is 15. Subtract from the total and check with addition."
   },
   {
     "id": 59,
@@ -327,7 +365,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "21",
+    "explanation": "The correct answer is 21. Use groups or times-tables to find the product."
   },
   {
     "id": 60,
@@ -343,7 +383,9 @@
     "answer": 1,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "6",
+    "explanation": "The correct answer is 6. Share equally or use multiplication to check your quotient."
   },
   {
     "id": 61,
@@ -360,7 +402,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "37",
+    "explanation": "The correct answer is 37. Add the parts carefully, watching place value."
   },
   {
     "id": 62,
@@ -376,7 +420,9 @@
     "answer": 1,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "21",
+    "explanation": "The correct answer is 21. Subtract from the total and check with addition."
   },
   {
     "id": 63,
@@ -392,7 +438,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "32",
+    "explanation": "The correct answer is 32. Use groups or times-tables to find the product."
   },
   {
     "id": 64,
@@ -408,7 +456,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "9",
+    "explanation": "The correct answer is 9. Share equally or use multiplication to check your quotient."
   },
   {
     "id": 65,
@@ -425,7 +475,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "45",
+    "explanation": "The correct answer is 45. Add the parts carefully, watching place value."
   },
   {
     "id": 66,
@@ -442,7 +494,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "20",
+    "explanation": "The correct answer is 20. Subtract from the total and check with addition."
   },
   {
     "id": 67,
@@ -458,7 +512,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Use groups or times-tables to find the product."
   },
   {
     "id": 107,
@@ -475,7 +531,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "41",
+    "explanation": "The correct answer is 41. Add the parts carefully, watching place value."
   },
   {
     "id": 108,
@@ -492,7 +550,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "23",
+    "explanation": "The correct answer is 23. Subtract from the total and check with addition."
   },
   {
     "id": 109,
@@ -508,7 +568,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "48",
+    "explanation": "The correct answer is 48. Use groups or times-tables to find the product."
   },
   {
     "id": 110,
@@ -524,7 +586,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "8",
+    "explanation": "The correct answer is 8. Share equally or use multiplication to check your quotient."
   },
   {
     "id": 111,
@@ -541,7 +605,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "46",
+    "explanation": "The correct answer is 46. Add the parts carefully, watching place value."
   },
   {
     "id": 112,
@@ -557,7 +623,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "25",
+    "explanation": "The correct answer is 25. Subtract from the total and check with addition."
   },
   {
     "id": 113,
@@ -573,7 +641,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "36",
+    "explanation": "The correct answer is 36. Use groups or times-tables to find the product."
   },
   {
     "id": 114,
@@ -589,7 +659,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "9",
+    "explanation": "The correct answer is 9. Share equally or use multiplication to check your quotient."
   },
   {
     "id": 115,
@@ -606,7 +678,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "55",
+    "explanation": "The correct answer is 55. Add the parts carefully, watching place value."
   },
   {
     "id": 116,
@@ -622,7 +696,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "27",
+    "explanation": "The correct answer is 27. Subtract from the total and check with addition."
   },
   {
     "id": 117,
@@ -638,7 +714,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "35",
+    "explanation": "The correct answer is 35. Use groups or times-tables to find the product."
   },
   {
     "id": 118,
@@ -654,7 +732,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "7",
+    "explanation": "The correct answer is 7. Share equally or use multiplication to check your quotient."
   },
   {
     "id": 119,
@@ -671,7 +751,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "38",
+    "explanation": "The correct answer is 38. Add the parts carefully, watching place value."
   },
   {
     "id": 120,
@@ -687,7 +769,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "26",
+    "explanation": "The correct answer is 26. Subtract from the total and check with addition."
   },
   {
     "id": 121,
@@ -703,7 +787,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "48",
+    "explanation": "The correct answer is 48. Use groups or times-tables to find the product."
   },
   {
     "id": 122,
@@ -719,7 +805,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "9",
+    "explanation": "The correct answer is 9. Share equally or use multiplication to check your quotient."
   },
   {
     "id": 123,
@@ -736,7 +824,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "62",
+    "explanation": "The correct answer is 62. Add the parts carefully, watching place value."
   },
   {
     "id": 124,
@@ -752,7 +842,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "33",
+    "explanation": "The correct answer is 33. Subtract from the total and check with addition."
   },
   {
     "id": 125,
@@ -768,7 +860,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "45",
+    "explanation": "The correct answer is 45. Use groups or times-tables to find the product."
   },
   {
     "id": 126,
@@ -784,7 +878,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "12",
+    "explanation": "The correct answer is 12. Share equally or use multiplication to check your quotient."
   },
   {
     "id": 149,
@@ -801,7 +897,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "3/5",
+    "explanation": "The correct answer is 3/5. Keep the whole in mind and compare equal parts."
   },
   {
     "id": 150,
@@ -818,7 +916,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "4/6",
+    "explanation": "The correct answer is 4/6. Keep the whole in mind and compare equal parts."
   },
   {
     "id": 155,
@@ -834,7 +934,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "21.25",
+    "explanation": "The correct answer is 21.25. Align the decimal points before computing."
   },
   {
     "id": 156,
@@ -850,7 +952,9 @@
     "answer": 1,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "16.7",
+    "explanation": "The correct answer is 16.7. Align the decimal points before computing."
   },
   {
     "id": 161,
@@ -866,7 +970,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "49",
+    "explanation": "The correct answer is 49. Average = sum of values ÷ number of values."
   },
   {
     "id": 162,
@@ -882,7 +988,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "15",
+    "explanation": "The correct answer is 15. Average = sum of values ÷ number of values."
   },
   {
     "id": 167,
@@ -898,7 +1006,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "10",
+    "explanation": "The correct answer is 10. Keep the ratio parts in the same order."
   },
   {
     "id": 173,
@@ -914,7 +1024,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "6:10 PM",
+    "explanation": "The correct answer is 6:10 PM. Convert hours and minutes carefully before calculating."
   },
   {
     "id": 174,
@@ -930,7 +1042,9 @@
     "answer": 1,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "4 hours 15 minutes",
+    "explanation": "The correct answer is 4 hours 15 minutes. Convert hours and minutes carefully before calculating."
   },
   {
     "id": 179,
@@ -946,7 +1060,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "315",
+    "explanation": "The correct answer is 315. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": 180,
@@ -962,7 +1078,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "750",
+    "explanation": "The correct answer is 750. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": 191,
@@ -979,7 +1097,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "63",
+    "explanation": "The correct answer is 63. Add the parts carefully, watching place value."
   },
   {
     "id": 192,
@@ -995,7 +1115,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "28",
+    "explanation": "The correct answer is 28. Subtract from the total and check with addition."
   },
   {
     "id": 193,
@@ -1011,7 +1133,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "56",
+    "explanation": "The correct answer is 56. Use groups or times-tables to find the product."
   },
   {
     "id": 194,
@@ -1027,7 +1151,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "8",
+    "explanation": "The correct answer is 8. Share equally or use multiplication to check your quotient."
   },
   {
     "id": 195,
@@ -1044,7 +1170,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "61",
+    "explanation": "The correct answer is 61. Add the parts carefully, watching place value."
   },
   {
     "id": 196,
@@ -1061,7 +1189,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "32",
+    "explanation": "The correct answer is 32. Subtract from the total and check with addition."
   },
   {
     "id": 197,
@@ -1077,7 +1207,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "54",
+    "explanation": "The correct answer is 54. Use groups or times-tables to find the product."
   },
   {
     "id": 198,
@@ -1093,7 +1225,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "13",
+    "explanation": "The correct answer is 13. Share equally or use multiplication to check your quotient."
   },
   {
     "id": 203,
@@ -1110,7 +1244,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "41",
+    "explanation": "The correct answer is 41. Add the parts carefully, watching place value."
   },
   {
     "id": 204,
@@ -1127,7 +1263,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "53",
+    "explanation": "The correct answer is 53. Add the parts carefully, watching place value."
   },
   {
     "id": 209,
@@ -1145,7 +1283,8 @@
       "protagonist",
       "helper"
     ],
-    "correct_answer": "6"
+    "correct_answer": "6",
+    "explanation": "The correct answer is 6. Subtract from the total and check with addition."
   },
   {
     "id": 214,
@@ -1161,7 +1300,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "390",
+    "explanation": "The correct answer is 390. Use groups or times-tables to find the product."
   },
   {
     "id": 218,
@@ -1177,7 +1318,9 @@
     "answer": 3,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "4",
+    "explanation": "The correct answer is 4. Share equally or use multiplication to check your quotient."
   },
   {
     "id": 239,
@@ -1194,7 +1337,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "52",
+    "explanation": "The correct answer is 52. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": 240,
@@ -1211,7 +1356,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "53",
+    "explanation": "The correct answer is 53. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": 241,
@@ -1227,7 +1374,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "26",
+    "explanation": "The correct answer is 26. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": 242,
@@ -1244,7 +1393,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "65",
+    "explanation": "The correct answer is 65. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": 243,
@@ -1261,7 +1412,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "45",
+    "explanation": "The correct answer is 45. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": 244,
@@ -1277,7 +1430,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "14",
+    "explanation": "The correct answer is 14. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": 245,
@@ -1294,7 +1449,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "4",
+    "explanation": "The correct answer is 4. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": 247,
@@ -1310,7 +1467,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "58",
+    "explanation": "The correct answer is 58. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": 248,
@@ -1327,7 +1486,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": 251,
@@ -1344,7 +1505,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "10",
+    "explanation": "The correct answer is 10. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": 280,
@@ -1361,7 +1524,8 @@
       "protagonist"
     ],
     "correct_answer": "4/5",
-    "answer": 2
+    "answer": 2,
+    "explanation": "The correct answer is 4/5. Keep the whole in mind and compare equal parts."
   },
   {
     "id": 282,
@@ -1378,7 +1542,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "2/5",
+    "explanation": "The correct answer is 2/5. Keep the whole in mind and compare equal parts."
   },
   {
     "id": 283,
@@ -1395,7 +1561,8 @@
       "protagonist"
     ],
     "correct_answer": "4/5",
-    "answer": 3
+    "answer": 3,
+    "explanation": "The correct answer is 4/5. Keep the whole in mind and compare equal parts."
   },
   {
     "id": 286,
@@ -1412,7 +1579,8 @@
       "protagonist"
     ],
     "correct_answer": "2/3",
-    "answer": 2
+    "answer": 2,
+    "explanation": "The correct answer is 2/3. Keep the whole in mind and compare equal parts."
   },
   {
     "id": 288,
@@ -1430,7 +1598,8 @@
       "helper"
     ],
     "correct_answer": "4/15",
-    "answer": 3
+    "answer": 3,
+    "explanation": "The correct answer is 4/15. Keep the whole in mind and compare equal parts."
   },
   {
     "id": 289,
@@ -1447,7 +1616,8 @@
       "protagonist"
     ],
     "correct_answer": "4/5",
-    "answer": 3
+    "answer": 3,
+    "explanation": "The correct answer is 4/5. Keep the whole in mind and compare equal parts."
   },
   {
     "id": 317,
@@ -1464,7 +1634,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "41",
+    "explanation": "The correct answer is 41. Align the decimal points before computing."
   },
   {
     "id": 318,
@@ -1481,7 +1653,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "44",
+    "explanation": "The correct answer is 44. Align the decimal points before computing."
   },
   {
     "id": 319,
@@ -1497,7 +1671,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "57",
+    "explanation": "The correct answer is 57. Align the decimal points before computing."
   },
   {
     "id": 320,
@@ -1514,7 +1690,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "64",
+    "explanation": "The correct answer is 64. Align the decimal points before computing."
   },
   {
     "id": 321,
@@ -1531,7 +1709,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "54",
+    "explanation": "The correct answer is 54. Align the decimal points before computing."
   },
   {
     "id": 322,
@@ -1547,7 +1727,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "68",
+    "explanation": "The correct answer is 68. Align the decimal points before computing."
   },
   {
     "id": 323,
@@ -1564,7 +1746,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "63",
+    "explanation": "The correct answer is 63. Align the decimal points before computing."
   },
   {
     "id": 324,
@@ -1581,7 +1765,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "70",
+    "explanation": "The correct answer is 70. Align the decimal points before computing."
   },
   {
     "id": 325,
@@ -1597,7 +1783,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "18",
+    "explanation": "The correct answer is 18. Align the decimal points before computing."
   },
   {
     "id": 326,
@@ -1614,7 +1802,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "44",
+    "explanation": "The correct answer is 44. Align the decimal points before computing."
   },
   {
     "id": 327,
@@ -1631,7 +1821,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "61",
+    "explanation": "The correct answer is 61. Align the decimal points before computing."
   },
   {
     "id": 328,
@@ -1647,7 +1839,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "38",
+    "explanation": "The correct answer is 38. Align the decimal points before computing."
   },
   {
     "id": 329,
@@ -1664,7 +1858,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "38",
+    "explanation": "The correct answer is 38. Align the decimal points before computing."
   },
   {
     "id": 359,
@@ -1680,7 +1876,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "8.58",
+    "explanation": "The correct answer is 8.58. Percent means out of 100 — convert then calculate."
   },
   {
     "id": 360,
@@ -1696,7 +1894,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "23.92",
+    "explanation": "The correct answer is 23.92. Percent means out of 100 — convert then calculate."
   },
   {
     "id": 362,
@@ -1712,7 +1912,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "16.45",
+    "explanation": "The correct answer is 16.45. Percent means out of 100 — convert then calculate."
   },
   {
     "id": 363,
@@ -1728,7 +1930,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "17.25",
+    "explanation": "The correct answer is 17.25. Percent means out of 100 — convert then calculate."
   },
   {
     "id": 364,
@@ -1744,7 +1948,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "10.36",
+    "explanation": "The correct answer is 10.36. Percent means out of 100 — convert then calculate."
   },
   {
     "id": 365,
@@ -1760,7 +1966,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "10",
+    "explanation": "The correct answer is 10. Percent means out of 100 — convert then calculate."
   },
   {
     "id": 366,
@@ -1776,7 +1984,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "27.54",
+    "explanation": "The correct answer is 27.54. Percent means out of 100 — convert then calculate."
   },
   {
     "id": 367,
@@ -1792,7 +2002,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "4.20",
+    "explanation": "The correct answer is 4.20. Percent means out of 100 — convert then calculate."
   },
   {
     "id": 368,
@@ -1808,7 +2020,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "4.08",
+    "explanation": "The correct answer is 4.08. Percent means out of 100 — convert then calculate."
   },
   {
     "id": 369,
@@ -1824,7 +2038,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "9.45",
+    "explanation": "The correct answer is 9.45. Percent means out of 100 — convert then calculate."
   },
   {
     "id": 370,
@@ -1840,7 +2056,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "4.37",
+    "explanation": "The correct answer is 4.37. Percent means out of 100 — convert then calculate."
   },
   {
     "id": 371,
@@ -1856,7 +2074,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "3.84",
+    "explanation": "The correct answer is 3.84. Percent means out of 100 — convert then calculate."
   },
   {
     "id": 372,
@@ -1872,7 +2092,9 @@
     "answer": 1,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "14.08",
+    "explanation": "The correct answer is 14.08. Percent means out of 100 — convert then calculate."
   },
   {
     "id": 399,
@@ -1888,7 +2110,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "24",
+    "explanation": "The correct answer is 24. Average = sum of values ÷ number of values."
   },
   {
     "id": 400,
@@ -1904,7 +2128,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "98/3",
+    "explanation": "The correct answer is 98/3. Average = sum of values ÷ number of values."
   },
   {
     "id": 401,
@@ -1920,7 +2146,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "31",
+    "explanation": "The correct answer is 31. Average = sum of values ÷ number of values."
   },
   {
     "id": 402,
@@ -1936,7 +2164,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "79/3",
+    "explanation": "The correct answer is 79/3. Average = sum of values ÷ number of values."
   },
   {
     "id": 403,
@@ -1952,7 +2182,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "113/3",
+    "explanation": "The correct answer is 113/3. Average = sum of values ÷ number of values."
   },
   {
     "id": 404,
@@ -1968,7 +2200,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "27.5",
+    "explanation": "The correct answer is 27.5. Average = sum of values ÷ number of values."
   },
   {
     "id": 405,
@@ -1984,7 +2218,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "31",
+    "explanation": "The correct answer is 31. Average = sum of values ÷ number of values."
   },
   {
     "id": 406,
@@ -2000,7 +2236,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "35",
+    "explanation": "The correct answer is 35. Average = sum of values ÷ number of values."
   },
   {
     "id": 407,
@@ -2016,7 +2254,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "25",
+    "explanation": "The correct answer is 25. Average = sum of values ÷ number of values."
   },
   {
     "id": 408,
@@ -2032,7 +2272,9 @@
     "answer": 1,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "125/3",
+    "explanation": "The correct answer is 125/3. Average = sum of values ÷ number of values."
   },
   {
     "id": 409,
@@ -2048,7 +2290,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "36",
+    "explanation": "The correct answer is 36. Average = sum of values ÷ number of values."
   },
   {
     "id": 410,
@@ -2064,7 +2308,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "24.5",
+    "explanation": "The correct answer is 24.5. Average = sum of values ÷ number of values."
   },
   {
     "id": 411,
@@ -2080,7 +2326,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "128/3",
+    "explanation": "The correct answer is 128/3. Average = sum of values ÷ number of values."
   },
   {
     "id": 438,
@@ -2097,7 +2345,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "1681/35",
+    "explanation": "The correct answer is 1681/35. Keep the ratio parts in the same order."
   },
   {
     "id": 439,
@@ -2114,7 +2364,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "220/21",
+    "explanation": "The correct answer is 220/21. Keep the ratio parts in the same order."
   },
   {
     "id": 440,
@@ -2130,7 +2382,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "4.8",
+    "explanation": "The correct answer is 4.8. Keep the ratio parts in the same order."
   },
   {
     "id": 441,
@@ -2147,7 +2401,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "132/7",
+    "explanation": "The correct answer is 132/7. Keep the ratio parts in the same order."
   },
   {
     "id": 442,
@@ -2164,7 +2420,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "832/11",
+    "explanation": "The correct answer is 832/11. Keep the ratio parts in the same order."
   },
   {
     "id": 443,
@@ -2180,7 +2438,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "19.2",
+    "explanation": "The correct answer is 19.2. Keep the ratio parts in the same order."
   },
   {
     "id": 444,
@@ -2197,7 +2457,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "58/9",
+    "explanation": "The correct answer is 58/9. Keep the ratio parts in the same order."
   },
   {
     "id": 445,
@@ -2214,7 +2476,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "176/13",
+    "explanation": "The correct answer is 176/13. Keep the ratio parts in the same order."
   },
   {
     "id": 446,
@@ -2230,7 +2494,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "602/13",
+    "explanation": "The correct answer is 602/13. Keep the ratio parts in the same order."
   },
   {
     "id": 447,
@@ -2247,7 +2513,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "693/17",
+    "explanation": "The correct answer is 693/17. Keep the ratio parts in the same order."
   },
   {
     "id": 448,
@@ -2264,7 +2532,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "774/23",
+    "explanation": "The correct answer is 774/23. Keep the ratio parts in the same order."
   },
   {
     "id": 449,
@@ -2280,7 +2550,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "315/17",
+    "explanation": "The correct answer is 315/17. Keep the ratio parts in the same order."
   },
   {
     "id": 450,
@@ -2297,7 +2569,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "600/13",
+    "explanation": "The correct answer is 600/13. Keep the ratio parts in the same order."
   },
   {
     "id": 477,
@@ -2313,7 +2587,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "5",
+    "explanation": "The correct answer is 5. Convert hours and minutes carefully before calculating."
   },
   {
     "id": 478,
@@ -2329,7 +2605,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "21",
+    "explanation": "The correct answer is 21. Convert hours and minutes carefully before calculating."
   },
   {
     "id": 479,
@@ -2345,7 +2623,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "476",
+    "explanation": "The correct answer is 476. Convert hours and minutes carefully before calculating."
   },
   {
     "id": 480,
@@ -2361,7 +2641,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "19",
+    "explanation": "The correct answer is 19. Convert hours and minutes carefully before calculating."
   },
   {
     "id": 481,
@@ -2377,7 +2659,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "27",
+    "explanation": "The correct answer is 27. Convert hours and minutes carefully before calculating."
   },
   {
     "id": 482,
@@ -2393,7 +2677,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "1170",
+    "explanation": "The correct answer is 1170. Convert hours and minutes carefully before calculating."
   },
   {
     "id": 483,
@@ -2409,7 +2695,9 @@
     "answer": 0,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "5",
+    "explanation": "The correct answer is 5. Convert hours and minutes carefully before calculating."
   },
   {
     "id": 484,
@@ -2425,7 +2713,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "11",
+    "explanation": "The correct answer is 11. Convert hours and minutes carefully before calculating."
   },
   {
     "id": 485,
@@ -2441,7 +2731,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "1715",
+    "explanation": "The correct answer is 1715. Convert hours and minutes carefully before calculating."
   },
   {
     "id": 486,
@@ -2457,7 +2749,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "4",
+    "explanation": "The correct answer is 4. Convert hours and minutes carefully before calculating."
   },
   {
     "id": 487,
@@ -2473,7 +2767,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "9",
+    "explanation": "The correct answer is 9. Convert hours and minutes carefully before calculating."
   },
   {
     "id": 488,
@@ -2489,7 +2785,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "392",
+    "explanation": "The correct answer is 392. Convert hours and minutes carefully before calculating."
   },
   {
     "id": 489,
@@ -2505,7 +2803,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "11",
+    "explanation": "The correct answer is 11. Convert hours and minutes carefully before calculating."
   },
   {
     "id": 516,
@@ -2522,7 +2822,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "63",
+    "explanation": "The correct answer is 63. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": 518,
@@ -2538,7 +2840,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "247",
+    "explanation": "The correct answer is 247. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": 519,
@@ -2555,7 +2859,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "64",
+    "explanation": "The correct answer is 64. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": 521,
@@ -2571,7 +2877,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "440",
+    "explanation": "The correct answer is 440. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": 522,
@@ -2588,7 +2896,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "65",
+    "explanation": "The correct answer is 65. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": 524,
@@ -2604,7 +2914,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "375",
+    "explanation": "The correct answer is 375. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": 525,
@@ -2621,7 +2933,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "46",
+    "explanation": "The correct answer is 46. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": 527,
@@ -2637,7 +2951,9 @@
     "answer": 2,
     "placeholder_roles": [
       "protagonist"
-    ]
+    ],
+    "correct_answer": "672",
+    "explanation": "The correct answer is 672. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": 528,
@@ -2654,7 +2970,9 @@
     "placeholder_roles": [
       "protagonist",
       "helper"
-    ]
+    ],
+    "correct_answer": "59",
+    "explanation": "The correct answer is 59. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": "Q570",
@@ -2671,7 +2989,8 @@
     ],
     "correct_answer": "9",
     "answer": 0,
-    "difficulty": "P3-P4"
+    "difficulty": "P3-P4",
+    "explanation": "The correct answer is 9. Share equally or use multiplication to check your quotient."
   },
   {
     "id": "Q571",
@@ -2689,7 +3008,8 @@
     ],
     "correct_answer": "71",
     "answer": 3,
-    "difficulty": "P3-P4"
+    "difficulty": "P3-P4",
+    "explanation": "The correct answer is 71. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q572",
@@ -2707,7 +3027,8 @@
     ],
     "correct_answer": "84",
     "answer": 3,
-    "difficulty": "P3-P4"
+    "difficulty": "P3-P4",
+    "explanation": "The correct answer is 84. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q573",
@@ -2725,7 +3046,8 @@
     ],
     "correct_answer": "50",
     "answer": 0,
-    "difficulty": "P3-P4"
+    "difficulty": "P3-P4",
+    "explanation": "The correct answer is 50. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q574",
@@ -2743,7 +3065,8 @@
     ],
     "correct_answer": "5/4",
     "answer": 0,
-    "difficulty": "P3-P4"
+    "difficulty": "P3-P4",
+    "explanation": "The correct answer is 5/4. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q575",
@@ -2761,7 +3084,8 @@
     ],
     "correct_answer": "5/3",
     "answer": 0,
-    "difficulty": "P3-P4"
+    "difficulty": "P3-P4",
+    "explanation": "The correct answer is 5/3. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q576",
@@ -2778,7 +3102,8 @@
     ],
     "correct_answer": "9",
     "answer": 3,
-    "difficulty": "P3-P4"
+    "difficulty": "P3-P4",
+    "explanation": "The correct answer is 9. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q577",
@@ -2795,7 +3120,8 @@
     ],
     "correct_answer": "8",
     "answer": 0,
-    "difficulty": "P3-P4"
+    "difficulty": "P3-P4",
+    "explanation": "The correct answer is 8. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q578",
@@ -2813,7 +3139,8 @@
     ],
     "correct_answer": "10",
     "answer": 1,
-    "difficulty": "P3-P4"
+    "difficulty": "P3-P4",
+    "explanation": "The correct answer is 10. Keep the ratio parts in the same order."
   },
   {
     "id": "Q579",
@@ -2830,7 +3157,8 @@
     ],
     "correct_answer": "7",
     "answer": 2,
-    "difficulty": "P3-P4"
+    "difficulty": "P3-P4",
+    "explanation": "The correct answer is 7. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": "Q580",
@@ -2847,7 +3175,8 @@
     ],
     "correct_answer": "17",
     "answer": 0,
-    "difficulty": "P3-P4"
+    "difficulty": "P3-P4",
+    "explanation": "The correct answer is 17. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": "Q582",
@@ -2864,7 +3193,8 @@
     ],
     "correct_answer": "7",
     "answer": 3,
-    "difficulty": "P3-P4"
+    "difficulty": "P3-P4",
+    "explanation": "The correct answer is 7. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": "Q601",
@@ -2883,7 +3213,8 @@
       "60"
     ],
     "answer": 0,
-    "correct_answer": "55"
+    "correct_answer": "55",
+    "explanation": "The correct answer is 55. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q602",
@@ -2900,7 +3231,8 @@
       "60"
     ],
     "answer": 3,
-    "correct_answer": "60"
+    "correct_answer": "60",
+    "explanation": "The correct answer is 60. Use groups or times-tables to find the product."
   },
   {
     "id": "Q603",
@@ -2917,7 +3249,8 @@
       "14"
     ],
     "answer": 0,
-    "correct_answer": "12"
+    "correct_answer": "12",
+    "explanation": "The correct answer is 12. Share equally or use multiplication to check your quotient."
   },
   {
     "id": "Q604",
@@ -2934,7 +3267,8 @@
       "26"
     ],
     "answer": 2,
-    "correct_answer": "24"
+    "correct_answer": "24",
+    "explanation": "The correct answer is 24. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q605",
@@ -2951,6 +3285,7 @@
       "87"
     ],
     "answer": 1,
-    "correct_answer": "87.67"
+    "correct_answer": "87.67",
+    "explanation": "The correct answer is 87.67. Average = sum of values ÷ number of values."
   }
 ]

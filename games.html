@@ -7,7 +7,7 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Noto+Sans+SC:wght@400;900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,10 +16,14 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at 12% 18%, rgba(20, 184, 166, 0.22), transparent 36%),
+                radial-gradient(circle at 88% 8%, rgba(226, 92, 61, 0.16), transparent 28%),
+                linear-gradient(160deg, #083344 0%, #0f766e 48%, #115e59 100%);
             min-height: 100vh;
             padding: 20px;
+            padding-top: 96px;
         }
 
         .container {
@@ -28,76 +32,174 @@
         }
 
         .header {
-            text-align: center;
+            text-align: left;
             color: white;
-            margin-bottom: 30px;
+            margin-bottom: 28px;
+            max-width: 40rem;
         }
 
         .header h1 {
-            font-size: 3em;
+            font-family: "Fraunces", "Iowan Old Style", serif;
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
             margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            letter-spacing: -0.03em;
         }
 
         .header p {
-            font-size: 1.2em;
-            opacity: 0.95;
+            font-size: 1.08em;
+            opacity: 0.92;
+            line-height: 1.55;
         }
 
         .back-btn {
             display: inline-block;
-            padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.12);
             color: white;
             text-decoration: none;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            border-radius: 999px;
+            margin-bottom: 18px;
             transition: all 0.3s;
-            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.22);
         }
 
         .back-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.22);
             transform: translateY(-2px);
+        }
+
+        .section-label {
+            color: rgba(255,255,255,0.78);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin: 8px 0 14px;
+        }
+
+        .featured-city {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 18px;
+            margin-bottom: 28px;
+            padding: 22px;
+            border-radius: 24px;
+            background: rgba(255,255,255,0.94);
+            color: #083344;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.35);
+            box-shadow: 0 18px 50px rgba(8, 51, 68, 0.28);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .featured-city:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 22px 56px rgba(8, 51, 68, 0.34);
+        }
+
+        .featured-city h2 {
+            font-family: "Fraunces", serif;
+            font-size: 1.9rem;
+            margin: 6px 0 10px;
+        }
+
+        .featured-city p {
+            color: #466574;
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .featured-kicker {
+            color: #0f766e;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .featured-cta {
+            display: inline-flex;
+            padding: 12px 18px;
+            border-radius: 999px;
+            background: #0f766e;
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .featured-meta {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px;
+            border-radius: 18px;
+            background: linear-gradient(160deg, #083344, #0f766e);
+            color: #fff;
+        }
+
+        .featured-meta span {
+            opacity: 0.85;
+            font-size: 0.92rem;
         }
 
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 18px;
+            margin-bottom: 28px;
         }
 
         .game-card {
             background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border-radius: 18px;
+            padding: 24px 20px;
+            box-shadow: 0 10px 30px rgba(8,51,68,0.16);
             cursor: pointer;
             transition: all 0.3s;
-            text-align: center;
+            text-align: left;
+            border: 1px solid rgba(255,255,255,0.35);
         }
 
         .game-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(8,51,68,0.22);
+        }
+
+        .game-card.is-legacy {
+            opacity: 0.88;
         }
 
         .game-icon {
-            font-size: 4em;
-            margin-bottom: 15px;
+            font-size: 2.4em;
+            margin-bottom: 12px;
+            display: block;
         }
 
         .game-card h3 {
-            color: #2c3e50;
-            font-size: 1.5em;
-            margin-bottom: 10px;
+            color: #0b2a3a;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+            font-family: "Fraunces", serif;
         }
 
         .game-card p {
-            color: #7f8c8d;
-            font-size: 0.95em;
+            color: #567;
+            font-size: 0.92em;
             line-height: 1.5;
+        }
+
+        .legacy-note {
+            color: rgba(255,255,255,0.75);
+            font-size: 0.92rem;
+            margin: -8px 0 14px;
+        }
+
+        @media (max-width: 800px) {
+            .featured-city {
+                grid-template-columns: 1fr;
+            }
+            body { padding-top: 120px; }
         }
 
         /* Modal Overlay */
@@ -1080,142 +1182,146 @@
 <body>
     <div class="container">
         <a href="index.html" class="back-btn">← Back to Home</a>
-        
+
         <div class="header">
-            <h1>🎮 Fun Games</h1>
-            <p>Choose a game to play!</p>
+            <h1>Fun Games</h1>
+            <p>Featured driving and 3D experiences first — plus learning quizzes and classic arcade games between study sessions.</p>
         </div>
 
+        <div class="featured-city" onclick="window.location.href='city-driving.html'" role="link" tabindex="0"
+             onkeydown="if(event.key==='Enter'){window.location.href='city-driving.html'}">
+            <div>
+                <div class="featured-kicker">Featured · New</div>
+                <h2>City Driving</h2>
+                <p>Free-roam or race through Singapore-inspired streets, pick cars in the garage, fly nitro hypercars, and explore cities on the globe. Keep left and enjoy the ride.</p>
+                <a class="featured-cta" href="city-driving.html" onclick="event.stopPropagation()">Open City Driving</a>
+            </div>
+            <div class="featured-meta" aria-hidden="true">
+                <strong>Modes</strong>
+                <span>Free roam · Racing circuit · Real map</span>
+                <strong>Controls</strong>
+                <span>WASD / arrows · C camera · Shift nitro</span>
+            </div>
+        </div>
+
+        <div class="section-label">Featured experiences</div>
         <div class="games-grid">
-            <div class="game-card" onclick="openGame('tictactoe')">
-                <div class="game-icon">❌⭕</div>
-                <h3>Tic-Tac-Toe</h3>
-                <p>Classic two-player game. Get three in a row to win!</p>
-            </div>
-
-            <div class="game-card" onclick="openGame('rps')">
-                <div class="game-icon">✊✋✌️</div>
-                <h3>Rock Paper Scissors</h3>
-                <p>Play against the computer and track your wins!</p>
-            </div>
-
-            <div class="game-card" onclick="openGame('memory')">
-                <div class="game-icon">🧠</div>
-                <h3>Memory Match</h3>
-                <p>Find all matching pairs in minimum moves!</p>
-            </div>
-
-            <div class="game-card" onclick="openGame('guess')">
-                <div class="game-icon">🎯</div>
-                <h3>Guess the Number</h3>
-                <p>Guess the secret number between 1-100!</p>
-            </div>
-
-            <div class="game-card" onclick="openGame('snake')">
-                <div class="game-icon">🐍</div>
-                <h3>Snake Game</h3>
-                <p>Classic snake! Eat food and grow longer!</p>
-            </div>
-
-            <div class="game-card" onclick="openGame('simon')">
-                <div class="game-icon">🎵</div>
-                <h3>Simon Says</h3>
-                <p>Remember and repeat the color sequence!</p>
-            </div>
-
-            <div class="game-card" onclick="openGame('whack')">
-                <div class="game-icon">🔨</div>
-                <h3>Whack-a-Mole</h3>
-                <p>Click the moles before they disappear!</p>
-            </div>
-
-            <div class="game-card" onclick="openGame('2048')">
-                <div class="game-icon">🔢</div>
-                <h3>2048</h3>
-                <p>Combine tiles to reach 2048!</p>
-            </div>
-
-            <div class="game-card" onclick="openGame('scramble')">
-                <div class="game-icon">🔤</div>
-                <h3>Word Scramble</h3>
-                <p>Unscramble the mixed-up letters to find the hidden word!</p>
-            </div>
-
-            <div class="game-card" onclick="openGame('mathchallenge')">
-                <div class="game-icon">➕</div>
-                <h3>Math Challenge</h3>
-                <p>Answer rapid-fire math questions before time runs out!</p>
-            </div>
-
-
-            <div class="game-card" onclick="openGame('stickfight')">
-                <div class="game-icon">🥋</div>
-                <h3>Stick Man Fighter</h3>
-                <p>Battle solo against the CPU or challenge a friend in a classic stick fight!</p>
-            </div>
-
-            <div class="game-card" onclick="openGame('hangman')">
-                <div class="game-icon">🪢</div>
-                <h3>Hangman</h3>
-                <p>Guess the mystery word one letter at a time!</p>
-            </div>
-
-            <div class="game-card" onclick="openGame('kpopemoji')">
-                <div class="game-icon">🎤</div>
-                <h3>K-POP Emoji Quiz</h3>
-                <p>Can you guess the K-POP group from the emoji clues?</p>
-            </div>
-
-            <div class="game-card" onclick="openGame('kpopidol')">
-                <div class="game-icon">🌟</div>
-                <h3>K-POP Idol Quiz</h3>
-                <p>Can you guess the K-POP idol from the emoji clues?</p>
-            </div>
-
-            <div class="game-card" onclick="openGame('chengyu')">
-                <div class="game-icon">🀄</div>
-                <h3>成语游戏 Chengyu Quiz</h3>
-                <p>Practice Chinese idioms! Read the chengyu and pick the correct meaning.</p>
-            </div>
-
-            <div class="game-card" onclick="window.location.href='rubiks-cube.html'">
-                <div class="game-icon">🎲</div>
-                <h3>Rubik's Cube</h3>
-                <p>Standalone simulator rebuilt from scratch with a robust virtual model and interactive 3D controls (2×2 to 10×10).</p>
-            </div>
-
-            <div class="game-card" onclick="window.location.href='monster-siege.html'">
-                <div class="game-icon">⚔️</div>
-                <h3>Monster Siege</h3>
-                <p>Survive the swarm, blast monsters, and harvest their essence to refill your blood.</p>
-            </div>
-
             <div class="game-card" onclick="window.location.href='car-racing.html'">
                 <div class="game-icon">🏎️</div>
                 <h3>Velocity Rush</h3>
-                <p>High-speed neon racing with fullscreen play, mobile motion steering, and touch fallback controls.</p>
+                <p>High-speed neon racing with fullscreen play and mobile steering.</p>
             </div>
-
             <div class="game-card" onclick="window.location.href='driving-sim.html'">
                 <div class="game-icon">🚗</div>
                 <h3>Real Drive</h3>
-                <p>Highway driving simulator with realistic engine and gearbox, traffic, speed cameras, day/night cycle, and chase or hood camera.</p>
+                <p>Highway simulator with gearbox, traffic, cameras, and day/night cycle.</p>
             </div>
+            <div class="game-card" onclick="window.location.href='rubiks-cube.html'">
+                <div class="game-icon">🎲</div>
+                <h3>Rubik's Cube</h3>
+                <p>Interactive 3D cube simulator from 2×2 to 10×10.</p>
+            </div>
+            <div class="game-card" onclick="window.location.href='monster-siege.html'">
+                <div class="game-icon">⚔️</div>
+                <h3>Monster Siege</h3>
+                <p>Survive the swarm and harvest essence to stay in the fight.</p>
+            </div>
+        </div>
 
-            <div class="game-card" onclick="window.location.href='city-driving.html'">
-                <div class="game-icon">🚕</div>
-                <h3>City Driving</h3>
-                <p>Take a Three.js cruise through Singapore-inspired streets, keep left, and weave through city traffic.</p>
+        <div class="section-label">Learning games</div>
+        <div class="games-grid">
+            <div class="game-card" onclick="openGame('chengyu')">
+                <div class="game-icon">🀄</div>
+                <h3>成语 Chengyu Quiz</h3>
+                <p>Practice Chinese idioms — read the chengyu and pick the meaning.</p>
+            </div>
+            <div class="game-card" onclick="openGame('mathchallenge')">
+                <div class="game-icon">➕</div>
+                <h3>Math Challenge</h3>
+                <p>Rapid-fire arithmetic before the clock runs out.</p>
+            </div>
+            <div class="game-card" onclick="openGame('scramble')">
+                <div class="game-icon">🔤</div>
+                <h3>Word Scramble</h3>
+                <p>Unscramble letters to find the hidden word.</p>
+            </div>
+            <div class="game-card" onclick="openGame('hangman')">
+                <div class="game-icon">🪢</div>
+                <h3>Hangman</h3>
+                <p>Guess the mystery word one letter at a time.</p>
+            </div>
+            <div class="game-card" onclick="openGame('kpopemoji')">
+                <div class="game-icon">🎤</div>
+                <h3>K-POP Emoji Quiz</h3>
+                <p>Guess the K-POP group from emoji clues.</p>
+            </div>
+            <div class="game-card" onclick="openGame('kpopidol')">
+                <div class="game-icon">🌟</div>
+                <h3>K-POP Idol Quiz</h3>
+                <p>Guess the K-POP idol from emoji clues.</p>
+            </div>
+        </div>
+
+        <div class="section-label">Arcade classics</div>
+        <div class="games-grid">
+            <div class="game-card" onclick="openGame('snake')">
+                <div class="game-icon">🐍</div>
+                <h3>Snake</h3>
+                <p>Eat food, grow longer, avoid the walls.</p>
+            </div>
+            <div class="game-card" onclick="openGame('2048')">
+                <div class="game-icon">🔢</div>
+                <h3>2048</h3>
+                <p>Combine tiles to reach 2048.</p>
+            </div>
+            <div class="game-card" onclick="openGame('memory')">
+                <div class="game-icon">🧠</div>
+                <h3>Memory Match</h3>
+                <p>Find all matching pairs in as few moves as possible.</p>
+            </div>
+            <div class="game-card" onclick="openGame('tictactoe')">
+                <div class="game-icon">❌⭕</div>
+                <h3>Tic-Tac-Toe</h3>
+                <p>Classic two-player three-in-a-row.</p>
+            </div>
+        </div>
+
+        <div class="section-label">More games</div>
+        <p class="legacy-note">Kept for now — candidates to trim later if we want a tighter catalog.</p>
+        <div class="games-grid">
+            <div class="game-card is-legacy" onclick="openGame('rps')">
+                <div class="game-icon">✊✋✌️</div>
+                <h3>Rock Paper Scissors</h3>
+                <p>Play against the computer and track your wins.</p>
+            </div>
+            <div class="game-card is-legacy" onclick="openGame('guess')">
+                <div class="game-icon">🎯</div>
+                <h3>Guess the Number</h3>
+                <p>Guess the secret number between 1–100.</p>
+            </div>
+            <div class="game-card is-legacy" onclick="openGame('simon')">
+                <div class="game-icon">🎵</div>
+                <h3>Simon Says</h3>
+                <p>Remember and repeat the color sequence.</p>
+            </div>
+            <div class="game-card is-legacy" onclick="openGame('whack')">
+                <div class="game-icon">🔨</div>
+                <h3>Whack-a-Mole</h3>
+                <p>Click the moles before they disappear.</p>
+            </div>
+            <div class="game-card is-legacy" onclick="openGame('stickfight')">
+                <div class="game-icon">🥋</div>
+                <h3>Stick Man Fighter</h3>
+                <p>Solo vs CPU or local two-player stick fight.</p>
             </div>
         </div>
     </div>
 
-    <!-- Game Modals will be inserted here -->
     <div id="game-modals"></div>
 
     <script src="js/games.js"></script>
-    
     <script type="module" src="js/firebase-config.js"></script>
     <script src="js/nav-auth.js"></script>
+    <script src="js/site-shell.js?v=20"></script>
 </body>
 </html>

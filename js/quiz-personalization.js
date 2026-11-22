@@ -3,6 +3,7 @@
 
   var APPEARANCE_STORAGE_KEY = 'quiz_studio_appearance_preferences';
   var QUESTION_STATS_STORAGE_KEY = 'quiz_studio_question_success_counts';
+  var QUESTION_ATTEMPTS_STORAGE_KEY = 'quiz_studio_question_attempt_counts';
   var authStatePromise = null;
 
   var DEFAULT_APPEARANCE = {
@@ -12,12 +13,12 @@
 
   var THEME_PRESETS = {
     default: {
-      '--primary-color': '#6366f1',
-      '--secondary-color': '#ec4899',
-      '--light-bg': '#f8fafc',
-      '--dark-text': '#1e293b',
+      '--primary-color': '#0f766e',
+      '--secondary-color': '#e25c3d',
+      '--light-bg': '#f3faf8',
+      '--dark-text': '#0b2a3a',
       '--surface-background': '#ffffff',
-      '--surface-shadow': '0 10px 40px rgba(0, 0, 0, 0.2)'
+      '--surface-shadow': '0 18px 50px rgba(8, 51, 68, 0.22)'
     },
     ocean: {
       '--primary-color': '#0f766e',
@@ -44,21 +45,21 @@
       '--surface-shadow': '0 10px 38px rgba(21, 128, 61, 0.18)'
     },
     midnight: {
-      '--primary-color': '#4f46e5',
-      '--secondary-color': '#7c3aed',
+      '--primary-color': '#0f766e',
+      '--secondary-color': '#334155',
       '--light-bg': '#e2e8f0',
-      '--dark-text': '#1e293b',
+      '--dark-text': '#0f172a',
       '--surface-background': '#ffffff',
       '--surface-shadow': '0 10px 45px rgba(15, 23, 42, 0.45)'
     }
   };
 
   var BACKGROUND_PRESETS = {
-    default: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    sunrise: 'linear-gradient(135deg, #f97316 0%, #ec4899 100%)',
+    default: 'radial-gradient(circle at 12% 18%, rgba(20, 184, 166, 0.22), transparent 36%), radial-gradient(circle at 88% 8%, rgba(226, 92, 61, 0.16), transparent 28%), linear-gradient(160deg, #083344 0%, #0f766e 48%, #115e59 100%)',
+    sunrise: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
     aurora: 'linear-gradient(135deg, #0f766e 0%, #2563eb 100%)',
     meadow: 'linear-gradient(135deg, #22c55e 0%, #14b8a6 100%)',
-    night: 'linear-gradient(135deg, #0f172a 0%, #312e81 100%)'
+    night: 'linear-gradient(135deg, #0f172a 0%, #134e4a 100%)'
   };
 
   function clone(value) {
@@ -129,6 +130,18 @@
     var normalized = normalizeCounts(counts);
     if (global.localStorage) {
       global.localStorage.setItem(QUESTION_STATS_STORAGE_KEY, JSON.stringify(normalized));
+    }
+    return normalized;
+  }
+
+  function readLocalAttemptStats() {
+    return normalizeCounts(safeParse(global.localStorage && global.localStorage.getItem(QUESTION_ATTEMPTS_STORAGE_KEY), {}));
+  }
+
+  function writeLocalAttemptStats(counts) {
+    var normalized = normalizeCounts(counts);
+    if (global.localStorage) {
+      global.localStorage.setItem(QUESTION_ATTEMPTS_STORAGE_KEY, JSON.stringify(normalized));
     }
     return normalized;
   }
@@ -220,9 +233,15 @@
     return String(subject) + ':' + String(question.id);
   }
 
-  function getQuestionWeight(correctCount) {
-    if (!correctCount || correctCount <= 1) return 1;
-    return Math.max(0.15, 1 / (correctCount + 2));
+  function getQuestionWeight(correctCount, attemptCount) {
+    // Down-weight mastered items; boost items seen but frequently missed.
+    var correct = correctCount || 0;
+    var attempts = attemptCount || 0;
+    var misses = Math.max(0, attempts - correct);
+    if (misses > 0 && correct === 0) return 2.4;
+    if (misses > correct) return 1.8;
+    if (!correct || correct <= 1) return 1;
+    return Math.max(0.15, 1 / (correct + 2));
   }
 
   function getRandomUnit() {
@@ -247,11 +266,13 @@
     var sourceQuestions = Array.isArray(questions) ? questions.slice() : [];
     if (sourceQuestions.length <= 1) return sourceQuestions;
     var counts = await loadQuestionSuccessCounts();
+    var attempts = readLocalAttemptStats();
     return sourceQuestions
       .map(function (question, index) {
         var key = getQuestionKey(subject, question);
         var correctCount = key ? (counts[key] || 0) : 0;
-        var weight = getQuestionWeight(correctCount);
+        var attemptCount = key ? (attempts[key] || 0) : 0;
+        var weight = getQuestionWeight(correctCount, attemptCount);
         return {
           question: question,
           index: index,
@@ -268,26 +289,36 @@
   async function recordQuestionResults(subject, questions, answers) {
     if (!Array.isArray(questions) || !Array.isArray(answers) || !subject) return 0;
 
-    var increments = {};
+    var successIncrements = {};
+    var attemptIncrements = {};
     questions.forEach(function (question, index) {
-      if (!question || answers[index] !== question.answer) return;
+      if (!question) return;
       var key = getQuestionKey(subject, question);
       if (!key) return;
-      increments[key] = (increments[key] || 0) + 1;
+      attemptIncrements[key] = (attemptIncrements[key] || 0) + 1;
+      if (answers[index] === question.answer) {
+        successIncrements[key] = (successIncrements[key] || 0) + 1;
+      }
     });
 
-    var incrementKeys = Object.keys(increments);
-    if (incrementKeys.length === 0) return 0;
+    var attemptKeys = Object.keys(attemptIncrements);
+    if (attemptKeys.length === 0) return 0;
 
     var localCounts = readLocalQuestionStats();
-    incrementKeys.forEach(function (key) {
-      localCounts[key] = (localCounts[key] || 0) + increments[key];
+    Object.keys(successIncrements).forEach(function (key) {
+      localCounts[key] = (localCounts[key] || 0) + successIncrements[key];
     });
     writeLocalQuestionStats(localCounts);
 
-    if (!global.FB_DB || !global.FB_AUTH) return incrementKeys.length;
+    var localAttempts = readLocalAttemptStats();
+    attemptKeys.forEach(function (key) {
+      localAttempts[key] = (localAttempts[key] || 0) + attemptIncrements[key];
+    });
+    writeLocalAttemptStats(localAttempts);
+
+    if (!global.FB_DB || !global.FB_AUTH) return attemptKeys.length;
     var user = await waitForCurrentUser();
-    if (!user) return incrementKeys.length;
+    if (!user) return attemptKeys.length;
 
     try {
       var firestore = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js');
@@ -296,16 +327,23 @@
         var snap = await tx.get(userRef);
         var data = snap.exists() ? snap.data() : {};
         var remoteCounts = normalizeCounts(data.question_success_counts);
-        incrementKeys.forEach(function (key) {
-          remoteCounts[key] = (remoteCounts[key] || 0) + increments[key];
+        var remoteAttempts = normalizeCounts(data.question_attempt_counts);
+        Object.keys(successIncrements).forEach(function (key) {
+          remoteCounts[key] = (remoteCounts[key] || 0) + successIncrements[key];
         });
-        tx.set(userRef, { question_success_counts: remoteCounts }, { merge: true });
+        attemptKeys.forEach(function (key) {
+          remoteAttempts[key] = (remoteAttempts[key] || 0) + attemptIncrements[key];
+        });
+        tx.set(userRef, {
+          question_success_counts: remoteCounts,
+          question_attempt_counts: remoteAttempts
+        }, { merge: true });
       });
     } catch (e) {
       console.warn('Could not update question success counts:', e);
     }
 
-    return incrementKeys.length;
+    return attemptKeys.length;
   }
 
   function initializeAppearance() {

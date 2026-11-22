@@ -41,6 +41,13 @@
     });
   }
 
+  var SUBJECT_PAGES = {
+    math: 'quiz.html',
+    science: 'science-quiz.html',
+    english: 'english-quiz.html',
+    chinese: 'chinese-quiz.html'
+  };
+
   async function loadProfile() {
     var { getDoc, doc } = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js');
     var snap = await getDoc(doc(db, 'users', currentUser.uid));
@@ -56,7 +63,49 @@
     var qEl = $('totalQuizzes');
     if (qEl) qEl.textContent = p.total_quizzes || 0;
 
+    renderMasteryTopics(p.skill_stats || {});
     await loadRank(p.total_points || 0);
+  }
+
+  function renderMasteryTopics(skillStats) {
+    var container = $('masteryTopics');
+    if (!container) return;
+
+    var rows = [];
+    Object.keys(skillStats || {}).forEach(function (subject) {
+      var topics = skillStats[subject] || {};
+      Object.keys(topics).forEach(function (category) {
+        var stats = topics[category] || {};
+        var total = stats.total || 0;
+        var correct = stats.correct || 0;
+        if (total < 2) return;
+        rows.push({
+          subject: subject,
+          category: category,
+          correct: correct,
+          total: total,
+          rate: correct / total
+        });
+      });
+    });
+
+    rows.sort(function (a, b) { return a.rate - b.rate; });
+    var weak = rows.filter(function (r) { return r.rate < 0.7; }).slice(0, 5);
+
+    if (!weak.length) {
+      container.innerHTML = '<p class="dash-empty">No weak topics yet. Complete a few quizzes to unlock focus recommendations.</p>';
+      return;
+    }
+
+    container.innerHTML = '<ul class="mastery-list">' + weak.map(function (row) {
+      var pct = Math.round(row.rate * 100);
+      var page = SUBJECT_PAGES[row.subject] || 'quiz.html';
+      var href = page + '?category=' + encodeURIComponent(row.category);
+      return '<li><div><strong>' + row.category + '</strong><div style="font-size:0.82rem;color:#6b7280;">' +
+        row.subject + ' · ' + row.correct + '/' + row.total + '</div></div>' +
+        '<div><span class="mastery-rate is-weak">' + pct + '%</span> ' +
+        '<a class="practice-link" href="' + href + '">Practice</a></div></li>';
+    }).join('') + '</ul>';
   }
 
   async function loadRank(userPoints) {

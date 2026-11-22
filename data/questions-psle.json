@@ -13,7 +13,8 @@
       "55°"
     ],
     "answer": 1,
-    "correct_answer": "115°"
+    "correct_answer": "115°",
+    "explanation": "The correct answer is 115°. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q811",
@@ -29,7 +30,8 @@
       "90 cm²"
     ],
     "answer": 0,
-    "correct_answer": "84 cm²"
+    "correct_answer": "84 cm²",
+    "explanation": "The correct answer is 84 cm². Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q812",
@@ -49,7 +51,8 @@
       "12"
     ],
     "answer": 1,
-    "correct_answer": "6"
+    "correct_answer": "6",
+    "explanation": "The correct answer is 6. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q813",
@@ -65,7 +68,8 @@
       "145°"
     ],
     "answer": 0,
-    "correct_answer": "55°"
+    "correct_answer": "55°",
+    "explanation": "The correct answer is 55°. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q814",
@@ -81,7 +85,8 @@
       "162°"
     ],
     "answer": 1,
-    "correct_answer": "72°"
+    "correct_answer": "72°",
+    "explanation": "The correct answer is 72°. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q815",
@@ -97,7 +102,8 @@
       "20°"
     ],
     "answer": 1,
-    "correct_answer": "70°"
+    "correct_answer": "70°",
+    "explanation": "The correct answer is 70°. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q816",
@@ -113,7 +119,8 @@
       "150"
     ],
     "answer": 1,
-    "correct_answer": "170"
+    "correct_answer": "170",
+    "explanation": "The correct answer is 170. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q817",
@@ -131,7 +138,8 @@
       "27"
     ],
     "answer": 1,
-    "correct_answer": "29"
+    "correct_answer": "29",
+    "explanation": "The correct answer is 29. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q818",
@@ -147,7 +155,8 @@
       "30"
     ],
     "answer": 1,
-    "correct_answer": "20"
+    "correct_answer": "20",
+    "explanation": "The correct answer is 20. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q819",
@@ -167,7 +176,8 @@
       "8"
     ],
     "answer": 1,
-    "correct_answer": "10"
+    "correct_answer": "10",
+    "explanation": "The correct answer is 10. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q710",
@@ -185,7 +195,8 @@
       "384"
     ],
     "answer": 1,
-    "correct_answer": "234"
+    "correct_answer": "234",
+    "explanation": "The correct answer is 234. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q711",
@@ -204,7 +215,8 @@
       "120"
     ],
     "answer": 3,
-    "correct_answer": "120"
+    "correct_answer": "120",
+    "explanation": "The correct answer is 120. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q712",
@@ -221,7 +233,8 @@
       "5500"
     ],
     "answer": 0,
-    "correct_answer": "5460"
+    "correct_answer": "5460",
+    "explanation": "The correct answer is 5460. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q713",
@@ -239,7 +252,8 @@
       "12"
     ],
     "answer": 3,
-    "correct_answer": "12"
+    "correct_answer": "12",
+    "explanation": "The correct answer is 12. Keep the ratio parts in the same order."
   },
   {
     "id": "Q714",
@@ -257,7 +271,8 @@
       "28"
     ],
     "answer": 2,
-    "correct_answer": "56"
+    "correct_answer": "56",
+    "explanation": "The correct answer is 56. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q715",
@@ -274,7 +289,8 @@
       "2.45"
     ],
     "answer": 0,
-    "correct_answer": "2.48"
+    "correct_answer": "2.48",
+    "explanation": "The correct answer is 2.48. Align the decimal points before computing."
   },
   {
     "id": "Q716",
@@ -291,7 +307,8 @@
       "150"
     ],
     "answer": 0,
-    "correct_answer": "50"
+    "correct_answer": "50",
+    "explanation": "The correct answer is 50. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": "Q717",
@@ -308,7 +325,8 @@
       "195"
     ],
     "answer": 3,
-    "correct_answer": "195"
+    "correct_answer": "195",
+    "explanation": "The correct answer is 195. Convert hours and minutes carefully before calculating."
   },
   {
     "id": "Q718",
@@ -327,7 +345,8 @@
       "100"
     ],
     "answer": 0,
-    "correct_answer": "98"
+    "correct_answer": "98",
+    "explanation": "The correct answer is 98. Average = sum of values ÷ number of values."
   },
   {
     "id": "Q719",
@@ -346,7 +365,8 @@
       "2250"
     ],
     "answer": 3,
-    "correct_answer": "2250"
+    "correct_answer": "2250",
+    "explanation": "The correct answer is 2250. Keep the ratio parts in the same order."
   },
   {
     "id": "Q720",
@@ -363,7 +383,8 @@
       "185"
     ],
     "answer": 3,
-    "correct_answer": "185"
+    "correct_answer": "185",
+    "explanation": "The correct answer is 185. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q721",
@@ -380,7 +401,8 @@
       "75"
     ],
     "answer": 0,
-    "correct_answer": "90"
+    "correct_answer": "90",
+    "explanation": "The correct answer is 90. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": "Q722",
@@ -399,7 +421,8 @@
       "50"
     ],
     "answer": 3,
-    "correct_answer": "50"
+    "correct_answer": "50",
+    "explanation": "The correct answer is 50. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q723",
@@ -416,7 +439,8 @@
       "100"
     ],
     "answer": 3,
-    "correct_answer": "100"
+    "correct_answer": "100",
+    "explanation": "The correct answer is 100. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q724",
@@ -434,7 +458,8 @@
       "180"
     ],
     "answer": 1,
-    "correct_answer": "120"
+    "correct_answer": "120",
+    "explanation": "The correct answer is 120. Keep the ratio parts in the same order."
   },
   {
     "id": "Q725",
@@ -451,7 +476,8 @@
       "300"
     ],
     "answer": 0,
-    "correct_answer": "292"
+    "correct_answer": "292",
+    "explanation": "The correct answer is 292. Check units first, then compute."
   },
   {
     "id": "Q726",
@@ -468,7 +494,8 @@
       "900"
     ],
     "answer": 0,
-    "correct_answer": "720"
+    "correct_answer": "720",
+    "explanation": "The correct answer is 720. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q727",
@@ -485,7 +512,8 @@
       "145"
     ],
     "answer": 0,
-    "correct_answer": "130"
+    "correct_answer": "130",
+    "explanation": "The correct answer is 130. Convert hours and minutes carefully before calculating."
   },
   {
     "id": "Q728",
@@ -503,7 +531,8 @@
       "1800"
     ],
     "answer": 0,
-    "correct_answer": "2100"
+    "correct_answer": "2100",
+    "explanation": "The correct answer is 2100. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q729",
@@ -520,7 +549,8 @@
       "90"
     ],
     "answer": 2,
-    "correct_answer": "100"
+    "correct_answer": "100",
+    "explanation": "The correct answer is 100. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q730",
@@ -537,7 +567,8 @@
       "25"
     ],
     "answer": 1,
-    "correct_answer": "30"
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q731",
@@ -554,7 +585,8 @@
       "15.56"
     ],
     "answer": 0,
-    "correct_answer": "16.56"
+    "correct_answer": "16.56",
+    "explanation": "The correct answer is 16.56. Align the decimal points before computing."
   },
   {
     "id": "Q732",
@@ -573,7 +605,8 @@
       "121"
     ],
     "answer": 0,
-    "correct_answer": "182"
+    "correct_answer": "182",
+    "explanation": "The correct answer is 182. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": "Q733",
@@ -590,7 +623,8 @@
       "200"
     ],
     "answer": 0,
-    "correct_answer": "175"
+    "correct_answer": "175",
+    "explanation": "The correct answer is 175. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q734",
@@ -607,7 +641,8 @@
       "105"
     ],
     "answer": 1,
-    "correct_answer": "100"
+    "correct_answer": "100",
+    "explanation": "The correct answer is 100. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q735",
@@ -625,7 +660,8 @@
       "120"
     ],
     "answer": 0,
-    "correct_answer": "150"
+    "correct_answer": "150",
+    "explanation": "The correct answer is 150. Keep the ratio parts in the same order."
   },
   {
     "id": "Q736",
@@ -644,7 +680,8 @@
       "90"
     ],
     "answer": 0,
-    "correct_answer": "96"
+    "correct_answer": "96",
+    "explanation": "The correct answer is 96. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q737",
@@ -661,7 +698,8 @@
       "35"
     ],
     "answer": 3,
-    "correct_answer": "35"
+    "correct_answer": "35",
+    "explanation": "The correct answer is 35. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": "Q738",
@@ -676,7 +714,8 @@
       "180"
     ],
     "answer": 2,
-    "correct_answer": "240"
+    "correct_answer": "240",
+    "explanation": "The correct answer is 240. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q739",
@@ -693,7 +732,8 @@
       "400"
     ],
     "answer": 0,
-    "correct_answer": "800"
+    "correct_answer": "800",
+    "explanation": "The correct answer is 800. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q740",
@@ -710,7 +750,8 @@
       "32"
     ],
     "answer": 3,
-    "correct_answer": "32"
+    "correct_answer": "32",
+    "explanation": "The correct answer is 32. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q741",
@@ -725,7 +766,8 @@
       "63"
     ],
     "answer": 3,
-    "correct_answer": "63"
+    "correct_answer": "63",
+    "explanation": "The correct answer is 63. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q742",
@@ -740,7 +782,8 @@
       "4"
     ],
     "answer": 2,
-    "correct_answer": "3"
+    "correct_answer": "3",
+    "explanation": "The correct answer is 3. Check units first, then compute."
   },
   {
     "id": "Q743",
@@ -757,7 +800,8 @@
       "2.50"
     ],
     "answer": 3,
-    "correct_answer": "2.50"
+    "correct_answer": "2.50",
+    "explanation": "The correct answer is 2.50. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q744",
@@ -772,7 +816,8 @@
       "84"
     ],
     "answer": 3,
-    "correct_answer": "84"
+    "correct_answer": "84",
+    "explanation": "The correct answer is 84. Keep the ratio parts in the same order."
   },
   {
     "id": "Q745",
@@ -791,7 +836,8 @@
       "270"
     ],
     "answer": 0,
-    "correct_answer": "225"
+    "correct_answer": "225",
+    "explanation": "The correct answer is 225. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q746",
@@ -806,7 +852,8 @@
       "400"
     ],
     "answer": 3,
-    "correct_answer": "400"
+    "correct_answer": "400",
+    "explanation": "The correct answer is 400. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q747",
@@ -823,7 +870,8 @@
       "200"
     ],
     "answer": 1,
-    "correct_answer": "156"
+    "correct_answer": "156",
+    "explanation": "The correct answer is 156. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": "Q748",
@@ -838,7 +886,8 @@
       "145"
     ],
     "answer": 3,
-    "correct_answer": "145"
+    "correct_answer": "145",
+    "explanation": "The correct answer is 145. Convert hours and minutes carefully before calculating."
   },
   {
     "id": "Q749",
@@ -856,7 +905,8 @@
       "5:00 PM"
     ],
     "answer": 0,
-    "correct_answer": "4:45 PM"
+    "correct_answer": "4:45 PM",
+    "explanation": "The correct answer is 4:45 PM. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q750",
@@ -871,7 +921,8 @@
       "52"
     ],
     "answer": 0,
-    "correct_answer": "50"
+    "correct_answer": "50",
+    "explanation": "The correct answer is 50. Average = sum of values ÷ number of values."
   },
   {
     "id": "Q751",
@@ -888,7 +939,8 @@
       "85"
     ],
     "answer": 2,
-    "correct_answer": "87"
+    "correct_answer": "87",
+    "explanation": "The correct answer is 87. Average = sum of values ÷ number of values."
   },
   {
     "id": "Q752",
@@ -903,7 +955,8 @@
       "20"
     ],
     "answer": 3,
-    "correct_answer": "20"
+    "correct_answer": "20",
+    "explanation": "The correct answer is 20. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q753",
@@ -920,7 +973,8 @@
       "675"
     ],
     "answer": 0,
-    "correct_answer": "720"
+    "correct_answer": "720",
+    "explanation": "The correct answer is 720. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q754",
@@ -935,7 +989,8 @@
       "8200"
     ],
     "answer": 2,
-    "correct_answer": "8280"
+    "correct_answer": "8280",
+    "explanation": "The correct answer is 8280. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q755",
@@ -953,7 +1008,8 @@
       "20"
     ],
     "answer": 3,
-    "correct_answer": "20"
+    "correct_answer": "20",
+    "explanation": "The correct answer is 20. Keep the ratio parts in the same order."
   },
   {
     "id": "Q756",
@@ -970,7 +1026,8 @@
       "38"
     ],
     "answer": 0,
-    "correct_answer": "37.80"
+    "correct_answer": "37.80",
+    "explanation": "The correct answer is 37.80. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": "Q757",
@@ -989,7 +1046,8 @@
       "140"
     ],
     "answer": 0,
-    "correct_answer": "120"
+    "correct_answer": "120",
+    "explanation": "The correct answer is 120. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q758",
@@ -1006,7 +1064,8 @@
       "4.20"
     ],
     "answer": 1,
-    "correct_answer": "4.50"
+    "correct_answer": "4.50",
+    "explanation": "The correct answer is 4.50. Align the decimal points before computing."
   },
   {
     "id": "Q759",
@@ -1023,7 +1082,8 @@
       "1360"
     ],
     "answer": 3,
-    "correct_answer": "1360"
+    "correct_answer": "1360",
+    "explanation": "The correct answer is 1360. Check units first, then compute."
   },
   {
     "id": "Q760",
@@ -1042,7 +1102,8 @@
       "60"
     ],
     "answer": 0,
-    "correct_answer": "54"
+    "correct_answer": "54",
+    "explanation": "The correct answer is 54. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q761",
@@ -1059,7 +1120,8 @@
       "80"
     ],
     "answer": 1,
-    "correct_answer": "72"
+    "correct_answer": "72",
+    "explanation": "The correct answer is 72. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q762",
@@ -1074,7 +1136,8 @@
       "110"
     ],
     "answer": 1,
-    "correct_answer": "100"
+    "correct_answer": "100",
+    "explanation": "The correct answer is 100. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q763",
@@ -1092,7 +1155,8 @@
       "55"
     ],
     "answer": 2,
-    "correct_answer": "50"
+    "correct_answer": "50",
+    "explanation": "The correct answer is 50. Keep the ratio parts in the same order."
   },
   {
     "id": "Q764",
@@ -1109,7 +1173,8 @@
       "30"
     ],
     "answer": 1,
-    "correct_answer": "34"
+    "correct_answer": "34",
+    "explanation": "The correct answer is 34. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q765",
@@ -1124,7 +1189,8 @@
       "64"
     ],
     "answer": 3,
-    "correct_answer": "64"
+    "correct_answer": "64",
+    "explanation": "The correct answer is 64. Check units first, then compute."
   },
   {
     "id": "Q766",
@@ -1141,7 +1207,8 @@
       "24.76"
     ],
     "answer": 0,
-    "correct_answer": "25.16"
+    "correct_answer": "25.16",
+    "explanation": "The correct answer is 25.16. Align the decimal points before computing."
   },
   {
     "id": "Q767",
@@ -1156,7 +1223,8 @@
       "7/15"
     ],
     "answer": 1,
-    "correct_answer": "4/9"
+    "correct_answer": "4/9",
+    "explanation": "The correct answer is 4/9. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q768",
@@ -1173,7 +1241,8 @@
       "83.0"
     ],
     "answer": 2,
-    "correct_answer": "82.2"
+    "correct_answer": "82.2",
+    "explanation": "The correct answer is 82.2. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q769",
@@ -1191,7 +1260,8 @@
       "24"
     ],
     "answer": 2,
-    "correct_answer": "21"
+    "correct_answer": "21",
+    "explanation": "The correct answer is 21. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q770",
@@ -1209,7 +1279,8 @@
       "225"
     ],
     "answer": 1,
-    "correct_answer": "175"
+    "correct_answer": "175",
+    "explanation": "The correct answer is 175. Keep the ratio parts in the same order."
   },
   {
     "id": "Q771",
@@ -1229,7 +1300,8 @@
       "80"
     ],
     "answer": 1,
-    "correct_answer": "70"
+    "correct_answer": "70",
+    "explanation": "The correct answer is 70. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q772",
@@ -1244,7 +1316,8 @@
       "63"
     ],
     "answer": 2,
-    "correct_answer": "60"
+    "correct_answer": "60",
+    "explanation": "The correct answer is 60. Average = sum of values ÷ number of values."
   },
   {
     "id": "Q773",
@@ -1261,7 +1334,8 @@
       "240"
     ],
     "answer": 1,
-    "correct_answer": "200"
+    "correct_answer": "200",
+    "explanation": "The correct answer is 200. Work in cents if needed, then convert back to dollars."
   },
   {
     "id": "Q774",
@@ -1278,7 +1352,8 @@
       "70"
     ],
     "answer": 2,
-    "correct_answer": "66.7"
+    "correct_answer": "66.7",
+    "explanation": "The correct answer is 66.7. Convert hours and minutes carefully before calculating."
   },
   {
     "id": "Q775",
@@ -1293,7 +1368,8 @@
       "5400"
     ],
     "answer": 1,
-    "correct_answer": "4050"
+    "correct_answer": "4050",
+    "explanation": "The correct answer is 4050. Check units first, then compute."
   },
   {
     "id": "Q776",
@@ -1310,7 +1386,8 @@
       "180"
     ],
     "answer": 2,
-    "correct_answer": "150"
+    "correct_answer": "150",
+    "explanation": "The correct answer is 150. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q777",
@@ -1325,7 +1402,8 @@
       "83.50"
     ],
     "answer": 1,
-    "correct_answer": "82.80"
+    "correct_answer": "82.80",
+    "explanation": "The correct answer is 82.80. Align the decimal points before computing."
   },
   {
     "id": "Q778",
@@ -1342,7 +1420,8 @@
       "24"
     ],
     "answer": 1,
-    "correct_answer": "20"
+    "correct_answer": "20",
+    "explanation": "The correct answer is 20. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q779",
@@ -1357,7 +1436,8 @@
       "130"
     ],
     "answer": 1,
-    "correct_answer": "120"
+    "correct_answer": "120",
+    "explanation": "The correct answer is 120. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q780",
@@ -1375,7 +1455,8 @@
       "224"
     ],
     "answer": 0,
-    "correct_answer": "168"
+    "correct_answer": "168",
+    "explanation": "The correct answer is 168. Keep the ratio parts in the same order."
   },
   {
     "id": "Q781",
@@ -1393,7 +1474,8 @@
       "360"
     ],
     "answer": 0,
-    "correct_answer": "180"
+    "correct_answer": "180",
+    "explanation": "The correct answer is 180. Keep the ratio parts in the same order."
   },
   {
     "id": "Q782",
@@ -1412,7 +1494,8 @@
       "48"
     ],
     "answer": 0,
-    "correct_answer": "24"
+    "correct_answer": "24",
+    "explanation": "The correct answer is 24. Keep the ratio parts in the same order."
   },
   {
     "id": "Q783",
@@ -1427,7 +1510,8 @@
       "40"
     ],
     "answer": 1,
-    "correct_answer": "30"
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Keep the ratio parts in the same order."
   },
   {
     "id": "Q784",
@@ -1445,7 +1529,8 @@
       "70"
     ],
     "answer": 0,
-    "correct_answer": "42"
+    "correct_answer": "42",
+    "explanation": "The correct answer is 42. Keep the ratio parts in the same order."
   },
   {
     "id": "Q785",
@@ -1462,7 +1547,8 @@
       "224"
     ],
     "answer": 0,
-    "correct_answer": "168"
+    "correct_answer": "168",
+    "explanation": "The correct answer is 168. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q786",
@@ -1479,7 +1565,8 @@
       "140"
     ],
     "answer": 2,
-    "correct_answer": "128"
+    "correct_answer": "128",
+    "explanation": "The correct answer is 128. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q787",
@@ -1498,7 +1585,8 @@
       "180"
     ],
     "answer": 1,
-    "correct_answer": "120"
+    "correct_answer": "120",
+    "explanation": "The correct answer is 120. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q788",
@@ -1515,7 +1603,8 @@
       "189"
     ],
     "answer": 0,
-    "correct_answer": "126"
+    "correct_answer": "126",
+    "explanation": "The correct answer is 126. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q789",
@@ -1530,7 +1619,8 @@
       "144"
     ],
     "answer": 2,
-    "correct_answer": "120"
+    "correct_answer": "120",
+    "explanation": "The correct answer is 120. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q790",
@@ -1547,7 +1637,8 @@
       "300"
     ],
     "answer": 3,
-    "correct_answer": "300"
+    "correct_answer": "300",
+    "explanation": "The correct answer is 300. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q791",
@@ -1562,7 +1653,8 @@
       "540"
     ],
     "answer": 1,
-    "correct_answer": "500"
+    "correct_answer": "500",
+    "explanation": "The correct answer is 500. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q792",
@@ -1579,7 +1671,8 @@
       "76.5%"
     ],
     "answer": 0,
-    "correct_answer": "77.5%"
+    "correct_answer": "77.5%",
+    "explanation": "The correct answer is 77.5%. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q793",
@@ -1596,7 +1689,8 @@
       "2080"
     ],
     "answer": 0,
-    "correct_answer": "2070"
+    "correct_answer": "2070",
+    "explanation": "The correct answer is 2070. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q794",
@@ -1611,7 +1705,8 @@
       "350"
     ],
     "answer": 1,
-    "correct_answer": "300"
+    "correct_answer": "300",
+    "explanation": "The correct answer is 300. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q795",
@@ -1629,7 +1724,8 @@
       "60"
     ],
     "answer": 1,
-    "correct_answer": "45"
+    "correct_answer": "45",
+    "explanation": "The correct answer is 45. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q796",
@@ -1646,7 +1742,8 @@
       "75 km/h"
     ],
     "answer": 0,
-    "correct_answer": "70 km/h"
+    "correct_answer": "70 km/h",
+    "explanation": "The correct answer is 70 km/h. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q797",
@@ -1663,7 +1760,8 @@
       "8 km"
     ],
     "answer": 1,
-    "correct_answer": "6.67 km"
+    "correct_answer": "6.67 km",
+    "explanation": "The correct answer is 6.67 km. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q798",
@@ -1681,7 +1779,8 @@
       "2.5"
     ],
     "answer": 1,
-    "correct_answer": "1.67"
+    "correct_answer": "1.67",
+    "explanation": "The correct answer is 1.67. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q799",
@@ -1698,7 +1797,8 @@
       "18"
     ],
     "answer": 1,
-    "correct_answer": "12"
+    "correct_answer": "12",
+    "explanation": "The correct answer is 12. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q800",
@@ -1715,7 +1815,8 @@
       "80"
     ],
     "answer": 0,
-    "correct_answer": "50"
+    "correct_answer": "50",
+    "explanation": "The correct answer is 50. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q801",
@@ -1732,7 +1833,8 @@
       "377"
     ],
     "answer": 0,
-    "correct_answer": "363"
+    "correct_answer": "363",
+    "explanation": "The correct answer is 363. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q802",
@@ -1749,7 +1851,8 @@
       "2000"
     ],
     "answer": 0,
-    "correct_answer": "1200"
+    "correct_answer": "1200",
+    "explanation": "The correct answer is 1200. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q803",
@@ -1767,7 +1870,8 @@
       "54"
     ],
     "answer": 2,
-    "correct_answer": "48"
+    "correct_answer": "48",
+    "explanation": "The correct answer is 48. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q804",
@@ -1784,7 +1888,8 @@
       "66"
     ],
     "answer": 3,
-    "correct_answer": "66"
+    "correct_answer": "66",
+    "explanation": "The correct answer is 66. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q805",
@@ -1801,7 +1906,8 @@
       "92"
     ],
     "answer": 1,
-    "correct_answer": "88"
+    "correct_answer": "88",
+    "explanation": "The correct answer is 88. Average = sum of values ÷ number of values."
   },
   {
     "id": "Q806",
@@ -1816,7 +1922,8 @@
       "42"
     ],
     "answer": 2,
-    "correct_answer": "40"
+    "correct_answer": "40",
+    "explanation": "The correct answer is 40. Average = sum of values ÷ number of values."
   },
   {
     "id": "Q807",
@@ -1834,7 +1941,8 @@
       "88"
     ],
     "answer": 1,
-    "correct_answer": "87"
+    "correct_answer": "87",
+    "explanation": "The correct answer is 87. Average = sum of values ÷ number of values."
   },
   {
     "id": "Q808",
@@ -1849,7 +1957,8 @@
       "18"
     ],
     "answer": 2,
-    "correct_answer": "17"
+    "correct_answer": "17",
+    "explanation": "The correct answer is 17. Average = sum of values ÷ number of values."
   },
   {
     "id": "Q809",
@@ -1866,7 +1975,8 @@
       "21"
     ],
     "answer": 1,
-    "correct_answer": "19"
+    "correct_answer": "19",
+    "explanation": "The correct answer is 19. Average = sum of values ÷ number of values."
   },
   {
     "id": "Q920",
@@ -1882,7 +1992,8 @@
       "25 m/s"
     ],
     "answer": 2,
-    "correct_answer": "20 m/s"
+    "correct_answer": "20 m/s",
+    "explanation": "The correct answer is 20 m/s. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q921",
@@ -1900,7 +2011,8 @@
       "240 m/min"
     ],
     "answer": 2,
-    "correct_answer": "200 m/min"
+    "correct_answer": "200 m/min",
+    "explanation": "The correct answer is 200 m/min. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q922",
@@ -1916,7 +2028,8 @@
       "35000 ml"
     ],
     "answer": 2,
-    "correct_answer": "3500 ml"
+    "correct_answer": "3500 ml",
+    "explanation": "The correct answer is 3500 ml. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q923",
@@ -1932,7 +2045,8 @@
       "7800 m"
     ],
     "answer": 0,
-    "correct_answer": "8600 m"
+    "correct_answer": "8600 m",
+    "explanation": "The correct answer is 8600 m. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q924",
@@ -1950,7 +2064,8 @@
       "4200 g"
     ],
     "answer": 2,
-    "correct_answer": "4000 g"
+    "correct_answer": "4000 g",
+    "explanation": "The correct answer is 4000 g. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q925",
@@ -1966,7 +2081,8 @@
       "60 litres"
     ],
     "answer": 0,
-    "correct_answer": "45 litres"
+    "correct_answer": "45 litres",
+    "explanation": "The correct answer is 45 litres. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q926",
@@ -1984,7 +2100,8 @@
       "2900 m"
     ],
     "answer": 2,
-    "correct_answer": "2700 m"
+    "correct_answer": "2700 m",
+    "explanation": "The correct answer is 2700 m. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q927",
@@ -2000,7 +2117,8 @@
       "72 km/h"
     ],
     "answer": 3,
-    "correct_answer": "72 km/h"
+    "correct_answer": "72 km/h",
+    "explanation": "The correct answer is 72 km/h. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q928",
@@ -2016,7 +2134,8 @@
       "Neither Net A nor Net B"
     ],
     "answer": 2,
-    "correct_answer": "Both Net A and Net B"
+    "correct_answer": "Both Net A and Net B",
+    "explanation": "The correct answer is Both Net A and Net B. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q929",
@@ -2032,7 +2151,8 @@
       "Face F"
     ],
     "answer": 3,
-    "correct_answer": "Face F"
+    "correct_answer": "Face F",
+    "explanation": "The correct answer is Face F. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q930",
@@ -2048,7 +2168,8 @@
       "16"
     ],
     "answer": 2,
-    "correct_answer": "12"
+    "correct_answer": "12",
+    "explanation": "The correct answer is 12. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q931",
@@ -2064,7 +2185,8 @@
       "20"
     ],
     "answer": 1,
-    "correct_answer": "12"
+    "correct_answer": "12",
+    "explanation": "The correct answer is 12. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q932",
@@ -2080,7 +2202,8 @@
       "8"
     ],
     "answer": 1,
-    "correct_answer": "6"
+    "correct_answer": "6",
+    "explanation": "The correct answer is 6. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q933",
@@ -2096,7 +2219,8 @@
       "E"
     ],
     "answer": 1,
-    "correct_answer": "C"
+    "correct_answer": "C",
+    "explanation": "The correct answer is C. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q934",
@@ -2112,7 +2236,8 @@
       "9"
     ],
     "answer": 2,
-    "correct_answer": "8"
+    "correct_answer": "8",
+    "explanation": "The correct answer is 8. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q935",
@@ -2130,7 +2255,8 @@
       "36"
     ],
     "answer": 0,
-    "correct_answer": "24"
+    "correct_answer": "24",
+    "explanation": "The correct answer is 24. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q936",
@@ -2146,7 +2272,8 @@
       "6 units"
     ],
     "answer": 1,
-    "correct_answer": "4 units"
+    "correct_answer": "4 units",
+    "explanation": "The correct answer is 4 units. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q937",
@@ -2162,7 +2289,8 @@
       "16 square units"
     ],
     "answer": 1,
-    "correct_answer": "12 square units"
+    "correct_answer": "12 square units",
+    "explanation": "The correct answer is 12 square units. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q938",
@@ -2178,7 +2306,8 @@
       "(5, 3)"
     ],
     "answer": 0,
-    "correct_answer": "(7, 3)"
+    "correct_answer": "(7, 3)",
+    "explanation": "The correct answer is (7, 3). Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q939",
@@ -2196,7 +2325,8 @@
       "(6, 8)"
     ],
     "answer": 0,
-    "correct_answer": "(6, 2)"
+    "correct_answer": "(6, 2)",
+    "explanation": "The correct answer is (6, 2). Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q940",
@@ -2212,7 +2342,8 @@
       "(4, 0)"
     ],
     "answer": 1,
-    "correct_answer": "(5, 2)"
+    "correct_answer": "(5, 2)",
+    "explanation": "The correct answer is (5, 2). Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q941",
@@ -2228,7 +2359,8 @@
       "18 units"
     ],
     "answer": 0,
-    "correct_answer": "12 units"
+    "correct_answer": "12 units",
+    "explanation": "The correct answer is 12 units. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q942",
@@ -2246,7 +2378,8 @@
       "20 square units"
     ],
     "answer": 2,
-    "correct_answer": "16 square units"
+    "correct_answer": "16 square units",
+    "explanation": "The correct answer is 16 square units. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q943",
@@ -2262,7 +2395,8 @@
       "(3, 4)"
     ],
     "answer": 0,
-    "correct_answer": "(6, 7)"
+    "correct_answer": "(6, 7)",
+    "explanation": "The correct answer is (6, 7). Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q944",
@@ -2280,7 +2414,8 @@
       "3/8"
     ],
     "answer": 0,
-    "correct_answer": "1/4"
+    "correct_answer": "1/4",
+    "explanation": "The correct answer is 1/4. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q945",
@@ -2297,7 +2432,8 @@
       "3/9"
     ],
     "answer": 0,
-    "correct_answer": "13/20"
+    "correct_answer": "13/20",
+    "explanation": "The correct answer is 13/20. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q946",
@@ -2315,7 +2451,8 @@
       "$160"
     ],
     "answer": 0,
-    "correct_answer": "$120"
+    "correct_answer": "$120",
+    "explanation": "The correct answer is $120. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q947",
@@ -2334,7 +2471,8 @@
       "36"
     ],
     "answer": 0,
-    "correct_answer": "32"
+    "correct_answer": "32",
+    "explanation": "The correct answer is 32. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q948",
@@ -2351,7 +2489,8 @@
       "1/4"
     ],
     "answer": 0,
-    "correct_answer": "1/2"
+    "correct_answer": "1/2",
+    "explanation": "The correct answer is 1/2. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q949",
@@ -2368,7 +2507,8 @@
       "20"
     ],
     "answer": 0,
-    "correct_answer": "24"
+    "correct_answer": "24",
+    "explanation": "The correct answer is 24. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q950",
@@ -2385,7 +2525,8 @@
       "$70"
     ],
     "answer": 0,
-    "correct_answer": "$98"
+    "correct_answer": "$98",
+    "explanation": "The correct answer is $98. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q951",
@@ -2403,7 +2544,8 @@
       "16"
     ],
     "answer": 0,
-    "correct_answer": "24"
+    "correct_answer": "24",
+    "explanation": "The correct answer is 24. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q952",
@@ -2418,7 +2560,8 @@
       "18"
     ],
     "answer": 0,
-    "correct_answer": "20"
+    "correct_answer": "20",
+    "explanation": "The correct answer is 20. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q953",
@@ -2435,7 +2578,8 @@
       "30 cm"
     ],
     "answer": 0,
-    "correct_answer": "45 cm"
+    "correct_answer": "45 cm",
+    "explanation": "The correct answer is 45 cm. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q954",
@@ -2452,7 +2596,8 @@
       "5/15"
     ],
     "answer": 0,
-    "correct_answer": "4/15"
+    "correct_answer": "4/15",
+    "explanation": "The correct answer is 4/15. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q955",
@@ -2470,7 +2615,8 @@
       "$60"
     ],
     "answer": 0,
-    "correct_answer": "$48"
+    "correct_answer": "$48",
+    "explanation": "The correct answer is $48. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q956",
@@ -2488,7 +2634,8 @@
       "$120"
     ],
     "answer": 0,
-    "correct_answer": "$90"
+    "correct_answer": "$90",
+    "explanation": "The correct answer is $90. Keep the ratio parts in the same order."
   },
   {
     "id": "Q957",
@@ -2506,7 +2653,8 @@
       "$108"
     ],
     "answer": 0,
-    "correct_answer": "$132"
+    "correct_answer": "$132",
+    "explanation": "The correct answer is $132. Keep the ratio parts in the same order."
   },
   {
     "id": "Q958",
@@ -2525,7 +2673,8 @@
       "20"
     ],
     "answer": 0,
-    "correct_answer": "24"
+    "correct_answer": "24",
+    "explanation": "The correct answer is 24. Keep the ratio parts in the same order."
   },
   {
     "id": "Q959",
@@ -2540,7 +2689,8 @@
       "10"
     ],
     "answer": 0,
-    "correct_answer": "8"
+    "correct_answer": "8",
+    "explanation": "The correct answer is 8. Keep the ratio parts in the same order."
   },
   {
     "id": "Q960",
@@ -2558,7 +2708,8 @@
       "30"
     ],
     "answer": 0,
-    "correct_answer": "50"
+    "correct_answer": "50",
+    "explanation": "The correct answer is 50. Keep the ratio parts in the same order."
   },
   {
     "id": "Q961",
@@ -2575,7 +2726,8 @@
       "80 ml"
     ],
     "answer": 0,
-    "correct_answer": "160 ml"
+    "correct_answer": "160 ml",
+    "explanation": "The correct answer is 160 ml. Keep the ratio parts in the same order."
   },
   {
     "id": "Q962",
@@ -2590,7 +2742,8 @@
       "780"
     ],
     "answer": 0,
-    "correct_answer": "720"
+    "correct_answer": "720",
+    "explanation": "The correct answer is 720. Keep the ratio parts in the same order."
   },
   {
     "id": "Q963",
@@ -2608,7 +2761,8 @@
       "1:2"
     ],
     "answer": 0,
-    "correct_answer": "3:7"
+    "correct_answer": "3:7",
+    "explanation": "The correct answer is 3:7. Keep the ratio parts in the same order."
   },
   {
     "id": "Q964",
@@ -2626,7 +2780,8 @@
       "45"
     ],
     "answer": 0,
-    "correct_answer": "30"
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Keep the ratio parts in the same order."
   },
   {
     "id": "Q965",
@@ -2641,7 +2796,8 @@
       "100 g"
     ],
     "answer": 0,
-    "correct_answer": "140 g"
+    "correct_answer": "140 g",
+    "explanation": "The correct answer is 140 g. Keep the ratio parts in the same order."
   },
   {
     "id": "Q966",
@@ -2658,7 +2814,8 @@
       "85%"
     ],
     "answer": 0,
-    "correct_answer": "80%"
+    "correct_answer": "80%",
+    "explanation": "The correct answer is 80%. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q967",
@@ -2673,7 +2830,8 @@
       "$55"
     ],
     "answer": 0,
-    "correct_answer": "$54"
+    "correct_answer": "$54",
+    "explanation": "The correct answer is $54. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q968",
@@ -2690,7 +2848,8 @@
       "$100"
     ],
     "answer": 0,
-    "correct_answer": "$80"
+    "correct_answer": "$80",
+    "explanation": "The correct answer is $80. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q969",
@@ -2705,7 +2864,8 @@
       "$110"
     ],
     "answer": 0,
-    "correct_answer": "$102"
+    "correct_answer": "$102",
+    "explanation": "The correct answer is $102. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q970",
@@ -2722,7 +2882,8 @@
       "$150"
     ],
     "answer": 0,
-    "correct_answer": "$100"
+    "correct_answer": "$100",
+    "explanation": "The correct answer is $100. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q971",
@@ -2737,7 +2898,8 @@
       "$65"
     ],
     "answer": 0,
-    "correct_answer": "$60"
+    "correct_answer": "$60",
+    "explanation": "The correct answer is $60. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q972",
@@ -2754,7 +2916,8 @@
       "$512"
     ],
     "answer": 0,
-    "correct_answer": "$560"
+    "correct_answer": "$560",
+    "explanation": "The correct answer is $560. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q973",
@@ -2769,7 +2932,8 @@
       "14"
     ],
     "answer": 0,
-    "correct_answer": "16"
+    "correct_answer": "16",
+    "explanation": "The correct answer is 16. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q974",
@@ -2786,7 +2950,8 @@
       "$3,600"
     ],
     "answer": 0,
-    "correct_answer": "$3,450"
+    "correct_answer": "$3,450",
+    "explanation": "The correct answer is $3,450. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q975",
@@ -2801,7 +2966,8 @@
       "20%"
     ],
     "answer": 0,
-    "correct_answer": "15%"
+    "correct_answer": "15%",
+    "explanation": "The correct answer is 15%. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q976",
@@ -2819,7 +2985,8 @@
       "Cannot determine"
     ],
     "answer": 0,
-    "correct_answer": "{CHARACTER_0}"
+    "correct_answer": "{CHARACTER_0}",
+    "explanation": "The correct answer is {CHARACTER_0}. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q977",
@@ -2834,7 +3001,8 @@
       "120"
     ],
     "answer": 0,
-    "correct_answer": "110"
+    "correct_answer": "110",
+    "explanation": "The correct answer is 110. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q978",
@@ -2851,7 +3019,8 @@
       "30%"
     ],
     "answer": 0,
-    "correct_answer": "25%"
+    "correct_answer": "25%",
+    "explanation": "The correct answer is 25%. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q979",
@@ -2866,7 +3035,8 @@
       "$48"
     ],
     "answer": 0,
-    "correct_answer": "$52"
+    "correct_answer": "$52",
+    "explanation": "The correct answer is $52. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q980",
@@ -2883,7 +3053,8 @@
       "$20"
     ],
     "answer": 0,
-    "correct_answer": "$50"
+    "correct_answer": "$50",
+    "explanation": "The correct answer is $50. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q981",
@@ -2898,7 +3069,8 @@
       "180 km"
     ],
     "answer": 0,
-    "correct_answer": "200 km"
+    "correct_answer": "200 km",
+    "explanation": "The correct answer is 200 km. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q982",
@@ -2915,7 +3087,8 @@
       "9 km/h"
     ],
     "answer": 0,
-    "correct_answer": "12 km/h"
+    "correct_answer": "12 km/h",
+    "explanation": "The correct answer is 12 km/h. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q983",
@@ -2930,7 +3103,8 @@
       "55 km/h"
     ],
     "answer": 0,
-    "correct_answer": "60 km/h"
+    "correct_answer": "60 km/h",
+    "explanation": "The correct answer is 60 km/h. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q984",
@@ -2948,7 +3122,8 @@
       "15 km"
     ],
     "answer": 0,
-    "correct_answer": "30 km"
+    "correct_answer": "30 km",
+    "explanation": "The correct answer is 30 km. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q985",
@@ -2963,7 +3138,8 @@
       "240 minutes"
     ],
     "answer": 0,
-    "correct_answer": "180 minutes"
+    "correct_answer": "180 minutes",
+    "explanation": "The correct answer is 180 minutes. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q986",
@@ -2981,7 +3157,8 @@
       "52 km/h"
     ],
     "answer": 0,
-    "correct_answer": "48 km/h"
+    "correct_answer": "48 km/h",
+    "explanation": "The correct answer is 48 km/h. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q987",
@@ -2998,7 +3175,8 @@
       "2.5 km"
     ],
     "answer": 0,
-    "correct_answer": "3 km"
+    "correct_answer": "3 km",
+    "explanation": "The correct answer is 3 km. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q988",
@@ -3013,7 +3191,8 @@
       "3 hours"
     ],
     "answer": 0,
-    "correct_answer": "5 hours"
+    "correct_answer": "5 hours",
+    "explanation": "The correct answer is 5 hours. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q989",
@@ -3031,7 +3210,8 @@
       "4 hours"
     ],
     "answer": 0,
-    "correct_answer": "2 hours"
+    "correct_answer": "2 hours",
+    "explanation": "The correct answer is 2 hours. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q990",
@@ -3049,7 +3229,8 @@
       "3:00 p.m."
     ],
     "answer": 0,
-    "correct_answer": "1:00 p.m."
+    "correct_answer": "1:00 p.m.",
+    "explanation": "The correct answer is 1:00 p.m.. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q991",
@@ -3064,7 +3245,8 @@
       "7"
     ],
     "answer": 0,
-    "correct_answer": "5"
+    "correct_answer": "5",
+    "explanation": "The correct answer is 5. Let the unknown be a letter, then form and solve an equation."
   },
   {
     "id": "Q992",
@@ -3081,7 +3263,8 @@
       "9"
     ],
     "answer": 0,
-    "correct_answer": "11"
+    "correct_answer": "11",
+    "explanation": "The correct answer is 11. Let the unknown be a letter, then form and solve an equation."
   },
   {
     "id": "Q993",
@@ -3096,7 +3279,8 @@
       "12 cm"
     ],
     "answer": 0,
-    "correct_answer": "8 cm"
+    "correct_answer": "8 cm",
+    "explanation": "The correct answer is 8 cm. Let the unknown be a letter, then form and solve an equation."
   },
   {
     "id": "Q994",
@@ -3114,7 +3298,8 @@
       "15"
     ],
     "answer": 0,
-    "correct_answer": "13"
+    "correct_answer": "13",
+    "explanation": "The correct answer is 13. Let the unknown be a letter, then form and solve an equation."
   },
   {
     "id": "Q995",
@@ -3132,7 +3317,8 @@
       "24"
     ],
     "answer": 0,
-    "correct_answer": "26"
+    "correct_answer": "26",
+    "explanation": "The correct answer is 26. Let the unknown be a letter, then form and solve an equation."
   },
   {
     "id": "Q996",
@@ -3147,7 +3333,8 @@
       "9"
     ],
     "answer": 0,
-    "correct_answer": "7"
+    "correct_answer": "7",
+    "explanation": "The correct answer is 7. Let the unknown be a letter, then form and solve an equation."
   },
   {
     "id": "Q997",
@@ -3164,7 +3351,8 @@
       "6"
     ],
     "answer": 0,
-    "correct_answer": "4"
+    "correct_answer": "4",
+    "explanation": "The correct answer is 4. Let the unknown be a letter, then form and solve an equation."
   },
   {
     "id": "Q998",
@@ -3179,7 +3367,8 @@
       "24"
     ],
     "answer": 0,
-    "correct_answer": "28"
+    "correct_answer": "28",
+    "explanation": "The correct answer is 28. Let the unknown be a letter, then form and solve an equation."
   },
   {
     "id": "Q999",
@@ -3197,7 +3386,8 @@
       "15"
     ],
     "answer": 0,
-    "correct_answer": "10"
+    "correct_answer": "10",
+    "explanation": "The correct answer is 10. Let the unknown be a letter, then form and solve an equation."
   },
   {
     "id": "Q1000",
@@ -3214,7 +3404,8 @@
       "8"
     ],
     "answer": 0,
-    "correct_answer": "12"
+    "correct_answer": "12",
+    "explanation": "The correct answer is 12. Let the unknown be a letter, then form and solve an equation."
   },
   {
     "id": "Q1001",
@@ -3231,7 +3422,8 @@
       "$1,440"
     ],
     "answer": 0,
-    "correct_answer": "$1,080"
+    "correct_answer": "$1,080",
+    "explanation": "The correct answer is $1,080. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1002",
@@ -3246,7 +3438,8 @@
       "40"
     ],
     "answer": 0,
-    "correct_answer": "80"
+    "correct_answer": "80",
+    "explanation": "The correct answer is 80. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1003",
@@ -3264,7 +3457,8 @@
       "5/8"
     ],
     "answer": 0,
-    "correct_answer": "7/11"
+    "correct_answer": "7/11",
+    "explanation": "The correct answer is 7/11. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1004",
@@ -3279,7 +3473,8 @@
       "60 km/h"
     ],
     "answer": 0,
-    "correct_answer": "70 km/h"
+    "correct_answer": "70 km/h",
+    "explanation": "The correct answer is 70 km/h. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1005",
@@ -3296,7 +3491,8 @@
       "$1,980"
     ],
     "answer": 0,
-    "correct_answer": "$2,070"
+    "correct_answer": "$2,070",
+    "explanation": "The correct answer is $2,070. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1006",
@@ -3311,7 +3507,8 @@
       "50,000 litres"
     ],
     "answer": 0,
-    "correct_answer": "500,000 litres"
+    "correct_answer": "500,000 litres",
+    "explanation": "The correct answer is 500,000 litres. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1007",
@@ -3328,7 +3525,8 @@
       "$120"
     ],
     "answer": 0,
-    "correct_answer": "$135"
+    "correct_answer": "$135",
+    "explanation": "The correct answer is $135. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1008",
@@ -3343,7 +3541,8 @@
       "70"
     ],
     "answer": 0,
-    "correct_answer": "60"
+    "correct_answer": "60",
+    "explanation": "The correct answer is 60. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1009",
@@ -3360,7 +3559,8 @@
       "20 months"
     ],
     "answer": 0,
-    "correct_answer": "15 months"
+    "correct_answer": "15 months",
+    "explanation": "The correct answer is 15 months. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1010",
@@ -3375,7 +3575,8 @@
       "30%"
     ],
     "answer": 0,
-    "correct_answer": "36%"
+    "correct_answer": "36%",
+    "explanation": "The correct answer is 36%. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1011",
@@ -3393,7 +3594,8 @@
       "21 km"
     ],
     "answer": 0,
-    "correct_answer": "18 km"
+    "correct_answer": "18 km",
+    "explanation": "The correct answer is 18 km. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1012",
@@ -3408,7 +3610,8 @@
       "384"
     ],
     "answer": 0,
-    "correct_answer": "378"
+    "correct_answer": "378",
+    "explanation": "The correct answer is 378. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1013",
@@ -3426,7 +3629,8 @@
       "$324"
     ],
     "answer": 0,
-    "correct_answer": "$306"
+    "correct_answer": "$306",
+    "explanation": "The correct answer is $306. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1014",
@@ -3441,7 +3645,8 @@
       "$80"
     ],
     "answer": 0,
-    "correct_answer": "$66"
+    "correct_answer": "$66",
+    "explanation": "The correct answer is $66. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1015",
@@ -3458,7 +3663,8 @@
       "4/5"
     ],
     "answer": 0,
-    "correct_answer": "7/10"
+    "correct_answer": "7/10",
+    "explanation": "The correct answer is 7/10. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1016",
@@ -3473,7 +3679,8 @@
       "58 cm²"
     ],
     "answer": 0,
-    "correct_answer": "198 cm²"
+    "correct_answer": "198 cm²",
+    "explanation": "The correct answer is 198 cm². Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q1017",
@@ -3488,7 +3695,8 @@
       "196 cm²"
     ],
     "answer": 0,
-    "correct_answer": "169 cm²"
+    "correct_answer": "169 cm²",
+    "explanation": "The correct answer is 169 cm². Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q1018",
@@ -3503,7 +3711,8 @@
       "54 m²"
     ],
     "answer": 0,
-    "correct_answer": "63 m²"
+    "correct_answer": "63 m²",
+    "explanation": "The correct answer is 63 m². Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q1019",
@@ -3518,7 +3727,8 @@
       "360 m²"
     ],
     "answer": 0,
-    "correct_answer": "396 m²"
+    "correct_answer": "396 m²",
+    "explanation": "The correct answer is 396 m². Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q1020",
@@ -3533,7 +3743,8 @@
       "132 cm²"
     ],
     "answer": 0,
-    "correct_answer": "154 cm²"
+    "correct_answer": "154 cm²",
+    "explanation": "The correct answer is 154 cm². Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q1021",
@@ -3548,7 +3759,8 @@
       "78 cm²"
     ],
     "answer": 0,
-    "correct_answer": "72 cm²"
+    "correct_answer": "72 cm²",
+    "explanation": "The correct answer is 72 cm². Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q1022",
@@ -3563,7 +3775,8 @@
       "72 cm"
     ],
     "answer": 0,
-    "correct_answer": "64 cm"
+    "correct_answer": "64 cm",
+    "explanation": "The correct answer is 64 cm. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q1023",
@@ -3578,7 +3791,8 @@
       "100 m²"
     ],
     "answer": 0,
-    "correct_answer": "96 m²"
+    "correct_answer": "96 m²",
+    "explanation": "The correct answer is 96 m². Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q1024",
@@ -3593,7 +3807,8 @@
       "30 cm"
     ],
     "answer": 0,
-    "correct_answer": "36 cm"
+    "correct_answer": "36 cm",
+    "explanation": "The correct answer is 36 cm. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q1025",
@@ -3608,7 +3823,8 @@
       "18 cm"
     ],
     "answer": 0,
-    "correct_answer": "12 cm"
+    "correct_answer": "12 cm",
+    "explanation": "The correct answer is 12 cm. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q1026",
@@ -3625,7 +3841,8 @@
       "85"
     ],
     "answer": 0,
-    "correct_answer": "82"
+    "correct_answer": "82",
+    "explanation": "The correct answer is 82. Average = sum of values ÷ number of values."
   },
   {
     "id": "Q1027",
@@ -3640,7 +3857,8 @@
       "43 kg"
     ],
     "answer": 0,
-    "correct_answer": "41 kg"
+    "correct_answer": "41 kg",
+    "explanation": "The correct answer is 41 kg. Average = sum of values ÷ number of values."
   },
   {
     "id": "Q1028",
@@ -3657,7 +3875,8 @@
       "92"
     ],
     "answer": 0,
-    "correct_answer": "90"
+    "correct_answer": "90",
+    "explanation": "The correct answer is 90. Average = sum of values ÷ number of values."
   },
   {
     "id": "Q1029",
@@ -3672,7 +3891,8 @@
       "55"
     ],
     "answer": 0,
-    "correct_answer": "45"
+    "correct_answer": "45",
+    "explanation": "The correct answer is 45. Average = sum of values ÷ number of values."
   },
   {
     "id": "Q1030",
@@ -3689,7 +3909,8 @@
       "92"
     ],
     "answer": 0,
-    "correct_answer": "88"
+    "correct_answer": "88",
+    "explanation": "The correct answer is 88. Average = sum of values ÷ number of values."
   },
   {
     "id": "Q1031",
@@ -3704,7 +3925,8 @@
       "200 cm³"
     ],
     "answer": 0,
-    "correct_answer": "240 cm³"
+    "correct_answer": "240 cm³",
+    "explanation": "The correct answer is 240 cm³. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q1032",
@@ -3719,7 +3941,8 @@
       "12 cm"
     ],
     "answer": 0,
-    "correct_answer": "8 cm"
+    "correct_answer": "8 cm",
+    "explanation": "The correct answer is 8 cm. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q1033",
@@ -3734,7 +3957,8 @@
       "40 litres"
     ],
     "answer": 0,
-    "correct_answer": "30 litres"
+    "correct_answer": "30 litres",
+    "explanation": "The correct answer is 30 litres. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q1034",
@@ -3751,7 +3975,8 @@
       "15 cm"
     ],
     "answer": 0,
-    "correct_answer": "10 cm"
+    "correct_answer": "10 cm",
+    "explanation": "The correct answer is 10 cm. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q1035",
@@ -3768,7 +3993,8 @@
       "72 litres"
     ],
     "answer": 0,
-    "correct_answer": "54 litres"
+    "correct_answer": "54 litres",
+    "explanation": "The correct answer is 54 litres. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q1036",
@@ -3786,7 +4012,8 @@
       "20 days"
     ],
     "answer": 0,
-    "correct_answer": "15 days"
+    "correct_answer": "15 days",
+    "explanation": "The correct answer is 15 days. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1037",
@@ -3803,7 +4030,8 @@
       "$168"
     ],
     "answer": 0,
-    "correct_answer": "$192"
+    "correct_answer": "$192",
+    "explanation": "The correct answer is $192. Keep the whole in mind and compare equal parts."
   },
   {
     "id": "Q1038",
@@ -3818,7 +4046,8 @@
       "90"
     ],
     "answer": 0,
-    "correct_answer": "81"
+    "correct_answer": "81",
+    "explanation": "The correct answer is 81. Keep the ratio parts in the same order."
   },
   {
     "id": "Q1039",
@@ -3836,7 +4065,8 @@
       "50"
     ],
     "answer": 0,
-    "correct_answer": "60"
+    "correct_answer": "60",
+    "explanation": "The correct answer is 60. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q1040",
@@ -3851,7 +4081,8 @@
       "8% decrease"
     ],
     "answer": 0,
-    "correct_answer": "8% increase"
+    "correct_answer": "8% increase",
+    "explanation": "The correct answer is 8% increase. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q1041",
@@ -3868,7 +4099,8 @@
       "15 km/h"
     ],
     "answer": 0,
-    "correct_answer": "10 km/h"
+    "correct_answer": "10 km/h",
+    "explanation": "The correct answer is 10 km/h. Use Distance = Speed × Time (rearrange as needed)."
   },
   {
     "id": "Q1042",
@@ -3883,7 +4115,8 @@
       "40"
     ],
     "answer": 0,
-    "correct_answer": "50"
+    "correct_answer": "50",
+    "explanation": "The correct answer is 50. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q1043",
@@ -3900,6 +4133,7 @@
       "$450"
     ],
     "answer": 0,
-    "correct_answer": "$600"
+    "correct_answer": "$600",
+    "explanation": "The correct answer is $600. Follow order of operations: brackets, then ×÷, then +−."
   }
 ]

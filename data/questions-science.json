@@ -13,7 +13,8 @@
       "They can reproduce"
     ],
     "answer": 2,
-    "correct_answer": "They can make their own light"
+    "correct_answer": "They can make their own light",
+    "explanation": "The correct answer is They can make their own light. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI002",
@@ -31,7 +32,8 @@
       "Larva → Egg → Pupa → Adult"
     ],
     "answer": 0,
-    "correct_answer": "Egg → Larva → Pupa → Adult"
+    "correct_answer": "Egg → Larva → Pupa → Adult",
+    "explanation": "The correct answer is Egg → Larva → Pupa → Adult. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI003",
@@ -47,7 +49,8 @@
       "Flowers"
     ],
     "answer": 2,
-    "correct_answer": "Leaves"
+    "correct_answer": "Leaves",
+    "explanation": "The correct answer is Leaves. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI004",
@@ -65,7 +68,8 @@
       "Wood"
     ],
     "answer": 2,
-    "correct_answer": "Plastic"
+    "correct_answer": "Plastic",
+    "explanation": "The correct answer is Plastic. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI005",
@@ -83,7 +87,8 @@
       "Plastic ruler"
     ],
     "answer": 1,
-    "correct_answer": "Iron nail"
+    "correct_answer": "Iron nail",
+    "explanation": "The correct answer is Iron nail. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI006",
@@ -99,7 +104,8 @@
       "It condenses"
     ],
     "answer": 1,
-    "correct_answer": "It evaporates"
+    "correct_answer": "It evaporates",
+    "explanation": "The correct answer is It evaporates. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI007",
@@ -115,7 +121,8 @@
       "Melting"
     ],
     "answer": 2,
-    "correct_answer": "Condensation"
+    "correct_answer": "Condensation",
+    "explanation": "The correct answer is Condensation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI008",
@@ -131,7 +138,8 @@
       "Nervous system"
     ],
     "answer": 2,
-    "correct_answer": "Circulatory system"
+    "correct_answer": "Circulatory system",
+    "explanation": "The correct answer is Circulatory system. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI009",
@@ -147,7 +155,8 @@
       "To produce chlorophyll"
     ],
     "answer": 2,
-    "correct_answer": "To allow gas exchange"
+    "correct_answer": "To allow gas exchange",
+    "explanation": "The correct answer is To allow gas exchange. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI010",
@@ -163,7 +172,8 @@
       "Snake"
     ],
     "answer": 2,
-    "correct_answer": "Frog"
+    "correct_answer": "Frog",
+    "explanation": "The correct answer is Frog. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI011",
@@ -179,7 +189,8 @@
       "Water boiling on a stove"
     ],
     "answer": 1,
-    "correct_answer": "A stretched rubber band being released"
+    "correct_answer": "A stretched rubber band being released",
+    "explanation": "The correct answer is A stretched rubber band being released. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI012",
@@ -195,7 +206,8 @@
       "Sound energy"
     ],
     "answer": 1,
-    "correct_answer": "Chemical energy"
+    "correct_answer": "Chemical energy",
+    "explanation": "The correct answer is Chemical energy. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI013",
@@ -211,7 +223,8 @@
       "Frictional force"
     ],
     "answer": 2,
-    "correct_answer": "Normal force"
+    "correct_answer": "Normal force",
+    "explanation": "The correct answer is Normal force. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI014",
@@ -227,7 +240,8 @@
       "Sandpaper"
     ],
     "answer": 1,
-    "correct_answer": "Smooth ice"
+    "correct_answer": "Smooth ice",
+    "explanation": "The correct answer is Smooth ice. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI015",
@@ -243,7 +257,8 @@
       "To produce light"
     ],
     "answer": 2,
-    "correct_answer": "To control the flow of current"
+    "correct_answer": "To control the flow of current",
+    "explanation": "The correct answer is To control the flow of current. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI016",
@@ -259,7 +274,8 @@
       "Wood"
     ],
     "answer": 2,
-    "correct_answer": "Copper"
+    "correct_answer": "Copper",
+    "explanation": "The correct answer is Copper. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI017",
@@ -277,7 +293,8 @@
       "Compound"
     ],
     "answer": 1,
-    "correct_answer": "Solution"
+    "correct_answer": "Solution",
+    "explanation": "The correct answer is Solution. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI018",
@@ -295,7 +312,8 @@
       "Magnetism"
     ],
     "answer": 1,
-    "correct_answer": "Filtration"
+    "correct_answer": "Filtration",
+    "explanation": "The correct answer is Filtration. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI019",
@@ -311,7 +329,8 @@
       "It turns into heat"
     ],
     "answer": 1,
-    "correct_answer": "It slows down and bends"
+    "correct_answer": "It slows down and bends",
+    "explanation": "The correct answer is It slows down and bends. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI020",
@@ -327,7 +346,8 @@
       "Water absorbs some colors of light"
     ],
     "answer": 0,
-    "correct_answer": "Different colors of light travel at different speeds in water"
+    "correct_answer": "Different colors of light travel at different speeds in water",
+    "explanation": "The correct answer is Different colors of light travel at different speeds in water. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI021",
@@ -345,7 +365,8 @@
       "To absorb more sunlight"
     ],
     "answer": 1,
-    "correct_answer": "To reduce water loss"
+    "correct_answer": "To reduce water loss",
+    "explanation": "The correct answer is To reduce water loss. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI022",
@@ -361,7 +382,8 @@
       "Camouflage in the forest"
     ],
     "answer": 2,
-    "correct_answer": "Staying warm in cold environments"
+    "correct_answer": "Staying warm in cold environments",
+    "explanation": "The correct answer is Staying warm in cold environments. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI023",
@@ -377,7 +399,8 @@
       "System"
     ],
     "answer": 2,
-    "correct_answer": "Cell"
+    "correct_answer": "Cell",
+    "explanation": "The correct answer is Cell. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI024",
@@ -393,7 +416,8 @@
       "Vacuole"
     ],
     "answer": 2,
-    "correct_answer": "Chloroplast"
+    "correct_answer": "Chloroplast",
+    "explanation": "The correct answer is Chloroplast. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI025",
@@ -409,7 +433,8 @@
       "To support the plant"
     ],
     "answer": 2,
-    "correct_answer": "To reproduce"
+    "correct_answer": "To reproduce",
+    "explanation": "The correct answer is To reproduce. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI026",
@@ -425,7 +450,8 @@
       "Sepal"
     ],
     "answer": 2,
-    "correct_answer": "Ovary"
+    "correct_answer": "Ovary",
+    "explanation": "The correct answer is Ovary. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI027",
@@ -441,7 +467,8 @@
       "Kidneys"
     ],
     "answer": 1,
-    "correct_answer": "Heart"
+    "correct_answer": "Heart",
+    "explanation": "The correct answer is Heart. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI028",
@@ -457,7 +484,8 @@
       "Large intestine"
     ],
     "answer": 2,
-    "correct_answer": "Mouth"
+    "correct_answer": "Mouth",
+    "explanation": "The correct answer is Mouth. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI029",
@@ -473,7 +501,8 @@
       "Insulation"
     ],
     "answer": 2,
-    "correct_answer": "Radiation"
+    "correct_answer": "Radiation",
+    "explanation": "The correct answer is Radiation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI030",
@@ -489,7 +518,8 @@
       "They are hard"
     ],
     "answer": 2,
-    "correct_answer": "They have free electrons that move easily"
+    "correct_answer": "They have free electrons that move easily",
+    "explanation": "The correct answer is They have free electrons that move easily. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI031",
@@ -507,7 +537,8 @@
       "It would grow more leaves"
     ],
     "answer": 1,
-    "correct_answer": "It would turn yellow and become weak"
+    "correct_answer": "It would turn yellow and become weak",
+    "explanation": "The correct answer is It would turn yellow and become weak. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI032",
@@ -525,7 +556,8 @@
       "In a warm, enclosed area"
     ],
     "answer": 1,
-    "correct_answer": "In a warm, windy area"
+    "correct_answer": "In a warm, windy area",
+    "explanation": "The correct answer is In a warm, windy area. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI033",
@@ -543,7 +575,8 @@
       "The spring length does not change"
     ],
     "answer": 1,
-    "correct_answer": "The amount of stretch is related to the weight added"
+    "correct_answer": "The amount of stretch is related to the weight added",
+    "explanation": "The correct answer is The amount of stretch is related to the weight added. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI034",
@@ -559,7 +592,8 @@
       "Long tail"
     ],
     "answer": 1,
-    "correct_answer": "Hollow bones and feathers"
+    "correct_answer": "Hollow bones and feathers",
+    "explanation": "The correct answer is Hollow bones and feathers. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI035",
@@ -575,7 +609,8 @@
       "Nothing will change"
     ],
     "answer": 1,
-    "correct_answer": "The bulb will not light up"
+    "correct_answer": "The bulb will not light up",
+    "explanation": "The correct answer is The bulb will not light up. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI036",
@@ -593,7 +628,8 @@
       "Keeping plants in complete darkness"
     ],
     "answer": 0,
-    "correct_answer": "Adding fertilizers to the soil"
+    "correct_answer": "Adding fertilizers to the soil",
+    "explanation": "The correct answer is Adding fertilizers to the soil. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI037",
@@ -609,7 +645,8 @@
       "Electric force"
     ],
     "answer": 1,
-    "correct_answer": "Gravity"
+    "correct_answer": "Gravity",
+    "explanation": "The correct answer is Gravity. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI038",
@@ -625,7 +662,8 @@
       "Washing cars daily"
     ],
     "answer": 2,
-    "correct_answer": "Fixing leaking taps immediately"
+    "correct_answer": "Fixing leaking taps immediately",
+    "explanation": "The correct answer is Fixing leaking taps immediately. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI039",
@@ -643,7 +681,8 @@
       "The air on hot days contains more water"
     ],
     "answer": 0,
-    "correct_answer": "Ice cream absorbs more heat on a hot day"
+    "correct_answer": "Ice cream absorbs more heat on a hot day",
+    "explanation": "The correct answer is Ice cream absorbs more heat on a hot day. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI040",
@@ -659,7 +698,8 @@
       "Top consumers to bottom consumers"
     ],
     "answer": 1,
-    "correct_answer": "Producers to consumers"
+    "correct_answer": "Producers to consumers",
+    "explanation": "The correct answer is Producers to consumers. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI041",
@@ -675,7 +715,8 @@
       "Fertilizer, water, and sunlight"
     ],
     "answer": 0,
-    "correct_answer": "Water, sunlight, and carbon dioxide"
+    "correct_answer": "Water, sunlight, and carbon dioxide",
+    "explanation": "The correct answer is Water, sunlight, and carbon dioxide. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI042",
@@ -691,7 +732,8 @@
       "Rabbit"
     ],
     "answer": 2,
-    "correct_answer": "Bird"
+    "correct_answer": "Bird",
+    "explanation": "The correct answer is Bird. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI043",
@@ -707,7 +749,8 @@
       "To release oxygen"
     ],
     "answer": 1,
-    "correct_answer": "To absorb water and nutrients from soil"
+    "correct_answer": "To absorb water and nutrients from soil",
+    "explanation": "The correct answer is To absorb water and nutrients from soil. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI044",
@@ -725,7 +768,8 @@
       "Foam"
     ],
     "answer": 1,
-    "correct_answer": "Wood"
+    "correct_answer": "Wood",
+    "explanation": "The correct answer is Wood. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI045",
@@ -741,7 +785,8 @@
       "Transparency"
     ],
     "answer": 2,
-    "correct_answer": "Luster"
+    "correct_answer": "Luster",
+    "explanation": "The correct answer is Luster. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI046",
@@ -757,7 +802,8 @@
       "Freezing"
     ],
     "answer": 1,
-    "correct_answer": "Condensation"
+    "correct_answer": "Condensation",
+    "explanation": "The correct answer is Condensation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI047",
@@ -773,7 +819,8 @@
       "100°C"
     ],
     "answer": 0,
-    "correct_answer": "0°C"
+    "correct_answer": "0°C",
+    "explanation": "The correct answer is 0°C. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI048",
@@ -789,7 +836,8 @@
       "Chemical energy"
     ],
     "answer": 2,
-    "correct_answer": "Electrical energy"
+    "correct_answer": "Electrical energy",
+    "explanation": "The correct answer is Electrical energy. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI049",
@@ -805,7 +853,8 @@
       "Hydroelectric power"
     ],
     "answer": 2,
-    "correct_answer": "Coal"
+    "correct_answer": "Coal",
+    "explanation": "The correct answer is Coal. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI050",
@@ -823,7 +872,8 @@
       "Sand"
     ],
     "answer": 1,
-    "correct_answer": "Smooth tile floor"
+    "correct_answer": "Smooth tile floor",
+    "explanation": "The correct answer is Smooth tile floor. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI051",
@@ -839,7 +889,8 @@
       "Elastic force"
     ],
     "answer": 1,
-    "correct_answer": "Gravitational force"
+    "correct_answer": "Gravitational force",
+    "explanation": "The correct answer is Gravitational force. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI052",
@@ -855,7 +906,8 @@
       "The circuit breaks"
     ],
     "answer": 1,
-    "correct_answer": "The voltage increases"
+    "correct_answer": "The voltage increases",
+    "explanation": "The correct answer is The voltage increases. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI053",
@@ -873,7 +925,8 @@
       "Rubber band"
     ],
     "answer": 2,
-    "correct_answer": "Copper wire"
+    "correct_answer": "Copper wire",
+    "explanation": "The correct answer is Copper wire. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI054",
@@ -889,7 +942,8 @@
       "Rusting of iron"
     ],
     "answer": 1,
-    "correct_answer": "Melting ice"
+    "correct_answer": "Melting ice",
+    "explanation": "The correct answer is Melting ice. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI055",
@@ -905,7 +959,8 @@
       "Condensation"
     ],
     "answer": 2,
-    "correct_answer": "Sublimation"
+    "correct_answer": "Sublimation",
+    "explanation": "The correct answer is Sublimation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI056",
@@ -921,7 +976,8 @@
       "Porous surface"
     ],
     "answer": 1,
-    "correct_answer": "Smooth, shiny surface"
+    "correct_answer": "Smooth, shiny surface",
+    "explanation": "The correct answer is Smooth, shiny surface. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI057",
@@ -937,7 +993,8 @@
       "Light bends around the mirror"
     ],
     "answer": 2,
-    "correct_answer": "Light is reflected by the mirror"
+    "correct_answer": "Light is reflected by the mirror",
+    "explanation": "The correct answer is Light is reflected by the mirror. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI058",
@@ -953,7 +1010,8 @@
       "Stay warm"
     ],
     "answer": 1,
-    "correct_answer": "Breathe underwater"
+    "correct_answer": "Breathe underwater",
+    "explanation": "The correct answer is Breathe underwater. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI059",
@@ -971,7 +1029,8 @@
       "Digest food better"
     ],
     "answer": 2,
-    "correct_answer": "Camouflage and communicate"
+    "correct_answer": "Camouflage and communicate",
+    "explanation": "The correct answer is Camouflage and communicate. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI060",
@@ -987,7 +1046,8 @@
       "Cell wall"
     ],
     "answer": 2,
-    "correct_answer": "Nucleus"
+    "correct_answer": "Nucleus",
+    "explanation": "The correct answer is Nucleus. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI061",
@@ -1003,7 +1063,8 @@
       "Cytoplasm"
     ],
     "answer": 2,
-    "correct_answer": "Cell wall"
+    "correct_answer": "Cell wall",
+    "explanation": "The correct answer is Cell wall. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI062",
@@ -1019,7 +1080,8 @@
       "The germination of seeds"
     ],
     "answer": 1,
-    "correct_answer": "The transfer of pollen from stamen to pistil"
+    "correct_answer": "The transfer of pollen from stamen to pistil",
+    "explanation": "The correct answer is The transfer of pollen from stamen to pistil. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI063",
@@ -1035,7 +1097,8 @@
       "Leaves"
     ],
     "answer": 1,
-    "correct_answer": "Petals"
+    "correct_answer": "Petals",
+    "explanation": "The correct answer is Petals. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI064",
@@ -1051,7 +1114,8 @@
       "Hydrogen"
     ],
     "answer": 2,
-    "correct_answer": "Oxygen"
+    "correct_answer": "Oxygen",
+    "explanation": "The correct answer is Oxygen. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI065",
@@ -1067,7 +1131,8 @@
       "To breathe"
     ],
     "answer": 1,
-    "correct_answer": "To digest food"
+    "correct_answer": "To digest food",
+    "explanation": "The correct answer is To digest food. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI066",
@@ -1083,7 +1148,8 @@
       "Air"
     ],
     "answer": 3,
-    "correct_answer": "Air"
+    "correct_answer": "Air",
+    "explanation": "The correct answer is Air. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI067",
@@ -1101,7 +1167,8 @@
       "Plastic bag"
     ],
     "answer": 2,
-    "correct_answer": "Insulated flask"
+    "correct_answer": "Insulated flask",
+    "explanation": "The correct answer is Insulated flask. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI068",
@@ -1120,7 +1187,8 @@
       "Salt does not dissolve in hot water"
     ],
     "answer": 1,
-    "correct_answer": "Salt dissolves faster in hot water"
+    "correct_answer": "Salt dissolves faster in hot water",
+    "explanation": "The correct answer is Salt dissolves faster in hot water. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI069",
@@ -1136,7 +1204,8 @@
       "Plants need cold air"
     ],
     "answer": 1,
-    "correct_answer": "Plants grow toward light"
+    "correct_answer": "Plants grow toward light",
+    "explanation": "The correct answer is Plants grow toward light. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI070",
@@ -1152,7 +1221,8 @@
       "Digesting food"
     ],
     "answer": 2,
-    "correct_answer": "Boiling water"
+    "correct_answer": "Boiling water",
+    "explanation": "The correct answer is Boiling water. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI071",
@@ -1170,7 +1240,8 @@
       "Shake the mixture"
     ],
     "answer": 1,
-    "correct_answer": "Dissolve in water, filter, then evaporate"
+    "correct_answer": "Dissolve in water, filter, then evaporate",
+    "explanation": "The correct answer is Dissolve in water, filter, then evaporate. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI072",
@@ -1186,7 +1257,8 @@
       "Apex predator"
     ],
     "answer": 3,
-    "correct_answer": "Apex predator"
+    "correct_answer": "Apex predator",
+    "explanation": "The correct answer is Apex predator. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI073",
@@ -1202,7 +1274,8 @@
       "Nothing would change"
     ],
     "answer": 2,
-    "correct_answer": "The entire food chain would collapse"
+    "correct_answer": "The entire food chain would collapse",
+    "explanation": "The correct answer is The entire food chain would collapse. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI074",
@@ -1220,7 +1293,8 @@
       "Air escapes from the balloon"
     ],
     "answer": 1,
-    "correct_answer": "The air particles inside move slower and take up less space"
+    "correct_answer": "The air particles inside move slower and take up less space",
+    "explanation": "The correct answer is The air particles inside move slower and take up less space. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI075",
@@ -1236,7 +1310,8 @@
       "Water cannot boil on mountains"
     ],
     "answer": 1,
-    "correct_answer": "It would be lower than 100°C"
+    "correct_answer": "It would be lower than 100°C",
+    "explanation": "The correct answer is It would be lower than 100°C. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI076",
@@ -1252,7 +1327,8 @@
       "To provide oxygen"
     ],
     "answer": 2,
-    "correct_answer": "To break down dead organisms and return nutrients to soil"
+    "correct_answer": "To break down dead organisms and return nutrients to soil",
+    "explanation": "The correct answer is To break down dead organisms and return nutrients to soil. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI077",
@@ -1268,7 +1344,8 @@
       "Shells and antennae"
     ],
     "answer": 2,
-    "correct_answer": "Hair and mammary glands"
+    "correct_answer": "Hair and mammary glands",
+    "explanation": "The correct answer is Hair and mammary glands. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI078",
@@ -1284,7 +1361,8 @@
       "It is very hard"
     ],
     "answer": 1,
-    "correct_answer": "It is elastic and flexible"
+    "correct_answer": "It is elastic and flexible",
+    "explanation": "The correct answer is It is elastic and flexible. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI079",
@@ -1300,7 +1378,8 @@
       "Collection"
     ],
     "answer": 2,
-    "correct_answer": "Evaporation"
+    "correct_answer": "Evaporation",
+    "explanation": "The correct answer is Evaporation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI080",
@@ -1316,7 +1395,8 @@
       "Sound energy and light energy"
     ],
     "answer": 1,
-    "correct_answer": "Kinetic energy and potential energy"
+    "correct_answer": "Kinetic energy and potential energy",
+    "explanation": "The correct answer is Kinetic energy and potential energy. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI081",
@@ -1332,7 +1412,8 @@
       "Decomposers"
     ],
     "answer": 1,
-    "correct_answer": "Herbivores"
+    "correct_answer": "Herbivores",
+    "explanation": "The correct answer is Herbivores. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI082",
@@ -1348,7 +1429,8 @@
       "Worm"
     ],
     "answer": 1,
-    "correct_answer": "Butterfly"
+    "correct_answer": "Butterfly",
+    "explanation": "The correct answer is Butterfly. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI083",
@@ -1364,7 +1446,8 @@
       "Excretion"
     ],
     "answer": 2,
-    "correct_answer": "Sensitivity"
+    "correct_answer": "Sensitivity",
+    "explanation": "The correct answer is Sensitivity. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI084",
@@ -1382,7 +1465,8 @@
       "Reproduction"
     ],
     "answer": 1,
-    "correct_answer": "Response to environment"
+    "correct_answer": "Response to environment",
+    "explanation": "The correct answer is Response to environment. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI085",
@@ -1398,7 +1482,8 @@
       "Cloth"
     ],
     "answer": 2,
-    "correct_answer": "Metal"
+    "correct_answer": "Metal",
+    "explanation": "The correct answer is Metal. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI086",
@@ -1414,7 +1499,8 @@
       "It floats on water"
     ],
     "answer": 1,
-    "correct_answer": "Light can pass through it clearly"
+    "correct_answer": "Light can pass through it clearly",
+    "explanation": "The correct answer is Light can pass through it clearly. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI087",
@@ -1430,7 +1516,8 @@
       "Aluminum (good conductor)"
     ],
     "answer": 1,
-    "correct_answer": "Plastic (poor conductor)"
+    "correct_answer": "Plastic (poor conductor)",
+    "explanation": "The correct answer is Plastic (poor conductor). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI088",
@@ -1446,7 +1533,8 @@
       "Cobalt"
     ],
     "answer": 2,
-    "correct_answer": "Copper"
+    "correct_answer": "Copper",
+    "explanation": "The correct answer is Copper. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI089",
@@ -1462,7 +1550,8 @@
       "When poured into a container"
     ],
     "answer": 1,
-    "correct_answer": "When cooled to 0°C"
+    "correct_answer": "When cooled to 0°C",
+    "explanation": "The correct answer is When cooled to 0°C. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI090",
@@ -1478,7 +1567,8 @@
       "Color of container"
     ],
     "answer": 3,
-    "correct_answer": "Color of container"
+    "correct_answer": "Color of container",
+    "explanation": "The correct answer is Color of container. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI091",
@@ -1494,7 +1584,8 @@
       "Nothing would change"
     ],
     "answer": 1,
-    "correct_answer": "Fox population would decrease"
+    "correct_answer": "Fox population would decrease",
+    "explanation": "The correct answer is Fox population would decrease. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI092",
@@ -1510,7 +1601,8 @@
       "Vacuole"
     ],
     "answer": 1,
-    "correct_answer": "Cell membrane"
+    "correct_answer": "Cell membrane",
+    "explanation": "The correct answer is Cell membrane. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI093",
@@ -1526,7 +1618,8 @@
       "Protects the cell"
     ],
     "answer": 1,
-    "correct_answer": "Stores water and keeps cell firm"
+    "correct_answer": "Stores water and keeps cell firm",
+    "explanation": "The correct answer is Stores water and keeps cell firm. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI094",
@@ -1542,7 +1635,8 @@
       "Stomach"
     ],
     "answer": 1,
-    "correct_answer": "Kidneys"
+    "correct_answer": "Kidneys",
+    "explanation": "The correct answer is Kidneys. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI095",
@@ -1558,7 +1652,8 @@
       "Produce hormones"
     ],
     "answer": 1,
-    "correct_answer": "Carry oxygen"
+    "correct_answer": "Carry oxygen",
+    "explanation": "The correct answer is Carry oxygen. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI096",
@@ -1574,7 +1669,8 @@
       "Heavy, waterproof coats"
     ],
     "answer": 1,
-    "correct_answer": "Wings or feathery structures"
+    "correct_answer": "Wings or feathery structures",
+    "explanation": "The correct answer is Wings or feathery structures. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI097",
@@ -1590,7 +1686,8 @@
       "Only soil"
     ],
     "answer": 0,
-    "correct_answer": "Water, air, and suitable temperature"
+    "correct_answer": "Water, air, and suitable temperature",
+    "explanation": "The correct answer is Water, air, and suitable temperature. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI098",
@@ -1606,7 +1703,8 @@
       "Chemical energy"
     ],
     "answer": 1,
-    "correct_answer": "Sound energy"
+    "correct_answer": "Sound energy",
+    "explanation": "The correct answer is Sound energy. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI099",
@@ -1622,7 +1720,8 @@
       "Heat, chemical"
     ],
     "answer": 1,
-    "correct_answer": "Chemical, electrical"
+    "correct_answer": "Chemical, electrical",
+    "explanation": "The correct answer is Chemical, electrical. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI100",
@@ -1638,7 +1737,8 @@
       "Energy disappears when used"
     ],
     "answer": 0,
-    "correct_answer": "A swinging pendulum gradually slows down"
+    "correct_answer": "A swinging pendulum gradually slows down",
+    "explanation": "The correct answer is A swinging pendulum gradually slows down. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI101",
@@ -1654,7 +1754,8 @@
       "Heat bounces off a surface"
     ],
     "answer": 2,
-    "correct_answer": "Heat passes through a material by direct contact"
+    "correct_answer": "Heat passes through a material by direct contact",
+    "explanation": "The correct answer is Heat passes through a material by direct contact. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI102",
@@ -1672,7 +1773,8 @@
       "Evaporation"
     ],
     "answer": 1,
-    "correct_answer": "Convection"
+    "correct_answer": "Convection",
+    "explanation": "The correct answer is Convection. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI103",
@@ -1688,7 +1790,8 @@
       "Metal sheet"
     ],
     "answer": 2,
-    "correct_answer": "Frosted glass"
+    "correct_answer": "Frosted glass",
+    "explanation": "The correct answer is Frosted glass. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI104",
@@ -1704,7 +1807,8 @@
       "Transmission"
     ],
     "answer": 1,
-    "correct_answer": "Refraction"
+    "correct_answer": "Refraction",
+    "explanation": "The correct answer is Refraction. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI105",
@@ -1720,7 +1824,8 @@
       "Diamond"
     ],
     "answer": 2,
-    "correct_answer": "Vacuum (empty space)"
+    "correct_answer": "Vacuum (empty space)",
+    "explanation": "The correct answer is Vacuum (empty space). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI106",
@@ -1736,7 +1841,8 @@
       "Magnetism"
     ],
     "answer": 1,
-    "correct_answer": "Vibrations"
+    "correct_answer": "Vibrations",
+    "explanation": "The correct answer is Vibrations. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI107",
@@ -1752,7 +1858,8 @@
       "Vacuum"
     ],
     "answer": 2,
-    "correct_answer": "Steel"
+    "correct_answer": "Steel",
+    "explanation": "The correct answer is Steel. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI108",
@@ -1768,7 +1875,8 @@
       "Distance from source"
     ],
     "answer": 1,
-    "correct_answer": "Frequency of vibration"
+    "correct_answer": "Frequency of vibration",
+    "explanation": "The correct answer is Frequency of vibration. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI109",
@@ -1784,7 +1892,8 @@
       "Only one other bulb will go out"
     ],
     "answer": 1,
-    "correct_answer": "All bulbs will go out"
+    "correct_answer": "All bulbs will go out",
+    "explanation": "The correct answer is All bulbs will go out. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI110",
@@ -1800,7 +1909,8 @@
       "Connect as many devices as possible"
     ],
     "answer": 1,
-    "correct_answer": "Never touch electrical appliances with wet hands"
+    "correct_answer": "Never touch electrical appliances with wet hands",
+    "explanation": "The correct answer is Never touch electrical appliances with wet hands. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI111",
@@ -1816,7 +1926,8 @@
       "Elastic force"
     ],
     "answer": 2,
-    "correct_answer": "Gravitational force"
+    "correct_answer": "Gravitational force",
+    "explanation": "The correct answer is Gravitational force. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI112",
@@ -1834,7 +1945,8 @@
       "Magnetism"
     ],
     "answer": 1,
-    "correct_answer": "Heat"
+    "correct_answer": "Heat",
+    "explanation": "The correct answer is Heat. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI113",
@@ -1850,7 +1962,8 @@
       "Use smaller tires"
     ],
     "answer": 1,
-    "correct_answer": "Add treads (grooves) to tires"
+    "correct_answer": "Add treads (grooves) to tires",
+    "explanation": "The correct answer is Add treads (grooves) to tires. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI114",
@@ -1866,7 +1979,8 @@
       "Absorb more water"
     ],
     "answer": 1,
-    "correct_answer": "Get oxygen from the air"
+    "correct_answer": "Get oxygen from the air",
+    "explanation": "The correct answer is Get oxygen from the air. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI115",
@@ -1882,7 +1996,8 @@
       "Regulate body temperature"
     ],
     "answer": 1,
-    "correct_answer": "Protect from sandstorms"
+    "correct_answer": "Protect from sandstorms",
+    "explanation": "The correct answer is Protect from sandstorms. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI116",
@@ -1898,7 +2013,8 @@
       "Camouflage"
     ],
     "answer": 1,
-    "correct_answer": "Behavioral adaptation"
+    "correct_answer": "Behavioral adaptation",
+    "explanation": "The correct answer is Behavioral adaptation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI117",
@@ -1914,7 +2030,8 @@
       "Building bird houses"
     ],
     "answer": 2,
-    "correct_answer": "Cutting down trees for timber and farmland"
+    "correct_answer": "Cutting down trees for timber and farmland",
+    "explanation": "The correct answer is Cutting down trees for timber and farmland. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI118",
@@ -1930,7 +2047,8 @@
       "Rest, Relax, Recover"
     ],
     "answer": 1,
-    "correct_answer": "Reduce, Reuse, Recycle"
+    "correct_answer": "Reduce, Reuse, Recycle",
+    "explanation": "The correct answer is Reduce, Reuse, Recycle. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI119",
@@ -1946,7 +2064,8 @@
       "Burn all plastic waste"
     ],
     "answer": 2,
-    "correct_answer": "Use reusable bags and bottles"
+    "correct_answer": "Use reusable bags and bottles",
+    "explanation": "The correct answer is Use reusable bags and bottles. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI120",
@@ -1964,7 +2083,8 @@
       "Both plants die"
     ],
     "answer": 1,
-    "correct_answer": "Plant A grows well, Plant B turns yellow and weak"
+    "correct_answer": "Plant A grows well, Plant B turns yellow and weak",
+    "explanation": "The correct answer is Plant A grows well, Plant B turns yellow and weak. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI121",
@@ -1980,7 +2100,8 @@
       "Weight"
     ],
     "answer": 1,
-    "correct_answer": "Volume"
+    "correct_answer": "Volume",
+    "explanation": "The correct answer is Volume. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI122",
@@ -1999,7 +2120,8 @@
       "Person doing the test"
     ],
     "answer": 1,
-    "correct_answer": "Amount of water and time allowed to absorb"
+    "correct_answer": "Amount of water and time allowed to absorb",
+    "explanation": "The correct answer is Amount of water and time allowed to absorb. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI123",
@@ -2015,7 +2137,8 @@
       "The battery dies immediately"
     ],
     "answer": 1,
-    "correct_answer": "The other two bulbs continue to work"
+    "correct_answer": "The other two bulbs continue to work",
+    "explanation": "The correct answer is The other two bulbs continue to work. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI124",
@@ -2031,7 +2154,8 @@
       "Fox"
     ],
     "answer": 2,
-    "correct_answer": "Mushroom"
+    "correct_answer": "Mushroom",
+    "explanation": "The correct answer is Mushroom. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI125",
@@ -2049,7 +2173,8 @@
       "Metal reflects more light"
     ],
     "answer": 1,
-    "correct_answer": "Metal conducts heat better than plastic"
+    "correct_answer": "Metal conducts heat better than plastic",
+    "explanation": "The correct answer is Metal conducts heat better than plastic. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI126",
@@ -2065,7 +2190,8 @@
       "Color of string"
     ],
     "answer": 1,
-    "correct_answer": "Weight of pendulum bob and angle of release"
+    "correct_answer": "Weight of pendulum bob and angle of release",
+    "explanation": "The correct answer is Weight of pendulum bob and angle of release. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI127",
@@ -2081,7 +2207,8 @@
       "Shadows can form without a light source"
     ],
     "answer": 1,
-    "correct_answer": "Shadows form when light is blocked by an opaque object"
+    "correct_answer": "Shadows form when light is blocked by an opaque object",
+    "explanation": "The correct answer is Shadows form when light is blocked by an opaque object. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI128",
@@ -2097,7 +2224,8 @@
       "Nothing would change"
     ],
     "answer": 2,
-    "correct_answer": "All consumers would eventually die"
+    "correct_answer": "All consumers would eventually die",
+    "explanation": "The correct answer is All consumers would eventually die. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI129",
@@ -2113,7 +2241,8 @@
       "The nail is made of copper"
     ],
     "answer": 1,
-    "correct_answer": "The nail contains iron or steel"
+    "correct_answer": "The nail contains iron or steel",
+    "explanation": "The correct answer is The nail contains iron or steel. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI130",
@@ -2131,7 +2260,8 @@
       "Stir it continuously"
     ],
     "answer": 0,
-    "correct_answer": "Add salt to the ice around the container"
+    "correct_answer": "Add salt to the ice around the container",
+    "explanation": "The correct answer is Add salt to the ice around the container. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI131",
@@ -2147,7 +2277,8 @@
       "Organ → Tissue → Cell → System"
     ],
     "answer": 1,
-    "correct_answer": "Cell → Tissue → Organ → System"
+    "correct_answer": "Cell → Tissue → Organ → System",
+    "explanation": "The correct answer is Cell → Tissue → Organ → System. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI132",
@@ -2163,7 +2294,8 @@
       "Moving from place to place"
     ],
     "answer": 1,
-    "correct_answer": "Removing waste products from the body"
+    "correct_answer": "Removing waste products from the body",
+    "explanation": "The correct answer is Removing waste products from the body. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI133",
@@ -2179,7 +2311,8 @@
       "Where they live"
     ],
     "answer": 1,
-    "correct_answer": "Whether they have a backbone"
+    "correct_answer": "Whether they have a backbone",
+    "explanation": "The correct answer is Whether they have a backbone. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI134",
@@ -2197,7 +2330,8 @@
       "Excretion"
     ],
     "answer": 1,
-    "correct_answer": "Photosynthesis (Nutrition)"
+    "correct_answer": "Photosynthesis (Nutrition)",
+    "explanation": "The correct answer is Photosynthesis (Nutrition). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI135",
@@ -2213,7 +2347,8 @@
       "Top predators"
     ],
     "answer": 2,
-    "correct_answer": "Decomposers"
+    "correct_answer": "Decomposers",
+    "explanation": "The correct answer is Decomposers. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI136",
@@ -2229,7 +2364,8 @@
       "Plasma"
     ],
     "answer": 0,
-    "correct_answer": "Solid"
+    "correct_answer": "Solid",
+    "explanation": "The correct answer is Solid. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI137",
@@ -2247,7 +2383,8 @@
       "Magnetism"
     ],
     "answer": 1,
-    "correct_answer": "Density (ability to float)"
+    "correct_answer": "Density (ability to float)",
+    "explanation": "The correct answer is Density (ability to float). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI138",
@@ -2263,7 +2400,8 @@
       "They are light"
     ],
     "answer": 1,
-    "correct_answer": "They are good conductors of heat"
+    "correct_answer": "They are good conductors of heat",
+    "explanation": "The correct answer is They are good conductors of heat. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI139",
@@ -2279,7 +2417,8 @@
       "Wood"
     ],
     "answer": 2,
-    "correct_answer": "Copper"
+    "correct_answer": "Copper",
+    "explanation": "The correct answer is Copper. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI140",
@@ -2295,7 +2434,8 @@
       "Steel is lighter than aluminum"
     ],
     "answer": 1,
-    "correct_answer": "Only some metals are magnetic"
+    "correct_answer": "Only some metals are magnetic",
+    "explanation": "The correct answer is Only some metals are magnetic. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI141",
@@ -2311,7 +2451,8 @@
       "Condensation"
     ],
     "answer": 2,
-    "correct_answer": "Evaporation"
+    "correct_answer": "Evaporation",
+    "explanation": "The correct answer is Evaporation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI142",
@@ -2329,7 +2470,8 @@
       "Decomposition"
     ],
     "answer": 1,
-    "correct_answer": "Reversible physical changes"
+    "correct_answer": "Reversible physical changes",
+    "explanation": "The correct answer is Reversible physical changes. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI143",
@@ -2345,7 +2487,8 @@
       "To conduct electricity"
     ],
     "answer": 1,
-    "correct_answer": "To prevent heat from reaching our hands"
+    "correct_answer": "To prevent heat from reaching our hands",
+    "explanation": "The correct answer is To prevent heat from reaching our hands. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI144",
@@ -2361,7 +2504,8 @@
       "Waterproof"
     ],
     "answer": 1,
-    "correct_answer": "Transparent"
+    "correct_answer": "Transparent",
+    "explanation": "The correct answer is Transparent. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI145",
@@ -2379,7 +2523,8 @@
       "Tweezers"
     ],
     "answer": 1,
-    "correct_answer": "Magnet"
+    "correct_answer": "Magnet",
+    "explanation": "The correct answer is Magnet. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI146",
@@ -2395,7 +2540,8 @@
       "Water is absorbed by soil"
     ],
     "answer": 2,
-    "correct_answer": "Rain, snow, or hail falls"
+    "correct_answer": "Rain, snow, or hail falls",
+    "explanation": "The correct answer is Rain, snow, or hail falls. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI147",
@@ -2411,7 +2557,8 @@
       "Collection"
     ],
     "answer": 2,
-    "correct_answer": "Evaporation"
+    "correct_answer": "Evaporation",
+    "explanation": "The correct answer is Evaporation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI148",
@@ -2429,7 +2576,8 @@
       "Sun blocks evaporation"
     ],
     "answer": 1,
-    "correct_answer": "Sun and wind both increase evaporation rate"
+    "correct_answer": "Sun and wind both increase evaporation rate",
+    "explanation": "The correct answer is Sun and wind both increase evaporation rate. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI149",
@@ -2445,7 +2593,8 @@
       "Carnivores to herbivores"
     ],
     "answer": 1,
-    "correct_answer": "Sun to producers to consumers"
+    "correct_answer": "Sun to producers to consumers",
+    "explanation": "The correct answer is Sun to producers to consumers. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI150",
@@ -2461,7 +2610,8 @@
       "To hunt for prey"
     ],
     "answer": 1,
-    "correct_answer": "To make their own food using sunlight"
+    "correct_answer": "To make their own food using sunlight",
+    "explanation": "The correct answer is To make their own food using sunlight. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI151",
@@ -2477,7 +2627,8 @@
       "Color of the ground"
     ],
     "answer": 3,
-    "correct_answer": "Color of the ground"
+    "correct_answer": "Color of the ground",
+    "explanation": "The correct answer is Color of the ground. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI152",
@@ -2493,7 +2644,8 @@
       "Mixes with oxygen"
     ],
     "answer": 1,
-    "correct_answer": "Condenses around dust particles"
+    "correct_answer": "Condenses around dust particles",
+    "explanation": "The correct answer is Condenses around dust particles. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI153",
@@ -2509,7 +2661,8 @@
       "Water evaporates from the drink"
     ],
     "answer": 1,
-    "correct_answer": "Water vapor in air condenses on the cold surface"
+    "correct_answer": "Water vapor in air condenses on the cold surface",
+    "explanation": "The correct answer is Water vapor in air condenses on the cold surface. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI154",
@@ -2525,7 +2678,8 @@
       "Only affect its prey"
     ],
     "answer": 1,
-    "correct_answer": "Affect multiple other species"
+    "correct_answer": "Affect multiple other species",
+    "explanation": "The correct answer is Affect multiple other species. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI155",
@@ -2543,7 +2697,8 @@
       "Plants don't need energy"
     ],
     "answer": 1,
-    "correct_answer": "Matter cycles but energy flows through"
+    "correct_answer": "Matter cycles but energy flows through",
+    "explanation": "The correct answer is Matter cycles but energy flows through. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI156",
@@ -2559,7 +2714,8 @@
       "Cell wall"
     ],
     "answer": 2,
-    "correct_answer": "Cytoplasm"
+    "correct_answer": "Cytoplasm",
+    "explanation": "The correct answer is Cytoplasm. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI157",
@@ -2575,7 +2731,8 @@
       "Mitochondria"
     ],
     "answer": 1,
-    "correct_answer": "Cell wall and chloroplasts"
+    "correct_answer": "Cell wall and chloroplasts",
+    "explanation": "The correct answer is Cell wall and chloroplasts. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI158",
@@ -2591,7 +2748,8 @@
       "Store water"
     ],
     "answer": 2,
-    "correct_answer": "Control what enters and exits the cell"
+    "correct_answer": "Control what enters and exits the cell",
+    "explanation": "The correct answer is Control what enters and exits the cell. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI159",
@@ -2607,7 +2765,8 @@
       "Vacuole"
     ],
     "answer": 1,
-    "correct_answer": "Cell wall"
+    "correct_answer": "Cell wall",
+    "explanation": "The correct answer is Cell wall. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI160",
@@ -2623,7 +2782,8 @@
       "An organism"
     ],
     "answer": 1,
-    "correct_answer": "A tissue"
+    "correct_answer": "A tissue",
+    "explanation": "The correct answer is A tissue. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI161",
@@ -2639,7 +2799,8 @@
       "Vacuole"
     ],
     "answer": 2,
-    "correct_answer": "Mitochondria"
+    "correct_answer": "Mitochondria",
+    "explanation": "The correct answer is Mitochondria. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI162",
@@ -2657,7 +2818,8 @@
       "Mitochondria"
     ],
     "answer": 1,
-    "correct_answer": "Vacuoles"
+    "correct_answer": "Vacuoles",
+    "explanation": "The correct answer is Vacuoles. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI163",
@@ -2673,7 +2835,8 @@
       "Controls cell division"
     ],
     "answer": 1,
-    "correct_answer": "Absorbs light for photosynthesis"
+    "correct_answer": "Absorbs light for photosynthesis",
+    "explanation": "The correct answer is Absorbs light for photosynthesis. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI164",
@@ -2689,7 +2852,8 @@
       "Filter waste"
     ],
     "answer": 2,
-    "correct_answer": "Take in oxygen and remove carbon dioxide"
+    "correct_answer": "Take in oxygen and remove carbon dioxide",
+    "explanation": "The correct answer is Take in oxygen and remove carbon dioxide. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI165",
@@ -2705,7 +2869,8 @@
       "Kidneys"
     ],
     "answer": 1,
-    "correct_answer": "Throat/Pharynx"
+    "correct_answer": "Throat/Pharynx",
+    "explanation": "The correct answer is Throat/Pharynx. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI166",
@@ -2721,7 +2886,8 @@
       "Breathing"
     ],
     "answer": 2,
-    "correct_answer": "Absorbing nutrients from digested food"
+    "correct_answer": "Absorbing nutrients from digested food",
+    "explanation": "The correct answer is Absorbing nutrients from digested food. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI167",
@@ -2737,7 +2903,8 @@
       "Nerves"
     ],
     "answer": 1,
-    "correct_answer": "Arteries"
+    "correct_answer": "Arteries",
+    "explanation": "The correct answer is Arteries. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI168",
@@ -2753,7 +2920,8 @@
       "Respiratory system"
     ],
     "answer": 2,
-    "correct_answer": "Nervous system"
+    "correct_answer": "Nervous system",
+    "explanation": "The correct answer is Nervous system. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI169",
@@ -2769,7 +2937,8 @@
       "Digest food"
     ],
     "answer": 1,
-    "correct_answer": "Fight infections and disease"
+    "correct_answer": "Fight infections and disease",
+    "explanation": "The correct answer is Fight infections and disease. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI170",
@@ -2785,7 +2954,8 @@
       "Think"
     ],
     "answer": 0,
-    "correct_answer": "Digest fats"
+    "correct_answer": "Digest fats",
+    "explanation": "The correct answer is Digest fats. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI171",
@@ -2803,7 +2973,8 @@
       "Exercise slows blood flow"
     ],
     "answer": 1,
-    "correct_answer": "Muscles need more oxygen and nutrients"
+    "correct_answer": "Muscles need more oxygen and nutrients",
+    "explanation": "The correct answer is Muscles need more oxygen and nutrients. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI172",
@@ -2819,7 +2990,8 @@
       "Sepal"
     ],
     "answer": 1,
-    "correct_answer": "Stamen"
+    "correct_answer": "Stamen",
+    "explanation": "The correct answer is Stamen. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI173",
@@ -2835,7 +3007,8 @@
       "Style"
     ],
     "answer": 1,
-    "correct_answer": "Anther"
+    "correct_answer": "Anther",
+    "explanation": "The correct answer is Anther. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI174",
@@ -2851,7 +3024,8 @@
       "Explosion"
     ],
     "answer": 2,
-    "correct_answer": "Animals (on fur)"
+    "correct_answer": "Animals (on fur)",
+    "explanation": "The correct answer is Animals (on fur). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI175",
@@ -2867,7 +3041,8 @@
       "Flower opens"
     ],
     "answer": 1,
-    "correct_answer": "Male and female sex cells join"
+    "correct_answer": "Male and female sex cells join",
+    "explanation": "The correct answer is Male and female sex cells join. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI176",
@@ -2883,7 +3058,8 @@
       "Explosion"
     ],
     "answer": 1,
-    "correct_answer": "Water"
+    "correct_answer": "Water",
+    "explanation": "The correct answer is Water. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI177",
@@ -2899,7 +3075,8 @@
       "To protect seeds"
     ],
     "answer": 1,
-    "correct_answer": "To attract animals to eat and disperse seeds"
+    "correct_answer": "To attract animals to eat and disperse seeds",
+    "explanation": "The correct answer is To attract animals to eat and disperse seeds. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI178",
@@ -2917,7 +3094,8 @@
       "Only fertile soil"
     ],
     "answer": 1,
-    "correct_answer": "Water, air, and suitable temperature"
+    "correct_answer": "Water, air, and suitable temperature",
+    "explanation": "The correct answer is Water, air, and suitable temperature. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI179",
@@ -2933,7 +3111,8 @@
       "Stigma"
     ],
     "answer": 1,
-    "correct_answer": "Ovary"
+    "correct_answer": "Ovary",
+    "explanation": "The correct answer is Ovary. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI180",
@@ -2949,7 +3128,8 @@
       "Chemical energy"
     ],
     "answer": 1,
-    "correct_answer": "Light and heat energy"
+    "correct_answer": "Light and heat energy",
+    "explanation": "The correct answer is Light and heat energy. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI181",
@@ -2965,7 +3145,8 @@
       "Light energy"
     ],
     "answer": 1,
-    "correct_answer": "Potential (elastic) energy"
+    "correct_answer": "Potential (elastic) energy",
+    "explanation": "The correct answer is Potential (elastic) energy. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI182",
@@ -2981,7 +3162,8 @@
       "Dams"
     ],
     "answer": 1,
-    "correct_answer": "Wind turbines"
+    "correct_answer": "Wind turbines",
+    "explanation": "The correct answer is Wind turbines. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI183",
@@ -2997,7 +3179,8 @@
       "Petroleum"
     ],
     "answer": 2,
-    "correct_answer": "Solar energy"
+    "correct_answer": "Solar energy",
+    "explanation": "The correct answer is Solar energy. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI184",
@@ -3013,7 +3196,8 @@
       "Energy always stays the same form"
     ],
     "answer": 2,
-    "correct_answer": "Energy can be transformed but not created or destroyed"
+    "correct_answer": "Energy can be transformed but not created or destroyed",
+    "explanation": "The correct answer is Energy can be transformed but not created or destroyed. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI185",
@@ -3029,7 +3213,8 @@
       "Chemical energy"
     ],
     "answer": 1,
-    "correct_answer": "Heat energy"
+    "correct_answer": "Heat energy",
+    "explanation": "The correct answer is Heat energy. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI186",
@@ -3047,7 +3232,8 @@
       "Sound to electrical"
     ],
     "answer": 0,
-    "correct_answer": "Light to electrical to display"
+    "correct_answer": "Light to electrical to display",
+    "explanation": "The correct answer is Light to electrical to display. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI187",
@@ -3063,7 +3249,8 @@
       "Small to large objects"
     ],
     "answer": 1,
-    "correct_answer": "Hot to cold objects"
+    "correct_answer": "Hot to cold objects",
+    "explanation": "The correct answer is Hot to cold objects. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI188",
@@ -3079,7 +3266,8 @@
       "Insulation"
     ],
     "answer": 2,
-    "correct_answer": "Radiation"
+    "correct_answer": "Radiation",
+    "explanation": "The correct answer is Radiation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI189",
@@ -3095,7 +3283,8 @@
       "The same density as cold air"
     ],
     "answer": 1,
-    "correct_answer": "Less dense than cold air"
+    "correct_answer": "Less dense than cold air",
+    "explanation": "The correct answer is Less dense than cold air. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI190",
@@ -3111,7 +3300,8 @@
       "Aluminum"
     ],
     "answer": 2,
-    "correct_answer": "Styrofoam"
+    "correct_answer": "Styrofoam",
+    "explanation": "The correct answer is Styrofoam. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI191",
@@ -3129,7 +3319,8 @@
       "Metal is lighter"
     ],
     "answer": 1,
-    "correct_answer": "Metal conducts heat better to the hand"
+    "correct_answer": "Metal conducts heat better to the hand",
+    "explanation": "The correct answer is Metal conducts heat better to the hand. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI192",
@@ -3145,7 +3336,8 @@
       "Light colors trap heat"
     ],
     "answer": 1,
-    "correct_answer": "Light colors reflect heat"
+    "correct_answer": "Light colors reflect heat",
+    "explanation": "The correct answer is Light colors reflect heat. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI193",
@@ -3161,7 +3353,8 @@
       "Vacuum absorbs heat"
     ],
     "answer": 1,
-    "correct_answer": "Vacuum prevents heat transfer by conduction and convection"
+    "correct_answer": "Vacuum prevents heat transfer by conduction and convection",
+    "explanation": "The correct answer is Vacuum prevents heat transfer by conduction and convection. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI194",
@@ -3177,7 +3370,8 @@
       "Circles"
     ],
     "answer": 1,
-    "correct_answer": "Straight lines"
+    "correct_answer": "Straight lines",
+    "explanation": "The correct answer is Straight lines. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI195",
@@ -3193,7 +3387,8 @@
       "Bends light"
     ],
     "answer": 2,
-    "correct_answer": "Does not allow light to pass through"
+    "correct_answer": "Does not allow light to pass through",
+    "explanation": "The correct answer is Does not allow light to pass through. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI196",
@@ -3209,7 +3404,8 @@
       "Transmission"
     ],
     "answer": 1,
-    "correct_answer": "Reflection"
+    "correct_answer": "Reflection",
+    "explanation": "The correct answer is Reflection. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI197",
@@ -3225,7 +3421,8 @@
       "Dispersion"
     ],
     "answer": 1,
-    "correct_answer": "Refraction (bending of light)"
+    "correct_answer": "Refraction (bending of light)",
+    "explanation": "The correct answer is Refraction (bending of light). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI198",
@@ -3241,7 +3438,8 @@
       "Fabric"
     ],
     "answer": 1,
-    "correct_answer": "Smooth mirror"
+    "correct_answer": "Smooth mirror",
+    "explanation": "The correct answer is Smooth mirror. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI199",
@@ -3257,7 +3455,8 @@
       "The prism creates colors"
     ],
     "answer": 1,
-    "correct_answer": "Different colors bend by different amounts"
+    "correct_answer": "Different colors bend by different amounts",
+    "explanation": "The correct answer is Different colors bend by different amounts. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI200",
@@ -3273,7 +3472,8 @@
       "Objects absorb all light"
     ],
     "answer": 1,
-    "correct_answer": "Light from sources reflects off objects into our eyes"
+    "correct_answer": "Light from sources reflects off objects into our eyes",
+    "explanation": "The correct answer is Light from sources reflects off objects into our eyes. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI201",
@@ -3289,7 +3489,8 @@
       "Steel"
     ],
     "answer": 2,
-    "correct_answer": "Vacuum (empty space)"
+    "correct_answer": "Vacuum (empty space)",
+    "explanation": "The correct answer is Vacuum (empty space). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI202",
@@ -3305,7 +3506,8 @@
       "No vibrations"
     ],
     "answer": 1,
-    "correct_answer": "High frequency vibrations"
+    "correct_answer": "High frequency vibrations",
+    "explanation": "The correct answer is High frequency vibrations. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI203",
@@ -3321,7 +3523,8 @@
       "Type of material"
     ],
     "answer": 1,
-    "correct_answer": "Amplitude of vibration"
+    "correct_answer": "Amplitude of vibration",
+    "explanation": "The correct answer is Amplitude of vibration. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI204",
@@ -3337,7 +3540,8 @@
       "Vacuum"
     ],
     "answer": 2,
-    "correct_answer": "Steel (5000 m/s)"
+    "correct_answer": "Steel (5000 m/s)",
+    "explanation": "The correct answer is Steel (5000 m/s). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI205",
@@ -3355,7 +3559,8 @@
       "Sound stops"
     ],
     "answer": 1,
-    "correct_answer": "Water splashes because of vibrations"
+    "correct_answer": "Water splashes because of vibrations",
+    "explanation": "The correct answer is Water splashes because of vibrations. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI206",
@@ -3371,7 +3576,8 @@
       "Watts"
     ],
     "answer": 2,
-    "correct_answer": "Decibels"
+    "correct_answer": "Decibels",
+    "explanation": "The correct answer is Decibels. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI207",
@@ -3387,7 +3593,8 @@
       "Frequency decreases"
     ],
     "answer": 1,
-    "correct_answer": "Volume gets louder"
+    "correct_answer": "Volume gets louder",
+    "explanation": "The correct answer is Volume gets louder. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI208",
@@ -3403,7 +3610,8 @@
       "In and out"
     ],
     "answer": 1,
-    "correct_answer": "Positive and negative"
+    "correct_answer": "Positive and negative",
+    "explanation": "The correct answer is Positive and negative. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI209",
@@ -3419,7 +3627,8 @@
       "Short"
     ],
     "answer": 1,
-    "correct_answer": "Closed (complete loop)"
+    "correct_answer": "Closed (complete loop)",
+    "explanation": "The correct answer is Closed (complete loop). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI210",
@@ -3435,7 +3644,8 @@
       "To make them heavier"
     ],
     "answer": 2,
-    "correct_answer": "Plastic is an insulator for safety"
+    "correct_answer": "Plastic is an insulator for safety",
+    "explanation": "The correct answer is Plastic is an insulator for safety. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI211",
@@ -3451,7 +3661,8 @@
       "All bulbs get dimmer"
     ],
     "answer": 1,
-    "correct_answer": "Other bulbs continue to work"
+    "correct_answer": "Other bulbs continue to work",
+    "explanation": "The correct answer is Other bulbs continue to work. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI212",
@@ -3467,7 +3678,8 @@
       "Connect many devices to one socket"
     ],
     "answer": 1,
-    "correct_answer": "Never touch electrical appliances with wet hands"
+    "correct_answer": "Never touch electrical appliances with wet hands",
+    "explanation": "The correct answer is Never touch electrical appliances with wet hands. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI213",
@@ -3485,7 +3697,8 @@
       "Bulb stops working"
     ],
     "answer": 1,
-    "correct_answer": "Bulb gets brighter"
+    "correct_answer": "Bulb gets brighter",
+    "explanation": "The correct answer is Bulb gets brighter. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI214",
@@ -3501,7 +3714,8 @@
       "Sound to light"
     ],
     "answer": 1,
-    "correct_answer": "Electrical to light and heat"
+    "correct_answer": "Electrical to light and heat",
+    "explanation": "The correct answer is Electrical to light and heat. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI215",
@@ -3517,7 +3731,8 @@
       "A state of matter"
     ],
     "answer": 1,
-    "correct_answer": "A push or a pull"
+    "correct_answer": "A push or a pull",
+    "explanation": "The correct answer is A push or a pull. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI216",
@@ -3533,7 +3748,8 @@
       "Random"
     ],
     "answer": 1,
-    "correct_answer": "Opposite to motion"
+    "correct_answer": "Opposite to motion",
+    "explanation": "The correct answer is Opposite to motion. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI217",
@@ -3549,7 +3765,8 @@
       "Elastic force"
     ],
     "answer": 1,
-    "correct_answer": "Gravitational force"
+    "correct_answer": "Gravitational force",
+    "explanation": "The correct answer is Gravitational force. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI218",
@@ -3565,7 +3782,8 @@
       "Make surface rougher"
     ],
     "answer": 1,
-    "correct_answer": "Use wheels or place on smooth surface"
+    "correct_answer": "Use wheels or place on smooth surface",
+    "explanation": "The correct answer is Use wheels or place on smooth surface. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI219",
@@ -3583,7 +3801,8 @@
       "Magnetism"
     ],
     "answer": 1,
-    "correct_answer": "Elastic force"
+    "correct_answer": "Elastic force",
+    "explanation": "The correct answer is Elastic force. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI220",
@@ -3599,7 +3818,8 @@
       "Start the engine"
     ],
     "answer": 1,
-    "correct_answer": "Slow down and stop the car"
+    "correct_answer": "Slow down and stop the car",
+    "explanation": "The correct answer is Slow down and stop the car. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI221",
@@ -3615,7 +3835,8 @@
       "Stick together"
     ],
     "answer": 1,
-    "correct_answer": "Repel"
+    "correct_answer": "Repel",
+    "explanation": "The correct answer is Repel. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI222",
@@ -3631,7 +3852,8 @@
       "Change color randomly"
     ],
     "answer": 1,
-    "correct_answer": "Survive in their environment"
+    "correct_answer": "Survive in their environment",
+    "explanation": "The correct answer is Survive in their environment. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI223",
@@ -3647,7 +3869,8 @@
       "Very thick leaves"
     ],
     "answer": 1,
-    "correct_answer": "Air spaces in stems and leaves"
+    "correct_answer": "Air spaces in stems and leaves",
+    "explanation": "The correct answer is Air spaces in stems and leaves. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI224",
@@ -3663,7 +3886,8 @@
       "Protect from predators"
     ],
     "answer": 1,
-    "correct_answer": "Make them lighter for flight"
+    "correct_answer": "Make them lighter for flight",
+    "explanation": "The correct answer is Make them lighter for flight. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI225",
@@ -3679,7 +3903,8 @@
       "Camouflage"
     ],
     "answer": 1,
-    "correct_answer": "Behavioral adaptation"
+    "correct_answer": "Behavioral adaptation",
+    "explanation": "The correct answer is Behavioral adaptation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI226",
@@ -3695,7 +3920,8 @@
       "Swim faster"
     ],
     "answer": 1,
-    "correct_answer": "Catch and hold prey"
+    "correct_answer": "Catch and hold prey",
+    "explanation": "The correct answer is Catch and hold prey. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI227",
@@ -3711,7 +3937,8 @@
       "Have thin fur"
     ],
     "answer": 0,
-    "correct_answer": "Drink very little water and store fat in humps"
+    "correct_answer": "Drink very little water and store fat in humps",
+    "explanation": "The correct answer is Drink very little water and store fat in humps. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI228",
@@ -3729,7 +3956,8 @@
       "Breathe easier"
     ],
     "answer": 1,
-    "correct_answer": "Swim faster with less resistance"
+    "correct_answer": "Swim faster with less resistance",
+    "explanation": "The correct answer is Swim faster with less resistance. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI229",
@@ -3745,7 +3973,8 @@
       "More rainfall"
     ],
     "answer": 1,
-    "correct_answer": "Loss of animal habitats and soil erosion"
+    "correct_answer": "Loss of animal habitats and soil erosion",
+    "explanation": "The correct answer is Loss of animal habitats and soil erosion. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI230",
@@ -3761,7 +3990,8 @@
       "Cutting down trees"
     ],
     "answer": 2,
-    "correct_answer": "Reducing, reusing, and recycling"
+    "correct_answer": "Reducing, reusing, and recycling",
+    "explanation": "The correct answer is Reducing, reusing, and recycling. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI231",
@@ -3777,7 +4007,8 @@
       "Saving water"
     ],
     "answer": 1,
-    "correct_answer": "Vehicle exhaust and factory smoke"
+    "correct_answer": "Vehicle exhaust and factory smoke",
+    "explanation": "The correct answer is Vehicle exhaust and factory smoke. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI232",
@@ -3793,7 +4024,8 @@
       "All are equally important"
     ],
     "answer": 2,
-    "correct_answer": "Reduce"
+    "correct_answer": "Reduce",
+    "explanation": "The correct answer is Reduce. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI233",
@@ -3809,7 +4041,8 @@
       "Provides food for animals"
     ],
     "answer": 1,
-    "correct_answer": "Takes hundreds of years to decompose and harms animals"
+    "correct_answer": "Takes hundreds of years to decompose and harms animals",
+    "explanation": "The correct answer is Takes hundreds of years to decompose and harms animals. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI234",
@@ -3827,7 +4060,8 @@
       "Use more plastic bags"
     ],
     "answer": 2,
-    "correct_answer": "Use public transport or walk"
+    "correct_answer": "Use public transport or walk",
+    "explanation": "The correct answer is Use public transport or walk. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI235",
@@ -3843,7 +4077,8 @@
       "Cause soil erosion"
     ],
     "answer": 1,
-    "correct_answer": "Absorb carbon dioxide and produce oxygen"
+    "correct_answer": "Absorb carbon dioxide and produce oxygen",
+    "explanation": "The correct answer is Absorb carbon dioxide and produce oxygen. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI236",
@@ -3859,7 +4094,8 @@
       "Sand is added to water"
     ],
     "answer": 1,
-    "correct_answer": "A solute dissolves completely in a solvent"
+    "correct_answer": "A solute dissolves completely in a solvent",
+    "explanation": "The correct answer is A solute dissolves completely in a solvent. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI237",
@@ -3875,7 +4111,8 @@
       "Sieving"
     ],
     "answer": 1,
-    "correct_answer": "Evaporation"
+    "correct_answer": "Evaporation",
+    "explanation": "The correct answer is Evaporation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI238",
@@ -3891,7 +4128,8 @@
       "Floats on top"
     ],
     "answer": 1,
-    "correct_answer": "Forms a solution - sugar particles spread evenly"
+    "correct_answer": "Forms a solution - sugar particles spread evenly",
+    "explanation": "The correct answer is Forms a solution - sugar particles spread evenly. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI239",
@@ -3907,7 +4145,8 @@
       "Boiling water"
     ],
     "answer": 2,
-    "correct_answer": "Burning paper"
+    "correct_answer": "Burning paper",
+    "explanation": "The correct answer is Burning paper. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI240",
@@ -3925,7 +4164,8 @@
       "Add more solid"
     ],
     "answer": 1,
-    "correct_answer": "Use hot water and stir"
+    "correct_answer": "Use hot water and stir",
+    "explanation": "The correct answer is Use hot water and stir. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI241",
@@ -3941,7 +4181,8 @@
       "Liquid changing to solid"
     ],
     "answer": 1,
-    "correct_answer": "Gas changing to liquid"
+    "correct_answer": "Gas changing to liquid",
+    "explanation": "The correct answer is Gas changing to liquid. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI242",
@@ -3957,7 +4198,8 @@
       "Sound creation"
     ],
     "answer": 1,
-    "correct_answer": "Sound reflection"
+    "correct_answer": "Sound reflection",
+    "explanation": "The correct answer is Sound reflection. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI243",
@@ -3973,7 +4215,8 @@
       "Sound travels in straight lines only"
     ],
     "answer": 1,
-    "correct_answer": "Sound needs a medium to travel"
+    "correct_answer": "Sound needs a medium to travel",
+    "explanation": "The correct answer is Sound needs a medium to travel. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI244",
@@ -3989,7 +4232,8 @@
       "Make the string longer"
     ],
     "answer": 1,
-    "correct_answer": "Make the string tighter or shorter"
+    "correct_answer": "Make the string tighter or shorter",
+    "explanation": "The correct answer is Make the string tighter or shorter. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI245",
@@ -4005,7 +4249,8 @@
       "Magnetism"
     ],
     "answer": 1,
-    "correct_answer": "Vibrations"
+    "correct_answer": "Vibrations",
+    "explanation": "The correct answer is Vibrations. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI246",
@@ -4023,7 +4268,8 @@
       "Sound doesn't travel through air"
     ],
     "answer": 1,
-    "correct_answer": "Light travels faster than sound"
+    "correct_answer": "Light travels faster than sound",
+    "explanation": "The correct answer is Light travels faster than sound. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI247",
@@ -4039,7 +4285,8 @@
       "Their helmets block sound"
     ],
     "answer": 1,
-    "correct_answer": "Space is a vacuum with no medium for sound"
+    "correct_answer": "Space is a vacuum with no medium for sound",
+    "explanation": "The correct answer is Space is a vacuum with no medium for sound. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI248",
@@ -4055,7 +4302,8 @@
       "Sound travels faster"
     ],
     "answer": 1,
-    "correct_answer": "The amplitude of vibration increases"
+    "correct_answer": "The amplitude of vibration increases",
+    "explanation": "The correct answer is The amplitude of vibration increases. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI249",
@@ -4071,7 +4319,8 @@
       "Speed up sound"
     ],
     "answer": 1,
-    "correct_answer": "Absorb sound"
+    "correct_answer": "Absorb sound",
+    "explanation": "The correct answer is Absorb sound. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI250",
@@ -4087,7 +4336,8 @@
       "Small vibrating object"
     ],
     "answer": 1,
-    "correct_answer": "Slow vibrating object"
+    "correct_answer": "Slow vibrating object",
+    "explanation": "The correct answer is Slow vibrating object. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI251",
@@ -4103,7 +4353,8 @@
       "Not moving at all"
     ],
     "answer": 1,
-    "correct_answer": "Close together and vibrate in fixed positions"
+    "correct_answer": "Close together and vibrate in fixed positions",
+    "explanation": "The correct answer is Close together and vibrate in fixed positions. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI252",
@@ -4119,7 +4370,8 @@
       "Only move up and down"
     ],
     "answer": 2,
-    "correct_answer": "Far apart and move freely in all directions"
+    "correct_answer": "Far apart and move freely in all directions",
+    "explanation": "The correct answer is Far apart and move freely in all directions. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI253",
@@ -4137,7 +4389,8 @@
       "No change"
     ],
     "answer": 1,
-    "correct_answer": "Reversible physical change"
+    "correct_answer": "Reversible physical change",
+    "explanation": "The correct answer is Reversible physical change. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI254",
@@ -4153,7 +4406,8 @@
       "Condensation"
     ],
     "answer": 2,
-    "correct_answer": "Sublimation"
+    "correct_answer": "Sublimation",
+    "explanation": "The correct answer is Sublimation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI255",
@@ -4169,7 +4423,8 @@
       "Water is heavier than oil"
     ],
     "answer": 0,
-    "correct_answer": "Oil is lighter and less dense than water"
+    "correct_answer": "Oil is lighter and less dense than water",
+    "explanation": "The correct answer is Oil is lighter and less dense than water. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI256",
@@ -4185,7 +4440,8 @@
       "Burn them"
     ],
     "answer": 1,
-    "correct_answer": "Dissolve salt in water, filter sand, evaporate water"
+    "correct_answer": "Dissolve salt in water, filter sand, evaporate water",
+    "explanation": "The correct answer is Dissolve salt in water, filter sand, evaporate water. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI257",
@@ -4201,7 +4457,8 @@
       "Hydrogen"
     ],
     "answer": 2,
-    "correct_answer": "Carbon dioxide"
+    "correct_answer": "Carbon dioxide",
+    "explanation": "The correct answer is Carbon dioxide. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI258",
@@ -4217,7 +4474,8 @@
       "More coral reefs"
     ],
     "answer": 1,
-    "correct_answer": "Fish population decline and disrupted food chains"
+    "correct_answer": "Fish population decline and disrupted food chains",
+    "explanation": "The correct answer is Fish population decline and disrupted food chains. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI259",
@@ -4233,7 +4491,8 @@
       "Cold weather"
     ],
     "answer": 1,
-    "correct_answer": "Greenhouse gases trapping heat"
+    "correct_answer": "Greenhouse gases trapping heat",
+    "explanation": "The correct answer is Greenhouse gases trapping heat. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI260",
@@ -4249,7 +4508,8 @@
       "Opening refrigerator frequently"
     ],
     "answer": 2,
-    "correct_answer": "Turning off devices when not in use"
+    "correct_answer": "Turning off devices when not in use",
+    "explanation": "The correct answer is Turning off devices when not in use. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI261",
@@ -4267,7 +4527,8 @@
       "Plastic makes water cleaner"
     ],
     "answer": 2,
-    "correct_answer": "Plastic takes centuries to decompose and harms marine life"
+    "correct_answer": "Plastic takes centuries to decompose and harms marine life",
+    "explanation": "The correct answer is Plastic takes centuries to decompose and harms marine life. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI262",
@@ -4283,7 +4544,8 @@
       "Wasting water"
     ],
     "answer": 1,
-    "correct_answer": "Turning food waste into useful soil nutrients"
+    "correct_answer": "Turning food waste into useful soil nutrients",
+    "explanation": "The correct answer is Turning food waste into useful soil nutrients. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI263",
@@ -4299,7 +4561,8 @@
       "Sound"
     ],
     "answer": 1,
-    "correct_answer": "Moving water (kinetic)"
+    "correct_answer": "Moving water (kinetic)",
+    "explanation": "The correct answer is Moving water (kinetic). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI264",
@@ -4315,7 +4578,8 @@
       "Hydroelectric energy"
     ],
     "answer": 2,
-    "correct_answer": "Fossil fuels (coal, oil, gas)"
+    "correct_answer": "Fossil fuels (coal, oil, gas)",
+    "explanation": "The correct answer is Fossil fuels (coal, oil, gas). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI265",
@@ -4331,7 +4595,8 @@
       "Energy disappears"
     ],
     "answer": 0,
-    "correct_answer": "Potential energy converts to kinetic energy"
+    "correct_answer": "Potential energy converts to kinetic energy",
+    "explanation": "The correct answer is Potential energy converts to kinetic energy. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI266",
@@ -4347,7 +4612,8 @@
       "Heat to sound"
     ],
     "answer": 0,
-    "correct_answer": "Sound to electrical"
+    "correct_answer": "Sound to electrical",
+    "explanation": "The correct answer is Sound to electrical. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI267",
@@ -4365,7 +4631,8 @@
       "Chemical to electrical"
     ],
     "answer": 0,
-    "correct_answer": "Electrical to heat and kinetic (fan motion)"
+    "correct_answer": "Electrical to heat and kinetic (fan motion)",
+    "explanation": "The correct answer is Electrical to heat and kinetic (fan motion). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI268",
@@ -4381,7 +4648,8 @@
       "Evaporation"
     ],
     "answer": 2,
-    "correct_answer": "Conduction"
+    "correct_answer": "Conduction",
+    "explanation": "The correct answer is Conduction. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI269",
@@ -4397,7 +4665,8 @@
       "Kettle"
     ],
     "answer": 2,
-    "correct_answer": "Fan"
+    "correct_answer": "Fan",
+    "explanation": "The correct answer is Fan. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI270",
@@ -4413,7 +4682,8 @@
       "Water becomes solid"
     ],
     "answer": 1,
-    "correct_answer": "Water vapor forms inside the liquid"
+    "correct_answer": "Water vapor forms inside the liquid",
+    "explanation": "The correct answer is Water vapor forms inside the liquid. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI271",
@@ -4429,7 +4699,8 @@
       "Condensation"
     ],
     "answer": 2,
-    "correct_answer": "Sublimation"
+    "correct_answer": "Sublimation",
+    "explanation": "The correct answer is Sublimation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI272",
@@ -4447,7 +4718,8 @@
       "Sugar turns into salt"
     ],
     "answer": 1,
-    "correct_answer": "Sugar dissolves faster in hot water"
+    "correct_answer": "Sugar dissolves faster in hot water",
+    "explanation": "The correct answer is Sugar dissolves faster in hot water. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI273",
@@ -4463,7 +4735,8 @@
       "Clean air"
     ],
     "answer": 1,
-    "correct_answer": "Air pollution mixing with rain"
+    "correct_answer": "Air pollution mixing with rain",
+    "explanation": "The correct answer is Air pollution mixing with rain. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI274",
@@ -4479,7 +4752,8 @@
       "Styrofoam"
     ],
     "answer": 1,
-    "correct_answer": "Glass bottles"
+    "correct_answer": "Glass bottles",
+    "explanation": "The correct answer is Glass bottles. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI275",
@@ -4495,7 +4769,8 @@
       "Produce less light"
     ],
     "answer": 1,
-    "correct_answer": "Use less energy and last longer"
+    "correct_answer": "Use less energy and last longer",
+    "explanation": "The correct answer is Use less energy and last longer. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI276",
@@ -4513,7 +4788,8 @@
       "Polluting"
     ],
     "answer": 1,
-    "correct_answer": "Reducing and reusing"
+    "correct_answer": "Reducing and reusing",
+    "explanation": "The correct answer is Reducing and reusing. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI277",
@@ -4529,7 +4805,8 @@
       "Disappears"
     ],
     "answer": 1,
-    "correct_answer": "Condenses into tiny water droplets"
+    "correct_answer": "Condenses into tiny water droplets",
+    "explanation": "The correct answer is Condenses into tiny water droplets. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI278",
@@ -4545,7 +4822,8 @@
       "Infiltration"
     ],
     "answer": 1,
-    "correct_answer": "Evaporation and transpiration"
+    "correct_answer": "Evaporation and transpiration",
+    "explanation": "The correct answer is Evaporation and transpiration. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI279",
@@ -4561,7 +4839,8 @@
       "Seeds are dispersed"
     ],
     "answer": 1,
-    "correct_answer": "Insects transfer pollen while feeding on nectar"
+    "correct_answer": "Insects transfer pollen while feeding on nectar",
+    "explanation": "The correct answer is Insects transfer pollen while feeding on nectar. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI280",
@@ -4577,7 +4856,8 @@
       "Themselves"
     ],
     "answer": 2,
-    "correct_answer": "Insects and birds"
+    "correct_answer": "Insects and birds",
+    "explanation": "The correct answer is Insects and birds. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI281",
@@ -4595,7 +4875,8 @@
       "Explosion"
     ],
     "answer": 1,
-    "correct_answer": "Wind"
+    "correct_answer": "Wind",
+    "explanation": "The correct answer is Wind. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI282",
@@ -4611,7 +4892,8 @@
       "Leaf"
     ],
     "answer": 1,
-    "correct_answer": "Seed"
+    "correct_answer": "Seed",
+    "explanation": "The correct answer is Seed. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI283",
@@ -4627,7 +4909,8 @@
       "Live in water only"
     ],
     "answer": 1,
-    "correct_answer": "Feed milk to their babies"
+    "correct_answer": "Feed milk to their babies",
+    "explanation": "The correct answer is Feed milk to their babies. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI284",
@@ -4643,7 +4926,8 @@
       "Because they have nothing else to do"
     ],
     "answer": 1,
-    "correct_answer": "To increase offspring survival"
+    "correct_answer": "To increase offspring survival",
+    "explanation": "The correct answer is To increase offspring survival. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI285",
@@ -4659,7 +4943,8 @@
       "Objects produce darkness"
     ],
     "answer": 1,
-    "correct_answer": "Opaque objects block light"
+    "correct_answer": "Opaque objects block light",
+    "explanation": "The correct answer is Opaque objects block light. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI286",
@@ -4675,7 +4960,8 @@
       "Turned off"
     ],
     "answer": 1,
-    "correct_answer": "At a low angle"
+    "correct_answer": "At a low angle",
+    "explanation": "The correct answer is At a low angle. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI287",
@@ -4691,7 +4977,8 @@
       "Produce their own light"
     ],
     "answer": 2,
-    "correct_answer": "Allow some light but objects can't be seen clearly"
+    "correct_answer": "Allow some light but objects can't be seen clearly",
+    "explanation": "The correct answer is Allow some light but objects can't be seen clearly. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI288",
@@ -4709,7 +4996,8 @@
       "180 degrees"
     ],
     "answer": 1,
-    "correct_answer": "The angle of incidence"
+    "correct_answer": "The angle of incidence",
+    "explanation": "The correct answer is The angle of incidence. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI289",
@@ -4725,7 +5013,8 @@
       "Dispersion"
     ],
     "answer": 1,
-    "correct_answer": "Two mirrors and reflection"
+    "correct_answer": "Two mirrors and reflection",
+    "explanation": "The correct answer is Two mirrors and reflection. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI290",
@@ -4741,7 +5030,8 @@
       "Only three primary colors"
     ],
     "answer": 1,
-    "correct_answer": "Red, Orange, Yellow, Green, Blue, Indigo, Violet"
+    "correct_answer": "Red, Orange, Yellow, Green, Blue, Indigo, Violet",
+    "explanation": "The correct answer is Red, Orange, Yellow, Green, Blue, Indigo, Violet. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI291",
@@ -4757,7 +5047,8 @@
       "Brain"
     ],
     "answer": 1,
-    "correct_answer": "Lungs"
+    "correct_answer": "Lungs",
+    "explanation": "The correct answer is Lungs. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI292",
@@ -4773,7 +5064,8 @@
       "Tubes"
     ],
     "answer": 1,
-    "correct_answer": "Veins"
+    "correct_answer": "Veins",
+    "explanation": "The correct answer is Veins. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI293",
@@ -4789,7 +5081,8 @@
       "Think"
     ],
     "answer": 1,
-    "correct_answer": "Help digest food"
+    "correct_answer": "Help digest food",
+    "explanation": "The correct answer is Help digest food. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI294",
@@ -4807,7 +5100,8 @@
       "Nervous system"
     ],
     "answer": 1,
-    "correct_answer": "Digestive system"
+    "correct_answer": "Digestive system",
+    "explanation": "The correct answer is Digestive system. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI295",
@@ -4823,7 +5117,8 @@
       "Digest food"
     ],
     "answer": 2,
-    "correct_answer": "Clot blood and stop bleeding"
+    "correct_answer": "Clot blood and stop bleeding",
+    "explanation": "The correct answer is Clot blood and stop bleeding. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI296",
@@ -4839,7 +5134,8 @@
       "Digestive system"
     ],
     "answer": 1,
-    "correct_answer": "Nervous system"
+    "correct_answer": "Nervous system",
+    "explanation": "The correct answer is Nervous system. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI297",
@@ -4855,7 +5151,8 @@
       "Water evaporates"
     ],
     "answer": 0,
-    "correct_answer": "Land heats up faster than sea, warm air rises, cool air from sea moves in"
+    "correct_answer": "Land heats up faster than sea, warm air rises, cool air from sea moves in",
+    "explanation": "The correct answer is Land heats up faster than sea, warm air rises, cool air from sea moves in. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI298",
@@ -4873,7 +5170,8 @@
       "It's just fashion"
     ],
     "answer": 0,
-    "correct_answer": "White reflects heat, dark absorbs heat"
+    "correct_answer": "White reflects heat, dark absorbs heat",
+    "explanation": "The correct answer is White reflects heat, dark absorbs heat. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI299",
@@ -4889,7 +5187,8 @@
       "Frictional force"
     ],
     "answer": 1,
-    "correct_answer": "A force that changes shape"
+    "correct_answer": "A force that changes shape",
+    "explanation": "The correct answer is A force that changes shape. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI300",
@@ -4905,7 +5204,8 @@
       "Weight"
     ],
     "answer": 2,
-    "correct_answer": "Air and water resistance (friction)"
+    "correct_answer": "Air and water resistance (friction)",
+    "explanation": "The correct answer is Air and water resistance (friction). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI301",
@@ -4921,7 +5221,8 @@
       "Producing more electricity"
     ],
     "answer": 1,
-    "correct_answer": "Breaking the circuit if too much current flows"
+    "correct_answer": "Breaking the circuit if too much current flows",
+    "explanation": "The correct answer is Breaking the circuit if too much current flows. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI302",
@@ -4937,7 +5238,8 @@
       "Help them fight disease"
     ],
     "answer": 1,
-    "correct_answer": "Leave more space for carrying oxygen"
+    "correct_answer": "Leave more space for carrying oxygen",
+    "explanation": "The correct answer is Leave more space for carrying oxygen. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI303",
@@ -4953,7 +5255,8 @@
       "Helping them blend in"
     ],
     "answer": 1,
-    "correct_answer": "Signaling danger to predators - don't eat me!"
+    "correct_answer": "Signaling danger to predators - don't eat me!",
+    "explanation": "The correct answer is Signaling danger to predators - don't eat me!. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI304",
@@ -4969,7 +5272,8 @@
       "It conducts electricity"
     ],
     "answer": 1,
-    "correct_answer": "It has air spaces inside"
+    "correct_answer": "It has air spaces inside",
+    "explanation": "The correct answer is It has air spaces inside. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI305",
@@ -4987,7 +5291,8 @@
       "Changes pitch"
     ],
     "answer": 1,
-    "correct_answer": "Gets softer and eventually can't be heard"
+    "correct_answer": "Gets softer and eventually can't be heard",
+    "explanation": "The correct answer is Gets softer and eventually can't be heard. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI306",
@@ -5003,7 +5308,8 @@
       "Waterfalls"
     ],
     "answer": 1,
-    "correct_answer": "Heat from inside the Earth"
+    "correct_answer": "Heat from inside the Earth",
+    "explanation": "The correct answer is Heat from inside the Earth. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI307",
@@ -5019,7 +5325,8 @@
       "Evaporates"
     ],
     "answer": 1,
-    "correct_answer": "Dissolves completely"
+    "correct_answer": "Dissolves completely",
+    "explanation": "The correct answer is Dissolves completely. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI308",
@@ -5035,7 +5342,8 @@
       "Air reflects heat"
     ],
     "answer": 1,
-    "correct_answer": "Air is a poor heat conductor"
+    "correct_answer": "Air is a poor heat conductor",
+    "explanation": "The correct answer is Air is a poor heat conductor. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI309",
@@ -5051,7 +5359,8 @@
       "Lights"
     ],
     "answer": 0,
-    "correct_answer": "Fire alarms with bimetallic strips"
+    "correct_answer": "Fire alarms with bimetallic strips",
+    "explanation": "The correct answer is Fire alarms with bimetallic strips. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI310",
@@ -5069,7 +5378,8 @@
       "It is very heavy"
     ],
     "answer": 1,
-    "correct_answer": "The vacuum prevents heat loss by conduction and convection"
+    "correct_answer": "The vacuum prevents heat loss by conduction and convection",
+    "explanation": "The correct answer is The vacuum prevents heat loss by conduction and convection. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI311",
@@ -5085,7 +5395,8 @@
       "They cost the same"
     ],
     "answer": 1,
-    "correct_answer": "Metal conducts heat well for cooking, plastic insulates to prevent burns"
+    "correct_answer": "Metal conducts heat well for cooking, plastic insulates to prevent burns",
+    "explanation": "The correct answer is Metal conducts heat well for cooking, plastic insulates to prevent burns. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI312",
@@ -5101,7 +5412,8 @@
       "Light bulbs"
     ],
     "answer": 0,
-    "correct_answer": "Rubber bands and springs"
+    "correct_answer": "Rubber bands and springs",
+    "explanation": "The correct answer is Rubber bands and springs. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI313",
@@ -5117,7 +5429,8 @@
       "Air"
     ],
     "answer": 0,
-    "correct_answer": "A rope or string"
+    "correct_answer": "A rope or string",
+    "explanation": "The correct answer is A rope or string. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI314",
@@ -5135,7 +5448,8 @@
       "Making noise"
     ],
     "answer": 1,
-    "correct_answer": "Providing grip for movement and stopping"
+    "correct_answer": "Providing grip for movement and stopping",
+    "explanation": "The correct answer is Providing grip for movement and stopping. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI315",
@@ -5151,7 +5465,8 @@
       "Sound energy"
     ],
     "answer": 1,
-    "correct_answer": "Elastic potential energy"
+    "correct_answer": "Elastic potential energy",
+    "explanation": "The correct answer is Elastic potential energy. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI316",
@@ -5167,7 +5482,8 @@
       "Heat only"
     ],
     "answer": 1,
-    "correct_answer": "Chemical energy converted to electrical energy"
+    "correct_answer": "Chemical energy converted to electrical energy",
+    "explanation": "The correct answer is Chemical energy converted to electrical energy. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI317",
@@ -5183,7 +5499,8 @@
       "Nothing happens"
     ],
     "answer": 1,
-    "correct_answer": "Other bulbs stay lit"
+    "correct_answer": "Other bulbs stay lit",
+    "explanation": "The correct answer is Other bulbs stay lit. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI318",
@@ -5201,7 +5518,8 @@
       "Short circuit"
     ],
     "answer": 1,
-    "correct_answer": "Parallel circuit"
+    "correct_answer": "Parallel circuit",
+    "explanation": "The correct answer is Parallel circuit. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI319",
@@ -5217,7 +5535,8 @@
       "Magnetic energy"
     ],
     "answer": 1,
-    "correct_answer": "Sound energy"
+    "correct_answer": "Sound energy",
+    "explanation": "The correct answer is Sound energy. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI320",
@@ -5233,7 +5552,8 @@
       "It saves electricity"
     ],
     "answer": 1,
-    "correct_answer": "Water conducts electricity and can cause electric shock"
+    "correct_answer": "Water conducts electricity and can cause electric shock",
+    "explanation": "The correct answer is Water conducts electricity and can cause electric shock. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI321",
@@ -5249,7 +5569,8 @@
       "Make proteins"
     ],
     "answer": 1,
-    "correct_answer": "Control what enters and leaves the cell"
+    "correct_answer": "Control what enters and leaves the cell",
+    "explanation": "The correct answer is Control what enters and leaves the cell. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI322",
@@ -5265,7 +5586,8 @@
       "Air"
     ],
     "answer": 1,
-    "correct_answer": "DNA/genetic information that controls the cell"
+    "correct_answer": "DNA/genetic information that controls the cell",
+    "explanation": "The correct answer is DNA/genetic information that controls the cell. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI323",
@@ -5281,7 +5603,8 @@
       "Light is produced"
     ],
     "answer": 1,
-    "correct_answer": "Chemical reactions and life processes occur"
+    "correct_answer": "Chemical reactions and life processes occur",
+    "explanation": "The correct answer is Chemical reactions and life processes occur. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI324",
@@ -5297,7 +5620,8 @@
       "Control the cell"
     ],
     "answer": 1,
-    "correct_answer": "Produce energy through respiration"
+    "correct_answer": "Produce energy through respiration",
+    "explanation": "The correct answer is Produce energy through respiration. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI325",
@@ -5315,7 +5639,8 @@
       "Chloroplasts"
     ],
     "answer": 1,
-    "correct_answer": "Rigid cell wall in plant cells"
+    "correct_answer": "Rigid cell wall in plant cells",
+    "explanation": "The correct answer is Rigid cell wall in plant cells. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI326",
@@ -5331,7 +5656,8 @@
       "Help them run faster"
     ],
     "answer": 1,
-    "correct_answer": "Provide energy and water when food is scarce"
+    "correct_answer": "Provide energy and water when food is scarce",
+    "explanation": "The correct answer is Provide energy and water when food is scarce. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI327",
@@ -5347,7 +5673,8 @@
       "Help them swim"
     ],
     "answer": 1,
-    "correct_answer": "Reduce weight for flight"
+    "correct_answer": "Reduce weight for flight",
+    "explanation": "The correct answer is Reduce weight for flight. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI328",
@@ -5363,7 +5690,8 @@
       "Escaping predators"
     ],
     "answer": 1,
-    "correct_answer": "Hunting at night (nocturnal behavior)"
+    "correct_answer": "Hunting at night (nocturnal behavior)",
+    "explanation": "The correct answer is Hunting at night (nocturnal behavior). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI329",
@@ -5379,7 +5707,8 @@
       "Color adaptation"
     ],
     "answer": 1,
-    "correct_answer": "Behavioral adaptation"
+    "correct_answer": "Behavioral adaptation",
+    "explanation": "The correct answer is Behavioral adaptation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI330",
@@ -5397,7 +5726,8 @@
       "Reproduction"
     ],
     "answer": 1,
-    "correct_answer": "Camouflage for protection"
+    "correct_answer": "Camouflage for protection",
+    "explanation": "The correct answer is Camouflage for protection. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP001",
@@ -5416,7 +5746,8 @@
       "Beaker 4 (cotton wool)"
     ],
     "answer": 0,
-    "correct_answer": "Beaker 1 (no wrapping)"
+    "correct_answer": "Beaker 1 (no wrapping)",
+    "explanation": "The correct answer is Beaker 1 (no wrapping). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP002",
@@ -5436,7 +5767,8 @@
       "All will feel the same"
     ],
     "answer": 0,
-    "correct_answer": "Metal spoon"
+    "correct_answer": "Metal spoon",
+    "explanation": "The correct answer is Metal spoon. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP003",
@@ -5456,7 +5788,8 @@
       "Sugar doesn't dissolve in hot water"
     ],
     "answer": 1,
-    "correct_answer": "Sugar dissolves faster at higher temperatures"
+    "correct_answer": "Sugar dissolves faster at higher temperatures",
+    "explanation": "The correct answer is Sugar dissolves faster at higher temperatures. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP004",
@@ -5475,7 +5808,8 @@
       "The thickness of wire"
     ],
     "answer": 1,
-    "correct_answer": "The length of the wire"
+    "correct_answer": "The length of the wire",
+    "explanation": "The correct answer is The length of the wire. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP005",
@@ -5495,7 +5829,8 @@
       "Parallel circuits have shorter wires"
     ],
     "answer": 1,
-    "correct_answer": "In parallel circuits, each bulb has its own path to the battery"
+    "correct_answer": "In parallel circuits, each bulb has its own path to the battery",
+    "explanation": "The correct answer is In parallel circuits, each bulb has its own path to the battery. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP006",
@@ -5515,7 +5850,8 @@
       "Shadow length depends on the object's color"
     ],
     "answer": 1,
-    "correct_answer": "Shadow is longer when light is at a lower angle"
+    "correct_answer": "Shadow is longer when light is at a lower angle",
+    "explanation": "The correct answer is Shadow is longer when light is at a lower angle. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP007",
@@ -5535,7 +5871,8 @@
       "The angles have no relationship"
     ],
     "answer": 1,
-    "correct_answer": "The angle of reflection equals the angle of incidence"
+    "correct_answer": "The angle of reflection equals the angle of incidence",
+    "explanation": "The correct answer is The angle of reflection equals the angle of incidence. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP008",
@@ -5555,7 +5892,8 @@
       "The car's color affects the distance"
     ],
     "answer": 1,
-    "correct_answer": "Higher ramps give the car more speed and energy"
+    "correct_answer": "Higher ramps give the car more speed and energy",
+    "explanation": "The correct answer is Higher ramps give the car more speed and energy. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP009",
@@ -5575,7 +5913,8 @@
       "Friction is the same on all surfaces"
     ],
     "answer": 1,
-    "correct_answer": "Rougher surfaces create more friction"
+    "correct_answer": "Rougher surfaces create more friction",
+    "explanation": "The correct answer is Rougher surfaces create more friction. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP010",
@@ -5595,7 +5934,8 @@
       "Only volume affects pitch"
     ],
     "answer": 1,
-    "correct_answer": "Faster vibrations produce higher pitch"
+    "correct_answer": "Faster vibrations produce higher pitch",
+    "explanation": "The correct answer is Faster vibrations produce higher pitch. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP011",
@@ -5615,7 +5955,8 @@
       "Air blocks sound waves"
     ],
     "answer": 1,
-    "correct_answer": "Sound needs a medium (like air) to travel"
+    "correct_answer": "Sound needs a medium (like air) to travel",
+    "explanation": "The correct answer is Sound needs a medium (like air) to travel. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP012",
@@ -5635,7 +5976,8 @@
       "Water evaporates at the same rate everywhere"
     ],
     "answer": 1,
-    "correct_answer": "Temperature - warmer conditions increase evaporation"
+    "correct_answer": "Temperature - warmer conditions increase evaporation",
+    "explanation": "The correct answer is Temperature - warmer conditions increase evaporation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP013",
@@ -5655,7 +5997,8 @@
       "Small surface area and no air movement"
     ],
     "answer": 1,
-    "correct_answer": "Air movement (wind) and larger surface area"
+    "correct_answer": "Air movement (wind) and larger surface area",
+    "explanation": "The correct answer is Air movement (wind) and larger surface area. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP014",
@@ -5675,7 +6018,8 @@
       "Sponge"
     ],
     "answer": 2,
-    "correct_answer": "Plastic sheet"
+    "correct_answer": "Plastic sheet",
+    "explanation": "The correct answer is Plastic sheet. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP015",
@@ -5695,7 +6039,8 @@
       "Light → Kinetic"
     ],
     "answer": 1,
-    "correct_answer": "Kinetic (hand movement) → Electrical → Light"
+    "correct_answer": "Kinetic (hand movement) → Electrical → Light",
+    "explanation": "The correct answer is Kinetic (hand movement) → Electrical → Light. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP016",
@@ -5715,7 +6060,8 @@
       "Plants can survive without sunlight or water"
     ],
     "answer": 2,
-    "correct_answer": "Plants need BOTH sunlight and water for healthy growth"
+    "correct_answer": "Plants need BOTH sunlight and water for healthy growth",
+    "explanation": "The correct answer is Plants need BOTH sunlight and water for healthy growth. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP017",
@@ -5735,7 +6081,8 @@
       "Exercise damages the lungs"
     ],
     "answer": 1,
-    "correct_answer": "Muscles need more oxygen for energy production"
+    "correct_answer": "Muscles need more oxygen for energy production",
+    "explanation": "The correct answer is Muscles need more oxygen for energy production. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP018",
@@ -5755,7 +6102,8 @@
       "Only water is needed"
     ],
     "answer": 1,
-    "correct_answer": "Warmth, water, and air"
+    "correct_answer": "Warmth, water, and air",
+    "explanation": "The correct answer is Warmth, water, and air. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP019",
@@ -5775,7 +6123,8 @@
       "The water was too clean"
     ],
     "answer": 1,
-    "correct_answer": "Without plants, there was no oxygen production for the snails"
+    "correct_answer": "Without plants, there was no oxygen production for the snails",
+    "explanation": "The correct answer is Without plants, there was no oxygen production for the snails. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP020",
@@ -5795,7 +6144,8 @@
       "To attract insects"
     ],
     "answer": 1,
-    "correct_answer": "To reduce water loss through evaporation"
+    "correct_answer": "To reduce water loss through evaporation",
+    "explanation": "The correct answer is To reduce water loss through evaporation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP021",
@@ -5815,7 +6165,8 @@
       "All beaks work equally well"
     ],
     "answer": 1,
-    "correct_answer": "Long, thin beak (A)"
+    "correct_answer": "Long, thin beak (A)",
+    "explanation": "The correct answer is Long, thin beak (A). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP022",
@@ -5835,7 +6186,8 @@
       "All animals have the same chance of being spotted"
     ],
     "answer": 1,
-    "correct_answer": "Animals that match their background are harder to spot"
+    "correct_answer": "Animals that match their background are harder to spot",
+    "explanation": "The correct answer is Animals that match their background are harder to spot. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP023",
@@ -5855,7 +6207,8 @@
       "Root hairs are only for support"
     ],
     "answer": 1,
-    "correct_answer": "Root hairs increase surface area for better water absorption"
+    "correct_answer": "Root hairs increase surface area for better water absorption",
+    "explanation": "The correct answer is Root hairs increase surface area for better water absorption. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP024",
@@ -5875,7 +6228,8 @@
       "All cells look the same under a microscope"
     ],
     "answer": 1,
-    "correct_answer": "Plant cells have rectangular shapes with cell walls"
+    "correct_answer": "Plant cells have rectangular shapes with cell walls",
+    "explanation": "The correct answer is Plant cells have rectangular shapes with cell walls. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP025",
@@ -5895,7 +6249,8 @@
       "Only cell wall"
     ],
     "answer": 1,
-    "correct_answer": "Cell membrane and nucleus"
+    "correct_answer": "Cell membrane and nucleus",
+    "explanation": "The correct answer is Cell membrane and nucleus. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP026",
@@ -5915,7 +6270,8 @@
       "Heat destroys water"
     ],
     "answer": 1,
-    "correct_answer": "Water evaporates, condenses, and falls as 'rain' in a continuous cycle"
+    "correct_answer": "Water evaporates, condenses, and falls as 'rain' in a continuous cycle",
+    "explanation": "The correct answer is Water evaporates, condenses, and falls as 'rain' in a continuous cycle. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP027",
@@ -5935,7 +6291,8 @@
       "Melting"
     ],
     "answer": 1,
-    "correct_answer": "Diffusion - particles move from high to low concentration"
+    "correct_answer": "Diffusion - particles move from high to low concentration",
+    "explanation": "The correct answer is Diffusion - particles move from high to low concentration. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP028",
@@ -5955,7 +6312,8 @@
       "Balloons always inflate in water"
     ],
     "answer": 1,
-    "correct_answer": "Air expands when heated and contracts when cooled"
+    "correct_answer": "Air expands when heated and contracts when cooled",
+    "explanation": "The correct answer is Air expands when heated and contracts when cooled. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP029",
@@ -5975,7 +6333,8 @@
       "Liquids have no volume"
     ],
     "answer": 1,
-    "correct_answer": "Liquids take the shape of containers but keep fixed volume; gases change both"
+    "correct_answer": "Liquids take the shape of containers but keep fixed volume; gases change both",
+    "explanation": "The correct answer is Liquids take the shape of containers but keep fixed volume; gases change both. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP030",
@@ -5995,7 +6354,8 @@
       "Condensation"
     ],
     "answer": 1,
-    "correct_answer": "Freezing - liquid changes to solid when cooled below 0°C"
+    "correct_answer": "Freezing - liquid changes to solid when cooled below 0°C",
+    "explanation": "The correct answer is Freezing - liquid changes to solid when cooled below 0°C. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP031",
@@ -6015,7 +6375,8 @@
       "Chemical energy"
     ],
     "answer": 1,
-    "correct_answer": "Elastic potential energy (stored in the stretched rubber band)"
+    "correct_answer": "Elastic potential energy (stored in the stretched rubber band)",
+    "explanation": "The correct answer is Elastic potential energy (stored in the stretched rubber band). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP032",
@@ -6035,7 +6396,8 @@
       "White colors absorb the most heat"
     ],
     "answer": 1,
-    "correct_answer": "Dark colors absorb more light energy and convert it to heat"
+    "correct_answer": "Dark colors absorb more light energy and convert it to heat",
+    "explanation": "The correct answer is Dark colors absorb more light energy and convert it to heat. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP033",
@@ -6055,7 +6417,8 @@
       "Nothing can decompose"
     ],
     "answer": 1,
-    "correct_answer": "Natural materials decompose faster than synthetic materials"
+    "correct_answer": "Natural materials decompose faster than synthetic materials",
+    "explanation": "The correct answer is Natural materials decompose faster than synthetic materials. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP034",
@@ -6075,7 +6438,8 @@
       "Sunlight produces oxygen directly"
     ],
     "answer": 1,
-    "correct_answer": "Plants produce oxygen through photosynthesis that animals need"
+    "correct_answer": "Plants produce oxygen through photosynthesis that animals need",
+    "explanation": "The correct answer is Plants produce oxygen through photosynthesis that animals need. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP035",
@@ -6095,7 +6459,8 @@
       "Plants are not affected by water quality"
     ],
     "answer": 1,
-    "correct_answer": "Pollution harms plant growth and health"
+    "correct_answer": "Pollution harms plant growth and health",
+    "explanation": "The correct answer is Pollution harms plant growth and health. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP036",
@@ -6115,7 +6480,8 @@
       "To make you tired"
     ],
     "answer": 1,
-    "correct_answer": "To pump more oxygen-rich blood to working muscles faster"
+    "correct_answer": "To pump more oxygen-rich blood to working muscles faster",
+    "explanation": "The correct answer is To pump more oxygen-rich blood to working muscles faster. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP037",
@@ -6135,7 +6501,8 @@
       "Temperature is most important"
     ],
     "answer": 1,
-    "correct_answer": "Smell is crucial for identifying flavors - taste and smell work together"
+    "correct_answer": "Smell is crucial for identifying flavors - taste and smell work together",
+    "explanation": "The correct answer is Smell is crucial for identifying flavors - taste and smell work together. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP038",
@@ -6155,7 +6522,8 @@
       "Iodine creates sugars"
     ],
     "answer": 1,
-    "correct_answer": "Saliva contains enzymes that break down starch into sugars"
+    "correct_answer": "Saliva contains enzymes that break down starch into sugars",
+    "explanation": "The correct answer is Saliva contains enzymes that break down starch into sugars. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP039",
@@ -6175,7 +6543,8 @@
       "Mold needs dry conditions to grow"
     ],
     "answer": 1,
-    "correct_answer": "Mold grows best in warm, moist conditions"
+    "correct_answer": "Mold grows best in warm, moist conditions",
+    "explanation": "The correct answer is Mold grows best in warm, moist conditions. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP040",
@@ -6195,7 +6564,8 @@
       "Seeds form without flowers"
     ],
     "answer": 1,
-    "correct_answer": "Pollen must reach the stigma for fertilization and seed formation"
+    "correct_answer": "Pollen must reach the stigma for fertilization and seed formation",
+    "explanation": "The correct answer is Pollen must reach the stigma for fertilization and seed formation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI-EXP041",
@@ -6215,7 +6585,8 @@
       "Insects don't change form"
     ],
     "answer": 1,
-    "correct_answer": "Insects undergo complete metamorphosis: egg→larva→pupa→adult"
+    "correct_answer": "Insects undergo complete metamorphosis: egg→larva→pupa→adult",
+    "explanation": "The correct answer is Insects undergo complete metamorphosis: egg→larva→pupa→adult. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI331",
@@ -6233,7 +6604,8 @@
       "The angle of the swing"
     ],
     "answer": 1,
-    "correct_answer": "The length of the pendulum"
+    "correct_answer": "The length of the pendulum",
+    "explanation": "The correct answer is The length of the pendulum. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI332",
@@ -6249,7 +6621,8 @@
       "Color of the sugar"
     ],
     "answer": 2,
-    "correct_answer": "Rate of stirring"
+    "correct_answer": "Rate of stirring",
+    "explanation": "The correct answer is Rate of stirring. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI333",
@@ -6267,7 +6640,8 @@
       "Plants grow better in cold temperatures"
     ],
     "answer": 0,
-    "correct_answer": "Plants that receive more sunlight will grow taller"
+    "correct_answer": "Plants that receive more sunlight will grow taller",
+    "explanation": "The correct answer is Plants that receive more sunlight will grow taller. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI334",
@@ -6283,7 +6657,8 @@
       "There is no difference between them"
     ],
     "answer": 1,
-    "correct_answer": "An observation uses the senses to gather information; an inference is a conclusion based on observations"
+    "correct_answer": "An observation uses the senses to gather information; an inference is a conclusion based on observations",
+    "explanation": "The correct answer is An observation uses the senses to gather information; an inference is a conclusion based on observations. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI335",
@@ -6301,7 +6676,8 @@
       "Size of the pot"
     ],
     "answer": 2,
-    "correct_answer": "Height of the plant after 2 weeks"
+    "correct_answer": "Height of the plant after 2 weeks",
+    "explanation": "The correct answer is Height of the plant after 2 weeks. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI336",
@@ -6319,7 +6695,8 @@
       "The result shows that all soils are the same"
     ],
     "answer": 1,
-    "correct_answer": "The experiment was only done once, so it may not be repeatable"
+    "correct_answer": "The experiment was only done once, so it may not be repeatable",
+    "explanation": "The correct answer is The experiment was only done once, so it may not be repeatable. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI337",
@@ -6335,7 +6712,8 @@
       "11 cm"
     ],
     "answer": 0,
-    "correct_answer": "13 cm"
+    "correct_answer": "13 cm",
+    "explanation": "The correct answer is 13 cm. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI338",
@@ -6353,7 +6731,8 @@
       "Test the shoes at different times of the day"
     ],
     "answer": 1,
-    "correct_answer": "Test all shoes on the same surface, with the same person, applying the same force"
+    "correct_answer": "Test all shoes on the same surface, with the same person, applying the same force",
+    "explanation": "The correct answer is Test all shoes on the same surface, with the same person, applying the same force. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI339",
@@ -6369,7 +6748,8 @@
       "To make the experiment harder"
     ],
     "answer": 1,
-    "correct_answer": "To increase reliability and reduce the effect of errors"
+    "correct_answer": "To increase reliability and reduce the effect of errors",
+    "explanation": "The correct answer is To increase reliability and reduce the effect of errors. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI340",
@@ -6387,7 +6767,8 @@
       "Measuring"
     ],
     "answer": 2,
-    "correct_answer": "Predicting"
+    "correct_answer": "Predicting",
+    "explanation": "The correct answer is Predicting. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI341",
@@ -6403,7 +6784,8 @@
       "To save materials"
     ],
     "answer": 1,
-    "correct_answer": "To ensure we can identify which variable caused the change in results"
+    "correct_answer": "To ensure we can identify which variable caused the change in results",
+    "explanation": "The correct answer is To ensure we can identify which variable caused the change in results. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI342",
@@ -6422,7 +6804,8 @@
       "They should choose the result that matches the hypothesis"
     ],
     "answer": 2,
-    "correct_answer": "They should repeat the experiment carefully, checking all variables are controlled"
+    "correct_answer": "They should repeat the experiment carefully, checking all variables are controlled",
+    "explanation": "The correct answer is They should repeat the experiment carefully, checking all variables are controlled. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI343",
@@ -6438,7 +6821,8 @@
       "Graphs are more accurate than tables"
     ],
     "answer": 1,
-    "correct_answer": "To display data in a clear, visual way that makes patterns easier to see"
+    "correct_answer": "To display data in a clear, visual way that makes patterns easier to see",
+    "explanation": "The correct answer is To display data in a clear, visual way that makes patterns easier to see. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI344",
@@ -6456,7 +6840,8 @@
       "Yes, because the conclusion matches what the teacher taught"
     ],
     "answer": 1,
-    "correct_answer": "Yes, because the only difference was cup color, supporting the conclusion"
+    "correct_answer": "Yes, because the only difference was cup color, supporting the conclusion",
+    "explanation": "The correct answer is Yes, because the only difference was cup color, supporting the conclusion. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI345",
@@ -6472,7 +6857,8 @@
       "The soil feels damp"
     ],
     "answer": 2,
-    "correct_answer": "The plant grew 5 cm in one week"
+    "correct_answer": "The plant grew 5 cm in one week",
+    "explanation": "The correct answer is The plant grew 5 cm in one week. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI346",
@@ -6488,7 +6874,8 @@
       "Changes in the Earth's orbit around the Sun"
     ],
     "answer": 2,
-    "correct_answer": "Increased levels of greenhouse gases from human activities"
+    "correct_answer": "Increased levels of greenhouse gases from human activities",
+    "explanation": "The correct answer is Increased levels of greenhouse gases from human activities. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI347",
@@ -6504,7 +6891,8 @@
       "It produces oxygen for living things to breathe"
     ],
     "answer": 1,
-    "correct_answer": "It traps heat from the Earth's surface, preventing it from escaping into space"
+    "correct_answer": "It traps heat from the Earth's surface, preventing it from escaping into space",
+    "explanation": "The correct answer is It traps heat from the Earth's surface, preventing it from escaping into space. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI348",
@@ -6520,7 +6908,8 @@
       "Recycling plastic bottles"
     ],
     "answer": 1,
-    "correct_answer": "Burning fossil fuels such as coal and oil for energy"
+    "correct_answer": "Burning fossil fuels such as coal and oil for energy",
+    "explanation": "The correct answer is Burning fossil fuels such as coal and oil for energy. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI349",
@@ -6536,7 +6925,8 @@
       "Increased tidal activity and more frequent earthquakes"
     ],
     "answer": 1,
-    "correct_answer": "Melting of polar ice caps and glaciers, AND thermal expansion of water as it warms"
+    "correct_answer": "Melting of polar ice caps and glaciers, AND thermal expansion of water as it warms",
+    "explanation": "The correct answer is Melting of polar ice caps and glaciers, AND thermal expansion of water as it warms. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI350",
@@ -6552,7 +6942,8 @@
       "Deforestation has no effect on the atmosphere"
     ],
     "answer": 1,
-    "correct_answer": "Fewer trees means less carbon dioxide is absorbed from the atmosphere"
+    "correct_answer": "Fewer trees means less carbon dioxide is absorbed from the atmosphere",
+    "explanation": "The correct answer is Fewer trees means less carbon dioxide is absorbed from the atmosphere. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI351",
@@ -6568,7 +6959,8 @@
       "Buy new items frequently and throw away old ones"
     ],
     "answer": 2,
-    "correct_answer": "Use public transport, save energy at home, and reduce meat consumption"
+    "correct_answer": "Use public transport, save energy at home, and reduce meat consumption",
+    "explanation": "The correct answer is Use public transport, save energy at home, and reduce meat consumption. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI352",
@@ -6584,7 +6976,8 @@
       "Biodiversity has no importance for ecosystem stability"
     ],
     "answer": 1,
-    "correct_answer": "A diverse ecosystem is more stable and resilient to environmental changes"
+    "correct_answer": "A diverse ecosystem is more stable and resilient to environmental changes",
+    "explanation": "The correct answer is A diverse ecosystem is more stable and resilient to environmental changes. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI353",
@@ -6600,7 +6993,8 @@
       "Lack of water in Siberia"
     ],
     "answer": 1,
-    "correct_answer": "Habitat destruction and poaching by humans"
+    "correct_answer": "Habitat destruction and poaching by humans",
+    "explanation": "The correct answer is Habitat destruction and poaching by humans. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI354",
@@ -6616,7 +7010,8 @@
       "Building more reservoirs"
     ],
     "answer": 1,
-    "correct_answer": "Releasing untreated industrial waste and sewage into waterways"
+    "correct_answer": "Releasing untreated industrial waste and sewage into waterways",
+    "explanation": "The correct answer is Releasing untreated industrial waste and sewage into waterways. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI355",
@@ -6634,7 +7029,8 @@
       "Because NEWater is only used for cooling buildings"
     ],
     "answer": 1,
-    "correct_answer": "Because Singapore has limited natural freshwater resources and must manage water sustainably"
+    "correct_answer": "Because Singapore has limited natural freshwater resources and must manage water sustainably",
+    "explanation": "The correct answer is Because Singapore has limited natural freshwater resources and must manage water sustainably. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI356",
@@ -6650,7 +7046,8 @@
       "Eagles would stop eating rabbits and only eat foxes"
     ],
     "answer": 2,
-    "correct_answer": "The eagle population would decrease because its food source has reduced"
+    "correct_answer": "The eagle population would decrease because its food source has reduced",
+    "explanation": "The correct answer is The eagle population would decrease because its food source has reduced. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI357",
@@ -6666,7 +7063,8 @@
       "Decomposers have no role in this food chain"
     ],
     "answer": 1,
-    "correct_answer": "Decomposers break down dead organisms and return nutrients to the environment for producers to use"
+    "correct_answer": "Decomposers break down dead organisms and return nutrients to the environment for producers to use",
+    "explanation": "The correct answer is Decomposers break down dead organisms and return nutrients to the environment for producers to use. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI358",
@@ -6682,7 +7080,8 @@
       "Spiders would move to a different food web"
     ],
     "answer": 1,
-    "correct_answer": "Spider population decreases because its food source (grasshoppers) is gone"
+    "correct_answer": "Spider population decreases because its food source (grasshoppers) is gone",
+    "explanation": "The correct answer is Spider population decreases because its food source (grasshoppers) is gone. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI359",
@@ -6698,7 +7097,8 @@
       "The Sun evaporates water which provides rain for plants"
     ],
     "answer": 1,
-    "correct_answer": "Plants use sunlight for photosynthesis to produce food, which forms the basis of all food chains"
+    "correct_answer": "Plants use sunlight for photosynthesis to produce food, which forms the basis of all food chains",
+    "explanation": "The correct answer is Plants use sunlight for photosynthesis to produce food, which forms the basis of all food chains. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI360",
@@ -6714,7 +7114,8 @@
       "Keeping electrical appliances on standby mode all day"
     ],
     "answer": 2,
-    "correct_answer": "Choosing reusable bags, reducing food waste, and conserving water"
+    "correct_answer": "Choosing reusable bags, reducing food waste, and conserving water",
+    "explanation": "The correct answer is Choosing reusable bags, reducing food waste, and conserving water. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI361",
@@ -6730,7 +7131,8 @@
       "A cactus"
     ],
     "answer": 2,
-    "correct_answer": "A rock"
+    "correct_answer": "A rock",
+    "explanation": "The correct answer is A rock. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI362",
@@ -6746,7 +7148,8 @@
       "Food and shelter only"
     ],
     "answer": 1,
-    "correct_answer": "Food, water, air, and shelter"
+    "correct_answer": "Food, water, air, and shelter",
+    "explanation": "The correct answer is Food, water, air, and shelter. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI363",
@@ -6762,7 +7165,8 @@
       "Microorganisms"
     ],
     "answer": 1,
-    "correct_answer": "Non-flowering plants"
+    "correct_answer": "Non-flowering plants",
+    "explanation": "The correct answer is Non-flowering plants. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI364",
@@ -6780,7 +7184,8 @@
       "Reflective"
     ],
     "answer": 2,
-    "correct_answer": "Transparent"
+    "correct_answer": "Transparent",
+    "explanation": "The correct answer is Transparent. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI365",
@@ -6796,7 +7201,8 @@
       "Flexibility"
     ],
     "answer": 1,
-    "correct_answer": "Thermal conductivity"
+    "correct_answer": "Thermal conductivity",
+    "explanation": "The correct answer is Thermal conductivity. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI366",
@@ -6812,7 +7218,8 @@
       "The amount of energy an organism needs"
     ],
     "answer": 1,
-    "correct_answer": "The series of changes an organism goes through from birth to reproduction to death"
+    "correct_answer": "The series of changes an organism goes through from birth to reproduction to death",
+    "explanation": "The correct answer is The series of changes an organism goes through from birth to reproduction to death. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI367",
@@ -6828,7 +7235,8 @@
       "Partial metamorphosis"
     ],
     "answer": 1,
-    "correct_answer": "Complete metamorphosis"
+    "correct_answer": "Complete metamorphosis",
+    "explanation": "The correct answer is Complete metamorphosis. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI368",
@@ -6844,7 +7252,8 @@
       "A magnet"
     ],
     "answer": 1,
-    "correct_answer": "A candle flame"
+    "correct_answer": "A candle flame",
+    "explanation": "The correct answer is A candle flame. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI369",
@@ -6860,7 +7269,8 @@
       "Light energy"
     ],
     "answer": 2,
-    "correct_answer": "Kinetic energy"
+    "correct_answer": "Kinetic energy",
+    "explanation": "The correct answer is Kinetic energy. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI370",
@@ -6876,7 +7286,8 @@
       "The speed at which an object moves"
     ],
     "answer": 1,
-    "correct_answer": "A push or pull that can change the motion or shape of an object"
+    "correct_answer": "A push or pull that can change the motion or shape of an object",
+    "explanation": "The correct answer is A push or pull that can change the motion or shape of an object. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI371",
@@ -6892,7 +7303,8 @@
       "When it gets too tired"
     ],
     "answer": 2,
-    "correct_answer": "When friction and gravity slow it down and stop it"
+    "correct_answer": "When friction and gravity slow it down and stop it",
+    "explanation": "The correct answer is When friction and gravity slow it down and stop it. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI372",
@@ -6908,7 +7320,8 @@
       "Only oxygen is exchanged in the alveoli"
     ],
     "answer": 1,
-    "correct_answer": "Oxygen enters the blood from inhaled air; carbon dioxide leaves the blood into the air to be exhaled"
+    "correct_answer": "Oxygen enters the blood from inhaled air; carbon dioxide leaves the blood into the air to be exhaled",
+    "explanation": "The correct answer is Oxygen enters the blood from inhaled air; carbon dioxide leaves the blood into the air to be exhaled. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI373",
@@ -6926,7 +7339,8 @@
       "Her body temperature decreases during exercise, requiring faster breathing"
     ],
     "answer": 1,
-    "correct_answer": "Her muscles need more oxygen and energy, so the heart and lungs work harder to supply them"
+    "correct_answer": "Her muscles need more oxygen and energy, so the heart and lungs work harder to supply them",
+    "explanation": "The correct answer is Her muscles need more oxygen and energy, so the heart and lungs work harder to supply them. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI374",
@@ -6942,7 +7356,8 @@
       "Only one of the remaining bulbs stays on"
     ],
     "answer": 2,
-    "correct_answer": "Both remaining bulbs continue to shine with the same brightness"
+    "correct_answer": "Both remaining bulbs continue to shine with the same brightness",
+    "explanation": "The correct answer is Both remaining bulbs continue to shine with the same brightness. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI375",
@@ -6958,7 +7373,8 @@
       "The bulb will immediately burn out"
     ],
     "answer": 1,
-    "correct_answer": "Shine brighter because more voltage is provided"
+    "correct_answer": "Shine brighter because more voltage is provided",
+    "explanation": "The correct answer is Shine brighter because more voltage is provided. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI376",
@@ -6976,7 +7392,8 @@
       "Both liquid and gas"
     ],
     "answer": 3,
-    "correct_answer": "Both liquid and gas"
+    "correct_answer": "Both liquid and gas",
+    "explanation": "The correct answer is Both liquid and gas. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI377",
@@ -6992,7 +7409,8 @@
       "It uses chemicals inside to heat or cool the liquid"
     ],
     "answer": 1,
-    "correct_answer": "The double-walled vacuum insulation minimizes heat transfer by conduction, convection, and radiation"
+    "correct_answer": "The double-walled vacuum insulation minimizes heat transfer by conduction, convection, and radiation",
+    "explanation": "The correct answer is The double-walled vacuum insulation minimizes heat transfer by conduction, convection, and radiation. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI378",
@@ -7008,7 +7426,8 @@
       "Protect itself from large herbivores"
     ],
     "answer": 1,
-    "correct_answer": "Trap and digest insects to obtain nutrients lacking in its poor soil habitat"
+    "correct_answer": "Trap and digest insects to obtain nutrients lacking in its poor soil habitat",
+    "explanation": "The correct answer is Trap and digest insects to obtain nutrients lacking in its poor soil habitat. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI379",
@@ -7024,7 +7443,8 @@
       "To filter salt from sea water"
     ],
     "answer": 2,
-    "correct_answer": "To provide structural support and anchor the tree in soft, waterlogged soil"
+    "correct_answer": "To provide structural support and anchor the tree in soft, waterlogged soil",
+    "explanation": "The correct answer is To provide structural support and anchor the tree in soft, waterlogged soil. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI380",
@@ -7040,7 +7460,8 @@
       "Both bees and flowers compete for sunlight"
     ],
     "answer": 1,
-    "correct_answer": "Bees get nectar (food) from the flower; the flower gets pollinated, enabling reproduction"
+    "correct_answer": "Bees get nectar (food) from the flower; the flower gets pollinated, enabling reproduction",
+    "explanation": "The correct answer is Bees get nectar (food) from the flower; the flower gets pollinated, enabling reproduction. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI381",
@@ -7056,7 +7477,8 @@
       "Competition (both are harmed)"
     ],
     "answer": 2,
-    "correct_answer": "Parasitism (one benefits, other is harmed)"
+    "correct_answer": "Parasitism (one benefits, other is harmed)",
+    "explanation": "The correct answer is Parasitism (one benefits, other is harmed). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI382",
@@ -7072,7 +7494,8 @@
       "Humans"
     ],
     "answer": 2,
-    "correct_answer": "Insects (e.g., bees and butterflies)"
+    "correct_answer": "Insects (e.g., bees and butterflies)",
+    "explanation": "The correct answer is Insects (e.g., bees and butterflies). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI383",
@@ -7088,7 +7511,8 @@
       "Explosive/self dispersal"
     ],
     "answer": 1,
-    "correct_answer": "Water dispersal"
+    "correct_answer": "Water dispersal",
+    "explanation": "The correct answer is Water dispersal. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI384",
@@ -7104,7 +7528,8 @@
       "Dispersion of white light into colors"
     ],
     "answer": 1,
-    "correct_answer": "Refraction — light bends when passing from water to air because it changes speed"
+    "correct_answer": "Refraction — light bends when passing from water to air because it changes speed",
+    "explanation": "The correct answer is Refraction — light bends when passing from water to air because it changes speed. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI385",
@@ -7120,7 +7545,8 @@
       "Astronaut helmets absorb all sound waves"
     ],
     "answer": 2,
-    "correct_answer": "Sound cannot travel in a vacuum (the Moon has no atmosphere/air)"
+    "correct_answer": "Sound cannot travel in a vacuum (the Moon has no atmosphere/air)",
+    "explanation": "The correct answer is Sound cannot travel in a vacuum (the Moon has no atmosphere/air). Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI386",
@@ -7136,7 +7562,8 @@
       "Pitch depends on the color of the string"
     ],
     "answer": 1,
-    "correct_answer": "The thick string"
+    "correct_answer": "The thick string",
+    "explanation": "The correct answer is The thick string. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI387",
@@ -7152,7 +7579,8 @@
       "Singapore has no other energy options available"
     ],
     "answer": 0,
-    "correct_answer": "Singapore receives a lot of sunlight year-round and solar energy reduces dependence on fossil fuels"
+    "correct_answer": "Singapore receives a lot of sunlight year-round and solar energy reduces dependence on fossil fuels",
+    "explanation": "The correct answer is Singapore receives a lot of sunlight year-round and solar energy reduces dependence on fossil fuels. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI388",
@@ -7168,7 +7596,8 @@
       "Because Singapore law requires all water to be recycled"
     ],
     "answer": 2,
-    "correct_answer": "Because Singapore is a small island nation with limited natural freshwater and vulnerable to climate variability"
+    "correct_answer": "Because Singapore is a small island nation with limited natural freshwater and vulnerable to climate variability",
+    "explanation": "The correct answer is Because Singapore is a small island nation with limited natural freshwater and vulnerable to climate variability. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI389",
@@ -7186,7 +7615,8 @@
       "The control group produces more accurate results than the experimental group"
     ],
     "answer": 1,
-    "correct_answer": "The control group provides a baseline for comparison so changes due to music can be identified"
+    "correct_answer": "The control group provides a baseline for comparison so changes due to music can be identified",
+    "explanation": "The correct answer is The control group provides a baseline for comparison so changes due to music can be identified. Recall the key concept, then eliminate options that contradict it."
   },
   {
     "id": "SCI390",
@@ -7202,6 +7632,7 @@
       "All cells look the same under a microscope"
     ],
     "answer": 1,
-    "correct_answer": "Cells are shaped and structured differently to suit their specific functions"
+    "correct_answer": "Cells are shaped and structured differently to suit their specific functions",
+    "explanation": "The correct answer is Cells are shaped and structured differently to suit their specific functions. Recall the key concept, then eliminate options that contradict it."
   }
 ]
