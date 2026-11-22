@@ -278,8 +278,8 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     const carY = Number.isFinite(py) ? py : altitude;
     const flyBlend = THREE.MathUtils.clamp((carY - 6) / 50, 0, 1);
     const roof = currentCar.build?.roofH || 1.4;
-    // Driver/hood: raised windshield perch (never bumper-height) so the road reads like a driver's seat.
-    const eyeHeight = Math.max(1.72, roof * 0.92);
+    // Driver/hood: raised windshield perch with near-level gaze so the road, not the bonnet, fills the frame.
+    const eyeHeight = Math.max(1.85, roof * 0.95);
     let back;
     let height;
     let lookAhead;
@@ -289,14 +289,14 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     let fovSpeed;
     let tremorScale;
     if (hood) {
-      back = THREE.MathUtils.lerp(1.05, 1.6, flyBlend);
-      height = carY + eyeHeight + speedRatio * 0.1;
-      lookAhead = 30;
-      lookY = carY + eyeHeight * 0.42;
-      followRate = 11;
-      fovBase = 70;
+      back = THREE.MathUtils.lerp(0.35, 0.9, flyBlend);
+      height = carY + eyeHeight + speedRatio * 0.08;
+      lookAhead = 42;
+      lookY = carY + eyeHeight * 0.88;
+      followRate = 12;
+      fovBase = 68;
       fovSpeed = 8;
-      tremorScale = 0.012;
+      tremorScale = 0.01;
     } else if (aerial) {
       // High orbit that climbs with the car so you can watch it from above while flying.
       back = THREE.MathUtils.lerp(14, 26, flyBlend);
