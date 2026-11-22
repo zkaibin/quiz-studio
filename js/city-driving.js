@@ -232,6 +232,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   function syncCameraUi() {
     cameraButton.classList.toggle('hood', camMode === 'hood');
     cameraButton.classList.toggle('aerial', camMode === 'aerial');
+    cameraButton.dataset.cam = camMode;
     const next = CAM_MODES[(CAM_MODES.indexOf(camMode) + 1) % CAM_MODES.length];
     cameraButton.setAttribute('aria-label', `Camera: ${CAM_LABELS[camMode]}. Switch to ${CAM_LABELS[next]}`);
     cameraButton.title = `${CAM_LABELS[camMode]} cam (C)`;
@@ -278,8 +279,9 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     const carY = Number.isFinite(py) ? py : altitude;
     const flyBlend = THREE.MathUtils.clamp((carY - 6) / 50, 0, 1);
     const roof = currentCar.build?.roofH || 1.4;
-    // Driver/hood: raised windshield perch with near-level gaze so the road, not the bonnet, fills the frame.
-    const eyeHeight = Math.max(1.85, roof * 0.95);
+    const belt = currentCar.build?.belt || roof * 0.7;
+    // Driver eye sits just under the roof / above the belt — cabin view, not bumper or roof-roof cam.
+    const eyeHeight = Math.min(roof - 0.04, belt + 0.4);
     let back;
     let height;
     let lookAhead;
@@ -289,30 +291,30 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     let fovSpeed;
     let tremorScale;
     if (hood) {
-      back = THREE.MathUtils.lerp(0.35, 0.9, flyBlend);
-      height = carY + eyeHeight + speedRatio * 0.08;
-      lookAhead = 42;
-      lookY = carY + eyeHeight * 0.88;
+      back = THREE.MathUtils.lerp(0.7, 1.2, flyBlend);
+      height = carY + eyeHeight + speedRatio * 0.05;
+      lookAhead = 36;
+      lookY = carY + eyeHeight * 0.9;
       followRate = 12;
-      fovBase = 68;
+      fovBase = 66;
       fovSpeed = 8;
       tremorScale = 0.01;
     } else if (aerial) {
       // High orbit that climbs with the car so you can watch it from above while flying.
-      back = THREE.MathUtils.lerp(14, 26, flyBlend);
-      height = carY + THREE.MathUtils.lerp(22, 36 + carY * 0.08, flyBlend);
-      lookAhead = THREE.MathUtils.lerp(4, 10, flyBlend);
-      lookY = carY + 0.6;
-      followRate = 4.2;
-      fovBase = 58;
+      back = THREE.MathUtils.lerp(14, 28, flyBlend);
+      height = carY + THREE.MathUtils.lerp(24, 40 + carY * 0.1, flyBlend);
+      lookAhead = THREE.MathUtils.lerp(3, 8, flyBlend);
+      lookY = carY + 0.5;
+      followRate = 4.5;
+      fovBase = 56;
       fovSpeed = 10;
       tremorScale = 0.006;
     } else {
-      // Chase stays above the car; extra lift + pull-back kicks in once airborne.
-      back = THREE.MathUtils.lerp(11.8, 20, flyBlend);
-      height = carY + THREE.MathUtils.lerp(5.0 - speedRatio * 0.55, 14 + flyBlend * 8, flyBlend);
-      lookAhead = THREE.MathUtils.lerp(16, 8, flyBlend);
-      lookY = carY + THREE.MathUtils.lerp(1.1, 0.4, flyBlend);
+      // Chase stays clearly above the car; extra lift + pull-back kicks in once airborne.
+      back = THREE.MathUtils.lerp(11.8, 22, flyBlend);
+      height = carY + THREE.MathUtils.lerp(5.2 - speedRatio * 0.45, 16 + flyBlend * 10, flyBlend);
+      lookAhead = THREE.MathUtils.lerp(16, 7, flyBlend);
+      lookY = carY + THREE.MathUtils.lerp(1.2, 0.35, flyBlend);
       followRate = 5.5;
       fovBase = baseFov;
       fovSpeed = 16;
@@ -345,6 +347,8 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     );
     camera.position.set(camPos.x + camShake.x, camPos.y + camShake.y, camPos.z + camShake.z);
     camera.lookAt(camLook.x, camLook.y, camLook.z);
+    cameraButton.dataset.camY = camPos.y.toFixed(1);
+    cameraButton.dataset.carY = carY.toFixed(1);
     // Stretch clip/fog when high so the city below stays visible from the air.
     const far = 700 + carY * 3.5;
     if (Math.abs(camera.far - far) > 8) {
