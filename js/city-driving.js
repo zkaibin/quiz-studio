@@ -1183,7 +1183,25 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     showCar(car, colorOf(car), upgradesOf(car.id));
     currentCarLabel.textContent = car.name;
   }
-  if (demoFlyer) applyDriveCar(demoFlyer);
+  if (demoFlyer) {
+    applyDriveCar(demoFlyer);
+    window.__cityDriveDebug = {
+      getCam: () => ({
+        mode: camMode,
+        camY: camPos.y,
+        lookY: camLook.y,
+        carY: player.position.y,
+        alt: altitude,
+        phase,
+        nitro
+      }),
+      setControls: (partial = {}) => {
+        Object.assign(controls, partial);
+        return { ...controls };
+      },
+      cycleCamera
+    };
+  }
 
   function statLine(label, value, max, extra = '') {
     return `<div class="stat-line"><span>${label}</span><div class="stat-bar"><i style="width:${Math.min(100, (value / max) * 100)}%"></i></div>${extra || `<span>${Math.round(value)}</span>`}</div>`;
