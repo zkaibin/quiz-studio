@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#a9d8e9">
   <title>City Driving - Quiz Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚕</text></svg>">
   <link rel="stylesheet" href="css/city-driving.css">
 </head>
@@ -15,14 +18,22 @@
 
     <section class="hud" aria-label="Driving dashboard">
       <div class="hud-brand"><span class="live-dot"></span><span id="drive-state">READY</span><strong>CITY DRIVE <span id="city-code">· SG</span></strong></div>
+      <div class="speed-cluster" aria-label="Speedometer">
+        <div class="gear-badge" id="gear">N</div>
+        <div class="speed-readout"><strong><span id="speed">0</span></strong><small>km/h</small></div>
+        <div class="rpm-meter" aria-hidden="true"><i id="rpm-fill"></i></div>
+      </div>
       <div class="hud-stats">
-        <div><span class="stat-label">SPEED</span><strong><span id="speed">0</span><small> km/h</small></strong></div>
         <div><span class="stat-label">DISTANCE</span><strong><span id="distance">0.0</span><small> km</small></strong></div>
         <div id="smash-stat" hidden><span class="stat-label">SMASHED</span><strong><span id="smashed">0</span></strong></div>
         <div id="fly-stat" hidden><span class="stat-label">ALT · NITRO</span><strong><span id="altitude">0</span><small> m</small></strong><div class="nitro-meter"><i id="nitro-fill"></i></div></div>
         <div><span class="stat-label">ROAD</span><strong class="road-name">LEFT-HAND TRAFFIC</strong></div>
       </div>
-      <button id="pause-drive" class="pause-button" type="button" aria-label="Pause driving" disabled>Ⅱ</button>
+      <div class="hud-actions">
+        <button id="toggle-mute" class="hud-icon" type="button" aria-label="Toggle sound" title="Sound">♪</button>
+        <button id="cycle-camera" class="hud-icon" type="button" aria-label="Cycle camera" title="Camera (C)">◎</button>
+        <button id="pause-drive" class="pause-button" type="button" aria-label="Pause driving" disabled>Ⅱ</button>
+      </div>
     </section>
 
     <div class="location-tag"><span>●</span> <span id="city-tag">SINGAPORE</span> <b>·</b> <em id="location-name">CITY CENTRE</em></div>
@@ -38,7 +49,7 @@
       <ol id="race-board" class="race-board"></ol>
     </aside>
     <div id="countdown" class="countdown" hidden aria-live="assertive">3</div>
-    <div id="hint" class="driving-hint">W / ↑ accelerate <b>·</b> A D / ← → steer <b>·</b> S / ↓ brake, then reverse <b>·</b> Space handbrake <b>·</b> Shift / E nitro lift (flying cars) <b>·</b> P pause</div>
+    <div id="hint" class="driving-hint">W / ↑ accelerate <b>·</b> A D / ← → steer <b>·</b> S / ↓ brake, then reverse <b>·</b> Space handbrake <b>·</b> Shift / E nitro <b>·</b> C camera <b>·</b> M mute <b>·</b> P pause</div>
 
     <div class="touch-controls" aria-label="Touch driving controls">
       <div class="touch-steer">
@@ -59,7 +70,7 @@
       <div class="welcome-card">
         <p class="eyebrow">YOUR CITY, YOUR DRIVE</p>
         <h1>City <span>Driving</span></h1>
-        <p class="intro" id="city-intro">Take the wheel and roam the whole city, turning into any street you like, or line up on the grid and race computer-controlled cars along a route to the finish gate.</p>
+        <p class="intro" id="city-intro">Take the wheel and roam the whole city, turning into any street you like, or line up on the grid and race computer-controlled cars along a route to the finish gate. Engine audio, tire smoke and a chase camera sell every kilometre.</p>
         <button id="open-globe" class="globe-button" type="button"><span class="globe-icon" aria-hidden="true"></span><span><small>CITY</small><b id="city-name">Singapore</b></span><em>Choose on the globe ↗</em></button>
         <div class="route-pill"><span id="route-label">ROUTE</span> <b id="route-name">Downtown · Marina Bay · Chinatown</b></div>
         <div id="route-list" class="route-list" role="group" aria-label="Choose a route"></div>

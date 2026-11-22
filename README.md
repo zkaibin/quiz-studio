@@ -620,6 +620,14 @@ MIT License - feel free to use for educational purposes!
 
 Created for Singapore Primary School mathematics practice with a fun, character-based twist!
 
+## City Driving: commercial feel
+
+City Driving now layers arcade presentation on top of the existing city systems:
+
+- Procedural Web Audio engine, wind, tire screech, nitro and impact hits (`js/city-audio.js`)
+- Tire smoke, skid marks, sparks, speed vignette and impact flash (`js/city-fx.js`)
+- Spring chase camera plus hood camera (`C`), gear/RPM cluster, mute (`M`)
+
 ## City Driving: real map (client-side)
 
 Choosing **Real map** in City Driving prompts the player to download the city's OpenStreetMap data from Overpass (needs network access). `js/osm-city.js` converts it to meshes in the browser, the result is used in place of the generated city, and the download is cached (Cache API) for next time.

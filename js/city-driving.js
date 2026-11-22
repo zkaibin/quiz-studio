@@ -9,6 +9,8 @@ import { createTraffic, PLAYER_Z, PLAYER_GRID_LANE } from './city-traffic.js';
 import { lcg } from './city-gfx.js';
 import { createFreeCity } from './city-free.js';
 import { createRealCity } from './city-real.js';
+import { createCityAudio } from './city-audio.js';
+import { createCityFx, createSpeedOverlay } from './city-fx.js';
 import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOffset, spawnFor, DISTRICT_COLORS } from './city-map.js';
 
 (() => {
@@ -35,7 +37,16 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   const finishGate = world.createFinishGate();
   const freeCity = createFreeCity({ scene, kit: world.kit });
   const realCity = createRealCity({ scene });
+  const audio = createCityAudio();
+  const fx = createCityFx({ scene });
+  const overlay = createSpeedOverlay(document.querySelector('.city-game'));
   let realActive = false;
+  let camMode = 'chase';
+  try { camMode = localStorage.getItem('cityDrivingCam') === 'hood' ? 'hood' : 'chase'; } catch (error) { /* storage unavailable */ }
+  const camPos = new THREE.Vector3().copy(camera.position);
+  const camLook = new THREE.Vector3(0, 1.1, -16);
+  const camShake = new THREE.Vector3();
+  let camShakeMag = 0;
   let savedCity = null;
   try { savedCity = localStorage.getItem('cityDrivingCity'); } catch (error) { /* storage unavailable */ }
   setCity(CITY_BY_ID[savedCity] ? savedCity : DEFAULT_CITY_ID);
@@ -168,7 +179,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     cityNameOutput.textContent = `${city.name}, ${city.country}`;
     document.title = `City Driving · ${city.name}`;
     mount.setAttribute('aria-label', `Three-dimensional ${city.name} city driving game`);
-    cityIntro.textContent = `Take the wheel in ${city.name}. Keep ${city.drive} and roam the whole city, turning into any street you like, or line up on the grid and race computer-controlled cars along a route to the finish gate.`;
+    cityIntro.textContent = `Take the wheel in ${city.name}. Keep ${city.drive} and roam the whole city, turning into any street you like, or line up on the grid and race computer-controlled cars along a route to the finish gate. Live engine audio, tire smoke and a spring chase camera sell every kilometre.`;
     roadName.textContent = trafficLabel();
     roadName.dataset.default = roadName.textContent;
   }
@@ -199,10 +210,131 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   const speedOutput = document.getElementById('speed');
   const distanceOutput = document.getElementById('distance');
   const stateOutput = document.getElementById('drive-state');
+  const gearOutput = document.getElementById('gear');
+  const rpmFill = document.getElementById('rpm-fill');
+  const muteButton = document.getElementById('toggle-mute');
+  const cameraButton = document.getElementById('cycle-camera');
   const startPanel = document.getElementById('welcome');
   const pausePanel = document.getElementById('paused');
   const pauseButton = document.getElementById('pause-drive');
   const hint = document.getElementById('hint');
+
+  function syncMuteUi() {
+    muteButton.classList.toggle('muted', audio.muted);
+    muteButton.setAttribute('aria-label', audio.muted ? 'Unmute sound' : 'Mute sound');
+    muteButton.title = audio.muted ? 'Unmute (M)' : 'Mute (M)';
+  }
+  function syncCameraUi() {
+    cameraButton.classList.toggle('hood', camMode === 'hood');
+    cameraButton.setAttribute('aria-label', camMode === 'hood' ? 'Switch to chase camera' : 'Switch to hood camera');
+    cameraButton.title = camMode === 'hood' ? 'Hood cam (C)' : 'Chase cam (C)';
+  }
+  syncMuteUi();
+  syncCameraUi();
+  muteButton.addEventListener('click', () => {
+    audio.resume();
+    audio.setMuted(!audio.muted);
+    syncMuteUi();
+  });
+  function cycleCamera() {
+    camMode = camMode === 'chase' ? 'hood' : 'chase';
+    try { localStorage.setItem('cityDrivingCam', camMode); } catch (error) { /* storage unavailable */ }
+    syncCameraUi();
+  }
+  cameraButton.addEventListener('click', cycleCamera);
+
+  function setGear(label) {
+    if (gearOutput.textContent !== label) gearOutput.textContent = label;
+    gearOutput.classList.toggle('rev', label === 'R');
+    gearOutput.classList.toggle('drive', label === 'D');
+  }
+
+  function pulseImpact(strength, { force = false } = {}) {
+    if (strength < 0.08) return;
+    camShakeMag = Math.max(camShakeMag, Math.min(0.55, strength));
+    overlay.impact(strength);
+    if (force || impactCool <= 0) {
+      audio.impact(strength);
+      impactCool = 0.22;
+      if (strength > 0.18) {
+        fx.burst(player.position.x, player.position.y + 0.4, freeActive ? player.position.z : PLAYER_Z, strength);
+      }
+    }
+  }
+
+  function updateCamera(delta, {
+    px, py, pz, heading: face, speedRatio, free
+  }) {
+    const hood = camMode === 'hood';
+    const back = hood ? 2.4 : (free ? 11.8 : 11.8);
+    const height = hood ? (1.35 + altitude * 0.85) : (5.0 - speedRatio * 0.55 + altitude * 0.9);
+    const lookAhead = hood ? 28 : 16;
+    const sx = Math.sin(free ? camHeading : face);
+    const cz = Math.cos(free ? camHeading : face);
+    const targetX = free ? (px - sx * back) : (px * (hood ? 0.08 : 0.34));
+    const targetY = height;
+    const targetZ = free ? (pz + cz * back) : (hood ? PLAYER_Z + 2.2 : 11.8);
+    const lookX = free ? (px + sx * lookAhead) : (px * (hood ? 0.05 : 0.2) + face * (hood ? 8 : 14));
+    const lookY = hood ? (1.0 + altitude * 0.85) : (1.1 + altitude * 0.9);
+    const lookZ = free ? (pz - cz * lookAhead) : -16;
+    const follow = Math.min(1, delta * (hood ? 10 : 5.5));
+    camPos.x += (targetX - camPos.x) * follow;
+    camPos.y += (targetY - camPos.y) * follow;
+    camPos.z += (targetZ - camPos.z) * follow;
+    camLook.x += (lookX - camLook.x) * follow;
+    camLook.y += (lookY - camLook.y) * follow;
+    camLook.z += (lookZ - camLook.z) * follow;
+    camShakeMag = Math.max(0, camShakeMag - delta * 2.8);
+    const tremor = speedRatio * (hood ? 0.018 : 0.01);
+    camShake.set(
+      (Math.random() - 0.5) * (camShakeMag + tremor),
+      (Math.random() - 0.5) * (camShakeMag * 0.7 + tremor * 0.5),
+      (Math.random() - 0.5) * (camShakeMag + tremor)
+    );
+    camera.position.set(camPos.x + camShake.x, camPos.y + camShake.y, camPos.z + camShake.z);
+    camera.lookAt(camLook.x, camLook.y, camLook.z);
+    const fov = (hood ? 72 : baseFov) + speedRatio * (hood ? 12 : 16) + nitroFx * 4;
+    if (Math.abs(camera.fov - fov) > 0.05) {
+      camera.fov = THREE.MathUtils.lerp(camera.fov, fov, 0.1);
+      camera.updateProjectionMatrix();
+    }
+  }
+
+  function presentDrive(delta, {
+    throttle, braking, free, speedRatio
+  }) {
+    const absSpeed = Math.abs(speed);
+    const rpmRatio = Math.min(1, (absSpeed / Math.max(8, stats.top)) * 0.85 + (throttle ? 0.12 : 0) + nitroFx * 0.08);
+    rpmFill.style.width = `${Math.round(rpmRatio * 100)}%`;
+    if (!hasStarted || !running) setGear('P');
+    else if (absSpeed < 0.35 && !throttle) setGear('N');
+    else if (speed < -0.35) setGear('R');
+    else setGear('D');
+    overlay.tick(delta);
+    overlay.update({ speedRatio, nitro: nitroFx, flying: altitude > 1.5 });
+    audio.update({
+      active: running && phase !== 'countdown',
+      speed,
+      top: stats.top,
+      throttle,
+      braking,
+      steer,
+      nitro: nitroFx,
+      flying: altitude > 1.5,
+      idle: hasStarted && !running
+    });
+    fx.update(delta, {
+      active: running && phase === 'drive',
+      x: free ? player.position.x : player.position.x,
+      y: player.position.y,
+      z: free ? player.position.z : PLAYER_Z,
+      heading: free ? heading : heading,
+      speed,
+      steer,
+      braking,
+      airborne: altitude > 1.2
+    });
+  }
   let running = false;
   let phase = 'idle';
   let countdownT = 0;
@@ -224,6 +356,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   let accelSmooth = 0;
   let rollSmooth = 0;
   let impactShake = 0;
+  let impactCool = 0;
   const smashOutput = document.getElementById('smashed');
   const smashStat = document.getElementById('smash-stat');
   const tiltToggle = document.getElementById('tilt-toggle');
@@ -459,8 +592,12 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     minimap.hidden = true;
     roadName.textContent = roadName.dataset.default || trafficLabel();
     locationName.textContent = areaLabel;
-    camera.position.set(0, 5.0, 11.8);
-    camera.lookAt(0, 1.1, -16);
+    camPos.set(0, 5.0, 11.8);
+    camLook.set(0, 1.1, -16);
+    camera.position.copy(camPos);
+    camera.lookAt(camLook);
+    camShakeMag = 0;
+    fx.clear();
     trafficSystem.populate(16);
     resetCarPose();
   }
@@ -486,16 +623,13 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     }
 
     const speedRatio = Math.min(1, Math.abs(speed) / 60);
-    const fov = baseFov + speedRatio * 16;
-    if (Math.abs(camera.fov - fov) > 0.05) {
-      camera.fov = THREE.MathUtils.lerp(camera.fov, fov, 0.08);
-      camera.updateProjectionMatrix();
-    }
     // Chase camera trails the car's heading with a little lag so turns feel natural
     camHeading += Math.atan2(Math.sin(heading - camHeading), Math.cos(heading - camHeading)) * Math.min(1, delta * 4);
-    const sx = Math.sin(camHeading); const cz = Math.cos(camHeading);
-    camera.position.set(px - sx * 11.8 + (Math.random() - 0.5) * impactShake, 5.0 - speedRatio * 0.5 + altitude * 0.9 + (Math.random() - 0.5) * impactShake, pz + cz * 11.8 + (Math.random() - 0.5) * impactShake);
-    camera.lookAt(px + sx * 16, 1.1 + altitude * 0.9, pz - cz * 16);
+    if (impactShake > 0.1) {
+      pulseImpact(impactShake);
+      impactShake *= 0.35;
+    }
+    updateCamera(delta, { px, py: player.position.y, pz, heading, speedRatio, free: true });
     speedOutput.textContent = String(Math.round(Math.abs(speed) * 3.6));
     distanceOutput.textContent = (distance / 1000).toFixed(1);
     mapTimer -= delta;
@@ -542,6 +676,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
       return;
     }
     hasStarted = true;
+    audio.resume();
     speed = 0;
     prevSpeed = 0;
     distance = 0;
@@ -550,6 +685,8 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     raceTime = 0;
     wheelAngle = 0;
     collisionCooldown = 0;
+    camShakeMag = 0;
+    fx.clear();
     resetCarPose();
     if (isFree()) enterFree(); else leaveFree();
     tripPanel.hidden = isFree();
@@ -616,6 +753,12 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' '].includes(key)) event.preventDefault();
     keys.add(key);
     if (key === 'p' && hasStarted) togglePause();
+    if (key === 'c') cycleCamera();
+    if (key === 'm') {
+      audio.resume();
+      audio.setMuted(!audio.muted);
+      syncMuteUi();
+    }
   });
   window.addEventListener('keyup', (event) => keys.delete(event.key.toLowerCase()));
   window.addEventListener('blur', () => {
@@ -656,7 +799,12 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     lastTime = now;
     if (!globeOverlay.classList.contains('hidden')) return;
     if (running) update(delta);
-    else idle(delta);
+    else {
+      idle(delta);
+      audio.update({ active: false });
+      overlay.update({ speedRatio: 0, nitro: 0, flying: false });
+      if (!hasStarted) setGear('P');
+    }
     renderer.render(scene, camera);
   }
 
@@ -680,6 +828,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   function update(delta) {
     clock += delta;
     const driving = phase === 'drive';
+    impactCool = Math.max(0, impactCool - delta);
     if (phase === 'countdown') {
       countdownT -= delta;
       const shown = Math.ceil(countdownT);
@@ -687,9 +836,11 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
         phase = 'drive';
         stateOutput.textContent = 'RACING';
         showCountdown('GO!');
+        audio.go();
         setTimeout(() => { if (phase === 'drive') countdownOut.hidden = true; }, 900);
       } else if (countdownOut.textContent !== String(shown)) {
         showCountdown(String(shown));
+        audio.beep(shown === 1 ? 'final' : 'tick');
       }
     }
     const gas = driving && isPressed('gas');
@@ -764,7 +915,10 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
         const floor = (realActive ? canDrive(player.position.x, player.position.z) : isDrivable(player.position.x, player.position.z) || isFreeDrivable(player.position.x, player.position.z)) ? 0 : (altitude > 0.5 ? 3 : 0);
         if (altitude >= maxAlt) { altitude = maxAlt; climb = Math.min(climb, 0); }
         if (altitude <= floor) {
-          if (floor === 0 && altitude < -climb * delta - 0.01 && climb < -9) impactShake = Math.max(impactShake, 0.12);
+          if (floor === 0 && altitude < -climb * delta - 0.01 && climb < -9) {
+            impactShake = Math.max(impactShake, 0.18);
+            pulseImpact(0.22);
+          }
           altitude = floor;
           climb = Math.max(climb, 0);
           if (floor === 0 && !thrusting) climb = 0;
@@ -807,6 +961,8 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
 
     distance += forward * delta;
     if (driving) raceTime += delta;
+    const speedRatio = Math.min(1, Math.abs(speed) / 60);
+    presentDrive(delta, { throttle: gas, braking, free: freeActive, speedRatio });
     if (freeActive) {
       updateFree(delta, forward);
       return;
@@ -834,22 +990,21 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
         speed *= 0.45;
         heading += Math.sign(player.position.x - hit.x || 1) * -0.03;
         trafficSystem.resolveCollision(hit, player.position.x);
+        pulseImpact(0.45, { force: true });
       }
     }
 
     finishGate.position.set(0, 0, PLAYER_Z - (route.length - distance));
     finishGate.visible = finishGate.position.z > -420 && finishGate.position.z < 14;
 
-    const speedRatio = Math.min(1, speed / 60);
-    const fov = baseFov + speedRatio * 16;
-    if (Math.abs(camera.fov - fov) > 0.05) {
-      camera.fov = THREE.MathUtils.lerp(camera.fov, fov, 0.08);
-      camera.updateProjectionMatrix();
-    }
-    const shake = speedRatio * 0.012;
-    camera.position.x = THREE.MathUtils.lerp(camera.position.x, player.position.x * 0.34, 0.06) + (Math.random() - 0.5) * shake;
-    camera.position.y = 5.0 - speedRatio * 0.5 + (Math.random() - 0.5) * shake;
-    camera.lookAt(player.position.x * 0.2 + heading * 14, 1.1, -16);
+    updateCamera(delta, {
+      px: player.position.x,
+      py: player.position.y,
+      pz: player.position.z,
+      heading,
+      speedRatio,
+      free: false
+    });
     speedOutput.textContent = String(Math.round(speed * 3.6));
     distanceOutput.textContent = (distance / 1000).toFixed(1);
     updateTrip();
