@@ -332,7 +332,9 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
       ? (px + sx * lookAhead)
       : (px * (hood ? 0.04 : aerial ? 0.1 : 0.2) + face * (hood ? 10 : aerial ? 4 : 14));
     const lookZ = free ? (pz - cz * lookAhead) : (hood ? -lookAhead : aerial ? PLAYER_Z - lookAhead : -16);
-    const follow = Math.min(1, delta * followRate);
+    // Catch up fast on big altitude jumps so flying never leaves the lens near the ground.
+    const liftGap = Math.abs(targetY - camPos.y);
+    const follow = Math.min(1, delta * followRate * (liftGap > 12 ? 4.5 : 1));
     camPos.x += (targetX - camPos.x) * follow;
     camPos.y += (targetY - camPos.y) * follow;
     camPos.z += (targetZ - camPos.z) * follow;
