@@ -2,7 +2,8 @@
 import * as THREE from './vendor/three/three.module.min.js';
 import { lcg } from './city-gfx.js';
 import { buildLandmark, disposeLandmarks } from './city-routes.js';
-import { PITCH as P, GRID, FACE, cellInfo, seedOf } from './city-map.js';
+import { PITCH as P, GRID, FACE, ROAD_HALF, cellInfo, seedOf } from './city-map.js';
+const WALK_OUTER = FACE + 2.5;
 import { createEffects, createCars } from './city-smash.js';
 import { createStyles } from './city-styles.js';
 
@@ -105,7 +106,7 @@ export function createFreeCity({ scene, kit }) {
 
   function addPed(chunk, parent, rand, side) {
     const z0 = 24 + rand() * (P - 48);
-    const ped = kit.addPedestrian(parent, side * (9 + rand() * 2), z0, rand);
+    const ped = kit.addPedestrian(parent, side * (12.2 + rand() * 2), z0, rand);
     ped.userData.ped.z0 = z0;
     ped.userData.id = `${chunk.i},${chunk.j}:p${chunk.n++}`;
     if (broken.has(ped.userData.id)) { parent.remove(ped); return; }
@@ -119,7 +120,7 @@ export function createFreeCity({ scene, kit }) {
       const z = 30 + rand() * (P - 60);
       const facing = rand() < 0.5 ? 0 : Math.PI;
       const id = `${chunk.i},${chunk.j}:c${chunk.n++}`;
-      const w = new THREE.Vector3(side * 6.7, 0, z);
+      const w = new THREE.Vector3(side * (ROAD_HALF - 1.5), 0, z);
       f.updateWorldMatrix(true, false);
       w.applyMatrix4(f.matrixWorld);
       cars.addParked(chunk.key, id, w.x, w.z, -f.rotation.y + facing);
@@ -131,27 +132,27 @@ export function createFreeCity({ scene, kit }) {
     const f = frame(g, 0, 0, yaw);
     addParkedCars(chunk, f, rand);
     box(f, lineMat, 0, 0.005, P / 2, 0.12, 0.01, P - 40);
-    for (const x of [-7.35, 7.35]) box(f, lineMat, x, 0.004, P / 2, 0.14, 0.01, P - 16);
-    for (let z = 24; z < P - 20; z += 8) for (const x of [-3.55, 3.55]) box(f, lineMat, x, 0.004, z + 1.6, 0.14, 0.01, 3.2);
+    for (const x of [-(ROAD_HALF - 0.65), ROAD_HALF - 0.65]) box(f, lineMat, x, 0.004, P / 2, 0.14, 0.01, P - 16);
+    for (let z = 24; z < P - 20; z += 8) for (const x of [-4.9, 4.9]) box(f, lineMat, x, 0.004, z + 1.6, 0.14, 0.01, 3.2);
     for (let k = 0; k < 5; k++) {
       const za = 22 + k * 16; const zb = 30 + k * 16;
-      addProp(chunk, f, 'lamp', -8.7, za, rand, (parent) => kit.addLamp(parent, -8.7, za));
-      addProp(chunk, f, 'lamp', 8.7, zb, rand, (parent) => kit.addLamp(parent, 8.7, zb));
+      addProp(chunk, f, 'lamp', -11.9, za, rand, (parent) => kit.addLamp(parent, -11.9, za));
+      addProp(chunk, f, 'lamp', 11.9, zb, rand, (parent) => kit.addLamp(parent, 11.9, zb));
     }
     for (let k = 0; k < 3; k++) {
       for (const side of [-1, 1]) {
         const z = 36 + k * 32;
-        treeOrPalm(chunk, f, side * 9.5, z, rand);
-        hedge(chunk, f, side * 8.35, z - 4.2, 5.5, rand);
+        treeOrPalm(chunk, f, side * 13.0, z, rand);
+        hedge(chunk, f, side * 11.4, z - 4.2, 5.5, rand);
       }
     }
-    if (rand() < 0.4) addProp(chunk, f, 'busstop', 9.8, 54, rand, (parent) => kit.addBusStop(parent, 1, 54));
-    if (rand() < 0.4) addProp(chunk, f, 'busstop', -9.8, 46, rand, (parent) => kit.addBusStop(parent, -1, 46));
-    addProp(chunk, f, 'bin', -8.6, 34, rand, (parent) => kit.addBin(parent, -1, 34));
-    addProp(chunk, f, 'bin', 8.6, 34, rand, (parent) => kit.addBin(parent, 1, 34));
-    addProp(chunk, f, 'hydrant', 8.4, 72, rand, (parent) => kit.addHydrant(parent, 1, 72));
-    addProp(chunk, f, 'sign', -8.6, 78, rand, (parent) => kit.addSignPost(parent, -1, 78));
-    addProp(chunk, f, 'sign', 8.6, 86, rand, (parent) => kit.addSignPost(parent, 1, 86));
+    if (rand() < 0.4) addProp(chunk, f, 'busstop', 12.8, 54, rand, (parent) => kit.addBusStop(parent, 1, 54));
+    if (rand() < 0.4) addProp(chunk, f, 'busstop', -12.8, 46, rand, (parent) => kit.addBusStop(parent, -1, 46));
+    addProp(chunk, f, 'bin', -11.7, 34, rand, (parent) => kit.addBin(parent, -1, 34));
+    addProp(chunk, f, 'bin', 11.7, 34, rand, (parent) => kit.addBin(parent, 1, 34));
+    addProp(chunk, f, 'hydrant', 11.5, 72, rand, (parent) => kit.addHydrant(parent, 1, 72));
+    addProp(chunk, f, 'sign', -11.7, 78, rand, (parent) => kit.addSignPost(parent, -1, 78));
+    addProp(chunk, f, 'sign', 11.7, 86, rand, (parent) => kit.addSignPost(parent, 1, 86));
     for (const side of [-1, 1]) {
       const n = 1 + Math.floor(rand() * 3);
       for (let k = 0; k < n; k++) addPed(chunk, f, rand, side);
@@ -227,7 +228,7 @@ export function createFreeCity({ scene, kit }) {
 
   function buildBlock(chunk, g, cell, rand) {
     const { kind } = cell;
-    plane(g, walkMat, 8.03, P - 8.03, 8.03, P - 8.03, SIDEWALK_Y, 2);
+    plane(g, walkMat, ROAD_HALF + 0.03, P - ROAD_HALF - 0.03, ROAD_HALF + 0.03, P - ROAD_HALF - 0.03, SIDEWALK_Y, 2);
     box(g, curbMat, 7.78, 0.02, P / 2, 0.5, 0.2, P - 15.5);
     box(g, curbMat, P - 7.78, 0.02, P / 2, 0.5, 0.2, P - 15.5);
     box(g, curbMat, P / 2, 0.02, 7.78, P - 15.5, 0.2, 0.5);
@@ -264,26 +265,26 @@ export function createFreeCity({ scene, kit }) {
 
   function buildQuay(g, i, j) {
     const seaWall = (x, z, w, d) => box(g, M.concrete, x, 0.15, z, w, 0.9, d);
-    const zEnd = j < GRID ? P - 8 : 14;
+    const zEnd = j < GRID ? P - ROAD_HALF : WALK_OUTER;
     if (i === 0) {
-      const z0 = j === 0 ? -14 : -8;
-      plane(g, walkMat, -14, -8, z0, zEnd, SIDEWALK_Y, 2);
-      seaWall(-14.5, (z0 + zEnd) / 2, 1, zEnd - z0 + 1);
+      const z0 = j === 0 ? -WALK_OUTER : -ROAD_HALF;
+      plane(g, walkMat, -WALK_OUTER, -ROAD_HALF, z0, zEnd, SIDEWALK_Y, 2);
+      seaWall(-(WALK_OUTER + 0.5), (z0 + zEnd) / 2, 1, zEnd - z0 + 1);
     }
     if (i === GRID) {
-      const z0 = j === 0 ? -14 : -8;
-      plane(g, walkMat, 8, 14, z0, zEnd, SIDEWALK_Y, 2);
-      seaWall(14.5, (z0 + zEnd) / 2, 1, zEnd - z0 + 1);
+      const z0 = j === 0 ? -WALK_OUTER : -ROAD_HALF;
+      plane(g, walkMat, ROAD_HALF, WALK_OUTER, z0, zEnd, SIDEWALK_Y, 2);
+      seaWall(WALK_OUTER + 0.5, (z0 + zEnd) / 2, 1, zEnd - z0 + 1);
     }
     if (j === 0) {
-      const x1 = i < GRID ? P - 8 : 8;
-      plane(g, walkMat, -8, x1, -14, -8, SIDEWALK_Y, 2);
-      seaWall((x1 - 8) / 2, -14.5, x1 + 8, 1);
+      const x1 = i < GRID ? P - ROAD_HALF : ROAD_HALF;
+      plane(g, walkMat, -ROAD_HALF, x1, -WALK_OUTER, -ROAD_HALF, SIDEWALK_Y, 2);
+      seaWall((x1 - ROAD_HALF) / 2, -(WALK_OUTER + 0.5), x1 + ROAD_HALF, 1);
     }
     if (j === GRID) {
-      const x1 = i < GRID ? P - 8 : 8;
-      plane(g, walkMat, -8, x1, 8, 14, SIDEWALK_Y, 2);
-      seaWall((x1 - 8) / 2, 14.5, x1 + 8, 1);
+      const x1 = i < GRID ? P - ROAD_HALF : ROAD_HALF;
+      plane(g, walkMat, -ROAD_HALF, x1, ROAD_HALF, WALK_OUTER, SIDEWALK_Y, 2);
+      seaWall((x1 - ROAD_HALF) / 2, WALK_OUTER + 0.5, x1 + ROAD_HALF, 1);
     }
   }
 
@@ -293,12 +294,12 @@ export function createFreeCity({ scene, kit }) {
     const rand = lcg(seedOf(i, j));
     const chunk = { g, i, j, peds: [], props: [], ranges: new Map(), n: 0, key: `${i},${j}` };
     const east = i < GRID; const south = j < GRID;
-    plane(g, asphaltMat, -8, east ? P - 8 : 8, -8, 8, -0.04, 8);
-    if (south) plane(g, asphaltMat, -8, 8, 8, P - 8, -0.04, 8);
+    plane(g, asphaltMat, -ROAD_HALF, east ? P - ROAD_HALF : ROAD_HALF, -ROAD_HALF, ROAD_HALF, -0.04, 8);
+    if (south) plane(g, asphaltMat, -ROAD_HALF, ROAD_HALF, ROAD_HALF, P - ROAD_HALF, -0.04, 8);
     const arms = [[south, 0], [j > 0, Math.PI], [east, Math.PI / 2], [i > 0, -Math.PI / 2]];
     for (const [exists, yaw] of arms) {
       if (!exists) continue;
-      kit.addTrafficSignals(frame(g, 0, 0, yaw), 14.7);
+      kit.addTrafficSignals(frame(g, 0, 0, yaw), FACE - 0.8);
     }
     if (south) decorateArm(chunk, g, 0, rand);
     if (east) decorateArm(chunk, g, Math.PI / 2, rand);

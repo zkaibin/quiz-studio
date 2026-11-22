@@ -184,7 +184,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     cityNameOutput.textContent = `${city.name}, ${city.country}`;
     document.title = `City Driving · ${city.name}`;
     mount.setAttribute('aria-label', `Three-dimensional ${city.name} city driving game`);
-    cityIntro.textContent = `Take the wheel in ${city.name}. Keep ${city.drive} and roam the whole city, turning into any street you like, or line up on the grid and race computer-controlled cars along a route to the finish gate. Live engine audio, tire smoke and chase, driver or aerial cameras sell every kilometre.`;
+    cityIntro.textContent = `Take the wheel in ${city.name}. Keep ${city.drive} and roam the wider city streets, or jump onto a racing circuit with only AI racers — clear asphalt, open lanes and room to hit your car’s top speed.`;
     roadName.textContent = trafficLabel();
     roadName.dataset.default = roadName.textContent;
   }
@@ -768,7 +768,8 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
       countdownOut.hidden = true;
       phase = 'drive';
     } else if (isRace()) {
-      trafficSystem.populate(9);
+      // Racing circuit: only the grid of AI racers — no ambient city traffic.
+      trafficSystem.clearTraffic();
       trafficSystem.setupRace({ playerCar: currentCar, playerColor: colorOf(currentCar), count: 5 });
       racePanel.hidden = false;
       raceTotal.textContent = `/${trafficSystem.racers.length + 1}`;
@@ -917,15 +918,20 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     const revTop = Math.min(14, stats.top * 0.25);
     // Down / S brakes while rolling forwards, then engages reverse gear once the car has stopped (free roam only)
     let braking = driving ? isPressed('brake') || (reverse && (!freeActive || speed > 0.4)) || (gas && speed < -0.1) : true;
+    const powered = (gas && !braking) || (reverse && freeActive && !braking);
     if (gas && !braking) {
       const ratio = Math.min(1, speed / stats.top);
-      speed += stats.accel * (1 - ratio * ratio) * delta;
+      // Near redline, keep a little shove so the posted top speed is reachable.
+      const pull = ratio > 0.92 ? Math.max(0.12, 1 - ratio * ratio) : (1 - ratio * ratio);
+      speed += stats.accel * pull * delta;
     } else if (reverse && freeActive && !braking) {
       const ratio = Math.min(1, -speed / revTop);
       speed -= stats.accel * 0.5 * (1 - ratio * ratio) * delta;
     }
-    // Rolling resistance plus aerodynamic drag, always opposing the direction of travel
-    const drag = (0.6 + speed * speed * 0.0016) * delta * (gas || reverse ? 0.3 : 1) + (braking ? stats.brake * delta : 0);
+    // Under power, only light aero so cars can actually hit their top speed; coast/brake keep full drag.
+    const drag = powered
+      ? (speed * speed * (isRace() ? 0.00018 : 0.00028)) * delta
+      : (0.6 + speed * speed * 0.0016) * delta + (braking ? stats.brake * delta : 0);
     speed = speed > 0 ? Math.max(0, speed - drag) : Math.min(0, speed + drag);
     speed = THREE.MathUtils.clamp(speed, freeActive ? -revTop : 0, stats.top * (altitude > 1 ? 1.08 : 1));
 
@@ -1004,12 +1010,12 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     } else {
       heading = THREE.MathUtils.clamp(heading + turnRate * delta, -headingLimit - 0.05, headingLimit + 0.05);
       let x = player.position.x + speed * Math.sin(heading) * delta;
-      // Kerb: scraping the side bleeds speed and turns the nose back onto the road
-      const edge = Math.abs(x) - 6.6;
+      // Kerb: scraping the side bleeds speed and turns the nose back onto the road (wider circuit asphalt)
+      const edge = Math.abs(x) - 9.6;
       if (edge > 0) {
-        speed *= 1 - Math.min(0.9, delta * 1.2 * (1 + edge));
+        speed *= 1 - Math.min(0.9, delta * (isRace() ? 0.55 : 1.2) * (1 + edge));
         heading -= Math.sign(x) * Math.min(Math.abs(heading) + 0.05, delta * 1.4) * (Math.sign(heading) === Math.sign(x) ? 1 : 0.2);
-        x = THREE.MathUtils.clamp(x, -7.25, 7.25);
+        x = THREE.MathUtils.clamp(x, -10.4, 10.4);
       }
       player.position.x = x;
       forward = speed * Math.cos(heading);

@@ -1,12 +1,12 @@
 import { CITY_BY_ID, DEFAULT_CITY_ID } from './city-cities.js';
 // The fixed city map for free roam; `setCity` swaps which city the pure functions below describe. Everything here is a pure function of grid coordinates, so every player sees the same city.
-export const PITCH = 120;
+export const PITCH = 140;
 export let GRID = 20;
 export let SIZE = PITCH * GRID;
-export const ROAD_HALF = 8;
-export const FACE = 11.5;
+export const ROAD_HALF = 11;
+export const FACE = 15.5;
 // Furthest a car centre may stray from a road centre line (road + kerb); anything beyond is building or park.
-export const DRIVE_LIMIT = 8.2;
+export const DRIVE_LIMIT = 11.4;
 
 export function hash(i, j, salt = 0) {
   let h = Math.imul(i + 1013, 73856093) ^ Math.imul(j + 7919, 19349663) ^ Math.imul(salt + 1, 83492791);
@@ -84,8 +84,8 @@ export function kerbOffset(x, z) {
 export function spawnFor(routeId) {
   const spawns = city.spawns;
   const [i, j] = spawns[routeId] || Object.values(spawns)[0];
-  const lane = city.drive === 'left' ? -3.55 : 3.55;
-  return { x: i * PITCH + lane, z: j * PITCH + 34, heading: 0 };
+  const lane = city.drive === 'left' ? -4.9 : 4.9;
+  return { x: i * PITCH + lane, z: j * PITCH + 40, heading: 0 };
 }
 
 export const DISTRICT_COLORS = {
