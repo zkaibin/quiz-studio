@@ -9,9 +9,9 @@ import {
 
 export const BLOCK_COUNT = 8;
 export const BLOCK_LENGTH = 64;
-export const LANES = [-5.3, -1.77, 1.77, 5.3];
-export const ROAD_HALF = 8;
-const FACE = 11.5;
+export const LANES = [-7.4, -2.5, 2.5, 7.4];
+export const ROAD_HALF = 11;
+const FACE = 15.5;
 const LENGTH = 510;
 const CENTER_Z = -215;
 
@@ -198,16 +198,16 @@ export function createWorld({ scene, renderer }) {
   const walkMat = new THREE.MeshStandardMaterial({ map: pavers, color: 0xd9d3c3, roughness: 0.9 });
   for (const s of [-1, 1]) {
     const curb = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.2, LENGTH), curbMat);
-    curb.position.set(s * 7.78, 0.02, CENTER_Z);
+    curb.position.set(s * (ROAD_HALF - 0.22), 0.02, CENTER_Z);
     curb.receiveShadow = true;
     scene.add(curb);
-    const walk = new THREE.Mesh(new THREE.PlaneGeometry(FACE - 8.03, LENGTH), walkMat);
+    const walk = new THREE.Mesh(new THREE.PlaneGeometry(FACE - ROAD_HALF, LENGTH), walkMat);
     walk.rotation.x = -Math.PI / 2;
-    walk.position.set(s * ((FACE + 8.03) / 2), 0.125, CENTER_Z);
+    walk.position.set(s * ((FACE + ROAD_HALF) / 2), 0.125, CENTER_Z);
     walk.receiveShadow = true;
     scene.add(walk);
     const edge = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.01, LENGTH), stdMat(0xf4f2dc, { rough: 0.6 }));
-    edge.position.set(s * 7.45, 0.001, CENTER_Z);
+    edge.position.set(s * (ROAD_HALF - 0.55), 0.001, CENTER_Z);
     scene.add(edge);
   }
   // Fixed lane lines: double yellow centre and solid white edges
@@ -222,13 +222,13 @@ export function createWorld({ scene, renderer }) {
   };
   addLine(-0.11, 0.1, yellowMat);
   addLine(0.11, 0.1, yellowMat);
-  for (const x of [-7.35, 7.35]) addLine(x, 0.14, lineMat);
+  for (const x of [-ROAD_HALF + 0.65, ROAD_HALF - 0.65]) addLine(x, 0.14, lineMat);
 
   const dashes = [];
   const DASH_SPACING = 13;
   const DASH_COUNT = 41;
   const dashGeo = new THREE.PlaneGeometry(0.12, 6);
-  for (const x of [-3.55, 3.55]) {
+  for (const x of [LANES[0] / 2 + LANES[1] / 2, LANES[2] / 2 + LANES[3] / 2]) {
     for (let i = 0; i < DASH_COUNT; i++) {
       const d = new THREE.Mesh(dashGeo, lineMat);
       d.rotation.x = -Math.PI / 2;
@@ -401,7 +401,7 @@ export function createWorld({ scene, renderer }) {
   }
 
   function addBusStop(parent, side, z) {
-    const x = side * 9.8;
+    const x = side * 12.8;
     const g = new THREE.Group();
     g.position.set(x, 0.13, z);
     box(g, M.pole, 0, 2.6, 0, 2.2, 0.1, 4.2);
@@ -419,7 +419,7 @@ export function createWorld({ scene, renderer }) {
 
   function addTrafficSignals(parent, z) {
     for (const side of [-1, 1]) {
-      const x = side * 8.4;
+      const x = side * 11.5;
       cyl(parent, M.pole, x, 0, z, 0.1, 6.6);
       box(parent, M.pole, x - side * 3.4, 6.5, z, 6.8, 0.14, 0.14);
       for (const lane of side < 0 ? [-5.3, -1.77] : [1.77, 5.3]) {
@@ -437,22 +437,25 @@ export function createWorld({ scene, renderer }) {
       box(parent, M.tlGreen, x - side * 0.2, 2.4, z + 0.46, 0.18, 0.18, 0.02);
       box(parent, M.signGreen, x - side * 0.2, 1.4, z - 0.25, 0.14, 0.2, 0.12);
     }
-    const stripes = new THREE.Mesh(new THREE.PlaneGeometry(14.7, 3.4), zebraMat);
+    const stripes = new THREE.Mesh(new THREE.PlaneGeometry(ROAD_HALF * 2 - 0.6, 3.4), zebraMat);
     stripes.rotation.x = -Math.PI / 2;
     stripes.position.set(0, 0.006, z - 3.2);
     stripes.receiveShadow = true;
     parent.add(stripes);
-    for (const lane of [-4, 4]) box(parent, lineMat, lane, 0.005, z + 0.9, 7.5, 0.01, 0.4);
+    for (const lane of [LANES[0] / 2 + LANES[1] / 2, LANES[2] / 2 + LANES[3] / 2]) {
+      box(parent, lineMat, lane, 0.005, z + 0.9, ROAD_HALF - 0.5, 0.01, 0.4);
+    }
   }
 
   function addGantry(parent, z) {
+    const span = ROAD_HALF * 2 + 1.4;
     for (const side of [-1, 1]) {
-      box(parent, M.pole, side * 8.6, 3.3, z, 0.35, 6.6, 0.35);
-      box(parent, M.concrete, side * 8.6, 0.2, z, 0.7, 0.4, 0.7);
+      box(parent, M.pole, side * (ROAD_HALF + 0.7), 3.3, z, 0.35, 6.6, 0.35);
+      box(parent, M.concrete, side * (ROAD_HALF + 0.7), 0.2, z, 0.7, 0.4, 0.7);
     }
-    box(parent, M.pole, 0, 6.65, z, 17.4, 0.6, 0.6);
-    box(parent, M.pole, 0, 6.2, z, 17.2, 0.12, 0.12);
-    for (const x of [-5.3, -1.77, 1.77, 5.3]) {
+    box(parent, M.pole, 0, 6.65, z, span, 0.6, 0.6);
+    box(parent, M.pole, 0, 6.2, z, span - 0.2, 0.12, 0.12);
+    for (const x of LANES) {
       const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 0.75), ergMat);
       sign.position.set(x, 5.7, z + 0.33);
       parent.add(sign);
@@ -461,7 +464,7 @@ export function createWorld({ scene, renderer }) {
   }
 
   function addSignPost(parent, side, z) {
-    const x = side * 8.6;
+    const x = side * 11.7;
     cyl(parent, M.pole, x, 0, z, 0.05, 3.2);
     const face = new THREE.Mesh(new THREE.PlaneGeometry(0.75, 0.75), limitMat);
     face.position.set(x, 3.0, z + 0.07);
@@ -469,13 +472,13 @@ export function createWorld({ scene, renderer }) {
   }
 
   function addBin(parent, side, z) {
-    box(parent, M.green, side * 8.6, 0.55, z, 0.45, 0.75, 0.45);
-    box(parent, M.dark, side * 8.6, 0.97, z, 0.5, 0.08, 0.5);
+    box(parent, M.green, side * 11.7, 0.55, z, 0.45, 0.75, 0.45);
+    box(parent, M.dark, side * 11.7, 0.97, z, 0.5, 0.08, 0.5);
   }
 
   function addHydrant(parent, side, z) {
-    cyl(parent, M.hydrant, side * 8.4, 0.13, z, 0.13, 0.6);
-    mesh(parent, shared.sphere, M.hydrant, side * 8.4, 0.78, z, 0.14, 0.1, 0.14);
+    cyl(parent, M.hydrant, side * 11.5, 0.13, z, 0.13, 0.6);
+    mesh(parent, shared.sphere, M.hydrant, side * 11.5, 0.78, z, 0.14, 0.1, 0.14);
   }
 
   // ----- Buildings -----
@@ -621,11 +624,11 @@ export function createWorld({ scene, renderer }) {
     for (let k = 0; k < 4; k++) {
       const pairs = [[-1, -8 - k * 16, -2 - k * 16], [1, -16 - k * 16, -10 - k * 16]];
       for (const [side, treeZ, lampZ] of pairs) {
-        addLamp(block, side * 8.7, lampZ);
+        addLamp(block, side * 11.9, lampZ);
         if (route.water === side) continue;
-        if ((i + k) % 3 === 0) addRainTree(block, side * 9.6, treeZ, rand);
-        else addPalm(block, side * 9.4, treeZ, rand);
-        addHedge(block, side * 8.35, treeZ - 4.2 + (k % 2) * 0.3, 5.5);
+        if ((i + k) % 3 === 0) addRainTree(block, side * 13.0, treeZ, rand);
+        else addPalm(block, side * 12.7, treeZ, rand);
+        addHedge(block, side * 11.4, treeZ - 4.2 + (k % 2) * 0.3, 5.5);
       }
     }
     addTrafficSignals(block, -34);
@@ -635,7 +638,7 @@ export function createWorld({ scene, renderer }) {
       addSignPost(block, side, -4);
       addBin(block, side, -22);
       addHydrant(block, side, -46);
-      for (let p = 0; p < 2; p++) addPedestrian(block, side * (8.9 + rand() * 2.2), -6 - rand() * 52, rand);
+      for (let p = 0; p < 2; p++) addPedestrian(block, side * (12.2 + rand() * 2.2), -6 - rand() * 52, rand);
     }
     if (i % 4 === 1) addGantry(block, -24);
     mergeStatics(block);
@@ -667,18 +670,20 @@ export function createWorld({ scene, renderer }) {
 
   function createFinishGate() {
     const gate = new THREE.Group();
+    const postX = ROAD_HALF + 0.9;
+    const span = ROAD_HALF * 2 + 2;
     for (const side of [-1, 1]) {
-      box(gate, M.pole, side * 8.7, 3.6, 0, 0.5, 7.2, 0.5);
-      box(gate, M.concrete, side * 8.7, 0.25, 0, 0.9, 0.5, 0.9);
+      box(gate, M.pole, side * postX, 3.6, 0, 0.5, 7.2, 0.5);
+      box(gate, M.concrete, side * postX, 0.25, 0, 0.9, 0.5, 0.9);
     }
-    box(gate, M.pole, 0, 7.2, 0, 18, 0.9, 0.7);
-    const banner = new THREE.Mesh(new THREE.PlaneGeometry(17, 1.0), checkerMat);
+    box(gate, M.pole, 0, 7.2, 0, span, 0.9, 0.7);
+    const banner = new THREE.Mesh(new THREE.PlaneGeometry(span - 1, 1.0), checkerMat);
     banner.position.set(0, 6.3, 0.0);
     gate.add(banner);
-    const front = new THREE.Mesh(new THREE.PlaneGeometry(17, 0.8), new THREE.MeshStandardMaterial({ map: track(signTexture('FINISH', '#111', '#ffffff', 512, 48)), roughness: 0.6 }));
+    const front = new THREE.Mesh(new THREE.PlaneGeometry(span - 1, 0.8), new THREE.MeshStandardMaterial({ map: track(signTexture('FINISH', '#111', '#ffffff', 512, 48)), roughness: 0.6 }));
     front.position.set(0, 7.2, 0.37);
     gate.add(front);
-    const line = new THREE.Mesh(new THREE.PlaneGeometry(16, 2), finishFloorMat);
+    const line = new THREE.Mesh(new THREE.PlaneGeometry(ROAD_HALF * 2, 2), finishFloorMat);
     line.rotation.x = -Math.PI / 2;
     line.position.set(0, 0.012, 0);
     gate.add(line);

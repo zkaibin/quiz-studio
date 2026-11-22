@@ -8,9 +8,11 @@ export const PLAYER_Z = 2.6;
 const PLAYER_HALF_LEN = 2.3;
 const PLAYER_HALF_WIDTH = 0.95;
 const RACER_NAMES = ['Mei Ling', 'Arjun', 'Hafiz', 'Wei Jie', 'Priya', 'Jun Hao', 'Siti', 'Daniel'];
+// Starting grid: player sits alone in lane 1; rivals stage ahead so the circuit opens up for a top-speed run.
 const GRID = [
-  { lane: 1, z: PLAYER_Z - 11 }, { lane: 0, z: PLAYER_Z - 11 }, { lane: 1, z: PLAYER_Z - 22 },
-  { lane: 0, z: PLAYER_Z - 22 }, { lane: 0, z: PLAYER_Z }
+  { lane: 0, z: PLAYER_Z - 14 }, { lane: 0, z: PLAYER_Z - 28 },
+  { lane: 1, z: PLAYER_Z - 36 }, { lane: 0, z: PLAYER_Z - 48 },
+  { lane: 1, z: PLAYER_Z - 60 }
 ];
 export const PLAYER_GRID_LANE = 1;
 const SPAWN_MIN = -340;
@@ -125,7 +127,7 @@ export function createTraffic({ scene, rand }) {
     let best = null;
     let gap = Infinity;
     for (const o of sameDir()) {
-      if (o === self || Math.abs(o.x - x) > 1.7) continue;
+      if (o === self || Math.abs(o.x - x) > 2.2) continue;
       const g = self.z - o.z - self.halfLen - o.halfLen;
       if (g > -1 && g < gap) { gap = g; best = o; }
     }
@@ -134,12 +136,12 @@ export function createTraffic({ scene, rand }) {
 
   function laneIsFree(self, laneX, ctx) {
     for (const o of sameDir()) {
-      if (o === self || Math.abs(o.x - laneX) > 2.0) continue;
+      if (o === self || Math.abs(o.x - laneX) > 2.6) continue;
       const ahead = self.z - o.z;
       const closing = Math.max(0, o.speed - self.speed) * 1.2;
       if (ahead > -(16 + closing) && ahead < 24) return false;
     }
-    if (Math.abs(ctx.playerX - laneX) < 2.2) {
+    if (Math.abs(ctx.playerX - laneX) < 2.8) {
       const ahead = self.z - PLAYER_Z;
       if (ahead > -(18 + Math.max(0, ctx.playerSpeed - self.speed)) && ahead < 20) return false;
     }
@@ -150,12 +152,22 @@ export function createTraffic({ scene, rand }) {
     r.cooldown = Math.max(0, r.cooldown - dt);
     r.laneTimer = Math.max(0, r.laneTimer - dt);
     r.thinkTimer -= dt;
+    // Hold the grid still until the countdown releases the field.
+    if (!ctx.go) {
+      r.targetSpeed = 0;
+      r.speed = 0;
+      r.steer = 0;
+      r.yaw = 0;
+      r.z = PLAYER_Z - (r.dist - ctx.distance);
+      r.model.position.set(r.x, 0, r.z);
+      r.model.rotation.y = 0;
+      return;
+    }
     const gapToPlayer = r.dist - ctx.distance;
     let rubber = 1;
     if (gapToPlayer > 160) rubber = 0.9;
     else if (gapToPlayer < -110) rubber = 1.06;
     r.targetSpeed = ctx.playerTop * r.pace * rubber * (1 + 0.035 * Math.sin(ctx.time * 0.45 + r.phase));
-    if (!ctx.go) r.targetSpeed = 0;
 
     if (r.thinkTimer <= 0) {
       r.thinkTimer = 0.25;

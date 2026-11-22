@@ -43,7 +43,7 @@ const defaultStyle = { lowrise: 'shophouse', residential: 'tower', downtownBoost
 
 export const CITIES = [
   {
-    id: 'singapore', name: 'Singapore', country: 'Singapore', lat: 1.283, lon: 103.86, drive: 'left', grid: 32,
+    id: 'singapore', name: 'Singapore', country: 'Singapore', lat: 1.283, lon: 103.86, drive: 'left', grid: 40,
     blurb: 'Garden city of Marina Bay, shophouses and the whole island',
     style: defaultStyle,
     regions: [
@@ -64,7 +64,7 @@ export const CITIES = [
     spawns: { downtown: [15, 5], marina: [17, 2], gardens: [20, 3], heritage: [12, 7], civic: [13, 3], changi: [24, 11], sentosa: [14, 17] }
   },
   {
-    id: 'newyork', name: 'New York', country: 'United States', lat: 40.758, lon: -73.9855, drive: 'right', grid: 30,
+    id: 'newyork', name: 'New York', country: 'United States', lat: 40.758, lon: -73.9855, drive: 'right', grid: 38,
     blurb: 'Manhattan avenues, brownstones and the skyline',
     style: { lowrise: 'brownstone', residential: 'lowrise', downtownBoost: 36, sea: 0x3d6f8f, park: 0x6f9a62, pond: 0x4a7f99 },
     regions: [
@@ -86,7 +86,7 @@ export const CITIES = [
     spawns: { 'ny-midtown': [11, 15], 'ny-harbor': [13, 3] }
   },
   {
-    id: 'shanghai', name: 'Shanghai', country: 'China', lat: 31.2397, lon: 121.4998, drive: 'right', grid: 30,
+    id: 'shanghai', name: 'Shanghai', country: 'China', lat: 31.2397, lon: 121.4998, drive: 'right', grid: 38,
     blurb: 'Lujiazui super-towers, the Bund and lilong lanes',
     style: { lowrise: 'lilong', residential: 'tower', downtownBoost: 40, sea: 0x6f8a78, park: 0x76a068, pond: 0x5f8f86 },
     regions: [
@@ -107,7 +107,7 @@ export const CITIES = [
     spawns: { 'sh-pudong': [20, 7], 'sh-bund': [11, 5] }
   },
   {
-    id: 'tokyo', name: 'Tokyo', country: 'Japan', lat: 35.6762, lon: 139.6503, drive: 'left', grid: 32,
+    id: 'tokyo', name: 'Tokyo', country: 'Japan', lat: 35.6762, lon: 139.6503, drive: 'left', grid: 40,
     blurb: 'Neon crossings, Skytree and tight city lanes',
     style: { lowrise: 'tokyo', residential: 'lowrise', downtownBoost: 30, sea: 0x3f7fa8, park: 0x6e9d62, pond: 0x4a86a8 },
     regions: [
@@ -129,7 +129,7 @@ export const CITIES = [
     spawns: { 'tk-shibuya': [7, 16], 'tk-skytree': [25, 6] }
   },
   {
-    id: 'london', name: 'London', country: 'United Kingdom', lat: 51.5007, lon: -0.1246, drive: 'left', grid: 28,
+    id: 'london', name: 'London', country: 'United Kingdom', lat: 51.5007, lon: -0.1246, drive: 'left', grid: 36,
     blurb: 'Big Ben, the Thames and terraced streets',
     style: { lowrise: 'terrace', residential: 'lowrise', downtownBoost: 8, sea: 0x4a6b7a, park: 0x6b9a58, pond: 0x56788a },
     regions: [
@@ -150,7 +150,7 @@ export const CITIES = [
     spawns: { 'ld-westminster': [9, 12], 'ld-thames': [18, 13] }
   },
   {
-    id: 'dubai', name: 'Dubai', country: 'United Arab Emirates', lat: 25.1972, lon: 55.2744, drive: 'right', grid: 28,
+    id: 'dubai', name: 'Dubai', country: 'United Arab Emirates', lat: 25.1972, lon: 55.2744, drive: 'right', grid: 36,
     blurb: 'Burj Khalifa, Sheikh Zayed Road and the Gulf coast',
     style: { lowrise: 'villa', residential: 'lowrise', downtownBoost: 70, sea: 0x2f9db8, park: 0xc2b27e, pond: 0x3aa6c4 },
     regions: [
