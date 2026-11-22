@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "subject": "english",
+  "totalQuestions": 540,
+  "categories": [
+    "Grammar - Active and Passive Voice",
+    "Grammar - Adjectives and Adverbs",
+    "Grammar - Articles",
+    "Grammar - Conjunctions",
+    "Grammar - Direct and Indirect Speech",
+    "Grammar - Prepositions",
+    "Grammar - Pronouns",
+    "Grammar - Subject-Verb Agreement",
+    "Grammar - Tenses",
+    "Punctuation",
+    "Vocabulary - Antonyms",
+    "Vocabulary - Idioms",
+    "Vocabulary - Phrasal Verbs",
+    "Vocabulary - Synonyms",
+    "Vocabulary - Word in Context"
+  ],
+  "difficulties": [
+    {
+      "id": "P3-P4",
+      "key": "p3-p4",
+      "files": [
+        "questions-english.json"
+      ],
+      "count": 135,
+      "categories": [
+        "Grammar - Active and Passive Voice",
+        "Grammar - Adjectives and Adverbs",
+        "Grammar - Articles",
+        "Grammar - Conjunctions",
+        "Grammar - Direct and Indirect Speech",
+        "Grammar - Prepositions",
+        "Grammar - Pronouns",
+        "Grammar - Subject-Verb Agreement",
+        "Grammar - Tenses",
+        "Punctuation",
+        "Vocabulary - Antonyms",
+        "Vocabulary - Idioms",
+        "Vocabulary - Phrasal Verbs",
+        "Vocabulary - Synonyms",
+        "Vocabulary - Word in Context"
+      ]
+    },
+    {
+      "id": "P5-P6",
+      "key": "p5-p6",
+      "files": [
+        "questions-english.json"
+      ],
+      "count": 203,
+      "categories": [
+        "Grammar - Active and Passive Voice",
+        "Grammar - Adjectives and Adverbs",
+        "Grammar - Articles",
+        "Grammar - Conjunctions",
+        "Grammar - Direct and Indirect Speech",
+        "Grammar - Prepositions",
+        "Grammar - Pronouns",
+        "Grammar - Subject-Verb Agreement",
+        "Grammar - Tenses",
+        "Punctuation",
+        "Vocabulary - Antonyms",
+        "Vocabulary - Idioms",
+        "Vocabulary - Phrasal Verbs",
+        "Vocabulary - Synonyms",
+        "Vocabulary - Word in Context"
+      ]
+    },
+    {
+      "id": "PSLE",
+      "key": "psle",
+      "files": [
+        "questions-english.json"
+      ],
+      "count": 202,
+      "categories": [
+        "Grammar - Active and Passive Voice",
+        "Grammar - Adjectives and Adverbs",
+        "Grammar - Articles",
+        "Grammar - Conjunctions",
+        "Grammar - Direct and Indirect Speech",
+        "Grammar - Prepositions",
+        "Grammar - Pronouns",
+        "Grammar - Subject-Verb Agreement",
+        "Grammar - Tenses",
+        "Punctuation",
+        "Vocabulary - Antonyms",
+        "Vocabulary - Idioms",
+        "Vocabulary - Phrasal Verbs",
+        "Vocabulary - Synonyms",
+        "Vocabulary - Word in Context"
+      ]
+    }
+  ]
+}

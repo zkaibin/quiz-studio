@@ -7,6 +7,8 @@
     "start": "node server/server.js",
     "dev": "nodemon server/server.js",
     "serve": "node dev-server.js",
+    "content:explain": "node scripts/add-explanations.js",
+    "content:validate": "node scripts/validate-all-questions.js",
     "test:rubik": "node scripts/test-rubiks-core.js",
     "test:city-osm": "node scripts/test-osm-city.mjs",
     "migrate:preflight": "node scripts/preflight-supabase-migration.js",

@@ -1,5 +1,6 @@
 /**
  * Data Loader - Manages loading and caching quiz data from JSON files
+ * Uses math-meta.json so category lists do not force a full bank download.
  */
 
 class DataManager {
@@ -7,8 +8,9 @@ class DataManager {
     this.data = {
       universes: [],
       characters: [],
-      questions: [], // Will be populated on-demand by difficulty
-      sessions: []
+      questions: [],
+      sessions: [],
+      mathMeta: null
     };
     this.loaded = false;
     this.loadedDifficulties = {
@@ -17,53 +19,38 @@ class DataManager {
       'p5-p6': false,
       'challenging': false,
       'psle': false,
-      // Legacy support
       easy: false,
       medium: false,
       hard: false
     };
   }
 
-  /**
-   * Load initial data (universes and characters only, skip questions)
-   */
   async loadData() {
-    console.log('📥 DataManager.loadData() called');
-    console.log('  Loading universes and characters only (lazy-load questions)');
-
     try {
-      console.log('  🔗 Fetching JSON files...');
-      const [universes, characters] = await Promise.all([
+      const [universes, characters, mathMeta] = await Promise.all([
         this.loadJSON('data/universes.json'),
-        this.loadJSON('data/characters.json')
+        this.loadJSON('data/characters.json'),
+        this.loadJSON('data/math-meta.json')
       ]);
-
-      console.log('  ✓ Fetches completed');
-      console.log('    - universes:', universes?.length || 0);
-      console.log('    - characters:', characters?.length || 0);
 
       this.data = {
         universes: universes || [],
         characters: characters || [],
         questions: [],
-        sessions: this.loadSessions() // Load from localStorage
+        sessions: this.loadSessions(),
+        mathMeta: mathMeta && !Array.isArray(mathMeta) ? mathMeta : null
       };
 
       this.loaded = true;
-      console.log('  ✓ Data loaded successfully');
       return this.data;
     } catch (err) {
-      console.error('❌ Error loading data:', err);
+      console.error('Error loading data:', err);
       return this.data;
     }
   }
 
-  /**
-   * Load a JSON file
-   */
   async loadJSON(url) {
     try {
-      // Add cache-busting parameter to force fresh data
       const cacheBuster = new Date().getTime();
       const urlWithBuster = url.includes('?') ? `${url}&v=${cacheBuster}` : `${url}?v=${cacheBuster}`;
       const response = await fetch(urlWithBuster);
@@ -71,37 +58,30 @@ class DataManager {
       return await response.json();
     } catch (err) {
       console.warn(`Could not load ${url}:`, err.message);
-      return [];
+      return Array.isArray(arguments[0]) ? [] : [];
     }
   }
 
-  /**
-   * Load questions for a specific difficulty level
-   */
   async loadQuestionsByDifficulty(difficulty) {
-    const difficultyKey = difficulty.toLowerCase();
-    
-    if (this.loadedDifficulties[difficultyKey]) {
-      console.log(`  ✓ Questions for ${difficulty} already loaded`);
-      return;
-    }
+    const difficultyKey = String(difficulty || '').toLowerCase();
+    if (!difficultyKey || this.loadedDifficulties[difficultyKey]) return;
 
-    console.log(`  📥 Loading ${difficulty} questions...`);
     const questions = await this.loadJSON(`data/questions-${difficultyKey}.json`);
-    
-    // Add to questions array
-    this.data.questions = this.data.questions.concat(questions);
+    if (!Array.isArray(questions)) return;
+
+    const existingIds = new Set(this.data.questions.map((q) => String(q.id) + '|' + (q.difficulty || '')));
+    questions.forEach((q) => {
+      const key = String(q.id) + '|' + (q.difficulty || '');
+      if (!existingIds.has(key)) {
+        this.data.questions.push(q);
+        existingIds.add(key);
+      }
+    });
     this.loadedDifficulties[difficultyKey] = true;
-    
-    console.log(`  ✓ Loaded ${questions.length} ${difficulty} questions`);
   }
 
-  /**
-   * Ensure questions for the selected difficulty are loaded
-   */
   async ensureDifficultyLoaded(difficulty) {
     if (difficulty === 'all') {
-      // Load all difficulties
       await Promise.all([
         this.loadQuestionsByDifficulty('p1-p2'),
         this.loadQuestionsByDifficulty('p3-p4'),
@@ -109,103 +89,87 @@ class DataManager {
         this.loadQuestionsByDifficulty('challenging'),
         this.loadQuestionsByDifficulty('psle')
       ]);
-    } else {
-      // Load specific difficulty
-      await this.loadQuestionsByDifficulty(difficulty);
+      return;
     }
+    await this.loadQuestionsByDifficulty(difficulty);
   }
 
-  /**
-   * Get all questions, optionally filtered by category and difficulty
-   */
-  /**
-   * Get all questions, optionally filtered by category, difficulty, and theme (universe)
-   */
   getQuestions(category = null, difficulty = null, theme = null) {
     let questions = this.data.questions;
 
     if (category && category !== 'all') {
-      questions = questions.filter(q => q.category === category);
+      questions = questions.filter((q) => q.category === category);
     }
 
     if (difficulty && difficulty !== 'all') {
-      questions = questions.filter(q => q.difficulty === difficulty);
+      const target = String(difficulty).toLowerCase();
+      questions = questions.filter((q) => String(q.difficulty || '').toLowerCase() === target);
     }
 
-    // Theme filter: map theme to universe_id(s) and filter by character placeholders
-    if (theme && theme !== 'all') {
-      const themeMap = {
-        kpop: [4,5,6,7],
-        disney: [1],
-        pixar: [2],
-        cartoon: [3],
-        avengers: [8] // Example, update as needed
-      };
-      const universeIds = themeMap[theme];
-      if (universeIds) {
-        // Only include questions where all placeholder characters are from the selected universe(s)
-        questions = questions.filter(q => {
-          if (!q.placeholders || q.placeholders.length === 0) return false;
-          // Find all character objects for placeholders
-          const chars = q.placeholders.map(name => this.data.characters.find(c => c.name === name));
-          // If any character is not found or not in the universe, exclude
-          return chars.every(c => c && universeIds.includes(c.universe_id));
-        });
-      }
-    }
+    // Theme filtering is applied at character-substitution time in QuizEngine.
+    // Keep signature for compatibility; theme param intentionally unused here.
+    void theme;
 
     return questions;
   }
 
-  /**
-   * Get a specific question by ID
-   */
   getQuestion(id) {
-    return this.data.questions.find(q => q.id === id);
+    return this.data.questions.find((q) => q.id === id);
   }
 
-  /**
-   * Get all characters, optionally filtered by universe
-   */
   getCharacters(universeId = null) {
-    if (universeId) {
-      return this.data.characters.filter(c => c.universe_id === universeId);
+    if (universeId && universeId !== 'all') {
+      const numericId = parseInt(universeId, 10);
+      if (!isNaN(numericId)) {
+        return this.data.characters.filter((c) => c.universe_id === numericId);
+      }
     }
     return this.data.characters;
   }
 
-  /**
-   * Get all universes
-   */
   getUniverses() {
     return this.data.universes;
   }
 
-  /**
-   * Get categories (dynamically from all questions)
-   */
-  async getCategories() {
-    // Ensure all questions are loaded first
-    if (this.data.questions.length === 0) {
-      await this.ensureDifficultyLoaded('all');
+  async getCategories(difficulty = 'all') {
+    if (this.data.mathMeta && Array.isArray(this.data.mathMeta.categories)) {
+      if (!difficulty || difficulty === 'all') {
+        return this.data.mathMeta.categories.slice().sort();
+      }
+      const match = (this.data.mathMeta.difficulties || []).find((d) => {
+        return d.key === String(difficulty).toLowerCase() || d.id === difficulty;
+      });
+      if (match && match.categories) return match.categories.slice().sort();
     }
-    
-    // Extract unique categories from all loaded questions
-    const categories = [...new Set(this.data.questions.map(q => q.category))];
-    return categories.sort();
+
+    if (difficulty && difficulty !== 'all') {
+      await this.ensureDifficultyLoaded(difficulty);
+      const target = String(difficulty).toLowerCase();
+      const cats = [
+        ...new Set(
+          this.data.questions
+            .filter((q) => String(q.difficulty || '').toLowerCase() === target)
+            .map((q) => q.category)
+        )
+      ];
+      return cats.sort();
+    }
+
+    await this.ensureDifficultyLoaded('all');
+    return [...new Set(this.data.questions.map((q) => q.category))].sort();
   }
 
-  /**
-   * Get difficulties (predefined list)
-   */
   getDifficulties() {
-    // Return PSLE-aligned difficulty levels
+    if (this.data.mathMeta && Array.isArray(this.data.mathMeta.difficulties)) {
+      return this.data.mathMeta.difficulties.map((d) => d.id);
+    }
     return ['P1-P2', 'P3-P4', 'P5-P6', 'Challenging', 'PSLE'];
   }
 
-  /**
-   * Save quiz session to localStorage
-   */
+  getMetaSummary() {
+    return this.data.mathMeta || null;
+  }
+
   saveSession(studentName, score, totalQuestions) {
     const session = {
       id: Date.now(),
@@ -219,13 +183,9 @@ class DataManager {
     sessions.push(session);
     localStorage.setItem('quiz_sessions', JSON.stringify(sessions));
     this.data.sessions = sessions;
-
     return session;
   }
 
-  /**
-   * Load sessions from localStorage
-   */
   loadSessions() {
     try {
       const stored = localStorage.getItem('quiz_sessions');
@@ -236,88 +196,51 @@ class DataManager {
     }
   }
 
-  /**
-   * Get all saved sessions
-   */
   getSessions() {
     return this.data.sessions;
   }
 
-  /**
-   * Clear all sessions from localStorage
-   */
   clearSessions() {
     localStorage.removeItem('quiz_sessions');
     this.data.sessions = [];
   }
 
-  /**
-   * Add or update a question (stored in localStorage, not persisted to server)
-   */
   addQuestion(question) {
-    // Generate ID if not provided
     if (!question.id) {
-      question.id = Math.max(...this.data.questions.map(q => q.id || 0), 0) + 1;
+      question.id = Math.max(...this.data.questions.map((q) => q.id || 0), 0) + 1;
     }
-
-    // Check if question exists
-    const index = this.data.questions.findIndex(q => q.id === question.id);
-    if (index >= 0) {
-      this.data.questions[index] = question;
-    } else {
-      this.data.questions.push(question);
-    }
-
-    // Save to localStorage
+    const index = this.data.questions.findIndex((q) => q.id === question.id);
+    if (index >= 0) this.data.questions[index] = question;
+    else this.data.questions.push(question);
     localStorage.setItem('custom_questions', JSON.stringify(this.data.questions));
     return question;
   }
 
-  /**
-   * Delete a question
-   */
   deleteQuestion(id) {
-    this.data.questions = this.data.questions.filter(q => q.id !== id);
+    this.data.questions = this.data.questions.filter((q) => q.id !== id);
     localStorage.setItem('custom_questions', JSON.stringify(this.data.questions));
   }
 
-  /**
-   * Add or update a character
-   */
   addCharacter(character) {
     if (!character.id) {
-      character.id = Math.max(...this.data.characters.map(c => c.id || 0), 0) + 1;
+      character.id = Math.max(...this.data.characters.map((c) => c.id || 0), 0) + 1;
     }
-
-    const index = this.data.characters.findIndex(c => c.id === character.id);
-    if (index >= 0) {
-      this.data.characters[index] = character;
-    } else {
-      this.data.characters.push(character);
-    }
-
+    const index = this.data.characters.findIndex((c) => c.id === character.id);
+    if (index >= 0) this.data.characters[index] = character;
+    else this.data.characters.push(character);
     localStorage.setItem('custom_characters', JSON.stringify(this.data.characters));
     return character;
   }
 
-  /**
-   * Delete a character
-   */
   deleteCharacter(id) {
-    this.data.characters = this.data.characters.filter(c => c.id !== id);
+    this.data.characters = this.data.characters.filter((c) => c.id !== id);
     localStorage.setItem('custom_characters', JSON.stringify(this.data.characters));
   }
 
-  /**
-   * Export data as JSON string (for backup)
-   */
   exportData() {
     return JSON.stringify(this.data, null, 2);
   }
 
-  /**
-   * Import data from JSON string
-   */
   importData(jsonString) {
     try {
       const imported = JSON.parse(jsonString);
@@ -332,5 +255,5 @@ class DataManager {
   }
 }
 
-// Create global instance
 const dataManager = new DataManager();
+window.dataManager = dataManager;

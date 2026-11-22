@@ -14,7 +14,8 @@
       "gone"
     ],
     "answer": 1,
-    "correct_answer": "goes"
+    "correct_answer": "goes",
+    "explanation": "The correct answer is goes. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG002",
@@ -31,7 +32,8 @@
       "have played"
     ],
     "answer": 2,
-    "correct_answer": "were playing"
+    "correct_answer": "were playing",
+    "explanation": "The correct answer is were playing. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG003",
@@ -48,7 +50,8 @@
       "has finished"
     ],
     "answer": 2,
-    "correct_answer": "finished"
+    "correct_answer": "finished",
+    "explanation": "The correct answer is finished. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG004",
@@ -65,7 +68,8 @@
       "have completed"
     ],
     "answer": 2,
-    "correct_answer": "had completed"
+    "correct_answer": "had completed",
+    "explanation": "The correct answer is had completed. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG005",
@@ -82,7 +86,8 @@
       "had studied"
     ],
     "answer": 2,
-    "correct_answer": "has been studying"
+    "correct_answer": "has been studying",
+    "explanation": "The correct answer is has been studying. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG006",
@@ -99,7 +104,8 @@
       "had rained"
     ],
     "answer": 1,
-    "correct_answer": "rains"
+    "correct_answer": "rains",
+    "explanation": "The correct answer is rains. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG007",
@@ -116,7 +122,8 @@
       "has been eaten"
     ],
     "answer": 2,
-    "correct_answer": "had been eaten"
+    "correct_answer": "had been eaten",
+    "explanation": "The correct answer is had been eaten. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG008",
@@ -133,7 +140,8 @@
       "had rained"
     ],
     "answer": 2,
-    "correct_answer": "is going to rain"
+    "correct_answer": "is going to rain",
+    "explanation": "The correct answer is is going to rain. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG009",
@@ -150,7 +158,8 @@
       "submitted"
     ],
     "answer": 1,
-    "correct_answer": "would submit"
+    "correct_answer": "would submit",
+    "explanation": "The correct answer is would submit. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG010",
@@ -167,7 +176,8 @@
       "were playing"
     ],
     "answer": 2,
-    "correct_answer": "had been playing"
+    "correct_answer": "had been playing",
+    "explanation": "The correct answer is had been playing. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG011",
@@ -184,7 +194,8 @@
       "had moved"
     ],
     "answer": 1,
-    "correct_answer": "moved"
+    "correct_answer": "moved",
+    "explanation": "The correct answer is moved. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG012",
@@ -201,7 +212,8 @@
       "had had"
     ],
     "answer": 2,
-    "correct_answer": "has had"
+    "correct_answer": "has had",
+    "explanation": "The correct answer is has had. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG013",
@@ -218,7 +230,8 @@
       "would have worked"
     ],
     "answer": 2,
-    "correct_answer": "will have worked"
+    "correct_answer": "will have worked",
+    "explanation": "The correct answer is will have worked. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG014",
@@ -235,7 +248,8 @@
       "are"
     ],
     "answer": 1,
-    "correct_answer": "were"
+    "correct_answer": "were",
+    "explanation": "The correct answer is were. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG015",
@@ -252,7 +266,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "was"
+    "correct_answer": "was",
+    "explanation": "The correct answer is was. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG016",
@@ -269,7 +284,8 @@
       "were having"
     ],
     "answer": 1,
-    "correct_answer": "has"
+    "correct_answer": "has",
+    "explanation": "The correct answer is has. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG017",
@@ -286,7 +302,8 @@
       "are"
     ],
     "answer": 1,
-    "correct_answer": "has"
+    "correct_answer": "has",
+    "explanation": "The correct answer is has. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG018",
@@ -303,7 +320,8 @@
       "has been"
     ],
     "answer": 1,
-    "correct_answer": "were"
+    "correct_answer": "were",
+    "explanation": "The correct answer is were. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG019",
@@ -320,7 +338,8 @@
       "have"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG020",
@@ -337,7 +356,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG021",
@@ -354,7 +374,8 @@
       "no article needed"
     ],
     "answer": 1,
-    "correct_answer": "an"
+    "correct_answer": "an",
+    "explanation": "The correct answer is an. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG022",
@@ -371,7 +392,8 @@
       "no article needed"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG023",
@@ -388,7 +410,8 @@
       "no article needed"
     ],
     "answer": 1,
-    "correct_answer": "an"
+    "correct_answer": "an",
+    "explanation": "The correct answer is an. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG024",
@@ -405,7 +428,8 @@
       "No article needed"
     ],
     "answer": 2,
-    "correct_answer": "The"
+    "correct_answer": "The",
+    "explanation": "The correct answer is The. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG025",
@@ -422,7 +446,8 @@
       "no article needed"
     ],
     "answer": 0,
-    "correct_answer": "a"
+    "correct_answer": "a",
+    "explanation": "The correct answer is a. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG026",
@@ -439,7 +464,8 @@
       "while"
     ],
     "answer": 1,
-    "correct_answer": "for"
+    "correct_answer": "for",
+    "explanation": "The correct answer is for. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG027",
@@ -456,7 +482,8 @@
       "between"
     ],
     "answer": 2,
-    "correct_answer": "over"
+    "correct_answer": "over",
+    "explanation": "The correct answer is over. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG028",
@@ -473,7 +500,8 @@
       "from"
     ],
     "answer": 1,
-    "correct_answer": "since"
+    "correct_answer": "since",
+    "explanation": "The correct answer is since. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG029",
@@ -490,7 +518,8 @@
       "above"
     ],
     "answer": 2,
-    "correct_answer": "on"
+    "correct_answer": "on",
+    "explanation": "The correct answer is on. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG030",
@@ -507,7 +536,8 @@
       "with"
     ],
     "answer": 2,
-    "correct_answer": "of"
+    "correct_answer": "of",
+    "explanation": "The correct answer is of. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG031",
@@ -524,7 +554,8 @@
       "to"
     ],
     "answer": 2,
-    "correct_answer": "at"
+    "correct_answer": "at",
+    "explanation": "The correct answer is at. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG032",
@@ -541,7 +572,8 @@
       "and"
     ],
     "answer": 1,
-    "correct_answer": "but"
+    "correct_answer": "but",
+    "explanation": "The correct answer is but. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG033",
@@ -558,7 +590,8 @@
       "Since"
     ],
     "answer": 1,
-    "correct_answer": "Although"
+    "correct_answer": "Although",
+    "explanation": "The correct answer is Although. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG034",
@@ -575,7 +608,8 @@
       "after"
     ],
     "answer": 1,
-    "correct_answer": "until"
+    "correct_answer": "until",
+    "explanation": "The correct answer is until. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG035",
@@ -592,7 +626,8 @@
       "however"
     ],
     "answer": 2,
-    "correct_answer": "because"
+    "correct_answer": "because",
+    "explanation": "The correct answer is because. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG036",
@@ -609,7 +644,8 @@
       "As"
     ],
     "answer": 2,
-    "correct_answer": "Even though"
+    "correct_answer": "Even though",
+    "explanation": "The correct answer is Even though. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG037",
@@ -626,7 +662,8 @@
       "mine"
     ],
     "answer": 1,
-    "correct_answer": "me"
+    "correct_answer": "me",
+    "explanation": "The correct answer is me. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG038",
@@ -643,7 +680,8 @@
       "{HIMSELF_HERSELF_0}"
     ],
     "answer": 2,
-    "correct_answer": "hers"
+    "correct_answer": "hers",
+    "explanation": "The correct answer is {HIS_HERS_0}. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG039",
@@ -660,7 +698,8 @@
       "mine"
     ],
     "answer": 1,
-    "correct_answer": "me"
+    "correct_answer": "me",
+    "explanation": "The correct answer is me. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG040",
@@ -677,7 +716,8 @@
       "them"
     ],
     "answer": 1,
-    "correct_answer": "their"
+    "correct_answer": "their",
+    "explanation": "The correct answer is their. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG041",
@@ -694,7 +734,8 @@
       "themselves"
     ],
     "answer": 3,
-    "correct_answer": "themselves"
+    "correct_answer": "themselves",
+    "explanation": "The correct answer is themselves. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG042",
@@ -711,7 +752,8 @@
       "beautified"
     ],
     "answer": 1,
-    "correct_answer": "beautifully"
+    "correct_answer": "beautifully",
+    "explanation": "The correct answer is beautifully. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG043",
@@ -728,7 +770,8 @@
       "most tall"
     ],
     "answer": 2,
-    "correct_answer": "tallest"
+    "correct_answer": "tallest",
+    "explanation": "The correct answer is tallest. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG044",
@@ -745,7 +788,8 @@
       "many"
     ],
     "answer": 0,
-    "correct_answer": "more"
+    "correct_answer": "more",
+    "explanation": "The correct answer is more. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG045",
@@ -762,7 +806,8 @@
       "better than"
     ],
     "answer": 1,
-    "correct_answer": "well"
+    "correct_answer": "well",
+    "explanation": "The correct answer is well. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG046",
@@ -779,7 +824,8 @@
       "most quickly"
     ],
     "answer": 2,
-    "correct_answer": "more quickly"
+    "correct_answer": "more quickly",
+    "explanation": "The correct answer is more quickly. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG047",
@@ -796,7 +842,8 @@
       "{CHARACTER_0} said {HE_SHE_0} feels sick that day."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} was feeling sick that day."
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} was feeling sick that day.",
+    "explanation": "The correct answer is {CHARACTER_0} said that {HE_SHE_0} was feeling sick that day.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG048",
@@ -813,7 +860,8 @@
       "{HE_SHE_CAP_0} asked that I had finished my homework."
     ],
     "answer": 2,
-    "correct_answer": "{HE_SHE_CAP_0} asked if I had finished my homework."
+    "correct_answer": "{HE_SHE_CAP_0} asked if I had finished my homework.",
+    "explanation": "The correct answer is {HE_SHE_CAP_0} asked if I had finished my homework.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG049",
@@ -830,7 +878,8 @@
       "The teacher told the students that they should submit tomorrow."
     ],
     "answer": 0,
-    "correct_answer": "The teacher told the students to submit their work the next day."
+    "correct_answer": "The teacher told the students to submit their work the next day.",
+    "explanation": "The correct answer is The teacher told the students to submit their work the next day.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG050",
@@ -847,7 +896,8 @@
       "{CHARACTER_0} shouted and told run away from fire."
     ],
     "answer": 0,
-    "correct_answer": "{CHARACTER_0} shouted to run as the fire was spreading."
+    "correct_answer": "{CHARACTER_0} shouted to run as the fire was spreading.",
+    "explanation": "The correct answer is {CHARACTER_0} shouted to run as the fire was spreading.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG051",
@@ -864,7 +914,8 @@
       "{CHARACTER_0} was breaking the window."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} broke the window."
+    "correct_answer": "{CHARACTER_0} broke the window.",
+    "explanation": "The correct answer is {CHARACTER_0} broke the window.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG052",
@@ -881,7 +932,8 @@
       "The winning essay wrote by {CHARACTER_0}."
     ],
     "answer": 0,
-    "correct_answer": "The winning essay was written by {CHARACTER_0}."
+    "correct_answer": "The winning essay was written by {CHARACTER_0}.",
+    "explanation": "The correct answer is The winning essay was written by {CHARACTER_0}.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG053",
@@ -898,7 +950,8 @@
       "An experiment has been conducted by the scientist."
     ],
     "answer": 2,
-    "correct_answer": "An experiment is being conducted by the scientist."
+    "correct_answer": "An experiment is being conducted by the scientist.",
+    "explanation": "The correct answer is An experiment is being conducted by the scientist.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG054",
@@ -915,7 +968,8 @@
       "tired"
     ],
     "answer": 2,
-    "correct_answer": "joyful"
+    "correct_answer": "joyful",
+    "explanation": "The correct answer is joyful. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG055",
@@ -932,7 +986,8 @@
       "careless"
     ],
     "answer": 1,
-    "correct_answer": "courageous"
+    "correct_answer": "courageous",
+    "explanation": "The correct answer is courageous. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG056",
@@ -949,7 +1004,8 @@
       "playful"
     ],
     "answer": 2,
-    "correct_answer": "hardworking"
+    "correct_answer": "hardworking",
+    "explanation": "The correct answer is hardworking. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG057",
@@ -966,7 +1022,8 @@
       "narrow"
     ],
     "answer": 1,
-    "correct_answer": "gigantic"
+    "correct_answer": "gigantic",
+    "explanation": "The correct answer is gigantic. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG058",
@@ -983,7 +1040,8 @@
       "noisy"
     ],
     "answer": 1,
-    "correct_answer": "precise"
+    "correct_answer": "precise",
+    "explanation": "The correct answer is precise. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG059",
@@ -1000,7 +1058,8 @@
       "extravagant"
     ],
     "answer": 2,
-    "correct_answer": "thrifty"
+    "correct_answer": "thrifty",
+    "explanation": "The correct answer is thrifty. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG060",
@@ -1017,7 +1076,8 @@
       "recent"
     ],
     "answer": 2,
-    "correct_answer": "age-old"
+    "correct_answer": "age-old",
+    "explanation": "The correct answer is age-old. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG061",
@@ -1034,7 +1094,8 @@
       "careless"
     ],
     "answer": 1,
-    "correct_answer": "persistent"
+    "correct_answer": "persistent",
+    "explanation": "The correct answer is persistent. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG062",
@@ -1051,7 +1112,8 @@
       "shy"
     ],
     "answer": 1,
-    "correct_answer": "noisy"
+    "correct_answer": "noisy",
+    "explanation": "The correct answer is noisy. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG063",
@@ -1068,7 +1130,8 @@
       "tricky"
     ],
     "answer": 2,
-    "correct_answer": "easy"
+    "correct_answer": "easy",
+    "explanation": "The correct answer is easy. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG064",
@@ -1085,7 +1148,8 @@
       "caring"
     ],
     "answer": 2,
-    "correct_answer": "stingy"
+    "correct_answer": "stingy",
+    "explanation": "The correct answer is stingy. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG065",
@@ -1102,7 +1166,8 @@
       "open"
     ],
     "answer": 1,
-    "correct_answer": "opaque"
+    "correct_answer": "opaque",
+    "explanation": "The correct answer is opaque. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG066",
@@ -1119,7 +1184,8 @@
       "contract"
     ],
     "answer": 3,
-    "correct_answer": "contract"
+    "correct_answer": "contract",
+    "explanation": "The correct answer is contract. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG067",
@@ -1136,7 +1202,8 @@
       "minor"
     ],
     "answer": 2,
-    "correct_answer": "thorough"
+    "correct_answer": "thorough",
+    "explanation": "The correct answer is thorough. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG068",
@@ -1153,7 +1220,8 @@
       "pessimistic"
     ],
     "answer": 3,
-    "correct_answer": "pessimistic"
+    "correct_answer": "pessimistic",
+    "explanation": "The correct answer is pessimistic. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG069",
@@ -1170,7 +1238,8 @@
       "doubtful"
     ],
     "answer": 2,
-    "correct_answer": "eager"
+    "correct_answer": "eager",
+    "explanation": "The correct answer is eager. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG070",
@@ -1187,7 +1256,8 @@
       "bold"
     ],
     "answer": 2,
-    "correct_answer": "cautious"
+    "correct_answer": "cautious",
+    "explanation": "The correct answer is cautious. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG071",
@@ -1204,7 +1274,8 @@
       "cheerful"
     ],
     "answer": 1,
-    "correct_answer": "exhausted"
+    "correct_answer": "exhausted",
+    "explanation": "The correct answer is exhausted. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG072",
@@ -1221,7 +1292,8 @@
       "trembled"
     ],
     "answer": 2,
-    "correct_answer": "roared"
+    "correct_answer": "roared",
+    "explanation": "The correct answer is roared. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG073",
@@ -1238,7 +1310,8 @@
       "confusing"
     ],
     "answer": 2,
-    "correct_answer": "poignant"
+    "correct_answer": "poignant",
+    "explanation": "The correct answer is poignant. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG074",
@@ -1255,7 +1328,8 @@
       "groundbreaking"
     ],
     "answer": 3,
-    "correct_answer": "groundbreaking"
+    "correct_answer": "groundbreaking",
+    "explanation": "The correct answer is groundbreaking. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG075",
@@ -1272,7 +1346,8 @@
       "passionate"
     ],
     "answer": 2,
-    "correct_answer": "nonchalant"
+    "correct_answer": "nonchalant",
+    "explanation": "The correct answer is nonchalant. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG076",
@@ -1289,7 +1364,8 @@
       "renovated"
     ],
     "answer": 2,
-    "correct_answer": "dilapidated"
+    "correct_answer": "dilapidated",
+    "explanation": "The correct answer is dilapidated. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG077",
@@ -1306,7 +1382,8 @@
       "disruptive"
     ],
     "answer": 1,
-    "correct_answer": "exemplary"
+    "correct_answer": "exemplary",
+    "explanation": "The correct answer is exemplary. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG078",
@@ -1323,7 +1400,8 @@
       "indifferent"
     ],
     "answer": 2,
-    "correct_answer": "anxious"
+    "correct_answer": "anxious",
+    "explanation": "The correct answer is anxious. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG079",
@@ -1340,7 +1418,8 @@
       "confident"
     ],
     "answer": 1,
-    "correct_answer": "reserved"
+    "correct_answer": "reserved",
+    "explanation": "The correct answer is reserved. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG080",
@@ -1357,7 +1436,8 @@
       "brief"
     ],
     "answer": 2,
-    "correct_answer": "comprehensive"
+    "correct_answer": "comprehensive",
+    "explanation": "The correct answer is comprehensive. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG081",
@@ -1374,7 +1454,8 @@
       "put on"
     ],
     "answer": 0,
-    "correct_answer": "put off"
+    "correct_answer": "put off",
+    "explanation": "The correct answer is put off. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG082",
@@ -1391,7 +1472,8 @@
       "put in"
     ],
     "answer": 2,
-    "correct_answer": "put out"
+    "correct_answer": "put out",
+    "explanation": "The correct answer is put out. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG083",
@@ -1408,7 +1490,8 @@
       "call in"
     ],
     "answer": 2,
-    "correct_answer": "call off"
+    "correct_answer": "call off",
+    "explanation": "The correct answer is call off. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG084",
@@ -1425,7 +1508,8 @@
       "look over"
     ],
     "answer": 1,
-    "correct_answer": "look up"
+    "correct_answer": "look up",
+    "explanation": "The correct answer is look up. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG085",
@@ -1442,7 +1526,8 @@
       "looks into"
     ],
     "answer": 1,
-    "correct_answer": "looks up to"
+    "correct_answer": "looks up to",
+    "explanation": "The correct answer is looks up to. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG086",
@@ -1459,7 +1544,8 @@
       "takes effect"
     ],
     "answer": 3,
-    "correct_answer": "takes effect"
+    "correct_answer": "takes effect",
+    "explanation": "The correct answer is takes effect. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG087",
@@ -1476,7 +1562,8 @@
       "go back"
     ],
     "answer": 0,
-    "correct_answer": "go over"
+    "correct_answer": "go over",
+    "explanation": "The correct answer is go over. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG088",
@@ -1493,7 +1580,8 @@
       "The weather is unpredictable."
     ],
     "answer": 1,
-    "correct_answer": "It is raining very heavily."
+    "correct_answer": "It is raining very heavily.",
+    "explanation": "The correct answer is It is raining very heavily.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG089",
@@ -1510,7 +1598,8 @@
       "{CHARACTER_0} is afraid of the dark."
     ],
     "answer": 2,
-    "correct_answer": "{CHARACTER_0} studies or works late into the night."
+    "correct_answer": "{CHARACTER_0} studies or works late into the night.",
+    "explanation": "The correct answer is {CHARACTER_0} studies or works late into the night.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG090",
@@ -1527,7 +1616,8 @@
       "He confused everyone with his story."
     ],
     "answer": 1,
-    "correct_answer": "He accidentally revealed a secret."
+    "correct_answer": "He accidentally revealed a secret.",
+    "explanation": "The correct answer is He accidentally revealed a secret.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG091",
@@ -1544,7 +1634,8 @@
       "The project was expensive."
     ],
     "answer": 2,
-    "correct_answer": "The project was very easy."
+    "correct_answer": "The project was very easy.",
+    "explanation": "The correct answer is The project was very easy.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG092",
@@ -1561,7 +1652,8 @@
       "{HE_SHE_CAP_0} is very proud of {HIS_HER_0} achievements."
     ],
     "answer": 2,
-    "correct_answer": "{HE_SHE_CAP_0} feels resentful or bitter about something."
+    "correct_answer": "{HE_SHE_CAP_0} feels resentful or bitter about something.",
+    "explanation": "The correct answer is {HE_SHE_CAP_0} feels resentful or bitter about something.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG093",
@@ -1578,7 +1670,8 @@
       "Stop wasting time doing unnecessary things."
     ],
     "answer": 1,
-    "correct_answer": "Come straight to the point without hesitating."
+    "correct_answer": "Come straight to the point without hesitating.",
+    "explanation": "The correct answer is Come straight to the point without hesitating.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG094",
@@ -1595,7 +1688,8 @@
       "I like apples oranges, and, bananas."
     ],
     "answer": 1,
-    "correct_answer": "I like apples, oranges, and bananas."
+    "correct_answer": "I like apples, oranges, and bananas.",
+    "explanation": "The correct answer is I like apples, oranges, and bananas.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG095",
@@ -1612,7 +1706,8 @@
       "\"Where are you going\" asked the teacher?"
     ],
     "answer": 1,
-    "correct_answer": "\"Where are you going?\" asked the teacher."
+    "correct_answer": "\"Where are you going?\" asked the teacher.",
+    "explanation": "The correct answer is \"Where are you going?\" asked the teacher.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG096",
@@ -1629,7 +1724,8 @@
       "The dog's' bone was buried under the tree."
     ],
     "answer": 1,
-    "correct_answer": "The dog's bone was buried under the tree."
+    "correct_answer": "The dog's bone was buried under the tree.",
+    "explanation": "The correct answer is The dog's bone was buried under the tree.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG097",
@@ -1646,7 +1742,8 @@
       "She loves reading; but painting too."
     ],
     "answer": 1,
-    "correct_answer": "She loves reading; she also enjoys painting."
+    "correct_answer": "She loves reading; she also enjoys painting.",
+    "explanation": "The correct answer is She loves reading; she also enjoys painting.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG098",
@@ -1663,7 +1760,8 @@
       "However she, refused to give up despite, the setbacks."
     ],
     "answer": 1,
-    "correct_answer": "However, she refused to give up, despite the setbacks."
+    "correct_answer": "However, she refused to give up, despite the setbacks.",
+    "explanation": "The correct answer is However, she refused to give up, despite the setbacks.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG099",
@@ -1680,7 +1778,8 @@
       "leaves"
     ],
     "answer": 2,
-    "correct_answer": "had left"
+    "correct_answer": "had left",
+    "explanation": "The correct answer is had left. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG100",
@@ -1697,7 +1796,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG101",
@@ -1714,7 +1814,8 @@
       "content"
     ],
     "answer": 2,
-    "correct_answer": "sorrowful"
+    "correct_answer": "sorrowful",
+    "explanation": "The correct answer is sorrowful. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG102",
@@ -1731,7 +1832,8 @@
       "unless"
     ],
     "answer": 2,
-    "correct_answer": "in case"
+    "correct_answer": "in case",
+    "explanation": "The correct answer is in case. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG103",
@@ -1748,7 +1850,8 @@
       "about"
     ],
     "answer": 2,
-    "correct_answer": "to"
+    "correct_answer": "to",
+    "explanation": "The correct answer is to. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG104",
@@ -1765,7 +1868,8 @@
       "void"
     ],
     "answer": 3,
-    "correct_answer": "void"
+    "correct_answer": "void",
+    "explanation": "The correct answer is void. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG105",
@@ -1782,7 +1886,8 @@
       "haughty"
     ],
     "answer": 2,
-    "correct_answer": "humble"
+    "correct_answer": "humble",
+    "explanation": "The correct answer is humble. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG106",
@@ -1799,7 +1904,8 @@
       "had played"
     ],
     "answer": 2,
-    "correct_answer": "has been playing"
+    "correct_answer": "has been playing",
+    "explanation": "The correct answer is has been playing. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG107",
@@ -1816,7 +1922,8 @@
       "fill for"
     ],
     "answer": 2,
-    "correct_answer": "fill out"
+    "correct_answer": "fill out",
+    "explanation": "The correct answer is fill out. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG108",
@@ -1833,7 +1940,8 @@
       "no article needed"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG109",
@@ -1850,7 +1958,8 @@
       "She has been working outdoors."
     ],
     "answer": 1,
-    "correct_answer": "She has been feeling unwell."
+    "correct_answer": "She has been feeling unwell.",
+    "explanation": "The correct answer is She has been feeling unwell.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG110",
@@ -1867,7 +1976,8 @@
       "play"
     ],
     "answer": 0,
-    "correct_answer": "playful"
+    "correct_answer": "playful",
+    "explanation": "The correct answer is playful. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG111",
@@ -1884,7 +1994,8 @@
       "hesitant"
     ],
     "answer": 1,
-    "correct_answer": "articulate"
+    "correct_answer": "articulate",
+    "explanation": "The correct answer is articulate. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG112",
@@ -1901,7 +2012,8 @@
       "our"
     ],
     "answer": 1,
-    "correct_answer": "his"
+    "correct_answer": "his",
+    "explanation": "The correct answer is his. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG113",
@@ -1918,7 +2030,8 @@
       "relaxed"
     ],
     "answer": 2,
-    "correct_answer": "rigorous"
+    "correct_answer": "rigorous",
+    "explanation": "The correct answer is rigorous. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG114",
@@ -1935,7 +2048,8 @@
       "The doctor advised I should rest for at least one week."
     ],
     "answer": 1,
-    "correct_answer": "The doctor advised me to rest for at least a week."
+    "correct_answer": "The doctor advised me to rest for at least a week.",
+    "explanation": "The correct answer is The doctor advised me to rest for at least a week.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG115",
@@ -1952,7 +2066,8 @@
       "sufficient"
     ],
     "answer": 1,
-    "correct_answer": "scarce"
+    "correct_answer": "scarce",
+    "explanation": "The correct answer is scarce. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG116",
@@ -1969,7 +2084,8 @@
       "was preparing"
     ],
     "answer": 2,
-    "correct_answer": "had prepared"
+    "correct_answer": "had prepared",
+    "explanation": "The correct answer is had prepared. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG117",
@@ -1986,7 +2102,8 @@
       "were played"
     ],
     "answer": 2,
-    "correct_answer": "had been playing"
+    "correct_answer": "had been playing",
+    "explanation": "The correct answer is had been playing. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG118",
@@ -2003,7 +2120,8 @@
       "was reading"
     ],
     "answer": 2,
-    "correct_answer": "had read"
+    "correct_answer": "had read",
+    "explanation": "The correct answer is had read. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG119",
@@ -2020,7 +2138,8 @@
       "had lived"
     ],
     "answer": 2,
-    "correct_answer": "has lived"
+    "correct_answer": "has lived",
+    "explanation": "The correct answer is has lived. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG120",
@@ -2037,7 +2156,8 @@
       "have been"
     ],
     "answer": 1,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG121",
@@ -2054,7 +2174,8 @@
       "has been"
     ],
     "answer": 1,
-    "correct_answer": "were"
+    "correct_answer": "were",
+    "explanation": "The correct answer is were. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG122",
@@ -2071,7 +2192,8 @@
       "was"
     ],
     "answer": 3,
-    "correct_answer": "was"
+    "correct_answer": "was",
+    "explanation": "The correct answer is was. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG123",
@@ -2088,7 +2210,8 @@
       "had written"
     ],
     "answer": 2,
-    "correct_answer": "was written"
+    "correct_answer": "was written",
+    "explanation": "The correct answer is was written. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG124",
@@ -2105,7 +2228,8 @@
       "had rescued"
     ],
     "answer": 2,
-    "correct_answer": "was rescued"
+    "correct_answer": "was rescued",
+    "explanation": "The correct answer is was rescued. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG125",
@@ -2122,7 +2246,8 @@
       "is building"
     ],
     "answer": 2,
-    "correct_answer": "will be built"
+    "correct_answer": "will be built",
+    "explanation": "The correct answer is will be built. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG126",
@@ -2139,7 +2264,8 @@
       "was made"
     ],
     "answer": 3,
-    "correct_answer": "was made"
+    "correct_answer": "was made",
+    "explanation": "The correct answer is was made. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG127",
@@ -2156,7 +2282,8 @@
       "had finished"
     ],
     "answer": 1,
-    "correct_answer": "would finish"
+    "correct_answer": "would finish",
+    "explanation": "The correct answer is would finish. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG128",
@@ -2173,7 +2300,8 @@
       "submitted"
     ],
     "answer": 1,
-    "correct_answer": "to submit"
+    "correct_answer": "to submit",
+    "explanation": "The correct answer is to submit. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG129",
@@ -2190,7 +2318,8 @@
       "what"
     ],
     "answer": 0,
-    "correct_answer": "if"
+    "correct_answer": "if",
+    "explanation": "The correct answer is if. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG130",
@@ -2207,7 +2336,8 @@
       "No article needed"
     ],
     "answer": 2,
-    "correct_answer": "The"
+    "correct_answer": "The",
+    "explanation": "The correct answer is The. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG131",
@@ -2224,7 +2354,8 @@
       "no article needed"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG132",
@@ -2241,7 +2372,8 @@
       "despite"
     ],
     "answer": 1,
-    "correct_answer": "so that"
+    "correct_answer": "so that",
+    "explanation": "The correct answer is so that. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG133",
@@ -2258,7 +2390,8 @@
       "although"
     ],
     "answer": 1,
-    "correct_answer": "unless"
+    "correct_answer": "unless",
+    "explanation": "The correct answer is unless. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG134",
@@ -2275,7 +2408,8 @@
       "because"
     ],
     "answer": 1,
-    "correct_answer": "however"
+    "correct_answer": "however",
+    "explanation": "The correct answer is however. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG135",
@@ -2292,7 +2426,8 @@
       "most fast"
     ],
     "answer": 2,
-    "correct_answer": "the fastest"
+    "correct_answer": "the fastest",
+    "explanation": "The correct answer is the fastest. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG136",
@@ -2309,7 +2444,8 @@
       "quite"
     ],
     "answer": 0,
-    "correct_answer": "far"
+    "correct_answer": "far",
+    "explanation": "The correct answer is far. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG137",
@@ -2326,7 +2462,8 @@
       "arrange"
     ],
     "answer": 1,
-    "correct_answer": "examine"
+    "correct_answer": "examine",
+    "explanation": "The correct answer is examine. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG138",
@@ -2343,7 +2480,8 @@
       "hidden"
     ],
     "answer": 1,
-    "correct_answer": "plentiful"
+    "correct_answer": "plentiful",
+    "explanation": "The correct answer is plentiful. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG139",
@@ -2360,7 +2498,8 @@
       "cancel"
     ],
     "answer": 2,
-    "correct_answer": "begin"
+    "correct_answer": "begin",
+    "explanation": "The correct answer is begin. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG140",
@@ -2377,7 +2516,8 @@
       "angry"
     ],
     "answer": 1,
-    "correct_answer": "willing"
+    "correct_answer": "willing",
+    "explanation": "The correct answer is willing. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG141",
@@ -2394,7 +2534,8 @@
       "colourful"
     ],
     "answer": 2,
-    "correct_answer": "opaque"
+    "correct_answer": "opaque",
+    "explanation": "The correct answer is opaque. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG142",
@@ -2411,7 +2552,8 @@
       "to light candles"
     ],
     "answer": 1,
-    "correct_answer": "to work or study late into the night"
+    "correct_answer": "to work or study late into the night",
+    "explanation": "The correct answer is to work or study late into the night. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG143",
@@ -2428,7 +2570,8 @@
       "to warm up a room"
     ],
     "answer": 1,
-    "correct_answer": "to make a bad situation worse"
+    "correct_answer": "to make a bad situation worse",
+    "explanation": "The correct answer is to make a bad situation worse. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG144",
@@ -2445,7 +2588,8 @@
       "give"
     ],
     "answer": 1,
-    "correct_answer": "put"
+    "correct_answer": "put",
+    "explanation": "The correct answer is put. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG145",
@@ -2462,7 +2606,8 @@
       "come"
     ],
     "answer": 1,
-    "correct_answer": "put"
+    "correct_answer": "put",
+    "explanation": "The correct answer is put. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG146",
@@ -2479,7 +2624,8 @@
       "minimal"
     ],
     "answer": 1,
-    "correct_answer": "rigorous"
+    "correct_answer": "rigorous",
+    "explanation": "The correct answer is rigorous. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG147",
@@ -2496,7 +2642,8 @@
       "confusing"
     ],
     "answer": 2,
-    "correct_answer": "groundbreaking"
+    "correct_answer": "groundbreaking",
+    "explanation": "The correct answer is groundbreaking. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG148",
@@ -2513,7 +2660,8 @@
       "lengthy"
     ],
     "answer": 1,
-    "correct_answer": "straightforward"
+    "correct_answer": "straightforward",
+    "explanation": "The correct answer is straightforward. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG149",
@@ -2530,7 +2678,8 @@
       "Its, a beautiful day today."
     ],
     "answer": 2,
-    "correct_answer": "It's a beautiful day today."
+    "correct_answer": "It's a beautiful day today.",
+    "explanation": "The correct answer is It's a beautiful day today.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG150",
@@ -2547,7 +2696,8 @@
       "\"I am tired.\" she said."
     ],
     "answer": 1,
-    "correct_answer": "\"I am tired,\" she said."
+    "correct_answer": "\"I am tired,\" she said.",
+    "explanation": "The correct answer is \"I am tired,\" she said.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG151",
@@ -2564,7 +2714,8 @@
       "have treated"
     ],
     "answer": 2,
-    "correct_answer": "had been treating"
+    "correct_answer": "had been treating",
+    "explanation": "The correct answer is had been treating. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG152",
@@ -2581,7 +2732,8 @@
       "left"
     ],
     "answer": 1,
-    "correct_answer": "will have left"
+    "correct_answer": "will have left",
+    "explanation": "The correct answer is will have left. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG153",
@@ -2598,7 +2750,8 @@
       "studies"
     ],
     "answer": 1,
-    "correct_answer": "had studied"
+    "correct_answer": "had studied",
+    "explanation": "The correct answer is had studied. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG154",
@@ -2615,7 +2768,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG155",
@@ -2632,7 +2786,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG156",
@@ -2649,7 +2804,8 @@
       "were"
     ],
     "answer": 2,
-    "correct_answer": "has"
+    "correct_answer": "has",
+    "explanation": "The correct answer is has. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG157",
@@ -2666,7 +2822,8 @@
       "The use of plastic bags had been banned by the authorities."
     ],
     "answer": 0,
-    "correct_answer": "The use of plastic bags has been banned by the authorities."
+    "correct_answer": "The use of plastic bags has been banned by the authorities.",
+    "explanation": "The correct answer is The use of plastic bags has been banned by the authorities.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG158",
@@ -2683,7 +2840,8 @@
       "were"
     ],
     "answer": 0,
-    "correct_answer": "was"
+    "correct_answer": "was",
+    "explanation": "The correct answer is was. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG159",
@@ -2700,7 +2858,8 @@
       "very"
     ],
     "answer": 0,
-    "correct_answer": "such"
+    "correct_answer": "such",
+    "explanation": "The correct answer is such. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG160",
@@ -2717,7 +2876,8 @@
       "trained"
     ],
     "answer": 1,
-    "correct_answer": "to train"
+    "correct_answer": "to train",
+    "explanation": "The correct answer is to train. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG161",
@@ -2734,7 +2894,8 @@
       "mine"
     ],
     "answer": 1,
-    "correct_answer": "me"
+    "correct_answer": "me",
+    "explanation": "The correct answer is me. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG162",
@@ -2751,7 +2912,8 @@
       "Neither"
     ],
     "answer": 2,
-    "correct_answer": "Either"
+    "correct_answer": "Either",
+    "explanation": "The correct answer is Either. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG163",
@@ -2768,7 +2930,8 @@
       "no article needed"
     ],
     "answer": 1,
-    "correct_answer": "an"
+    "correct_answer": "an",
+    "explanation": "The correct answer is an. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG164",
@@ -2785,7 +2948,8 @@
       "no article needed"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG165",
@@ -2802,7 +2966,8 @@
       "As"
     ],
     "answer": 2,
-    "correct_answer": "Although"
+    "correct_answer": "Although",
+    "explanation": "The correct answer is Although. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG166",
@@ -2819,7 +2984,8 @@
       "even though"
     ],
     "answer": 0,
-    "correct_answer": "because of"
+    "correct_answer": "because of",
+    "explanation": "The correct answer is because of. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG167",
@@ -2836,7 +3002,8 @@
       "by"
     ],
     "answer": 2,
-    "correct_answer": "in"
+    "correct_answer": "in",
+    "explanation": "The correct answer is in. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG168",
@@ -2853,7 +3020,8 @@
       "by"
     ],
     "answer": 2,
-    "correct_answer": "in"
+    "correct_answer": "in",
+    "explanation": "The correct answer is in. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG169",
@@ -2870,7 +3038,8 @@
       "excepted"
     ],
     "answer": 1,
-    "correct_answer": "exceptionally"
+    "correct_answer": "exceptionally",
+    "explanation": "The correct answer is exceptionally. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG170",
@@ -2887,7 +3056,8 @@
       "study"
     ],
     "answer": 2,
-    "correct_answer": "studious"
+    "correct_answer": "studious",
+    "explanation": "The correct answer is studious. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG171",
@@ -2904,7 +3074,8 @@
       "She was; tired, she kept going."
     ],
     "answer": 1,
-    "correct_answer": "She was tired; she kept going."
+    "correct_answer": "She was tired; she kept going.",
+    "explanation": "The correct answer is She was tired; she kept going.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG172",
@@ -2921,7 +3092,8 @@
       "timid"
     ],
     "answer": 1,
-    "correct_answer": "persistent"
+    "correct_answer": "persistent",
+    "explanation": "The correct answer is persistent. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG173",
@@ -2938,7 +3110,8 @@
       "simple"
     ],
     "answer": 2,
-    "correct_answer": "thorough"
+    "correct_answer": "thorough",
+    "explanation": "The correct answer is thorough. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG174",
@@ -2955,7 +3128,8 @@
       "shrewd"
     ],
     "answer": 3,
-    "correct_answer": "shrewd"
+    "correct_answer": "shrewd",
+    "explanation": "The correct answer is shrewd. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG175",
@@ -2972,7 +3146,8 @@
       "simple"
     ],
     "answer": 1,
-    "correct_answer": "extravagant"
+    "correct_answer": "extravagant",
+    "explanation": "The correct answer is extravagant. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG176",
@@ -2989,7 +3164,8 @@
       "complex"
     ],
     "answer": 2,
-    "correct_answer": "clear"
+    "correct_answer": "clear",
+    "explanation": "The correct answer is clear. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG177",
@@ -3006,7 +3182,8 @@
       "patient"
     ],
     "answer": 2,
-    "correct_answer": "malevolent"
+    "correct_answer": "malevolent",
+    "explanation": "The correct answer is malevolent. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG178",
@@ -3023,7 +3200,8 @@
       "the situation is out of control"
     ],
     "answer": 1,
-    "correct_answer": "it is your turn to take action or make a decision"
+    "correct_answer": "it is your turn to take action or make a decision",
+    "explanation": "The correct answer is it is your turn to take action or make a decision. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG179",
@@ -3040,7 +3218,8 @@
       "a surprise party"
     ],
     "answer": 1,
-    "correct_answer": "something that seems bad at first but turns out to be good"
+    "correct_answer": "something that seems bad at first but turns out to be good",
+    "explanation": "The correct answer is something that seems bad at first but turns out to be good. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG180",
@@ -3057,7 +3236,8 @@
       "to be very hungry"
     ],
     "answer": 1,
-    "correct_answer": "to take on more responsibility than you can handle"
+    "correct_answer": "to take on more responsibility than you can handle",
+    "explanation": "The correct answer is to take on more responsibility than you can handle. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG181",
@@ -3074,7 +3254,8 @@
       "put up"
     ],
     "answer": 0,
-    "correct_answer": "come into"
+    "correct_answer": "come into",
+    "explanation": "The correct answer is come into. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG182",
@@ -3091,7 +3272,8 @@
       "give"
     ],
     "answer": 1,
-    "correct_answer": "pull"
+    "correct_answer": "pull",
+    "explanation": "The correct answer is pull. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG183",
@@ -3108,7 +3290,8 @@
       "bring"
     ],
     "answer": 0,
-    "correct_answer": "step"
+    "correct_answer": "step",
+    "explanation": "The correct answer is step. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG184",
@@ -3125,7 +3308,8 @@
       "indifferent"
     ],
     "answer": 2,
-    "correct_answer": "tactful"
+    "correct_answer": "tactful",
+    "explanation": "The correct answer is tactful. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG185",
@@ -3142,7 +3326,8 @@
       "investigative"
     ],
     "answer": 3,
-    "correct_answer": "investigative"
+    "correct_answer": "investigative",
+    "explanation": "The correct answer is investigative. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG186",
@@ -3159,7 +3344,8 @@
       "repair"
     ],
     "answer": 3,
-    "correct_answer": "repair"
+    "correct_answer": "repair",
+    "explanation": "The correct answer is repair. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG187",
@@ -3176,7 +3362,8 @@
       "reluctant"
     ],
     "answer": 1,
-    "correct_answer": "unwavering"
+    "correct_answer": "unwavering",
+    "explanation": "The correct answer is unwavering. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG188",
@@ -3193,7 +3380,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "was"
+    "correct_answer": "was",
+    "explanation": "The correct answer is was. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG189",
@@ -3210,7 +3398,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG190",
@@ -3227,7 +3416,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG191",
@@ -3244,7 +3434,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG192",
@@ -3261,7 +3452,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG193",
@@ -3278,7 +3470,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "was"
+    "correct_answer": "was",
+    "explanation": "The correct answer is was. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG194",
@@ -3295,7 +3488,8 @@
       "no article needed"
     ],
     "answer": 1,
-    "correct_answer": "an"
+    "correct_answer": "an",
+    "explanation": "The correct answer is an. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG195",
@@ -3312,7 +3506,8 @@
       "no article needed"
     ],
     "answer": 1,
-    "correct_answer": "an"
+    "correct_answer": "an",
+    "explanation": "The correct answer is an. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG196",
@@ -3329,7 +3524,8 @@
       "no article needed"
     ],
     "answer": 1,
-    "correct_answer": "an"
+    "correct_answer": "an",
+    "explanation": "The correct answer is an. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG197",
@@ -3346,7 +3542,8 @@
       "no article needed"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG198",
@@ -3363,7 +3560,8 @@
       "no article needed"
     ],
     "answer": 0,
-    "correct_answer": "a"
+    "correct_answer": "a",
+    "explanation": "The correct answer is a. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG199",
@@ -3380,7 +3578,8 @@
       "no article needed"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG200",
@@ -3397,7 +3596,8 @@
       "no article needed"
     ],
     "answer": 1,
-    "correct_answer": "an"
+    "correct_answer": "an",
+    "explanation": "The correct answer is an. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG201",
@@ -3414,7 +3614,8 @@
       "no article needed"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG202",
@@ -3431,7 +3632,8 @@
       "no article needed"
     ],
     "answer": 1,
-    "correct_answer": "an"
+    "correct_answer": "an",
+    "explanation": "The correct answer is an. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG203",
@@ -3448,7 +3650,8 @@
       "no article needed"
     ],
     "answer": 0,
-    "correct_answer": "a"
+    "correct_answer": "a",
+    "explanation": "The correct answer is a. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG204",
@@ -3465,7 +3668,8 @@
       "against"
     ],
     "answer": 1,
-    "correct_answer": "between"
+    "correct_answer": "between",
+    "explanation": "The correct answer is between. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG205",
@@ -3482,7 +3686,8 @@
       "by"
     ],
     "answer": 2,
-    "correct_answer": "at"
+    "correct_answer": "at",
+    "explanation": "The correct answer is at. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG206",
@@ -3499,7 +3704,8 @@
       "with"
     ],
     "answer": 2,
-    "correct_answer": "about"
+    "correct_answer": "about",
+    "explanation": "The correct answer is about. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG207",
@@ -3516,7 +3722,8 @@
       "about"
     ],
     "answer": 2,
-    "correct_answer": "at"
+    "correct_answer": "at",
+    "explanation": "The correct answer is at. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG208",
@@ -3533,7 +3740,8 @@
       "with"
     ],
     "answer": 1,
-    "correct_answer": "about"
+    "correct_answer": "about",
+    "explanation": "The correct answer is about. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG209",
@@ -3550,7 +3758,8 @@
       "with"
     ],
     "answer": 1,
-    "correct_answer": "on"
+    "correct_answer": "on",
+    "explanation": "The correct answer is on. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG210",
@@ -3567,7 +3776,8 @@
       "by"
     ],
     "answer": 1,
-    "correct_answer": "for"
+    "correct_answer": "for",
+    "explanation": "The correct answer is for. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG211",
@@ -3584,7 +3794,8 @@
       "at"
     ],
     "answer": 2,
-    "correct_answer": "on"
+    "correct_answer": "on",
+    "explanation": "The correct answer is on. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG212",
@@ -3601,7 +3812,8 @@
       "to"
     ],
     "answer": 3,
-    "correct_answer": "to"
+    "correct_answer": "to",
+    "explanation": "The correct answer is to. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG213",
@@ -3618,7 +3830,8 @@
       "with"
     ],
     "answer": 2,
-    "correct_answer": "for"
+    "correct_answer": "for",
+    "explanation": "The correct answer is for. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG214",
@@ -3635,7 +3848,8 @@
       "towards"
     ],
     "answer": 2,
-    "correct_answer": "at"
+    "correct_answer": "at",
+    "explanation": "The correct answer is at. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG215",
@@ -3652,7 +3866,8 @@
       "so"
     ],
     "answer": 2,
-    "correct_answer": "and"
+    "correct_answer": "and",
+    "explanation": "The correct answer is and. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG216",
@@ -3669,7 +3884,8 @@
       "yet"
     ],
     "answer": 3,
-    "correct_answer": "yet"
+    "correct_answer": "yet",
+    "explanation": "The correct answer is yet. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG217",
@@ -3686,7 +3902,8 @@
       "if"
     ],
     "answer": 2,
-    "correct_answer": "until"
+    "correct_answer": "until",
+    "explanation": "The correct answer is until. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG218",
@@ -3703,7 +3920,8 @@
       "If"
     ],
     "answer": 1,
-    "correct_answer": "Although"
+    "correct_answer": "Although",
+    "explanation": "The correct answer is Although. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG219",
@@ -3720,7 +3938,8 @@
       "on the contrary"
     ],
     "answer": 1,
-    "correct_answer": "as a result"
+    "correct_answer": "as a result",
+    "explanation": "The correct answer is as a result. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG220",
@@ -3737,7 +3956,8 @@
       "even if"
     ],
     "answer": 2,
-    "correct_answer": "so that"
+    "correct_answer": "so that",
+    "explanation": "The correct answer is so that. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG221",
@@ -3754,7 +3974,8 @@
       "Even though"
     ],
     "answer": 3,
-    "correct_answer": "Even though"
+    "correct_answer": "Even though",
+    "explanation": "The correct answer is Even though. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG222",
@@ -3771,7 +3992,8 @@
       "except"
     ],
     "answer": 1,
-    "correct_answer": "rather than"
+    "correct_answer": "rather than",
+    "explanation": "The correct answer is rather than. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG223",
@@ -3788,7 +4010,8 @@
       "unless"
     ],
     "answer": 2,
-    "correct_answer": "even though"
+    "correct_answer": "even though",
+    "explanation": "The correct answer is even though. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG224",
@@ -3805,7 +4028,8 @@
       "{HIMSELF_HERSELF_0}"
     ],
     "answer": 0,
-    "correct_answer": "{HIS_HER_0}"
+    "correct_answer": "{HIS_HER_0}",
+    "explanation": "The correct answer is {HIS_HER_0}. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG225",
@@ -3822,7 +4046,8 @@
       "they"
     ],
     "answer": 2,
-    "correct_answer": "{HE_SHE_0}"
+    "correct_answer": "{HE_SHE_0}",
+    "explanation": "The correct answer is {HE_SHE_0}. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG226",
@@ -3839,7 +4064,8 @@
       "{HE_SHE_0}"
     ],
     "answer": 2,
-    "correct_answer": "{HIMSELF_HERSELF_0}"
+    "correct_answer": "{HIMSELF_HERSELF_0}",
+    "explanation": "The correct answer is {HIMSELF_HERSELF_0}. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG227",
@@ -3856,7 +4082,8 @@
       "them"
     ],
     "answer": 1,
-    "correct_answer": "their"
+    "correct_answer": "their",
+    "explanation": "The correct answer is their. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG228",
@@ -3873,7 +4100,8 @@
       "yourself"
     ],
     "answer": 1,
-    "correct_answer": "yours"
+    "correct_answer": "yours",
+    "explanation": "The correct answer is yours. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG229",
@@ -3890,7 +4118,8 @@
       "ourselves"
     ],
     "answer": 2,
-    "correct_answer": "themselves"
+    "correct_answer": "themselves",
+    "explanation": "The correct answer is themselves. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG230",
@@ -3907,7 +4136,8 @@
       "which"
     ],
     "answer": 1,
-    "correct_answer": "whom"
+    "correct_answer": "whom",
+    "explanation": "The correct answer is whom. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG231",
@@ -3924,7 +4154,8 @@
       "mine"
     ],
     "answer": 1,
-    "correct_answer": "me"
+    "correct_answer": "me",
+    "explanation": "The correct answer is me. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG232",
@@ -3941,7 +4172,8 @@
       "its"
     ],
     "answer": 2,
-    "correct_answer": "their"
+    "correct_answer": "their",
+    "explanation": "The correct answer is their. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG233",
@@ -3958,7 +4190,8 @@
       "which"
     ],
     "answer": 0,
-    "correct_answer": "who"
+    "correct_answer": "who",
+    "explanation": "The correct answer is who. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG234",
@@ -3975,7 +4208,8 @@
       "our"
     ],
     "answer": 2,
-    "correct_answer": "her"
+    "correct_answer": "her",
+    "explanation": "The correct answer is her. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG235",
@@ -3992,7 +4226,8 @@
       "more"
     ],
     "answer": 1,
-    "correct_answer": "another"
+    "correct_answer": "another",
+    "explanation": "The correct answer is another. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG236",
@@ -4009,7 +4244,8 @@
       "quite"
     ],
     "answer": 0,
-    "correct_answer": "so"
+    "correct_answer": "so",
+    "explanation": "The correct answer is so. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG237",
@@ -4026,7 +4262,8 @@
       "most thin"
     ],
     "answer": 1,
-    "correct_answer": "thinner"
+    "correct_answer": "thinner",
+    "explanation": "The correct answer is thinner. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG238",
@@ -4043,7 +4280,8 @@
       "gentler"
     ],
     "answer": 1,
-    "correct_answer": "gently"
+    "correct_answer": "gently",
+    "explanation": "The correct answer is gently. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG239",
@@ -4060,7 +4298,8 @@
       "best"
     ],
     "answer": 2,
-    "correct_answer": "better"
+    "correct_answer": "better",
+    "explanation": "The correct answer is better. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG240",
@@ -4077,7 +4316,8 @@
       "gracefully"
     ],
     "answer": 2,
-    "correct_answer": "most gracefully"
+    "correct_answer": "most gracefully",
+    "explanation": "The correct answer is most gracefully. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG241",
@@ -4094,7 +4334,8 @@
       "most clear"
     ],
     "answer": 2,
-    "correct_answer": "clearer"
+    "correct_answer": "clearer",
+    "explanation": "The correct answer is clearer. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG242",
@@ -4111,7 +4352,8 @@
       "more efficient"
     ],
     "answer": 1,
-    "correct_answer": "efficiently"
+    "correct_answer": "efficiently",
+    "explanation": "The correct answer is efficiently. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG243",
@@ -4128,7 +4370,8 @@
       "truer"
     ],
     "answer": 2,
-    "correct_answer": "truly"
+    "correct_answer": "truly",
+    "explanation": "The correct answer is truly. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG244",
@@ -4145,7 +4388,8 @@
       "best"
     ],
     "answer": 2,
-    "correct_answer": "the better"
+    "correct_answer": "the better",
+    "explanation": "The correct answer is the better. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG245",
@@ -4162,7 +4406,8 @@
       "prompter"
     ],
     "answer": 0,
-    "correct_answer": "prompt"
+    "correct_answer": "prompt",
+    "explanation": "The correct answer is prompt. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG246",
@@ -4179,7 +4424,8 @@
       "{CHARACTER_0} said {HE_SHE_0} had gone to the library."
     ],
     "answer": 0,
-    "correct_answer": "{CHARACTER_0} said {HE_SHE_0} was going to the library."
+    "correct_answer": "{CHARACTER_0} said {HE_SHE_0} was going to the library.",
+    "explanation": "The correct answer is {CHARACTER_0} said {HE_SHE_0} was going to the library.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG247",
@@ -4196,7 +4442,8 @@
       "The teacher asked {CHARACTER_0} carefully."
     ],
     "answer": 1,
-    "correct_answer": "The teacher told {CHARACTER_0} to listen carefully."
+    "correct_answer": "The teacher told {CHARACTER_0} to listen carefully.",
+    "explanation": "The correct answer is The teacher told {CHARACTER_0} to listen carefully.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG248",
@@ -4213,7 +4460,8 @@
       "{CHARACTER_0} said to {HIS_HER_0} friend to help with the homework."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} told {HIS_HER_0} friend that {HE_SHE_0} would help her with her homework."
+    "correct_answer": "{CHARACTER_0} told {HIS_HER_0} friend that {HE_SHE_0} would help her with her homework.",
+    "explanation": "The correct answer is {CHARACTER_0} told {HIS_HER_0} friend that {HE_SHE_0} would help her with her homework.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG249",
@@ -4230,7 +4478,8 @@
       "The principal said the school had been closed the next day."
     ],
     "answer": 2,
-    "correct_answer": "The principal told {CHARACTER_0} that the school would be closed the next day."
+    "correct_answer": "The principal told {CHARACTER_0} that the school would be closed the next day.",
+    "explanation": "The correct answer is The principal told {CHARACTER_0} that the school would be closed the next day.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG250",
@@ -4247,7 +4496,8 @@
       "{CHARACTER_0} asked that the nearest library is."
     ],
     "answer": 2,
-    "correct_answer": "{CHARACTER_0} asked where the nearest library was."
+    "correct_answer": "{CHARACTER_0} asked where the nearest library was.",
+    "explanation": "The correct answer is {CHARACTER_0} asked where the nearest library was.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG251",
@@ -4264,7 +4514,8 @@
       "{CHARACTER_0} said {HIS_HER_0} mother that {HE_SHE_0} had finished {HIS_HER_0} homework."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} told {HIS_HER_0} mother that {HE_SHE_0} had already finished {HIS_HER_0} homework."
+    "correct_answer": "{CHARACTER_0} told {HIS_HER_0} mother that {HE_SHE_0} had already finished {HIS_HER_0} homework.",
+    "explanation": "The correct answer is {CHARACTER_0} told {HIS_HER_0} mother that {HE_SHE_0} had already finished {HIS_HER_0} homework.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG252",
@@ -4281,7 +4532,8 @@
       "The teacher warned {CHARACTER_0} to not run the corridor."
     ],
     "answer": 0,
-    "correct_answer": "The teacher told {CHARACTER_0} not to run in the corridor."
+    "correct_answer": "The teacher told {CHARACTER_0} not to run in the corridor.",
+    "explanation": "The correct answer is The teacher told {CHARACTER_0} not to run in the corridor.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG253",
@@ -4298,7 +4550,8 @@
       "{CHARACTER_0} said {HE_SHE_0} would go to the museum last Saturday."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} had gone to the museum the previous Saturday."
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} had gone to the museum the previous Saturday.",
+    "explanation": "The correct answer is {CHARACTER_0} said that {HE_SHE_0} had gone to the museum the previous Saturday.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG254",
@@ -4315,7 +4568,8 @@
       "{CHARACTER_0} said {HE_SHE_0} is completing the project."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} said {HE_SHE_0} had completed the project."
+    "correct_answer": "{CHARACTER_0} said {HE_SHE_0} had completed the project.",
+    "explanation": "The correct answer is {CHARACTER_0} said {HE_SHE_0} had completed the project.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG255",
@@ -4332,7 +4586,8 @@
       "{CHARACTER_0} asked {HIS_HER_0} friend that she had eaten lunch."
     ],
     "answer": 0,
-    "correct_answer": "{CHARACTER_0} asked {HIS_HER_0} friend if she had eaten lunch yet."
+    "correct_answer": "{CHARACTER_0} asked {HIS_HER_0} friend if she had eaten lunch yet.",
+    "explanation": "The correct answer is {CHARACTER_0} asked {HIS_HER_0} friend if she had eaten lunch yet.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG256",
@@ -4349,7 +4604,8 @@
       "The letter had been written by {CHARACTER_0}."
     ],
     "answer": 1,
-    "correct_answer": "The letter was written by {CHARACTER_0}."
+    "correct_answer": "The letter was written by {CHARACTER_0}.",
+    "explanation": "The correct answer is The letter was written by {CHARACTER_0}.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG257",
@@ -4366,7 +4622,8 @@
       "The flowers have been planted by the gardener."
     ],
     "answer": 1,
-    "correct_answer": "The flowers were planted by the gardener."
+    "correct_answer": "The flowers were planted by the gardener.",
+    "explanation": "The correct answer is The flowers were planted by the gardener.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG258",
@@ -4383,7 +4640,8 @@
       "The car repaired someone."
     ],
     "answer": 1,
-    "correct_answer": "Someone is repairing the car."
+    "correct_answer": "Someone is repairing the car.",
+    "explanation": "The correct answer is Someone is repairing the car.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG259",
@@ -4400,7 +4658,8 @@
       "The report had been submitted by {CHARACTER_0}."
     ],
     "answer": 2,
-    "correct_answer": "The report has been submitted by {CHARACTER_0}."
+    "correct_answer": "The report has been submitted by {CHARACTER_0}.",
+    "explanation": "The correct answer is The report has been submitted by {CHARACTER_0}.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG260",
@@ -4417,7 +4676,8 @@
       "The prize was awarded to {CHARACTER_0}."
     ],
     "answer": 0,
-    "correct_answer": "The judges awarded {CHARACTER_0} first prize."
+    "correct_answer": "The judges awarded {CHARACTER_0} first prize.",
+    "explanation": "The correct answer is The judges awarded {CHARACTER_0} first prize.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG261",
@@ -4434,7 +4694,8 @@
       "was introducing"
     ],
     "answer": 0,
-    "correct_answer": "is introduced"
+    "correct_answer": "is introduced",
+    "explanation": "The correct answer is is introduced. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG262",
@@ -4451,7 +4712,8 @@
       "The registration form is completed by all students."
     ],
     "answer": 0,
-    "correct_answer": "The registration form must be completed by all students."
+    "correct_answer": "The registration form must be completed by all students.",
+    "explanation": "The correct answer is The registration form must be completed by all students.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG263",
@@ -4468,7 +4730,8 @@
       "The pirates will hide the treasure."
     ],
     "answer": 2,
-    "correct_answer": "The pirates had hidden the treasure."
+    "correct_answer": "The pirates had hidden the treasure.",
+    "explanation": "The correct answer is The pirates had hidden the treasure.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG264",
@@ -4485,7 +4748,8 @@
       "The mistake is {CHARACTER_0}'s."
     ],
     "answer": 2,
-    "correct_answer": "{CHARACTER_0} made the mistake."
+    "correct_answer": "{CHARACTER_0} made the mistake.",
+    "explanation": "The correct answer is {CHARACTER_0} made the mistake.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG265",
@@ -4502,7 +4766,8 @@
       "The students have taught how to code by {CHARACTER_0}."
     ],
     "answer": 2,
-    "correct_answer": "The students were taught how to code by {CHARACTER_0}."
+    "correct_answer": "The students were taught how to code by {CHARACTER_0}.",
+    "explanation": "The correct answer is The students were taught how to code by {CHARACTER_0}.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG266",
@@ -4519,7 +4784,8 @@
       "The experiment is being conducted by {CHARACTER_0} when the alarm went off."
     ],
     "answer": 1,
-    "correct_answer": "The experiment was being conducted by {CHARACTER_0} when the alarm went off."
+    "correct_answer": "The experiment was being conducted by {CHARACTER_0} when the alarm went off.",
+    "explanation": "The correct answer is The experiment was being conducted by {CHARACTER_0} when the alarm went off.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG267",
@@ -4536,7 +4802,8 @@
       "calm"
     ],
     "answer": 1,
-    "correct_answer": "furious"
+    "correct_answer": "furious",
+    "explanation": "The correct answer is furious. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG268",
@@ -4553,7 +4820,8 @@
       "familiar"
     ],
     "answer": 2,
-    "correct_answer": "unusual"
+    "correct_answer": "unusual",
+    "explanation": "The correct answer is unusual. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG269",
@@ -4570,7 +4838,8 @@
       "concise"
     ],
     "answer": 1,
-    "correct_answer": "wordy"
+    "correct_answer": "wordy",
+    "explanation": "The correct answer is wordy. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG270",
@@ -4587,7 +4856,8 @@
       "crowded"
     ],
     "answer": 2,
-    "correct_answer": "quiet"
+    "correct_answer": "quiet",
+    "explanation": "The correct answer is quiet. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG271",
@@ -4604,7 +4874,8 @@
       "gentle"
     ],
     "answer": 2,
-    "correct_answer": "strict"
+    "correct_answer": "strict",
+    "explanation": "The correct answer is strict. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG272",
@@ -4621,7 +4892,8 @@
       "efficient"
     ],
     "answer": 2,
-    "correct_answer": "lazy"
+    "correct_answer": "lazy",
+    "explanation": "The correct answer is lazy. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG273",
@@ -4638,7 +4910,8 @@
       "simple"
     ],
     "answer": 2,
-    "correct_answer": "significant"
+    "correct_answer": "significant",
+    "explanation": "The correct answer is significant. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG274",
@@ -4655,7 +4928,8 @@
       "careless"
     ],
     "answer": 3,
-    "correct_answer": "careless"
+    "correct_answer": "careless",
+    "explanation": "The correct answer is careless. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG275",
@@ -4672,7 +4946,8 @@
       "impulsive"
     ],
     "answer": 1,
-    "correct_answer": "methodical"
+    "correct_answer": "methodical",
+    "explanation": "The correct answer is methodical. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG276",
@@ -4689,7 +4964,8 @@
       "give back"
     ],
     "answer": 0,
-    "correct_answer": "give away"
+    "correct_answer": "give away",
+    "explanation": "The correct answer is give away. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG277",
@@ -4706,7 +4982,8 @@
       "goes out"
     ],
     "answer": 2,
-    "correct_answer": "goes off"
+    "correct_answer": "goes off",
+    "explanation": "The correct answer is goes off. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG278",
@@ -4723,7 +5000,8 @@
       "stand up"
     ],
     "answer": 2,
-    "correct_answer": "stand in"
+    "correct_answer": "stand in",
+    "explanation": "The correct answer is stand in. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG279",
@@ -4740,7 +5018,8 @@
       "get out"
     ],
     "answer": 0,
-    "correct_answer": "get over"
+    "correct_answer": "get over",
+    "explanation": "The correct answer is get over. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG280",
@@ -4757,7 +5036,8 @@
       "follow in"
     ],
     "answer": 1,
-    "correct_answer": "follow up on"
+    "correct_answer": "follow up on",
+    "explanation": "The correct answer is follow up on. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG281",
@@ -4774,7 +5054,8 @@
       "break off"
     ],
     "answer": 1,
-    "correct_answer": "call off"
+    "correct_answer": "call off",
+    "explanation": "The correct answer is call off. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG282",
@@ -4791,7 +5072,8 @@
       "broken down"
     ],
     "answer": 1,
-    "correct_answer": "put off"
+    "correct_answer": "put off",
+    "explanation": "The correct answer is put off. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG283",
@@ -4808,7 +5090,8 @@
       "to be nervous"
     ],
     "answer": 1,
-    "correct_answer": "good luck"
+    "correct_answer": "good luck",
+    "explanation": "The correct answer is good luck. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG284",
@@ -4825,7 +5108,8 @@
       "it is delicious"
     ],
     "answer": 2,
-    "correct_answer": "it is very easy"
+    "correct_answer": "it is very easy",
+    "explanation": "The correct answer is it is very easy. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG285",
@@ -4842,7 +5126,8 @@
       "it has been improved"
     ],
     "answer": 1,
-    "correct_answer": "it must start over from the beginning"
+    "correct_answer": "it must start over from the beginning",
+    "explanation": "The correct answer is it must start over from the beginning. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG286",
@@ -4859,7 +5144,8 @@
       "crossing a bridge"
     ],
     "answer": 1,
-    "correct_answer": "destroying relationships that cannot be repaired"
+    "correct_answer": "destroying relationships that cannot be repaired",
+    "explanation": "The correct answer is destroying relationships that cannot be repaired. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG287",
@@ -4876,7 +5162,8 @@
       "a sudden change in weather"
     ],
     "answer": 2,
-    "correct_answer": "a big fuss over something unimportant"
+    "correct_answer": "a big fuss over something unimportant",
+    "explanation": "The correct answer is a big fuss over something unimportant. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG288",
@@ -4893,7 +5180,8 @@
       "a very mysterious person"
     ],
     "answer": 1,
-    "correct_answer": "a person with hidden talents or abilities"
+    "correct_answer": "a person with hidden talents or abilities",
+    "explanation": "The correct answer is a person with hidden talents or abilities. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG289",
@@ -4910,7 +5198,8 @@
       "always clean up your mess"
     ],
     "answer": 2,
-    "correct_answer": "don't be upset about something that cannot be changed"
+    "correct_answer": "don't be upset about something that cannot be changed",
+    "explanation": "The correct answer is don't be upset about something that cannot be changed. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG290",
@@ -4927,7 +5216,8 @@
       "a person who loves the ocean"
     ],
     "answer": 2,
-    "correct_answer": "someone who feels uncomfortable or out of place"
+    "correct_answer": "someone who feels uncomfortable or out of place",
+    "explanation": "The correct answer is someone who feels uncomfortable or out of place. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG291",
@@ -4944,7 +5234,8 @@
       "What is your name,"
     ],
     "answer": 1,
-    "correct_answer": "What is your name?"
+    "correct_answer": "What is your name?",
+    "explanation": "The correct answer is What is your name?. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG292",
@@ -4961,7 +5252,8 @@
       "Watch out. The car is coming!"
     ],
     "answer": 2,
-    "correct_answer": "Watch out! The car is coming."
+    "correct_answer": "Watch out! The car is coming.",
+    "explanation": "The correct answer is Watch out! The car is coming.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG293",
@@ -4978,7 +5270,8 @@
       "She. Ran to the park."
     ],
     "answer": 1,
-    "correct_answer": "She ran to the park"
+    "correct_answer": "She ran to the park",
+    "explanation": "The correct answer is She ran to the park. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG294",
@@ -4995,7 +5288,8 @@
       "She needed: three things patience, courage and kindness."
     ],
     "answer": 1,
-    "correct_answer": "She needed three things: patience, courage and kindness."
+    "correct_answer": "She needed three things: patience, courage and kindness.",
+    "explanation": "The correct answer is She needed three things: patience, courage and kindness.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG295",
@@ -5012,7 +5306,8 @@
       "She said I am \"tired\"."
     ],
     "answer": 1,
-    "correct_answer": "She said \"I am tired.\""
+    "correct_answer": "She said \"I am tired.\"",
+    "explanation": "The correct answer is She said \"I am tired.\". Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG296",
@@ -5029,7 +5324,8 @@
       "She is a well, known author."
     ],
     "answer": 0,
-    "correct_answer": "She is a well-known author."
+    "correct_answer": "She is a well-known author.",
+    "explanation": "The correct answer is She is a well-known author.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG297",
@@ -5046,7 +5342,8 @@
       "Its a beautiful morning today."
     ],
     "answer": 3,
-    "correct_answer": "Its a beautiful morning today."
+    "correct_answer": "Its a beautiful morning today.",
+    "explanation": "The correct answer is Its a beautiful morning today.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG298",
@@ -5063,7 +5360,8 @@
       "She had one goal. To win the championship."
     ],
     "answer": 0,
-    "correct_answer": "She had one goal — to win the championship."
+    "correct_answer": "She had one goal — to win the championship.",
+    "explanation": "The correct answer is She had one goal — to win the championship.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG299",
@@ -5080,7 +5378,8 @@
       "She bought, apples, bananas and oranges."
     ],
     "answer": 1,
-    "correct_answer": "She bought apples, bananas, and oranges."
+    "correct_answer": "She bought apples, bananas, and oranges.",
+    "explanation": "The correct answer is She bought apples, bananas, and oranges.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG300",
@@ -5097,7 +5396,8 @@
       "She's my best friend."
     ],
     "answer": 2,
-    "correct_answer": "The dog wagged it's tail."
+    "correct_answer": "The dog wagged it's tail.",
+    "explanation": "The correct answer is The dog wagged it's tail.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG301",
@@ -5114,7 +5414,8 @@
       "Singapore a (city-state is known) for its cleanliness."
     ],
     "answer": 0,
-    "correct_answer": "Singapore (a city-state) is known for its cleanliness."
+    "correct_answer": "Singapore (a city-state) is known for its cleanliness.",
+    "explanation": "The correct answer is Singapore (a city-state) is known for its cleanliness.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG302",
@@ -5131,7 +5432,8 @@
       "\"Where are you going\", she asked."
     ],
     "answer": 1,
-    "correct_answer": "\"Where are you going?\" she asked."
+    "correct_answer": "\"Where are you going?\" she asked.",
+    "explanation": "The correct answer is \"Where are you going?\" she asked.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG303",
@@ -5148,7 +5450,8 @@
       "is brushing"
     ],
     "answer": 1,
-    "correct_answer": "brushes"
+    "correct_answer": "brushes",
+    "explanation": "The correct answer is brushes. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG304",
@@ -5165,7 +5468,8 @@
       "drawn"
     ],
     "answer": 2,
-    "correct_answer": "drew"
+    "correct_answer": "drew",
+    "explanation": "The correct answer is drew. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG305",
@@ -5182,7 +5486,8 @@
       "has slept"
     ],
     "answer": 2,
-    "correct_answer": "is sleeping"
+    "correct_answer": "is sleeping",
+    "explanation": "The correct answer is is sleeping. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG306",
@@ -5199,7 +5504,8 @@
       "has cleaned"
     ],
     "answer": 2,
-    "correct_answer": "will clean"
+    "correct_answer": "will clean",
+    "explanation": "The correct answer is will clean. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG307",
@@ -5216,7 +5522,8 @@
       "went"
     ],
     "answer": 3,
-    "correct_answer": "went"
+    "correct_answer": "went",
+    "explanation": "The correct answer is went. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG308",
@@ -5233,7 +5540,8 @@
       "finishes"
     ],
     "answer": 2,
-    "correct_answer": "has finished"
+    "correct_answer": "has finished",
+    "explanation": "The correct answer is has finished. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG309",
@@ -5250,7 +5558,8 @@
       "is leaving"
     ],
     "answer": 2,
-    "correct_answer": "leaves"
+    "correct_answer": "leaves",
+    "explanation": "The correct answer is leaves. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG310",
@@ -5267,7 +5576,8 @@
       "has gone"
     ],
     "answer": 2,
-    "correct_answer": "went"
+    "correct_answer": "went",
+    "explanation": "The correct answer is went. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG311",
@@ -5284,7 +5594,8 @@
       "is knowing"
     ],
     "answer": 1,
-    "correct_answer": "knows"
+    "correct_answer": "knows",
+    "explanation": "The correct answer is knows. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG312",
@@ -5301,7 +5612,8 @@
       "had been training"
     ],
     "answer": 2,
-    "correct_answer": "has been training"
+    "correct_answer": "has been training",
+    "explanation": "The correct answer is has been training. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG313",
@@ -5318,7 +5630,8 @@
       "has been eaten"
     ],
     "answer": 2,
-    "correct_answer": "had been eaten"
+    "correct_answer": "had been eaten",
+    "explanation": "The correct answer is had been eaten. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG314",
@@ -5335,7 +5648,8 @@
       "had read"
     ],
     "answer": 2,
-    "correct_answer": "was reading"
+    "correct_answer": "was reading",
+    "explanation": "The correct answer is was reading. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG315",
@@ -5352,7 +5666,8 @@
       "has graduated"
     ],
     "answer": 2,
-    "correct_answer": "will have graduated"
+    "correct_answer": "will have graduated",
+    "explanation": "The correct answer is will have graduated. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG316",
@@ -5369,7 +5684,8 @@
       "never visits"
     ],
     "answer": 2,
-    "correct_answer": "had never visited"
+    "correct_answer": "had never visited",
+    "explanation": "The correct answer is had never visited. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG317",
@@ -5386,7 +5702,8 @@
       "was using to"
     ],
     "answer": 0,
-    "correct_answer": "used to"
+    "correct_answer": "used to",
+    "explanation": "The correct answer is used to. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG318",
@@ -5403,7 +5720,8 @@
       "had been working"
     ],
     "answer": 3,
-    "correct_answer": "had been working"
+    "correct_answer": "had been working",
+    "explanation": "The correct answer is had been working. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG319",
@@ -5420,7 +5738,8 @@
       "have"
     ],
     "answer": 1,
-    "correct_answer": "had"
+    "correct_answer": "had",
+    "explanation": "The correct answer is had. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG320",
@@ -5437,7 +5756,8 @@
       "had been living"
     ],
     "answer": 2,
-    "correct_answer": "has been living"
+    "correct_answer": "has been living",
+    "explanation": "The correct answer is has been living. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG321",
@@ -5454,7 +5774,8 @@
       "sat"
     ],
     "answer": 2,
-    "correct_answer": "will be sitting"
+    "correct_answer": "will be sitting",
+    "explanation": "The correct answer is will be sitting. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG322",
@@ -5471,7 +5792,8 @@
       "has read"
     ],
     "answer": 2,
-    "correct_answer": "had read"
+    "correct_answer": "had read",
+    "explanation": "The correct answer is had read. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG323",
@@ -5488,7 +5810,8 @@
       "was leaving"
     ],
     "answer": 2,
-    "correct_answer": "had left"
+    "correct_answer": "had left",
+    "explanation": "The correct answer is had left. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG324",
@@ -5505,7 +5828,8 @@
       "will have completed"
     ],
     "answer": 3,
-    "correct_answer": "will have completed"
+    "correct_answer": "will have completed",
+    "explanation": "The correct answer is will have completed. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG325",
@@ -5522,7 +5846,8 @@
       "has written"
     ],
     "answer": 2,
-    "correct_answer": "had written"
+    "correct_answer": "had written",
+    "explanation": "The correct answer is had written. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG326",
@@ -5539,7 +5864,8 @@
       "has paid"
     ],
     "answer": 2,
-    "correct_answer": "had paid"
+    "correct_answer": "had paid",
+    "explanation": "The correct answer is had paid. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG327",
@@ -5556,7 +5882,8 @@
       "had been working"
     ],
     "answer": 2,
-    "correct_answer": "will have been working"
+    "correct_answer": "will have been working",
+    "explanation": "The correct answer is will have been working. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG328",
@@ -5573,7 +5900,8 @@
       "would get"
     ],
     "answer": 1,
-    "correct_answer": "got"
+    "correct_answer": "got",
+    "explanation": "The correct answer is got. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG329",
@@ -5590,7 +5918,8 @@
       "has applied"
     ],
     "answer": 2,
-    "correct_answer": "had applied"
+    "correct_answer": "had applied",
+    "explanation": "The correct answer is had applied. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG330",
@@ -5607,7 +5936,8 @@
       "would be"
     ],
     "answer": 3,
-    "correct_answer": "would be"
+    "correct_answer": "would be",
+    "explanation": "The correct answer is would be. Match the verb tense to the time signal in the sentence."
   },
   {
     "id": "ENG331",
@@ -5624,7 +5954,8 @@
       "are fly"
     ],
     "answer": 2,
-    "correct_answer": "is flying"
+    "correct_answer": "is flying",
+    "explanation": "The correct answer is is flying. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG332",
@@ -5641,7 +5972,8 @@
       "has been"
     ],
     "answer": 2,
-    "correct_answer": "are"
+    "correct_answer": "are",
+    "explanation": "The correct answer is are. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG333",
@@ -5658,7 +5990,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG334",
@@ -5675,7 +6008,8 @@
       "were having"
     ],
     "answer": 2,
-    "correct_answer": "has"
+    "correct_answer": "has",
+    "explanation": "The correct answer is has. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG335",
@@ -5692,7 +6026,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "was"
+    "correct_answer": "was",
+    "explanation": "The correct answer is was. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG336",
@@ -5709,7 +6044,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG337",
@@ -5726,7 +6062,8 @@
       "has been"
     ],
     "answer": 2,
-    "correct_answer": "are"
+    "correct_answer": "are",
+    "explanation": "The correct answer is are. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG338",
@@ -5743,7 +6080,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG339",
@@ -5760,7 +6098,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG340",
@@ -5777,7 +6116,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG341",
@@ -5794,7 +6134,8 @@
       "was"
     ],
     "answer": 2,
-    "correct_answer": "are"
+    "correct_answer": "are",
+    "explanation": "The correct answer is are. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG342",
@@ -5811,7 +6152,8 @@
       "were"
     ],
     "answer": 1,
-    "correct_answer": "has"
+    "correct_answer": "has",
+    "explanation": "The correct answer is has. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG343",
@@ -5828,7 +6170,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG344",
@@ -5845,7 +6188,8 @@
       "were"
     ],
     "answer": 3,
-    "correct_answer": "were"
+    "correct_answer": "were",
+    "explanation": "The correct answer is were. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG345",
@@ -5862,7 +6206,8 @@
       "were"
     ],
     "answer": 3,
-    "correct_answer": "were"
+    "correct_answer": "were",
+    "explanation": "The correct answer is were. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG346",
@@ -5879,7 +6224,8 @@
       "was"
     ],
     "answer": 1,
-    "correct_answer": "have"
+    "correct_answer": "have",
+    "explanation": "The correct answer is have. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG347",
@@ -5896,7 +6242,8 @@
       "were"
     ],
     "answer": 1,
-    "correct_answer": "has"
+    "correct_answer": "has",
+    "explanation": "The correct answer is has. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG348",
@@ -5913,7 +6260,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "was"
+    "correct_answer": "was",
+    "explanation": "The correct answer is was. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG349",
@@ -5930,7 +6278,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "was"
+    "correct_answer": "was",
+    "explanation": "The correct answer is was. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG350",
@@ -5947,7 +6296,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "was"
+    "correct_answer": "was",
+    "explanation": "The correct answer is was. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG351",
@@ -5964,7 +6314,8 @@
       "were"
     ],
     "answer": 1,
-    "correct_answer": "has"
+    "correct_answer": "has",
+    "explanation": "The correct answer is has. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG352",
@@ -5981,7 +6332,8 @@
       "were"
     ],
     "answer": 3,
-    "correct_answer": "were"
+    "correct_answer": "were",
+    "explanation": "The correct answer is were. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG353",
@@ -5998,7 +6350,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG354",
@@ -6015,7 +6368,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG355",
@@ -6032,7 +6386,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG356",
@@ -6049,7 +6404,8 @@
       "have been"
     ],
     "answer": 2,
-    "correct_answer": "is"
+    "correct_answer": "is",
+    "explanation": "The correct answer is is. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG357",
@@ -6066,7 +6422,8 @@
       "has"
     ],
     "answer": 2,
-    "correct_answer": "are"
+    "correct_answer": "are",
+    "explanation": "The correct answer is are. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG358",
@@ -6083,7 +6440,8 @@
       "have needed"
     ],
     "answer": 1,
-    "correct_answer": "needs"
+    "correct_answer": "needs",
+    "explanation": "The correct answer is needs. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG359",
@@ -6100,7 +6458,8 @@
       "were"
     ],
     "answer": 1,
-    "correct_answer": "has"
+    "correct_answer": "has",
+    "explanation": "The correct answer is has. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG360",
@@ -6117,7 +6476,8 @@
       "has"
     ],
     "answer": 2,
-    "correct_answer": "were"
+    "correct_answer": "were",
+    "explanation": "The correct answer is were. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG361",
@@ -6134,7 +6494,8 @@
       "are sung"
     ],
     "answer": 2,
-    "correct_answer": "is sung"
+    "correct_answer": "is sung",
+    "explanation": "The correct answer is is sung. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG362",
@@ -6151,7 +6512,8 @@
       "{CHARACTER_0}'s sandwich has eaten by the dog."
     ],
     "answer": 2,
-    "correct_answer": "{CHARACTER_0}'s sandwich was eaten by the dog."
+    "correct_answer": "{CHARACTER_0}'s sandwich was eaten by the dog.",
+    "explanation": "The correct answer is {CHARACTER_0}'s sandwich was eaten by the dog.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG363",
@@ -6168,7 +6530,8 @@
       "The old library was destroying the fire."
     ],
     "answer": 1,
-    "correct_answer": "The fire destroyed the old library."
+    "correct_answer": "The fire destroyed the old library.",
+    "explanation": "The correct answer is The fire destroyed the old library.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG364",
@@ -6185,7 +6548,8 @@
       "was being built"
     ],
     "answer": 3,
-    "correct_answer": "was being built"
+    "correct_answer": "was being built",
+    "explanation": "The correct answer is was being built. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG365",
@@ -6202,7 +6566,8 @@
       "will be opened"
     ],
     "answer": 3,
-    "correct_answer": "will be opened"
+    "correct_answer": "will be opened",
+    "explanation": "The correct answer is will be opened. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG366",
@@ -6219,7 +6584,8 @@
       "is stolen"
     ],
     "answer": 1,
-    "correct_answer": "was stolen"
+    "correct_answer": "was stolen",
+    "explanation": "The correct answer is was stolen. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG367",
@@ -6236,7 +6602,8 @@
       "is displaying"
     ],
     "answer": 2,
-    "correct_answer": "has been displayed"
+    "correct_answer": "has been displayed",
+    "explanation": "The correct answer is has been displayed. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG368",
@@ -6253,7 +6620,8 @@
       "{CHARACTER_0} had elected the group leader by the class."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} was elected as the group leader by the class."
+    "correct_answer": "{CHARACTER_0} was elected as the group leader by the class.",
+    "explanation": "The correct answer is {CHARACTER_0} was elected as the group leader by the class.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG369",
@@ -6270,7 +6638,8 @@
       "The newspaper is being read by {CHARACTER_0}."
     ],
     "answer": 1,
-    "correct_answer": "The newspaper is read every morning by {CHARACTER_0}."
+    "correct_answer": "The newspaper is read every morning by {CHARACTER_0}.",
+    "explanation": "The correct answer is The newspaper is read every morning by {CHARACTER_0}.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG370",
@@ -6287,7 +6656,8 @@
       "The plants was watered by the gardener."
     ],
     "answer": 1,
-    "correct_answer": "The plants were watered by the gardener."
+    "correct_answer": "The plants were watered by the gardener.",
+    "explanation": "The correct answer is The plants were watered by the gardener.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG371",
@@ -6304,7 +6674,8 @@
       "is awarding"
     ],
     "answer": 2,
-    "correct_answer": "has been awarded"
+    "correct_answer": "has been awarded",
+    "explanation": "The correct answer is has been awarded. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG372",
@@ -6321,7 +6692,8 @@
       "must be filled"
     ],
     "answer": 3,
-    "correct_answer": "must be filled"
+    "correct_answer": "must be filled",
+    "explanation": "The correct answer is must be filled. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG373",
@@ -6338,7 +6710,8 @@
       "were making"
     ],
     "answer": 2,
-    "correct_answer": "had been made"
+    "correct_answer": "had been made",
+    "explanation": "The correct answer is had been made. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG374",
@@ -6355,7 +6728,8 @@
       "will announce"
     ],
     "answer": 2,
-    "correct_answer": "will be announced"
+    "correct_answer": "will be announced",
+    "explanation": "The correct answer is will be announced. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG375",
@@ -6372,7 +6746,8 @@
       "All the test papers are corrected by the teacher before {CHARACTER_0} arrived."
     ],
     "answer": 1,
-    "correct_answer": "All the test papers were corrected by the teacher before {CHARACTER_0} arrived."
+    "correct_answer": "All the test papers were corrected by the teacher before {CHARACTER_0} arrived.",
+    "explanation": "The correct answer is All the test papers were corrected by the teacher before {CHARACTER_0} arrived.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG376",
@@ -6389,7 +6764,8 @@
       "to"
     ],
     "answer": 1,
-    "correct_answer": "by"
+    "correct_answer": "by",
+    "explanation": "The correct answer is by. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG377",
@@ -6406,7 +6782,8 @@
       "was demolished"
     ],
     "answer": 3,
-    "correct_answer": "was demolished"
+    "correct_answer": "was demolished",
+    "explanation": "The correct answer is was demolished. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG378",
@@ -6423,7 +6800,8 @@
       "was hearing"
     ],
     "answer": 2,
-    "correct_answer": "could be heard"
+    "correct_answer": "could be heard",
+    "explanation": "The correct answer is could be heard. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG379",
@@ -6440,7 +6818,8 @@
       "The top student prize has awarded to {CHARACTER_0} by the school."
     ],
     "answer": 1,
-    "correct_answer": "The top student prize was awarded to {CHARACTER_0} by the school."
+    "correct_answer": "The top student prize was awarded to {CHARACTER_0} by the school.",
+    "explanation": "The correct answer is The top student prize was awarded to {CHARACTER_0} by the school.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG380",
@@ -6457,7 +6836,8 @@
       "Whom built this statue?"
     ],
     "answer": 0,
-    "correct_answer": "Who built this statue?"
+    "correct_answer": "Who built this statue?",
+    "explanation": "The correct answer is Who built this statue?. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG381",
@@ -6474,7 +6854,8 @@
       "Our environment must be taking care of."
     ],
     "answer": 1,
-    "correct_answer": "Our environment must be taken care of."
+    "correct_answer": "Our environment must be taken care of.",
+    "explanation": "The correct answer is Our environment must be taken care of.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG382",
@@ -6491,7 +6872,8 @@
       "should be send"
     ],
     "answer": 2,
-    "correct_answer": "must have been sent"
+    "correct_answer": "must have been sent",
+    "explanation": "The correct answer is must have been sent. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG383",
@@ -6508,7 +6890,8 @@
       "was written"
     ],
     "answer": 3,
-    "correct_answer": "was written"
+    "correct_answer": "was written",
+    "explanation": "The correct answer is was written. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG384",
@@ -6525,7 +6908,8 @@
       "would be evaluated"
     ],
     "answer": 3,
-    "correct_answer": "would be evaluated"
+    "correct_answer": "would be evaluated",
+    "explanation": "The correct answer is would be evaluated. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG385",
@@ -6542,7 +6926,8 @@
       "had been"
     ],
     "answer": 1,
-    "correct_answer": "will have been"
+    "correct_answer": "will have been",
+    "explanation": "The correct answer is will have been. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG386",
@@ -6559,7 +6944,8 @@
       "is built"
     ],
     "answer": 2,
-    "correct_answer": "was built"
+    "correct_answer": "was built",
+    "explanation": "The correct answer is was built. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG387",
@@ -6576,7 +6962,8 @@
       "will be discussed"
     ],
     "answer": 0,
-    "correct_answer": "is being discussed"
+    "correct_answer": "is being discussed",
+    "explanation": "The correct answer is is being discussed. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG388",
@@ -6593,7 +6980,8 @@
       "was distributed"
     ],
     "answer": 2,
-    "correct_answer": "had been distributed"
+    "correct_answer": "had been distributed",
+    "explanation": "The correct answer is had been distributed. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG389",
@@ -6610,7 +6998,8 @@
       "Our proposal has been reviewed by the committee right now."
     ],
     "answer": 0,
-    "correct_answer": "Our proposal is being reviewed by the committee right now."
+    "correct_answer": "Our proposal is being reviewed by the committee right now.",
+    "explanation": "The correct answer is Our proposal is being reviewed by the committee right now.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG390",
@@ -6627,7 +7016,8 @@
       "must signed"
     ],
     "answer": 2,
-    "correct_answer": "must be signed"
+    "correct_answer": "must be signed",
+    "explanation": "The correct answer is must be signed. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG391",
@@ -6644,7 +7034,8 @@
       "{CHARACTER_0} said that I liked ice cream."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} liked ice cream."
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} liked ice cream.",
+    "explanation": "The correct answer is {CHARACTER_0} said that {HE_SHE_0} liked ice cream.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG392",
@@ -6661,7 +7052,8 @@
       "Mother told {CHARACTER_0} that you eat your vegetables."
     ],
     "answer": 2,
-    "correct_answer": "Mother told {CHARACTER_0} to eat {HIS_HER_0} vegetables."
+    "correct_answer": "Mother told {CHARACTER_0} to eat {HIS_HER_0} vegetables.",
+    "explanation": "The correct answer is Mother told {CHARACTER_0} to eat {HIS_HER_0} vegetables.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG393",
@@ -6678,7 +7070,8 @@
       "{CHARACTER_0} asked {HIS_HER_0} friend do you want to play."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} asked {HIS_HER_0} friend if {HE_SHE_0} wanted to play."
+    "correct_answer": "{CHARACTER_0} asked {HIS_HER_0} friend if {HE_SHE_0} wanted to play.",
+    "explanation": "The correct answer is {CHARACTER_0} asked {HIS_HER_0} friend if {HE_SHE_0} wanted to play.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG394",
@@ -6695,7 +7088,8 @@
       "{CHARACTER_0} said what a beautiful sunset it was."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} exclaimed that it was a very beautiful sunset."
+    "correct_answer": "{CHARACTER_0} exclaimed that it was a very beautiful sunset.",
+    "explanation": "The correct answer is {CHARACTER_0} exclaimed that it was a very beautiful sunset.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG395",
@@ -6712,7 +7106,8 @@
       "\"You finished your homework,\" {CHARACTER_0} said to {HIS_HER_0} mother."
     ],
     "answer": 1,
-    "correct_answer": "\"I have finished my homework,\" {CHARACTER_0} said to {HIS_HER_0} mother."
+    "correct_answer": "\"I have finished my homework,\" {CHARACTER_0} said to {HIS_HER_0} mother.",
+    "explanation": "The correct answer is \"I have finished my homework,\" {CHARACTER_0} said to {HIS_HER_0} mother.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG396",
@@ -6729,7 +7124,8 @@
       "{CHARACTER_0} told the teacher to not understand this problem."
     ],
     "answer": 0,
-    "correct_answer": "{CHARACTER_0} told the teacher that {HE_SHE_0} didn't understand that problem."
+    "correct_answer": "{CHARACTER_0} told the teacher that {HE_SHE_0} didn't understand that problem.",
+    "explanation": "The correct answer is {CHARACTER_0} told the teacher that {HE_SHE_0} didn't understand that problem.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG397",
@@ -6746,7 +7142,8 @@
       "{CHARACTER_0} asked the librarian that where {HE_SHE_0} could return the books."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} asked the librarian where {HE_SHE_0} could return the books."
+    "correct_answer": "{CHARACTER_0} asked the librarian where {HE_SHE_0} could return the books.",
+    "explanation": "The correct answer is {CHARACTER_0} asked the librarian where {HE_SHE_0} could return the books.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG398",
@@ -6763,7 +7160,8 @@
       "Grandmother told {CHARACTER_0} that she would bake a cake for me."
     ],
     "answer": 0,
-    "correct_answer": "Grandmother told {CHARACTER_0} that she would bake a cake for {HIM_HER_0}."
+    "correct_answer": "Grandmother told {CHARACTER_0} that she would bake a cake for {HIM_HER_0}.",
+    "explanation": "The correct answer is Grandmother told {CHARACTER_0} that she would bake a cake for {HIM_HER_0}.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG399",
@@ -6780,7 +7178,8 @@
       "{CHARACTER_0} said that {HE_SHE_0} would visit the museum today."
     ],
     "answer": 2,
-    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} would visit the museum the next day."
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} would visit the museum the next day.",
+    "explanation": "The correct answer is {CHARACTER_0} said that {HE_SHE_0} would visit the museum the next day.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG400",
@@ -6797,7 +7196,8 @@
       "has been"
     ],
     "answer": 1,
-    "correct_answer": "was"
+    "correct_answer": "was",
+    "explanation": "The correct answer is was. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG401",
@@ -6814,7 +7214,8 @@
       "{CHARACTER_0} said that {HE_SHE_0} were very tired after the competition."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} had been very tired after the competition."
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} had been very tired after the competition.",
+    "explanation": "The correct answer is {CHARACTER_0} said that {HE_SHE_0} had been very tired after the competition.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG402",
@@ -6831,7 +7232,8 @@
       "The teacher told {CHARACTER_0} that not forget {HIS_HER_0} permission slip."
     ],
     "answer": 0,
-    "correct_answer": "The teacher told {CHARACTER_0} not to forget to bring {HIS_HER_0} permission slip the next day."
+    "correct_answer": "The teacher told {CHARACTER_0} not to forget to bring {HIS_HER_0} permission slip the next day.",
+    "explanation": "The correct answer is The teacher told {CHARACTER_0} not to forget to bring {HIS_HER_0} permission slip the next day.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG403",
@@ -6848,7 +7250,8 @@
       "{CHARACTER_0} told {HIS_HER_0} teacher that {HE_SHE_0} would do better in the next test."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} told {HIS_HER_0} teacher that {HE_SHE_0} would do better in the following test."
+    "correct_answer": "{CHARACTER_0} told {HIS_HER_0} teacher that {HE_SHE_0} would do better in the following test.",
+    "explanation": "The correct answer is {CHARACTER_0} told {HIS_HER_0} teacher that {HE_SHE_0} would do better in the following test.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG404",
@@ -6865,7 +7268,8 @@
       "{CHARACTER_0} asked {HIS_HER_0} friend that {HE_SHE_0} was coming to {HIS_HER_0} birthday party."
     ],
     "answer": 0,
-    "correct_answer": "{CHARACTER_0} asked {HIS_HER_0} friend if {HE_SHE_0} was coming to {HIS_HER_0} birthday party."
+    "correct_answer": "{CHARACTER_0} asked {HIS_HER_0} friend if {HE_SHE_0} was coming to {HIS_HER_0} birthday party.",
+    "explanation": "The correct answer is {CHARACTER_0} asked {HIS_HER_0} friend if {HE_SHE_0} was coming to {HIS_HER_0} birthday party.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG405",
@@ -6882,7 +7286,8 @@
       "{CHARACTER_0} said that {HE_SHE_0} never saw such a beautiful painting."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} had never seen such a beautiful painting."
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} had never seen such a beautiful painting.",
+    "explanation": "The correct answer is {CHARACTER_0} said that {HE_SHE_0} had never seen such a beautiful painting.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG406",
@@ -6899,7 +7304,8 @@
       "{CHARACTER_0} said that {HE_SHE_0} would solve that problem by {HIMSELF_HERSELF_0}."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} could solve that problem by {HIMSELF_HERSELF_0}."
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} could solve that problem by {HIMSELF_HERSELF_0}.",
+    "explanation": "The correct answer is {CHARACTER_0} said that {HE_SHE_0} could solve that problem by {HIMSELF_HERSELF_0}.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG407",
@@ -6916,7 +7322,8 @@
       "{CHARACTER_0} said that {HE_SHE_0} has visited Paris two years before."
     ],
     "answer": 2,
-    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} had visited Paris two years before."
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} had visited Paris two years before.",
+    "explanation": "The correct answer is {CHARACTER_0} said that {HE_SHE_0} had visited Paris two years before.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG408",
@@ -6933,7 +7340,8 @@
       "{CHARACTER_0} reported that yesterday was the last day to submit entries."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} reported that that day was the last day to submit entries."
+    "correct_answer": "{CHARACTER_0} reported that that day was the last day to submit entries.",
+    "explanation": "The correct answer is {CHARACTER_0} reported that that day was the last day to submit entries.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG409",
@@ -6950,7 +7358,8 @@
       "{CHARACTER_0} said please don't tell anyone about this."
     ],
     "answer": 2,
-    "correct_answer": "{CHARACTER_0} begged {HIS_HER_0} friend not to tell anyone about that."
+    "correct_answer": "{CHARACTER_0} begged {HIS_HER_0} friend not to tell anyone about that.",
+    "explanation": "The correct answer is {CHARACTER_0} begged {HIS_HER_0} friend not to tell anyone about that.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG410",
@@ -6967,7 +7376,8 @@
       "{CHARACTER_0} told the class they have finished the experiment successfully."
     ],
     "answer": 0,
-    "correct_answer": "{CHARACTER_0} told the class that they had finished the experiment successfully."
+    "correct_answer": "{CHARACTER_0} told the class that they had finished the experiment successfully.",
+    "explanation": "The correct answer is {CHARACTER_0} told the class that they had finished the experiment successfully.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG411",
@@ -6984,7 +7394,8 @@
       "{CHARACTER_0} told {HIS_HER_0} group we have done our best and I am proud of all of you."
     ],
     "answer": 0,
-    "correct_answer": "{CHARACTER_0} told {HIS_HER_0} group that they had done their best and that {HE_SHE_0} was proud of all of them."
+    "correct_answer": "{CHARACTER_0} told {HIS_HER_0} group that they had done their best and that {HE_SHE_0} was proud of all of them.",
+    "explanation": "The correct answer is {CHARACTER_0} told {HIS_HER_0} group that they had done their best and that {HE_SHE_0} was proud of all of them.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG412",
@@ -7001,7 +7412,8 @@
       "{CHARACTER_0} said that {HE_SHE_0} has not slept well the previous night."
     ],
     "answer": 2,
-    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} had not slept well the night before."
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} had not slept well the night before.",
+    "explanation": "The correct answer is {CHARACTER_0} said that {HE_SHE_0} had not slept well the night before.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG413",
@@ -7018,7 +7430,8 @@
       "{CHARACTER_0} asked who responsible for that mess."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} asked who was responsible for that mess."
+    "correct_answer": "{CHARACTER_0} asked who was responsible for that mess.",
+    "explanation": "The correct answer is {CHARACTER_0} asked who was responsible for that mess.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG414",
@@ -7035,7 +7448,8 @@
       "The coach told {CHARACTER_0} and the team training hard and never giving up."
     ],
     "answer": 0,
-    "correct_answer": "The coach told {CHARACTER_0} and the team to train hard and never give up."
+    "correct_answer": "The coach told {CHARACTER_0} and the team to train hard and never give up.",
+    "explanation": "The correct answer is The coach told {CHARACTER_0} and the team to train hard and never give up.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG415",
@@ -7052,7 +7466,8 @@
       "{CHARACTER_0} said that {HE_SHE_0} wishes {HE_SHE_0} could travel the world."
     ],
     "answer": 0,
-    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} wished {HE_SHE_0} could travel the world."
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} wished {HE_SHE_0} could travel the world.",
+    "explanation": "The correct answer is {CHARACTER_0} said that {HE_SHE_0} wished {HE_SHE_0} could travel the world.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG416",
@@ -7069,7 +7484,8 @@
       "{CHARACTER_0} told {HIS_HER_0} brother he must to submit the form before Friday."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} told {HIS_HER_0} brother that he had to submit the form before Friday."
+    "correct_answer": "{CHARACTER_0} told {HIS_HER_0} brother that he had to submit the form before Friday.",
+    "explanation": "The correct answer is {CHARACTER_0} told {HIS_HER_0} brother that he had to submit the form before Friday.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG417",
@@ -7086,7 +7502,8 @@
       "{CHARACTER_0} asked {HIS_HER_0} teacher that why the school had been closed the day before."
     ],
     "answer": 1,
-    "correct_answer": "{CHARACTER_0} asked {HIS_HER_0} teacher why the school had been closed the day before."
+    "correct_answer": "{CHARACTER_0} asked {HIS_HER_0} teacher why the school had been closed the day before.",
+    "explanation": "The correct answer is {CHARACTER_0} asked {HIS_HER_0} teacher why the school had been closed the day before.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG418",
@@ -7103,7 +7520,8 @@
       "needs"
     ],
     "answer": 1,
-    "correct_answer": "had to"
+    "correct_answer": "had to",
+    "explanation": "The correct answer is had to. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG419",
@@ -7120,7 +7538,8 @@
       "{CHARACTER_0} warned {HIS_HER_0} little sister that she would not touch the hot stove."
     ],
     "answer": 0,
-    "correct_answer": "{CHARACTER_0} warned {HIS_HER_0} little sister not to touch the hot stove."
+    "correct_answer": "{CHARACTER_0} warned {HIS_HER_0} little sister not to touch the hot stove.",
+    "explanation": "The correct answer is {CHARACTER_0} warned {HIS_HER_0} little sister not to touch the hot stove.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG420",
@@ -7137,7 +7556,8 @@
       "{CHARACTER_0} said that {HE_SHE_0} will finish that project here by the next day."
     ],
     "answer": 0,
-    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} would finish that project there by the next day."
+    "correct_answer": "{CHARACTER_0} said that {HE_SHE_0} would finish that project there by the next day.",
+    "explanation": "The correct answer is {CHARACTER_0} said that {HE_SHE_0} would finish that project there by the next day.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG421",
@@ -7154,7 +7574,8 @@
       "mine"
     ],
     "answer": 1,
-    "correct_answer": "I"
+    "correct_answer": "I",
+    "explanation": "The correct answer is I. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG422",
@@ -7171,7 +7592,8 @@
       "mine"
     ],
     "answer": 1,
-    "correct_answer": "me"
+    "correct_answer": "me",
+    "explanation": "The correct answer is me. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG423",
@@ -7188,7 +7610,8 @@
       "alone"
     ],
     "answer": 1,
-    "correct_answer": "{HIMSELF_HERSELF_0}"
+    "correct_answer": "{HIMSELF_HERSELF_0}",
+    "explanation": "The correct answer is {HIMSELF_HERSELF_0}. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG424",
@@ -7205,7 +7628,8 @@
       "whom"
     ],
     "answer": 2,
-    "correct_answer": "who"
+    "correct_answer": "who",
+    "explanation": "The correct answer is who. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG425",
@@ -7222,7 +7646,8 @@
       "Them"
     ],
     "answer": 0,
-    "correct_answer": "That"
+    "correct_answer": "That",
+    "explanation": "The correct answer is That. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG426",
@@ -7239,7 +7664,8 @@
       "Which"
     ],
     "answer": 2,
-    "correct_answer": "Whom"
+    "correct_answer": "Whom",
+    "explanation": "The correct answer is Whom. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG427",
@@ -7256,7 +7682,8 @@
       "Myself"
     ],
     "answer": 2,
-    "correct_answer": "I"
+    "correct_answer": "I",
+    "explanation": "The correct answer is I. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG428",
@@ -7273,7 +7700,8 @@
       "{HIMSELF_HERSELF_0}"
     ],
     "answer": 2,
-    "correct_answer": "{HIM_HER_0}"
+    "correct_answer": "{HIM_HER_0}",
+    "explanation": "The correct answer is {HIM_HER_0}. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG429",
@@ -7290,7 +7718,8 @@
       "They"
     ],
     "answer": 0,
-    "correct_answer": "Everyone"
+    "correct_answer": "Everyone",
+    "explanation": "The correct answer is Everyone. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG430",
@@ -7307,7 +7736,8 @@
       "the other"
     ],
     "answer": 1,
-    "correct_answer": "each other"
+    "correct_answer": "each other",
+    "explanation": "The correct answer is each other. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG431",
@@ -7324,7 +7754,8 @@
       "whom"
     ],
     "answer": 2,
-    "correct_answer": "whose"
+    "correct_answer": "whose",
+    "explanation": "The correct answer is whose. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG432",
@@ -7341,7 +7772,8 @@
       "whom"
     ],
     "answer": 3,
-    "correct_answer": "whom"
+    "correct_answer": "whom",
+    "explanation": "The correct answer is whom. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG433",
@@ -7358,7 +7790,8 @@
       "we"
     ],
     "answer": 0,
-    "correct_answer": "{HE_SHE_0}"
+    "correct_answer": "{HE_SHE_0}",
+    "explanation": "The correct answer is {HE_SHE_0}. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG434",
@@ -7375,7 +7808,8 @@
       "itself"
     ],
     "answer": 2,
-    "correct_answer": "oneself"
+    "correct_answer": "oneself",
+    "explanation": "The correct answer is oneself. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG435",
@@ -7392,7 +7826,8 @@
       "was...none"
     ],
     "answer": 0,
-    "correct_answer": "was...either"
+    "correct_answer": "was...either",
+    "explanation": "The correct answer is was...either. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG436",
@@ -7409,7 +7844,8 @@
       "the others"
     ],
     "answer": 2,
-    "correct_answer": "one another"
+    "correct_answer": "one another",
+    "explanation": "The correct answer is one another. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG437",
@@ -7426,7 +7862,8 @@
       "What"
     ],
     "answer": 1,
-    "correct_answer": "It"
+    "correct_answer": "It",
+    "explanation": "The correct answer is It. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG438",
@@ -7443,7 +7880,8 @@
       "whom"
     ],
     "answer": 2,
-    "correct_answer": "that / which"
+    "correct_answer": "that / which",
+    "explanation": "The correct answer is that / which. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG439",
@@ -7460,7 +7898,8 @@
       "hers / his"
     ],
     "answer": 0,
-    "correct_answer": "she / he"
+    "correct_answer": "she / he",
+    "explanation": "The correct answer is she / he. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG440",
@@ -7477,7 +7916,8 @@
       "which"
     ],
     "answer": 3,
-    "correct_answer": "which"
+    "correct_answer": "which",
+    "explanation": "The correct answer is which. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG441",
@@ -7494,7 +7934,8 @@
       "Whomever"
     ],
     "answer": 1,
-    "correct_answer": "Whom"
+    "correct_answer": "Whom",
+    "explanation": "The correct answer is Whom. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG442",
@@ -7511,7 +7952,8 @@
       "who"
     ],
     "answer": 3,
-    "correct_answer": "who"
+    "correct_answer": "who",
+    "explanation": "The correct answer is who. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG443",
@@ -7528,7 +7970,8 @@
       "together"
     ],
     "answer": 1,
-    "correct_answer": "each other"
+    "correct_answer": "each other",
+    "explanation": "The correct answer is each other. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG444",
@@ -7545,7 +7988,8 @@
       "Which"
     ],
     "answer": 2,
-    "correct_answer": "Whoever"
+    "correct_answer": "Whoever",
+    "explanation": "The correct answer is Whoever. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG445",
@@ -7562,7 +8006,8 @@
       "whose"
     ],
     "answer": 2,
-    "correct_answer": "which"
+    "correct_answer": "which",
+    "explanation": "The correct answer is which. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG446",
@@ -7579,7 +8024,8 @@
       "one's"
     ],
     "answer": 1,
-    "correct_answer": "his or her"
+    "correct_answer": "his or her",
+    "explanation": "The correct answer is his or her. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG447",
@@ -7596,7 +8042,8 @@
       "I"
     ],
     "answer": 2,
-    "correct_answer": "myself"
+    "correct_answer": "myself",
+    "explanation": "The correct answer is myself. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG448",
@@ -7613,7 +8060,8 @@
       "It is myself who deserves the credit."
     ],
     "answer": 1,
-    "correct_answer": "It is I who deserves the credit."
+    "correct_answer": "It is I who deserves the credit.",
+    "explanation": "The correct answer is It is I who deserves the credit.. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG449",
@@ -7630,7 +8078,8 @@
       "whose"
     ],
     "answer": 2,
-    "correct_answer": "that"
+    "correct_answer": "that",
+    "explanation": "The correct answer is that. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG450",
@@ -7647,7 +8096,8 @@
       "all"
     ],
     "answer": 0,
-    "correct_answer": "each"
+    "correct_answer": "each",
+    "explanation": "The correct answer is each. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG451",
@@ -7664,7 +8114,8 @@
       "—"
     ],
     "answer": 1,
-    "correct_answer": "an"
+    "correct_answer": "an",
+    "explanation": "The correct answer is an. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG452",
@@ -7681,7 +8132,8 @@
       "—"
     ],
     "answer": 0,
-    "correct_answer": "a"
+    "correct_answer": "a",
+    "explanation": "The correct answer is a. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG453",
@@ -7698,7 +8150,8 @@
       "—"
     ],
     "answer": 0,
-    "correct_answer": "a"
+    "correct_answer": "a",
+    "explanation": "The correct answer is a. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG454",
@@ -7715,7 +8168,8 @@
       "—"
     ],
     "answer": 2,
-    "correct_answer": "The"
+    "correct_answer": "The",
+    "explanation": "The correct answer is The. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG455",
@@ -7732,7 +8186,8 @@
       "—"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG456",
@@ -7749,7 +8204,8 @@
       "—"
     ],
     "answer": 3,
-    "correct_answer": "—"
+    "correct_answer": "—",
+    "explanation": "The correct answer is —. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG457",
@@ -7766,7 +8222,8 @@
       "—"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG458",
@@ -7783,7 +8240,8 @@
       "—"
     ],
     "answer": 3,
-    "correct_answer": "—"
+    "correct_answer": "—",
+    "explanation": "The correct answer is —. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG459",
@@ -7800,7 +8258,8 @@
       "—"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG460",
@@ -7817,7 +8276,8 @@
       "—"
     ],
     "answer": 1,
-    "correct_answer": "an"
+    "correct_answer": "an",
+    "explanation": "The correct answer is an. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG461",
@@ -7834,7 +8294,8 @@
       "—"
     ],
     "answer": 1,
-    "correct_answer": "an"
+    "correct_answer": "an",
+    "explanation": "The correct answer is an. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG462",
@@ -7851,7 +8312,8 @@
       "—"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG463",
@@ -7868,7 +8330,8 @@
       "—"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG464",
@@ -7885,7 +8348,8 @@
       "—"
     ],
     "answer": 3,
-    "correct_answer": "—"
+    "correct_answer": "—",
+    "explanation": "The correct answer is —. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG465",
@@ -7902,7 +8366,8 @@
       "—"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG466",
@@ -7919,7 +8384,8 @@
       "—"
     ],
     "answer": 0,
-    "correct_answer": "a"
+    "correct_answer": "a",
+    "explanation": "The correct answer is a. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG467",
@@ -7936,7 +8402,8 @@
       "—"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG468",
@@ -7953,7 +8420,8 @@
       "—"
     ],
     "answer": 3,
-    "correct_answer": "—"
+    "correct_answer": "—",
+    "explanation": "The correct answer is —. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG469",
@@ -7970,7 +8438,8 @@
       "—"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG470",
@@ -7987,7 +8456,8 @@
       "—"
     ],
     "answer": 1,
-    "correct_answer": "an"
+    "correct_answer": "an",
+    "explanation": "The correct answer is an. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG471",
@@ -8004,7 +8474,8 @@
       "—"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG472",
@@ -8021,7 +8492,8 @@
       "—"
     ],
     "answer": 3,
-    "correct_answer": "—"
+    "correct_answer": "—",
+    "explanation": "The correct answer is —. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG473",
@@ -8038,7 +8510,8 @@
       "—"
     ],
     "answer": 0,
-    "correct_answer": "a"
+    "correct_answer": "a",
+    "explanation": "The correct answer is a. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG474",
@@ -8055,7 +8528,8 @@
       "—"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG475",
@@ -8072,7 +8546,8 @@
       "—"
     ],
     "answer": 3,
-    "correct_answer": "—"
+    "correct_answer": "—",
+    "explanation": "The correct answer is —. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG476",
@@ -8089,7 +8564,8 @@
       "—"
     ],
     "answer": 1,
-    "correct_answer": "an"
+    "correct_answer": "an",
+    "explanation": "The correct answer is an. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG477",
@@ -8106,7 +8582,8 @@
       "—"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG478",
@@ -8123,7 +8600,8 @@
       "—"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG479",
@@ -8140,7 +8618,8 @@
       "—"
     ],
     "answer": 0,
-    "correct_answer": "a"
+    "correct_answer": "a",
+    "explanation": "The correct answer is a. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG480",
@@ -8157,7 +8636,8 @@
       "—"
     ],
     "answer": 2,
-    "correct_answer": "the"
+    "correct_answer": "the",
+    "explanation": "The correct answer is the. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG481",
@@ -8174,7 +8654,8 @@
       "so"
     ],
     "answer": 1,
-    "correct_answer": "because"
+    "correct_answer": "because",
+    "explanation": "The correct answer is because. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG482",
@@ -8191,7 +8672,8 @@
       "so"
     ],
     "answer": 2,
-    "correct_answer": "and"
+    "correct_answer": "and",
+    "explanation": "The correct answer is and. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG483",
@@ -8208,7 +8690,8 @@
       "because"
     ],
     "answer": 2,
-    "correct_answer": "but"
+    "correct_answer": "but",
+    "explanation": "The correct answer is but. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG484",
@@ -8225,7 +8708,8 @@
       "or"
     ],
     "answer": 3,
-    "correct_answer": "or"
+    "correct_answer": "or",
+    "explanation": "The correct answer is or. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG485",
@@ -8242,7 +8726,8 @@
       "although"
     ],
     "answer": 1,
-    "correct_answer": "so"
+    "correct_answer": "so",
+    "explanation": "The correct answer is so. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG486",
@@ -8259,7 +8744,8 @@
       "before"
     ],
     "answer": 1,
-    "correct_answer": "when"
+    "correct_answer": "when",
+    "explanation": "The correct answer is when. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG487",
@@ -8276,7 +8762,8 @@
       "until"
     ],
     "answer": 0,
-    "correct_answer": "before"
+    "correct_answer": "before",
+    "explanation": "The correct answer is before. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG488",
@@ -8293,7 +8780,8 @@
       "since"
     ],
     "answer": 1,
-    "correct_answer": "if"
+    "correct_answer": "if",
+    "explanation": "The correct answer is if. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG489",
@@ -8310,7 +8798,8 @@
       "as long as"
     ],
     "answer": 1,
-    "correct_answer": "while"
+    "correct_answer": "while",
+    "explanation": "The correct answer is while. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG490",
@@ -8327,7 +8816,8 @@
       "when"
     ],
     "answer": 2,
-    "correct_answer": "until"
+    "correct_answer": "until",
+    "explanation": "The correct answer is until. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG491",
@@ -8344,7 +8834,8 @@
       "So that"
     ],
     "answer": 1,
-    "correct_answer": "Although"
+    "correct_answer": "Although",
+    "explanation": "The correct answer is Although. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG492",
@@ -8361,7 +8852,8 @@
       "or also"
     ],
     "answer": 0,
-    "correct_answer": "but also"
+    "correct_answer": "but also",
+    "explanation": "The correct answer is but also. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG493",
@@ -8378,7 +8870,8 @@
       "not only...but also"
     ],
     "answer": 0,
-    "correct_answer": "either...or"
+    "correct_answer": "either...or",
+    "explanation": "The correct answer is either...or. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG494",
@@ -8395,7 +8888,8 @@
       "both...and"
     ],
     "answer": 0,
-    "correct_answer": "neither...nor"
+    "correct_answer": "neither...nor",
+    "explanation": "The correct answer is neither...nor. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG495",
@@ -8412,7 +8906,8 @@
       "before"
     ],
     "answer": 2,
-    "correct_answer": "as soon as"
+    "correct_answer": "as soon as",
+    "explanation": "The correct answer is as soon as. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG496",
@@ -8429,7 +8924,8 @@
       "even though"
     ],
     "answer": 0,
-    "correct_answer": "provided that"
+    "correct_answer": "provided that",
+    "explanation": "The correct answer is provided that. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG497",
@@ -8446,7 +8942,8 @@
       "therefore"
     ],
     "answer": 1,
-    "correct_answer": "nevertheless"
+    "correct_answer": "nevertheless",
+    "explanation": "The correct answer is nevertheless. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG498",
@@ -8463,7 +8960,8 @@
       "unless"
     ],
     "answer": 2,
-    "correct_answer": "therefore"
+    "correct_answer": "therefore",
+    "explanation": "The correct answer is therefore. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG499",
@@ -8480,7 +8978,8 @@
       "when"
     ],
     "answer": 1,
-    "correct_answer": "unless"
+    "correct_answer": "unless",
+    "explanation": "The correct answer is unless. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG500",
@@ -8497,7 +8996,8 @@
       "because"
     ],
     "answer": 1,
-    "correct_answer": "so that"
+    "correct_answer": "so that",
+    "explanation": "The correct answer is so that. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG501",
@@ -8514,7 +9014,8 @@
       "but"
     ],
     "answer": 1,
-    "correct_answer": "despite"
+    "correct_answer": "despite",
+    "explanation": "The correct answer is despite. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG502",
@@ -8531,7 +9032,8 @@
       "unless"
     ],
     "answer": 1,
-    "correct_answer": "as long as"
+    "correct_answer": "as long as",
+    "explanation": "The correct answer is as long as. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG503",
@@ -8548,7 +9050,8 @@
       "whenever"
     ],
     "answer": 1,
-    "correct_answer": "in case"
+    "correct_answer": "in case",
+    "explanation": "The correct answer is in case. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG504",
@@ -8565,7 +9068,8 @@
       "but"
     ],
     "answer": 2,
-    "correct_answer": "and"
+    "correct_answer": "and",
+    "explanation": "The correct answer is and. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG505",
@@ -8582,7 +9086,8 @@
       "whenever"
     ],
     "answer": 1,
-    "correct_answer": "even though"
+    "correct_answer": "even though",
+    "explanation": "The correct answer is even though. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG506",
@@ -8599,7 +9104,8 @@
       "then"
     ],
     "answer": 1,
-    "correct_answer": "than"
+    "correct_answer": "than",
+    "explanation": "The correct answer is than. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG507",
@@ -8616,7 +9122,8 @@
       "as"
     ],
     "answer": 0,
-    "correct_answer": "when"
+    "correct_answer": "when",
+    "explanation": "The correct answer is when. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG508",
@@ -8633,7 +9140,8 @@
       "so that"
     ],
     "answer": 0,
-    "correct_answer": "as though"
+    "correct_answer": "as though",
+    "explanation": "The correct answer is as though. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG509",
@@ -8650,7 +9158,8 @@
       "neither...nor"
     ],
     "answer": 1,
-    "correct_answer": "whether...or"
+    "correct_answer": "whether...or",
+    "explanation": "The correct answer is whether...or. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG510",
@@ -8667,7 +9176,8 @@
       "or rather"
     ],
     "answer": 0,
-    "correct_answer": "but rather"
+    "correct_answer": "but rather",
+    "explanation": "The correct answer is but rather. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG511",
@@ -8684,7 +9194,8 @@
       "by"
     ],
     "answer": 2,
-    "correct_answer": "at"
+    "correct_answer": "at",
+    "explanation": "The correct answer is at. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG512",
@@ -8701,7 +9212,8 @@
       "during"
     ],
     "answer": 1,
-    "correct_answer": "on"
+    "correct_answer": "on",
+    "explanation": "The correct answer is on. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG513",
@@ -8718,7 +9230,8 @@
       "during"
     ],
     "answer": 2,
-    "correct_answer": "in"
+    "correct_answer": "in",
+    "explanation": "The correct answer is in. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG514",
@@ -8735,7 +9248,8 @@
       "towards"
     ],
     "answer": 2,
-    "correct_answer": "to"
+    "correct_answer": "to",
+    "explanation": "The correct answer is to. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG515",
@@ -8752,7 +9266,8 @@
       "with"
     ],
     "answer": 1,
-    "correct_answer": "from"
+    "correct_answer": "from",
+    "explanation": "The correct answer is from. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG516",
@@ -8769,7 +9284,8 @@
       "for"
     ],
     "answer": 1,
-    "correct_answer": "among"
+    "correct_answer": "among",
+    "explanation": "The correct answer is among. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG517",
@@ -8786,7 +9302,8 @@
       "above"
     ],
     "answer": 2,
-    "correct_answer": "under"
+    "correct_answer": "under",
+    "explanation": "The correct answer is under. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG518",
@@ -8803,7 +9320,8 @@
       "in"
     ],
     "answer": 2,
-    "correct_answer": "for"
+    "correct_answer": "for",
+    "explanation": "The correct answer is for. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG519",
@@ -8820,7 +9338,8 @@
       "from"
     ],
     "answer": 2,
-    "correct_answer": "since"
+    "correct_answer": "since",
+    "explanation": "The correct answer is since. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG520",
@@ -8837,7 +9356,8 @@
       "with"
     ],
     "answer": 2,
-    "correct_answer": "by"
+    "correct_answer": "by",
+    "explanation": "The correct answer is by. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG521",
@@ -8854,7 +9374,8 @@
       "by"
     ],
     "answer": 1,
-    "correct_answer": "in"
+    "correct_answer": "in",
+    "explanation": "The correct answer is in. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG522",
@@ -8871,7 +9392,8 @@
       "by"
     ],
     "answer": 2,
-    "correct_answer": "on"
+    "correct_answer": "on",
+    "explanation": "The correct answer is on. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG523",
@@ -8888,7 +9410,8 @@
       "With reference to"
     ],
     "answer": 1,
-    "correct_answer": "According to"
+    "correct_answer": "According to",
+    "explanation": "The correct answer is According to. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG524",
@@ -8905,7 +9428,8 @@
       "inside"
     ],
     "answer": 2,
-    "correct_answer": "at"
+    "correct_answer": "at",
+    "explanation": "The correct answer is at. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG525",
@@ -8922,7 +9446,8 @@
       "for"
     ],
     "answer": 1,
-    "correct_answer": "on"
+    "correct_answer": "on",
+    "explanation": "The correct answer is on. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG526",
@@ -8939,7 +9464,8 @@
       "in"
     ],
     "answer": 1,
-    "correct_answer": "of"
+    "correct_answer": "of",
+    "explanation": "The correct answer is of. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG527",
@@ -8956,7 +9482,8 @@
       "about"
     ],
     "answer": 2,
-    "correct_answer": "for"
+    "correct_answer": "for",
+    "explanation": "The correct answer is for. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG528",
@@ -8973,7 +9500,8 @@
       "Instead of"
     ],
     "answer": 0,
-    "correct_answer": "In addition to"
+    "correct_answer": "In addition to",
+    "explanation": "The correct answer is In addition to. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG529",
@@ -8990,7 +9518,8 @@
       "with"
     ],
     "answer": 2,
-    "correct_answer": "by"
+    "correct_answer": "by",
+    "explanation": "The correct answer is by. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG530",
@@ -9007,7 +9536,8 @@
       "by"
     ],
     "answer": 0,
-    "correct_answer": "at"
+    "correct_answer": "at",
+    "explanation": "The correct answer is at. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG531",
@@ -9024,7 +9554,8 @@
       "At"
     ],
     "answer": 1,
-    "correct_answer": "In"
+    "correct_answer": "In",
+    "explanation": "The correct answer is In. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG532",
@@ -9041,7 +9572,8 @@
       "on"
     ],
     "answer": 1,
-    "correct_answer": "with"
+    "correct_answer": "with",
+    "explanation": "The correct answer is with. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG533",
@@ -9058,7 +9590,8 @@
       "by"
     ],
     "answer": 0,
-    "correct_answer": "on"
+    "correct_answer": "on",
+    "explanation": "The correct answer is on. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG534",
@@ -9075,7 +9608,8 @@
       "resulted at"
     ],
     "answer": 0,
-    "correct_answer": "resulted in"
+    "correct_answer": "resulted in",
+    "explanation": "The correct answer is resulted in. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG535",
@@ -9092,7 +9626,8 @@
       "for"
     ],
     "answer": 2,
-    "correct_answer": "about"
+    "correct_answer": "about",
+    "explanation": "The correct answer is about. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG536",
@@ -9109,7 +9644,8 @@
       "ahead"
     ],
     "answer": 0,
-    "correct_answer": "in front of"
+    "correct_answer": "in front of",
+    "explanation": "The correct answer is in front of. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG537",
@@ -9126,7 +9662,8 @@
       "via"
     ],
     "answer": 2,
-    "correct_answer": "by"
+    "correct_answer": "by",
+    "explanation": "The correct answer is by. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG538",
@@ -9143,7 +9680,8 @@
       "Over"
     ],
     "answer": 0,
-    "correct_answer": "In"
+    "correct_answer": "In",
+    "explanation": "The correct answer is In. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG539",
@@ -9160,7 +9698,8 @@
       "on"
     ],
     "answer": 0,
-    "correct_answer": "in"
+    "correct_answer": "in",
+    "explanation": "The correct answer is in. Read the whole sentence, then choose the form that fits grammar and meaning."
   },
   {
     "id": "ENG540",
@@ -9177,6 +9716,7 @@
       "on"
     ],
     "answer": 2,
-    "correct_answer": "in"
+    "correct_answer": "in",
+    "explanation": "The correct answer is in. Read the whole sentence, then choose the form that fits grammar and meaning."
   }
 ]

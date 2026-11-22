@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "subject": "science",
+  "totalQuestions": 1224,
+  "categories": [
+    "Adaptations",
+    "Cells",
+    "Climate & Environment",
+    "Cycles",
+    "Electricity",
+    "Energy",
+    "Environment",
+    "Experiment",
+    "Forces",
+    "Heat",
+    "Human Body",
+    "Interactions",
+    "Light",
+    "Living Things",
+    "Materials",
+    "Matter",
+    "P6 Practice",
+    "Reproduction",
+    "Scientific Investigation",
+    "Sound"
+  ],
+  "difficulties": [
+    {
+      "id": "P3-P4",
+      "key": "p3-p4",
+      "files": [
+        "questions-science.json"
+      ],
+      "count": 34,
+      "categories": [
+        "Cycles",
+        "Energy",
+        "Forces",
+        "Living Things",
+        "Materials"
+      ]
+    },
+    {
+      "id": "P5-P6",
+      "key": "p5-p6",
+      "files": [
+        "questions-science.json"
+      ],
+      "count": 169,
+      "categories": [
+        "Adaptations",
+        "Cells",
+        "Climate & Environment",
+        "Cycles",
+        "Electricity",
+        "Energy",
+        "Environment",
+        "Experiment",
+        "Forces",
+        "Heat",
+        "Human Body",
+        "Light",
+        "Living Things",
+        "Materials",
+        "Matter",
+        "Reproduction",
+        "Scientific Investigation",
+        "Sound"
+      ]
+    },
+    {
+      "id": "PSLE",
+      "key": "psle",
+      "files": [
+        "questions-science.json",
+        "questions-science-p6.json"
+      ],
+      "count": 1021,
+      "categories": [
+        "Adaptations",
+        "Cells",
+        "Climate & Environment",
+        "Cycles",
+        "Electricity",
+        "Energy",
+        "Environment",
+        "Experiment",
+        "Forces",
+        "Heat",
+        "Human Body",
+        "Interactions",
+        "Light",
+        "Living Things",
+        "Materials",
+        "Matter",
+        "P6 Practice",
+        "Reproduction",
+        "Scientific Investigation",
+        "Sound"
+      ]
+    }
+  ]
+}

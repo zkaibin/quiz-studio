@@ -16,7 +16,8 @@
       "28"
     ],
     "answer": 1,
-    "correct_answer": "30"
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q701",
@@ -34,7 +35,8 @@
       "24"
     ],
     "answer": 2,
-    "correct_answer": "18"
+    "correct_answer": "18",
+    "explanation": "The correct answer is 18. Keep the ratio parts in the same order."
   },
   {
     "id": "Q702",
@@ -51,7 +53,8 @@
       "60"
     ],
     "answer": 3,
-    "correct_answer": "60"
+    "correct_answer": "60",
+    "explanation": "The correct answer is 60. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q703",
@@ -68,7 +71,8 @@
       "45"
     ],
     "answer": 0,
-    "correct_answer": "50"
+    "correct_answer": "50",
+    "explanation": "The correct answer is 50. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q704",
@@ -87,7 +91,8 @@
       "80"
     ],
     "answer": 3,
-    "correct_answer": "80"
+    "correct_answer": "80",
+    "explanation": "The correct answer is 80. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q705",
@@ -106,7 +111,8 @@
       "10.50"
     ],
     "answer": 3,
-    "correct_answer": "10.50"
+    "correct_answer": "10.50",
+    "explanation": "The correct answer is 10.50. Average = sum of values ÷ number of values."
   },
   {
     "id": "Q706",
@@ -123,7 +129,8 @@
       "35"
     ],
     "answer": 0,
-    "correct_answer": "30"
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Keep the ratio parts in the same order."
   },
   {
     "id": "Q707",
@@ -141,7 +148,8 @@
       "12"
     ],
     "answer": 3,
-    "correct_answer": "12"
+    "correct_answer": "12",
+    "explanation": "The correct answer is 12. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q708",
@@ -158,7 +166,8 @@
       "60"
     ],
     "answer": 3,
-    "correct_answer": "60"
+    "correct_answer": "60",
+    "explanation": "The correct answer is 60. Follow order of operations: brackets, then ×÷, then +−."
   },
   {
     "id": "Q709",
@@ -175,7 +184,8 @@
       "84"
     ],
     "answer": 1,
-    "correct_answer": "80"
+    "correct_answer": "80",
+    "explanation": "The correct answer is 80. Percent means out of 100 — convert then calculate."
   },
   {
     "id": "Q750",
@@ -192,7 +202,8 @@
       "5"
     ],
     "answer": 1,
-    "correct_answer": "4"
+    "correct_answer": "4",
+    "explanation": "The correct answer is 4. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q751",
@@ -209,7 +220,8 @@
       "15"
     ],
     "answer": 2,
-    "correct_answer": "10"
+    "correct_answer": "10",
+    "explanation": "The correct answer is 10. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q752",
@@ -226,7 +238,8 @@
       "6"
     ],
     "answer": 0,
-    "correct_answer": "8"
+    "correct_answer": "8",
+    "explanation": "The correct answer is 8. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q753",
@@ -243,7 +256,8 @@
       "13"
     ],
     "answer": 1,
-    "correct_answer": "15"
+    "correct_answer": "15",
+    "explanation": "The correct answer is 15. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q754",
@@ -260,7 +274,8 @@
       "5"
     ],
     "answer": 1,
-    "correct_answer": "7"
+    "correct_answer": "7",
+    "explanation": "The correct answer is 7. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q755",
@@ -277,7 +292,8 @@
       "10"
     ],
     "answer": 3,
-    "correct_answer": "10"
+    "correct_answer": "10",
+    "explanation": "The correct answer is 10. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q756",
@@ -294,7 +310,8 @@
       "9"
     ],
     "answer": 1,
-    "correct_answer": "7"
+    "correct_answer": "7",
+    "explanation": "The correct answer is 7. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q757",
@@ -311,7 +328,8 @@
       "20"
     ],
     "answer": 0,
-    "correct_answer": "10"
+    "correct_answer": "10",
+    "explanation": "The correct answer is 10. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q758",
@@ -328,7 +346,8 @@
       "10"
     ],
     "answer": 1,
-    "correct_answer": "14"
+    "correct_answer": "14",
+    "explanation": "The correct answer is 14. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q759",
@@ -345,7 +364,8 @@
       "3"
     ],
     "answer": 1,
-    "correct_answer": "4"
+    "correct_answer": "4",
+    "explanation": "The correct answer is 4. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q760",
@@ -362,7 +382,8 @@
       "38"
     ],
     "answer": 1,
-    "correct_answer": "23"
+    "correct_answer": "23",
+    "explanation": "The correct answer is 23. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q761",
@@ -379,7 +400,8 @@
       "18"
     ],
     "answer": 0,
-    "correct_answer": "22"
+    "correct_answer": "22",
+    "explanation": "The correct answer is 22. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q762",
@@ -396,7 +418,8 @@
       "8"
     ],
     "answer": 1,
-    "correct_answer": "6"
+    "correct_answer": "6",
+    "explanation": "The correct answer is 6. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q763",
@@ -413,7 +436,8 @@
       "27"
     ],
     "answer": 0,
-    "correct_answer": "37"
+    "correct_answer": "37",
+    "explanation": "The correct answer is 37. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q764",
@@ -430,7 +454,8 @@
       "64"
     ],
     "answer": 2,
-    "correct_answer": "79"
+    "correct_answer": "79",
+    "explanation": "The correct answer is 79. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q765",
@@ -447,7 +472,8 @@
       "50"
     ],
     "answer": 0,
-    "correct_answer": "44"
+    "correct_answer": "44",
+    "explanation": "The correct answer is 44. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q766",
@@ -464,7 +490,8 @@
       "17"
     ],
     "answer": 2,
-    "correct_answer": "51"
+    "correct_answer": "51",
+    "explanation": "The correct answer is 51. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q767",
@@ -481,7 +508,8 @@
       "81"
     ],
     "answer": 0,
-    "correct_answer": "85"
+    "correct_answer": "85",
+    "explanation": "The correct answer is 85. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q768",
@@ -498,7 +526,8 @@
       "8"
     ],
     "answer": 1,
-    "correct_answer": "6"
+    "correct_answer": "6",
+    "explanation": "The correct answer is 6. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q769",
@@ -515,7 +544,8 @@
       "26"
     ],
     "answer": 2,
-    "correct_answer": "20"
+    "correct_answer": "20",
+    "explanation": "The correct answer is 20. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q770",
@@ -532,7 +562,8 @@
       "93"
     ],
     "answer": 1,
-    "correct_answer": "95"
+    "correct_answer": "95",
+    "explanation": "The correct answer is 95. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q771",
@@ -549,7 +580,8 @@
       "20"
     ],
     "answer": 1,
-    "correct_answer": "19"
+    "correct_answer": "19",
+    "explanation": "The correct answer is 19. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q772",
@@ -566,7 +598,8 @@
       "72"
     ],
     "answer": 2,
-    "correct_answer": "64"
+    "correct_answer": "64",
+    "explanation": "The correct answer is 64. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q773",
@@ -583,7 +616,8 @@
       "60"
     ],
     "answer": 2,
-    "correct_answer": "96"
+    "correct_answer": "96",
+    "explanation": "The correct answer is 96. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q774",
@@ -600,7 +634,8 @@
       "102"
     ],
     "answer": 0,
-    "correct_answer": "49"
+    "correct_answer": "49",
+    "explanation": "The correct answer is 49. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q775",
@@ -617,7 +652,8 @@
       "24"
     ],
     "answer": 1,
-    "correct_answer": "25"
+    "correct_answer": "25",
+    "explanation": "The correct answer is 25. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q776",
@@ -634,7 +670,8 @@
       "54"
     ],
     "answer": 0,
-    "correct_answer": "56"
+    "correct_answer": "56",
+    "explanation": "The correct answer is 56. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q777",
@@ -651,7 +688,8 @@
       "128"
     ],
     "answer": 0,
-    "correct_answer": "127"
+    "correct_answer": "127",
+    "explanation": "The correct answer is 127. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q778",
@@ -668,7 +706,8 @@
       "44"
     ],
     "answer": 1,
-    "correct_answer": "46"
+    "correct_answer": "46",
+    "explanation": "The correct answer is 46. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q779",
@@ -685,7 +724,8 @@
       "59"
     ],
     "answer": 2,
-    "correct_answer": "60"
+    "correct_answer": "60",
+    "explanation": "The correct answer is 60. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q780",
@@ -702,7 +742,8 @@
       "10"
     ],
     "answer": 1,
-    "correct_answer": "9"
+    "correct_answer": "9",
+    "explanation": "The correct answer is 9. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q781",
@@ -719,7 +760,8 @@
       "17"
     ],
     "answer": 1,
-    "correct_answer": "18"
+    "correct_answer": "18",
+    "explanation": "The correct answer is 18. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q782",
@@ -736,7 +778,8 @@
       "14"
     ],
     "answer": 1,
-    "correct_answer": "12"
+    "correct_answer": "12",
+    "explanation": "The correct answer is 12. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q783",
@@ -753,7 +796,8 @@
       "11"
     ],
     "answer": 0,
-    "correct_answer": "9"
+    "correct_answer": "9",
+    "explanation": "The correct answer is 9. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q784",
@@ -770,7 +814,8 @@
       "17"
     ],
     "answer": 1,
-    "correct_answer": "16"
+    "correct_answer": "16",
+    "explanation": "The correct answer is 16. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q785",
@@ -787,7 +832,8 @@
       "5"
     ],
     "answer": 0,
-    "correct_answer": "8"
+    "correct_answer": "8",
+    "explanation": "The correct answer is 8. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q786",
@@ -804,7 +850,8 @@
       "16"
     ],
     "answer": 1,
-    "correct_answer": "20"
+    "correct_answer": "20",
+    "explanation": "The correct answer is 20. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q787",
@@ -821,7 +868,8 @@
       "14"
     ],
     "answer": 1,
-    "correct_answer": "16"
+    "correct_answer": "16",
+    "explanation": "The correct answer is 16. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q788",
@@ -838,7 +886,8 @@
       "12"
     ],
     "answer": 1,
-    "correct_answer": "10"
+    "correct_answer": "10",
+    "explanation": "The correct answer is 10. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q789",
@@ -855,7 +904,8 @@
       "10"
     ],
     "answer": 1,
-    "correct_answer": "8"
+    "correct_answer": "8",
+    "explanation": "The correct answer is 8. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q790",
@@ -873,7 +923,8 @@
       "21"
     ],
     "answer": 1,
-    "correct_answer": "18"
+    "correct_answer": "18",
+    "explanation": "The correct answer is 18. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q791",
@@ -891,7 +942,8 @@
       "26"
     ],
     "answer": 0,
-    "correct_answer": "28"
+    "correct_answer": "28",
+    "explanation": "The correct answer is 28. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q792",
@@ -909,7 +961,8 @@
       "14"
     ],
     "answer": 0,
-    "correct_answer": "10"
+    "correct_answer": "10",
+    "explanation": "The correct answer is 10. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q793",
@@ -927,7 +980,8 @@
       "28"
     ],
     "answer": 0,
-    "correct_answer": "30"
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q794",
@@ -945,7 +999,8 @@
       "22"
     ],
     "answer": 0,
-    "correct_answer": "20"
+    "correct_answer": "20",
+    "explanation": "The correct answer is 20. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q795",
@@ -963,7 +1018,8 @@
       "18"
     ],
     "answer": 1,
-    "correct_answer": "16"
+    "correct_answer": "16",
+    "explanation": "The correct answer is 16. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q796",
@@ -981,7 +1037,8 @@
       "15"
     ],
     "answer": 0,
-    "correct_answer": "21"
+    "correct_answer": "21",
+    "explanation": "The correct answer is 21. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q797",
@@ -999,7 +1056,8 @@
       "16"
     ],
     "answer": 1,
-    "correct_answer": "12"
+    "correct_answer": "12",
+    "explanation": "The correct answer is 12. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q798",
@@ -1017,7 +1075,8 @@
       "52"
     ],
     "answer": 0,
-    "correct_answer": "48"
+    "correct_answer": "48",
+    "explanation": "The correct answer is 48. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q799",
@@ -1035,7 +1094,8 @@
       "14"
     ],
     "answer": 1,
-    "correct_answer": "12"
+    "correct_answer": "12",
+    "explanation": "The correct answer is 12. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q800",
@@ -1052,7 +1112,8 @@
       "120"
     ],
     "answer": 0,
-    "correct_answer": "60"
+    "correct_answer": "60",
+    "explanation": "The correct answer is 60. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q801",
@@ -1071,7 +1132,8 @@
       "100"
     ],
     "answer": 0,
-    "correct_answer": "80"
+    "correct_answer": "80",
+    "explanation": "The correct answer is 80. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q802",
@@ -1088,7 +1150,8 @@
       "45"
     ],
     "answer": 1,
-    "correct_answer": "50"
+    "correct_answer": "50",
+    "explanation": "The correct answer is 50. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q803",
@@ -1105,7 +1168,8 @@
       "50"
     ],
     "answer": 0,
-    "correct_answer": "48"
+    "correct_answer": "48",
+    "explanation": "The correct answer is 48. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q804",
@@ -1122,7 +1186,8 @@
       "45"
     ],
     "answer": 2,
-    "correct_answer": "42"
+    "correct_answer": "42",
+    "explanation": "The correct answer is 42. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q805",
@@ -1139,7 +1204,8 @@
       "80"
     ],
     "answer": 1,
-    "correct_answer": "60"
+    "correct_answer": "60",
+    "explanation": "The correct answer is 60. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q806",
@@ -1156,7 +1222,8 @@
       "35"
     ],
     "answer": 1,
-    "correct_answer": "45"
+    "correct_answer": "45",
+    "explanation": "The correct answer is 45. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q807",
@@ -1174,7 +1241,8 @@
       "450"
     ],
     "answer": 0,
-    "correct_answer": "600"
+    "correct_answer": "600",
+    "explanation": "The correct answer is 600. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q808",
@@ -1191,7 +1259,8 @@
       "55"
     ],
     "answer": 0,
-    "correct_answer": "60"
+    "correct_answer": "60",
+    "explanation": "The correct answer is 60. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q809",
@@ -1210,7 +1279,8 @@
       "24"
     ],
     "answer": 0,
-    "correct_answer": "18"
+    "correct_answer": "18",
+    "explanation": "The correct answer is 18. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q810",
@@ -1228,7 +1298,8 @@
       "2.5"
     ],
     "answer": 1,
-    "correct_answer": "1.7"
+    "correct_answer": "1.7",
+    "explanation": "The correct answer is 1.7. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q811",
@@ -1245,7 +1316,8 @@
       "19"
     ],
     "answer": 0,
-    "correct_answer": "21"
+    "correct_answer": "21",
+    "explanation": "The correct answer is 21. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q812",
@@ -1263,7 +1335,8 @@
       "40"
     ],
     "answer": 1,
-    "correct_answer": "30"
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q813",
@@ -1281,7 +1354,8 @@
       "1:30pm"
     ],
     "answer": 0,
-    "correct_answer": "1pm"
+    "correct_answer": "1pm",
+    "explanation": "The correct answer is 1pm. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q814",
@@ -1298,7 +1372,8 @@
       "15"
     ],
     "answer": 0,
-    "correct_answer": "10"
+    "correct_answer": "10",
+    "explanation": "The correct answer is 10. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q815",
@@ -1315,7 +1390,8 @@
       "80"
     ],
     "answer": 1,
-    "correct_answer": "72"
+    "correct_answer": "72",
+    "explanation": "The correct answer is 72. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q816",
@@ -1333,7 +1409,8 @@
       "40"
     ],
     "answer": 1,
-    "correct_answer": "30"
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q817",
@@ -1350,7 +1427,8 @@
       "90"
     ],
     "answer": 2,
-    "correct_answer": "120"
+    "correct_answer": "120",
+    "explanation": "The correct answer is 120. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q818",
@@ -1367,7 +1445,8 @@
       "8"
     ],
     "answer": 0,
-    "correct_answer": "8.5"
+    "correct_answer": "8.5",
+    "explanation": "The correct answer is 8.5. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q819",
@@ -1384,7 +1463,8 @@
       "5"
     ],
     "answer": 0,
-    "correct_answer": "7.5"
+    "correct_answer": "7.5",
+    "explanation": "The correct answer is 7.5. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q820",
@@ -1401,7 +1481,8 @@
       "120"
     ],
     "answer": 1,
-    "correct_answer": "128"
+    "correct_answer": "128",
+    "explanation": "The correct answer is 128. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q821",
@@ -1418,7 +1499,8 @@
       "200"
     ],
     "answer": 0,
-    "correct_answer": "256"
+    "correct_answer": "256",
+    "explanation": "The correct answer is 256. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q822",
@@ -1435,7 +1517,8 @@
       "42"
     ],
     "answer": 0,
-    "correct_answer": "46"
+    "correct_answer": "46",
+    "explanation": "The correct answer is 46. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q823",
@@ -1452,7 +1535,8 @@
       "8"
     ],
     "answer": 1,
-    "correct_answer": "12"
+    "correct_answer": "12",
+    "explanation": "The correct answer is 12. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q824",
@@ -1469,7 +1553,8 @@
       "250"
     ],
     "answer": 0,
-    "correct_answer": "225"
+    "correct_answer": "225",
+    "explanation": "The correct answer is 225. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q825",
@@ -1486,7 +1571,8 @@
       "8"
     ],
     "answer": 1,
-    "correct_answer": "6"
+    "correct_answer": "6",
+    "explanation": "The correct answer is 6. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q826",
@@ -1503,7 +1589,8 @@
       "120"
     ],
     "answer": 1,
-    "correct_answer": "128"
+    "correct_answer": "128",
+    "explanation": "The correct answer is 128. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q827",
@@ -1520,7 +1607,8 @@
       "7"
     ],
     "answer": 0,
-    "correct_answer": "5"
+    "correct_answer": "5",
+    "explanation": "The correct answer is 5. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q828",
@@ -1537,7 +1625,8 @@
       "95"
     ],
     "answer": 0,
-    "correct_answer": "96"
+    "correct_answer": "96",
+    "explanation": "The correct answer is 96. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q829",
@@ -1554,7 +1643,8 @@
       "140"
     ],
     "answer": 1,
-    "correct_answer": "150"
+    "correct_answer": "150",
+    "explanation": "The correct answer is 150. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q830",
@@ -1572,7 +1662,8 @@
       "55"
     ],
     "answer": 0,
-    "correct_answer": "60"
+    "correct_answer": "60",
+    "explanation": "The correct answer is 60. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q831",
@@ -1590,7 +1681,8 @@
       "12"
     ],
     "answer": 0,
-    "correct_answer": "15"
+    "correct_answer": "15",
+    "explanation": "The correct answer is 15. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q832",
@@ -1609,7 +1701,8 @@
       "45"
     ],
     "answer": 2,
-    "correct_answer": "40"
+    "correct_answer": "40",
+    "explanation": "The correct answer is 40. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q833",
@@ -1627,7 +1720,8 @@
       "20"
     ],
     "answer": 1,
-    "correct_answer": "16"
+    "correct_answer": "16",
+    "explanation": "The correct answer is 16. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q834",
@@ -1645,7 +1739,8 @@
       "91"
     ],
     "answer": 0,
-    "correct_answer": "49"
+    "correct_answer": "49",
+    "explanation": "The correct answer is 49. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q835",
@@ -1663,7 +1758,8 @@
       "84"
     ],
     "answer": 0,
-    "correct_answer": "98"
+    "correct_answer": "98",
+    "explanation": "The correct answer is 98. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q836",
@@ -1681,7 +1777,8 @@
       "40"
     ],
     "answer": 0,
-    "correct_answer": "30"
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q837",
@@ -1700,7 +1797,8 @@
       "20"
     ],
     "answer": 0,
-    "correct_answer": "30"
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q838",
@@ -1718,7 +1816,8 @@
       "24"
     ],
     "answer": 0,
-    "correct_answer": "15"
+    "correct_answer": "15",
+    "explanation": "The correct answer is 15. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q839",
@@ -1736,7 +1835,8 @@
       "45"
     ],
     "answer": 2,
-    "correct_answer": "50"
+    "correct_answer": "50",
+    "explanation": "The correct answer is 50. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q840",
@@ -1755,7 +1855,8 @@
       "220"
     ],
     "answer": 1,
-    "correct_answer": "200"
+    "correct_answer": "200",
+    "explanation": "The correct answer is 200. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q841",
@@ -1774,7 +1875,8 @@
       "85"
     ],
     "answer": 0,
-    "correct_answer": "80"
+    "correct_answer": "80",
+    "explanation": "The correct answer is 80. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q842",
@@ -1793,7 +1895,8 @@
       "26"
     ],
     "answer": 0,
-    "correct_answer": "28"
+    "correct_answer": "28",
+    "explanation": "The correct answer is 28. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q843",
@@ -1810,7 +1913,8 @@
       "350"
     ],
     "answer": 0,
-    "correct_answer": "375"
+    "correct_answer": "375",
+    "explanation": "The correct answer is 375. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q844",
@@ -1829,7 +1933,8 @@
       "18"
     ],
     "answer": 1,
-    "correct_answer": "24"
+    "correct_answer": "24",
+    "explanation": "The correct answer is 24. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q845",
@@ -1846,7 +1951,8 @@
       "30"
     ],
     "answer": 1,
-    "correct_answer": "25"
+    "correct_answer": "25",
+    "explanation": "The correct answer is 25. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q846",
@@ -1865,7 +1971,8 @@
       "90"
     ],
     "answer": 1,
-    "correct_answer": "108"
+    "correct_answer": "108",
+    "explanation": "The correct answer is 108. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q847",
@@ -1884,7 +1991,8 @@
       "20"
     ],
     "answer": 1,
-    "correct_answer": "30"
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q848",
@@ -1903,7 +2011,8 @@
       "65"
     ],
     "answer": 1,
-    "correct_answer": "75"
+    "correct_answer": "75",
+    "explanation": "The correct answer is 75. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q849",
@@ -1918,7 +2027,8 @@
       "35"
     ],
     "answer": 0,
-    "correct_answer": "25"
+    "correct_answer": "25",
+    "explanation": "The correct answer is 25. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q850",
@@ -1935,7 +2045,8 @@
       "90"
     ],
     "answer": 0,
-    "correct_answer": "100"
+    "correct_answer": "100",
+    "explanation": "The correct answer is 100. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q851",
@@ -1952,7 +2063,8 @@
       "110"
     ],
     "answer": 1,
-    "correct_answer": "120"
+    "correct_answer": "120",
+    "explanation": "The correct answer is 120. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q852",
@@ -1969,7 +2081,8 @@
       "100"
     ],
     "answer": 0,
-    "correct_answer": "120"
+    "correct_answer": "120",
+    "explanation": "The correct answer is 120. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q853",
@@ -1986,7 +2099,8 @@
       "76.5"
     ],
     "answer": 0,
-    "correct_answer": "77.8"
+    "correct_answer": "77.8",
+    "explanation": "The correct answer is 77.8. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q854",
@@ -2004,7 +2118,8 @@
       "23"
     ],
     "answer": 0,
-    "correct_answer": "25"
+    "correct_answer": "25",
+    "explanation": "The correct answer is 25. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q855",
@@ -2021,7 +2136,8 @@
       "350"
     ],
     "answer": 0,
-    "correct_answer": "300"
+    "correct_answer": "300",
+    "explanation": "The correct answer is 300. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q856",
@@ -2038,7 +2154,8 @@
       "95"
     ],
     "answer": 0,
-    "correct_answer": "100"
+    "correct_answer": "100",
+    "explanation": "The correct answer is 100. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q857",
@@ -2055,7 +2172,8 @@
       "Test 1 (77%)"
     ],
     "answer": 2,
-    "correct_answer": "Both equal"
+    "correct_answer": "Both equal",
+    "explanation": "The correct answer is Both equal. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q858",
@@ -2072,7 +2190,8 @@
       "99"
     ],
     "answer": 0,
-    "correct_answer": "100"
+    "correct_answer": "100",
+    "explanation": "The correct answer is 100. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q859",
@@ -2089,7 +2208,8 @@
       "350"
     ],
     "answer": 0,
-    "correct_answer": "325"
+    "correct_answer": "325",
+    "explanation": "The correct answer is 325. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q860",
@@ -2106,7 +2226,8 @@
       "15"
     ],
     "answer": 0,
-    "correct_answer": "10"
+    "correct_answer": "10",
+    "explanation": "The correct answer is 10. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q861",
@@ -2123,7 +2244,8 @@
       "45"
     ],
     "answer": 0,
-    "correct_answer": "48"
+    "correct_answer": "48",
+    "explanation": "The correct answer is 48. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q862",
@@ -2140,7 +2262,8 @@
       "8"
     ],
     "answer": 0,
-    "correct_answer": "6"
+    "correct_answer": "6",
+    "explanation": "The correct answer is 6. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q863",
@@ -2157,7 +2280,8 @@
       "28"
     ],
     "answer": 0,
-    "correct_answer": "30"
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q864",
@@ -2174,7 +2298,8 @@
       "112"
     ],
     "answer": 1,
-    "correct_answer": "160"
+    "correct_answer": "160",
+    "explanation": "The correct answer is 160. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q865",
@@ -2191,7 +2316,8 @@
       "28"
     ],
     "answer": 0,
-    "correct_answer": "30"
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q866",
@@ -2208,7 +2334,8 @@
       "2800"
     ],
     "answer": 0,
-    "correct_answer": "3000"
+    "correct_answer": "3000",
+    "explanation": "The correct answer is 3000. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q867",
@@ -2225,7 +2352,8 @@
       "38"
     ],
     "answer": 0,
-    "correct_answer": "39"
+    "correct_answer": "39",
+    "explanation": "The correct answer is 39. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q868",
@@ -2242,7 +2370,8 @@
       "28"
     ],
     "answer": 0,
-    "correct_answer": "30"
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q869",
@@ -2259,7 +2388,8 @@
       "920"
     ],
     "answer": 0,
-    "correct_answer": "896"
+    "correct_answer": "896",
+    "explanation": "The correct answer is 896. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q870",
@@ -2277,7 +2407,8 @@
       "8"
     ],
     "answer": 0,
-    "correct_answer": "6.67"
+    "correct_answer": "6.67",
+    "explanation": "The correct answer is 6.67. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q871",
@@ -2295,7 +2426,8 @@
       "9"
     ],
     "answer": 0,
-    "correct_answer": "8"
+    "correct_answer": "8",
+    "explanation": "The correct answer is 8. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q872",
@@ -2312,7 +2444,8 @@
       "8"
     ],
     "answer": 0,
-    "correct_answer": "7.5"
+    "correct_answer": "7.5",
+    "explanation": "The correct answer is 7.5. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q873",
@@ -2331,7 +2464,8 @@
       "6"
     ],
     "answer": 0,
-    "correct_answer": "4"
+    "correct_answer": "4",
+    "explanation": "The correct answer is 4. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q874",
@@ -2349,7 +2483,8 @@
       "125"
     ],
     "answer": 0,
-    "correct_answer": "135"
+    "correct_answer": "135",
+    "explanation": "The correct answer is 135. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q875",
@@ -2367,7 +2502,8 @@
       "12"
     ],
     "answer": 1,
-    "correct_answer": "10"
+    "correct_answer": "10",
+    "explanation": "The correct answer is 10. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q876",
@@ -2384,7 +2520,8 @@
       "13"
     ],
     "answer": 0,
-    "correct_answer": "15"
+    "correct_answer": "15",
+    "explanation": "The correct answer is 15. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q877",
@@ -2399,7 +2536,8 @@
       "3.5"
     ],
     "answer": 0,
-    "correct_answer": "3"
+    "correct_answer": "3",
+    "explanation": "The correct answer is 3. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q878",
@@ -2417,7 +2555,8 @@
       "2.5"
     ],
     "answer": 0,
-    "correct_answer": "2"
+    "correct_answer": "2",
+    "explanation": "The correct answer is 2. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q879",
@@ -2434,7 +2573,8 @@
       "11"
     ],
     "answer": 0,
-    "correct_answer": "10"
+    "correct_answer": "10",
+    "explanation": "The correct answer is 10. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q880",
@@ -2451,7 +2591,8 @@
       "38"
     ],
     "answer": 0,
-    "correct_answer": "18"
+    "correct_answer": "18",
+    "explanation": "The correct answer is 18. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q881",
@@ -2468,7 +2609,8 @@
       "101"
     ],
     "answer": 0,
-    "correct_answer": "85"
+    "correct_answer": "85",
+    "explanation": "The correct answer is 85. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q882",
@@ -2485,7 +2627,8 @@
       "46"
     ],
     "answer": 0,
-    "correct_answer": "22"
+    "correct_answer": "22",
+    "explanation": "The correct answer is 22. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q883",
@@ -2502,7 +2645,8 @@
       "145"
     ],
     "answer": 3,
-    "correct_answer": "145"
+    "correct_answer": "145",
+    "explanation": "The correct answer is 145. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q884",
@@ -2519,7 +2663,8 @@
       "76"
     ],
     "answer": 0,
-    "correct_answer": "68"
+    "correct_answer": "68",
+    "explanation": "The correct answer is 68. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q885",
@@ -2536,7 +2681,8 @@
       "89"
     ],
     "answer": 0,
-    "correct_answer": "59"
+    "correct_answer": "59",
+    "explanation": "The correct answer is 59. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q886",
@@ -2553,7 +2699,8 @@
       "85"
     ],
     "answer": 0,
-    "correct_answer": "55"
+    "correct_answer": "55",
+    "explanation": "The correct answer is 55. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q887",
@@ -2570,7 +2717,8 @@
       "133"
     ],
     "answer": 1,
-    "correct_answer": "208"
+    "correct_answer": "208",
+    "explanation": "The correct answer is 208. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q888",
@@ -2587,7 +2735,8 @@
       "93"
     ],
     "answer": 0,
-    "correct_answer": "21"
+    "correct_answer": "21",
+    "explanation": "The correct answer is 21. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q889",
@@ -2604,7 +2753,8 @@
       "115"
     ],
     "answer": 1,
-    "correct_answer": "108"
+    "correct_answer": "108",
+    "explanation": "The correct answer is 108. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q890",
@@ -2622,7 +2772,8 @@
       "70"
     ],
     "answer": 0,
-    "correct_answer": "80"
+    "correct_answer": "80",
+    "explanation": "The correct answer is 80. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q891",
@@ -2640,7 +2791,8 @@
       "21"
     ],
     "answer": 0,
-    "correct_answer": "27"
+    "correct_answer": "27",
+    "explanation": "The correct answer is 27. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q892",
@@ -2658,7 +2810,8 @@
       "40"
     ],
     "answer": 0,
-    "correct_answer": "50"
+    "correct_answer": "50",
+    "explanation": "The correct answer is 50. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q893",
@@ -2673,7 +2826,8 @@
       "28"
     ],
     "answer": 0,
-    "correct_answer": "30"
+    "correct_answer": "30",
+    "explanation": "The correct answer is 30. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q894",
@@ -2691,7 +2845,8 @@
       "9"
     ],
     "answer": 1,
-    "correct_answer": "12"
+    "correct_answer": "12",
+    "explanation": "The correct answer is 12. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q895",
@@ -2709,7 +2864,8 @@
       "100"
     ],
     "answer": 0,
-    "correct_answer": "120"
+    "correct_answer": "120",
+    "explanation": "The correct answer is 120. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q896",
@@ -2724,7 +2880,8 @@
       "25"
     ],
     "answer": 0,
-    "correct_answer": "29"
+    "correct_answer": "29",
+    "explanation": "The correct answer is 29. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q897",
@@ -2742,7 +2899,8 @@
       "50"
     ],
     "answer": 0,
-    "correct_answer": "40"
+    "correct_answer": "40",
+    "explanation": "The correct answer is 40. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q898",
@@ -2757,7 +2915,8 @@
       "27"
     ],
     "answer": 0,
-    "correct_answer": "21"
+    "correct_answer": "21",
+    "explanation": "The correct answer is 21. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q899",
@@ -2775,7 +2934,8 @@
       "70"
     ],
     "answer": 0,
-    "correct_answer": "80"
+    "correct_answer": "80",
+    "explanation": "The correct answer is 80. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q900",
@@ -2793,7 +2953,8 @@
       "2"
     ],
     "answer": 0,
-    "correct_answer": "3"
+    "correct_answer": "3",
+    "explanation": "The correct answer is 3. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q901",
@@ -2811,7 +2972,8 @@
       "1.50"
     ],
     "answer": 0,
-    "correct_answer": "1"
+    "correct_answer": "1",
+    "explanation": "The correct answer is 1. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q902",
@@ -2826,7 +2988,8 @@
       "6.50"
     ],
     "answer": 0,
-    "correct_answer": "8"
+    "correct_answer": "8",
+    "explanation": "The correct answer is 8. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q903",
@@ -2843,7 +3006,8 @@
       "4"
     ],
     "answer": 0,
-    "correct_answer": "3"
+    "correct_answer": "3",
+    "explanation": "The correct answer is 3. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q904",
@@ -2858,7 +3022,8 @@
       "70"
     ],
     "answer": 0,
-    "correct_answer": "80"
+    "correct_answer": "80",
+    "explanation": "The correct answer is 80. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q905",
@@ -2876,7 +3041,8 @@
       "6.50"
     ],
     "answer": 0,
-    "correct_answer": "7"
+    "correct_answer": "7",
+    "explanation": "The correct answer is 7. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q906",
@@ -2891,7 +3057,8 @@
       "3.50"
     ],
     "answer": 0,
-    "correct_answer": "5"
+    "correct_answer": "5",
+    "explanation": "The correct answer is 5. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q907",
@@ -2908,7 +3075,8 @@
       "3.50"
     ],
     "answer": 0,
-    "correct_answer": "4.40"
+    "correct_answer": "4.40",
+    "explanation": "The correct answer is 4.40. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q908",
@@ -2923,7 +3091,8 @@
       "2.50"
     ],
     "answer": 0,
-    "correct_answer": "3.50"
+    "correct_answer": "3.50",
+    "explanation": "The correct answer is 3.50. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q909",
@@ -2940,7 +3109,8 @@
       "5"
     ],
     "answer": 0,
-    "correct_answer": "6"
+    "correct_answer": "6",
+    "explanation": "The correct answer is 6. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q910",
@@ -2959,7 +3129,8 @@
       "B, A, C"
     ],
     "answer": 0,
-    "correct_answer": "C, A, B"
+    "correct_answer": "C, A, B",
+    "explanation": "The correct answer is C, A, B. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q911",
@@ -2977,7 +3148,8 @@
       "22"
     ],
     "answer": 0,
-    "correct_answer": "20"
+    "correct_answer": "20",
+    "explanation": "The correct answer is 20. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q912",
@@ -2996,7 +3168,8 @@
       "60"
     ],
     "answer": 0,
-    "correct_answer": "50"
+    "correct_answer": "50",
+    "explanation": "The correct answer is 50. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q913",
@@ -3014,7 +3187,8 @@
       "1st"
     ],
     "answer": 0,
-    "correct_answer": "5th"
+    "correct_answer": "5th",
+    "explanation": "The correct answer is 5th. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q914",
@@ -3034,7 +3208,8 @@
       "C"
     ],
     "answer": 0,
-    "correct_answer": "D"
+    "correct_answer": "D",
+    "explanation": "The correct answer is D. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q915",
@@ -3049,7 +3224,8 @@
       "7"
     ],
     "answer": 0,
-    "correct_answer": "5"
+    "correct_answer": "5",
+    "explanation": "The correct answer is 5. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q916",
@@ -3066,7 +3242,8 @@
       "90"
     ],
     "answer": 0,
-    "correct_answer": "72"
+    "correct_answer": "72",
+    "explanation": "The correct answer is 72. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q917",
@@ -3081,7 +3258,8 @@
       "15"
     ],
     "answer": 0,
-    "correct_answer": "5"
+    "correct_answer": "5",
+    "explanation": "The correct answer is 5. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q918",
@@ -3098,7 +3276,8 @@
       "23"
     ],
     "answer": 0,
-    "correct_answer": "21"
+    "correct_answer": "21",
+    "explanation": "The correct answer is 21. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q919",
@@ -3115,7 +3294,8 @@
       "21"
     ],
     "answer": 0,
-    "correct_answer": "19"
+    "correct_answer": "19",
+    "explanation": "The correct answer is 19. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q920",
@@ -3133,7 +3313,8 @@
       "55"
     ],
     "answer": 2,
-    "correct_answer": "70"
+    "correct_answer": "70",
+    "explanation": "The correct answer is 70. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q921",
@@ -3151,7 +3332,8 @@
       "100"
     ],
     "answer": 0,
-    "correct_answer": "120"
+    "correct_answer": "120",
+    "explanation": "The correct answer is 120. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q922",
@@ -3166,7 +3348,8 @@
       "44"
     ],
     "answer": 0,
-    "correct_answer": "52"
+    "correct_answer": "52",
+    "explanation": "The correct answer is 52. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q923",
@@ -3185,7 +3368,8 @@
       "55"
     ],
     "answer": 0,
-    "correct_answer": "65"
+    "correct_answer": "65",
+    "explanation": "The correct answer is 65. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q924",
@@ -3203,7 +3387,8 @@
       "75"
     ],
     "answer": 0,
-    "correct_answer": "65"
+    "correct_answer": "65",
+    "explanation": "The correct answer is 65. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q925",
@@ -3218,7 +3403,8 @@
       "85"
     ],
     "answer": 0,
-    "correct_answer": "100"
+    "correct_answer": "100",
+    "explanation": "The correct answer is 100. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q926",
@@ -3237,7 +3423,8 @@
       "37"
     ],
     "answer": 1,
-    "correct_answer": "49"
+    "correct_answer": "49",
+    "explanation": "The correct answer is 49. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q927",
@@ -3256,7 +3443,8 @@
       "110"
     ],
     "answer": 0,
-    "correct_answer": "120"
+    "correct_answer": "120",
+    "explanation": "The correct answer is 120. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q928",
@@ -3271,7 +3459,8 @@
       "105"
     ],
     "answer": 0,
-    "correct_answer": "102"
+    "correct_answer": "102",
+    "explanation": "The correct answer is 102. Work step by step and check whether your answer is reasonable."
   },
   {
     "id": "Q929",
@@ -3290,6 +3479,7 @@
       "120"
     ],
     "answer": 0,
-    "correct_answer": "140"
+    "correct_answer": "140",
+    "explanation": "The correct answer is 140. Work step by step and check whether your answer is reasonable."
   }
 ]

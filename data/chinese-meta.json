@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "subject": "chinese",
+  "totalQuestions": 800,
+  "categories": [
+    "成语",
+    "标点符号",
+    "汉字与字义",
+    "汉语拼音",
+    "词汇",
+    "语法",
+    "造句与改写",
+    "阅读理解"
+  ],
+  "difficulties": [
+    {
+      "id": "P3-P4",
+      "key": "p3-p4",
+      "files": [
+        "questions-chinese.json"
+      ],
+      "count": 269,
+      "categories": [
+        "成语",
+        "标点符号",
+        "汉字与字义",
+        "汉语拼音",
+        "词汇",
+        "语法",
+        "造句与改写",
+        "阅读理解"
+      ]
+    },
+    {
+      "id": "P5-P6",
+      "key": "p5-p6",
+      "files": [
+        "questions-chinese.json"
+      ],
+      "count": 264,
+      "categories": [
+        "成语",
+        "标点符号",
+        "汉字与字义",
+        "汉语拼音",
+        "词汇",
+        "语法",
+        "造句与改写",
+        "阅读理解"
+      ]
+    },
+    {
+      "id": "PSLE",
+      "key": "psle",
+      "files": [
+        "questions-chinese.json"
+      ],
+      "count": 208,
+      "categories": [
+        "成语",
+        "标点符号",
+        "汉字与字义",
+        "汉语拼音",
+        "词汇",
+        "语法",
+        "造句与改写",
+        "阅读理解"
+      ]
+    },
+    {
+      "id": "P1-P2",
+      "key": "p1-p2",
+      "files": [
+        "questions-chinese.json"
+      ],
+      "count": 59,
+      "categories": [
+        "汉语拼音",
+        "词汇",
+        "语法"
+      ]
+    }
+  ]
+}
