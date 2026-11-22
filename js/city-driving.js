@@ -280,8 +280,8 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     const flyBlend = THREE.MathUtils.clamp((carY - 6) / 50, 0, 1);
     const roof = currentCar.build?.roofH || 1.4;
     const belt = currentCar.build?.belt || roof * 0.7;
-    // Driver eye sits just under the roof / above the belt — cabin view, not bumper or roof-roof cam.
-    const eyeHeight = Math.min(roof - 0.04, belt + 0.4);
+    // Raised windshield perch: high enough to read as a driver's seat, even on low hypercars.
+    const eyeHeight = Math.max(1.62, Math.min(roof + 0.28, belt + 0.7));
     let back;
     let height;
     let lookAhead;
@@ -291,12 +291,12 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     let fovSpeed;
     let tremorScale;
     if (hood) {
-      back = THREE.MathUtils.lerp(0.7, 1.2, flyBlend);
-      height = carY + eyeHeight + speedRatio * 0.05;
-      lookAhead = 36;
-      lookY = carY + eyeHeight * 0.9;
+      back = THREE.MathUtils.lerp(1.15, 1.7, flyBlend);
+      height = carY + eyeHeight + speedRatio * 0.06;
+      lookAhead = 40;
+      lookY = carY + eyeHeight * 0.72;
       followRate = 12;
-      fovBase = 66;
+      fovBase = 64;
       fovSpeed = 8;
       tremorScale = 0.01;
     } else if (aerial) {
