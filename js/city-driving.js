@@ -266,18 +266,21 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     px, py, pz, heading: face, speedRatio, free
   }) {
     const hood = camMode === 'hood';
-    const back = hood ? 2.4 : (free ? 11.8 : 11.8);
-    const height = hood ? (1.35 + altitude * 0.85) : (5.0 - speedRatio * 0.55 + altitude * 0.9);
-    const lookAhead = hood ? 28 : 16;
+    // Hood sits just behind the cabin roof; chase trails further back for situational awareness.
+    const back = hood ? 3.6 : 11.8;
+    const height = hood
+      ? (1.55 + altitude * 0.85 + speedRatio * 0.15)
+      : (5.0 - speedRatio * 0.55 + altitude * 0.9);
+    const lookAhead = hood ? 32 : 16;
     const sx = Math.sin(free ? camHeading : face);
     const cz = Math.cos(free ? camHeading : face);
-    const targetX = free ? (px - sx * back) : (px * (hood ? 0.08 : 0.34));
+    const targetX = free ? (px - sx * back) : (px * (hood ? 0.12 : 0.34));
     const targetY = height;
-    const targetZ = free ? (pz + cz * back) : (hood ? PLAYER_Z + 2.2 : 11.8);
-    const lookX = free ? (px + sx * lookAhead) : (px * (hood ? 0.05 : 0.2) + face * (hood ? 8 : 14));
-    const lookY = hood ? (1.0 + altitude * 0.85) : (1.1 + altitude * 0.9);
+    const targetZ = free ? (pz + cz * back) : (hood ? PLAYER_Z + 3.4 : 11.8);
+    const lookX = free ? (px + sx * lookAhead) : (px * (hood ? 0.08 : 0.2) + face * (hood ? 10 : 14));
+    const lookY = hood ? (1.15 + altitude * 0.85) : (1.1 + altitude * 0.9);
     const lookZ = free ? (pz - cz * lookAhead) : -16;
-    const follow = Math.min(1, delta * (hood ? 10 : 5.5));
+    const follow = Math.min(1, delta * (hood ? 9 : 5.5));
     camPos.x += (targetX - camPos.x) * follow;
     camPos.y += (targetY - camPos.y) * follow;
     camPos.z += (targetZ - camPos.z) * follow;
@@ -285,7 +288,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     camLook.y += (lookY - camLook.y) * follow;
     camLook.z += (lookZ - camLook.z) * follow;
     camShakeMag = Math.max(0, camShakeMag - delta * 2.8);
-    const tremor = speedRatio * (hood ? 0.018 : 0.01);
+    const tremor = speedRatio * (hood ? 0.014 : 0.01);
     camShake.set(
       (Math.random() - 0.5) * (camShakeMag + tremor),
       (Math.random() - 0.5) * (camShakeMag * 0.7 + tremor * 0.5),
@@ -293,7 +296,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     );
     camera.position.set(camPos.x + camShake.x, camPos.y + camShake.y, camPos.z + camShake.z);
     camera.lookAt(camLook.x, camLook.y, camLook.z);
-    const fov = (hood ? 72 : baseFov) + speedRatio * (hood ? 12 : 16) + nitroFx * 4;
+    const fov = (hood ? 68 : baseFov) + speedRatio * (hood ? 10 : 16) + nitroFx * 4;
     if (Math.abs(camera.fov - fov) > 0.05) {
       camera.fov = THREE.MathUtils.lerp(camera.fov, fov, 0.1);
       camera.updateProjectionMatrix();
