@@ -1278,7 +1278,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     renderGarage();
   });
   document.getElementById('close-garage').addEventListener('click', () => {
-    const car = CARS.find((c) => c.id === (signedIn() && isOwned(viewingId) ? viewingId : (signedIn() ? store.garage.selected : CARS[0].id)));
+    const car = CARS.find((c) => c.id === (signedIn() && isOwned(viewingId) ? viewingId : (signedIn() ? store.garage.selected : (demoFly && isOwned(viewingId) ? viewingId : CARS[0].id))));
     if (signedIn() && store.garage.selected !== car.id) {
       store.garage.selected = car.id;
       store.save().catch(() => {});
