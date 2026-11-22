@@ -43,7 +43,7 @@ button { font: inherit; }
 .hud-actions { display: flex; align-items: center; gap: 6px; }
 .hud-icon, .pause-button { display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 9px; background: #183940; color: white; font-size: 14px; cursor: pointer; }
 .hud-icon { background: #2a4b52; font-size: 13px; }
-.hud-icon.muted, .hud-icon.hood { background: #d96f50; }
+.hud-icon.muted, .hud-icon.hood, .hud-icon.aerial { background: #d96f50; }
 .pause-button:disabled { opacity: .4; cursor: default; }
 .location-tag { position: absolute; z-index: 1; bottom: 24px; left: 24px; padding: 10px 13px; border: 1px solid rgba(255,255,255,.5); border-radius: 8px; background: rgba(250,253,252,.82); color: #2f4d51; font-size: 9px; font-weight: 800; letter-spacing: 1px; backdrop-filter: blur(10px); }
 .location-tag span { margin-right: 5px; color: #dd765c; font-size: 8px; }

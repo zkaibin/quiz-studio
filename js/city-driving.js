@@ -41,8 +41,13 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   const fx = createCityFx({ scene });
   const overlay = createSpeedOverlay(document.querySelector('.city-game'));
   let realActive = false;
+  const CAM_MODES = ['chase', 'hood', 'aerial'];
+  const CAM_LABELS = { chase: 'Chase', hood: 'Driver', aerial: 'Aerial' };
   let camMode = 'chase';
-  try { camMode = localStorage.getItem('cityDrivingCam') === 'hood' ? 'hood' : 'chase'; } catch (error) { /* storage unavailable */ }
+  try {
+    const savedCam = localStorage.getItem('cityDrivingCam');
+    if (CAM_MODES.includes(savedCam)) camMode = savedCam;
+  } catch (error) { /* storage unavailable */ }
   const camPos = new THREE.Vector3().copy(camera.position);
   const camLook = new THREE.Vector3(0, 1.1, -16);
   const camShake = new THREE.Vector3();
@@ -179,7 +184,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     cityNameOutput.textContent = `${city.name}, ${city.country}`;
     document.title = `City Driving · ${city.name}`;
     mount.setAttribute('aria-label', `Three-dimensional ${city.name} city driving game`);
-    cityIntro.textContent = `Take the wheel in ${city.name}. Keep ${city.drive} and roam the whole city, turning into any street you like, or line up on the grid and race computer-controlled cars along a route to the finish gate. Live engine audio, tire smoke and a spring chase camera sell every kilometre.`;
+    cityIntro.textContent = `Take the wheel in ${city.name}. Keep ${city.drive} and roam the whole city, turning into any street you like, or line up on the grid and race computer-controlled cars along a route to the finish gate. Live engine audio, tire smoke and chase, driver or aerial cameras sell every kilometre.`;
     roadName.textContent = trafficLabel();
     roadName.dataset.default = roadName.textContent;
   }
@@ -226,8 +231,10 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   }
   function syncCameraUi() {
     cameraButton.classList.toggle('hood', camMode === 'hood');
-    cameraButton.setAttribute('aria-label', camMode === 'hood' ? 'Switch to chase camera' : 'Switch to hood camera');
-    cameraButton.title = camMode === 'hood' ? 'Hood cam (C)' : 'Chase cam (C)';
+    cameraButton.classList.toggle('aerial', camMode === 'aerial');
+    const next = CAM_MODES[(CAM_MODES.indexOf(camMode) + 1) % CAM_MODES.length];
+    cameraButton.setAttribute('aria-label', `Camera: ${CAM_LABELS[camMode]}. Switch to ${CAM_LABELS[next]}`);
+    cameraButton.title = `${CAM_LABELS[camMode]} cam (C)`;
   }
   syncMuteUi();
   syncCameraUi();
@@ -237,7 +244,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     syncMuteUi();
   });
   function cycleCamera() {
-    camMode = camMode === 'chase' ? 'hood' : 'chase';
+    camMode = CAM_MODES[(CAM_MODES.indexOf(camMode) + 1) % CAM_MODES.length];
     try { localStorage.setItem('cityDrivingCam', camMode); } catch (error) { /* storage unavailable */ }
     syncCameraUi();
   }
@@ -266,21 +273,63 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     px, py, pz, heading: face, speedRatio, free
   }) {
     const hood = camMode === 'hood';
-    // Hood sits just behind the cabin roof; chase trails further back for situational awareness.
-    const back = hood ? 3.6 : 11.8;
-    const height = hood
-      ? (1.55 + altitude * 0.85 + speedRatio * 0.15)
-      : (5.0 - speedRatio * 0.55 + altitude * 0.9);
-    const lookAhead = hood ? 32 : 16;
+    const aerial = camMode === 'aerial';
+    // Keep every rig locked to the car's actual height so flying never leaves the lens on the ground.
+    const carY = Number.isFinite(py) ? py : altitude;
+    const flyBlend = THREE.MathUtils.clamp((carY - 6) / 50, 0, 1);
+    const roof = currentCar.build?.roofH || 1.4;
+    // Driver/hood: raised windshield perch with near-level gaze so the road, not the bonnet, fills the frame.
+    const eyeHeight = Math.max(1.85, roof * 0.95);
+    let back;
+    let height;
+    let lookAhead;
+    let lookY;
+    let followRate;
+    let fovBase;
+    let fovSpeed;
+    let tremorScale;
+    if (hood) {
+      back = THREE.MathUtils.lerp(0.35, 0.9, flyBlend);
+      height = carY + eyeHeight + speedRatio * 0.08;
+      lookAhead = 42;
+      lookY = carY + eyeHeight * 0.88;
+      followRate = 12;
+      fovBase = 68;
+      fovSpeed = 8;
+      tremorScale = 0.01;
+    } else if (aerial) {
+      // High orbit that climbs with the car so you can watch it from above while flying.
+      back = THREE.MathUtils.lerp(14, 26, flyBlend);
+      height = carY + THREE.MathUtils.lerp(22, 36 + carY * 0.08, flyBlend);
+      lookAhead = THREE.MathUtils.lerp(4, 10, flyBlend);
+      lookY = carY + 0.6;
+      followRate = 4.2;
+      fovBase = 58;
+      fovSpeed = 10;
+      tremorScale = 0.006;
+    } else {
+      // Chase stays above the car; extra lift + pull-back kicks in once airborne.
+      back = THREE.MathUtils.lerp(11.8, 20, flyBlend);
+      height = carY + THREE.MathUtils.lerp(5.0 - speedRatio * 0.55, 14 + flyBlend * 8, flyBlend);
+      lookAhead = THREE.MathUtils.lerp(16, 8, flyBlend);
+      lookY = carY + THREE.MathUtils.lerp(1.1, 0.4, flyBlend);
+      followRate = 5.5;
+      fovBase = baseFov;
+      fovSpeed = 16;
+      tremorScale = 0.01;
+    }
     const sx = Math.sin(free ? camHeading : face);
     const cz = Math.cos(free ? camHeading : face);
-    const targetX = free ? (px - sx * back) : (px * (hood ? 0.12 : 0.34));
+    const targetX = free ? (px - sx * back) : (px * (hood ? 0.06 : aerial ? 0.2 : 0.34));
     const targetY = height;
-    const targetZ = free ? (pz + cz * back) : (hood ? PLAYER_Z + 3.4 : 11.8);
-    const lookX = free ? (px + sx * lookAhead) : (px * (hood ? 0.08 : 0.2) + face * (hood ? 10 : 14));
-    const lookY = hood ? (1.15 + altitude * 0.85) : (1.1 + altitude * 0.9);
-    const lookZ = free ? (pz - cz * lookAhead) : -16;
-    const follow = Math.min(1, delta * (hood ? 9 : 5.5));
+    const targetZ = free
+      ? (pz + cz * back)
+      : (hood ? PLAYER_Z + 0.7 : aerial ? PLAYER_Z + 16 : 11.8);
+    const lookX = free
+      ? (px + sx * lookAhead)
+      : (px * (hood ? 0.04 : aerial ? 0.12 : 0.2) + face * (hood ? 12 : aerial ? 6 : 14));
+    const lookZ = free ? (pz - cz * lookAhead) : (aerial ? PLAYER_Z - 4 : -16);
+    const follow = Math.min(1, delta * followRate);
     camPos.x += (targetX - camPos.x) * follow;
     camPos.y += (targetY - camPos.y) * follow;
     camPos.z += (targetZ - camPos.z) * follow;
@@ -288,7 +337,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     camLook.y += (lookY - camLook.y) * follow;
     camLook.z += (lookZ - camLook.z) * follow;
     camShakeMag = Math.max(0, camShakeMag - delta * 2.8);
-    const tremor = speedRatio * (hood ? 0.014 : 0.01);
+    const tremor = speedRatio * tremorScale;
     camShake.set(
       (Math.random() - 0.5) * (camShakeMag + tremor),
       (Math.random() - 0.5) * (camShakeMag * 0.7 + tremor * 0.5),
@@ -296,7 +345,17 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     );
     camera.position.set(camPos.x + camShake.x, camPos.y + camShake.y, camPos.z + camShake.z);
     camera.lookAt(camLook.x, camLook.y, camLook.z);
-    const fov = (hood ? 68 : baseFov) + speedRatio * (hood ? 10 : 16) + nitroFx * 4;
+    // Stretch clip/fog when high so the city below stays visible from the air.
+    const far = 700 + carY * 3.5;
+    if (Math.abs(camera.far - far) > 8) {
+      camera.far = far;
+      camera.updateProjectionMatrix();
+    }
+    if (freeActive) {
+      scene.fog.near = 70 + carY * 0.35;
+      scene.fog.far = 320 + carY * 2.8;
+    }
+    const fov = fovBase + speedRatio * fovSpeed + nitroFx * 4;
     if (Math.abs(camera.fov - fov) > 0.05) {
       camera.fov = THREE.MathUtils.lerp(camera.fov, fov, 0.1);
       camera.updateProjectionMatrix();
@@ -1104,7 +1163,13 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   let busy = false;
 
   const signedIn = () => !!store.user;
-  const isOwned = (id) => (signedIn() ? store.garage.owned.includes(id) : id === CARS[0].id);
+  const demoFly = (() => {
+    try { return new URLSearchParams(location.search).get('demo') === 'fly'; } catch (error) { return false; }
+  })();
+  const isOwned = (id) => {
+    if (demoFly && CARS.find((car) => car.id === id)?.fly) return true;
+    return signedIn() ? store.garage.owned.includes(id) : id === CARS[0].id;
+  };
   const upgradesOf = (id) => (signedIn() && store.garage.upgrades[id]) || defaultUpgrades();
   const colorOf = (car) => (signedIn() && store.garage.colors[car.id]) || car.colors[0];
 
@@ -1213,7 +1278,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     renderGarage();
   });
   document.getElementById('close-garage').addEventListener('click', () => {
-    const car = CARS.find((c) => c.id === (signedIn() && isOwned(viewingId) ? viewingId : (signedIn() ? store.garage.selected : CARS[0].id)));
+    const car = CARS.find((c) => c.id === (signedIn() && isOwned(viewingId) ? viewingId : (signedIn() ? store.garage.selected : (demoFly && isOwned(viewingId) ? viewingId : CARS[0].id))));
     if (signedIn() && store.garage.selected !== car.id) {
       store.garage.selected = car.id;
       store.save().catch(() => {});
@@ -1223,7 +1288,12 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     startPanel.classList.remove('hidden');
   });
   store.ready.then(() => {
-    if (signedIn()) applyDriveCar(CARS.find((c) => c.id === store.garage.selected) || CARS[0]);
+    if (demoFly) {
+      const flyer = CARS.find((car) => car.id === 'aether') || CARS.find((car) => car.fly);
+      if (flyer) applyDriveCar(flyer);
+    } else if (signedIn()) {
+      applyDriveCar(CARS.find((c) => c.id === store.garage.selected) || CARS[0]);
+    }
   });
 
   requestAnimationFrame(animate);
