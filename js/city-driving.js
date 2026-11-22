@@ -322,15 +322,16 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     }
     const sx = Math.sin(free ? camHeading : face);
     const cz = Math.cos(free ? camHeading : face);
-    const targetX = free ? (px - sx * back) : (px * (hood ? 0.06 : aerial ? 0.2 : 0.34));
+    const targetX = free ? (px - sx * back) : (px * (hood ? 0.05 : aerial ? 0.18 : 0.34));
     const targetY = height;
+    // Race mode keeps the car pinned at PLAYER_Z; place cabin/aerial rigs relative to that rail.
     const targetZ = free
       ? (pz + cz * back)
-      : (hood ? PLAYER_Z + 0.7 : aerial ? PLAYER_Z + 16 : 11.8);
+      : (hood ? PLAYER_Z + back : aerial ? PLAYER_Z + back : 11.8);
     const lookX = free
       ? (px + sx * lookAhead)
-      : (px * (hood ? 0.04 : aerial ? 0.12 : 0.2) + face * (hood ? 12 : aerial ? 6 : 14));
-    const lookZ = free ? (pz - cz * lookAhead) : (aerial ? PLAYER_Z - 4 : -16);
+      : (px * (hood ? 0.04 : aerial ? 0.1 : 0.2) + face * (hood ? 10 : aerial ? 4 : 14));
+    const lookZ = free ? (pz - cz * lookAhead) : (hood ? -lookAhead : aerial ? PLAYER_Z - lookAhead : -16);
     const follow = Math.min(1, delta * followRate);
     camPos.x += (targetX - camPos.x) * follow;
     camPos.y += (targetY - camPos.y) * follow;
