@@ -206,7 +206,8 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   } catch (error) { /* storage unavailable */ }
   setMode(savedMode);
   applyRoute(routesFor(currentCity().id).find((r) => r.id === savedRoute) || routesFor(currentCity().id)[0]);
-  trafficSystem.populate(16);
+  // Ambient traffic only off the racing circuit.
+  if (mode !== 'race') trafficSystem.populate(16);
   refreshRealMap();
 
   const keys = new Set();
@@ -1060,12 +1061,13 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     if (collisionCooldown === 0 && driving) {
       const hit = trafficSystem.findCollision(player.position.x);
       if (hit) {
-        collisionCooldown = 1.3;
+        collisionCooldown = isRace() ? 0.85 : 1.3;
         crashes++;
-        speed *= 0.45;
+        // Circuit bumps bleed less speed so a clean stretch can still hit the car's top.
+        speed *= isRace() ? 0.72 : 0.45;
         heading += Math.sign(player.position.x - hit.x || 1) * -0.03;
         trafficSystem.resolveCollision(hit, player.position.x);
-        pulseImpact(0.45, { force: true });
+        pulseImpact(isRace() ? 0.28 : 0.45, { force: true });
       }
     }
 
@@ -1191,31 +1193,41 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     showCar(car, colorOf(car), upgradesOf(car.id));
     currentCarLabel.textContent = car.name;
   }
-  if (demoFlyer) {
-    applyDriveCar(demoFlyer);
-    window.__cityDriveDebug = {
-      getCam: () => ({
-        mode: camMode,
-        camY: camPos.y,
-        lookY: camLook.y,
-        carY: player.position.y,
-        alt: altitude,
-        phase,
-        nitro
-      }),
-      setControls: (partial = {}) => {
-        Object.assign(controls, partial);
-        return { ...controls };
-      },
-      setAltitude: (value) => {
-        altitude = Math.max(0, Number(value) || 0);
-        climb = 0;
-        player.position.y = altitude;
-        return altitude;
-      },
-      cycleCamera
-    };
-  }
+  window.__cityDriveDebug = {
+    getCam: () => ({
+      mode: camMode,
+      camY: camPos.y,
+      lookY: camLook.y,
+      carY: player.position.y,
+      alt: altitude,
+      phase,
+      nitro
+    }),
+    setControls: (partial = {}) => {
+      Object.assign(controls, partial);
+      // Keep the key set in sync so blur/keydown races do not drop forced QA input.
+      if ('gas' in partial) { if (partial.gas) keys.add('w'); else keys.delete('w'); }
+      if ('brake' in partial) { if (partial.brake) keys.add(' '); else keys.delete(' '); }
+      if ('left' in partial) { if (partial.left) keys.add('a'); else keys.delete('a'); }
+      if ('right' in partial) { if (partial.right) keys.add('d'); else keys.delete('d'); }
+      if ('reverse' in partial) { if (partial.reverse) keys.add('s'); else keys.delete('s'); }
+      if ('nitro' in partial) { if (partial.nitro) keys.add('shift'); else keys.delete('shift'); }
+      return { ...controls };
+    },
+    setAltitude: (value) => {
+      altitude = Math.max(0, Number(value) || 0);
+      climb = 0;
+      player.position.y = altitude;
+      return altitude;
+    },
+    cycleCamera,
+    speed: () => speed,
+    top: () => stats.top,
+    mode: () => mode,
+    trafficCount: () => trafficSystem.traffic.length,
+    racerCount: () => trafficSystem.racers.length
+  };
+  if (demoFlyer) applyDriveCar(demoFlyer);
 
   function statLine(label, value, max, extra = '') {
     return `<div class="stat-line"><span>${label}</span><div class="stat-bar"><i style="width:${Math.min(100, (value / max) * 100)}%"></i></div>${extra || `<span>${Math.round(value)}</span>`}</div>`;

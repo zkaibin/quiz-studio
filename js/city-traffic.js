@@ -8,9 +8,11 @@ export const PLAYER_Z = 2.6;
 const PLAYER_HALF_LEN = 2.3;
 const PLAYER_HALF_WIDTH = 0.95;
 const RACER_NAMES = ['Mei Ling', 'Arjun', 'Hafiz', 'Wei Jie', 'Priya', 'Jun Hao', 'Siti', 'Daniel'];
+// Starting grid: player sits alone in lane 1; rivals stage ahead so the circuit opens up for a top-speed run.
 const GRID = [
-  { lane: 1, z: PLAYER_Z - 11 }, { lane: 0, z: PLAYER_Z - 11 }, { lane: 1, z: PLAYER_Z - 22 },
-  { lane: 0, z: PLAYER_Z - 22 }, { lane: 0, z: PLAYER_Z }
+  { lane: 0, z: PLAYER_Z - 14 }, { lane: 0, z: PLAYER_Z - 28 },
+  { lane: 1, z: PLAYER_Z - 36 }, { lane: 0, z: PLAYER_Z - 48 },
+  { lane: 1, z: PLAYER_Z - 60 }
 ];
 export const PLAYER_GRID_LANE = 1;
 const SPAWN_MIN = -340;
