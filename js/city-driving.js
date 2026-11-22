@@ -1199,6 +1199,12 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
         Object.assign(controls, partial);
         return { ...controls };
       },
+      setAltitude: (value) => {
+        altitude = Math.max(0, Number(value) || 0);
+        climb = 0;
+        player.position.y = altitude;
+        return altitude;
+      },
       cycleCamera
     };
   }
