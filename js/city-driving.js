@@ -1166,8 +1166,9 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   const demoFly = (() => {
     try { return new URLSearchParams(location.search).get('demo') === 'fly'; } catch (error) { return false; }
   })();
+  const demoFlyer = demoFly ? (CARS.find((car) => car.id === 'aether') || CARS.find((car) => car.fly) || null) : null;
   const isOwned = (id) => {
-    if (demoFly && CARS.find((car) => car.id === id)?.fly) return true;
+    if (demoFlyer && demoFlyer.id === id) return true;
     return signedIn() ? store.garage.owned.includes(id) : id === CARS[0].id;
   };
   const upgradesOf = (id) => (signedIn() && store.garage.upgrades[id]) || defaultUpgrades();
@@ -1177,6 +1178,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     showCar(car, colorOf(car), upgradesOf(car.id));
     currentCarLabel.textContent = car.name;
   }
+  if (demoFlyer) applyDriveCar(demoFlyer);
 
   function statLine(label, value, max, extra = '') {
     return `<div class="stat-line"><span>${label}</span><div class="stat-bar"><i style="width:${Math.min(100, (value / max) * 100)}%"></i></div>${extra || `<span>${Math.round(value)}</span>`}</div>`;
@@ -1278,7 +1280,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     renderGarage();
   });
   document.getElementById('close-garage').addEventListener('click', () => {
-    const car = CARS.find((c) => c.id === (signedIn() && isOwned(viewingId) ? viewingId : (signedIn() ? store.garage.selected : (demoFly && isOwned(viewingId) ? viewingId : CARS[0].id))));
+    const car = CARS.find((c) => c.id === (signedIn() && isOwned(viewingId) ? viewingId : (signedIn() ? store.garage.selected : (demoFlyer && isOwned(viewingId) ? viewingId : CARS[0].id))));
     if (signedIn() && store.garage.selected !== car.id) {
       store.garage.selected = car.id;
       store.save().catch(() => {});
@@ -1288,12 +1290,8 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     startPanel.classList.remove('hidden');
   });
   store.ready.then(() => {
-    if (demoFly) {
-      const flyer = CARS.find((car) => car.id === 'aether') || CARS.find((car) => car.fly);
-      if (flyer) applyDriveCar(flyer);
-    } else if (signedIn()) {
-      applyDriveCar(CARS.find((c) => c.id === store.garage.selected) || CARS[0]);
-    }
+    if (demoFlyer) applyDriveCar(demoFlyer);
+    else if (signedIn()) applyDriveCar(CARS.find((c) => c.id === store.garage.selected) || CARS[0]);
   });
 
   requestAnimationFrame(animate);
