@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Quiz Records - Quiz Studio</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
-    <link rel="stylesheet" href="css/style.css?v=11">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2270%22>QS</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=21">
     <style>
         .records-wrap {
             max-width: 760px;
@@ -15,8 +18,8 @@
         .list-msg {
             padding: 16px;
             border-radius: 10px;
-            background: #f3f4f6;
-            color: #374151;
+            background: var(--mist);
+            color: var(--ink-soft);
             font-size: 0.95rem;
             margin-bottom: 16px;
         }
@@ -32,27 +35,13 @@
             margin-bottom: 16px;
         }
 
-        .btn-toolbar {
-            padding: 8px 18px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            background: #f3f4f6;
-            color: #374151;
-            border: 1px solid #d1d5db;
-            transition: background 0.15s;
-        }
-
-        .btn-toolbar:hover { background: #e5e7eb; }
-
         .record-card {
             background: #fff;
             border-radius: 12px;
             padding: 18px 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.07);
             margin-bottom: 14px;
+            border: 1px solid var(--line);
         }
 
         .record-main {
@@ -66,7 +55,7 @@
         .record-date {
             font-weight: 600;
             font-size: 0.95rem;
-            color: #2c3e50;
+            color: var(--ink);
             margin-bottom: 4px;
         }
 
@@ -118,7 +107,7 @@
         }
 
         .btn-review {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--teal) 0%, #0b5f5a 100%);
             color: #fff;
         }
 
@@ -145,44 +134,29 @@
             flex-wrap: wrap;
         }
 
-        .btn-back {
-            padding: 8px 18px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            background: #f3f4f6;
-            color: #374151;
-            border: 1px solid #d1d5db;
-            transition: background 0.15s;
-        }
-
-        .btn-back:hover { background: #e5e7eb; }
-
         .review-panel-title {
+            font-family: var(--font-display);
             font-size: 1.05rem;
             font-weight: 700;
-            color: #2c3e50;
+            color: var(--ink);
         }
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-link" style="position: absolute; top: 20px; left: 20px; z-index: 1000; color: white; background: rgba(0,0,0,0.3); padding: 8px 15px; border-radius: 6px;">← Back to Home</a>
-
     <div class="container" style="max-width: 900px;">
         <header class="header">
-            <h1>📋 My Quiz Records</h1>
+            <p class="header-kicker">History</p>
+            <h1>My Quiz Records</h1>
             <p>View and manage your quiz history</p>
         </header>
 
-        <main style="padding: 30px 20px;">
+        <main>
             <div class="records-wrap">
 
                 <!-- List Panel -->
                 <div id="listPanel">
                     <div class="toolbar">
-                        <button id="refreshBtn" class="btn-toolbar">🔄 Refresh</button>
+                        <button id="refreshBtn" class="btn-quiet" type="button">🔄 Refresh</button>
                     </div>
                     <div id="listMsg" class="list-msg" style="display:none"></div>
                     <div id="recordsList"></div>
@@ -191,12 +165,12 @@
                 <!-- Review Panel -->
                 <div id="reviewPanel">
                     <div class="review-toolbar">
-                        <button id="backToListBtn" class="btn-back">← Back to Records</button>
+                        <button id="backToListBtn" class="btn-quiet" type="button">← Back to Records</button>
                         <div id="reviewTitle" class="review-panel-title"></div>
                     </div>
                     <div id="reviewContainer" class="review-container"></div>
                     <div style="margin-top: 20px;">
-                        <button id="backToListBtn2" class="btn-back">← Back to Records</button>
+                        <button id="backToListBtn2" class="btn-quiet" type="button">← Back to Records</button>
                     </div>
                 </div>
 
@@ -204,10 +178,10 @@
         </main>
     </div>
 
-    
-    <script src="js/quiz-personalization.js"></script>
+    <script src="js/quiz-personalization.js?v=20"></script>
     <script type="module" src="js/firebase-config.js"></script>
     <script src="js/nav-auth.js"></script>
     <script src="js/quiz-records.js"></script>
+    <script src="js/site-shell.js?v=20"></script>
 </body>
 </html>

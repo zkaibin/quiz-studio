@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile - Quiz Studio</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
-    <link rel="stylesheet" href="css/style.css?v=11">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2270%22>QS</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=21">
     <style>
         .profile-wrap {
             max-width: 640px;
@@ -18,12 +21,15 @@
             padding: 30px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             margin-bottom: 24px;
+            border: 1px solid var(--line);
         }
 
         .profile-card h2 {
-            color: #2c3e50;
+            font-family: var(--font-display);
+            color: var(--ink);
             margin-bottom: 6px;
-            font-size: 1.3rem;
+            font-size: 1.15rem;
+            letter-spacing: -0.02em;
         }
 
         .profile-email-display {
@@ -53,12 +59,6 @@
             transition: border-color 0.2s;
         }
 
-        .input-field:focus {
-            outline: none;
-            border-color: #6366f1;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
-        }
-
         textarea.input-field {
             resize: vertical;
             min-height: 80px;
@@ -69,36 +69,6 @@
             gap: 10px;
             margin-top: 20px;
             flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 10px 22px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: #f3f4f6;
-            color: #374151;
-            border: 1px solid #d1d5db;
-        }
-
-        .btn-secondary:hover {
-            background: #e5e7eb;
         }
 
         .btn-danger {
@@ -137,7 +107,7 @@
 
         .divider {
             border: none;
-            border-top: 1px solid #e5e7eb;
+            border-top: 1px solid var(--line);
             margin: 0 0 20px;
         }
 
@@ -192,15 +162,14 @@
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-link" style="position: absolute; top: 20px; left: 20px; z-index: 1000; color: white; background: rgba(0,0,0,0.3); padding: 8px 15px; border-radius: 6px;">← Back to Home</a>
-
     <div class="container" style="max-width: 800px;">
         <header class="header">
-            <h1>👤 My Profile</h1>
+            <p class="header-kicker">Account</p>
+            <h1>My Profile</h1>
             <p>Manage your account details and password</p>
         </header>
 
-        <main style="padding: 30px 20px;">
+        <main>
             <div class="profile-wrap">
 
                 <!-- Profile Info Card -->
@@ -340,9 +309,10 @@
     </div>
 
     
-    <script src="js/quiz-personalization.js"></script>
+    <script src="js/quiz-personalization.js?v=20"></script>
     <script type="module" src="js/firebase-config.js"></script>
     <script src="js/nav-auth.js"></script>
     <script src="js/profile.js"></script>
+    <script src="js/site-shell.js?v=20"></script>
 </body>
 </html>

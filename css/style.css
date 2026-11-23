@@ -61,7 +61,8 @@ body.has-site-nav {
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: 14px 22px;
+    /* Leave room for the fixed #qs-auth-widget on the right */
+    padding: 14px 160px 14px 22px;
     background: rgba(8, 51, 68, 0.88);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
@@ -151,6 +152,67 @@ body.has-site-nav {
     font-size: 1.05rem;
     opacity: 0.92;
     max-width: 36rem;
+}
+
+/* Shared content panels used across Dashboard, Leaderboard, Daily, Profile */
+.page-panel {
+    background: #fff;
+    border-radius: 14px;
+    padding: 24px 28px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 24px;
+    border: 1px solid var(--line);
+}
+
+.page-panel h2 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--ink);
+    margin-bottom: 18px;
+    letter-spacing: -0.02em;
+}
+
+.page-panel-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.page-panel-toolbar h2 {
+    margin: 0;
+}
+
+.btn-quiet {
+    padding: 8px 18px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--mist);
+    color: var(--ink-soft);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-quiet:hover {
+    background: #e5f2ee;
+    border-color: var(--teal);
+}
+
+.pill-you {
+    display: inline-block;
+    font-size: 0.72rem;
+    background: var(--teal);
+    color: #fff;
+    border-radius: 999px;
+    padding: 1px 8px;
+    margin-left: 6px;
+    font-weight: 600;
+    vertical-align: middle;
 }
 
 main {
@@ -803,6 +865,7 @@ label {
         overflow-x: auto;
         flex-wrap: nowrap;
         padding-bottom: 2px;
+        padding-right: 0;
     }
 
     main {
