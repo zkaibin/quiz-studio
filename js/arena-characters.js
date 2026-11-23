@@ -516,8 +516,8 @@ function buildOutfit(torso, hips, v, s) {
     addLatheBody(outfit, 0.0, h, 1.02, 0.88);
     part(torso, boxGeo, undershirt, 0, 0.58 * s.torso, 0.16, 0.24, 0.22, 0.07);
     // Black sash proud of the gi + sitting above the hip skirt
-    const sashR = addBand(mat(0x1c1917), 0.1, 0.12, 1.02, 0.88, 0.12, 1.16);
-    part(torso, boxGeo, mat(0x1c1917), 0.1, 0.04, sashR * 0.85, 0.1, 0.14, 0.08);
+    const sashR = addBand(mat(0x1c1917), 0.1, 0.12, 1.02, 0.88, 0.14, 1.2);
+    part(torso, boxGeo, mat(0x1c1917), 0.1, 0.03, sashR * 0.88, 0.11, 0.15, 0.09);
     part(torso, boxGeo, mat(lighten(v.outfit, 0.08)), 0.11, 0.35 * s.torso, 0.16, 0.03, 0.36, 0.02);
     addHipSkirt(pants, 1.0, 0.3);
     return { wrist: undershirt, bootAccent: gold, sleeve: outfit };
@@ -526,9 +526,9 @@ function buildOutfit(torso, hips, v, s) {
   if (kit === 'saiyanArmor') {
     const white = mat(0xffffff);
     addLatheBody(undershirt, 0.0, h, 0.95, 0.82);
-    // Taller molded white chest shell covering mid-chest → shoulders
-    addLatheBody(white, 0.14 * s.torso, h * 0.72, 1.08, 0.9);
-    addBand(gold, 0.12 * s.torso, 0.16, 0.98, 0.88, 0.1, 1.12);
+    // Taller molded white chest shell — same depth as body so it doesn't shelf forward
+    addLatheBody(white, 0.12 * s.torso, h * 0.74, 1.05, 0.84);
+    addBand(gold, 0.1 * s.torso, 0.14, 0.96, 0.84, 0.1, 1.12);
     part(torso, boxGeo, mat(0x1c1917, { flat: true }), 0, 0.12 * s.torso, latheRadiusAt(w * 0.98, 0.16) * 1.05, w * 0.65, 0.025, 0.03);
     const shY = 0.58 * s.torso;
     const shX = latheRadiusAt(w * 1.08, 0.78) + 0.05;
