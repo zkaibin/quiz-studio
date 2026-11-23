@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a2430">
+  <title>Arena Clash - Quiz Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥋</text></svg>">
+  <link rel="stylesheet" href="css/arena-fight.css">
+</head>
+<body>
+  <main class="arena-game">
+    <a class="back-link" href="games.html">← Games</a>
+    <a class="back-link home-link" href="index.html">Quiz Studio</a>
+    <div id="arena-scene" class="scene" aria-label="Three-dimensional fighting arena"></div>
+
+    <section class="hud" id="match-hud" hidden aria-label="Match status">
+      <div class="fighter-hud">
+        <div class="name" id="p1-name">Goku</div>
+        <div class="sub" id="p1-sub">Kamehameha</div>
+        <div class="bars">
+          <div class="bar-row"><span>HP</span><span id="p1-hp-val">100</span></div>
+          <div class="bar hp"><i id="p1-hp"></i></div>
+          <div class="bar-row"><span>KI</span><span id="p1-en-val">100</span></div>
+          <div class="bar energy"><i id="p1-en"></i></div>
+        </div>
+      </div>
+      <div class="center-hud">
+        <div class="timer" id="timer">99</div>
+        <div class="round" id="round-label">ROUND 1</div>
+      </div>
+      <div class="fighter-hud right">
+        <div class="name" id="p2-name">Vegeta</div>
+        <div class="sub" id="p2-sub">Galick Gun</div>
+        <div class="bars">
+          <div class="bar-row"><span id="p2-hp-val">100</span><span>HP</span></div>
+          <div class="bar hp"><i id="p2-hp"></i></div>
+          <div class="bar-row"><span id="p2-en-val">100</span><span>KI</span></div>
+          <div class="bar energy"><i id="p2-en"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="skill-tray" id="skill-tray" hidden></div>
+    <p class="hint" id="hint" hidden>A D move <b>·</b> W jump / fly <b>·</b> S guard <b>·</b> J punch <b>·</b> K kick <b>·</b> U uppercut <b>·</b> I dash <b>·</b> O / P specials</p>
+
+    <div class="touch-controls" aria-label="Touch fight controls">
+      <div class="touch-pad">
+        <button type="button" data-control="left" aria-label="Move left">←</button>
+        <button type="button" data-control="up" aria-label="Jump">↑</button>
+        <button type="button" data-control="right" aria-label="Move right">→</button>
+        <button type="button" data-control="guard" aria-label="Guard">GUARD</button>
+      </div>
+      <div class="touch-actions">
+        <button type="button" data-control="punch">J</button>
+        <button type="button" data-control="kick">K</button>
+        <button type="button" data-control="skill1">U</button>
+        <button type="button" data-control="skill2">I</button>
+        <button type="button" data-control="special1">O</button>
+        <button type="button" data-control="special2">P</button>
+      </div>
+    </div>
+
+    <section id="welcome" class="overlay" aria-label="Welcome">
+      <div class="panel">
+        <div class="row-head">
+          <div>
+            <p class="eyebrow">3D VIRTUAL ARENA</p>
+            <h1>Arena <span>Clash</span></h1>
+          </div>
+          <div class="points-badge"><span>POINTS</span><b id="welcome-points">–</b></div>
+        </div>
+        <p class="intro">Step into a Three.js arena with Dragon Ball fighters — and room to add more cartoon warriors. Win matches to earn points, then unlock skills and new characters in the Dojo.</p>
+        <div class="vs-row">
+          <div><strong id="preview-p1">Goku</strong><span>Player 1</span></div>
+          <div class="vs-mid">VS</div>
+          <div style="text-align:right"><strong id="preview-p2">Vegeta</strong><span>CPU</span></div>
+        </div>
+        <p class="status-line" id="welcome-status"></p>
+        <button id="start-match" class="primary-button" type="button">Enter the arena <span>↗</span></button>
+        <button id="open-roster" class="secondary-button" type="button">Choose fighters</button>
+        <button id="open-dojo" class="secondary-button" type="button">Dojo · Skills &amp; unlocks</button>
+        <button id="open-stage" class="secondary-button" type="button">Change stage</button>
+        <p class="note">Punch &amp; kick start unlocked. Earn points to unlock uppercuts, flight, signature blasts, and more fighters.</p>
+      </div>
+    </section>
+
+    <section id="roster" class="overlay hidden" aria-label="Fighter select">
+      <div class="panel">
+        <p class="eyebrow">ROSTER</p>
+        <h2>Pick your fighters</h2>
+        <p class="intro">Dragon Ball roster first — Nezha is ready too. Add more universes later via the fighter catalog.</p>
+        <div class="pill-row" id="universe-filters" role="group" aria-label="Universe filter"></div>
+        <p class="status-line" id="roster-status"></p>
+        <label class="meta" for="p1-select" style="font-size:11px;font-weight:800;color:#708388;">PLAYER 1</label>
+        <div class="fighter-list" id="p1-list"></div>
+        <label class="meta" for="p2-select" style="font-size:11px;font-weight:800;color:#708388;">PLAYER 2 / CPU</label>
+        <div class="fighter-list" id="p2-list"></div>
+        <div class="pill-row" id="difficulty-row" role="group" aria-label="CPU difficulty">
+          <button type="button" data-diff="easy">Easy</button>
+          <button type="button" data-diff="normal" class="on">Normal</button>
+          <button type="button" data-diff="hard">Hard</button>
+        </div>
+        <div class="pill-row" id="mode-row" role="group" aria-label="Control mode">
+          <button type="button" data-mode="cpu" class="on">Vs CPU</button>
+          <button type="button" data-mode="pvp">Local 2P</button>
+        </div>
+        <button id="roster-done" class="primary-button" type="button">Confirm roster <span>✓</span></button>
+        <button id="roster-back" class="text-button" type="button">Back</button>
+      </div>
+    </section>
+
+    <section id="dojo" class="overlay hidden" aria-label="Dojo skill unlocks">
+      <div class="panel">
+        <div class="row-head">
+          <div>
+            <p class="eyebrow">DOJO</p>
+            <h2>Skills &amp; unlocks</h2>
+          </div>
+          <div class="points-badge"><span>POINTS</span><b id="dojo-points">–</b></div>
+        </div>
+        <p class="intro">Spend points to unlock fighters and teach them new moves. Starter skills stay free forever.</p>
+        <div class="pill-row" id="dojo-fighter-pills"></div>
+        <p class="status-line" id="dojo-status"></p>
+        <div class="skill-list" id="dojo-skills"></div>
+        <button id="dojo-done" class="primary-button" type="button">Done <span>✓</span></button>
+      </div>
+    </section>
+
+    <section id="stage-pick" class="overlay hidden" aria-label="Stage select">
+      <div class="panel">
+        <p class="eyebrow">STAGE</p>
+        <h2>Choose the arena</h2>
+        <p class="intro">Each stage is a 3D virtual world — skyline rooftop, floating dojo, or impact crater.</p>
+        <div class="fighter-list" id="stage-list"></div>
+        <button id="stage-done" class="primary-button" type="button">Use this stage <span>✓</span></button>
+      </div>
+    </section>
+
+    <section id="countdown" class="overlay hidden" aria-live="assertive">
+      <div class="panel center" style="text-align:center;width:auto;padding:28px 40px;">
+        <p class="eyebrow">FIGHT</p>
+        <h2 id="countdown-num">3</h2>
+      </div>
+    </section>
+
+    <section id="result" class="overlay hidden" aria-live="polite">
+      <div class="panel center">
+        <p class="eyebrow">MATCH OVER</p>
+        <h2 id="result-title">Victory</h2>
+        <p class="intro" id="result-summary"></p>
+        <p class="result-points" id="result-points"></p>
+        <button id="result-again" class="primary-button" type="button">Fight again <span>↗</span></button>
+        <button id="result-dojo" class="secondary-button" type="button">Spend points in the Dojo</button>
+        <button id="result-menu" class="text-button" type="button">Back to menu</button>
+      </div>
+    </section>
+
+    <section id="paused" class="overlay hidden" aria-live="polite">
+      <div class="panel center">
+        <p class="eyebrow">PAUSED</p>
+        <h2>Take a breath</h2>
+        <p class="intro">The arena waits.</p>
+        <button id="resume-match" class="primary-button" type="button">Resume <span>↗</span></button>
+        <button id="end-match" class="text-button" type="button">End match</button>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="js/arena-fight.js"></script>
+</body>
+</html>

@@ -99,6 +99,10 @@ service cloud.firestore {
       allow read, create, update, delete: if isOwner(userId);
     }
 
+    match /arena_clash_dojo/{userId} {
+      allow read, create, update, delete: if isOwner(userId);
+    }
+
     match /velocity_rush_progress/{userId} {
       allow read, delete: if isOwner(userId);
       allow create: if isOwner(userId)
