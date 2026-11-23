@@ -39,7 +39,7 @@
           <div class="crest">✦</div>
           <p class="eyebrow">THE GATES ARE OPEN</p>
           <h2>Make them regret<br>coming through.</h2>
-          <p>Move with <b>WASD</b> or the arrow keys. On mobile, use the virtual stick and hold AUTO-FIRE.</p>
+          <p>Move with <b>WASD</b>. Aim with the mouse and hold click to fire. <b>Space</b> or <b>Shift</b> to dash. Spend essence between waves.</p>
           <p id="save-status" class="save-status">Checking for a saved run...</p>
           <div class="start-actions">
             <button id="continue-button" class="action-button hidden">Continue run <span>↗</span></button>
@@ -47,25 +47,35 @@
           </div>
         </div>
         <div id="game-over" class="overlay-panel hidden">
-          <p class="eyebrow">SIGNAL LOST</p>
-          <h2>They broke the line.</h2>
+          <p class="eyebrow" id="end-eyebrow">SIGNAL LOST</p>
+          <h2 id="end-title">They broke the line.</h2>
           <p id="final-stats">You held out for 0 waves.</p>
           <div class="start-actions">
             <button id="restart-button" class="action-button">Start new run <span>↻</span></button>
             <button id="resume-after-death" class="action-button secondary-action hidden">Resume checkpoint <span>↗</span></button>
           </div>
         </div>
+        <div id="shop-screen" class="overlay-panel shop-panel hidden">
+          <p class="eyebrow">WAVE CLEAR</p>
+          <h2>Spend essence</h2>
+          <p id="shop-essence" class="save-status">Essence: 0</p>
+          <div id="shop-options" class="shop-options"></div>
+          <div class="start-actions">
+            <button id="shop-continue" class="action-button">Next wave <span>↗</span></button>
+          </div>
+        </div>
         <div id="wave-banner" class="wave-banner"></div>
-        <div class="crosshair-hint">MOUSE / TOUCH TO AIM</div>
+        <div class="crosshair-hint">MOUSE AIM · SPACE DASH</div>
         <div class="touch-controls" aria-label="Touch controls">
           <div id="joystick" class="joystick" aria-label="Move stick"><span id="joystick-knob"></span></div>
+          <button id="touch-dash" class="touch-dash" type="button" aria-label="Dash">DASH</button>
           <button id="touch-fire" class="touch-fire" type="button" aria-label="Hold to auto fire">AUTO-FIRE</button>
         </div>
       </div>
       <div class="game-footer">
-        <p class="desktop-controls"><span class="key">WASD</span> MOVE <span class="key">CLICK</span> FIRE</p>
-        <p class="mobile-controls"><span class="key">STICK</span> MOVE <span class="key">AUTO-FIRE</span> AIM + FIRE</p>
-        <p class="legend"><span class="legend-dot health-dot"></span> Essence restores vitality <span class="legend-dot elite-dot"></span> Elite monsters hit harder</p>
+        <p class="desktop-controls"><span class="key">WASD</span> MOVE <span class="key">CLICK</span> FIRE <span class="key">SPACE</span> DASH</p>
+        <p class="mobile-controls"><span class="key">STICK</span> MOVE <span class="key">AUTO-FIRE</span> AIM <span class="key">DASH</span> DODGE</p>
+        <p class="legend"><span class="legend-dot health-dot"></span> Essence heals &amp; upgrades <span class="legend-dot elite-dot"></span> Elite monsters hit harder</p>
       </div>
     </section>
   </main>

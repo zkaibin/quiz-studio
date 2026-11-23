@@ -142,8 +142,25 @@ body {
 .stats {
   margin-top: 10px;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
+  grid-template-columns: repeat(4, minmax(0,1fr));
   gap: 8px;
+}
+.face-pad {
+  margin-top: 12px;
+  display: none;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+}
+.face-pad button {
+  border: 1px solid rgba(148,163,184,.4);
+  border-radius: 10px;
+  background: #f8fafc;
+  padding: 10px 0;
+  font-weight: 800;
+  cursor: pointer;
+}
+.face-pad button:active {
+  background: #e2e8f0;
 }
 .stat {
   background: rgba(248,250,252,.96);
@@ -228,10 +245,15 @@ body {
 
 @media (max-width: 980px) {
   .layout { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
 @media (max-width: 640px) {
   .toolbar .group { width: 100%; }
   .btn { flex: 1; }
   .alg-row { flex-direction: column; }
   #rk3d-mount { min-height: 320px; }
+  .face-pad { display: grid; }
+}
+@media (pointer: coarse) {
+  .face-pad { display: grid; }
 }

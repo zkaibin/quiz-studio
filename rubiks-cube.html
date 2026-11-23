@@ -11,18 +11,18 @@
   <div class="container">
     <a class="back-btn" href="games.html">← Back to Games</a>
     <header class="header">
-      <h1>🎲 Rubik's Cube Simulator</h1>
-      <p>Standalone rebuild with a virtual cube core and Three.js renderer (2×2 to 10×10).</p>
+      <h1>Rubik's Cube</h1>
+      <p>Scramble, solve against the clock, and rewind when you need a hand (2×2 to 10×10).</p>
     </header>
 
     <section class="shell" id="rk-shell">
       <div class="toolbar">
         <div class="group">
-          <button id="rk-scramble-btn" class="btn warn">🔀 Scramble</button>
-          <button id="rk-reset-btn" class="btn primary">↺ Reset</button>
-          <button id="rk-solve-btn" class="btn primary">🧠 Auto Solve</button>
-          <button id="rk-undo-btn" class="btn dark">↶ Undo</button>
-          <button id="rk-redo-btn" class="btn dark">↷ Redo</button>
+          <button id="rk-scramble-btn" class="btn warn">Scramble</button>
+          <button id="rk-reset-btn" class="btn primary">Reset</button>
+          <button id="rk-solve-btn" class="btn primary" title="Play the scramble backwards">Rewind</button>
+          <button id="rk-undo-btn" class="btn dark">Undo</button>
+          <button id="rk-redo-btn" class="btn dark">Redo</button>
         </div>
         <div class="group">
           <label class="size-picker">Size <select id="rk-size"></select></label>
@@ -47,7 +47,23 @@
           <div id="rk3d-mount"></div>
           <div class="stats">
             <div class="stat"><div class="k">Moves</div><div id="rk-moves" class="v">0</div></div>
+            <div class="stat"><div class="k">Time</div><div id="rk-time" class="v">0.00</div></div>
+            <div class="stat"><div class="k">Best 3×3</div><div id="rk-best" class="v">—</div></div>
             <div class="stat"><div class="k">Last Move</div><div id="rk-last" class="v">—</div></div>
+          </div>
+          <div class="face-pad" id="rk-face-pad" aria-label="Face turn buttons">
+            <button type="button" data-move="U">U</button>
+            <button type="button" data-move="U'">U'</button>
+            <button type="button" data-move="R">R</button>
+            <button type="button" data-move="R'">R'</button>
+            <button type="button" data-move="F">F</button>
+            <button type="button" data-move="F'">F'</button>
+            <button type="button" data-move="D">D</button>
+            <button type="button" data-move="D'">D'</button>
+            <button type="button" data-move="L">L</button>
+            <button type="button" data-move="L'">L'</button>
+            <button type="button" data-move="B">B</button>
+            <button type="button" data-move="B'">B'</button>
           </div>
           <div style="margin-top:10px;">
             <span class="label">Current scramble</span>
@@ -80,7 +96,7 @@
         </div>
       </div>
 
-      <p class="help">Drag empty space to orbit. Drag visible stickers to turn layers. Keyboard: U R F D L B (Shift for inverse), Space scramble, Z undo, Y redo.</p>
+      <p class="help">Drag empty space to orbit. Drag stickers to turn layers. Use the face pad on touch devices. Keyboard: U R F D L B (Shift for inverse), Space scramble, Z undo, Y redo.</p>
     </section>
   </div>
 

@@ -20,8 +20,6 @@
   // Fullscreen / WebGL game pages manage their own chrome.
   var SKIP_SHELL = {
     'city-driving.html': true,
-    'car-racing.html': true,
-    'driving-sim.html': true,
     'monster-siege.html': true,
     'rubiks-cube.html': true
   };

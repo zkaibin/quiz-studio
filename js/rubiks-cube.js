@@ -59,6 +59,11 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
   let animationSpeed = 1;
   let stateMoveStack = [];
   let netMode = 'fixed';
+  let timerRunning = false;
+  let timerStartedAt = 0;
+  let timerElapsedMs = 0;
+  let timerRaf = 0;
+  let celebratingSolve = false;
 
   let renderer, scene, camera, controls;
   let coarsePointerQuery = null;
@@ -89,12 +94,67 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     statusBadge: document.getElementById('rk-status-badge'),
     statusText: document.getElementById('rk-status-text'),
     moves: document.getElementById('rk-moves'),
+    time: document.getElementById('rk-time'),
+    best: document.getElementById('rk-best'),
     last: document.getElementById('rk-last'),
     scramble: document.getElementById('rk-scramble'),
     net: document.getElementById('rk-net'),
     netMode: document.getElementById('rk-net-mode'),
-    orientation: document.getElementById('rk-orientation')
+    orientation: document.getElementById('rk-orientation'),
+    facePad: document.getElementById('rk-face-pad')
   };
+
+  function formatTime(ms) {
+    return (Math.max(0, ms) / 1000).toFixed(2);
+  }
+
+  function bestKeyForSize() {
+    return `rubik-best-${size}`;
+  }
+
+  function loadBestTime() {
+    if (!refs.best) return;
+    const raw = localStorage.getItem(bestKeyForSize());
+    refs.best.textContent = raw ? `${Number(raw).toFixed(2)}s` : '—';
+  }
+
+  function stopTimer(finalize = false) {
+    if (timerRaf) cancelAnimationFrame(timerRaf);
+    timerRaf = 0;
+    if (timerRunning) {
+      timerElapsedMs = performance.now() - timerStartedAt;
+      timerRunning = false;
+    }
+    if (refs.time) refs.time.textContent = formatTime(timerElapsedMs);
+    if (finalize && size === 3 && timerElapsedMs > 0) {
+      const best = Number(localStorage.getItem(bestKeyForSize()) || 'Infinity');
+      const seconds = timerElapsedMs / 1000;
+      if (seconds < best) {
+        localStorage.setItem(bestKeyForSize(), String(seconds));
+        loadBestTime();
+      }
+    }
+  }
+
+  function tickTimer() {
+    if (!timerRunning) return;
+    timerElapsedMs = performance.now() - timerStartedAt;
+    if (refs.time) refs.time.textContent = formatTime(timerElapsedMs);
+    timerRaf = requestAnimationFrame(tickTimer);
+  }
+
+  function startTimer() {
+    if (timerRunning || model.isSolved()) return;
+    timerRunning = true;
+    timerStartedAt = performance.now() - timerElapsedMs;
+    tickTimer();
+  }
+
+  function resetTimer() {
+    stopTimer(false);
+    timerElapsedMs = 0;
+    if (refs.time) refs.time.textContent = '0.00';
+  }
 
   function populateSizeOptions() {
     refs.sizeSelect.innerHTML = Array.from({ length: 9 }, (_, i) => i + 2)
@@ -429,6 +489,8 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     refs.moves.textContent = String(moveCount);
     refs.last.textContent = lastMove;
     refs.scramble.textContent = scrambleText;
+    if (refs.time && !timerRunning) refs.time.textContent = formatTime(timerElapsedMs);
+    loadBestTime();
     refs.undoBtn.disabled = !history.length || processingQueue || !!animation;
     refs.redoBtn.disabled = !redoStack.length || processingQueue || !!animation;
     refs.solveBtn.disabled = !stateMoveStack.length || processingQueue || !!animation;
@@ -438,6 +500,11 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     refs.applyBtn.disabled = processingQueue || !!animation;
     refs.scrambleBtn.disabled = processingQueue || !!animation;
     refs.resetBtn.disabled = processingQueue || !!animation;
+    if (refs.facePad) {
+      refs.facePad.querySelectorAll('button').forEach((btn) => {
+        btn.disabled = processingQueue || !!animation;
+      });
+    }
     renderNet();
   }
 
@@ -621,9 +688,24 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
         }
         lastMove = model.moveLabel(descriptor);
 
-        if (model.isSolved()) setStatus('Cube solved.', 'success');
-        else if (entry.options.message) setStatus(entry.options.message, entry.options.tone || 'active');
-        else setStatus(`Applied ${lastMove}`, 'active');
+        if (model.isSolved()) {
+          stopTimer(true);
+          const countedSolve = entry.options.countMove !== false && moveCount > 0 && timerElapsedMs > 0;
+          if (countedSolve && !celebratingSolve) {
+            celebratingSolve = true;
+            const timeLabel = formatTime(timerElapsedMs);
+            setStatus(`Solved in ${moveCount} moves · ${timeLabel}s!`, 'success');
+          } else if (entry.options.message) {
+            setStatus(entry.options.message, entry.options.tone || 'success');
+          } else {
+            setStatus('Cube solved.', 'success');
+          }
+        } else {
+          celebratingSolve = false;
+          if (entry.options.countMove) startTimer();
+          if (entry.options.message) setStatus(entry.options.message, entry.options.tone || 'active');
+          else setStatus(`Applied ${lastMove}`, 'active');
+        }
 
         refreshUI();
         done(true);
@@ -667,6 +749,8 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     clearUndoRedoHistory();
     stateMoveStack = [];
     scrambleText = '—';
+    celebratingSolve = false;
+    resetTimer();
     setStatus(`${size}×${size} cube ready.`, 'ready');
     buildCubeMeshes();
     refreshUI();
@@ -680,7 +764,9 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
     model.applyMoves(sequence);
     replaceStateMovesWithSequence(sequence);
     scrambleText = `${sequence.join(' ')} (seed:${seed})`;
-    setStatus('Scrambled. Start solving.', 'active');
+    celebratingSolve = false;
+    resetTimer();
+    setStatus('Scrambled. Timer starts on your first move.', 'active');
     buildCubeMeshes();
     refreshUI();
   }
@@ -698,16 +784,21 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
       .map((move) => Core.inverseMove(move, size))
       .filter(Boolean);
     if (!steps.length) {
-      setStatus('No solvable move history available.', 'warning');
+      setStatus('No rewind history available.', 'warning');
       refreshUI();
       return;
     }
+    stopTimer(false);
     clearUndoRedoHistory();
-    queueMoves(steps, {
-      countMove: false,
-      message: `Auto-solving (${steps.length} steps)...`,
-      tone: 'active',
-      trackState: true
+    celebratingSolve = false;
+    steps.forEach((step, index) => {
+      const isLast = index === steps.length - 1;
+      queueMove(step, {
+        countMove: false,
+        message: isLast ? 'Rewound to solved.' : `Rewinding… (${index + 1}/${steps.length})`,
+        tone: isLast ? 'ready' : 'active',
+        trackState: true
+      });
     });
   }
 
@@ -972,6 +1063,13 @@ window.THREE = { ...THREE_NAMESPACE, OrbitControls };
       animationSpeed = Number.isFinite(value) && value > 0 ? value : 1;
     });
     refs.applyBtn.addEventListener('click', applyAlgorithm);
+    if (refs.facePad) {
+      refs.facePad.addEventListener('click', (event) => {
+        const button = event.target.closest('button[data-move]');
+        if (!button) return;
+        applyMove(button.getAttribute('data-move'));
+      });
+    }
     document.addEventListener('keydown', onKey);
   }
 
