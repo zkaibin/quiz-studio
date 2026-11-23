@@ -74,7 +74,7 @@
       html += '<tr class="' + (isMe ? 'lb-row-me' : '') + '">';
       html += '<td class="lb-rank">' + rankLabel + '</td>';
       html += '<td><div class="lb-avatar">' + avatar + '</div></td>';
-      html += '<td class="lb-name">' + escapeHtml(name) + (isMe ? ' <span class="lb-you">You</span>' : '') + '</td>';
+      html += '<td class="lb-name">' + escapeHtml(name) + (isMe ? ' <span class="pill-you">You</span>' : '') + '</td>';
       html += '<td class="lb-pts">\u2B50 ' + (row.total_points || 0) + '</td>';
       html += '<td class="lb-quizzes">' + (row.total_quizzes || 0) + '</td>';
       html += '</tr>';

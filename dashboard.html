@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20">
+    <link rel="stylesheet" href="css/style.css?v=21">
     <style>
         .dash-wrap {
             max-width: 780px;
@@ -21,14 +21,15 @@
             padding: 24px 28px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             margin-bottom: 24px;
-            border: 1px solid #c9ddd7;
+            border: 1px solid var(--line);
         }
 
         .dash-card h2 {
             font-size: 1.15rem;
-            color: #0b2a3a;
+            color: var(--ink);
             margin-bottom: 18px;
-            font-family: "Fraunces", serif;
+            font-family: var(--font-display);
+            letter-spacing: -0.02em;
         }
 
         /* Stats row */
@@ -258,7 +259,7 @@
             <p class="dash-greeting">Welcome back, <strong id="dashName">Learner</strong>.</p>
         </header>
 
-        <main style="padding: 30px 20px;">
+        <main>
             <div class="dash-wrap">
 
                 <div id="dashError" class="dash-error"></div>

@@ -4,55 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard - Quiz Studio</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
-    <link rel="stylesheet" href="css/style.css?v=11">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2270%22>QS</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=21">
     <style>
         .lb-wrap {
             max-width: 720px;
             margin: 0 auto;
         }
 
-        .lb-card {
-            background: #fff;
-            border-radius: 14px;
-            padding: 24px 28px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-
-        .lb-toolbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 18px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .lb-toolbar h2 {
-            font-size: 1.15rem;
-            color: #2c3e50;
-            margin: 0;
-        }
-
-        .btn-refresh {
-            padding: 8px 18px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            background: #f3f4f6;
-            color: #374151;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: background 0.15s;
-        }
-
-        .btn-refresh:hover { background: #e5e7eb; }
-
         .lb-msg {
             padding: 14px;
             border-radius: 8px;
-            background: #f3f4f6;
-            color: #374151;
+            background: var(--mist);
+            color: var(--ink-soft);
             font-size: 0.93rem;
             margin-bottom: 16px;
         }
@@ -62,8 +29,15 @@
             color: #991b1b;
         }
 
+        .lb-table-scroll {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
         .lb-table {
             width: 100%;
+            min-width: 520px;
             border-collapse: collapse;
             font-size: 0.93rem;
         }
@@ -71,7 +45,7 @@
         .lb-table th {
             text-align: left;
             padding: 8px 10px;
-            border-bottom: 2px solid #e5e7eb;
+            border-bottom: 2px solid var(--line);
             color: #6b7280;
             font-weight: 600;
             font-size: 0.85rem;
@@ -79,14 +53,14 @@
 
         .lb-table td {
             padding: 10px 10px;
-            border-bottom: 1px solid #f3f4f6;
+            border-bottom: 1px solid #eef5f2;
             vertical-align: middle;
         }
 
         .lb-table tr:last-child td { border-bottom: none; }
 
         .lb-row-me {
-            background: #f0f9ff;
+            background: #eef8f5;
         }
 
         .lb-row-me td { font-weight: 600; }
@@ -102,11 +76,11 @@
             height: 38px;
             border-radius: 50%;
             overflow: hidden;
-            background: #f3f4f6;
+            background: var(--mist);
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid #e5e7eb;
+            border: 2px solid var(--line);
         }
 
         .lb-avatar-img {
@@ -120,7 +94,7 @@
         }
 
         .lb-name {
-            color: #2c3e50;
+            color: var(--ink);
         }
 
         .lb-pts {
@@ -130,18 +104,6 @@
 
         .lb-quizzes {
             color: #6b7280;
-        }
-
-        .lb-you {
-            display: inline-block;
-            font-size: 0.72rem;
-            background: #6366f1;
-            color: white;
-            border-radius: 20px;
-            padding: 1px 8px;
-            margin-left: 6px;
-            font-weight: 600;
-            vertical-align: middle;
         }
 
         .lb-empty {
@@ -159,38 +121,39 @@
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-link" style="position: absolute; top: 20px; left: 20px; z-index: 1000; color: white; background: rgba(0,0,0,0.3); padding: 8px 15px; border-radius: 6px;">← Back to Home</a>
-
     <div class="container" style="max-width: 860px;">
         <header class="header">
-            <h1>🏅 Leaderboard</h1>
+            <p class="header-kicker">Rankings</p>
+            <h1>Leaderboard</h1>
             <p>Top 50 learners by total reward points</p>
         </header>
 
-        <main style="padding: 30px 20px;">
+        <main>
             <div class="lb-wrap">
-                <div class="lb-card">
-                    <div class="lb-toolbar">
+                <div class="page-panel">
+                    <div class="page-panel-toolbar">
                         <h2>🏆 Top Rankings</h2>
-                        <button id="refreshBtn" class="btn-refresh">🔄 Refresh</button>
+                        <button id="refreshBtn" class="btn-quiet" type="button">🔄 Refresh</button>
                     </div>
 
                     <div id="lbMsg" class="lb-msg" style="display:none"></div>
 
-                    <table class="lb-table">
-                        <thead>
-                            <tr>
-                                <th>Rank</th>
-                                <th>Avatar</th>
-                                <th>Name</th>
-                                <th>Points</th>
-                                <th>Quizzes</th>
-                            </tr>
-                        </thead>
-                        <tbody id="lbTbody">
-                            <tr><td colspan="5" style="padding:20px; color:#9ca3af;">Loading…</td></tr>
-                        </tbody>
-                    </table>
+                    <div class="lb-table-scroll">
+                        <table class="lb-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Avatar</th>
+                                    <th>Name</th>
+                                    <th>Points</th>
+                                    <th>Quizzes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lbTbody">
+                                <tr><td colspan="5" style="padding:20px; color:#9ca3af;">Loading…</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
 
                     <p class="lb-note">Rankings update after each quiz. Only users who have completed at least one quiz appear here.</p>
                 </div>
@@ -198,10 +161,10 @@
         </main>
     </div>
 
-    
-    <script src="js/quiz-personalization.js"></script>
+    <script src="js/quiz-personalization.js?v=20"></script>
     <script type="module" src="js/firebase-config.js"></script>
     <script src="js/nav-auth.js"></script>
     <script src="js/leaderboard.js"></script>
+    <script src="js/site-shell.js?v=20"></script>
 </body>
 </html>
