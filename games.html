@@ -995,7 +995,7 @@
         <header class="header">
             <p class="header-kicker">Quiz Studio</p>
             <h1>Games</h1>
-            <p>City Driving and other featured experiences up front — plus learning quizzes and arcade breaks between study sessions.</p>
+            <p>City Driving leads the hub — plus Monster Siege, Rubik’s Cube, learning quizzes, and arcade breaks between study sessions.</p>
         </header>
 
         <section class="games-section" aria-labelledby="featured-title">
@@ -1019,25 +1019,20 @@
         <section class="games-section" aria-labelledby="experiences-title">
             <h2 id="experiences-title" class="section-label">Featured experiences</h2>
             <div class="games-grid">
-                <div class="game-card" onclick="window.location.href='car-racing.html'" role="link" tabindex="0" onkeydown="if(event.key==='Enter'){window.location.href='car-racing.html'}">
-                    <div class="game-icon" aria-hidden="true">🏎️</div>
-                    <h3>Velocity Rush</h3>
-                    <p>High-speed neon racing with fullscreen play and mobile steering.</p>
-                </div>
-                <div class="game-card" onclick="window.location.href='driving-sim.html'" role="link" tabindex="0" onkeydown="if(event.key==='Enter'){window.location.href='driving-sim.html'}">
-                    <div class="game-icon" aria-hidden="true">🚗</div>
-                    <h3>Real Drive</h3>
-                    <p>Highway simulator with gearbox, traffic, cameras, and day/night cycle.</p>
+                <div class="game-card" onclick="window.location.href='monster-siege.html'" role="link" tabindex="0" onkeydown="if(event.key==='Enter'){window.location.href='monster-siege.html'}">
+                    <div class="game-icon" aria-hidden="true">⚔️</div>
+                    <h3>Monster Siege</h3>
+                    <p>Survive waves, dash through swarms, and spend essence on upgrades.</p>
                 </div>
                 <div class="game-card" onclick="window.location.href='rubiks-cube.html'" role="link" tabindex="0" onkeydown="if(event.key==='Enter'){window.location.href='rubiks-cube.html'}">
                     <div class="game-icon" aria-hidden="true">🎲</div>
                     <h3>Rubik's Cube</h3>
-                    <p>Interactive 3D cube simulator from 2×2 to 10×10.</p>
+                    <p>Interactive 3D cube with timer, scramble, and rewind from 2×2 to 10×10.</p>
                 </div>
-                <div class="game-card" onclick="window.location.href='monster-siege.html'" role="link" tabindex="0" onkeydown="if(event.key==='Enter'){window.location.href='monster-siege.html'}">
-                    <div class="game-icon" aria-hidden="true">⚔️</div>
-                    <h3>Monster Siege</h3>
-                    <p>Survive the swarm and harvest essence to stay in the fight.</p>
+                <div class="game-card" onclick="openGame('stickfight')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'){openGame('stickfight')}">
+                    <div class="game-icon" aria-hidden="true">🥋</div>
+                    <h3>Stick Man Fighter</h3>
+                    <p>Solo vs CPU or local two-player stick fight with specials.</p>
                 </div>
             </div>
         </section>
@@ -1099,7 +1094,7 @@
                 <div class="game-card" onclick="openGame('tictactoe')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'){openGame('tictactoe')}">
                     <div class="game-icon" aria-hidden="true">❌⭕</div>
                     <h3>Tic-Tac-Toe</h3>
-                    <p>Classic two-player three-in-a-row.</p>
+                    <p>Play vs computer or hotseat a friend.</p>
                 </div>
             </div>
         </section>
@@ -1127,11 +1122,6 @@
                     <div class="game-icon" aria-hidden="true">🔨</div>
                     <h3>Whack-a-Mole</h3>
                     <p>Click the moles before they disappear.</p>
-                </div>
-                <div class="game-card is-legacy" onclick="openGame('stickfight')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'){openGame('stickfight')}">
-                    <div class="game-icon" aria-hidden="true">🥋</div>
-                    <h3>Stick Man Fighter</h3>
-                    <p>Solo vs CPU or local two-player stick fight.</p>
                 </div>
             </div>
         </section>

@@ -87,28 +87,46 @@ function cleanupGame(gameId) {
     if (gameId === 'mathchallenge' && window.mathTimer) {
         clearInterval(window.mathTimer);
     }
+    if (gameId === '2048') {
+        document.removeEventListener('keydown', move2048);
+        const board = document.getElementById('grid2048');
+        if (board && board._swipeCleanup) board._swipeCleanup();
+    }
+    if (gameId === 'simon') {
+        simonPlaying = false;
+        simonLocked = true;
+    }
+    if (gameId === 'hangman') {
+        document.removeEventListener('keydown', hangmanKeyHandler);
+    }
     if (gameId === 'stickfight') {
         stopStickFight();
     }
 }
 
 // ============= TIC-TAC-TOE =============
-let tttBoard, tttPlayer, tttActive;
+let tttBoard, tttPlayer, tttActive, tttVsCpu = true, tttCpuThinking = false;
 
 function initTicTacToe() {
     tttBoard = Array(9).fill(null);
     tttPlayer = 'X';
     tttActive = true;
+    tttCpuThinking = false;
+    tttVsCpu = localStorage.getItem('ttt-vs-cpu') !== '0';
     
     const container = document.getElementById('game-tictactoe');
     container.innerHTML = `
-        <div class="status-text" id="ttt-status">Player X's turn</div>
+        <div style="text-align:center; margin-bottom:12px;">
+            <label style="margin-right:14px; cursor:pointer;"><input type="radio" name="ttt-mode" value="cpu" ${tttVsCpu ? 'checked' : ''} onchange="setTttMode(true)"> vs Computer</label>
+            <label style="cursor:pointer;"><input type="radio" name="ttt-mode" value="hotseat" ${!tttVsCpu ? 'checked' : ''} onchange="setTttMode(false)"> 2 Players</label>
+        </div>
+        <div class="status-text" id="ttt-status">${tttVsCpu ? 'Your turn (X)' : "Player X's turn"}</div>
         <div class="ttt-board" id="ttt-board"></div>
         <div style="text-align: center; margin-top: 20px;">
             <button class="btn" onclick="resetTicTacToe()">New Game</button>
         </div>
         <div class="score-display">
-            X: <span id="ttt-x">0</span> | Draw: <span id="ttt-draw">0</span> | O: <span id="ttt-o">0</span>
+            You/X: <span id="ttt-x">0</span> | Draw: <span id="ttt-draw">0</span> | CPU/O: <span id="ttt-o">0</span>
         </div>
     `;
     
@@ -123,30 +141,92 @@ function initTicTacToe() {
     updateTTTScores();
 }
 
-function tttMove(index) {
-    if (!tttActive || tttBoard[index]) return;
-    
-    tttBoard[index] = tttPlayer;
+function setTttMode(vsCpu) {
+    tttVsCpu = !!vsCpu;
+    localStorage.setItem('ttt-vs-cpu', tttVsCpu ? '1' : '0');
+    resetTicTacToe();
+}
+
+function tttApplyMove(index, player) {
+    tttBoard[index] = player;
     const cells = document.querySelectorAll('#ttt-board .ttt-cell');
-    cells[index].textContent = tttPlayer;
-    cells[index].classList.add(tttPlayer.toLowerCase());
+    cells[index].textContent = player;
+    cells[index].classList.add(player.toLowerCase());
     cells[index].disabled = true;
-    
+}
+
+function tttFinishIfNeeded(player) {
+    const cells = document.querySelectorAll('#ttt-board .ttt-cell');
     const winPattern = checkTTTWin();
     if (winPattern) {
         tttActive = false;
-        document.getElementById('ttt-status').textContent = `🎉 Player ${tttPlayer} wins!`;
+        const label = tttVsCpu
+            ? (player === 'X' ? '🎉 You win!' : '💻 Computer wins!')
+            : `🎉 Player ${player} wins!`;
+        document.getElementById('ttt-status').textContent = label;
         winPattern.forEach(i => cells[i].classList.add('winner'));
-        const key = `ttt-${tttPlayer.toLowerCase()}`;
+        const key = `ttt-${player.toLowerCase()}`;
         const score = parseInt(localStorage.getItem(key) || '0') + 1;
         localStorage.setItem(key, score);
         updateTTTScores();
-    } else if (tttBoard.every(cell => cell)) {
+        return true;
+    }
+    if (tttBoard.every(cell => cell)) {
         tttActive = false;
         document.getElementById('ttt-status').textContent = "🤝 It's a draw!";
         const score = parseInt(localStorage.getItem('ttt-draw') || '0') + 1;
         localStorage.setItem('ttt-draw', score);
         updateTTTScores();
+        return true;
+    }
+    return false;
+}
+
+function tttBestCpuMove() {
+    const empties = tttBoard.map((v, i) => (v ? null : i)).filter(v => v !== null);
+    for (const i of empties) {
+        tttBoard[i] = 'O';
+        if (checkTTTWin()) { tttBoard[i] = null; return i; }
+        tttBoard[i] = null;
+    }
+    for (const i of empties) {
+        tttBoard[i] = 'X';
+        if (checkTTTWin()) { tttBoard[i] = null; return i; }
+        tttBoard[i] = null;
+    }
+    if (tttBoard[4] === null) return 4;
+    const corners = [0, 2, 6, 8].filter(i => tttBoard[i] === null);
+    if (corners.length) return corners[Math.floor(Math.random() * corners.length)];
+    return empties[Math.floor(Math.random() * empties.length)];
+}
+
+function tttCpuTurn() {
+    if (!tttActive || !tttVsCpu) return;
+    tttCpuThinking = true;
+    document.getElementById('ttt-status').textContent = 'Computer is thinking…';
+    setTimeout(() => {
+        if (!tttActive) { tttCpuThinking = false; return; }
+        const move = tttBestCpuMove();
+        if (move == null) { tttCpuThinking = false; return; }
+        tttApplyMove(move, 'O');
+        if (!tttFinishIfNeeded('O')) {
+            tttPlayer = 'X';
+            document.getElementById('ttt-status').textContent = 'Your turn (X)';
+        }
+        tttCpuThinking = false;
+    }, 380);
+}
+
+function tttMove(index) {
+    if (!tttActive || tttBoard[index] || tttCpuThinking) return;
+    if (tttVsCpu && tttPlayer !== 'X') return;
+    
+    tttApplyMove(index, tttPlayer);
+    if (tttFinishIfNeeded(tttPlayer)) return;
+
+    if (tttVsCpu) {
+        tttPlayer = 'O';
+        tttCpuTurn();
     } else {
         tttPlayer = tttPlayer === 'X' ? 'O' : 'X';
         document.getElementById('ttt-status').textContent = `Player ${tttPlayer}'s turn`;
@@ -168,7 +248,8 @@ function resetTicTacToe() {
     tttBoard = Array(9).fill(null);
     tttPlayer = 'X';
     tttActive = true;
-    document.getElementById('ttt-status').textContent = "Player X's turn";
+    tttCpuThinking = false;
+    document.getElementById('ttt-status').textContent = tttVsCpu ? 'Your turn (X)' : "Player X's turn";
     const cells = document.querySelectorAll('#ttt-board .ttt-cell');
     cells.forEach(cell => {
         cell.textContent = '';
@@ -205,30 +286,39 @@ function initRPS() {
 function playRPS(player) {
     const choices = ['rock', 'paper', 'scissors'];
     const emojis = {rock: '✊', paper: '✋', scissors: '✌️'};
-    const comp = choices[Math.floor(Math.random() * 3)];
-    
-    let result, key;
-    if (player === comp) {
-        result = "It's a tie!";
-        key = 'rps-tie';
-    } else if ((player === 'rock' && comp === 'scissors') ||
-               (player === 'paper' && comp === 'rock') ||
-               (player === 'scissors' && comp === 'paper')) {
-        result = '🎉 You win!';
-        key = 'rps-player';
-    } else {
-        result = '😔 Computer wins!';
-        key = 'rps-comp';
-    }
-    
-    document.getElementById('rps-result').innerHTML = `
-        <h3>${result}</h3>
-        <p>You: ${emojis[player]} vs Computer: ${emojis[comp]}</p>
-    `;
-    
-    const score = parseInt(localStorage.getItem(key) || '0') + 1;
-    localStorage.setItem(key, score);
-    updateRPSScores();
+    const buttons = document.querySelectorAll('.rps-btn');
+    buttons.forEach(btn => { btn.disabled = true; });
+
+    const resultEl = document.getElementById('rps-result');
+    resultEl.innerHTML = '<h3>3…</h3>';
+    setTimeout(() => { resultEl.innerHTML = '<h3>2…</h3>'; }, 280);
+    setTimeout(() => { resultEl.innerHTML = '<h3>1…</h3>'; }, 560);
+    setTimeout(() => {
+        const comp = choices[Math.floor(Math.random() * 3)];
+        let result, key;
+        if (player === comp) {
+            result = "It's a tie!";
+            key = 'rps-tie';
+        } else if ((player === 'rock' && comp === 'scissors') ||
+                   (player === 'paper' && comp === 'rock') ||
+                   (player === 'scissors' && comp === 'paper')) {
+            result = '🎉 You win!';
+            key = 'rps-player';
+        } else {
+            result = 'Computer wins!';
+            key = 'rps-comp';
+        }
+
+        resultEl.innerHTML = `
+            <h3>${result}</h3>
+            <p>You: ${emojis[player]} vs Computer: ${emojis[comp]}</p>
+        `;
+
+        const score = parseInt(localStorage.getItem(key) || '0') + 1;
+        localStorage.setItem(key, score);
+        updateRPSScores();
+        buttons.forEach(btn => { btn.disabled = false; });
+    }, 840);
 }
 
 function updateRPSScores() {
@@ -240,9 +330,18 @@ function updateRPSScores() {
 // ============= MEMORY MATCH =============
 let memoryCards, memoryFlipped, memoryMatched, memoryMoves, memoryLocked;
 
+function shuffleMemoryDeck(items) {
+    const deck = items.slice();
+    for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    return deck;
+}
+
 function initMemory() {
     const emojis = ['🎮', '🎯', '🎲', '🎪', '🎨', '🎭', '🎺', '🎸'];
-    memoryCards = [...emojis, ...emojis].sort(() => Math.random() - 0.5);
+    memoryCards = shuffleMemoryDeck([...emojis, ...emojis]);
     memoryFlipped = [];
     memoryMatched = 0;
     memoryMoves = 0;
@@ -255,6 +354,7 @@ function initMemory() {
         <div style="text-align: center; margin-top: 20px;">
             <button class="btn" onclick="initMemory()">New Game</button>
         </div>
+        <div class="score-display">Best: <span id="memory-best">${localStorage.getItem('memory-best') || '—'}</span> moves</div>
     `;
     
     const grid = document.getElementById('memory-grid');
@@ -290,16 +390,24 @@ function flipMemory(index) {
                 cards[second].classList.add('matched');
                 memoryMatched++;
                 if (memoryMatched === 8) {
+                    const best = parseInt(localStorage.getItem('memory-best') || '9999', 10);
+                    if (memoryMoves < best) {
+                        localStorage.setItem('memory-best', String(memoryMoves));
+                        const bestEl = document.getElementById('memory-best');
+                        if (bestEl) bestEl.textContent = String(memoryMoves);
+                    }
                     document.getElementById('memory-status').textContent = `🎉 Won in ${memoryMoves} moves!`;
+                } else {
+                    document.getElementById('memory-status').textContent = `Moves: ${memoryMoves} | Pairs: ${memoryMatched}/8`;
                 }
             } else {
                 cards[first].classList.remove('flipped');
                 cards[second].classList.remove('flipped');
+                document.getElementById('memory-status').textContent = `Moves: ${memoryMoves} | Pairs: ${memoryMatched}/8`;
             }
             memoryFlipped = [];
             memoryLocked = false;
-            document.getElementById('memory-status').textContent = `Moves: ${memoryMoves} | Pairs: ${memoryMatched}/8`;
-        }, 800);
+        }, 520);
     }
 }
 
@@ -369,13 +477,17 @@ function makeGuess() {
 
 // ============= SNAKE GAME =============
 let snakeCanvas, snakeCtx, snake, snakeFood, snakeDirection, snakeNextDirection, snakeScore, snakeRunning;
+let snakeCell = 20, snakeSize = 360, snakeTickMs = 130;
 
 function initSnake() {
     const container = document.getElementById('game-snake');
+    const maxSide = Math.min(360, Math.max(240, Math.floor((container.clientWidth || 360) - 24)));
+    snakeSize = Math.floor(maxSide / 20) * 20;
+    snakeCell = 20;
     container.innerHTML = `
         <div class="snake-info">Use Arrow Keys or buttons below to move</div>
         <div class="status-text" id="snake-status">Press Start to play!</div>
-        <canvas id="snake-canvas" class="snake-canvas" width="400" height="400"></canvas>
+        <canvas id="snake-canvas" class="snake-canvas" width="${snakeSize}" height="${snakeSize}" style="max-width:100%; height:auto;"></canvas>
         <div class="snake-controls">
             <button class="btn" onclick="startSnake()">Start Game</button>
         </div>
@@ -397,8 +509,15 @@ function initSnake() {
     snakeCtx = snakeCanvas.getContext('2d');
 }
 
+function snakeRefreshTick() {
+    if (window.snakeInterval) clearInterval(window.snakeInterval);
+    snakeTickMs = Math.max(70, 130 - Math.floor(snakeScore / 3) * 6);
+    window.snakeInterval = setInterval(updateSnake, snakeTickMs);
+}
+
 function startSnake() {
-    snake = [{x: 200, y: 200}];
+    const mid = Math.floor((snakeSize / snakeCell) / 2) * snakeCell;
+    snake = [{x: mid, y: mid}];
     snakeFood = {x: 0, y: 0};
     snakeDirection = {x: 0, y: 0};
     snakeNextDirection = {x: 0, y: 0};
@@ -411,26 +530,25 @@ function startSnake() {
     document.removeEventListener('keydown', snakeKey);
     document.addEventListener('keydown', snakeKey);
     
-    if (window.snakeInterval) clearInterval(window.snakeInterval);
-    window.snakeInterval = setInterval(updateSnake, 120);
+    snakeRefreshTick();
     drawSnake();
 }
 
 function snakeKey(e) {
     const key = e.key;
     if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(key)) e.preventDefault();
-    if (key === 'ArrowUp' && snakeDirection.y === 0) snakeNextDirection = {x: 0, y: -20};
-    else if (key === 'ArrowDown' && snakeDirection.y === 0) snakeNextDirection = {x: 0, y: 20};
-    else if (key === 'ArrowLeft' && snakeDirection.x === 0) snakeNextDirection = {x: -20, y: 0};
-    else if (key === 'ArrowRight' && snakeDirection.x === 0) snakeNextDirection = {x: 20, y: 0};
+    if (key === 'ArrowUp' && snakeDirection.y === 0) snakeNextDirection = {x: 0, y: -snakeCell};
+    else if (key === 'ArrowDown' && snakeDirection.y === 0) snakeNextDirection = {x: 0, y: snakeCell};
+    else if (key === 'ArrowLeft' && snakeDirection.x === 0) snakeNextDirection = {x: -snakeCell, y: 0};
+    else if (key === 'ArrowRight' && snakeDirection.x === 0) snakeNextDirection = {x: snakeCell, y: 0};
 }
 
 function snakeBtnDir(dir) {
     if (!snakeRunning) return;
-    if (dir === 'up' && snakeDirection.y === 0) snakeNextDirection = {x: 0, y: -20};
-    else if (dir === 'down' && snakeDirection.y === 0) snakeNextDirection = {x: 0, y: 20};
-    else if (dir === 'left' && snakeDirection.x === 0) snakeNextDirection = {x: -20, y: 0};
-    else if (dir === 'right' && snakeDirection.x === 0) snakeNextDirection = {x: 20, y: 0};
+    if (dir === 'up' && snakeDirection.y === 0) snakeNextDirection = {x: 0, y: -snakeCell};
+    else if (dir === 'down' && snakeDirection.y === 0) snakeNextDirection = {x: 0, y: snakeCell};
+    else if (dir === 'left' && snakeDirection.x === 0) snakeNextDirection = {x: -snakeCell, y: 0};
+    else if (dir === 'right' && snakeDirection.x === 0) snakeNextDirection = {x: snakeCell, y: 0};
 }
 
 function updateSnake() {
@@ -441,7 +559,7 @@ function updateSnake() {
     const head = {x: snake[0].x + snakeDirection.x, y: snake[0].y + snakeDirection.y};
     
     // Check collision
-    if (head.x < 0 || head.x >= 400 || head.y < 0 || head.y >= 400 ||
+    if (head.x < 0 || head.x >= snakeSize || head.y < 0 || head.y >= snakeSize ||
         snake.some(seg => seg.x === head.x && seg.y === head.y)) {
         snakeRunning = false;
         clearInterval(window.snakeInterval);
@@ -462,6 +580,7 @@ function updateSnake() {
         snakeScore++;
         document.getElementById('snake-status').textContent = `Score: ${snakeScore}`;
         placeSnakeFood();
+        snakeRefreshTick();
     } else {
         snake.pop();
     }
@@ -470,29 +589,64 @@ function updateSnake() {
 }
 
 function placeSnakeFood() {
-    snakeFood.x = Math.floor(Math.random() * 20) * 20;
-    snakeFood.y = Math.floor(Math.random() * 20) * 20;
+    const cells = snakeSize / snakeCell;
+    let attempts = 0;
+    do {
+        snakeFood.x = Math.floor(Math.random() * cells) * snakeCell;
+        snakeFood.y = Math.floor(Math.random() * cells) * snakeCell;
+        attempts++;
+    } while (snake.some(seg => seg.x === snakeFood.x && seg.y === snakeFood.y) && attempts < 200);
 }
 
 function drawSnake() {
     snakeCtx.fillStyle = '#f8f9fa';
-    snakeCtx.fillRect(0, 0, 400, 400);
+    snakeCtx.fillRect(0, 0, snakeSize, snakeSize);
     
-    snakeCtx.fillStyle = '#667eea';
-    snake.forEach(seg => snakeCtx.fillRect(seg.x, seg.y, 18, 18));
+    snake.forEach((seg, i) => {
+        snakeCtx.fillStyle = i === 0 ? '#0f766e' : '#14b8a6';
+        snakeCtx.fillRect(seg.x, seg.y, snakeCell - 2, snakeCell - 2);
+    });
     
     snakeCtx.fillStyle = '#ef4444';
-    snakeCtx.fillRect(snakeFood.x, snakeFood.y, 18, 18);
+    snakeCtx.beginPath();
+    snakeCtx.arc(snakeFood.x + snakeCell / 2, snakeFood.y + snakeCell / 2, snakeCell / 2 - 2, 0, Math.PI * 2);
+    snakeCtx.fill();
 }
 
 // ============= SIMON SAYS =============
-let simonSequence, simonPlayerSeq, simonLevel, simonPlaying;
+let simonSequence, simonPlayerSeq, simonLevel, simonPlaying, simonLocked = true;
+let simonAudio = null;
+
+function ensureSimonAudio() {
+    if (simonAudio) return simonAudio;
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    simonAudio = new Ctx();
+    return simonAudio;
+}
+
+function playSimonTone(index) {
+    const ctx = ensureSimonAudio();
+    if (!ctx) return;
+    const freqs = [329.63, 261.63, 220, 164.81];
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freqs[index] || 220;
+    gain.gain.value = 0.08;
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.28);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.28);
+}
 
 function initSimon() {
     simonSequence = [];
     simonPlayerSeq = [];
     simonLevel = 0;
     simonPlaying = false;
+    simonLocked = true;
     
     const container = document.getElementById('game-simon');
     container.innerHTML = `
@@ -511,36 +665,49 @@ function initSimon() {
 }
 
 function startSimon() {
+    ensureSimonAudio()?.resume?.();
     simonSequence = [];
     simonPlayerSeq = [];
     simonLevel = 0;
     simonPlaying = true;
+    simonLocked = true;
     nextSimonRound();
 }
 
 function nextSimonRound() {
     simonLevel++;
     simonPlayerSeq = [];
+    simonLocked = true;
     simonSequence.push(Math.floor(Math.random() * 4));
-    document.getElementById('simon-status').textContent = `Level ${simonLevel}`;
+    document.getElementById('simon-status').textContent = `Level ${simonLevel} — watch…`;
     playSimonSequence();
 }
 
 function playSimonSequence() {
     const buttons = document.querySelectorAll('.simon-btn');
+    buttons.forEach(btn => { btn.disabled = true; });
     simonSequence.forEach((color, i) => {
         setTimeout(() => {
             buttons[color].classList.add('active');
+            playSimonTone(color);
             setTimeout(() => buttons[color].classList.remove('active'), 300);
         }, i * 600);
     });
+    setTimeout(() => {
+        buttons.forEach(btn => { btn.disabled = false; });
+        simonLocked = false;
+        if (simonPlaying) {
+            document.getElementById('simon-status').textContent = `Level ${simonLevel} — your turn`;
+        }
+    }, simonSequence.length * 600 + 250);
 }
 
 function simonClick(index) {
-    if (!simonPlaying) return;
+    if (!simonPlaying || simonLocked) return;
     
     const buttons = document.querySelectorAll('.simon-btn');
     buttons[index].classList.add('active');
+    playSimonTone(index);
     setTimeout(() => buttons[index].classList.remove('active'), 200);
     
     simonPlayerSeq.push(index);
@@ -548,7 +715,8 @@ function simonClick(index) {
     const currentIndex = simonPlayerSeq.length - 1;
     if (simonPlayerSeq[currentIndex] !== simonSequence[currentIndex]) {
         simonPlaying = false;
-        document.getElementById('simon-status').textContent = `Game Over! Level ${simonLevel}`;
+        simonLocked = true;
+        document.getElementById('simon-status').textContent = `Game Over! Reached level ${simonLevel}`;
         const best = parseInt(localStorage.getItem('simon-best') || '0');
         if (simonLevel > best) {
             localStorage.setItem('simon-best', simonLevel);
@@ -558,17 +726,20 @@ function simonClick(index) {
     }
     
     if (simonPlayerSeq.length === simonSequence.length) {
-        setTimeout(nextSimonRound, 1000);
+        simonLocked = true;
+        document.getElementById('simon-status').textContent = `Nice! Get ready…`;
+        setTimeout(nextSimonRound, 700);
     }
 }
 
 // ============= WHACK-A-MOLE =============
-let whackScore, whackTime, whackActive;
+let whackScore, whackTime, whackActive, whackCombo = 0;
 
 function initWhack() {
     whackScore = 0;
     whackTime = 30;
     whackActive = false;
+    whackCombo = 0;
     
     const container = document.getElementById('game-whack');
     container.innerHTML = `
@@ -583,19 +754,30 @@ function initWhack() {
     `;
 }
 
+function whackStatusText() {
+    const comboText = whackCombo > 1 ? ` · Combo x${whackCombo}` : '';
+    return `Score: ${whackScore} | Time: ${whackTime}s${comboText}`;
+}
+
 function startWhack() {
     whackScore = 0;
     whackTime = 30;
     whackActive = true;
-    document.getElementById('whack-status').textContent = `Score: 0 | Time: 30s`;
+    whackCombo = 0;
+    document.getElementById('whack-status').textContent = whackStatusText();
     
     const holes = document.querySelectorAll('.mole-hole');
-    holes.forEach((hole, i) => {
+    holes.forEach((hole) => {
         hole.onclick = () => {
-            if (whackActive && hole.classList.contains('active')) {
-                whackScore++;
+            if (!whackActive) return;
+            if (hole.classList.contains('active')) {
+                whackCombo++;
+                whackScore += whackCombo;
                 hole.classList.remove('active');
-                document.getElementById('whack-status').textContent = `Score: ${whackScore} | Time: ${whackTime}s`;
+                document.getElementById('whack-status').textContent = whackStatusText();
+            } else {
+                whackCombo = 0;
+                document.getElementById('whack-status').textContent = whackStatusText();
             }
         };
     });
@@ -607,11 +789,12 @@ function startWhack() {
 
 function whackUpdate() {
     whackTime--;
-    document.getElementById('whack-status').textContent = `Score: ${whackScore} | Time: ${whackTime}s`;
+    document.getElementById('whack-status').textContent = whackStatusText();
     
     if (whackTime <= 0) {
         whackActive = false;
         clearInterval(window.whackInterval);
+        document.querySelectorAll('.mole-hole').forEach(h => h.classList.remove('active'));
         document.getElementById('whack-status').textContent = `Game Over! Score: ${whackScore}`;
         const best = parseInt(localStorage.getItem('whack-best') || '0');
         if (whackScore > best) {
@@ -624,33 +807,50 @@ function whackUpdate() {
 function popMole() {
     if (!whackActive) return;
     
-    const holes = document.querySelectorAll('.mole-hole');
-    holes.forEach(h => h.classList.remove('active'));
+    const holes = [...document.querySelectorAll('.mole-hole')];
+    const count = Math.random() < 0.35 ? 2 : 1;
+    const chosen = [];
+    while (chosen.length < count) {
+        const hole = holes[Math.floor(Math.random() * holes.length)];
+        if (!chosen.includes(hole)) chosen.push(hole);
+    }
+    chosen.forEach(hole => hole.classList.add('active'));
     
-    const randomHole = holes[Math.floor(Math.random() * holes.length)];
-    randomHole.classList.add('active');
-    
+    const upMs = 650 + Math.random() * 350;
     setTimeout(() => {
-        randomHole.classList.remove('active');
-        if (whackActive) setTimeout(popMole, 400);
-    }, 800);
+        let missed = false;
+        chosen.forEach(hole => {
+            if (hole.classList.contains('active')) {
+                missed = true;
+                hole.classList.remove('active');
+            }
+        });
+        if (missed) whackCombo = 0;
+        if (whackActive) {
+            document.getElementById('whack-status').textContent = whackStatusText();
+            setTimeout(popMole, 220 + Math.random() * 280);
+        }
+    }, upMs);
 }
 
 // ============= 2048 GAME =============
-let grid2048, score2048;
+let grid2048, score2048, won2048 = false, over2048 = false;
 
 function init2048() {
+    document.removeEventListener('keydown', move2048);
     grid2048 = Array(4).fill().map(() => Array(4).fill(0));
     score2048 = 0;
+    won2048 = false;
+    over2048 = false;
     
     const container = document.getElementById('game-2048');
     container.innerHTML = `
         <div class="status-text" id="game2048-status">Score: 0</div>
-        <div id="grid2048" style="display: grid; grid-template-columns: repeat(4, 80px); gap: 10px; margin: 20px auto; justify-content: center;"></div>
+        <div id="grid2048" style="display: grid; grid-template-columns: repeat(4, minmax(58px, 80px)); gap: 10px; margin: 20px auto; justify-content: center; touch-action: none; max-width: 370px;"></div>
         <div style="text-align: center;">
             <button class="btn" onclick="init2048()">New Game</button>
         </div>
-        <div class="score-display">Use Arrow Keys to Play</div>
+        <div class="score-display">Best: <span id="best2048">${localStorage.getItem('2048-best') || '0'}</span> · Arrows or swipe</div>
     `;
     
     addTile2048();
@@ -658,6 +858,34 @@ function init2048() {
     render2048();
     
     document.addEventListener('keydown', move2048);
+    setup2048Swipe(document.getElementById('grid2048'));
+}
+
+function setup2048Swipe(board) {
+    if (!board) return;
+    let startX = 0, startY = 0, tracking = false;
+    const onStart = (e) => {
+        const t = e.changedTouches ? e.changedTouches[0] : e;
+        tracking = true;
+        startX = t.clientX;
+        startY = t.clientY;
+    };
+    const onEnd = (e) => {
+        if (!tracking) return;
+        tracking = false;
+        const t = e.changedTouches ? e.changedTouches[0] : e;
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+        if (Math.hypot(dx, dy) < 28) return;
+        if (Math.abs(dx) > Math.abs(dy)) apply2048Move(dx > 0 ? 'right' : 'left');
+        else apply2048Move(dy > 0 ? 'down' : 'up');
+    };
+    board.addEventListener('touchstart', onStart, { passive: true });
+    board.addEventListener('touchend', onEnd, { passive: true });
+    board._swipeCleanup = () => {
+        board.removeEventListener('touchstart', onStart);
+        board.removeEventListener('touchend', onEnd);
+    };
 }
 
 function addTile2048() {
@@ -673,14 +901,26 @@ function addTile2048() {
     }
 }
 
+function canMove2048() {
+    for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < 4; c++) {
+            if (grid2048[r][c] === 0) return true;
+            if (c < 3 && grid2048[r][c] === grid2048[r][c + 1]) return true;
+            if (r < 3 && grid2048[r][c] === grid2048[r + 1][c]) return true;
+        }
+    }
+    return false;
+}
+
 function render2048() {
     const container = document.getElementById('grid2048');
+    if (!container) return;
     container.innerHTML = '';
     
     for (let r = 0; r < 4; r++) {
         for (let c = 0; c < 4; c++) {
             const tile = document.createElement('div');
-            tile.style.cssText = 'width: 80px; height: 80px; background: #eee; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; font-weight: bold;';
+            tile.style.cssText = 'aspect-ratio:1; background: #eee; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: clamp(1.1em, 4vw, 1.5em); font-weight: bold;';
             const val = grid2048[r][c];
             if (val > 0) {
                 tile.textContent = val;
@@ -690,24 +930,37 @@ function render2048() {
             container.appendChild(tile);
         }
     }
+
+    const best = Math.max(score2048, parseInt(localStorage.getItem('2048-best') || '0', 10));
+    if (score2048 > parseInt(localStorage.getItem('2048-best') || '0', 10)) {
+        localStorage.setItem('2048-best', String(score2048));
+    }
+    const bestEl = document.getElementById('best2048');
+    if (bestEl) bestEl.textContent = String(best);
     
-    document.getElementById('game2048-status').textContent = `Score: ${score2048}`;
+    let status = `Score: ${score2048}`;
+    if (won2048 && !over2048) status += ' · 🎉 2048 reached! Keep going';
+    if (over2048) status = `Game over · Score: ${score2048}`;
+    document.getElementById('game2048-status').textContent = status;
+}
+
+function apply2048Move(direction) {
+    if (over2048) return;
+    const oldGrid = JSON.stringify(grid2048);
+    const moved = slide2048(direction);
+    if (moved && JSON.stringify(grid2048) !== oldGrid) {
+        addTile2048();
+        if (!won2048 && grid2048.some(row => row.some(v => v >= 2048))) won2048 = true;
+        if (!canMove2048()) over2048 = true;
+        render2048();
+    }
 }
 
 function move2048(e) {
-    let moved = false;
-    const key = e.key;
-    const oldGrid = JSON.stringify(grid2048);
-    
-    if (key === 'ArrowLeft') moved = slide2048('left');
-    else if (key === 'ArrowRight') moved = slide2048('right');
-    else if (key === 'ArrowUp') moved = slide2048('up');
-    else if (key === 'ArrowDown') moved = slide2048('down');
-    
-    if (moved && JSON.stringify(grid2048) !== oldGrid) {
-        addTile2048();
-        render2048();
-    }
+    const map = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'up', ArrowDown: 'down' };
+    if (!map[e.key]) return;
+    e.preventDefault();
+    apply2048Move(map[e.key]);
 }
 
 function slide2048(direction) {
@@ -869,10 +1122,11 @@ async function initScramble() {
         <div class="score-display" id="scramble-score">Score: 0 / 0</div>
         <div class="status-text" id="scramble-progress">Question 1 of ${queue.length}</div>
         <div class="scramble-word" id="scramble-display"></div>
-        <p class="scramble-hint" id="scramble-hint"></p>
+        <p class="scramble-hint" id="scramble-hint" style="min-height:1.4em;"></p>
         <input class="scramble-input" id="scramble-input" type="text" maxlength="20" placeholder="Type your answer…" autocomplete="off">
-        <div style="text-align:center; margin-top: 12px; display: flex; gap: 10px; justify-content: center;">
+        <div style="text-align:center; margin-top: 12px; display: flex; gap: 10px; justify-content: center; flex-wrap:wrap;">
             <button class="btn" onclick="checkScramble()">Submit</button>
+            <button class="btn" style="background: linear-gradient(135deg,#0ea5e9,#0284c7);" onclick="revealScrambleHint()" id="scramble-hint-btn">Show Hint</button>
             <button class="btn" style="background: linear-gradient(135deg,#f59e0b,#d97706);" onclick="skipScramble()">Skip</button>
             <button class="btn" style="background: linear-gradient(135deg,#334155,#0f172a);" onclick="initScramble()">New 20</button>
         </div>
@@ -882,6 +1136,16 @@ async function initScramble() {
         if (e.key === 'Enter') checkScramble();
     });
     nextScramble();
+}
+
+function revealScrambleHint() {
+    const queue = window._scrambleQueue || [];
+    const entry = queue[scrambleIndex];
+    const hintEl = document.getElementById('scramble-hint');
+    const hintBtn = document.getElementById('scramble-hint-btn');
+    if (!entry || !hintEl) return;
+    hintEl.textContent = '💡 Hint: ' + entry.hint;
+    if (hintBtn) hintBtn.disabled = true;
 }
 
 function nextScramble() {
@@ -896,7 +1160,9 @@ function nextScramble() {
     scrambleLocked = false;
     document.getElementById('scramble-progress').textContent = `Question ${scrambleIndex + 1} of ${queue.length}`;
     document.getElementById('scramble-display').textContent = scrambleWord(entry.word).toUpperCase();
-    document.getElementById('scramble-hint').textContent = '💡 Hint: ' + entry.hint;
+    document.getElementById('scramble-hint').textContent = '';
+    const hintBtn = document.getElementById('scramble-hint-btn');
+    if (hintBtn) hintBtn.disabled = false;
     const input = document.getElementById('scramble-input');
     if (input) { input.value = ''; input.focus(); }
     document.getElementById('scramble-status').textContent = '';
@@ -977,27 +1243,38 @@ function initMathChallenge() {
     container.innerHTML = `
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
             <div class="score-display" id="math-score" style="margin:0; border:none; padding:0;">Score: 0</div>
-            <div class="math-timer" id="math-timer">⏱ 60s</div>
+            <div class="math-timer" id="math-timer">Get ready…</div>
         </div>
-        <div class="math-problem" id="math-problem"></div>
+        <div class="math-problem" id="math-problem">3</div>
         <div class="math-options" id="math-options"></div>
-        <div class="status-text" id="math-status" style="min-height:28px;"></div>
+        <div class="status-text" id="math-status" style="min-height:28px;">Best: ${localStorage.getItem('math-best') || '0'}</div>
     `;
 
-    nextMathQuestion();
-
-    window.mathTimer = setInterval(() => {
-        mathTimeLeft--;
-        const timerEl = document.getElementById('math-timer');
-        if (timerEl) {
-            timerEl.textContent = `⏱ ${mathTimeLeft}s`;
-            timerEl.className = 'math-timer' + (mathTimeLeft <= 10 ? ' urgent' : '');
+    let countdown = 3;
+    const problemEl = document.getElementById('math-problem');
+    const tick = () => {
+        if (countdown > 0) {
+            problemEl.textContent = String(countdown);
+            document.getElementById('math-timer').textContent = 'Starting…';
+            countdown--;
+            setTimeout(tick, 700);
+            return;
         }
-        if (mathTimeLeft <= 0) {
-            clearInterval(window.mathTimer);
-            endMathChallenge();
-        }
-    }, 1000);
+        nextMathQuestion();
+        window.mathTimer = setInterval(() => {
+            mathTimeLeft--;
+            const timerEl = document.getElementById('math-timer');
+            if (timerEl) {
+                timerEl.textContent = `⏱ ${mathTimeLeft}s`;
+                timerEl.className = 'math-timer' + (mathTimeLeft <= 10 ? ' urgent' : '');
+            }
+            if (mathTimeLeft <= 0) {
+                clearInterval(window.mathTimer);
+                endMathChallenge();
+            }
+        }, 1000);
+    };
+    tick();
 }
 
 function nextMathQuestion() {
@@ -1013,13 +1290,20 @@ function nextMathQuestion() {
 
     problemEl.textContent = question + ' = ?';
     statusEl.textContent = '';
+    document.getElementById('math-timer').textContent = `⏱ ${mathTimeLeft}s`;
 
-    // Generate 3 wrong answers
+    // Generate 3 wrong answers with guaranteed distractors
     const wrongSet = new Set();
-    while (wrongSet.size < 3) {
-        const offset = Math.floor(Math.random() * 20) - 10;
+    const offsets = [-12, -8, -5, -3, -2, -1, 1, 2, 3, 5, 8, 12, 15, 20];
+    for (const offset of offsets.sort(() => Math.random() - 0.5)) {
         const w = answer + offset;
-        if (offset !== 0 && w > 0) wrongSet.add(w);
+        if (w > 0 && w !== answer) wrongSet.add(w);
+        if (wrongSet.size >= 3) break;
+    }
+    let guard = 1;
+    while (wrongSet.size < 3) {
+        wrongSet.add(Math.max(1, answer + guard));
+        guard++;
     }
     const choices = [answer, ...wrongSet].sort(() => Math.random() - 0.5);
 
@@ -1061,11 +1345,15 @@ function answerMath(choice, btn) {
 function endMathChallenge() {
     const container = document.getElementById('game-mathchallenge');
     if (!container) return;
+    const best = parseInt(localStorage.getItem('math-best') || '0', 10);
+    const isRecord = mathScore > best;
+    if (isRecord) localStorage.setItem('math-best', String(mathScore));
     container.innerHTML = `
         <div style="text-align:center; padding: 30px;">
-            <div style="font-size:4em; margin-bottom:15px;">🏆</div>
+            <div style="font-size:4em; margin-bottom:15px;">${isRecord ? '🏅' : '🏆'}</div>
             <h3 style="font-size:1.8em; color:#2c3e50; margin-bottom:10px;">Time's Up!</h3>
-            <p style="font-size:1.3em; color:#7f8c8d; margin-bottom:20px;">You scored <strong style="color:#667eea;">${mathScore}</strong> out of <strong>${mathQuestionCount - 1}</strong> questions.</p>
+            <p style="font-size:1.3em; color:#7f8c8d; margin-bottom:12px;">You scored <strong style="color:#0f766e;">${mathScore}</strong> out of <strong>${Math.max(0, mathQuestionCount - 1)}</strong> questions.</p>
+            <p style="color:#7f8c8d; margin-bottom:20px;">${isRecord ? 'New best score!' : `Best: ${Math.max(best, mathScore)}`}</p>
             <button class="btn" onclick="initMathChallenge()">Play Again</button>
         </div>
     `;
@@ -3378,12 +3666,13 @@ function startHangmanRound() {
 
     const hintEl = document.getElementById('hangman-hint');
     if (hintEl) {
-        hintEl.textContent = `💡 ${hangmanHint}`;
+        hintEl.textContent = hangmanWrong >= 3 ? `💡 ${hangmanHint}` : 'Hint unlocks after 3 misses · type letters on your keyboard';
     }
 
     const statusEl = document.getElementById('hangman-status');
     if (statusEl) {
-        statusEl.textContent = '';
+        statusEl.textContent = `Lives left: ${hangmanStages.length - 1 - hangmanWrong}`;
+        statusEl.style.color = '';
     }
 
     const nextBtn = document.getElementById('hangman-next-btn');
@@ -3395,7 +3684,18 @@ function startHangmanRound() {
     renderHangman();
 }
 
+function hangmanKeyHandler(e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const letter = e.key.toLowerCase();
+    if (!/^[a-z]$/.test(letter)) return;
+    const modal = document.getElementById('modal-hangman');
+    if (!modal || !modal.classList.contains('active')) return;
+    e.preventDefault();
+    guessHangman(letter);
+}
+
 async function initHangman() {
+    document.removeEventListener('keydown', hangmanKeyHandler);
     const library = await loadHangmanLibrary();
     const queue = [...library].sort(() => Math.random() - 0.5).slice(0, Math.min(HANGMAN_QUIZ_SIZE, library.length));
     window._hangmanQueue = queue;
@@ -3430,6 +3730,7 @@ async function initHangman() {
         </div>
     `;
 
+    document.addEventListener('keydown', hangmanKeyHandler);
     startHangmanRound();
 }
 
@@ -3485,6 +3786,8 @@ function guessHangman(letter) {
     } else {
         hangmanWrong++;
         if (btn) btn.classList.add('wrong-key');
+        const hintEl = document.getElementById('hangman-hint');
+        if (hintEl && hangmanWrong >= 3) hintEl.textContent = `💡 ${hangmanHint}`;
         if (hangmanWrong >= hangmanStages.length - 1) {
             hangmanGuessed = new Set(hangmanWord.split(''));
             renderHangman();
@@ -3498,6 +3801,10 @@ function guessHangman(letter) {
         }
     }
     if (btn) btn.disabled = true;
+    if (statusEl && !hangmanAnswered) {
+        statusEl.textContent = `Lives left: ${hangmanStages.length - 1 - hangmanWrong}`;
+        statusEl.style.color = '';
+    }
     renderHangman();
 }
 
