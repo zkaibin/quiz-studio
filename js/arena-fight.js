@@ -14,13 +14,14 @@ import {
   renderer.setSize(mount.clientWidth, mount.clientHeight);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMappingExposure = 1.12;
   mount.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(50, mount.clientWidth / mount.clientHeight, 0.1, 200);
-  camera.position.set(0, 3.4, 11.5);
-  camera.lookAt(0, 1.3, 0);
+  // Centered 3/4 camera (both faces readable — avoid sitting behind P2)
+  camera.position.set(0, 3.15, 10.0);
+  camera.lookAt(0, 1.35, 0);
 
   let stageId = 'skyline';
   try {
@@ -445,9 +446,9 @@ import {
     paused = false; running = false; matchOver = true;
     hide(pausedOverlay); clearFighters();
     matchHud.hidden = true; skillTray.hidden = true; hint.hidden = true;
-    camera.position.set(0, 3.4, 11.5);
+    camera.position.set(0, 3.15, 10.0);
     camPos.copy(camera.position);
-    camTarget.set(0, 1.3, 0);
+    camTarget.set(0, 1.35, 0);
     show(welcome);
   };
 
@@ -515,7 +516,7 @@ import {
       const midY = (p1.y + p2.y) / 2 + 1.35;
       const span = Math.min(10, Math.max(4.5, Math.abs(p1.x - p2.x) + 3.2));
       camTarget.lerp(new THREE.Vector3(midX, midY, 0), 1 - Math.pow(0.001, dt));
-      const desired = new THREE.Vector3(midX * 0.12, 2.8 + midY * 0.2, 7.2 + span * 0.45);
+      const desired = new THREE.Vector3(midX * 0.08, 2.55 + midY * 0.22, 6.4 + span * 0.42);
       camPos.lerp(desired, 1 - Math.pow(0.05, dt));
       camera.position.copy(camPos);
       camera.lookAt(camTarget);
@@ -529,10 +530,10 @@ import {
       }
     } else if (!running) {
       // Idle camera drift on menu
-      camera.position.x = Math.sin(elapsed * 0.25) * 1.0;
-      camera.position.y = 3.4 + Math.sin(elapsed * 0.4) * 0.15;
-      camera.position.z = 11.5;
-      camera.lookAt(0, 1.3, 0);
+      camera.position.x = Math.sin(elapsed * 0.25) * 0.5;
+      camera.position.y = 3.15 + Math.sin(elapsed * 0.4) * 0.12;
+      camera.position.z = 10.0;
+      camera.lookAt(0, 1.35, 0);
       fx.update(dt, () => {});
     }
 
