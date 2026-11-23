@@ -19,8 +19,8 @@ import {
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(50, mount.clientWidth / mount.clientHeight, 0.1, 200);
-  camera.position.set(0, 4.2, 14.5);
-  camera.lookAt(0, 1.2, 0);
+  camera.position.set(0, 3.4, 11.5);
+  camera.lookAt(0, 1.3, 0);
 
   let stageId = 'skyline';
   try {
@@ -445,9 +445,9 @@ import {
     paused = false; running = false; matchOver = true;
     hide(pausedOverlay); clearFighters();
     matchHud.hidden = true; skillTray.hidden = true; hint.hidden = true;
-    camera.position.set(0, 4.2, 14.5);
+    camera.position.set(0, 3.4, 11.5);
     camPos.copy(camera.position);
-    camTarget.set(0, 1.2, 0);
+    camTarget.set(0, 1.3, 0);
     show(welcome);
   };
 
@@ -512,10 +512,10 @@ import {
 
       // Camera framing
       const midX = (p1.x + p2.x) / 2;
-      const midY = (p1.y + p2.y) / 2 + 1.3;
-      const span = Math.min(12, Math.max(6, Math.abs(p1.x - p2.x) + 4));
+      const midY = (p1.y + p2.y) / 2 + 1.35;
+      const span = Math.min(10, Math.max(4.5, Math.abs(p1.x - p2.x) + 3.2));
       camTarget.lerp(new THREE.Vector3(midX, midY, 0), 1 - Math.pow(0.001, dt));
-      const desired = new THREE.Vector3(midX * 0.15, 3.6 + midY * 0.15, 10 + span * 0.55);
+      const desired = new THREE.Vector3(midX * 0.12, 2.8 + midY * 0.2, 7.2 + span * 0.45);
       camPos.lerp(desired, 1 - Math.pow(0.05, dt));
       camera.position.copy(camPos);
       camera.lookAt(camTarget);
@@ -529,9 +529,10 @@ import {
       }
     } else if (!running) {
       // Idle camera drift on menu
-      camera.position.x = Math.sin(elapsed * 0.25) * 1.2;
-      camera.position.y = 4.2 + Math.sin(elapsed * 0.4) * 0.2;
-      camera.lookAt(0, 1.2, 0);
+      camera.position.x = Math.sin(elapsed * 0.25) * 1.0;
+      camera.position.y = 3.4 + Math.sin(elapsed * 0.4) * 0.15;
+      camera.position.z = 11.5;
+      camera.lookAt(0, 1.3, 0);
       fx.update(dt, () => {});
     }
 

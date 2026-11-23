@@ -232,7 +232,7 @@ export function updateFighter(f, dt, bounds, keysActive) {
     attack: f.attackId,
     hurt: f.stun > 0.1,
     charging: !!f.charge,
-    aura: f.charge ? 0.45 : (f.energy / MAX_ENERGY) * 0.12
+    aura: f.charge ? 0.4 : 0
   });
 }
 

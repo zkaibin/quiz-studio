@@ -164,11 +164,14 @@ const baseVisual = (overrides) => ({
   outfit: 0x2563eb,
   accent: 0xf59e0b,
   pants: 0x1e3a5f,
-  boots: 0x1a1a1a,
+  boots: 0x1e3a8a,
+  undershirt: 0x1d4ed8,
   aura: 0x60a5fa,
+  eyeColor: 0x1e293b,
   height: 1.72,
   build: 'athletic',
-  hairStyle: 'spiky',
+  hairStyle: 'goku',
+  kit: 'gi',
   ...overrides
 });
 
@@ -180,7 +183,12 @@ export const FIGHTERS = [
     baseSkills: ['punch', 'kick'],
     unlockSkills: ['uppercut', 'dash', 'guard', 'flight', 'powerup'],
     specials: ['kamehameha', 'spiritbomb'],
-    visual: baseVisual({ outfit: 0xf97316, accent: 0x2563eb, pants: 0x1d4ed8, hair: 0x1c1917, hairStyle: 'spikyTall', aura: 0x38bdf8 })
+    // Orange gi, blue undershirt / wristbands / boots with yellow tips, tall forward spikes
+    visual: baseVisual({
+      kit: 'gi', hairStyle: 'goku', hair: 0x14110f,
+      outfit: 0xf06a1a, undershirt: 0x1e40af, pants: 0xea580c, boots: 0x1e3a8a,
+      accent: 0x1e40af, gold: 0xfbbf24, aura: 0x38bdf8, eyeColor: 0x0f172a
+    })
   },
   {
     id: 'vegeta', name: 'Vegeta', universe: 'dragonball', chinese: '贝吉塔',
@@ -189,7 +197,13 @@ export const FIGHTERS = [
     baseSkills: ['punch', 'kick'],
     unlockSkills: ['uppercut', 'dash', 'guard', 'flight', 'powerup'],
     specials: ['galickgun', 'bigbang'],
-    visual: baseVisual({ outfit: 0x1e293b, accent: 0xffffff, pants: 0x0f172a, hair: 0x0f172a, hairStyle: 'spikyBack', aura: 0xc084fc, skin: 0xe0a878 })
+    // White armor over royal-blue suit, white gloves/boots, widow's-peak spikes
+    visual: baseVisual({
+      kit: 'saiyanArmor', hairStyle: 'vegeta', hair: 0x0c0a09, skin: 0xe2a878,
+      outfit: 0xf8fafc, undershirt: 0x1e3a8a, pants: 0x1e3a8a, boots: 0xf8fafc,
+      accent: 0xf8fafc, gold: 0xeab308, armorMetal: 0xf1f5f9, aura: 0xc084fc,
+      height: 1.64, build: 'athletic', eyeColor: 0x111827
+    })
   },
   {
     id: 'gohan', name: 'Gohan', universe: 'dragonball', chinese: '孙悟饭',
@@ -198,7 +212,12 @@ export const FIGHTERS = [
     baseSkills: ['punch', 'kick'],
     unlockSkills: ['uppercut', 'dash', 'guard', 'flight', 'powerup'],
     specials: ['masenko', 'superkamehameha'],
-    visual: baseVisual({ outfit: 0x15803d, accent: 0xf8fafc, pants: 0x14532d, hair: 0x1c1917, hairStyle: 'spikySoft', aura: 0x4ade80 })
+    // Teen Gohan Piccolo-style purple/white training gi (no turban)
+    visual: baseVisual({
+      kit: 'trainee', hairStyle: 'gohan', hair: 0x1c1917,
+      outfit: 0x6b21a8, accent: 0xf8fafc, pants: 0x581c87, boots: 0xf8fafc,
+      undershirt: 0xf8fafc, aura: 0xa78bfa, height: 1.7
+    })
   },
   {
     id: 'piccolo', name: 'Piccolo', universe: 'dragonball', chinese: '比克',
@@ -207,7 +226,12 @@ export const FIGHTERS = [
     baseSkills: ['punch', 'kick'],
     unlockSkills: ['uppercut', 'dash', 'guard', 'flight', 'powerup'],
     specials: ['specialbeamcannon', 'hellzonegrenade'],
-    visual: baseVisual({ skin: 0x4d7c0f, outfit: 0x422006, accent: 0xfacc15, pants: 0x1c1917, hair: 0x365314, hairStyle: 'antenna', aura: 0xa3e635, height: 1.9, build: 'tall' })
+    // Green skin, antennae, white turban + cape, purple gi
+    visual: baseVisual({
+      kit: 'namekian', hairStyle: 'piccolo', hair: 0x3f6212, skin: 0x4d7c0f,
+      outfit: 0x5b21b6, accent: 0xf8fafc, pants: 0x4c1d95, boots: 0xf8fafc,
+      aura: 0xa3e635, height: 1.92, build: 'tall', eyeColor: 0x14532d
+    })
   },
   {
     id: 'trunks', name: 'Trunks', universe: 'dragonball', chinese: '特兰克斯',
@@ -216,7 +240,12 @@ export const FIGHTERS = [
     baseSkills: ['punch', 'kick'],
     unlockSkills: ['uppercut', 'dash', 'guard', 'flight', 'powerup'],
     specials: ['burningattack', 'finalflash'],
-    visual: baseVisual({ outfit: 0x0f766e, accent: 0xc4b5fd, pants: 0x134e4a, hair: 0xa5b4fc, hairStyle: 'long', aura: 0x2dd4bf, skin: 0xe8c4a0 })
+    // Lilac hair, Capsule Corp denim vest, black pants, yellow boots + sword
+    visual: baseVisual({
+      kit: 'capsule', hairStyle: 'trunks', hair: 0xc4b5fd, skin: 0xecc9a8,
+      outfit: 0x3b82f6, pants: 0x1e293b, boots: 0xeab308, accent: 0xeab308,
+      gold: 0xfacc15, aura: 0x67e8f9, height: 1.75
+    })
   },
   {
     id: 'frieza', name: 'Frieza', universe: 'dragonball', chinese: '弗利萨',
@@ -225,7 +254,12 @@ export const FIGHTERS = [
     baseSkills: ['punch', 'kick'],
     unlockSkills: ['uppercut', 'dash', 'guard', 'flight', 'powerup'],
     specials: ['deathbeam', 'deathball'],
-    visual: baseVisual({ skin: 0xf5d0fe, outfit: 0xffffff, accent: 0x7c3aed, pants: 0xf3e8ff, hair: 0xffffff, hairStyle: 'dome', aura: 0xe879f9, height: 1.55, build: 'compact' })
+    // Final-form white bio-armor, purple gem, dome head, tail
+    visual: baseVisual({
+      kit: 'frieza', hairStyle: 'frieza', hair: 0xf8fafc, skin: 0xf3e8ff,
+      outfit: 0xf8fafc, accent: 0x7c3aed, pants: 0xf3e8ff, boots: 0xf8fafc,
+      aura: 0xe879f9, height: 1.52, build: 'compact', eyeColor: 0x4c1d95
+    })
   },
   {
     id: 'broly', name: 'Broly', universe: 'dragonball', chinese: '布罗利',
@@ -234,7 +268,12 @@ export const FIGHTERS = [
     baseSkills: ['punch', 'kick'],
     unlockSkills: ['uppercut', 'dash', 'guard', 'flight', 'powerup'],
     specials: ['erasercannon', 'giganticmeteor'],
-    visual: baseVisual({ outfit: 0x166534, accent: 0xfde047, pants: 0x14532d, hair: 0x365314, hairStyle: 'wild', aura: 0x22c55e, height: 2.05, build: 'bulky' })
+    // Legendary green mane, bare chest, bead necklace, torn green pants
+    visual: baseVisual({
+      kit: 'broly', hairStyle: 'broly', hair: 0x4d7c0f, skin: 0xe8b896,
+      outfit: 0x166534, pants: 0x14532d, boots: 0x1c1917, accent: 0xfde047,
+      gold: 0xfbbf24, aura: 0x22c55e, height: 2.08, build: 'bulky'
+    })
   },
   {
     id: 'android18', name: 'Android 18', universe: 'dragonball', chinese: '人造人18号',
@@ -243,7 +282,12 @@ export const FIGHTERS = [
     baseSkills: ['punch', 'kick'],
     unlockSkills: ['uppercut', 'dash', 'guard', 'flight', 'powerup'],
     specials: ['destructodisc', 'kamehameha'],
-    visual: baseVisual({ outfit: 0x1e3a8a, accent: 0xf8fafc, pants: 0x1e293b, hair: 0xfde68a, hairStyle: 'bob', aura: 0xf472b6, skin: 0xf0c7a0, height: 1.65, build: 'athletic' })
+    // Blonde bob, denim jacket, black top, orange belt & boots, arm bandage
+    visual: baseVisual({
+      kit: 'android18', hairStyle: 'android18', hair: 0xfde68a, skin: 0xf0c7a0,
+      outfit: 0x2563eb, accent: 0xea580c, pants: 0x1e293b, boots: 0xea580c,
+      gold: 0xfbbf24, aura: 0xf472b6, height: 1.66, eyeColor: 0x1d4ed8
+    })
   },
   {
     id: 'krillin', name: 'Krillin', universe: 'dragonball', chinese: '克林',
@@ -252,7 +296,12 @@ export const FIGHTERS = [
     baseSkills: ['punch', 'kick'],
     unlockSkills: ['uppercut', 'dash', 'guard', 'flight', 'powerup'],
     specials: ['destructodisc', 'solarflare'],
-    visual: baseVisual({ outfit: 0xf97316, accent: 0xfef3c7, pants: 0x1e40af, hair: 0x1c1917, hairStyle: 'bald', aura: 0xfbbf24, height: 1.5, build: 'compact', skin: 0xe8b896 })
+    // Bald + forehead dots, orange gi, blue undershirt, compact frame
+    visual: baseVisual({
+      kit: 'gi', hairStyle: 'krillin', hair: 0x1c1917,
+      outfit: 0xf06a1a, undershirt: 0x1e40af, pants: 0xea580c, boots: 0x1e3a8a,
+      accent: 0x1e40af, aura: 0xfbbf24, height: 1.48, build: 'compact'
+    })
   },
   {
     id: 'cell', name: 'Cell', universe: 'dragonball', chinese: '沙鲁',
@@ -261,7 +310,12 @@ export const FIGHTERS = [
     baseSkills: ['punch', 'kick'],
     unlockSkills: ['uppercut', 'dash', 'guard', 'flight', 'powerup'],
     specials: ['specialbeamcannon', 'superkamehameha'],
-    visual: baseVisual({ skin: 0x65a30d, outfit: 0x365314, accent: 0x84cc16, pants: 0x1a2e05, hair: 0x14532d, hairStyle: 'shell', aura: 0xa3e635, height: 1.95, build: 'tall' })
+    // Perfect Cell: lime body, black crest/spots, wings
+    visual: baseVisual({
+      kit: 'cell', hairStyle: 'cell', hair: 0x14532d, skin: 0x65a30d,
+      outfit: 0x84cc16, accent: 0xbef264, pants: 0x3f6212, boots: 0x1a2e05,
+      aura: 0xa3e635, height: 1.98, build: 'tall', eyeColor: 0xf8fafc
+    })
   },
   {
     id: 'majinbuu', name: 'Majin Buu', universe: 'dragonball', chinese: '魔人布欧',
@@ -270,7 +324,12 @@ export const FIGHTERS = [
     baseSkills: ['punch', 'kick'],
     unlockSkills: ['uppercut', 'dash', 'guard', 'flight', 'powerup'],
     specials: ['candybeam', 'planetburst'],
-    visual: baseVisual({ skin: 0xf9a8d4, outfit: 0xffffff, accent: 0xbe185d, pants: 0xfce7f3, hair: 0xf9a8d4, hairStyle: 'antenna', aura: 0xfb7185, height: 1.6, build: 'round' })
+    // Fat Buu: pink body, white pants/vest, yellow cape, M mark, antenna
+    visual: baseVisual({
+      kit: 'buu', hairStyle: 'buu', hair: 0xf9a8d4, skin: 0xf9a8d4,
+      outfit: 0xffffff, accent: 0xfacc15, pants: 0xffffff, boots: 0xffffff,
+      aura: 0xfb7185, height: 1.58, build: 'round', eyeColor: 0x9f1239
+    })
   },
   {
     id: 'android16', name: 'Android 16', universe: 'dragonball', chinese: '人造人16号',
@@ -279,7 +338,12 @@ export const FIGHTERS = [
     baseSkills: ['punch', 'kick'],
     unlockSkills: ['uppercut', 'dash', 'guard', 'flight', 'powerup'],
     specials: ['hellflash', 'rocketburst'],
-    visual: baseVisual({ skin: 0xe8b896, outfit: 0x166534, accent: 0xfb923c, pants: 0x1c1917, hair: 0x365314, hairStyle: 'flat', aura: 0x4ade80, height: 2.0, build: 'bulky' })
+    // Flat green hair, green vest, red chest gem, bulky build
+    visual: baseVisual({
+      kit: 'android16', hairStyle: 'android16', hair: 0x3f6212, skin: 0xe8b896,
+      outfit: 0x166534, accent: 0xfb923c, pants: 0x1c1917, boots: 0x1c1917,
+      aura: 0x4ade80, height: 2.02, build: 'bulky', eyeColor: 0xdc2626
+    })
   },
   {
     id: 'nezha', name: 'Nezha', universe: 'nezha', chinese: '哪吒',
@@ -288,7 +352,11 @@ export const FIGHTERS = [
     baseSkills: ['punch', 'kick'],
     unlockSkills: ['uppercut', 'dash', 'guard', 'flight', 'powerup'],
     specials: ['firewheel', 'universering'],
-    visual: baseVisual({ outfit: 0xdc2626, accent: 0xfbbf24, pants: 0x7f1d1d, hair: 0x1c1917, hairStyle: 'buns', aura: 0xff7043, skin: 0xf0c7a0, height: 1.45, build: 'compact' })
+    visual: baseVisual({
+      kit: 'nezha', hairStyle: 'nezha', hair: 0xfbbf24, skin: 0xf0c7a0,
+      outfit: 0xdc2626, accent: 0xfbbf24, pants: 0x7f1d1d, boots: 0xfbbf24,
+      gold: 0xfbbf24, aura: 0xff7043, height: 1.42, build: 'compact'
+    })
   }
 ];
 
