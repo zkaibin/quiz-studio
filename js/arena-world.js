@@ -68,13 +68,13 @@ export function createArenaWorld({ scene, renderer, stageId = 'skyline' }) {
   scene.background = new THREE.Color(stage.fog);
   scene.fog = new THREE.Fog(stage.fog, 28, 95);
 
-  const hemi = new THREE.HemisphereLight(0xfff0e0, 0x6a7580, 1.15);
+  const hemi = new THREE.HemisphereLight(0xfff4e8, 0x5a6570, 1.05);
   scene.add(hemi);
-  const fill = new THREE.AmbientLight(0xffe8d4, 0.55);
+  const fill = new THREE.AmbientLight(0xffebd8, 0.48);
   scene.add(fill);
-  // Key light slightly from camera side to pop cel bands + faces
-  const sun = new THREE.DirectionalLight(0xfff2e0, 2.9);
-  sun.position.set(8, 26, 22);
+  // Strong key from camera-front for hard cel bands on UV faces
+  const sun = new THREE.DirectionalLight(0xfff6ea, 3.2);
+  sun.position.set(4, 22, 28);
   sun.castShadow = true;
   sun.shadow.mapSize.set(2048, 2048);
   const sc = sun.shadow.camera;
