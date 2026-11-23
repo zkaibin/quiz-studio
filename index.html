@@ -16,7 +16,7 @@
       gtag('js', new Date());
       gtag('config', 'G-GWRDBHFHSQ');
     </script>
-    <link rel="stylesheet" href="css/landing.css?v=20">
+    <link rel="stylesheet" href="css/landing.css?v=22">
 </head>
 <body>
     <div class="atmosphere" aria-hidden="true"></div>
@@ -26,7 +26,17 @@
             <span class="brand-mark" aria-hidden="true"></span>
             <span>Quiz Studio</span>
         </a>
-        <nav class="top-links" aria-label="Primary">
+        <button
+            class="nav-toggle"
+            type="button"
+            id="nav-toggle"
+            aria-expanded="false"
+            aria-controls="primary-nav"
+            aria-label="Open menu"
+        >
+            <span class="nav-toggle-bars" aria-hidden="true"></span>
+        </button>
+        <nav class="top-links" id="primary-nav" aria-label="Primary">
             <a href="games.html">Games</a>
             <a href="leaderboard.html">Leaderboard</a>
             <a href="daily-challenge.html">Daily Challenge</a>
@@ -137,10 +147,49 @@
                 } catch (e) {}
             }
 
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initNavLinks);
-            } else {
+            function initMobileNav() {
+                var toggle = document.getElementById('nav-toggle');
+                var nav = document.getElementById('primary-nav');
+                var topbar = document.querySelector('.topbar');
+                if (!toggle || !nav || !topbar) return;
+
+                function setOpen(open) {
+                    topbar.classList.toggle('nav-open', open);
+                    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+                }
+
+                toggle.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    setOpen(!topbar.classList.contains('nav-open'));
+                });
+
+                nav.addEventListener('click', function (e) {
+                    if (e.target.closest('a')) setOpen(false);
+                });
+
+                document.addEventListener('click', function (e) {
+                    if (!topbar.contains(e.target)) setOpen(false);
+                });
+
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') setOpen(false);
+                });
+
+                window.addEventListener('resize', function () {
+                    if (window.matchMedia('(min-width: 761px)').matches) setOpen(false);
+                });
+            }
+
+            function boot() {
                 initNavLinks();
+                initMobileNav();
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', boot);
+            } else {
+                boot();
             }
         })();
     </script>
