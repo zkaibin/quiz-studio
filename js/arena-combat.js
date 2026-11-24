@@ -22,6 +22,7 @@ export function createFighter({ scene, fighterId, side, unlockedIds, control = '
     z: 0,
     vx: 0,
     vy: 0,
+    vz: 0,
     facing: side === 'p1' ? 1 : -1,
     hp: MAX_HP,
     energy: MAX_ENERGY,
@@ -36,7 +37,12 @@ export function createFighter({ scene, fighterId, side, unlockedIds, control = '
     stun: 0,
     invuln: 0,
     charge: null,
-    input: { left: false, right: false, up: false, down: false, punch: false, kick: false, skill1: false, skill2: false, guard: false },
+    input: {
+      left: false, right: false, forward: false, back: false,
+      up: false, down: false, punch: false, kick: false,
+      skill1: false, skill2: false, special1: false, special2: false, guard: false,
+      axisX: 0, axisZ: 0
+    },
     alive: true
   };
 
@@ -175,20 +181,33 @@ export function updateFighter(f, dt, bounds, keysActive) {
     }
   }
 
-  // Movement
+  // Movement — discrete keys + analog stick (360° on the arena floor)
   const moveSpeed = f.guarding ? 2.2 : 5.6;
-  let wish = 0;
+  let wishX = 0;
+  let wishZ = 0;
   if (f.stun <= 0 && !f.guarding && !(f.attackTimer > 0 && !getSkill(f.attackId)?.lunge)) {
-    if (input.left) wish -= 1;
-    if (input.right) wish += 1;
+    if (input.left) wishX -= 1;
+    if (input.right) wishX += 1;
+    if (input.forward) wishZ -= 1;
+    if (input.back) wishZ += 1;
+    if (typeof input.axisX === 'number') wishX += input.axisX;
+    if (typeof input.axisZ === 'number') wishZ += input.axisZ;
+    const mag = Math.hypot(wishX, wishZ);
+    if (mag > 1) {
+      wishX /= mag;
+      wishZ /= mag;
+    }
   }
-  if (wish !== 0) {
-    f.vx += (wish * moveSpeed - f.vx) * Math.min(1, 14 * dt);
-    f.facing = wish > 0 ? 1 : -1;
+  if (wishX !== 0 || wishZ !== 0) {
+    f.vx += (wishX * moveSpeed - f.vx) * Math.min(1, 14 * dt);
+    f.vz += (wishZ * moveSpeed - f.vz) * Math.min(1, 14 * dt);
+    if (Math.abs(wishX) > 0.12) f.facing = wishX > 0 ? 1 : -1;
   } else if (f.attackTimer <= 0) {
     f.vx *= Math.pow(0.02, dt);
+    f.vz *= Math.pow(0.02, dt);
   } else {
     f.vx *= Math.pow(0.15, dt);
+    f.vz *= Math.pow(0.15, dt);
   }
 
   // Jump / flight
@@ -212,6 +231,7 @@ export function updateFighter(f, dt, bounds, keysActive) {
 
   f.x += f.vx * dt;
   f.y += f.vy * dt;
+  f.z += f.vz * dt;
   if (f.y < 0) { f.y = 0; f.vy = 0; f.airborne = false; }
   if (f.y > 6.5) { f.y = 6.5; f.vy = Math.min(0, f.vy); }
 
@@ -222,11 +242,12 @@ export function updateFighter(f, dt, bounds, keysActive) {
     f.x *= s;
     f.z *= s;
     f.vx *= 0.4;
+    f.vz *= 0.4;
   }
 
   syncRoot(f);
   f.model.animate(dt, {
-    moving: Math.abs(wish) > 0 && !f.airborne,
+    moving: Math.hypot(wishX, wishZ) > 0.08 && !f.airborne,
     airborne: f.airborne,
     guarding: f.guarding,
     attack: f.attackId,
@@ -306,9 +327,11 @@ export function updateCpu(cpu, foe, difficulty = 'normal') {
   const dist = Math.abs(dx);
   cpu.facing = dx >= 0 ? 1 : -1;
   cpu.input = {
-    left: false, right: false, up: false, down: false,
+    left: false, right: false, forward: false, back: false,
+    up: false, down: false,
     punch: false, kick: false, skill1: false, skill2: false,
-    special1: false, special2: false, guard: false
+    special1: false, special2: false, guard: false,
+    axisX: 0, axisZ: 0
   };
 
   const aggro = difficulty === 'easy' ? 0.55 : difficulty === 'hard' ? 0.92 : 0.75;
@@ -351,6 +374,7 @@ export function resetFighter(f, side) {
   f.z = 0;
   f.vx = 0;
   f.vy = 0;
+  f.vz = 0;
   f.facing = side === 'p1' ? 1 : -1;
   f.hp = f.maxHp;
   f.energy = f.maxEnergy;
@@ -365,7 +389,12 @@ export function resetFighter(f, side) {
   f.charge = null;
   f._pendingProjectile = null;
   f.alive = true;
-  f.input = { left: false, right: false, up: false, down: false, punch: false, kick: false, skill1: false, skill2: false, special1: false, special2: false, guard: false };
+  f.input = {
+    left: false, right: false, forward: false, back: false,
+    up: false, down: false, punch: false, kick: false,
+    skill1: false, skill2: false, special1: false, special2: false, guard: false,
+    axisX: 0, axisZ: 0
+  };
   syncRoot(f);
 }
 

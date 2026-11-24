@@ -377,6 +377,15 @@ export function starterUnlockedIds(fighter) {
   return [...(fighter.baseSkills || [])];
 }
 
+/** Every skill a fighter can eventually learn (base + unlockables + specials). */
+export function fullUnlockedIds(fighter) {
+  return [...new Set([
+    ...(fighter.baseSkills || []),
+    ...(fighter.unlockSkills || []),
+    ...(fighter.specials || [])
+  ])];
+}
+
 export function resolveLoadout(fighter, unlockedIds) {
   const set = new Set(unlockedIds || starterUnlockedIds(fighter));
   const melee = ['punch', 'kick', 'uppercut', 'dash'].filter((id) => set.has(id) && SKILLS[id]);
