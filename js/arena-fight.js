@@ -2,7 +2,7 @@ import * as THREE from './vendor/three/three.module.min.js';
 import { FIGHTERS, UNIVERSES, getFighter, getSkill, allUnlockableFor, SPECIALS } from './arena-roster.js';
 import { createArenaWorld, STAGES } from './arena-world.js';
 import { createArenaFx } from './arena-fx.js';
-import { createDojoStore } from './arena-dojo.js';
+import { createDojoStore, UNLOCK_ALL } from './arena-dojo.js';
 import {
   createFighter, disposeFighter, updateFighter, resolveCombat, updateCpu, resetFighter, MATCH
 } from './arena-combat.js';
@@ -51,8 +51,10 @@ import {
 
   const keys = new Set();
   const touch = {};
+  const stick = { active: false, x: 0, y: 0, pointerId: null };
   const attackEdges = { punch: false, kick: false, skill1: false, skill2: false, special1: false, special2: false };
   const p2AttackEdges = { punch: false, kick: false, skill1: false, skill2: false, special1: false, special2: false };
+  const gestureHold = { guard: false, up: false };
 
   function consumeEdge(map, name) {
     if (!map[name]) return false;
@@ -71,9 +73,56 @@ import {
   const matchHud = $('match-hud');
   const skillTray = $('skill-tray');
   const hint = $('hint');
+  const touchHint = $('touch-hint');
+  const isCoarsePointer = () => window.matchMedia('(pointer: coarse), (hover: none)').matches;
 
   function show(el) { el.classList.remove('hidden'); }
   function hide(el) { el.classList.add('hidden'); }
+
+  let touchHintTimer = null;
+
+  function setTouchChrome(active) {
+    const controls = $('touch-controls');
+    if (controls) controls.classList.toggle('live', !!active);
+    if (touchHintTimer) {
+      clearTimeout(touchHintTimer);
+      touchHintTimer = null;
+    }
+    if (!active) {
+      hint.hidden = true;
+      if (touchHint) {
+        touchHint.hidden = true;
+        touchHint.classList.remove('live', 'fade');
+      }
+      return;
+    }
+    if (isCoarsePointer()) {
+      hint.hidden = true;
+      skillTray.hidden = true;
+      if (touchHint) {
+        touchHint.hidden = false;
+        touchHint.classList.add('live');
+        touchHint.classList.remove('fade');
+        // Brief coach mark, then clear space for the fight
+        touchHintTimer = setTimeout(() => {
+          if (!touchHint) return;
+          touchHint.classList.add('fade');
+          touchHintTimer = setTimeout(() => {
+            touchHint.hidden = true;
+            touchHint.classList.remove('live', 'fade');
+            touchHintTimer = null;
+          }, 400);
+        }, 4200);
+      }
+    } else {
+      hint.hidden = false;
+      skillTray.hidden = false;
+      if (touchHint) {
+        touchHint.hidden = true;
+        touchHint.classList.remove('live', 'fade');
+      }
+    }
+  }
 
   function refreshPoints() {
     const pts = store.displayPoints();
@@ -126,12 +175,17 @@ import {
     btn.type = 'button';
     btn.className = `fighter-card${selectedId === fighter.id ? ' on' : ''}`;
     const uni = UNIVERSES.find((u) => u.id === fighter.universe);
+    const costLabel = UNLOCK_ALL
+      ? (selectedId === fighter.id ? 'Selected' : 'Ready')
+      : owned
+        ? (selectedId === fighter.id ? 'Selected' : 'Owned')
+        : `${fighter.unlockCost} pts`;
     btn.innerHTML = `
       <div>
-        <div class="title">${fighter.name} ${owned ? '' : '🔒'}</div>
+        <div class="title">${fighter.name} ${owned || UNLOCK_ALL ? '' : '🔒'}</div>
         <div class="meta"><span class="tag">${uni?.tag || fighter.universe}</span>${fighter.tagline}</div>
       </div>
-      <div class="cost">${owned ? (selectedId === fighter.id ? 'Selected' : 'Owned') : `${fighter.unlockCost} pts`}</div>
+      <div class="cost">${costLabel}</div>
     `;
     btn.onclick = () => onPick(fighter);
     return btn;
@@ -182,6 +236,12 @@ import {
 
   // ----- Dojo UI -----
   function renderDojo() {
+    const intro = $('dojo-intro');
+    if (intro) {
+      intro.textContent = UNLOCK_ALL
+        ? 'Browse each fighter’s full kit. Everything is unlocked for playtesting — skill upgrades come later.'
+        : 'Spend points to unlock fighters and teach them new moves. Starter skills stay free forever.';
+    }
     const pills = $('dojo-fighter-pills');
     pills.innerHTML = '';
     for (const f of FIGHTERS.filter((x) => store.isOwned(x.id))) {
@@ -196,31 +256,33 @@ import {
     const host = $('dojo-skills');
     host.innerHTML = '';
 
-    // Character unlock section for locked fighters
-    for (const f of FIGHTERS.filter((x) => !store.isOwned(x.id))) {
-      const card = document.createElement('button');
-      card.type = 'button';
-      card.className = 'skill-card';
-      card.innerHTML = `
-        <div>
-          <div class="title">Unlock ${f.name}</div>
-          <div class="meta">${f.tagline}</div>
-        </div>
-        <div class="cost">${f.unlockCost} pts</div>
-      `;
-      card.onclick = async () => {
-        try {
-          await store.unlockFighter(f.id);
-          dojoFighterId = f.id;
-          refreshPoints();
-          setStatus('dojo-status', `${f.name} joined your roster!`);
-          renderDojo();
-          renderFighterLists();
-        } catch (e) {
-          setStatus('dojo-status', e.message || 'Unlock failed', true);
-        }
-      };
-      host.appendChild(card);
+    // Character unlock section for locked fighters (skipped while UNLOCK_ALL)
+    if (!UNLOCK_ALL) {
+      for (const f of FIGHTERS.filter((x) => !store.isOwned(x.id))) {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'skill-card';
+        card.innerHTML = `
+          <div>
+            <div class="title">Unlock ${f.name}</div>
+            <div class="meta">${f.tagline}</div>
+          </div>
+          <div class="cost">${f.unlockCost} pts</div>
+        `;
+        card.onclick = async () => {
+          try {
+            await store.unlockFighter(f.id);
+            dojoFighterId = f.id;
+            refreshPoints();
+            setStatus('dojo-status', `${f.name} joined your roster!`);
+            renderDojo();
+            renderFighterLists();
+          } catch (e) {
+            setStatus('dojo-status', e.message || 'Unlock failed', true);
+          }
+        };
+        host.appendChild(card);
+      }
     }
 
     const unlockables = allUnlockableFor(fighter);
@@ -229,15 +291,15 @@ import {
       const card = document.createElement('button');
       card.type = 'button';
       card.className = 'skill-card';
-      card.disabled = unlocked;
+      card.disabled = unlocked || UNLOCK_ALL;
       card.innerHTML = `
         <div>
           <div class="title">${skill.label} ${unlocked ? '✓' : ''}</div>
           <div class="meta"><span class="tag">T${skill.tier ?? 1}</span>${skill.blurb || ''}</div>
         </div>
-        <div class="cost">${unlocked ? 'Unlocked' : `${skill.unlockCost} pts`}</div>
+        <div class="cost">${unlocked || UNLOCK_ALL ? 'Unlocked' : `${skill.unlockCost} pts`}</div>
       `;
-      if (!unlocked) {
+      if (!unlocked && !UNLOCK_ALL) {
         card.onclick = async () => {
           try {
             await store.unlockSkill(fighter.id, skill.id);
@@ -251,6 +313,7 @@ import {
       }
       host.appendChild(card);
     }
+    if (UNLOCK_ALL) setStatus('dojo-status', 'Playtest mode: full kit available — upgrades deferred.');
   }
 
   function renderStages() {
@@ -313,24 +376,34 @@ import {
 
   function applyInputs(dt) {
     if (!p1 || !p2) return;
+    const dead = 0.18;
+    const axisX = stick.active && Math.abs(stick.x) > dead ? stick.x : 0;
+    // Stick up (negative screen Y) = deeper into the arena (−Z)
+    const axisZ = stick.active && Math.abs(stick.y) > dead ? stick.y : 0;
     p1.input = {
-      left: keys.has('a') || keys.has('arrowleft') || touch.left,
-      right: keys.has('d') || keys.has('arrowright') || touch.right,
-      up: keys.has('w') || keys.has('arrowup') || touch.up,
-      down: keys.has('s') || keys.has('arrowdown') || touch.guard,
-      guard: keys.has('s') || keys.has('arrowdown') || touch.guard,
+      left: keys.has('a') || keys.has('arrowleft') || !!touch.left,
+      right: keys.has('d') || keys.has('arrowright') || !!touch.right,
+      forward: keys.has('q') || !!touch.forward,
+      back: keys.has('e') || !!touch.back,
+      up: keys.has('w') || keys.has('arrowup') || !!touch.up || !!gestureHold.up,
+      down: keys.has('s') || keys.has('arrowdown') || !!touch.guard || !!gestureHold.guard,
+      guard: keys.has('s') || keys.has('arrowdown') || !!touch.guard || !!gestureHold.guard,
       punch: consumeEdge(attackEdges, 'punch') || !!touch.punch,
       kick: consumeEdge(attackEdges, 'kick') || !!touch.kick,
       skill1: consumeEdge(attackEdges, 'skill1') || !!touch.skill1,
       skill2: consumeEdge(attackEdges, 'skill2') || !!touch.skill2,
       special1: consumeEdge(attackEdges, 'special1') || !!touch.special1,
-      special2: consumeEdge(attackEdges, 'special2') || !!touch.special2
+      special2: consumeEdge(attackEdges, 'special2') || !!touch.special2,
+      axisX,
+      axisZ
     };
 
     if (mode === 'pvp') {
       p2.input = {
         left: keys.has(','),
         right: keys.has('.'),
+        forward: false,
+        back: false,
         up: keys.has('/'),
         down: keys.has('m'),
         guard: keys.has('m'),
@@ -339,7 +412,9 @@ import {
         skill1: consumeEdge(p2AttackEdges, 'skill1'),
         skill2: consumeEdge(p2AttackEdges, 'skill2'),
         special1: consumeEdge(p2AttackEdges, 'special1'),
-        special2: consumeEdge(p2AttackEdges, 'special2')
+        special2: consumeEdge(p2AttackEdges, 'special2'),
+        axisX: 0,
+        axisZ: 0
       };
     } else {
       updateCpu(p2, p1, difficulty);
@@ -371,7 +446,7 @@ import {
     $('result-points').textContent = `+${award} points · balance ${total}`;
     matchHud.hidden = true;
     skillTray.hidden = true;
-    hint.hidden = true;
+    setTouchChrome(false);
     hide(pausedOverlay);
     show(result);
   }
@@ -398,6 +473,23 @@ import {
     const s2 = (p2.loadout.specials || []).map((id) => SPECIALS[id]?.label || getSkill(id)?.label).filter(Boolean);
     $('p1-sub').textContent = s1.length ? s1.join(' · ') : 'Punch · Kick';
     $('p2-sub').textContent = s2.length ? s2.join(' · ') : 'Punch · Kick';
+    const sp1 = $('touch-special1');
+    const sp2 = $('touch-special2');
+    // Compact labels fit phone thumbs; full name stays on title / skill tray (desktop)
+    if (sp1) {
+      const id = p1.loadout.specials[0];
+      const full = (SPECIALS[id] || getSkill(id))?.label || 'Special 1';
+      sp1.textContent = 'SP1';
+      sp1.setAttribute('aria-label', full);
+      sp1.title = full;
+    }
+    if (sp2) {
+      const id = p1.loadout.specials[1];
+      const full = (SPECIALS[id] || getSkill(id))?.label || 'Special 2';
+      sp2.textContent = 'SP2';
+      sp2.setAttribute('aria-label', full);
+      sp2.title = full;
+    }
   }
 
   async function beginMatch() {
@@ -410,7 +502,7 @@ import {
     elapsed = 0;
     matchHud.hidden = false;
     skillTray.hidden = false;
-    hint.hidden = false;
+    setTouchChrome(true);
     syncHud();
 
     show(countdown);
@@ -438,14 +530,16 @@ import {
   $('result-again').onclick = () => beginMatch();
   $('result-dojo').onclick = () => { hide(result); show(dojo); renderDojo(); refreshPoints(); };
   $('result-menu').onclick = () => {
-    hide(result); clearFighters(); matchHud.hidden = true; skillTray.hidden = true; hint.hidden = true;
+    hide(result); clearFighters(); matchHud.hidden = true; skillTray.hidden = true;
+    setTouchChrome(false);
     show(welcome); refreshPoints();
   };
   $('resume-match').onclick = () => { paused = false; hide(pausedOverlay); };
   $('end-match').onclick = () => {
     paused = false; running = false; matchOver = true;
     hide(pausedOverlay); clearFighters();
-    matchHud.hidden = true; skillTray.hidden = true; hint.hidden = true;
+    matchHud.hidden = true; skillTray.hidden = true;
+    setTouchChrome(false);
     camera.position.set(0, 3.15, 10.0);
     camPos.copy(camera.position);
     camTarget.set(0, 1.35, 0);
@@ -481,14 +575,185 @@ import {
   });
   window.addEventListener('keyup', (e) => keys.delete(e.key.toLowerCase()));
 
+  // ----- Virtual stick (360° move) -----
+  const stickEl = $('virtual-stick');
+  const knobEl = $('stick-knob');
+  const STICK_MAX = 38;
+
+  function setStickFromEvent(event) {
+    if (!stickEl || !knobEl) return;
+    const rect = stickEl.getBoundingClientRect();
+    const dx = event.clientX - (rect.left + rect.width / 2);
+    const dy = event.clientY - (rect.top + rect.height / 2);
+    const len = Math.min(STICK_MAX, Math.hypot(dx, dy));
+    const ang = Math.atan2(dy, dx);
+    stick.x = len < 1 ? 0 : (Math.cos(ang) * len) / STICK_MAX;
+    stick.y = len < 1 ? 0 : (Math.sin(ang) * len) / STICK_MAX;
+    stick.active = true;
+    knobEl.style.transform = `translate(${stick.x * STICK_MAX}px, ${stick.y * STICK_MAX}px)`;
+  }
+
+  function releaseStick() {
+    stick.active = false;
+    stick.x = 0;
+    stick.y = 0;
+    stick.pointerId = null;
+    if (knobEl) knobEl.style.transform = '';
+  }
+
+  if (stickEl) {
+    stickEl.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      stick.pointerId = e.pointerId;
+      try { stickEl.setPointerCapture(e.pointerId); } catch { /* ignore */ }
+      setStickFromEvent(e);
+    });
+    stickEl.addEventListener('pointermove', (e) => {
+      if (!stick.active || (stick.pointerId != null && e.pointerId !== stick.pointerId)) return;
+      e.preventDefault();
+      setStickFromEvent(e);
+    });
+    stickEl.addEventListener('pointerup', releaseStick);
+    stickEl.addEventListener('pointercancel', releaseStick);
+    stickEl.addEventListener('lostpointercapture', releaseStick);
+  }
+
   document.querySelectorAll('.touch-controls [data-control]').forEach((btn) => {
     const id = btn.dataset.control;
-    const set = (v) => { touch[id] = v; btn.classList.toggle('down', v); };
-    btn.addEventListener('pointerdown', (e) => { e.preventDefault(); set(true); });
-    btn.addEventListener('pointerup', () => set(false));
-    btn.addEventListener('pointerleave', () => set(false));
-    btn.addEventListener('pointercancel', () => set(false));
+    const set = (v) => {
+      touch[id] = v;
+      btn.classList.toggle('down', v);
+      // Attack / special buttons are edge-triggered so a hold does not auto-fire every frame
+      // until cooldown — still allow hold-to-repeat via re-setting edge while held:
+      if (v && attackEdges[id] !== undefined) attackEdges[id] = true;
+    };
+    btn.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      try { btn.setPointerCapture(e.pointerId); } catch { /* ignore */ }
+      set(true);
+    });
+    const off = () => set(false);
+    btn.addEventListener('pointerup', off);
+    btn.addEventListener('pointercancel', off);
+    btn.addEventListener('lostpointercapture', off);
   });
+
+  // ----- Arena gestures (tap / swipe / hold) on top of virtual keys -----
+  const canvas = renderer.domElement;
+  let gesture = null;
+  let lastTapAt = 0;
+  let longPressTimer = null;
+
+  function clearGestureHold() {
+    gestureHold.guard = false;
+    gestureHold.up = false;
+    if (longPressTimer) {
+      clearTimeout(longPressTimer);
+      longPressTimer = null;
+    }
+  }
+
+  function pulseHold(key, ms) {
+    gestureHold[key] = true;
+    setTimeout(() => { gestureHold[key] = false; }, ms);
+  }
+
+  function bindArenaGestures() {
+    canvas.addEventListener('pointerdown', (e) => {
+      if (!running || paused || matchOver || !p1) return;
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      // Ignore when interacting with HUD overlays / virtual controls
+      if (e.target !== canvas) return;
+      gesture = {
+        id: e.pointerId,
+        x: e.clientX,
+        y: e.clientY,
+        t: performance.now(),
+        long: false
+      };
+      try { canvas.setPointerCapture(e.pointerId); } catch { /* ignore */ }
+      longPressTimer = setTimeout(() => {
+        if (!gesture || gesture.id !== e.pointerId) return;
+        gesture.long = true;
+        gestureHold.guard = true;
+      }, 340);
+    });
+
+    canvas.addEventListener('pointermove', (e) => {
+      if (!gesture || gesture.id !== e.pointerId) return;
+      const dx = e.clientX - gesture.x;
+      const dy = e.clientY - gesture.y;
+      if (Math.hypot(dx, dy) > 18 && longPressTimer) {
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+      }
+    });
+
+    function endGesture(e) {
+      if (!gesture || gesture.id !== e.pointerId) return;
+      const dx = e.clientX - gesture.x;
+      const dy = e.clientY - gesture.y;
+      const held = performance.now() - gesture.t;
+      const dist = Math.hypot(dx, dy);
+      const wasLong = gesture.long;
+      gesture = null;
+      if (longPressTimer) {
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+      }
+      if (wasLong) {
+        gestureHold.guard = false;
+        return;
+      }
+      if (!running || paused || matchOver) return;
+
+      if (dist < 22 && held < 320) {
+        const now = performance.now();
+        if (now - lastTapAt < 300) {
+          attackEdges.kick = true;
+          lastTapAt = 0;
+        } else {
+          attackEdges.punch = true;
+          lastTapAt = now;
+        }
+        return;
+      }
+
+      if (dist < 28) return;
+      const ax = Math.abs(dx);
+      const ay = Math.abs(dy);
+      if (ay > ax * 1.1) {
+        if (dy < 0) {
+          // Swipe up: short = jump, long = uppercut
+          if (ay > 90) attackEdges.skill1 = true;
+          else pulseHold('up', 140);
+        } else {
+          // Swipe down: guard burst
+          pulseHold('guard', 420);
+        }
+      } else {
+        // Horizontal swipe: dash toward swipe direction
+        attackEdges.skill2 = true;
+        if (dx > 0) {
+          touch.right = true;
+          setTimeout(() => { touch.right = false; }, 120);
+        } else {
+          touch.left = true;
+          setTimeout(() => { touch.left = false; }, 120);
+        }
+      }
+    }
+
+    canvas.addEventListener('pointerup', endGesture);
+    canvas.addEventListener('pointercancel', (e) => {
+      if (gesture && gesture.id === e.pointerId) {
+        clearGestureHold();
+        gesture = null;
+      }
+    });
+  }
+  bindArenaGestures();
 
   window.addEventListener('resize', () => {
     const w = mount.clientWidth;
@@ -547,8 +812,13 @@ import {
     dojoFighterId = p1Id;
     previewNames();
     refreshPoints();
-    if (store.user) setStatus('welcome-status', 'Signed in — quiz points sync to the Dojo.');
-    else setStatus('welcome-status', 'Playing locally — wins add local points. Sign in to use quiz points.');
+    if (UNLOCK_ALL) {
+      setStatus('welcome-status', 'Playtest unlock: all fighters and skills are ready. Skill upgrades come later.');
+    } else if (store.user) {
+      setStatus('welcome-status', 'Signed in — quiz points sync to the Dojo.');
+    } else {
+      setStatus('welcome-status', 'Playing locally — wins add local points. Sign in to use quiz points.');
+    }
     if (store.loadError) setStatus('welcome-status', store.loadError, true);
   });
 

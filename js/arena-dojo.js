@@ -1,19 +1,29 @@
 // Points + skill unlock persistence for Arena Clash.
 // Signed-in players sync to Firestore; everyone gets a local fallback.
 import {
-  FIGHTERS, SKILLS, SPECIALS, starterUnlockedIds, getFighter, getSkill
+  FIGHTERS, SKILLS, SPECIALS, starterUnlockedIds, fullUnlockedIds, getFighter, getSkill
 } from './arena-roster.js';
 
 const FS = 'https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js';
 const AUTH = 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
 const LOCAL_KEY = 'arenaClashDojo';
 
+/**
+ * Playtest unlock: every fighter and every skill is available with no point spend.
+ * Flip to false later when the Dojo upgrade economy is ready.
+ */
+export const UNLOCK_ALL = true;
+
+function skillIdsFor(fighter) {
+  return UNLOCK_ALL ? fullUnlockedIds(fighter) : starterUnlockedIds(fighter);
+}
+
 function freshDojo() {
   const unlocked = {};
   const owned = [];
   for (const f of FIGHTERS) {
-    unlocked[f.id] = starterUnlockedIds(f);
-    if (f.starter || f.unlockCost === 0) owned.push(f.id);
+    unlocked[f.id] = skillIdsFor(f);
+    if (UNLOCK_ALL || f.starter || f.unlockCost === 0) owned.push(f.id);
   }
   return {
     owned,
@@ -28,6 +38,15 @@ function sanitize(data) {
   const dojo = freshDojo();
   if (!data) return dojo;
   const ids = FIGHTERS.map((f) => f.id);
+  if (UNLOCK_ALL) {
+    dojo.owned = [...ids];
+    dojo.selected = ids.includes(data.selected) ? data.selected : dojo.owned[0];
+    dojo.wins = Math.max(0, data.wins | 0);
+    dojo.matches = Math.max(0, data.matches | 0);
+    dojo.unlocked = {};
+    for (const f of FIGHTERS) dojo.unlocked[f.id] = fullUnlockedIds(f);
+    return dojo;
+  }
   dojo.owned = [...new Set([
     ...dojo.owned,
     ...(data.owned || []).filter((id) => ids.includes(id))
@@ -71,7 +90,8 @@ export function createDojoStore() {
     localPoints: 0,
     dojo: readLocal(),
     ready: null,
-    loadError: ''
+    loadError: '',
+    unlockAll: UNLOCK_ALL
   };
 
   try {
@@ -128,12 +148,14 @@ export function createDojoStore() {
       // Merge local unlocks so offline progress is not lost.
       const local = readLocal();
       const merged = sanitize(remote);
-      for (const f of FIGHTERS) {
-        merged.unlocked[f.id] = [...new Set([
-          ...(merged.unlocked[f.id] || []),
-          ...(local.unlocked[f.id] || [])
-        ])];
-        if (local.owned.includes(f.id) && !merged.owned.includes(f.id)) merged.owned.push(f.id);
+      if (!UNLOCK_ALL) {
+        for (const f of FIGHTERS) {
+          merged.unlocked[f.id] = [...new Set([
+            ...(merged.unlocked[f.id] || []),
+            ...(local.unlocked[f.id] || [])
+          ])];
+          if (local.owned.includes(f.id) && !merged.owned.includes(f.id)) merged.owned.push(f.id);
+        }
       }
       store.dojo = merged;
       writeLocal(merged);
@@ -169,15 +191,16 @@ export function createDojoStore() {
   };
 
   async function spend(cost, apply) {
-    if (cost <= 0) {
+    const effectiveCost = UNLOCK_ALL ? 0 : cost;
+    if (effectiveCost <= 0) {
       apply(store.dojo);
       await store.persist();
       return;
     }
     if (!store.user) {
-      if (store.localPoints < cost) throw new Error('Not enough points. Win matches or sign in to use quiz points.');
+      if (store.localPoints < effectiveCost) throw new Error('Not enough points. Win matches or sign in to use quiz points.');
       apply(store.dojo);
-      store.localPoints -= cost;
+      store.localPoints -= effectiveCost;
       try { localStorage.setItem('arenaClashLocalPoints', String(store.localPoints)); } catch { /* ignore */ }
       await store.persist();
       return;
@@ -188,12 +211,12 @@ export function createDojoStore() {
     const result = await runTransaction(store.db, async (tx) => {
       const [userSnap, dojoSnap] = await Promise.all([tx.get(userRef), tx.get(dojoRef)]);
       const points = userSnap.exists() ? (userSnap.data().total_points || 0) : 0;
-      if (points < cost) throw new Error('Not enough points.');
+      if (points < effectiveCost) throw new Error('Not enough points.');
       const dojo = sanitize(dojoSnap.exists() ? dojoSnap.data() : store.dojo);
       apply(dojo);
-      tx.set(userRef, { total_points: points - cost }, { merge: true });
+      tx.set(userRef, { total_points: points - effectiveCost }, { merge: true });
       tx.set(dojoRef, dojo);
-      return { points: points - cost, dojo };
+      return { points: points - effectiveCost, dojo };
     });
     store.points = result.points;
     store.dojo = result.dojo;
@@ -203,7 +226,7 @@ export function createDojoStore() {
   store.isOwned = (fighterId) => store.dojo.owned.includes(fighterId);
 
   store.isUnlocked = (fighterId, skillId) => {
-    const list = store.dojo.unlocked[fighterId] || starterUnlockedIds(getFighter(fighterId));
+    const list = store.dojo.unlocked[fighterId] || skillIdsFor(getFighter(fighterId));
     return list.includes(skillId);
   };
 
@@ -212,7 +235,7 @@ export function createDojoStore() {
     if (store.isOwned(fighterId)) throw new Error('Already unlocked.');
     await spend(fighter.unlockCost || 0, (d) => {
       if (!d.owned.includes(fighterId)) d.owned.push(fighterId);
-      if (!d.unlocked[fighterId]) d.unlocked[fighterId] = starterUnlockedIds(fighter);
+      if (!d.unlocked[fighterId]) d.unlocked[fighterId] = skillIdsFor(fighter);
       d.selected = fighterId;
     });
   };
@@ -226,7 +249,7 @@ export function createDojoStore() {
     const allowed = new Set([...(fighter.unlockSkills || []), ...(fighter.specials || [])]);
     if (!allowed.has(skillId)) throw new Error('Skill not available for this fighter.');
     await spend(skill.unlockCost || 0, (d) => {
-      if (!d.unlocked[fighterId]) d.unlocked[fighterId] = starterUnlockedIds(fighter);
+      if (!d.unlocked[fighterId]) d.unlocked[fighterId] = skillIdsFor(fighter);
       if (!d.unlocked[fighterId].includes(skillId)) d.unlocked[fighterId].push(skillId);
     });
   };
