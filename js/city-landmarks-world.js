@@ -452,6 +452,75 @@ export const WORLD_BUILDERS = {
       g.add(band);
     }
     cyl(g, M.steel, 0, 1, 0, 6, 8, 5, 24);
+  },
+  // ----- Planet Aurelia / Circadia -----
+  spire(g) {
+    box(g, M.stone, 0, 0.5, 0, 28, 1, 28);
+    cyl(g, mat(0x7a8fa8, { rough: 0.2, metal: 0.7 }), 0, 0, 0, 5, 8, 70, 16);
+    windowStrips(g, 10, 70, 10, 0, 1, 18, M.glassBlue);
+    cone(g, M.gold, 0, 70, 0, 6, 18, 12);
+    ball(g, M.lamp, 0, 90, 0, 2.4);
+    ring(g, mat(0x5fd4ff, { rough: 0.2, metal: 0.6 }), 0, 42, 0, 12, 0.45);
+    ring(g, mat(0xffb454, { rough: 0.2, metal: 0.6 }), 0, 56, 0, 9, 0.35);
+  },
+  ringgate(g) {
+    box(g, M.stone, 0, 0.4, 0, 36, 0.8, 24);
+    ring(g, M.steel, 0, 18, 0, 16, 1.2, 0, Math.PI / 2);
+    ring(g, mat(0xffb454, { rough: 0.25, metal: 0.8 }), 0, 18, 0, 16, 0.35, 0, Math.PI / 2);
+    for (const s of [-1, 1]) box(g, M.slate, s * 18, 10, 0, 3, 20, 6);
+    box(g, M.glassDeep, 0, 4, 0, 10, 8, 8);
+  },
+  crystal(g) {
+    box(g, M.stone, 0, 0.5, 0, 26, 1, 26);
+    for (const [x, z, h, r] of [[0, 0, 48, 5], [-8, 6, 32, 3.2], [7, -5, 28, 2.8], [4, 8, 22, 2.2]]) {
+      const shard = new THREE.Mesh(new THREE.OctahedronGeometry(r, 0), mat(0x9ad7ff, { rough: 0.1, metal: 0.55 }));
+      shard.position.set(x, h / 2 + 1, z);
+      shard.scale.set(1, h / (r * 2.2), 1);
+      g.add(shard);
+    }
+    ball(g, M.lamp, 0, 52, 0, 1.6);
+  },
+  observatory(g) {
+    box(g, M.slate, 0, 4, 0, 30, 8, 30);
+    cyl(g, M.white, 0, 8, 0, 10, 12, 10, 24);
+    dome(g, M.steel, 0, 18, 0, 11, 8, 11, 20);
+    cyl(g, M.dark, 0, 22, 0, 2.2, 2.2, 14, 12).rotation.z = 0.55;
+    box(g, M.lawn, 0, 0.2, 0, 34, 0.4, 34);
+  },
+  unityplaza(g) {
+    box(g, M.stone, 0, 0.4, 0, 40, 0.8, 40);
+    cyl(g, M.gold, 0, 0.8, 0, 6, 8, 2, 24);
+    for (let i = 0; i < 8; i++) {
+      const a = (i / 8) * Math.PI * 2;
+      box(g, M.glassSilver, Math.cos(a) * 14, 10, Math.sin(a) * 14, 4, 20, 4);
+    }
+    ball(g, M.lamp, 0, 16, 0, 3.2);
+  },
+  polarbeacon(g) {
+    box(g, M.lawn, 0, 0.2, 0, 36, 0.4, 36);
+    cyl(g, M.white, 0, 0, 0, 3, 5, 40, 12);
+    cone(g, mat(0x5fd4ff, { rough: 0.2, metal: 0.5 }), 0, 40, 0, 5, 12, 10);
+    ball(g, M.lamp, 0, 54, 0, 2.8);
+    for (let i = 0; i < 3; i++) ring(g, mat(0x7fe6ff, { rough: 0.3, metal: 0.4 }), 0, 18 + i * 8, 0, 8 + i, 0.25);
+  },
+  antipodolite(g) {
+    box(g, M.stone, 0, 0.5, 0, 28, 1, 28);
+    cone(g, mat(0xb07cff, { rough: 0.25, metal: 0.55 }), 0, 0, 0, 10, 36, 6);
+    for (let i = 0; i < 5; i++) {
+      const a = (i / 5) * Math.PI * 2;
+      cone(g, mat(0x7a5cff, { rough: 0.3, metal: 0.45 }), Math.cos(a) * 8, 0, Math.sin(a) * 8, 3, 16 + (i % 3) * 4, 5);
+    }
+    ball(g, M.lamp, 0, 38, 0, 2);
+  },
+  helixcore(g) {
+    box(g, M.stone, 0, 0.5, 0, 32, 1, 32);
+    for (let i = 0; i < 18; i++) {
+      const a = i * 0.55;
+      const y = 4 + i * 4.2;
+      box(g, i % 2 ? M.glassBlue : M.glassSilver, Math.cos(a) * 8, y, Math.sin(a) * 8, 10, 4, 6);
+    }
+    cyl(g, M.steel, 0, 0, 0, 2, 3.5, 80, 10);
+    ball(g, M.gold, 0, 84, 0, 3);
   }
 };
 
@@ -460,12 +529,15 @@ export const WORLD_NAMES = {
   pearl: 'Oriental Pearl Tower', shtower: 'Shanghai Tower', jinmao: 'Jin Mao Tower', swfc: 'Shanghai World Financial Center', bund: 'The Bund',
   tokyotower: 'Tokyo Tower', skytree: 'Tokyo Skytree', kaminarimon: 'Kaminarimon Gate · Senso-ji', shibuya: 'Shibuya Scramble', tocho: 'Tokyo Metropolitan Government Building',
   bigben: 'Big Ben · Westminster', londoneye: 'London Eye', shard: 'The Shard', towerbridge: 'Tower Bridge', stpauls: "St Paul's Cathedral",
-  burj: 'Burj Khalifa', burjalarab: 'Burj Al Arab', dubaiframe: 'Dubai Frame', emirates: 'Emirates Towers', museum: 'Museum of the Future'
+  burj: 'Burj Khalifa', burjalarab: 'Burj Al Arab', dubaiframe: 'Dubai Frame', emirates: 'Emirates Towers', museum: 'Museum of the Future',
+  spire: 'Orbital Spire', ringgate: 'Ring Gate', crystal: 'Crystal Forum', observatory: 'Horizon Observatory',
+  unityplaza: 'Unity Plaza', polarbeacon: 'Polar Beacon', antipodolite: 'Antipode Lite', helixcore: 'Helix Core'
 };
 
 // Footprint depth (x extent behind the road-facing front).
 export const WORLD_DEPTH = {
   empire: 26, liberty: 24, flatiron: 26, wtc: 18, timessq: 24, pearl: 22, shtower: 26, jinmao: 24, swfc: 24, bund: 22,
   tokyotower: 20, skytree: 26, kaminarimon: 14, shibuya: 24, tocho: 30, bigben: 24, londoneye: 20, shard: 26, towerbridge: 14, stpauls: 34,
-  burj: 30, burjalarab: 36, dubaiframe: 10, emirates: 20, museum: 28
+  burj: 30, burjalarab: 36, dubaiframe: 10, emirates: 20, museum: 28,
+  spire: 24, ringgate: 22, crystal: 22, observatory: 28, unityplaza: 28, polarbeacon: 24, antipodolite: 24, helixcore: 26
 };

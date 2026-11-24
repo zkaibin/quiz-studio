@@ -214,7 +214,11 @@ button { font: inherit; }
 .globe-hud { position: absolute; top: 24px; left: clamp(20px, 5vw, 70px); max-width: 320px; pointer-events: none; }
 .globe-hud .eyebrow { color: #7fe6ff; }
 .globe-hud h2 { margin: 0 0 8px; font-size: 34px; letter-spacing: -1px; }
-.globe-hud p:last-child { margin: 0; color: #9fb6d4; font-size: 12px; line-height: 1.6; }
+.globe-hud p:last-of-type { margin: 0; color: #9fb6d4; font-size: 12px; line-height: 1.6; }
+.globe-worlds { display: flex; gap: 6px; margin: 0 0 14px; pointer-events: auto; }
+.globe-worlds button { padding: 7px 12px; border: 1px solid rgba(127,230,255,.35); border-radius: 999px; background: rgba(8,24,48,.65); color: #bfeaff; font: 700 11px/1 inherit; letter-spacing: .4px; cursor: pointer; }
+.globe-worlds button:hover { background: rgba(127,230,255,.14); }
+.globe-worlds button.on { border-color: #ffd23b; background: rgba(60,44,0,.75); color: #ffe48a; }
 .globe-card { position: absolute; right: clamp(16px, 5vw, 70px); bottom: 28px; width: min(100%, 340px); margin: 0; padding: 24px; background: rgba(8,24,48,.82); border-color: rgba(127,230,255,.35); color: #e8f2ff; }
 .globe-card h2 { color: #fff; font-size: 34px; }
 .globe-card .intro { margin: 10px 0 12px; color: #a9c0da; }
