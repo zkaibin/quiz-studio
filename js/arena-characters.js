@@ -1,24 +1,26 @@
-// Procedural anime fighters for Arena Clash.
-// UV-mapped faces on the head sphere, lathed torsos, cel shading, ink outlines.
+// Legacy procedural 3D fighters (primitives + toon materials).
+// Live matches now use canvas-painted 2.5D sprites in arena-anime-sprite.js —
+// kept here as a fallback / experiment path for mesh-based kits.
 // Inspired by Dragon Ball silhouettes — not traced from official art.
 import * as THREE from './vendor/three/three.module.min.js';
 
 /* ---------- Cel materials ---------- */
+// Hard 2-band toon ramp — classic 90s anime cel look (flat light / flat shadow).
 let toonGradient = null;
 function getToonGradient() {
   if (toonGradient) return toonGradient;
   if (typeof document !== 'undefined') {
     const canvas = document.createElement('canvas');
-    canvas.width = 3;
+    canvas.width = 2;
     canvas.height = 1;
     const ctx = canvas.getContext('2d');
-    [['#2f2f2f', 0], ['#8e8e8e', 1], ['#ffffff', 2]].forEach(([c, i]) => {
+    [['#222222', 0], ['#ffffff', 1]].forEach(([c, i]) => {
       ctx.fillStyle = c;
       ctx.fillRect(i, 0, 1, 1);
     });
     toonGradient = new THREE.CanvasTexture(canvas);
   } else {
-    toonGradient = new THREE.DataTexture(new Uint8Array([47, 47, 47, 255, 142, 142, 142, 255, 255, 255, 255, 255]), 3, 1);
+    toonGradient = new THREE.DataTexture(new Uint8Array([34, 34, 34, 255, 255, 255, 255, 255]), 2, 1);
   }
   toonGradient.minFilter = THREE.NearestFilter;
   toonGradient.magFilter = THREE.NearestFilter;
@@ -58,13 +60,14 @@ function mat(color, { emissive = 0x000000, glow = 0, opacity = 1, toon = true, m
   return matCache.get(key);
 }
 
-const outlineMat = new THREE.MeshBasicMaterial({ color: 0x100c0a, side: THREE.BackSide });
+const outlineMat = new THREE.MeshBasicMaterial({ color: 0x0a0806, side: THREE.BackSide });
 
 const boxGeo = new THREE.BoxGeometry(1, 1, 1);
-const sphereGeo = new THREE.SphereGeometry(1, 24, 18);
-const cylGeo = new THREE.CylinderGeometry(1, 1, 1, 16);
-const coneGeo = new THREE.ConeGeometry(1, 1, 12);
-const capsuleGeo = new THREE.CapsuleGeometry(0.5, 1, 5, 12);
+const sphereGeo = new THREE.SphereGeometry(1, 28, 20);
+const cylGeo = new THREE.CylinderGeometry(1, 1, 1, 18);
+const coneGeo = new THREE.ConeGeometry(1, 1, 7);
+const capsuleGeo = new THREE.CapsuleGeometry(0.5, 1, 6, 14);
+const spikeGeo = new THREE.ConeGeometry(1, 1, 5);
 
 function part(parent, geo, material, x, y, z, sx, sy, sz, rx = 0, ry = 0, rz = 0, { outline = false, outlinePad = 1.06 } = {}) {
   const mesh = new THREE.Mesh(geo, material);
@@ -85,11 +88,12 @@ function part(parent, geo, material, x, y, z, sx, sy, sz, rx = 0, ry = 0, rz = 0
 }
 
 function buildScale(build) {
-  if (build === 'bulky') return { torso: 1.18, limb: 1.12, head: 0.98, width: 1.16 };
-  if (build === 'tall') return { torso: 1.1, limb: 1.12, head: 0.94, width: 1.04 };
-  if (build === 'compact') return { torso: 0.9, limb: 0.88, head: 1.12, width: 0.94 };
-  if (build === 'round') return { torso: 1.28, limb: 0.94, head: 1.2, width: 1.24 };
-  return { torso: 1, limb: 1, head: 1, width: 1 };
+  // Heroic anime proportions (~1:7 head): compact head, long limbs, athletic V-taper.
+  if (build === 'bulky') return { torso: 1.32, limb: 1.26, head: 0.72, width: 1.2 };
+  if (build === 'tall') return { torso: 1.22, limb: 1.24, head: 0.7, width: 1.06 };
+  if (build === 'compact') return { torso: 0.94, limb: 0.96, head: 0.88, width: 0.96 };
+  if (build === 'round') return { torso: 1.32, limb: 1.0, head: 0.95, width: 1.22 };
+  return { torso: 1.16, limb: 1.2, head: 0.8, width: 1.1 };
 }
 
 function cssHex(hex) {
@@ -115,9 +119,18 @@ function lighten(hex, amount) {
 
 /* ---------- Sphere UV face map ---------- */
 // Three.js SphereGeometry: u=0 → -X, u=0.25 → +Z (face), u=0.5 → +X, u=0.75 → -Z
+function faceExpression(v) {
+  if (v.expression) return v.expression;
+  if (v.hairStyle === 'goku') return 'grin';
+  if (v.hairStyle === 'vegeta' || v.kit === 'saiyanArmor') return 'smirk';
+  if (v.kit === 'gi' && v.hairStyle !== 'krillin') return 'grin';
+  return 'smile';
+}
+
 const headTexCache = new Map();
 function makeHeadTexture(v) {
-  const key = `${v.kit}|${v.skin}|${v.hair}|${v.eyeColor}|${v.hairStyle}`;
+  const expr = faceExpression(v);
+  const key = `${v.kit}|${v.skin}|${v.hair}|${v.eyeColor}|${v.hairStyle}|${expr}`;
   if (headTexCache.has(key)) return headTexCache.get(key);
   if (typeof document === 'undefined') return null;
 
@@ -129,72 +142,62 @@ function makeHeadTexture(v) {
   const ctx = canvas.getContext('2d');
   const skin = cssHex(v.skin);
   const eye = cssHex(v.eyeColor || 0x1e293b);
-  const brow = v.kit === 'buu' ? '#9f1239' : '#1a1410';
+  const brow = v.kit === 'buu' ? '#9f1239' : '#140e0c';
+  const proud = expr === 'smirk';
 
   // Full head skin
   ctx.fillStyle = skin;
   ctx.fillRect(0, 0, W, H);
 
-  // Soft top-of-head shadow (hair line area)
-  ctx.fillStyle = 'rgba(0,0,0,0.06)';
-  ctx.fillRect(0, 0, W, H * 0.28);
+  // Hard cel shadow band under hairline (not soft gradient)
+  ctx.fillStyle = 'rgba(0,0,0,0.1)';
+  ctx.fillRect(0, 0, W, H * 0.22);
+  ctx.fillStyle = 'rgba(90,45,30,0.16)';
+  ctx.beginPath();
+  ctx.ellipse(W * 0.25, H * 0.78, 78, 42, 0, 0, Math.PI * 2);
+  ctx.fill();
 
-  // Face center on +Z → u=0.25
+  // Face center on +Z → u=0.25 — oversized features so they read at fight distance
   const cx = W * 0.25;
-  const cy = H * 0.52;
-
-  // Cheek blush
-  ctx.fillStyle = 'rgba(255,110,110,0.22)';
-  ctx.beginPath(); ctx.ellipse(cx - 58, cy + 28, 28, 16, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.beginPath(); ctx.ellipse(cx + 58, cy + 28, 28, 16, 0, 0, Math.PI * 2); ctx.fill();
+  const cy = H * 0.48;
 
   const drawEye = (ex, flip) => {
-    // Larger anime sclera with soft shadow
-    ctx.fillStyle = 'rgba(30,20,15,0.18)';
+    // Almond DBZ sclera — wide, hard-edged, small pupil
+    const tilt = flip * (proud ? 0.2 : 0.1);
+    const ew = 52;
+    const eh = 34;
+    ctx.fillStyle = 'rgba(20,12,8,0.28)';
     ctx.beginPath();
-    ctx.ellipse(ex + flip * 2, cy - 2, 40, 46, flip * 0.08, 0, Math.PI * 2);
+    ctx.ellipse(ex + flip * 2, cy - 2, ew + 4, eh + 4, tilt, 0, Math.PI * 2);
     ctx.fill();
     ctx.fillStyle = '#fffef8';
     ctx.beginPath();
-    ctx.ellipse(ex, cy - 10, 38, 44, flip * 0.1, 0, Math.PI * 2);
+    ctx.ellipse(ex, cy - 10, ew, eh, tilt, 0, Math.PI * 2);
     ctx.fill();
-    // Colored iris
     ctx.fillStyle = eye;
     ctx.beginPath();
-    ctx.ellipse(ex + flip * 4, cy - 6, 22, 28, 0, 0, Math.PI * 2);
+    ctx.ellipse(ex + flip * 4, cy - 6, 16, 18, 0, 0, Math.PI * 2);
     ctx.fill();
-    // Inner iris ring
-    ctx.strokeStyle = 'rgba(0,0,0,0.35)';
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.ellipse(ex + flip * 4, cy - 6, 14, 18, 0, 0, Math.PI * 2);
-    ctx.stroke();
-    // Pupil
     ctx.fillStyle = '#070707';
     ctx.beginPath();
-    ctx.ellipse(ex + flip * 4, cy - 4, 10, 14, 0, 0, Math.PI * 2);
+    ctx.ellipse(ex + flip * 4, cy - 5, 9, 11, 0, 0, Math.PI * 2);
     ctx.fill();
-    // Speculars
     ctx.fillStyle = '#ffffff';
-    ctx.beginPath(); ctx.ellipse(ex - 10, cy - 22, 9, 10, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(ex + 12, cy + 2, 4.5, 5.5, 0, 0, Math.PI * 2); ctx.fill();
-    // Upper lid ink — thicker DBZ line
-    ctx.strokeStyle = '#140e0c';
-    ctx.lineWidth = 9;
+    ctx.beginPath(); ctx.ellipse(ex - 10, cy - 20, 8, 9, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#100c0a';
+    ctx.lineWidth = proud ? 14 : 11;
     ctx.lineCap = 'round';
     ctx.beginPath();
-    ctx.ellipse(ex, cy - 10, 38, 44, flip * 0.1, Math.PI * 1.05, Math.PI * 1.95);
+    ctx.ellipse(ex, cy - 10, ew, eh, tilt, Math.PI * 1.05, Math.PI * 1.95);
     ctx.stroke();
-    // Outer corner flick
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 7;
     ctx.beginPath();
-    ctx.moveTo(ex + flip * 34, cy - 18);
-    ctx.quadraticCurveTo(ex + flip * 48, cy - 22, ex + flip * 52, cy - 10);
+    ctx.moveTo(ex + flip * 44, cy - 18);
+    ctx.quadraticCurveTo(ex + flip * 64, cy - 28, ex + flip * 70, cy - 4);
     ctx.stroke();
-    // Lower lash hint
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 4;
     ctx.beginPath();
-    ctx.ellipse(ex, cy - 10, 38, 44, flip * 0.1, 0.15, Math.PI - 0.15);
+    ctx.ellipse(ex, cy - 10, ew, eh, tilt, 0.18, Math.PI - 0.18);
     ctx.stroke();
   };
 
@@ -217,30 +220,25 @@ function makeHeadTexture(v) {
     ctx.beginPath(); ctx.ellipse(cx - 38, cy - 6, 8, 10, 0, 0, Math.PI * 2); ctx.fill();
     ctx.beginPath(); ctx.ellipse(cx + 38, cy - 6, 8, 10, 0, 0, Math.PI * 2); ctx.fill();
   } else {
-    drawEye(cx - 42, -1);
-    drawEye(cx + 42, 1);
+    drawEye(cx - 56, -1);
+    drawEye(cx + 56, 1);
   }
 
-  // Thick DBZ brows — angled and heavier
+  // Thick angled brows — proud = sharper / lower at outer edge
   if (v.kit !== 'frieza' && v.kit !== 'cell') {
     ctx.strokeStyle = brow;
-    ctx.lineWidth = 14;
+    ctx.lineWidth = proud ? 18 : 15;
     ctx.lineCap = 'round';
+    const browY = proud ? cy - 48 : cy - 56;
     ctx.beginPath();
-    ctx.moveTo(cx - 86, cy - 48);
-    ctx.quadraticCurveTo(cx - 48, cy - 78, cx - 8, cy - 58);
+    ctx.moveTo(cx - 105, browY + (proud ? 8 : 4));
+    ctx.quadraticCurveTo(cx - 58, browY - (proud ? 26 : 32), cx - 8, browY + (proud ? 4 : -6));
     ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(cx + 86, cy - 48);
-    ctx.quadraticCurveTo(cx + 48, cy - 78, cx + 8, cy - 58);
+    ctx.moveTo(cx + 105, browY + (proud ? 8 : 4));
+    ctx.quadraticCurveTo(cx + 58, browY - (proud ? 26 : 32), cx + 8, browY + (proud ? 4 : -6));
     ctx.stroke();
   }
-
-  // Soft jaw / chin shading for anime face card read
-  ctx.fillStyle = 'rgba(90,45,30,0.12)';
-  ctx.beginPath();
-  ctx.ellipse(cx, cy + 78, 70, 36, 0, 0, Math.PI * 2);
-  ctx.fill();
 
   if (v.kit === 'buu') {
     ctx.fillStyle = '#111827';
@@ -248,7 +246,7 @@ function makeHeadTexture(v) {
     ctx.fillRect(cx - 12, cy - 95, 24, 52);
   }
 
-  if (v.kit === 'krillin') {
+  if (v.kit === 'krillin' || v.hairStyle === 'krillin') {
     ctx.fillStyle = '#1c1917';
     [[-36, -78], [0, -86], [36, -78], [-22, -62], [22, -62], [0, -50]].forEach(([dx, dy]) => {
       ctx.beginPath();
@@ -257,27 +255,62 @@ function makeHeadTexture(v) {
     });
   }
 
-  // Nose
-  if (v.kit !== 'krillin' && v.kit !== 'frieza') {
-    ctx.strokeStyle = 'rgba(70,35,25,0.5)';
-    ctx.lineWidth = 4;
+  // Pointed anime nose
+  if (v.kit !== 'krillin' && v.kit !== 'frieza' && v.hairStyle !== 'krillin') {
+    ctx.strokeStyle = 'rgba(60,30,20,0.55)';
+    ctx.lineWidth = 3.5;
+    ctx.lineCap = 'round';
     ctx.beginPath();
-    ctx.moveTo(cx, cy + 8);
-    ctx.quadraticCurveTo(cx + 10, cy + 28, cx, cy + 40);
+    ctx.moveTo(cx + 2, cy + 6);
+    ctx.quadraticCurveTo(cx + 12, cy + 26, cx + 2, cy + 38);
     ctx.stroke();
   }
 
-  // Mouth — confident anime curve
-  ctx.strokeStyle = '#7f1d1d';
-  ctx.lineWidth = 5;
-  ctx.lineCap = 'round';
-  ctx.beginPath();
-  ctx.moveTo(cx - 22, cy + 62);
-  ctx.quadraticCurveTo(cx, cy + 76, cx + 22, cy + 62);
-  ctx.stroke();
+  // Mouth — grin (open teeth), smirk, or soft smile — drawn large for distance read
+  const mouthY = cy + 72;
+  if (expr === 'grin') {
+    ctx.fillStyle = '#3f0a0a';
+    ctx.beginPath();
+    ctx.moveTo(cx - 42, mouthY);
+    ctx.quadraticCurveTo(cx, mouthY + 34, cx + 42, mouthY);
+    ctx.quadraticCurveTo(cx, mouthY + 10, cx - 42, mouthY);
+    ctx.fill();
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillRect(cx - 32, mouthY + 2, 64, 11);
+    ctx.strokeStyle = '#1c1917';
+    ctx.lineWidth = 2.5;
+    for (let i = -3; i <= 3; i++) {
+      ctx.beginPath();
+      ctx.moveTo(cx + i * 9, mouthY + 2);
+      ctx.lineTo(cx + i * 9, mouthY + 13);
+      ctx.stroke();
+    }
+    ctx.strokeStyle = '#7f1d1d';
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.moveTo(cx - 42, mouthY);
+    ctx.quadraticCurveTo(cx, mouthY + 34, cx + 42, mouthY);
+    ctx.stroke();
+  } else if (expr === 'smirk') {
+    ctx.strokeStyle = '#7f1d1d';
+    ctx.lineWidth = 7;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(cx - 22, mouthY + 6);
+    ctx.quadraticCurveTo(cx + 8, mouthY + 22, cx + 40, mouthY - 4);
+    ctx.stroke();
+  } else {
+    ctx.strokeStyle = '#7f1d1d';
+    ctx.lineWidth = 6;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(cx - 28, mouthY);
+    ctx.quadraticCurveTo(cx, mouthY + 18, cx + 28, mouthY);
+    ctx.stroke();
+  }
 
-  // Ear hints on sides (u≈0 and u≈0.5) — subtle
-  ctx.fillStyle = 'rgba(0,0,0,0.05)';
+  // Ear hints on sides
+  ctx.fillStyle = 'rgba(0,0,0,0.06)';
   ctx.beginPath(); ctx.ellipse(W * 0.02, cy, 18, 28, 0, 0, Math.PI * 2); ctx.fill();
   ctx.beginPath(); ctx.ellipse(W * 0.48, cy, 18, 28, 0, 0, Math.PI * 2); ctx.fill();
 
@@ -292,18 +325,18 @@ function makeHeadTexture(v) {
 /* ---------- Lathed anime torso ---------- */
 function makeTorsoGeo(width, height, depthScale = 1) {
   const pts = [];
-  const steps = 10;
+  const steps = 12;
   for (let i = 0; i <= steps; i++) {
     const t = i / steps;
     // y from hips (0) to shoulders (1)
     const y = t * height;
-    // hourglass: wide chest, narrow waist, wider hips
-    const chest = 0.55 + 0.45 * Math.sin(t * Math.PI * 0.85);
-    const waist = 1 - 0.22 * Math.exp(-Math.pow((t - 0.35) * 4, 2));
+    // Heroic V-taper: broad chest, pinched waist (DBZ athletic read)
+    const chest = 0.48 + 0.58 * Math.sin(t * Math.PI * 0.92);
+    const waist = 1 - 0.3 * Math.exp(-Math.pow((t - 0.32) * 4.2, 2));
     const r = width * 0.5 * chest * waist;
     pts.push(new THREE.Vector2(r, y));
   }
-  const geo = new THREE.LatheGeometry(pts, 20);
+  const geo = new THREE.LatheGeometry(pts, 24);
   geo.scale(1, 1, depthScale);
   geo.computeVertexNormals();
   return geo;
@@ -316,46 +349,58 @@ function buildHair(head, color, style) {
   const darkMat = mat(0x0a0908);
 
   const spike = (x, y, z, sx, sy, sz, rx = 0, rz = 0, highlight = false) => {
-    part(head, coneGeo, highlight ? hi : hairMat, x, y, z, sx, sy, sz, rx, 0, rz, { outline: true, outlinePad: 1.08 });
+    // Thin rigid cones — sharper Toriyama silhouette than fat wedges
+    part(head, spikeGeo, highlight ? hi : hairMat, x, y, z, sx, sy, sz, rx, 0, rz, { outline: true, outlinePad: 1.06 });
   };
 
   if (style === 'goku') {
-    // Dense base + tall forward spikes (classic silhouette)
-    part(head, sphereGeo, hairMat, 0, 0.24, -0.06, 0.46, 0.36, 0.44, 0, 0, 0, { outline: true });
+    // Dense crown + many thin rigid spikes fanning out (reference silhouette)
+    part(head, sphereGeo, hairMat, 0, 0.22, -0.1, 0.4, 0.32, 0.4, 0, 0, 0, { outline: true });
     const tips = [
-      [0.02, 0.78, 0.16, 0.17, 0.78, 0.17, -0.18, 0.05, true],
-      [-0.18, 0.7, 0.2, 0.15, 0.66, 0.15, -0.32, -0.42, true],
-      [0.22, 0.72, 0.18, 0.15, 0.7, 0.15, -0.28, 0.4],
-      [-0.34, 0.56, 0.08, 0.14, 0.58, 0.14, -0.48, -0.72],
-      [0.36, 0.58, 0.06, 0.14, 0.6, 0.14, -0.45, 0.7, true],
-      [-0.42, 0.4, -0.04, 0.12, 0.46, 0.12, -0.7, -0.85],
-      [0.44, 0.42, -0.06, 0.12, 0.48, 0.12, -0.68, 0.85],
-      [-0.12, 0.62, -0.08, 0.13, 0.52, 0.13, -0.78, -0.2],
-      [0.14, 0.64, -0.1, 0.13, 0.54, 0.13, -0.82, 0.22, true],
-      [0, 0.58, -0.3, 0.2, 0.72, 0.2, -1.12, 0, true],
-      [-0.2, 0.48, -0.28, 0.13, 0.5, 0.13, -1.0, -0.35],
-      [0.22, 0.5, -0.3, 0.13, 0.52, 0.13, -1.05, 0.35],
-      [0.06, 0.42, 0.34, 0.11, 0.32, 0.11, 0.85, 0.1]
+      [0.0, 0.92, 0.06, 0.12, 0.95, 0.12, -0.1, 0.0, true],
+      [-0.16, 0.86, 0.14, 0.11, 0.82, 0.11, -0.25, -0.32, true],
+      [0.18, 0.88, 0.12, 0.11, 0.86, 0.11, -0.22, 0.34],
+      [-0.3, 0.7, 0.04, 0.1, 0.7, 0.1, -0.45, -0.7],
+      [0.32, 0.72, 0.02, 0.1, 0.72, 0.1, -0.42, 0.72, true],
+      [-0.4, 0.5, -0.06, 0.09, 0.55, 0.09, -0.72, -0.9],
+      [0.42, 0.52, -0.08, 0.09, 0.56, 0.09, -0.7, 0.92],
+      [-0.48, 0.34, -0.02, 0.08, 0.42, 0.08, -0.85, -1.05],
+      [0.5, 0.36, -0.04, 0.08, 0.44, 0.08, -0.82, 1.05],
+      [0, 0.7, -0.34, 0.14, 0.82, 0.14, -1.15, 0, true],
+      [-0.18, 0.58, -0.3, 0.1, 0.58, 0.1, -1.0, -0.35],
+      [0.2, 0.6, -0.32, 0.1, 0.6, 0.1, -1.02, 0.35],
+      [-0.1, 0.76, -0.14, 0.09, 0.55, 0.09, -0.8, -0.18],
+      [0.12, 0.78, -0.16, 0.09, 0.58, 0.09, -0.82, 0.2, true],
+      // Short forehead bangs — keep clear of eyes/mouth so the face card reads
+      [-0.1, 0.36, 0.28, 0.07, 0.22, 0.08, 0.55, -0.2],
+      [0.12, 0.38, 0.28, 0.07, 0.22, 0.08, 0.5, 0.22, true]
     ];
     for (const t of tips) spike(t[0], t[1], t[2], t[3], t[4], t[5], t[6] || 0, t[7] || 0, !!t[8]);
     return;
   }
 
   if (style === 'vegeta') {
-    // Widow's peak + upright spikes
-    part(head, sphereGeo, hairMat, 0, 0.26, -0.08, 0.44, 0.36, 0.4, 0, 0, 0, { outline: true });
-    part(head, coneGeo, hairMat, 0, 0.3, 0.3, 0.16, 0.34, 0.14, 1.05, 0, 0, { outline: true });
+    // Extreme upright spikes + sharp widow's-peak V (reference silhouette)
+    part(head, sphereGeo, hairMat, 0, 0.24, -0.12, 0.38, 0.34, 0.36, 0, 0, 0, { outline: true });
+    // Widow's peak — high and sharp, not covering the eyes
+    part(head, spikeGeo, hairMat, 0, 0.34, 0.26, 0.11, 0.36, 0.1, 0.85, 0, 0, { outline: true });
+    part(head, spikeGeo, hairMat, -0.1, 0.3, 0.22, 0.07, 0.22, 0.07, 0.7, 0, -0.45, { outline: true });
+    part(head, spikeGeo, hairMat, 0.1, 0.3, 0.22, 0.07, 0.22, 0.07, 0.7, 0, 0.45, { outline: true });
     [
-      [0, 0.78, 0.0, 0.15, 0.7, 0.15, -0.05, 0, true],
-      [-0.16, 0.7, 0.06, 0.13, 0.58, 0.13, -0.12, -0.28, true],
-      [0.16, 0.7, 0.06, 0.13, 0.58, 0.13, -0.12, 0.28],
-      [-0.3, 0.56, -0.06, 0.12, 0.5, 0.12, -0.42, -0.55],
-      [0.3, 0.56, -0.06, 0.12, 0.5, 0.12, -0.42, 0.55, true],
-      [-0.2, 0.62, -0.18, 0.11, 0.44, 0.11, -0.75, -0.3],
-      [0.2, 0.62, -0.18, 0.11, 0.44, 0.11, -0.75, 0.3],
-      [0, 0.52, -0.34, 0.18, 0.56, 0.18, -1.12, 0, true],
-      [-0.12, 0.58, -0.24, 0.1, 0.38, 0.1, -0.92, -0.22],
-      [0.12, 0.58, -0.24, 0.1, 0.38, 0.1, -0.92, 0.22]
+      [0, 1.08, -0.04, 0.11, 1.05, 0.11, 0.0, 0, true],
+      [-0.14, 0.98, 0.02, 0.1, 0.9, 0.1, -0.06, -0.18, true],
+      [0.14, 0.98, 0.02, 0.1, 0.9, 0.1, -0.06, 0.18],
+      [-0.26, 0.82, -0.04, 0.09, 0.78, 0.09, -0.2, -0.4],
+      [0.26, 0.82, -0.04, 0.09, 0.78, 0.09, -0.2, 0.4, true],
+      [-0.34, 0.62, -0.1, 0.085, 0.62, 0.085, -0.45, -0.62],
+      [0.34, 0.62, -0.1, 0.085, 0.62, 0.085, -0.45, 0.62],
+      [-0.18, 0.86, -0.2, 0.085, 0.7, 0.085, -0.65, -0.25],
+      [0.18, 0.86, -0.2, 0.085, 0.7, 0.085, -0.65, 0.25, true],
+      [0, 0.74, -0.4, 0.14, 0.78, 0.14, -1.12, 0, true],
+      [-0.12, 0.72, -0.28, 0.08, 0.52, 0.08, -0.92, -0.18],
+      [0.12, 0.72, -0.28, 0.08, 0.52, 0.08, -0.92, 0.18],
+      [-0.06, 1.0, -0.12, 0.08, 0.55, 0.08, -0.35, -0.08],
+      [0.06, 1.0, -0.12, 0.08, 0.55, 0.08, -0.35, 0.08, true]
     ].forEach((t) => spike(t[0], t[1], t[2], t[3], t[4], t[5], t[6], t[7], !!t[8]));
     return;
   }
@@ -458,15 +503,19 @@ function buildHair(head, color, style) {
 function buildFace(head, v, s) {
   const headTex = makeHeadTexture(v);
   const headMat = mat(v.skin, { map: headTex, toon: true });
-  // Slightly oversized anime head for silhouette read at fight distance
-  part(head, sphereGeo, headMat, 0, 0.12, 0, 0.42 * s.head, 0.46 * s.head, 0.42 * s.head, 0, 0, 0, {
+  const earMat = mat(v.skin, { toon: true });
+  // Compact oval anime head — do NOT add front meshes that cover the UV face card
+  part(head, sphereGeo, headMat, 0, 0.08, 0.02, 0.34 * s.head, 0.4 * s.head, 0.32 * s.head, 0, 0, 0, {
     outline: true,
-    outlinePad: 1.05
+    outlinePad: 1.03
   });
+  // Ears sit beside the head, clear of the face UV
+  part(head, sphereGeo, earMat, -0.34 * s.head, 0.06, -0.02, 0.06, 0.1, 0.045, 0, 0, 0.25, { outline: true });
+  part(head, sphereGeo, earMat, 0.34 * s.head, 0.06, -0.02, 0.06, 0.1, 0.045, 0, 0, -0.25, { outline: true });
 
   if (v.kit === 'piccolo' || v.kit === 'cell') {
-    part(head, coneGeo, mat(v.skin), -0.42, 0.1, 0.04, 0.12, 0.26, 0.1, 0, 0, 1.2, { outline: true });
-    part(head, coneGeo, mat(v.skin), 0.42, 0.1, 0.04, 0.12, 0.26, 0.1, 0, 0, -1.2, { outline: true });
+    part(head, coneGeo, mat(v.skin), -0.38, 0.1, 0.04, 0.11, 0.24, 0.09, 0, 0, 1.2, { outline: true });
+    part(head, coneGeo, mat(v.skin), 0.38, 0.1, 0.04, 0.11, 0.24, 0.09, 0, 0, -1.2, { outline: true });
   }
 
   buildHair(head, v.hair, v.hairStyle);
@@ -475,9 +524,21 @@ function buildFace(head, v, s) {
 /* ---------- Outfits ---------- */
 /** Approximate lathe radius at normalized height t∈[0,1] for a given half-width. */
 function latheRadiusAt(halfWidth, t) {
-  const chest = 0.55 + 0.45 * Math.sin(t * Math.PI * 0.85);
-  const waist = 1 - 0.22 * Math.exp(-Math.pow((t - 0.35) * 4, 2));
+  const chest = 0.48 + 0.58 * Math.sin(t * Math.PI * 0.92);
+  const waist = 1 - 0.3 * Math.exp(-Math.pow((t - 0.32) * 4.2, 2));
   return halfWidth * chest * waist;
+}
+
+/** Round chest emblem (悟-style mark) for the classic orange gi. */
+function addGiEmblem(torso, x, y, zFront) {
+  const disc = mat(0xffffff);
+  const ink = mat(0x1a1410, { flat: true });
+  part(torso, cylGeo, disc, x, y, zFront, 0.14, 0.036, 0.14, Math.PI / 2, 0, 0, { outline: true, outlinePad: 1.06 });
+  // Stylized 悟 mark — horizontal + vertical strokes (not traced art)
+  part(torso, boxGeo, ink, x, y + 0.04, zFront + 0.016, 0.1, 0.018, 0.016);
+  part(torso, boxGeo, ink, x, y - 0.004, zFront + 0.016, 0.026, 0.07, 0.016);
+  part(torso, boxGeo, ink, x, y - 0.04, zFront + 0.016, 0.07, 0.018, 0.016);
+  part(torso, boxGeo, ink, x - 0.026, y + 0.008, zFront + 0.016, 0.016, 0.04, 0.014);
 }
 
 function buildOutfit(torso, hips, v, s) {
@@ -487,10 +548,10 @@ function buildOutfit(torso, hips, v, s) {
   const pants = mat(v.pants);
   const undershirt = mat(v.undershirt || v.accent);
   const gold = mat(v.gold || 0xfbbf24);
-  const w = 0.5 * s.torso * s.width;
-  const h = 0.72 * s.torso;
-  // torso.y = 0.22*s.torso → lathe bottom sits above hips origin; skirt bridges the gap
-  const torsoLift = 0.22 * s.torso;
+  const w = 0.46 * s.torso * s.width;
+  const h = 0.88 * s.torso;
+  // torso.y = 0.3*s.torso → lathe bottom sits above hips origin; skirt bridges the gap
+  const torsoLift = 0.3 * s.torso;
 
   const addLatheBody = (material, yBase, height, widthMul = 1, depthMul = 0.85, parent = torso) => {
     const geo = makeTorsoGeo(w * 2 * widthMul, height, depthMul);
@@ -542,30 +603,65 @@ function buildOutfit(torso, hips, v, s) {
   };
 
   if (kit === 'gi') {
-    addLatheBody(undershirt, 0.02, h * 0.95, 0.92, 0.8);
-    addLatheBody(outfit, 0.0, h, 1.02, 0.88);
-    part(torso, boxGeo, undershirt, 0, 0.58 * s.torso, 0.16, 0.24, 0.22, 0.07);
-    // Black sash proud of the gi + sitting above the hip skirt
-    const sashR = addBand(mat(0x1c1917), 0.1, 0.12, 1.02, 0.88, 0.14, 1.2);
-    part(torso, boxGeo, mat(0x1c1917), 0.1, 0.03, sashR * 0.88, 0.11, 0.15, 0.09);
-    part(torso, boxGeo, mat(lighten(v.outfit, 0.08)), 0.11, 0.35 * s.torso, 0.16, 0.03, 0.36, 0.02);
-    addHipSkirt(pants, 1.0, 0.3);
-    return { wrist: undershirt, bootAccent: gold, sleeve: outfit };
+    // Navy short undershirt under sleeveless orange gi (reference: V-neck + blue at shoulders)
+    const sash = mat(v.undershirt || v.accent || 0x1e40af);
+    addLatheBody(undershirt, 0.04, h * 0.92, 0.9, 0.78);
+    addLatheBody(outfit, 0.0, h, 1.04, 0.9);
+    // Deep V-neck window showing blue
+    part(torso, boxGeo, undershirt, 0, 0.58 * s.torso, 0.18, 0.28, 0.28, 0.08);
+    part(torso, boxGeo, undershirt, 0, 0.72 * s.torso, 0.14, 0.2, 0.12, 0.06);
+    // Left-chest emblem — sized for fight-cam read
+    const emblemZ = latheRadiusAt(w * 1.04, 0.55) * 0.95;
+    addGiEmblem(torso, -0.14 * s.width, 0.48 * s.torso, emblemZ);
+    // Navy sash with hanging ends (not a black belt)
+    const sashR = addBand(sash, 0.1, 0.12, 1.04, 0.9, 0.15, 1.22);
+    part(torso, boxGeo, sash, 0.02, 0.02, sashR * 0.92, 0.14, 0.14, 0.1);
+    part(hips, boxGeo, sash, -0.05, torsoLift - 0.22, sashR * 0.55, 0.09, 0.36, 0.06, 0.15, 0, 0.08, { outline: true });
+    part(hips, boxGeo, sash, 0.08, torsoLift - 0.28, sashR * 0.5, 0.09, 0.42, 0.06, 0.2, 0, -0.06, { outline: true });
+    // Soft gi fold lines
+    part(torso, boxGeo, mat(lighten(v.outfit, 0.1)), 0.14, 0.34 * s.torso, emblemZ * 0.85, 0.03, 0.34, 0.02);
+    addHipSkirt(pants, 1.04, 0.36);
+    return {
+      wrist: sash,
+      bootAccent: mat(0xc41e3a),
+      sleeve: undershirt,
+      shortSleeve: true,
+      bootStyle: 'gi',
+      ankleCord: mat(0xc4a574)
+    };
   }
 
   if (kit === 'saiyanArmor') {
     const white = mat(0xffffff);
-    addLatheBody(undershirt, 0.0, h, 0.95, 0.82);
-    // Taller molded white chest shell — same depth as body so it doesn't shelf forward
-    addLatheBody(white, 0.12 * s.torso, h * 0.74, 1.05, 0.84);
-    addBand(gold, 0.1 * s.torso, 0.14, 0.96, 0.84, 0.1, 1.12);
-    part(torso, boxGeo, mat(0x1c1917, { flat: true }), 0, 0.12 * s.torso, latheRadiusAt(w * 0.98, 0.16) * 1.05, w * 0.65, 0.025, 0.03);
-    const shY = 0.58 * s.torso;
-    const shX = latheRadiusAt(w * 1.08, 0.78) + 0.05;
-    part(torso, sphereGeo, white, -shX, shY, 0, 0.14, 0.12, 0.13, 0, 0, 0, { outline: true });
-    part(torso, sphereGeo, white, shX, shY, 0, 0.14, 0.12, 0.13, 0, 0, 0, { outline: true });
-    addHipSkirt(undershirt, 0.95, 0.28);
-    return { wrist: white, bootAccent: gold, sleeve: undershirt };
+    // Royal-blue bodysuit + white segmented chest shell + gold ribbed straps
+    addLatheBody(undershirt, 0.0, h, 0.96, 0.84);
+    addLatheBody(white, 0.1 * s.torso, h * 0.78, 1.08, 0.86);
+    // Abdomen / chest seam lines
+    const seamZ = latheRadiusAt(w * 1.08, 0.35) * 0.95;
+    part(torso, boxGeo, mat(0xe2e8f0, { flat: true }), 0, 0.28 * s.torso, seamZ, w * 1.5, 0.02, 0.03);
+    part(torso, boxGeo, mat(0xe2e8f0, { flat: true }), 0, 0.42 * s.torso, seamZ * 1.02, w * 1.35, 0.018, 0.03);
+    part(torso, boxGeo, mat(0x1c1917, { flat: true }), 0, 0.14 * s.torso, latheRadiusAt(w * 0.98, 0.16) * 1.05, w * 0.7, 0.028, 0.03);
+    addBand(gold, 0.08 * s.torso, 0.12, 0.98, 0.86, 0.09, 1.1);
+    // Gold ribbed shoulder straps (not white spheres) — oversized for fight-cam read
+    const shY = 0.68 * s.torso;
+    const shX = latheRadiusAt(w * 1.1, 0.85) + 0.04;
+    for (const side of [-1, 1]) {
+      part(torso, boxGeo, gold, side * shX * 0.5, shY, 0.04, 0.18, 0.12, 0.34, 0.4, 0, side * 0.5, { outline: true });
+      part(torso, boxGeo, gold, side * (shX + 0.04), shY - 0.08, 0.02, 0.15, 0.11, 0.26, 0.2, 0, side * 0.95, { outline: true });
+      part(torso, boxGeo, mat(lighten(v.gold || 0xeab308, 0.25)), side * shX * 0.5, shY + 0.05, 0.06, 0.12, 0.035, 0.26);
+      // Rib lines on straps
+      part(torso, boxGeo, mat(0xca8a04), side * shX * 0.5, shY - 0.02, 0.05, 0.16, 0.02, 0.3);
+    }
+    // High blue collar
+    part(torso, cylGeo, undershirt, 0, 0.78 * s.torso, 0, 0.16, 0.12, 0.16, 0, 0, 0, { outline: true });
+    addHipSkirt(undershirt, 0.96, 0.28);
+    return {
+      wrist: white,
+      bootAccent: gold,
+      sleeve: undershirt,
+      flaredGlove: true,
+      bootStyle: 'armor'
+    };
   }
 
   if (kit === 'namekian' || kit === 'trainee') {
@@ -688,18 +784,19 @@ export function buildFighterModel(fighterDef) {
   const heightScale = v.height / 1.72;
 
   const hips = new THREE.Group();
-  hips.position.y = 0.95 * heightScale;
+  // Slightly taller stance so heroic proportions read before idle squat
+  hips.position.y = 1.08 * heightScale;
   root.add(hips);
-  root.scale.setScalar(1.48);
+  root.scale.setScalar(1.62);
 
   const torso = new THREE.Group();
-  torso.position.y = 0.22 * s.torso;
+  torso.position.y = 0.3 * s.torso;
   hips.add(torso);
 
   const kitParts = buildOutfit(torso, hips, v, s);
 
   const head = new THREE.Group();
-  head.position.y = 0.86 * s.torso;
+  head.position.y = 0.98 * s.torso;
   torso.add(head);
   buildFace(head, v, s);
 
@@ -710,37 +807,66 @@ export function buildFighterModel(fighterDef) {
 
   const makeArm = (side) => {
     const shoulder = new THREE.Group();
-    shoulder.position.set(side * 0.44 * s.torso * s.width, 0.58 * s.torso, 0);
+    // Broader shoulders for heroic anime V-taper
+    shoulder.position.set(side * 0.5 * s.torso * s.width, 0.66 * s.torso, 0);
     torso.add(shoulder);
     const upper = new THREE.Group();
     shoulder.add(upper);
     const sleeveMat = kitParts.bareArms ? skin : (kitParts.sleeve || mat(v.outfit));
-    part(upper, capsuleGeo, sleeveMat, 0, -0.24 * s.limb, 0, 0.24 * s.limb, 0.34 * s.limb, 0.24 * s.limb, 0, 0, 0, { outline: true, outlinePad: 1.09 });
-    const elbow = new THREE.Group();
-    elbow.position.y = -0.5 * s.limb;
-    upper.add(elbow);
-    part(elbow, capsuleGeo, skin, 0, -0.2 * s.limb, 0, 0.22 * s.limb, 0.3 * s.limb, 0.22 * s.limb, 0, 0, 0, { outline: true, outlinePad: 1.09 });
-    part(elbow, cylGeo, kitParts.wrist || mat(v.accent), 0, -0.36 * s.limb, 0, 0.13 * s.limb, 0.11, 0.13 * s.limb);
-    if (kitParts.bandage && side < 0) {
-      part(elbow, cylGeo, mat(0xf8fafc), 0, -0.14 * s.limb, 0, 0.14, 0.32, 0.14);
+    const armThick = 0.26 * s.limb;
+    // Short undershirt sleeve (gi) or full sleeve; longer muscular arms
+    if (kitParts.shortSleeve) {
+      part(upper, capsuleGeo, sleeveMat, 0, -0.15 * s.limb, 0, armThick, 0.22 * s.limb, armThick, 0, 0, 0, { outline: true, outlinePad: 1.08 });
+      part(upper, capsuleGeo, skin, 0, -0.36 * s.limb, 0, armThick * 0.95, 0.26 * s.limb, armThick * 0.95, 0, 0, 0, { outline: true, outlinePad: 1.08 });
+    } else {
+      part(upper, capsuleGeo, sleeveMat, 0, -0.28 * s.limb, 0, armThick, 0.4 * s.limb, armThick, 0, 0, 0, { outline: true, outlinePad: 1.08 });
     }
-    part(elbow, sphereGeo, skin, 0, -0.44 * s.limb, 0.03, 0.13, 0.12, 0.15, 0, 0, 0, { outline: true });
+    const elbow = new THREE.Group();
+    elbow.position.y = -0.58 * s.limb;
+    upper.add(elbow);
+    if (kitParts.flaredGlove) {
+      // White glove with flared cuff to mid-forearm (Saiyan armor read)
+      part(elbow, capsuleGeo, kitParts.wrist || mat(0xffffff), 0, -0.22 * s.limb, 0, 0.24 * s.limb, 0.32 * s.limb, 0.24 * s.limb, 0, 0, 0, { outline: true, outlinePad: 1.1 });
+      part(elbow, cylGeo, kitParts.wrist || mat(0xffffff), 0, -0.02 * s.limb, 0, 0.17 * s.limb, 0.14, 0.17 * s.limb, 0, 0, 0, { outline: true });
+      part(elbow, sphereGeo, kitParts.wrist || mat(0xffffff), 0, -0.46 * s.limb, 0.04, 0.14, 0.12, 0.16, 0, 0, 0, { outline: true });
+    } else {
+      part(elbow, capsuleGeo, skin, 0, -0.2 * s.limb, 0, 0.24 * s.limb, 0.3 * s.limb, 0.24 * s.limb, 0, 0, 0, { outline: true, outlinePad: 1.1 });
+      // Thick fabric wristband
+      part(elbow, cylGeo, kitParts.wrist || mat(v.accent), 0, -0.34 * s.limb, 0, 0.145 * s.limb, 0.14, 0.145 * s.limb, 0, 0, 0, { outline: true });
+      if (kitParts.bandage && side < 0) {
+        part(elbow, cylGeo, mat(0xf8fafc), 0, -0.14 * s.limb, 0, 0.15, 0.32, 0.15);
+      }
+      part(elbow, sphereGeo, skin, 0, -0.44 * s.limb, 0.03, 0.14, 0.12, 0.16, 0, 0, 0, { outline: true });
+    }
     return { shoulder, upper, elbow };
   };
 
   const makeLeg = (side) => {
     const hip = new THREE.Group();
-    hip.position.set(side * 0.16 * s.torso * s.width, -0.02, 0);
+    hip.position.set(side * 0.18 * s.torso * s.width, -0.02, 0);
     hips.add(hip);
     const thigh = new THREE.Group();
     hip.add(thigh);
-    part(thigh, capsuleGeo, mat(v.pants), 0, -0.3 * s.limb, 0, 0.3 * s.limb, 0.38 * s.limb, 0.3 * s.limb, 0, 0, 0, { outline: true, outlinePad: 1.09 });
+    // Baggy anime pants — longer legs, gather toward the boot
+    const pantW = kitParts.bootStyle === 'gi' ? 0.32 * s.limb : 0.28 * s.limb;
+    part(thigh, capsuleGeo, mat(v.pants), 0, -0.34 * s.limb, 0, pantW, 0.46 * s.limb, pantW, 0, 0, 0, { outline: true, outlinePad: 1.08 });
     const knee = new THREE.Group();
-    knee.position.y = -0.56 * s.limb;
+    knee.position.y = -0.64 * s.limb;
     thigh.add(knee);
-    part(knee, capsuleGeo, mat(v.pants), 0, -0.2 * s.limb, 0, 0.26 * s.limb, 0.3 * s.limb, 0.26 * s.limb, 0, 0, 0, { outline: true, outlinePad: 1.09 });
-    part(knee, boxGeo, boots, 0, -0.44 * s.limb, 0.06, 0.2, 0.26, 0.34, 0, 0, 0, { outline: true });
-    part(knee, boxGeo, kitParts.bootAccent || boots, 0, -0.5 * s.limb, 0.16, 0.21, 0.1, 0.24);
+    part(knee, capsuleGeo, mat(v.pants), 0, -0.24 * s.limb, 0, pantW * 0.82, 0.34 * s.limb, pantW * 0.82, 0, 0, 0, { outline: true, outlinePad: 1.08 });
+    // Boots
+    part(knee, boxGeo, boots, 0, -0.44 * s.limb, 0.06, 0.22, 0.28, 0.36, 0, 0, 0, { outline: true });
+    if (kitParts.bootStyle === 'gi') {
+      // Red rim + vertical stripe + tan ankle cord (gi boots from reference)
+      const red = kitParts.bootAccent || mat(0xc41e3a);
+      part(knee, boxGeo, red, 0, -0.32 * s.limb, 0.08, 0.23, 0.05, 0.38);
+      part(knee, boxGeo, red, 0, -0.48 * s.limb, 0.22, 0.07, 0.2, 0.05);
+      if (kitParts.ankleCord) {
+        part(knee, cylGeo, kitParts.ankleCord, 0, -0.36 * s.limb, 0.02, 0.13, 0.045, 0.15);
+      }
+    } else {
+      part(knee, boxGeo, kitParts.bootAccent || boots, 0, -0.5 * s.limb, 0.16, 0.22, 0.1, 0.26);
+    }
     return { hip, thigh, knee };
   };
 
@@ -795,7 +921,7 @@ export function buildFighterModel(fighterDef) {
     const attack = state.attack || null;
     const hurt = !!state.hurt;
     const charging = !!state.charging;
-    const baseHipsY = 0.95 * heightScale;
+    const baseHipsY = 1.08 * heightScale;
 
     // Kung Fu strike timeline: chamber → whip → hold → recover (longer hold so poses read)
     const attackPhase = (duration) => {
@@ -819,7 +945,7 @@ export function buildFighterModel(fighterDef) {
       torsoX: 0.1, torsoY: 0, torsoZ: 0,
       hipsY: baseHipsY, hipsYRot: 0, hipsX: 0.06,
       headX: -0.05, headY: 0,
-      torsoPosY: 0.22 * s.torso
+      torsoPosY: 0.3 * s.torso
     };
 
     const attackHand = state.attackHand === 'rear' ? 'rear' : 'lead';
@@ -1074,19 +1200,18 @@ export function buildFighterModel(fighterDef) {
       pose.hipsYRot = -pose.torsoY * 0.45;
       pose.headY = -swing * 0.04;
     } else {
-      // Classic Kung Fu ready: 偏马步 — upright torso, wide seat, 冲拳 guard
-      // Front hand mid-extended, rear fist chambered hard at the waist
+      // Classic Kung Fu ready: 偏马步 — taller seat so anime proportions stay readable
       const breath = Math.sin(t * 2.35);
       const sway = Math.sin(t * 1.45);
-      pose.torsoPosY = 0.22 * s.torso + breath * 0.01;
-      pose.hipsY = baseHipsY - 0.1 + Math.abs(breath) * 0.008;
-      pose.hipsX = 0.06;
-      pose.lHipZ = 0.46;
-      pose.rHipZ = -0.46;
-      pose.lThighX = (leadRight ? 0.48 : 0.36) + sway * 0.02;
-      pose.rThighX = (leadRight ? 0.36 : 0.48) - sway * 0.02;
-      pose.lKneeX = leadRight ? 0.92 : 0.78;
-      pose.rKneeX = leadRight ? 0.78 : 0.92;
+      pose.torsoPosY = 0.3 * s.torso + breath * 0.01;
+      pose.hipsY = baseHipsY - 0.02 + Math.abs(breath) * 0.008;
+      pose.hipsX = 0.04;
+      pose.lHipZ = 0.34;
+      pose.rHipZ = -0.34;
+      pose.lThighX = (leadRight ? 0.32 : 0.24) + sway * 0.02;
+      pose.rThighX = (leadRight ? 0.24 : 0.32) - sway * 0.02;
+      pose.lKneeX = leadRight ? 0.7 : 0.58;
+      pose.rKneeX = leadRight ? 0.58 : 0.7;
       pose.torsoX = 0.05;
       pose.torsoY = (leadRight ? -0.26 : 0.26) + sway * 0.03;
       pose.hipsYRot = -pose.torsoY * 0.6;
@@ -1147,7 +1272,7 @@ export function buildFighterModel(fighterDef) {
 
   function dispose() {
     root.traverse((obj) => {
-      if (obj.isMesh && obj.geometry && ![boxGeo, sphereGeo, cylGeo, coneGeo, capsuleGeo].includes(obj.geometry)) {
+      if (obj.isMesh && obj.geometry && ![boxGeo, sphereGeo, cylGeo, coneGeo, capsuleGeo, spikeGeo].includes(obj.geometry)) {
         obj.geometry.dispose();
       }
     });

@@ -329,7 +329,8 @@ export function createArenaWorld({ scene, renderer, stageId = 'budokai' }) {
   scene.add(hemi);
   const fill = new THREE.AmbientLight(0xffebd8, isBudokai ? 0.55 : 0.48);
   scene.add(fill);
-  const sun = new THREE.DirectionalLight(0xfff6ea, isBudokai ? 3.5 : 3.2);
+  // Slightly softer key so MeshToonMaterial’s hard shadow band can read
+  const sun = new THREE.DirectionalLight(0xfff6ea, isBudokai ? 2.6 : 2.4);
   sun.position.set(isBudokai ? 8 : 4, 26, 30);
   sun.castShadow = true;
   sun.shadow.mapSize.set(2048, 2048);
