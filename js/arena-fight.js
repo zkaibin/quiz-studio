@@ -812,14 +812,17 @@ import {
     dojoFighterId = p1Id;
     previewNames();
     refreshPoints();
-    if (UNLOCK_ALL) {
+    if (store.loadError) {
+      setStatus('welcome-status', store.loadError, true);
+    } else if (UNLOCK_ALL && store.user) {
+      setStatus('welcome-status', 'Signed in — full kit unlocked for playtest. Wins still add quiz points.');
+    } else if (UNLOCK_ALL) {
       setStatus('welcome-status', 'Playtest unlock: all fighters and skills are ready. Skill upgrades come later.');
     } else if (store.user) {
       setStatus('welcome-status', 'Signed in — quiz points sync to the Dojo.');
     } else {
       setStatus('welcome-status', 'Playing locally — wins add local points. Sign in to use quiz points.');
     }
-    if (store.loadError) setStatus('welcome-status', store.loadError, true);
   });
 
   previewNames();
