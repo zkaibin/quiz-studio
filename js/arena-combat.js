@@ -1,6 +1,7 @@
 // Fighter entities, melee/projectile combat, and simple CPU AI.
 import { getFighter, getSkill, resolveLoadout, SPECIALS } from './arena-roster.js';
-import { buildFighterModel } from './arena-characters.js';
+// 2.5D canvas-painted anime figures (closer to 2D anime references than procedural meshes)
+import { buildFighterModel } from './arena-anime-sprite.js';
 
 const MAX_HP = 100;
 const MAX_ENERGY = 100;

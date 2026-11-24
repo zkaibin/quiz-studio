@@ -1,5 +1,6 @@
-// Procedural anime fighters for Arena Clash.
-// UV-mapped faces on the head sphere, lathed torsos, cel shading, ink outlines.
+// Legacy procedural 3D fighters (primitives + toon materials).
+// Live matches now use canvas-painted 2.5D sprites in arena-anime-sprite.js —
+// kept here as a fallback / experiment path for mesh-based kits.
 // Inspired by Dragon Ball silhouettes — not traced from official art.
 import * as THREE from './vendor/three/three.module.min.js';
 

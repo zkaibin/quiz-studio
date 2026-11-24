@@ -56,10 +56,11 @@ import {
 
   // Fight camera distances — default Wide because Close felt too tight on Budokai
   const CAMERA_VIEWS = [
-    { id: 'close', label: 'Close', fov: 48, zBase: 6.8, zSpan: 0.34, yBase: 2.7, yMul: 0.18, midLift: 1.4, xBias: 0.06 },
-    { id: 'mid', label: 'Mid', fov: 50, zBase: 10.2, zSpan: 0.42, yBase: 3.55, yMul: 0.22, midLift: 1.55, xBias: 0.08 },
-    { id: 'wide', label: 'Wide', fov: 52, zBase: 12.6, zSpan: 0.48, yBase: 5.1, yMul: 0.24, midLift: 1.65, xBias: 0.1 },
-    { id: 'stadium', label: 'Stadium', fov: 55, zBase: 18.5, zSpan: 0.55, yBase: 7.4, yMul: 0.28, midLift: 1.85, xBias: 0.12 }
+    // Distances tuned for taller 2.5D anime sprite fighters
+    { id: 'close', label: 'Close', fov: 48, zBase: 8.4, zSpan: 0.36, yBase: 3.1, yMul: 0.2, midLift: 1.7, xBias: 0.06 },
+    { id: 'mid', label: 'Mid', fov: 50, zBase: 11.2, zSpan: 0.42, yBase: 3.9, yMul: 0.22, midLift: 1.75, xBias: 0.08 },
+    { id: 'wide', label: 'Wide', fov: 52, zBase: 13.4, zSpan: 0.48, yBase: 5.3, yMul: 0.24, midLift: 1.8, xBias: 0.1 },
+    { id: 'stadium', label: 'Stadium', fov: 55, zBase: 19.2, zSpan: 0.55, yBase: 7.6, yMul: 0.28, midLift: 1.9, xBias: 0.12 }
   ];
   let cameraViewId = 'wide';
   try {
@@ -534,6 +535,9 @@ import {
       scene, fighterId: p2Id, side: 'p2', unlockedIds: u2,
       control: mode === 'pvp' ? 'human' : 'cpu'
     });
+    // 2.5D sprites billboard toward the fight camera
+    p1.model.setCamera?.(camera);
+    p2.model.setCamera?.(camera);
     $('p1-name').textContent = p1.def.name;
     $('p2-name').textContent = p2.def.name + (mode === 'cpu' ? ' · CPU' : '');
     const s1 = (p1.loadout.specials || []).map((id) => SPECIALS[id]?.label || getSkill(id)?.label).filter(Boolean);
