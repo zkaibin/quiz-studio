@@ -8,6 +8,7 @@ import {
   createFighter, disposeFighter, updateFighter, resolveCombat, updateCpu, resetFighter, MATCH,
   setArenaSfx
 } from './arena-combat.js';
+import { preloadArenaVrm } from './arena-vrm.js';
 
 (() => {
   const mount = document.getElementById('arena-scene');
@@ -526,16 +527,17 @@ import {
     fx.clear();
   }
 
-  function spawnFighters() {
+  async function spawnFighters() {
     clearFighters();
     const u1 = store.dojo.unlocked[p1Id] || [];
     const u2 = store.dojo.unlocked[p2Id] || [];
-    p1 = createFighter({ scene, fighterId: p1Id, side: 'p1', unlockedIds: u1, control: 'human' });
-    p2 = createFighter({
+    // Warm VRM base, then build both fighters (VRM + MToon, sprite fallback)
+    await preloadArenaVrm();
+    p1 = await createFighter({ scene, fighterId: p1Id, side: 'p1', unlockedIds: u1, control: 'human' });
+    p2 = await createFighter({
       scene, fighterId: p2Id, side: 'p2', unlockedIds: u2,
       control: mode === 'pvp' ? 'human' : 'cpu'
     });
-    // 2.5D sprites billboard toward the fight camera
     p1.model.setCamera?.(camera);
     p2.model.setCamera?.(camera);
     $('p1-name').textContent = p1.def.name;
@@ -567,7 +569,9 @@ import {
     audio.resume();
     audio.ui();
     hide(welcome); hide(roster); hide(dojo); hide(stagePick); hide(result); hide(pausedOverlay);
-    spawnFighters();
+    $('countdown-num').textContent = '…';
+    show(countdown);
+    await spawnFighters();
     timeLeft = MATCH.ROUND_TIME;
     matchOver = false;
     paused = false;
@@ -581,7 +585,6 @@ import {
     syncHud();
     audio.startCrowd();
 
-    show(countdown);
     for (const n of [3, 2, 1, 'FIGHT']) {
       $('countdown-num').textContent = n;
       audio.countdown(n);
@@ -951,5 +954,7 @@ import {
   });
 
   previewNames();
+  // Warm the VRM anime base in the background while the welcome screen is up
+  preloadArenaVrm();
   requestAnimationFrame(frame);
 })();

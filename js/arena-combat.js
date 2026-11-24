@@ -1,7 +1,7 @@
 // Fighter entities, melee/projectile combat, and simple CPU AI.
 import { getFighter, getSkill, resolveLoadout, SPECIALS } from './arena-roster.js';
-// 2.5D canvas-painted anime figures (closer to 2D anime references than procedural meshes)
-import { buildFighterModel } from './arena-anime-sprite.js';
+// Prefer VRM + MToon anime bases; falls back to canvas sprites if load fails
+import { buildFighterModel } from './arena-vrm.js';
 
 const MAX_HP = 100;
 const MAX_ENERGY = 100;
@@ -11,10 +11,10 @@ export function setArenaSfx(api) {
   sfx = api || null;
 }
 
-export function createFighter({ scene, fighterId, side, unlockedIds, control = 'human' }) {
+export async function createFighter({ scene, fighterId, side, unlockedIds, control = 'human' }) {
   const def = getFighter(fighterId);
   const loadout = resolveLoadout(def, unlockedIds);
-  const model = buildFighterModel(def);
+  const model = await buildFighterModel(def);
   scene.add(model.root);
 
   const fighter = {
@@ -187,6 +187,7 @@ export function updateFighter(f, dt, bounds, keysActive) {
     if (f.attackTimer <= 0) {
       f.attackTimer = 0;
       f.attackId = null;
+      f.model.setAnim?.('idle');
     }
   }
 
