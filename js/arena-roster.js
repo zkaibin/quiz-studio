@@ -183,11 +183,12 @@ export const FIGHTERS = [
     baseSkills: ['punch', 'kick'],
     unlockSkills: ['uppercut', 'dash', 'guard', 'flight', 'powerup'],
     specials: ['kamehameha', 'spiritbomb'],
-    // Orange gi, blue undershirt / wristbands / boots with yellow tips, tall forward spikes
+    // Orange sleeveless gi, navy undershirt/sash/wristbands/boots, 悟 emblem, tall spikes
     visual: baseVisual({
-      kit: 'gi', hairStyle: 'goku', hair: 0x14110f,
-      outfit: 0xf06a1a, undershirt: 0x1e40af, pants: 0xea580c, boots: 0x1e3a8a,
-      accent: 0x1e40af, gold: 0xfbbf24, aura: 0x38bdf8, eyeColor: 0x0f172a
+      kit: 'gi', hairStyle: 'goku', hair: 0x0f0d0c, expression: 'grin',
+      outfit: 0xf97316, undershirt: 0x1e3a8a, pants: 0xea580c, boots: 0x1e3a8a,
+      accent: 0x1e3a8a, gold: 0xfbbf24, aura: 0x38bdf8, eyeColor: 0x0f172a,
+      skin: 0xe8b070
     })
   },
   {
@@ -197,12 +198,13 @@ export const FIGHTERS = [
     baseSkills: ['punch', 'kick'],
     unlockSkills: ['uppercut', 'dash', 'guard', 'flight', 'powerup'],
     specials: ['galickgun', 'bigbang'],
-    // White armor over royal-blue suit, white gloves/boots, widow's-peak spikes
+    // White armor, gold straps, royal-blue suit, white gloves, widow's-peak spikes
     visual: baseVisual({
-      kit: 'saiyanArmor', hairStyle: 'vegeta', hair: 0x0c0a09, skin: 0xe2a878,
-      outfit: 0xf8fafc, undershirt: 0x1e3a8a, pants: 0x1e3a8a, boots: 0xf8fafc,
+      kit: 'saiyanArmor', hairStyle: 'vegeta', hair: 0x090807, skin: 0xe0a070,
+      expression: 'smirk',
+      outfit: 0xf8fafc, undershirt: 0x1d4ed8, pants: 0x1e3a8a, boots: 0xf8fafc,
       accent: 0xf8fafc, gold: 0xeab308, armorMetal: 0xf1f5f9, aura: 0xc084fc,
-      height: 1.64, build: 'athletic', eyeColor: 0x111827
+      height: 1.64, build: 'athletic', eyeColor: 0x0a0a0a
     })
   },
   {
