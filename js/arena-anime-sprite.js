@@ -260,9 +260,9 @@ function poseOffsets(pose) {
         lLeg: { ang: 0.45, bend: 0.65 }, rLeg: { ang: 0.45, bend: 0.65 },
         torsoRot: 0.05, lean: 0
       };
-    default: // idle — hands-on-hips (down-and-out, not T-pose)
+    default: // idle — hands near hips (canvas +Y is down; ~40° out from vertical)
       return {
-        lArm: { ang: 1.25, len: 0.82 }, rArm: { ang: -1.25, len: 0.82 },
+        lArm: { ang: 0.7, len: 0.78 }, rArm: { ang: -0.7, len: 0.78 },
         lLeg: { ang: 0.08, bend: 0.1 }, rLeg: { ang: -0.06, bend: 0.08 },
         torsoRot: 0, lean: 0
       };
@@ -664,7 +664,7 @@ function drawFigure(ctx, v, pose, originX, originY) {
 }
 
 function buildAtlas(v) {
-  const key = `v3|${v.kit}|${v.hairStyle}|${v.outfit}|${v.undershirt}|${v.skin}|${v.hair}|${v.expression || ''}`;
+  const key = `v4|${v.kit}|${v.hairStyle}|${v.outfit}|${v.undershirt}|${v.skin}|${v.hair}|${v.expression || ''}`;
   if (texCache.has(key)) return texCache.get(key);
   if (typeof document === 'undefined') return null;
 
