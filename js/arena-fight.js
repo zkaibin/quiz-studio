@@ -2,9 +2,11 @@ import * as THREE from './vendor/three/three.module.min.js';
 import { FIGHTERS, UNIVERSES, getFighter, getSkill, allUnlockableFor, SPECIALS } from './arena-roster.js';
 import { createArenaWorld, STAGES } from './arena-world.js';
 import { createArenaFx } from './arena-fx.js';
+import { createArenaAudio } from './arena-audio.js';
 import { createDojoStore, UNLOCK_ALL } from './arena-dojo.js';
 import {
-  createFighter, disposeFighter, updateFighter, resolveCombat, updateCpu, resetFighter, MATCH
+  createFighter, disposeFighter, updateFighter, resolveCombat, updateCpu, resetFighter, MATCH,
+  setArenaSfx
 } from './arena-combat.js';
 
 (() => {
@@ -32,6 +34,8 @@ import {
 
   let world = createArenaWorld({ scene, renderer, stageId });
   const fx = createArenaFx({ scene });
+  const audio = createArenaAudio();
+  setArenaSfx(audio);
   const store = createDojoStore();
 
   let p1Id = 'goku';
@@ -94,6 +98,14 @@ import {
   const touchHint = $('touch-hint');
   const isCoarsePointer = () => window.matchMedia('(pointer: coarse), (hover: none)').matches;
 
+  function syncAudioToggle() {
+    const btn = $('audio-toggle');
+    if (!btn) return;
+    btn.setAttribute('aria-pressed', audio.muted ? 'true' : 'false');
+    btn.textContent = audio.muted ? 'Muted' : 'Sound';
+    btn.title = audio.muted ? 'Unmute fight audio' : 'Mute fight audio';
+  }
+
   function syncCameraRail() {
     if (!cameraRail) return;
     cameraRail.querySelectorAll('[data-cam]').forEach((btn) => {
@@ -117,6 +129,7 @@ import {
     const idx = CAMERA_VIEWS.findIndex((v) => v.id === cameraViewId);
     const next = CAMERA_VIEWS[(idx + 1) % CAMERA_VIEWS.length];
     setCameraView(next.id);
+    audio.ui('cam');
   }
 
   function show(el) { el.classList.remove('hidden'); }
@@ -480,9 +493,12 @@ import {
     if (matchOver) return;
     matchOver = true;
     running = false;
+    audio.stopCrowd();
     const won = outcome === 'p1';
     const draw = outcome === 'draw';
     let award = draw ? MATCH.DRAW_POINTS : won ? MATCH.WIN_POINTS : MATCH.LOSS_POINTS;
+    if (won) audio.victory();
+    else if (!draw) audio.defeat();
     await store.recordMatch({ won });
     const total = await store.awardPoints(award);
     refreshPoints();
@@ -544,6 +560,8 @@ import {
   }
 
   async function beginMatch() {
+    audio.resume();
+    audio.ui();
     hide(welcome); hide(roster); hide(dojo); hide(stagePick); hide(result); hide(pausedOverlay);
     spawnFighters();
     timeLeft = MATCH.ROUND_TIME;
@@ -557,10 +575,12 @@ import {
     syncCameraRail();
     setTouchChrome(true);
     syncHud();
+    audio.startCrowd();
 
     show(countdown);
     for (const n of [3, 2, 1, 'FIGHT']) {
       $('countdown-num').textContent = n;
+      audio.countdown(n);
       await new Promise((r) => setTimeout(r, n === 'FIGHT' ? 500 : 700));
     }
     hide(countdown);
@@ -570,26 +590,30 @@ import {
   // ----- Events -----
   $('start-match').onclick = () => beginMatch();
   $('open-roster').onclick = () => {
+    audio.resume(); audio.ui();
     hide(welcome); show(roster); renderUniverseFilters(); renderFighterLists(); setStatus('roster-status', '');
   };
-  $('roster-back').onclick = () => { hide(roster); show(welcome); previewNames(); };
-  $('roster-done').onclick = () => { hide(roster); show(welcome); previewNames(); };
+  $('roster-back').onclick = () => { audio.ui(); hide(roster); show(welcome); previewNames(); };
+  $('roster-done').onclick = () => { audio.ui(); hide(roster); show(welcome); previewNames(); };
   $('open-dojo').onclick = () => {
+    audio.resume(); audio.ui();
     hide(welcome); show(dojo); renderDojo(); setStatus('dojo-status', ''); refreshPoints();
   };
-  $('dojo-done').onclick = () => { hide(dojo); show(welcome); refreshPoints(); };
-  $('open-stage').onclick = () => { hide(welcome); show(stagePick); renderStages(); };
-  $('stage-done').onclick = () => { hide(stagePick); show(welcome); };
+  $('dojo-done').onclick = () => { audio.ui(); hide(dojo); show(welcome); refreshPoints(); };
+  $('open-stage').onclick = () => { audio.resume(); audio.ui(); hide(welcome); show(stagePick); renderStages(); };
+  $('stage-done').onclick = () => { audio.ui(); hide(stagePick); show(welcome); };
   $('result-again').onclick = () => beginMatch();
-  $('result-dojo').onclick = () => { hide(result); show(dojo); renderDojo(); refreshPoints(); };
+  $('result-dojo').onclick = () => { audio.ui(); hide(result); show(dojo); renderDojo(); refreshPoints(); };
   $('result-menu').onclick = () => {
+    audio.ui(); audio.stopCrowd();
     hide(result); clearFighters(); matchHud.hidden = true; skillTray.hidden = true;
     if (cameraRail) cameraRail.hidden = true;
     setTouchChrome(false);
     show(welcome); refreshPoints();
   };
-  $('resume-match').onclick = () => { paused = false; hide(pausedOverlay); };
+  $('resume-match').onclick = () => { audio.ui(); paused = false; hide(pausedOverlay); };
   $('end-match').onclick = () => {
+    audio.ui(); audio.stopCrowd();
     paused = false; running = false; matchOver = true;
     hide(pausedOverlay); clearFighters();
     matchHud.hidden = true; skillTray.hidden = true;
@@ -603,14 +627,31 @@ import {
     show(welcome);
   };
 
+  const audioToggle = $('audio-toggle');
+  if (audioToggle) {
+    syncAudioToggle();
+    audioToggle.onclick = () => {
+      audio.resume();
+      audio.toggleMute();
+      syncAudioToggle();
+      if (!audio.muted) audio.ui('cam');
+    };
+  }
+
   if (cameraRail) {
     cameraRail.addEventListener('click', (e) => {
       const btn = e.target.closest('[data-cam]');
       if (!btn) return;
       setCameraView(btn.dataset.cam);
+      audio.ui('cam');
     });
   }
   syncCameraRail();
+
+  // Unlock AudioContext on first gesture (browser autoplay policy)
+  const unlockAudio = () => { audio.resume(); };
+  window.addEventListener('pointerdown', unlockAudio, { once: true });
+  window.addEventListener('keydown', unlockAudio, { once: true });
 
   $('difficulty-row').onclick = (e) => {
     const btn = e.target.closest('[data-diff]');

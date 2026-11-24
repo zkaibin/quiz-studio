@@ -5,6 +5,11 @@ import { buildFighterModel } from './arena-characters.js';
 const MAX_HP = 100;
 const MAX_ENERGY = 100;
 
+let sfx = null;
+export function setArenaSfx(api) {
+  sfx = api || null;
+}
+
 export function createFighter({ scene, fighterId, side, unlockedIds, control = 'human' }) {
   const def = getFighter(fighterId);
   const loadout = resolveLoadout(def, unlockedIds);
@@ -17,7 +22,7 @@ export function createFighter({ scene, fighterId, side, unlockedIds, control = '
     loadout,
     control,
     model,
-    x: side === 'p1' ? -4.2 : 4.2,
+    x: side === 'p1' ? -5.1 : 5.1,
     y: 0,
     z: 0,
     vx: 0,
@@ -30,9 +35,11 @@ export function createFighter({ scene, fighterId, side, unlockedIds, control = '
     maxEnergy: MAX_ENERGY,
     guarding: false,
     airborne: false,
+    wasAirborne: false,
     attackTimer: 0,
     attackId: null,
     attackHit: false,
+    punchAlt: false,
     cooldown: {},
     stun: 0,
     invuln: 0,
@@ -84,10 +91,19 @@ function startAttack(f, skillId) {
   f.attackHit = false;
   f.cooldown[skillId] = skill.cooldown || 0.4;
   f.guarding = false;
+  if (skillId === 'punch') {
+    f.punchAlt = !f.punchAlt;
+    f.attackHand = f.punchAlt ? 'rear' : 'lead';
+  } else {
+    f.attackHand = 'lead';
+  }
   if (skill.energyCost) f.energy = Math.max(0, f.energy - skill.energyCost);
   if (skill.lunge) f.vx = f.facing * skill.lunge;
   if (skill.kind === 'beam' || skill.kind === 'orb') {
     f.charge = { skillId, t: 0.22 };
+    sfx?.charge?.();
+  } else {
+    sfx?.whoosh?.(skillId);
   }
   f.model.setAnim(skillId);
   return true;
@@ -109,11 +125,17 @@ function applyHit(attacker, defender, skill, fx) {
   let dmg = (skill.damage || 0) * (attacker.loadout.damageMul || 1);
   let kb = skill.knockback || 3;
   let lift = skill.lift || 1.5;
-  if (defender.guarding && defender.loadout.hasGuard) {
+  const wasGuarding = !!(defender.guarding && defender.loadout.hasGuard);
+  if (wasGuarding) {
     const g = getSkill('guard');
     dmg *= g.damageMul ?? 0.28;
     kb *= g.knockMul ?? 0.4;
     lift *= 0.4;
+    sfx?.block?.();
+  } else {
+    const heavy = (skill.damage || 0) >= 14 || !!skill.lunge;
+    const special = skill.kind === 'beam' || skill.kind === 'orb' || !!skill.color;
+    sfx?.hit?.({ heavy, special });
   }
   defender.hp = Math.max(0, defender.hp - dmg);
   defender.vx = Math.sign(defender.x - attacker.x || attacker.facing) * kb;
@@ -129,6 +151,7 @@ function applyHit(attacker, defender, skill, fx) {
   if (defender.hp <= 0) {
     defender.alive = false;
     defender.hp = 0;
+    sfx?.ko?.();
   }
 }
 
@@ -218,6 +241,7 @@ export function updateFighter(f, dt, bounds, keysActive) {
     if (input.up && f.stun <= 0) {
       f.vy = 8.5;
       f.airborne = true;
+      sfx?.jump?.();
     }
   } else {
     f.airborne = true;
@@ -232,8 +256,14 @@ export function updateFighter(f, dt, bounds, keysActive) {
   f.x += f.vx * dt;
   f.y += f.vy * dt;
   f.z += f.vz * dt;
-  if (f.y < 0) { f.y = 0; f.vy = 0; f.airborne = false; }
+  if (f.y < 0) {
+    f.y = 0;
+    f.vy = 0;
+    f.airborne = false;
+  }
   if (f.y > 6.5) { f.y = 6.5; f.vy = Math.min(0, f.vy); }
+  if (f.wasAirborne && !f.airborne) sfx?.land?.();
+  f.wasAirborne = f.airborne;
 
   const r = bounds.radius - 0.6;
   const dist = Math.hypot(f.x, f.z);
@@ -251,6 +281,7 @@ export function updateFighter(f, dt, bounds, keysActive) {
     airborne: f.airborne,
     guarding: f.guarding,
     attack: f.attackId,
+    attackHand: f.attackHand || 'lead',
     hurt: f.stun > 0.1,
     charging: !!f.charge,
     aura: f.charge ? 0.4 : 0
@@ -290,6 +321,7 @@ export function resolveCombat(a, b, fx, dt) {
       knockback: skill.knockback || 5,
       owner: f.id
     });
+    sfx?.blast?.();
   }
 
   // Projectile hits

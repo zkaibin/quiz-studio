@@ -797,13 +797,13 @@ export function buildFighterModel(fighterDef) {
     const charging = !!state.charging;
     const baseHipsY = 0.95 * heightScale;
 
-    // Kung Fu strike timeline: chamber → whip → hold → recover
+    // Kung Fu strike timeline: chamber → whip → hold → recover (longer hold so poses read)
     const attackPhase = (duration) => {
       const p = Math.min(1, t / duration);
-      if (p < 0.2) return { stage: 'wind', u: p / 0.2 };
-      if (p < 0.45) return { stage: 'snap', u: (p - 0.2) / 0.25 };
-      if (p < 0.7) return { stage: 'hold', u: (p - 0.45) / 0.25 };
-      return { stage: 'recover', u: (p - 0.7) / 0.3 };
+      if (p < 0.16) return { stage: 'wind', u: p / 0.16 };
+      if (p < 0.38) return { stage: 'snap', u: (p - 0.16) / 0.22 };
+      if (p < 0.74) return { stage: 'hold', u: (p - 0.38) / 0.36 };
+      return { stage: 'recover', u: (p - 0.74) / 0.26 };
     };
 
     // Lead side follows facing so the front hand faces the opponent
@@ -822,150 +822,225 @@ export function buildFighterModel(fighterDef) {
       torsoPosY: 0.22 * s.torso
     };
 
+    const attackHand = state.attackHand === 'rear' ? 'rear' : 'lead';
+
     if (hurt) {
-      pose.torsoX = -0.5;
-      pose.hipsX = -0.2;
-      pose.lShoulderX = -1.15;
-      pose.rShoulderX = -1.15;
-      pose.lElbowX = -0.35;
-      pose.rElbowX = -0.35;
-      pose.headX = 0.32;
-      pose.hipsY = baseHipsY - 0.12;
-      pose.lThighX = 0.45;
-      pose.rThighX = 0.35;
-    } else if (guarding) {
-      // Crane / high gate — upright, forearms framed, seated knees
-      pose.lShoulderX = -1.55;
-      pose.rShoulderX = -1.6;
+      // Recoil twist — open guard, weight shifts back
+      pose.torsoX = -0.35;
+      pose.torsoY = leadRight ? 0.45 : -0.45;
+      pose.hipsX = -0.16;
+      pose.hipsYRot = -pose.torsoY * 0.4;
+      pose.lShoulderX = -0.55;
+      pose.rShoulderX = -0.7;
       pose.lShoulderZ = 0.55;
       pose.rShoulderZ = -0.55;
-      pose.lElbowX = -1.25;
-      pose.rElbowX = -1.3;
-      pose.torsoX = 0.06;
-      pose.hipsX = 0.04;
-      pose.lThighX = 0.42;
-      pose.rThighX = 0.38;
-      pose.lKneeX = 0.82;
-      pose.rKneeX = 0.78;
-      pose.lHipZ = 0.38;
-      pose.rHipZ = -0.38;
-      pose.hipsY = baseHipsY - 0.08;
-      pose.hipsYRot = leadRight ? 0.14 : -0.14;
+      pose.lElbowX = -0.2;
+      pose.rElbowX = -0.25;
+      pose.headX = 0.28;
+      pose.headY = pose.torsoY * 0.35;
+      pose.hipsY = baseHipsY - 0.1;
+      pose.lThighX = leadRight ? 0.55 : 0.2;
+      pose.rThighX = leadRight ? 0.2 : 0.55;
+      pose.lKneeX = 0.7;
+      pose.rKneeX = 0.65;
+    } else if (guarding) {
+      // Tiger / high-low gate — front forearm high, rear mid, deep seat
+      pose.torsoX = 0.05;
+      pose.hipsX = 0.05;
+      pose.lHipZ = 0.4;
+      pose.rHipZ = -0.4;
+      pose.lThighX = 0.46;
+      pose.rThighX = 0.4;
+      pose.lKneeX = 0.88;
+      pose.rKneeX = 0.8;
+      pose.hipsY = baseHipsY - 0.09;
+      pose.hipsYRot = leadRight ? 0.16 : -0.16;
+      if (leadRight) {
+        pose.rShoulderX = -1.75;
+        pose.rShoulderZ = -0.35;
+        pose.rElbowX = -1.45;
+        pose.lShoulderX = -1.15;
+        pose.lShoulderZ = 0.85;
+        pose.lElbowX = -1.35;
+      } else {
+        pose.lShoulderX = -1.75;
+        pose.lShoulderZ = 0.35;
+        pose.lElbowX = -1.45;
+        pose.rShoulderX = -1.15;
+        pose.rShoulderZ = -0.85;
+        pose.rElbowX = -1.35;
+      }
     } else if (attack === 'punch' || attack === 'uppercut') {
       const ap = attackPhase(attack === 'uppercut' ? 0.46 : 0.4);
       const wind = ap.stage === 'wind' ? ap.u : 1;
       const snap = ap.stage === 'snap' ? ap.u : (ap.stage === 'wind' ? 0 : 1);
       const recover = ap.stage === 'recover' ? ap.u : 0;
       const strike = Math.max(0, snap - recover);
+      const useRear = attack === 'punch' && attackHand === 'rear';
 
-      // Front hand chambers then whips; rear hand stays at the waist (典型冲拳)
-      if (leadRight) {
-        pose.rShoulderX = -0.35 * wind - 2.05 * strike;
-        pose.rElbowX = -1.15 * wind + 0.35 * strike;
-        pose.rShoulderZ = -0.2 - 0.15 * strike;
-        pose.lShoulderX = -0.55 - 0.15 * wind;
-        pose.lElbowX = -1.35;
-        pose.lShoulderZ = 0.85;
-      } else {
-        pose.lShoulderX = -0.35 * wind - 2.05 * strike;
-        pose.lElbowX = -1.15 * wind + 0.35 * strike;
-        pose.lShoulderZ = 0.2 + 0.15 * strike;
-        pose.rShoulderX = -0.55 - 0.15 * wind;
-        pose.rElbowX = -1.35;
-        pose.rShoulderZ = -0.85;
-      }
-      pose.torsoY = (leadRight ? -1 : 1) * (0.45 * wind + 0.75 * strike);
-      pose.hipsYRot = -pose.torsoY * 0.65;
-      pose.hipsX = 0.08 + 0.12 * strike;
-      pose.torsoX = 0.18 - 0.22 * strike;
-      pose.lHipZ = 0.28;
-      pose.rHipZ = -0.28;
+      // Alternate lead / rear 冲拳 — chamber then whip with hip drive
+      const setPunch = (strikingRight) => {
+        if (strikingRight) {
+          pose.rShoulderX = -0.2 * wind - 2.15 * strike;
+          pose.rElbowX = -1.35 * wind + 0.45 * strike;
+          pose.rShoulderZ = -0.12 - 0.18 * strike;
+          pose.lShoulderX = -0.35 - 0.1 * wind;
+          pose.lElbowX = -1.5;
+          pose.lShoulderZ = 1.05;
+        } else {
+          pose.lShoulderX = -0.2 * wind - 2.15 * strike;
+          pose.lElbowX = -1.35 * wind + 0.45 * strike;
+          pose.lShoulderZ = 0.12 + 0.18 * strike;
+          pose.rShoulderX = -0.35 - 0.1 * wind;
+          pose.rElbowX = -1.5;
+          pose.rShoulderZ = -1.05;
+        }
+      };
+      if (leadRight) setPunch(useRear ? false : true);
+      else setPunch(useRear ? true : false);
+
+      const twistDir = leadRight ? (useRear ? 1 : -1) : (useRear ? -1 : 1);
+      pose.torsoY = twistDir * (0.55 * wind + 0.95 * strike);
+      pose.hipsYRot = -pose.torsoY * 0.7;
+      pose.hipsX = 0.06 + 0.1 * strike;
+      pose.lHipZ = 0.32;
+      pose.rHipZ = -0.32;
       if (attack === 'uppercut') {
-        // Rising palm / 撩拳
-        if (leadRight) pose.rShoulderX = -0.25 * wind - 2.55 * strike;
-        else pose.lShoulderX = -0.25 * wind - 2.55 * strike;
-        pose.torsoX = -0.42 * strike;
-        pose.hipsY = baseHipsY + 0.18 * strike;
+        // Rising palm / 撩拳 — drop seat then drive up
+        if (leadRight) {
+          pose.rShoulderX = -0.15 * wind - 2.65 * strike;
+          pose.rElbowX = -1.05 * wind + 0.55 * strike;
+          pose.lShoulderX = -0.45;
+          pose.lElbowX = -1.4;
+          pose.lShoulderZ = 0.9;
+        } else {
+          pose.lShoulderX = -0.15 * wind - 2.65 * strike;
+          pose.lElbowX = -1.05 * wind + 0.55 * strike;
+          pose.rShoulderX = -0.45;
+          pose.rElbowX = -1.4;
+          pose.rShoulderZ = -0.9;
+        }
+        pose.torsoX = -0.28 * strike;
+        pose.hipsY = baseHipsY - 0.06 + 0.28 * strike;
+        pose.lThighX = leadRight ? 0.62 : 0.05;
+        pose.rThighX = leadRight ? 0.05 : 0.62;
+        pose.lKneeX = leadRight ? 1.0 : 0.45;
+        pose.rKneeX = leadRight ? 0.45 : 1.0;
+      } else {
+        // Gong Bu punch — front knee bent, rear leg driving
         pose.lThighX = leadRight ? 0.55 : -0.05;
         pose.rThighX = leadRight ? -0.05 : 0.55;
-        pose.lKneeX = 0.7;
-        pose.rKneeX = 0.7;
-      } else {
-        // Gong Bu punch — front knee bent, rear leg driving, torso stays upright
-        pose.lThighX = leadRight ? 0.48 : -0.08;
-        pose.rThighX = leadRight ? -0.08 : 0.48;
-        pose.lKneeX = leadRight ? 0.85 : 0.32;
-        pose.rKneeX = leadRight ? 0.32 : 0.85;
-        pose.hipsY = baseHipsY - 0.03 + 0.04 * strike;
-        pose.torsoX = 0.06 - 0.08 * strike;
+        pose.lKneeX = leadRight ? 0.92 : 0.3;
+        pose.rKneeX = leadRight ? 0.3 : 0.92;
+        pose.hipsY = baseHipsY - 0.04 + 0.06 * strike;
+        pose.torsoX = 0.04 - 0.06 * strike;
+        if (useRear) {
+          // Rear hand punch swaps the gong-bu lead
+          pose.lThighX = leadRight ? -0.05 : 0.55;
+          pose.rThighX = leadRight ? 0.55 : -0.05;
+          pose.lKneeX = leadRight ? 0.3 : 0.92;
+          pose.rKneeX = leadRight ? 0.92 : 0.3;
+        }
       }
     } else if (attack === 'kick' || attack === 'dash') {
       const ap = attackPhase(attack === 'dash' ? 0.48 : 0.44);
       const wind = ap.stage === 'wind' ? ap.u : 1;
       const snap = ap.stage === 'snap' ? ap.u : (ap.stage === 'wind' ? 0 : 1);
       const strike = Math.max(0, snap - (ap.stage === 'recover' ? ap.u : 0));
-      // Chamber knee then whip into side / front kick
+      // Chamber knee high, then whip into side / front kick with arm counterbalance
       if (leadRight) {
-        pose.rThighX = -0.85 * wind - 1.75 * strike;
-        pose.rKneeX = 1.45 * wind - 1.15 * strike;
-        pose.rHipZ = -0.15 - 0.35 * strike;
-        pose.lThighX = 0.55;
-        pose.lKneeX = 0.75;
-        pose.lHipZ = 0.35;
+        pose.rThighX = -0.55 * wind - 1.95 * strike;
+        pose.rKneeX = 1.55 * wind - 1.35 * strike;
+        pose.rHipZ = -0.2 - 0.45 * strike;
+        pose.lThighX = 0.62;
+        pose.lKneeX = 0.85;
+        pose.lHipZ = 0.38;
+        pose.lShoulderX = -1.35 - 0.25 * strike;
+        pose.lShoulderZ = 0.55;
+        pose.lElbowX = -1.15;
+        pose.rShoulderX = -0.55 + 0.35 * strike;
+        pose.rShoulderZ = -0.75;
+        pose.rElbowX = -0.85;
       } else {
-        pose.lThighX = -0.85 * wind - 1.75 * strike;
-        pose.lKneeX = 1.45 * wind - 1.15 * strike;
-        pose.lHipZ = 0.15 + 0.35 * strike;
-        pose.rThighX = 0.55;
-        pose.rKneeX = 0.75;
-        pose.rHipZ = -0.35;
+        pose.lThighX = -0.55 * wind - 1.95 * strike;
+        pose.lKneeX = 1.55 * wind - 1.35 * strike;
+        pose.lHipZ = 0.2 + 0.45 * strike;
+        pose.rThighX = 0.62;
+        pose.rKneeX = 0.85;
+        pose.rHipZ = -0.38;
+        pose.rShoulderX = -1.35 - 0.25 * strike;
+        pose.rShoulderZ = -0.55;
+        pose.rElbowX = -1.15;
+        pose.lShoulderX = -0.55 + 0.35 * strike;
+        pose.lShoulderZ = 0.75;
+        pose.lElbowX = -0.85;
       }
-      pose.torsoX = 0.22 + (attack === 'dash' ? 0.4 * strike : 0.18 * strike);
-      pose.torsoY = (leadRight ? -0.35 : 0.35) * strike;
-      pose.hipsYRot = -pose.torsoY * 0.5;
-      pose.lShoulderX = -0.95;
-      pose.rShoulderX = -0.95;
-      pose.lElbowX = -1.05;
-      pose.rElbowX = -1.05;
-      pose.hipsY = baseHipsY + 0.08 * strike;
+      pose.torsoX = 0.08 + (attack === 'dash' ? 0.35 * strike : 0.12 * strike);
+      pose.torsoY = (leadRight ? -0.55 : 0.55) * Math.max(wind * 0.4, strike);
+      pose.hipsYRot = -pose.torsoY * 0.55;
+      pose.hipsY = baseHipsY + 0.12 * strike;
       if (attack === 'dash') {
         // Lunging spear-hand / 弓步冲刺
-        pose.lShoulderX = -1.35;
-        pose.rShoulderX = -1.45;
-        pose.torsoX = 0.62 * Math.max(wind, strike);
-        pose.hipsX = 0.28 * Math.max(wind, strike);
+        pose.lShoulderX = leadRight ? -0.85 : -1.85;
+        pose.rShoulderX = leadRight ? -1.85 : -0.85;
+        pose.lElbowX = leadRight ? -1.1 : -0.25;
+        pose.rElbowX = leadRight ? -0.25 : -1.1;
+        pose.torsoX = 0.55 * Math.max(wind, strike);
+        pose.hipsX = 0.22 * Math.max(wind, strike);
+        pose.lThighX = leadRight ? 0.7 : -0.15;
+        pose.rThighX = leadRight ? -0.15 : 0.7;
+        pose.lKneeX = leadRight ? 1.05 : 0.28;
+        pose.rKneeX = leadRight ? 0.28 : 1.05;
       }
     } else if (charging) {
-      // Low horse stance + both palms gathering ki
-      pose.lShoulderX = -1.45;
-      pose.rShoulderX = -1.45;
-      pose.lShoulderZ = 0.85;
-      pose.rShoulderZ = -0.85;
-      pose.lElbowX = -1.25;
-      pose.rElbowX = -1.25;
-      pose.torsoX = 0.38;
-      pose.hipsX = 0.16;
-      pose.lThighX = 0.72;
-      pose.rThighX = 0.72;
-      pose.lKneeX = 1.15;
-      pose.rKneeX = 1.15;
-      pose.lHipZ = 0.4;
-      pose.rHipZ = -0.4;
-      pose.hipsY = baseHipsY - 0.16;
-      pose.torsoZ = Math.sin(t * 20) * 0.06;
-      aura.material.opacity = 0.5 + Math.sin(t * 14) * 0.2;
-      aura.scale.setScalar(1.15 + Math.sin(t * 9) * 0.14);
-    } else if (airborne) {
-      pose.lShoulderX = -0.95;
-      pose.rShoulderX = -0.95;
+      // Deep 马步 + palms gathering ki in front of the dantian
+      pose.lShoulderX = -1.15;
+      pose.rShoulderX = -1.15;
       pose.lShoulderZ = 0.55;
       pose.rShoulderZ = -0.55;
-      pose.lThighX = 0.7;
-      pose.rThighX = -0.55;
-      pose.lKneeX = 0.9;
-      pose.rKneeX = 0.7;
-      pose.torsoX = -0.12;
-      pose.hipsX = -0.08;
+      pose.lElbowX = -1.05;
+      pose.rElbowX = -1.05;
+      pose.torsoX = 0.18;
+      pose.hipsX = 0.1;
+      pose.lThighX = 0.68;
+      pose.rThighX = 0.68;
+      pose.lKneeX = 1.1;
+      pose.rKneeX = 1.1;
+      pose.lHipZ = 0.48;
+      pose.rHipZ = -0.48;
+      pose.hipsY = baseHipsY - 0.14;
+      pose.torsoZ = Math.sin(t * 18) * 0.05;
+      pose.headX = -0.1;
+      aura.material.opacity = 0.55 + Math.sin(t * 14) * 0.22;
+      aura.scale.setScalar(1.18 + Math.sin(t * 9) * 0.16);
+    } else if (airborne) {
+      // Aerial ready — tucked trail leg, lead knee up, arms framed
+      if (leadRight) {
+        pose.rThighX = 0.85;
+        pose.rKneeX = 1.15;
+        pose.lThighX = -0.35;
+        pose.lKneeX = 0.55;
+        pose.rShoulderX = -1.35;
+        pose.rElbowX = -0.85;
+        pose.lShoulderX = -0.75;
+        pose.lElbowX = -1.25;
+        pose.lShoulderZ = 0.7;
+        pose.rShoulderZ = -0.25;
+      } else {
+        pose.lThighX = 0.85;
+        pose.lKneeX = 1.15;
+        pose.rThighX = -0.35;
+        pose.rKneeX = 0.55;
+        pose.lShoulderX = -1.35;
+        pose.lElbowX = -0.85;
+        pose.rShoulderX = -0.75;
+        pose.rElbowX = -1.25;
+        pose.rShoulderZ = -0.7;
+        pose.lShoulderZ = 0.25;
+      }
+      pose.torsoX = -0.08;
+      pose.hipsX = -0.05;
+      pose.hipsYRot = leadRight ? -0.12 : 0.12;
     } else if (moving) {
       // Cat-step / 行步 — upright seat, keep 冲拳 guard while stepping
       const cadence = t * 7.4;
@@ -1000,44 +1075,43 @@ export function buildFighterModel(fighterDef) {
       pose.headY = -swing * 0.04;
     } else {
       // Classic Kung Fu ready: 偏马步 — upright torso, wide seat, 冲拳 guard
-      // Front hand mid-extended, rear fist chambered at the waist
+      // Front hand mid-extended, rear fist chambered hard at the waist
       const breath = Math.sin(t * 2.35);
       const sway = Math.sin(t * 1.45);
-      pose.torsoPosY = 0.22 * s.torso + breath * 0.012;
-      pose.hipsY = baseHipsY - 0.07 + Math.abs(breath) * 0.008;
-      pose.hipsX = 0.05;
-      pose.lHipZ = 0.42;
-      pose.rHipZ = -0.42;
-      // Knees bent under the body — avoid extreme thigh fold (looked like diving)
-      pose.lThighX = 0.4 + sway * 0.02;
-      pose.rThighX = 0.34 - sway * 0.02;
-      pose.lKneeX = 0.78;
-      pose.rKneeX = 0.7;
-      pose.torsoX = 0.04;
-      pose.torsoY = (leadRight ? -0.22 : 0.22) + sway * 0.03;
-      pose.hipsYRot = -pose.torsoY * 0.55;
+      pose.torsoPosY = 0.22 * s.torso + breath * 0.01;
+      pose.hipsY = baseHipsY - 0.1 + Math.abs(breath) * 0.008;
+      pose.hipsX = 0.06;
+      pose.lHipZ = 0.46;
+      pose.rHipZ = -0.46;
+      pose.lThighX = (leadRight ? 0.48 : 0.36) + sway * 0.02;
+      pose.rThighX = (leadRight ? 0.36 : 0.48) - sway * 0.02;
+      pose.lKneeX = leadRight ? 0.92 : 0.78;
+      pose.rKneeX = leadRight ? 0.78 : 0.92;
+      pose.torsoX = 0.05;
+      pose.torsoY = (leadRight ? -0.26 : 0.26) + sway * 0.03;
+      pose.hipsYRot = -pose.torsoY * 0.6;
       pose.headY = sway * 0.03;
-      pose.headX = -0.04;
+      pose.headX = -0.05;
 
       if (leadRight) {
-        pose.rShoulderX = -1.2 + breath * 0.04;
-        pose.rShoulderZ = -0.05;
-        pose.rElbowX = -0.35;
-        pose.lShoulderX = -0.12 + breath * 0.02;
-        pose.lShoulderZ = 1.05;
-        pose.lElbowX = -1.6;
+        pose.rShoulderX = -1.35 + breath * 0.04;
+        pose.rShoulderZ = 0.08;
+        pose.rElbowX = -0.22;
+        pose.lShoulderX = 0.05 + breath * 0.02;
+        pose.lShoulderZ = 1.15;
+        pose.lElbowX = -1.65;
       } else {
-        pose.lShoulderX = -1.2 + breath * 0.04;
-        pose.lShoulderZ = 0.05;
-        pose.lElbowX = -0.35;
-        pose.rShoulderX = -0.12 + breath * 0.02;
-        pose.rShoulderZ = -1.05;
-        pose.rElbowX = -1.6;
+        pose.lShoulderX = -1.35 + breath * 0.04;
+        pose.lShoulderZ = -0.08;
+        pose.lElbowX = -0.22;
+        pose.rShoulderX = 0.05 + breath * 0.02;
+        pose.rShoulderZ = -1.15;
+        pose.rElbowX = -1.65;
       }
     }
 
     // Snappier damping so Kung Fu chambers and 冲拳 settle before the next beat
-    const damp = (obj, prop, target, rate = attack ? 22 : 16) => {
+    const damp = (obj, prop, target, rate = attack ? 26 : (hurt ? 20 : 16)) => {
       obj[prop] += (target - obj[prop]) * Math.min(1, rate * dt);
     };
 
