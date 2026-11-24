@@ -1,5 +1,8 @@
 // Points + skill unlock persistence for Arena Clash.
 // Signed-in players sync to Firestore; everyone gets a local fallback.
+//
+// Primary cloud path: users/{uid}.arena_clash_dojo (works with existing user rules).
+// Secondary path: arena_clash_dojo/{uid} (used when those collection rules are deployed).
 import {
   FIGHTERS, SKILLS, SPECIALS, starterUnlockedIds, fullUnlockedIds, getFighter, getSkill
 } from './arena-roster.js';
@@ -7,6 +10,7 @@ import {
 const FS = 'https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js';
 const AUTH = 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
 const LOCAL_KEY = 'arenaClashDojo';
+const USER_DOJO_FIELD = 'arena_clash_dojo';
 
 /**
  * Playtest unlock: every fighter and every skill is available with no point spend.
@@ -81,6 +85,12 @@ function writeLocal(dojo) {
   try { localStorage.setItem(LOCAL_KEY, JSON.stringify(dojo)); } catch { /* ignore */ }
 }
 
+function isPermissionError(error) {
+  const code = String(error?.code || error?.name || '');
+  const msg = String(error?.message || error || '');
+  return /permission-denied|PERMISSION_DENIED|Missing or insufficient permissions/i.test(`${code} ${msg}`);
+}
+
 export function createDojoStore() {
   const store = {
     user: null,
@@ -91,7 +101,9 @@ export function createDojoStore() {
     dojo: readLocal(),
     ready: null,
     loadError: '',
-    unlockAll: UNLOCK_ALL
+    unlockAll: UNLOCK_ALL,
+    /** True when dedicated arena_clash_dojo collection is readable/writable. */
+    collectionSync: false
   };
 
   try {
@@ -124,7 +136,11 @@ export function createDojoStore() {
     if (store.user) {
       try { await store.refresh(); } catch (error) {
         console.warn('Arena Clash data failed to load.', error);
-        store.loadError = 'Signed in, but dojo progress could not load. Using local saves.';
+        store.dojo = readLocal();
+        // Points may already be loaded; avoid a hard failure banner when playtest unlock covers kit access.
+        store.loadError = UNLOCK_ALL
+          ? ''
+          : 'Signed in, but dojo progress could not load. Using local saves.';
       }
     }
   };
@@ -136,32 +152,73 @@ export function createDojoStore() {
   store.refresh = async () => {
     const { doc, getDoc } = store.fs;
     store.loadError = '';
-    const [userRes, dojoRes] = await Promise.allSettled([
-      getDoc(doc(store.db, 'users', store.user.uid)),
-      getDoc(doc(store.db, 'arena_clash_dojo', store.user.uid))
-    ]);
-    if (userRes.status === 'fulfilled') {
-      store.points = userRes.value.exists() ? (userRes.value.data().total_points || 0) : 0;
-    }
-    if (dojoRes.status === 'fulfilled') {
-      const remote = dojoRes.value.exists() ? dojoRes.value.data() : null;
-      // Merge local unlocks so offline progress is not lost.
-      const local = readLocal();
-      const merged = sanitize(remote);
-      if (!UNLOCK_ALL) {
-        for (const f of FIGHTERS) {
-          merged.unlocked[f.id] = [...new Set([
-            ...(merged.unlocked[f.id] || []),
-            ...(local.unlocked[f.id] || [])
-          ])];
-          if (local.owned.includes(f.id) && !merged.owned.includes(f.id)) merged.owned.push(f.id);
+    store.collectionSync = false;
+
+    let remoteDojo = null;
+    let pointsLoaded = false;
+    let dojoLoaded = false;
+
+    // Primary: users doc (points + embedded dojo). Already allowed by production rules.
+    try {
+      const userSnap = await getDoc(doc(store.db, 'users', store.user.uid));
+      pointsLoaded = true;
+      if (userSnap.exists()) {
+        const data = userSnap.data() || {};
+        store.points = data.total_points || 0;
+        if (data[USER_DOJO_FIELD] && typeof data[USER_DOJO_FIELD] === 'object') {
+          remoteDojo = data[USER_DOJO_FIELD];
+          dojoLoaded = true;
         }
+      } else {
+        store.points = 0;
       }
-      store.dojo = merged;
-      writeLocal(merged);
-    } else {
-      store.dojo = readLocal();
+    } catch (error) {
+      console.warn('Arena Clash points failed to load.', error);
+    }
+
+    // Secondary: dedicated collection when rules are live.
+    try {
+      const dojoSnap = await getDoc(doc(store.db, 'arena_clash_dojo', store.user.uid));
+      store.collectionSync = true;
+      if (dojoSnap.exists()) {
+        remoteDojo = dojoSnap.data();
+        dojoLoaded = true;
+      } else {
+        // Missing doc is success — seed later via persist.
+        dojoLoaded = true;
+      }
+    } catch (error) {
+      store.collectionSync = false;
+      if (!isPermissionError(error)) {
+        console.warn('Arena Clash dojo collection unavailable.', error);
+      }
+    }
+
+    const local = readLocal();
+    const merged = sanitize(remoteDojo);
+    if (!UNLOCK_ALL) {
+      for (const f of FIGHTERS) {
+        merged.unlocked[f.id] = [...new Set([
+          ...(merged.unlocked[f.id] || []),
+          ...(local.unlocked[f.id] || [])
+        ])];
+        if (local.owned.includes(f.id) && !merged.owned.includes(f.id)) merged.owned.push(f.id);
+      }
+    }
+    store.dojo = merged;
+    writeLocal(merged);
+
+    // Seed cloud copy for first-time signed-in players (user-doc path).
+    if (pointsLoaded && remoteDojo == null) {
+      try { await store.persist(); } catch (error) {
+        console.warn('Arena Clash dojo seed failed.', error);
+      }
+    }
+
+    if (!pointsLoaded && !dojoLoaded) {
       store.loadError = 'Could not sync dojo. Showing local progress.';
+    } else {
+      store.loadError = '';
     }
   };
 
@@ -169,7 +226,19 @@ export function createDojoStore() {
     writeLocal(store.dojo);
     if (!store.user) return;
     const { doc, setDoc } = store.fs;
-    await setDoc(doc(store.db, 'arena_clash_dojo', store.user.uid), store.dojo);
+    const uid = store.user.uid;
+
+    // Always write through the user profile so sync works before collection rules ship.
+    await setDoc(doc(store.db, 'users', uid), { [USER_DOJO_FIELD]: store.dojo }, { merge: true });
+
+    if (store.collectionSync) {
+      try {
+        await setDoc(doc(store.db, 'arena_clash_dojo', uid), store.dojo);
+      } catch (error) {
+        store.collectionSync = false;
+        console.warn('Arena Clash dojo collection write skipped.', error);
+      }
+    }
   };
 
   store.awardPoints = async (amount) => {
@@ -207,20 +276,32 @@ export function createDojoStore() {
     }
     const { doc, runTransaction } = store.fs;
     const userRef = doc(store.db, 'users', store.user.uid);
-    const dojoRef = doc(store.db, 'arena_clash_dojo', store.user.uid);
     const result = await runTransaction(store.db, async (tx) => {
-      const [userSnap, dojoSnap] = await Promise.all([tx.get(userRef), tx.get(dojoRef)]);
+      const userSnap = await tx.get(userRef);
       const points = userSnap.exists() ? (userSnap.data().total_points || 0) : 0;
       if (points < effectiveCost) throw new Error('Not enough points.');
-      const dojo = sanitize(dojoSnap.exists() ? dojoSnap.data() : store.dojo);
+      const previous = userSnap.exists() ? userSnap.data()?.[USER_DOJO_FIELD] : null;
+      const dojo = sanitize(previous || store.dojo);
       apply(dojo);
-      tx.set(userRef, { total_points: points - effectiveCost }, { merge: true });
-      tx.set(dojoRef, dojo);
+      tx.set(userRef, {
+        total_points: points - effectiveCost,
+        [USER_DOJO_FIELD]: dojo
+      }, { merge: true });
       return { points: points - effectiveCost, dojo };
     });
     store.points = result.points;
     store.dojo = result.dojo;
     writeLocal(result.dojo);
+
+    if (store.collectionSync) {
+      try {
+        const { doc, setDoc } = store.fs;
+        await setDoc(doc(store.db, 'arena_clash_dojo', store.user.uid), result.dojo);
+      } catch (error) {
+        store.collectionSync = false;
+        console.warn('Arena Clash dojo collection write skipped.', error);
+      }
+    }
   }
 
   store.isOwned = (fighterId) => store.dojo.owned.includes(fighterId);
