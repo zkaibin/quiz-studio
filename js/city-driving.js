@@ -11,7 +11,7 @@ import { createFreeCity } from './city-free.js';
 import { createRealCity } from './city-real.js';
 import { createCityAudio } from './city-audio.js';
 import { createCityFx, createSpeedOverlay } from './city-fx.js';
-import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOffset, spawnFor, DISTRICT_COLORS } from './city-map.js';
+import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOffset, spawnFor, DISTRICT_COLORS, wrapCoord, wraps } from './city-map.js';
 
 (() => {
   const mount = document.getElementById('city-scene');
@@ -122,7 +122,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   const realButton = modeList.querySelector('[data-mode="real"]');
   const welcomeNote = document.getElementById('welcome-note');
   function refreshRealMap() {
-    realButton.hidden = !realCity.available();
+    realButton.hidden = !realCity.available() || !!currentCity().planet || !!currentCity().wrap;
     if (realButton.hidden && mode === 'real') setMode('free');
   }
   modeList.addEventListener('click', (event) => {
@@ -174,7 +174,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   const cityCode = document.getElementById('city-code');
   const cityIntro = document.getElementById('city-intro');
   const cityNameOutput = document.getElementById('city-name');
-  const CITY_CODES = { singapore: 'SG', newyork: 'NYC', shanghai: 'SH', tokyo: 'TYO', london: 'LDN', dubai: 'DXB' };
+  const CITY_CODES = { singapore: 'SG', newyork: 'NYC', shanghai: 'SH', tokyo: 'TYO', london: 'LDN', dubai: 'DXB', circadia: 'AUR' };
   const trafficLabel = () => (currentCity().drive === 'left' ? 'LEFT-HAND TRAFFIC' : 'RIGHT-HAND TRAFFIC');
 
   function updateCityText() {
@@ -184,7 +184,10 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     cityNameOutput.textContent = `${city.name}, ${city.country}`;
     document.title = `City Driving · ${city.name}`;
     mount.setAttribute('aria-label', `Three-dimensional ${city.name} city driving game`);
-    cityIntro.textContent = `Take the wheel in ${city.name}. Keep ${city.drive} and roam the wider city streets, or jump onto a racing circuit with only AI racers — clear asphalt, open lanes and room to hit your car’s top speed.`;
+    const lapKm = ((city.grid * PITCH) / 1000).toFixed(0);
+    cityIntro.textContent = city.planet
+      ? `Take the wheel in ${city.name}, the only city on tiny ${city.country}. Streets wrap the whole world (~${lapKm} km) with no edge — a leisurely lap is about an hour, and a flying car at max speed can circle in minutes.`
+      : `Take the wheel in ${city.name}. Keep ${city.drive} and roam the wider city streets, or jump onto a racing circuit with only AI racers — clear asphalt, open lanes and room to hit your car’s top speed.`;
     roadName.textContent = trafficLabel();
     roadName.dataset.default = roadName.textContent;
   }
@@ -570,6 +573,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   // Switching city: swap the map, style and routes, then pick that city's first route.
   function selectCity(city) {
     setCity(city.id);
+    freeCity.clear();
     freeCity.setStyle(city.style);
     try { localStorage.setItem('cityDrivingCity', city.id); } catch (error) { /* storage unavailable */ }
     renderRoutes();
@@ -585,6 +589,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     stage: document.getElementById('globe-stage'),
     labels: document.getElementById('globe-labels'),
     card: document.getElementById('globe-card'),
+    worlds: document.getElementById('globe-worlds'),
     getCurrentId: () => currentCity().id,
     onDrive: (city) => {
       if (city.id !== currentCity().id) selectCity(city);
@@ -606,7 +611,9 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     const offset = realActive ? realCity.half : 0;
     minimapCtx.drawImage(realActive ? realCity.mapLayer(minimap.width) : mapLayer, 0, 0);
     minimapCtx.save();
-    minimapCtx.translate((player.position.x + offset) * k, (player.position.z + offset) * k);
+    const mapX = realActive ? player.position.x : (wraps() ? wrapCoord(player.position.x) : player.position.x);
+    const mapZ = realActive ? player.position.z : (wraps() ? wrapCoord(player.position.z) : player.position.z);
+    minimapCtx.translate((mapX + offset) * k, (mapZ + offset) * k);
     minimapCtx.rotate(heading);
     minimapCtx.fillStyle = '#d9482b';
     minimapCtx.strokeStyle = '#fff';
@@ -686,7 +693,16 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
       const { props, peds, cars } = freeCity.stats;
       smashOutput.textContent = String(props + peds + cars);
       const info = infoAt(px, pz);
-      const place = info.landmark && Math.hypot(px - (info.landmark.i + 0.5) * PITCH, pz - (info.landmark.j + 0.5) * PITCH) < 90
+      let nearLandmark = false;
+      if (info.landmark) {
+        const lx = info.landmark.i * PITCH + PITCH * 0.5;
+        const lz = info.landmark.j * PITCH + PITCH * 0.5;
+        const wrapDelta = (a, b) => { let d = a - b; d -= SIZE * Math.round(d / SIZE); return d; };
+        const dx = wraps() ? wrapDelta(px, lx) : px - lx;
+        const dz = wraps() ? wrapDelta(pz, lz) : pz - lz;
+        nearLandmark = Math.hypot(dx, dz) < 90;
+      }
+      const place = nearLandmark
         ? `${info.district} · ${landmarkName(info.landmark.id).toUpperCase()}` : info.district.toUpperCase();
       if (locationName.textContent !== place) locationName.textContent = place;
       if (roadName.textContent !== info.street.toUpperCase()) roadName.textContent = info.street.toUpperCase();

@@ -2,7 +2,7 @@
 import * as THREE from './vendor/three/three.module.min.js';
 import { lcg } from './city-gfx.js';
 import { buildLandmark, disposeLandmarks } from './city-routes.js';
-import { PITCH as P, GRID, FACE, ROAD_HALF, cellInfo, seedOf } from './city-map.js';
+import { PITCH as P, GRID, FACE, ROAD_HALF, cellInfo, seedOf, currentCity, wrapIndex } from './city-map.js';
 const WALK_OUTER = FACE + 2.5;
 import { createEffects, createCars } from './city-smash.js';
 import { createStyles } from './city-styles.js';
@@ -289,22 +289,28 @@ export function createFreeCity({ scene, kit }) {
   }
 
   function buildChunk(i, j) {
+    const wrap = !!currentCity().wrap;
+    const ci = wrap ? wrapIndex(i) : i;
+    const cj = wrap ? wrapIndex(j) : j;
     const g = new THREE.Group();
     g.position.set(i * P, 0, j * P);
-    const rand = lcg(seedOf(i, j));
+    const rand = lcg(seedOf(ci, cj));
     const chunk = { g, i, j, peds: [], props: [], ranges: new Map(), n: 0, key: `${i},${j}` };
-    const east = i < GRID; const south = j < GRID;
+    const east = wrap || i < GRID;
+    const south = wrap || j < GRID;
+    const north = wrap || j > 0;
+    const west = wrap || i > 0;
     plane(g, asphaltMat, -ROAD_HALF, east ? P - ROAD_HALF : ROAD_HALF, -ROAD_HALF, ROAD_HALF, -0.04, 8);
     if (south) plane(g, asphaltMat, -ROAD_HALF, ROAD_HALF, ROAD_HALF, P - ROAD_HALF, -0.04, 8);
-    const arms = [[south, 0], [j > 0, Math.PI], [east, Math.PI / 2], [i > 0, -Math.PI / 2]];
+    const arms = [[south, 0], [north, Math.PI], [east, Math.PI / 2], [west, -Math.PI / 2]];
     for (const [exists, yaw] of arms) {
       if (!exists) continue;
       kit.addTrafficSignals(frame(g, 0, 0, yaw), FACE - 0.8);
     }
     if (south) decorateArm(chunk, g, 0, rand);
     if (east) decorateArm(chunk, g, Math.PI / 2, rand);
-    if (east && south) buildBlock(chunk, g, cellInfo(i, j), rand);
-    buildQuay(g, i, j);
+    if (east && south) buildBlock(chunk, g, cellInfo(ci, cj), rand);
+    if (!wrap) buildQuay(g, i, j);
     mergeStatics(g, chunk.ranges);
     g.updateMatrixWorld(true);
     root.add(g);
@@ -326,11 +332,12 @@ export function createFreeCity({ scene, kit }) {
   };
 
   function update(px, pz, time, budget = 1) {
+    const wrap = !!currentCity().wrap;
     const wanted = [];
-    const iMin = Math.max(0, Math.floor((px - LOAD + 8) / P));
-    const iMax = Math.min(GRID, Math.floor((px + LOAD + 8) / P));
-    const jMin = Math.max(0, Math.floor((pz - LOAD + 8) / P));
-    const jMax = Math.min(GRID, Math.floor((pz + LOAD + 8) / P));
+    const iMin = wrap ? Math.floor((px - LOAD + 8) / P) : Math.max(0, Math.floor((px - LOAD + 8) / P));
+    const iMax = wrap ? Math.floor((px + LOAD + 8) / P) : Math.min(GRID, Math.floor((px + LOAD + 8) / P));
+    const jMin = wrap ? Math.floor((pz - LOAD + 8) / P) : Math.max(0, Math.floor((pz - LOAD + 8) / P));
+    const jMax = wrap ? Math.floor((pz + LOAD + 8) / P) : Math.min(GRID, Math.floor((pz + LOAD + 8) / P));
     for (let i = iMin; i <= iMax; i++) {
       for (let j = jMin; j <= jMax; j++) {
         const key = `${i},${j}`;
@@ -342,9 +349,12 @@ export function createFreeCity({ scene, kit }) {
     for (let n = 0; n < wanted.length && n < budget; n++) chunks.set(wanted[n].key, buildChunk(wanted[n].i, wanted[n].j));
     for (const [key, chunk] of [...chunks]) if (distanceTo(chunk.i, chunk.j, px, pz) > UNLOAD) dropChunk(key);
 
-    seaTex.offset.set(px / 10 + time * 0.01, -pz / 10);
-    sea.position.x = px;
-    sea.position.z = pz;
+    sea.visible = !wrap;
+    if (!wrap) {
+      seaTex.offset.set(px / 10 + time * 0.01, -pz / 10);
+      sea.position.x = px;
+      sea.position.z = pz;
+    }
     animatePeds(px, pz, time);
   }
 
@@ -380,6 +390,7 @@ export function createFreeCity({ scene, kit }) {
     seaMat.color.setHex(style.sea ?? 0x4c93b5);
     pondMat.color.setHex(style.pond ?? 0x4c93b5);
     parkMat.color.setHex(style.park ?? 0x86a97d);
+    sea.visible = !currentCity().wrap;
   }
 
   function setVisible(on) {

@@ -19,6 +19,7 @@ export const seedOf = (i, j, salt = 0) => (hash(i, j, salt) % 2147483646) + 1;
 let city = CITY_BY_ID[DEFAULT_CITY_ID];
 let landmarkAt = new Map();
 export const currentCity = () => city;
+export const wraps = () => !!city.wrap;
 export function setCity(next) {
   city = typeof next === 'string' ? CITY_BY_ID[next] : next;
   GRID = city.grid;
@@ -28,12 +29,33 @@ export function setCity(next) {
 setCity(city);
 
 const clampCell = (v) => Math.max(0, Math.min(GRID - 1, v));
+export const wrapIndex = (v) => {
+  const g = GRID;
+  return ((Math.floor(v) % g) + g) % g;
+};
+export const wrapCoord = (v) => {
+  const s = SIZE;
+  return ((v % s) + s) % s;
+};
+const cellOf = (v) => (city.wrap ? wrapIndex(v) : clampCell(v));
+const periodDelta = (a, b, period) => {
+  let d = a - b;
+  d -= period * Math.round(d / period);
+  return d;
+};
 
 export function cellInfo(i, j) {
-  const ci = clampCell(i); const cj = clampCell(j);
+  const ci = cellOf(i); const cj = cellOf(j);
   let region = city.regions[0]; let best = Infinity;
   for (const r of city.regions) {
-    const d = (r.i - ci) ** 2 + (r.j - cj) ** 2;
+    let d;
+    if (city.wrap) {
+      const di = periodDelta(r.i, ci, GRID);
+      const dj = periodDelta(r.j, cj, GRID);
+      d = di * di + dj * dj;
+    } else {
+      d = (r.i - ci) ** 2 + (r.j - cj) ** 2;
+    }
     if (d < best) { best = d; region = r; }
   }
   const landmark = landmarkAt.get(`${ci},${cj}`) || null;
@@ -46,16 +68,18 @@ export function cellInfo(i, j) {
 export function infoAt(x, z) {
   const i = Math.floor(x / PITCH); const j = Math.floor(z / PITCH);
   const cell = cellInfo(i, j);
-  const lineX = Math.max(0, Math.min(GRID, Math.round(x / PITCH)));
-  const lineZ = Math.max(0, Math.min(GRID, Math.round(z / PITCH)));
+  const lineX = Math.round(x / PITCH);
+  const lineZ = Math.round(z / PITCH);
   const offX = Math.abs(x - lineX * PITCH);
   const offZ = Math.abs(z - lineZ * PITCH);
-  const street = offX <= offZ ? city.avenues(lineX) : city.streets(lineZ);
+  const avenueLine = city.wrap ? wrapIndex(lineX) : Math.max(0, Math.min(GRID, lineX));
+  const streetLine = city.wrap ? wrapIndex(lineZ) : Math.max(0, Math.min(GRID, lineZ));
+  const street = offX <= offZ ? city.avenues(avenueLine) : city.streets(streetLine);
   return { district: cell.district, street, landmark: cell.landmark };
 }
 
 export function isDrivable(x, z) {
-  if (x < -DRIVE_LIMIT || z < -DRIVE_LIMIT || x > SIZE + DRIVE_LIMIT || z > SIZE + DRIVE_LIMIT) return false;
+  if (!city.wrap && (x < -DRIVE_LIMIT || z < -DRIVE_LIMIT || x > SIZE + DRIVE_LIMIT || z > SIZE + DRIVE_LIMIT)) return false;
   const offX = Math.abs(x - Math.round(x / PITCH) * PITCH);
   const offZ = Math.abs(z - Math.round(z / PITCH) * PITCH);
   return offX <= DRIVE_LIMIT || offZ <= DRIVE_LIMIT;
@@ -63,13 +87,22 @@ export function isDrivable(x, z) {
 
 // Free roam: roads, the pavement strip in front of buildings and the open park blocks are drivable; building interiors are not.
 export function isFreeDrivable(x, z) {
-  const sea = 13;
-  if (x < -sea || z < -sea || x > SIZE + sea || z > SIZE + sea) return false;
-  if (isDrivable(x, z) || x < 0 || z < 0 || x > SIZE || z > SIZE) return true;
-  const i = Math.min(GRID - 1, Math.floor(x / PITCH));
-  const j = Math.min(GRID - 1, Math.floor(z / PITCH));
+  if (!city.wrap) {
+    const sea = 13;
+    if (x < -sea || z < -sea || x > SIZE + sea || z > SIZE + sea) return false;
+    if (isDrivable(x, z) || x < 0 || z < 0 || x > SIZE || z > SIZE) return true;
+    const i = Math.min(GRID - 1, Math.floor(x / PITCH));
+    const j = Math.min(GRID - 1, Math.floor(z / PITCH));
+    if (cellInfo(i, j).kind === 'park') return true;
+    const lx = x - i * PITCH; const lz = z - j * PITCH;
+    return Math.min(lx, PITCH - lx, lz, PITCH - lz) < FACE - 0.6;
+  }
+  if (isDrivable(x, z)) return true;
+  const i = Math.floor(x / PITCH);
+  const j = Math.floor(z / PITCH);
   if (cellInfo(i, j).kind === 'park') return true;
-  const lx = x - i * PITCH; const lz = z - j * PITCH;
+  const lx = ((x % PITCH) + PITCH) % PITCH;
+  const lz = ((z % PITCH) + PITCH) % PITCH;
   return Math.min(lx, PITCH - lx, lz, PITCH - lz) < FACE - 0.6;
 }
 
