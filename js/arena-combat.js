@@ -342,34 +342,47 @@ export function updateCpu(cpu, foe, difficulty = 'normal') {
     return;
   }
 
-  if (dist > 2.8) {
+  // Prefer mid martial range so 偏马步 / 冲拳 stay readable (avoid clinch)
+  if (dist < 2.0) {
+    // Hard retreat when inside preferred space
+    if (dx > 0) cpu.input.left = true;
+    else cpu.input.right = true;
+    return;
+  }
+
+  if (dist > 3.5) {
     if (dx > 0) cpu.input.right = true;
     else cpu.input.left = true;
-    if (cpu.loadout.melee.includes('dash') && dist > 4 && Math.random() < 0.02 * aggro) {
+    if (cpu.loadout.melee.includes('dash') && dist > 5.5 && Math.random() < 0.012 * aggro) {
       cpu.input.skill2 = true;
     }
-  } else if (dist < 1.1) {
-    if (dx > 0) cpu.input.left = Math.random() < 0.3;
-    else cpu.input.right = Math.random() < 0.3;
+  } else if (dist < 2.55) {
+    // Soft drift out while still in kick/punch reach
+    if (dx > 0) cpu.input.left = Math.random() < 0.55;
+    else cpu.input.right = Math.random() < 0.55;
+  } else if (Math.random() < 0.05) {
+    if (Math.random() < 0.5) cpu.input.left = true;
+    else cpu.input.right = true;
   }
 
   if (foe.y > 1.5 && cpu.loadout.hasFlight) cpu.input.up = true;
   else if (Math.random() < 0.008 * aggro) cpu.input.up = true;
 
-  if (dist < 2.0 && Math.random() < 0.04 * aggro) {
+  // Reach extended to ~2.1–2.45 so mid-range strikes land without clinching
+  if (dist >= 2.05 && dist < 2.9 && Math.random() < 0.032 * aggro) {
     if (Math.random() < 0.45) cpu.input.punch = true;
     else if (Math.random() < 0.7) cpu.input.kick = true;
     else cpu.input.skill1 = true;
   }
 
-  if (dist > 2.5 && dist < 8 && Math.random() < 0.015 * aggro + preferSpecial * 0.01) {
+  if (dist > 3.0 && dist < 8 && Math.random() < 0.012 * aggro + preferSpecial * 0.01) {
     if (cpu.energy > 40 && cpu.loadout.specials[1] && Math.random() < preferSpecial) cpu.input.special2 = true;
     else if (cpu.energy > 30 && cpu.loadout.specials[0]) cpu.input.special1 = true;
   }
 }
 
 export function resetFighter(f, side) {
-  f.x = side === 'p1' ? -4.2 : 4.2;
+  f.x = side === 'p1' ? -5.1 : 5.1;
   f.y = 0;
   f.z = 0;
   f.vx = 0;
