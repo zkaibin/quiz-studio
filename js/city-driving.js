@@ -1181,9 +1181,12 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   const demoFly = (() => {
     try { return new URLSearchParams(location.search).get('demo') === 'fly'; } catch (error) { return false; }
   })();
-  const demoFlyer = demoFly ? (CARS.find((car) => car.id === 'aether') || CARS.find((car) => car.fly) || null) : null;
+  // Prefer the newest flyer when demoing; fall back through the flying catalog.
+  const demoFlyer = demoFly
+    ? (CARS.find((car) => car.id === 'amalfi') || CARS.find((car) => car.id === 'aether') || CARS.find((car) => car.fly) || null)
+    : null;
   const isOwned = (id) => {
-    if (demoFlyer && demoFlyer.id === id) return true;
+    if (demoFly && CARS.some((car) => car.id === id && car.fly)) return true;
     return signedIn() ? store.garage.owned.includes(id) : id === CARS[0].id;
   };
   const upgradesOf = (id) => (signedIn() && store.garage.upgrades[id]) || defaultUpgrades();

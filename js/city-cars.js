@@ -61,6 +61,10 @@ export const CARS = [
     top: 92, accel: 11.5, brake: 34, handling: 1.2, build: { L: 4.26, W: 1.92, nose: 0.46, hood: 0.78, belt: 0.84, cowlU: 0.7, deckH: 0.96, tailH: 0.88, rf: 0.15, rr: -0.95, rearBase: -1.7, roofH: 1.2, wing: 'lip', grille: 'ev' }
   },
   {
+    id: 'amalfi', name: 'Ferrari Amalfi Spider', tag: 'Flying racing spider · 200 m', price: 420, fly: true, maxAlt: 200, colors: [0xc8102e, 0xf2f2f2, 0x1b1d22, 0xffc20e],
+    top: 98, accel: 12.4, brake: 35, handling: 1.3, build: { L: 4.66, W: 1.97, nose: 0.44, hood: 0.76, belt: 0.82, cowlU: 0.95, deckH: 0.9, tailH: 0.78, rf: 0.35, rr: -0.85, rearBase: -1.55, roofH: 1.08, wing: 'lip', grille: 'ferrari', taper: 0.16, tumble: 0.12 }
+  },
+  {
     id: 'aether', name: 'Aether Nova GT', tag: 'Flying hypercar · 200 m', price: 500, fly: true, maxAlt: 200, colors: [0x1b1d22, 0x7a5cff, 0xd7dde3, 0x00b3a4],
     top: 100, accel: 13, brake: 36, handling: 1.25, build: { L: 4.5, W: 1.98, nose: 0.4, hood: 0.7, belt: 0.78, cowlU: 0.9, deckH: 0.9, tailH: 0.8, rf: 0.3, rr: -0.75, rearBase: -1.6, roofH: 1.12, wing: 'high', grille: 'ev' }
   }
@@ -198,6 +202,16 @@ export function buildCarModel(THREE, car, colorHex) {
       box(0.35, 0.12, 0.05, black, s * 0.55, 0.45, nz - 0.01);
     }
     box(0.7, 0.14, 0.05, black, 0, 0.45, nz - 0.01);
+  } else if (b.grille === 'ferrari') {
+    // Slim LED DRLs and a deep oval shield grille with a yellow crest.
+    for (const s of [-1, 1]) {
+      box(0.55, 0.05, 0.04, head, s * (b.W / 2 - 0.48), lightY + 0.14, nz + 0.04);
+      box(0.28, 0.1, 0.04, black, s * 0.62, 0.42, nz - 0.01);
+    }
+    const shield = add(new THREE.SphereGeometry(0.22, 16, 12), black, 0, lightY - 0.02, nz - 0.02);
+    shield.scale.set(1.15, 0.95, 0.35);
+    box(0.16, 0.12, 0.03, new THREE.MeshStandardMaterial({ color: 0xffc20e, roughness: 0.35, metalness: 0.6, emissive: 0xaa8800, emissiveIntensity: 0.35 }), 0, lightY + 0.02, nz - 0.05);
+    box(b.W * 0.55, 0.1, 0.04, black, 0, 0.4, nz - 0.01);
   } else {
     for (const s of [-1, 1]) box(0.5, 0.09, 0.05, head, s * (b.W / 2 - 0.5), lightY + 0.06, nz + 0.03);
     if (b.grille === 'audi') {
@@ -219,6 +233,15 @@ export function buildCarModel(THREE, car, colorHex) {
     suv.rear();
   } else if (b.grille === 'porsche') {
     box(b.W - 0.55, 0.08, 0.05, tail, 0, b.tailH - 0.12, rz - 0.04);
+  } else if (b.grille === 'ferrari') {
+    // Full-width light bar with twin circular clusters, Ferrari-style.
+    box(b.W - 0.35, 0.06, 0.04, tail, 0, b.tailH - 0.04, rz - 0.02);
+    for (const s of [-1, 1]) {
+      for (const dy of [-0.04, 0.05]) {
+        const lamp = add(new THREE.SphereGeometry(0.07, 12, 10), tail, s * (b.W / 2 - 0.38), b.tailH - 0.08 + dy, rz + 0.01);
+        lamp.scale.set(1, 1, 0.55);
+      }
+    }
   } else {
     for (const s of [-1, 1]) box(0.6, 0.12, 0.05, tail, s * (b.W / 2 - 0.4), b.tailH - 0.06, rz + 0.01);
   }
@@ -247,6 +270,7 @@ export function buildCarModel(THREE, car, colorHex) {
     porsche: { spokes: 5, thick: 0.05, rim: 0xcfd2d6, caliper: 0xffc20e, lugs: true },
     lambo: { spokes: 6, thick: 0.11, rim: 0x111214, caliper: 0xff7a00, lugs: false },
     volt: { spokes: 8, thick: 0.03, rim: 0xc9ced3, caliper: 0x1d4e9c, lugs: false },
+    amalfi: { spokes: 5, thick: 0.08, rim: 0x1a1c1f, caliper: 0xffc20e, lugs: true },
     aether: { spokes: 12, thick: 0.025, rim: 0x2a2d33, caliper: 0x7a5cff, lugs: false },
     q7: { spokes: 10, thick: 0.035, rim: 0xc3c7cb, caliper: 0x8a1c24, lugs: true },
     x5: { spokes: 10, thick: 0.05, rim: 0x2b2e33, caliper: 0x2b6fd0, lugs: false },
@@ -321,6 +345,16 @@ export function buildCarModel(THREE, car, colorHex) {
       box(0.3, 0.02, 0.6, black, sd * 0.3, b.hood + 0.01, -(front - 1.0));
     }
     box(b.W * 0.85, 0.1, 0.35, black, 0, 0.36, rz);
+  } else if (car.id === 'amalfi') {
+    // Open spider cabin cues: roll hoops, tonneau, side scoops and hood vents.
+    for (const sd of [-1, 1]) {
+      box(0.05, 0.28, 0.08, black, sd * 0.28, b.roofH + 0.08, b.rr + 0.15);
+      box(0.22, 0.08, 0.45, black, sd * (b.W / 2 - 0.08), b.belt - 0.02, -(b.cowlU - 0.55));
+      box(0.18, 0.02, 0.55, black, sd * 0.28, b.hood + 0.015, -(front - 1.15));
+    }
+    box(b.W * 0.72, 0.04, 0.55, black, 0, b.deckH + 0.02, (b.rr + b.rearBase) / 2);
+    box(0.35, 0.03, 0.08, new THREE.MeshStandardMaterial({ color: 0xffc20e, roughness: 0.4, metalness: 0.7 }), 0, b.belt + 0.02, -(b.cowlU - 0.05));
+    box(b.W * 0.7, 0.08, 0.28, black, 0, 0.34, rz);
   }
   if (car.fly) {
     // Nitrogen thrusters: dark nozzles under each corner and at the tail, with flames driven by userData.setThrust(0..1)
