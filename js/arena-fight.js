@@ -50,6 +50,22 @@ import {
   let camTarget = new THREE.Vector3(0, 1.0, 0);
   let camPos = camera.position.clone();
 
+  // Fight camera distances — default Wide because Close felt too tight on Budokai
+  const CAMERA_VIEWS = [
+    { id: 'close', label: 'Close', fov: 48, zBase: 6.8, zSpan: 0.34, yBase: 2.7, yMul: 0.18, midLift: 1.4, xBias: 0.06 },
+    { id: 'mid', label: 'Mid', fov: 50, zBase: 10.2, zSpan: 0.42, yBase: 3.55, yMul: 0.22, midLift: 1.55, xBias: 0.08 },
+    { id: 'wide', label: 'Wide', fov: 52, zBase: 12.6, zSpan: 0.48, yBase: 5.1, yMul: 0.24, midLift: 1.65, xBias: 0.1 },
+    { id: 'stadium', label: 'Stadium', fov: 55, zBase: 18.5, zSpan: 0.55, yBase: 7.4, yMul: 0.28, midLift: 1.85, xBias: 0.12 }
+  ];
+  let cameraViewId = 'wide';
+  try {
+    const savedCam = localStorage.getItem('arenaClashCamera');
+    if (CAMERA_VIEWS.some((v) => v.id === savedCam)) cameraViewId = savedCam;
+  } catch { /* ignore */ }
+  function getCameraView() {
+    return CAMERA_VIEWS.find((v) => v.id === cameraViewId) || CAMERA_VIEWS[2];
+  }
+
   const keys = new Set();
   const touch = {};
   const stick = { active: false, x: 0, y: 0, pointerId: null };
@@ -73,9 +89,35 @@ import {
   const pausedOverlay = $('paused');
   const matchHud = $('match-hud');
   const skillTray = $('skill-tray');
+  const cameraRail = $('camera-rail');
   const hint = $('hint');
   const touchHint = $('touch-hint');
   const isCoarsePointer = () => window.matchMedia('(pointer: coarse), (hover: none)').matches;
+
+  function syncCameraRail() {
+    if (!cameraRail) return;
+    cameraRail.querySelectorAll('[data-cam]').forEach((btn) => {
+      btn.classList.toggle('on', btn.dataset.cam === cameraViewId);
+    });
+    const view = getCameraView();
+    camera.fov = view.fov;
+    camera.updateProjectionMatrix();
+  }
+
+  function setCameraView(id, { persist = true } = {}) {
+    if (!CAMERA_VIEWS.some((v) => v.id === id)) return;
+    cameraViewId = id;
+    syncCameraRail();
+    if (persist) {
+      try { localStorage.setItem('arenaClashCamera', cameraViewId); } catch { /* ignore */ }
+    }
+  }
+
+  function cycleCameraView() {
+    const idx = CAMERA_VIEWS.findIndex((v) => v.id === cameraViewId);
+    const next = CAMERA_VIEWS[(idx + 1) % CAMERA_VIEWS.length];
+    setCameraView(next.id);
+  }
 
   function show(el) { el.classList.remove('hidden'); }
   function hide(el) { el.classList.add('hidden'); }
@@ -424,6 +466,13 @@ import {
     // Edge-trigger attacks from held keys: combat reads booleans each frame; throttle via cooldown
     updateFighter(p1, dt, world.bounds, true);
     updateFighter(p2, dt, world.bounds, true);
+    // Keep fighters squared up so retreat doesn't flip the Kung Fu lead
+    if (p1.alive && p2.alive) {
+      p1.facing = p2.x >= p1.x ? 1 : -1;
+      p2.facing = p1.x >= p2.x ? 1 : -1;
+      p1.model?.setFacing?.(p1.facing);
+      p2.model?.setFacing?.(p2.facing);
+    }
     resolveCombat(p1, p2, fx, dt);
   }
 
@@ -447,6 +496,7 @@ import {
     $('result-points').textContent = `+${award} points · balance ${total}`;
     matchHud.hidden = true;
     skillTray.hidden = true;
+    if (cameraRail) cameraRail.hidden = true;
     setTouchChrome(false);
     hide(pausedOverlay);
     show(result);
@@ -503,6 +553,8 @@ import {
     elapsed = 0;
     matchHud.hidden = false;
     skillTray.hidden = false;
+    if (cameraRail) cameraRail.hidden = false;
+    syncCameraRail();
     setTouchChrome(true);
     syncHud();
 
@@ -532,6 +584,7 @@ import {
   $('result-dojo').onclick = () => { hide(result); show(dojo); renderDojo(); refreshPoints(); };
   $('result-menu').onclick = () => {
     hide(result); clearFighters(); matchHud.hidden = true; skillTray.hidden = true;
+    if (cameraRail) cameraRail.hidden = true;
     setTouchChrome(false);
     show(welcome); refreshPoints();
   };
@@ -540,12 +593,24 @@ import {
     paused = false; running = false; matchOver = true;
     hide(pausedOverlay); clearFighters();
     matchHud.hidden = true; skillTray.hidden = true;
+    if (cameraRail) cameraRail.hidden = true;
     setTouchChrome(false);
+    camera.fov = 50;
+    camera.updateProjectionMatrix();
     camera.position.set(0, 7.2, 22);
     camPos.copy(camera.position);
     camTarget.set(0, 1.0, 0);
     show(welcome);
   };
+
+  if (cameraRail) {
+    cameraRail.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-cam]');
+      if (!btn) return;
+      setCameraView(btn.dataset.cam);
+    });
+  }
+  syncCameraRail();
 
   $('difficulty-row').onclick = (e) => {
     const btn = e.target.closest('[data-diff]');
@@ -573,6 +638,7 @@ import {
       paused = !paused;
       if (paused) show(pausedOverlay); else hide(pausedOverlay);
     }
+    if (k === 'c' && running && !matchOver) cycleCameraView();
   });
   window.addEventListener('keyup', (e) => keys.delete(e.key.toLowerCase()));
 
@@ -772,27 +838,40 @@ import {
     elapsed += dt;
     world.update(dt, elapsed);
 
-    if (running && !paused && !matchOver && p1 && p2) {
-      applyInputs(dt);
-      timeLeft -= dt;
-      syncHud();
+    if (p1 && p2 && !matchOver && matchHud && !matchHud.hidden) {
+      // Keep fight camera + idle Kung Fu poses during countdown / pause
+      if (running && !paused) {
+        applyInputs(dt);
+        timeLeft -= dt;
+        syncHud();
+      } else if (!paused) {
+        // Countdown: settle into ready stance before FIGHT
+        p1.model?.animate?.(dt, { moving: false, airborne: false, guarding: false });
+        p2.model?.animate?.(dt, { moving: false, airborne: false, guarding: false });
+      }
 
-      // Camera framing — keep heads and ring in view on the larger Budokai stage
+      const view = getCameraView();
       const midX = (p1.x + p2.x) / 2;
-      const midY = (p1.y + p2.y) / 2 + 1.5;
-      const span = Math.min(14, Math.max(5.2, Math.abs(p1.x - p2.x) + 3.8));
+      const midY = (p1.y + p2.y) / 2 + view.midLift;
+      const span = Math.min(16, Math.max(5.2, Math.abs(p1.x - p2.x) + 3.8));
       camTarget.lerp(new THREE.Vector3(midX, midY, (p1.z + p2.z) * 0.25), 1 - Math.pow(0.001, dt));
-      const desired = new THREE.Vector3(midX * 0.08, 3.1 + midY * 0.22, 8.2 + span * 0.45);
+      const desired = new THREE.Vector3(
+        midX * view.xBias,
+        view.yBase + midY * view.yMul,
+        view.zBase + span * view.zSpan
+      );
       camPos.lerp(desired, 1 - Math.pow(0.05, dt));
       camera.position.copy(camPos);
       camera.lookAt(camTarget);
 
-      if (!p1.alive || !p2.alive || timeLeft <= 0) {
-        let outcome = 'draw';
-        if (p1.alive && !p2.alive) outcome = 'p1';
-        else if (!p1.alive && p2.alive) outcome = 'p2';
-        else if (p1.hp !== p2.hp) outcome = p1.hp > p2.hp ? 'p1' : 'p2';
-        endMatch(outcome);
+      if (running && !paused) {
+        if (!p1.alive || !p2.alive || timeLeft <= 0) {
+          let outcome = 'draw';
+          if (p1.alive && !p2.alive) outcome = 'p1';
+          else if (!p1.alive && p2.alive) outcome = 'p2';
+          else if (p1.hp !== p2.hp) outcome = p1.hp > p2.hp ? 'p1' : 'p2';
+          endMatch(outcome);
+        }
       }
     } else if (!running) {
       // Idle camera drift on menu — orbit the full tournament ring

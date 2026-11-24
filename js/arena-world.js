@@ -165,14 +165,14 @@ function buildBudokaiPlatform(platform, stage) {
     color: 0xffffff, transparent: true, opacity: 0.22
   }), 0, 0.035, 0, 0.12, 0.01, R * 1.7);
 
-  // Corner posts + tournament banners
+  // Corner posts + tournament banners (skip near-camera +Z so Wide/Stadium stay clear)
   for (let i = 0; i < 8; i++) {
     const a = (i / 8) * Math.PI * 2 + Math.PI / 8;
     const x = Math.cos(a) * (R - 0.35);
     const z = Math.sin(a) * (R - 0.35);
     mesh(platform, cylGeo, woodMat, x, 1.35, z, 0.18, 2.7, 0.18);
     mesh(platform, sphereGeo, redMat, x, 2.8, z, 0.28, 0.28, 0.28);
-    // Cloth banner hanging inward
+    if (z > R * 0.35) continue; // no cloth on the camera-facing arc
     const banner = mesh(platform, boxGeo, flagMat, x * 0.92, 1.9, z * 0.92, 0.08, 1.4, 0.55);
     banner.lookAt(0, 1.9, 0);
   }
