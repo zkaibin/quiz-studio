@@ -17,7 +17,7 @@ export function createFighter({ scene, fighterId, side, unlockedIds, control = '
     loadout,
     control,
     model,
-    x: side === 'p1' ? -3.2 : 3.2,
+    x: side === 'p1' ? -4.2 : 4.2,
     y: 0,
     z: 0,
     vx: 0,
@@ -369,7 +369,7 @@ export function updateCpu(cpu, foe, difficulty = 'normal') {
 }
 
 export function resetFighter(f, side) {
-  f.x = side === 'p1' ? -3.2 : 3.2;
+  f.x = side === 'p1' ? -4.2 : 4.2;
   f.y = 0;
   f.z = 0;
   f.vx = 0;

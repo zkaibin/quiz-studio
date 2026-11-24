@@ -149,36 +149,52 @@ function makeHeadTexture(v) {
   ctx.beginPath(); ctx.ellipse(cx + 58, cy + 28, 28, 16, 0, 0, Math.PI * 2); ctx.fill();
 
   const drawEye = (ex, flip) => {
-    // White sclera — large anime eyes
+    // Larger anime sclera with soft shadow
+    ctx.fillStyle = 'rgba(30,20,15,0.18)';
+    ctx.beginPath();
+    ctx.ellipse(ex + flip * 2, cy - 2, 40, 46, flip * 0.08, 0, Math.PI * 2);
+    ctx.fill();
     ctx.fillStyle = '#fffef8';
     ctx.beginPath();
-    ctx.ellipse(ex, cy - 8, 34, 40, flip * 0.1, 0, Math.PI * 2);
+    ctx.ellipse(ex, cy - 10, 38, 44, flip * 0.1, 0, Math.PI * 2);
     ctx.fill();
-    // Iris
+    // Colored iris
     ctx.fillStyle = eye;
     ctx.beginPath();
-    ctx.ellipse(ex + flip * 3, cy - 4, 20, 26, 0, 0, Math.PI * 2);
+    ctx.ellipse(ex + flip * 4, cy - 6, 22, 28, 0, 0, Math.PI * 2);
     ctx.fill();
+    // Inner iris ring
+    ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.ellipse(ex + flip * 4, cy - 6, 14, 18, 0, 0, Math.PI * 2);
+    ctx.stroke();
     // Pupil
     ctx.fillStyle = '#070707';
     ctx.beginPath();
-    ctx.ellipse(ex + flip * 3, cy - 2, 9, 13, 0, 0, Math.PI * 2);
+    ctx.ellipse(ex + flip * 4, cy - 4, 10, 14, 0, 0, Math.PI * 2);
     ctx.fill();
     // Speculars
     ctx.fillStyle = '#ffffff';
-    ctx.beginPath(); ctx.ellipse(ex - 8, cy - 18, 8, 9, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(ex + 10, cy + 4, 4, 5, 0, 0, Math.PI * 2); ctx.fill();
-    // Upper lid ink
+    ctx.beginPath(); ctx.ellipse(ex - 10, cy - 22, 9, 10, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(ex + 12, cy + 2, 4.5, 5.5, 0, 0, Math.PI * 2); ctx.fill();
+    // Upper lid ink — thicker DBZ line
     ctx.strokeStyle = '#140e0c';
-    ctx.lineWidth = 7;
+    ctx.lineWidth = 9;
     ctx.lineCap = 'round';
     ctx.beginPath();
-    ctx.ellipse(ex, cy - 8, 34, 40, flip * 0.1, Math.PI * 1.05, Math.PI * 1.95);
+    ctx.ellipse(ex, cy - 10, 38, 44, flip * 0.1, Math.PI * 1.05, Math.PI * 1.95);
+    ctx.stroke();
+    // Outer corner flick
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.moveTo(ex + flip * 34, cy - 18);
+    ctx.quadraticCurveTo(ex + flip * 48, cy - 22, ex + flip * 52, cy - 10);
     ctx.stroke();
     // Lower lash hint
     ctx.lineWidth = 3;
     ctx.beginPath();
-    ctx.ellipse(ex, cy - 8, 34, 40, flip * 0.1, 0.15, Math.PI - 0.15);
+    ctx.ellipse(ex, cy - 10, 38, 44, flip * 0.1, 0.15, Math.PI - 0.15);
     ctx.stroke();
   };
 
@@ -205,20 +221,26 @@ function makeHeadTexture(v) {
     drawEye(cx + 42, 1);
   }
 
-  // Thick DBZ brows
+  // Thick DBZ brows — angled and heavier
   if (v.kit !== 'frieza' && v.kit !== 'cell') {
     ctx.strokeStyle = brow;
-    ctx.lineWidth = 12;
+    ctx.lineWidth = 14;
     ctx.lineCap = 'round';
     ctx.beginPath();
-    ctx.moveTo(cx - 78, cy - 52);
-    ctx.quadraticCurveTo(cx - 42, cy - 68, cx - 12, cy - 54);
+    ctx.moveTo(cx - 86, cy - 48);
+    ctx.quadraticCurveTo(cx - 48, cy - 78, cx - 8, cy - 58);
     ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(cx + 78, cy - 52);
-    ctx.quadraticCurveTo(cx + 42, cy - 68, cx + 12, cy - 54);
+    ctx.moveTo(cx + 86, cy - 48);
+    ctx.quadraticCurveTo(cx + 48, cy - 78, cx + 8, cy - 58);
     ctx.stroke();
   }
+
+  // Soft jaw / chin shading for anime face card read
+  ctx.fillStyle = 'rgba(90,45,30,0.12)';
+  ctx.beginPath();
+  ctx.ellipse(cx, cy + 78, 70, 36, 0, 0, Math.PI * 2);
+  ctx.fill();
 
   if (v.kit === 'buu') {
     ctx.fillStyle = '#111827';
@@ -298,35 +320,42 @@ function buildHair(head, color, style) {
   };
 
   if (style === 'goku') {
-    part(head, sphereGeo, hairMat, 0, 0.22, -0.08, 0.42, 0.32, 0.4, 0, 0, 0, { outline: true });
+    // Dense base + tall forward spikes (classic silhouette)
+    part(head, sphereGeo, hairMat, 0, 0.24, -0.06, 0.46, 0.36, 0.44, 0, 0, 0, { outline: true });
     const tips = [
-      [0, 0.62, 0.08, 0.16, 0.62, 0.16, -0.28, 0, true],
-      [-0.22, 0.54, 0.12, 0.14, 0.5, 0.14, -0.4, -0.4],
-      [0.24, 0.56, 0.1, 0.14, 0.54, 0.14, -0.36, 0.35, true],
-      [-0.36, 0.42, 0.02, 0.13, 0.44, 0.13, -0.55, -0.6],
-      [0.38, 0.44, 0, 0.13, 0.46, 0.13, -0.5, 0.58],
-      [-0.1, 0.5, -0.1, 0.12, 0.4, 0.12, -0.7, -0.15],
-      [0.12, 0.52, -0.12, 0.12, 0.42, 0.12, -0.75, 0.15],
-      [0, 0.48, -0.28, 0.18, 0.58, 0.18, -1.08, 0, true],
-      [-0.16, 0.4, -0.24, 0.12, 0.4, 0.12, -0.95, -0.3],
-      [0.18, 0.42, -0.26, 0.12, 0.42, 0.12, -1.0, 0.3]
+      [0.02, 0.78, 0.16, 0.17, 0.78, 0.17, -0.18, 0.05, true],
+      [-0.18, 0.7, 0.2, 0.15, 0.66, 0.15, -0.32, -0.42, true],
+      [0.22, 0.72, 0.18, 0.15, 0.7, 0.15, -0.28, 0.4],
+      [-0.34, 0.56, 0.08, 0.14, 0.58, 0.14, -0.48, -0.72],
+      [0.36, 0.58, 0.06, 0.14, 0.6, 0.14, -0.45, 0.7, true],
+      [-0.42, 0.4, -0.04, 0.12, 0.46, 0.12, -0.7, -0.85],
+      [0.44, 0.42, -0.06, 0.12, 0.48, 0.12, -0.68, 0.85],
+      [-0.12, 0.62, -0.08, 0.13, 0.52, 0.13, -0.78, -0.2],
+      [0.14, 0.64, -0.1, 0.13, 0.54, 0.13, -0.82, 0.22, true],
+      [0, 0.58, -0.3, 0.2, 0.72, 0.2, -1.12, 0, true],
+      [-0.2, 0.48, -0.28, 0.13, 0.5, 0.13, -1.0, -0.35],
+      [0.22, 0.5, -0.3, 0.13, 0.52, 0.13, -1.05, 0.35],
+      [0.06, 0.42, 0.34, 0.11, 0.32, 0.11, 0.85, 0.1]
     ];
     for (const t of tips) spike(t[0], t[1], t[2], t[3], t[4], t[5], t[6] || 0, t[7] || 0, !!t[8]);
     return;
   }
 
   if (style === 'vegeta') {
-    part(head, sphereGeo, hairMat, 0, 0.24, -0.1, 0.4, 0.32, 0.38, 0, 0, 0, { outline: true });
-    part(head, coneGeo, hairMat, 0, 0.26, 0.26, 0.15, 0.28, 0.13, 0.95, 0, 0, { outline: true });
+    // Widow's peak + upright spikes
+    part(head, sphereGeo, hairMat, 0, 0.26, -0.08, 0.44, 0.36, 0.4, 0, 0, 0, { outline: true });
+    part(head, coneGeo, hairMat, 0, 0.3, 0.3, 0.16, 0.34, 0.14, 1.05, 0, 0, { outline: true });
     [
-      [0, 0.66, -0.02, 0.14, 0.56, 0.14, -0.1, 0, true],
-      [-0.14, 0.58, 0.02, 0.12, 0.48, 0.12, -0.16, -0.25],
-      [0.14, 0.58, 0.02, 0.12, 0.48, 0.12, -0.16, 0.25],
-      [-0.26, 0.46, -0.1, 0.11, 0.4, 0.11, -0.5, -0.45],
-      [0.26, 0.46, -0.1, 0.11, 0.4, 0.11, -0.5, 0.45],
-      [0, 0.44, -0.32, 0.16, 0.46, 0.16, -1.08, 0, true],
-      [-0.1, 0.5, -0.2, 0.1, 0.34, 0.1, -0.85, -0.2],
-      [0.1, 0.5, -0.2, 0.1, 0.34, 0.1, -0.85, 0.2]
+      [0, 0.78, 0.0, 0.15, 0.7, 0.15, -0.05, 0, true],
+      [-0.16, 0.7, 0.06, 0.13, 0.58, 0.13, -0.12, -0.28, true],
+      [0.16, 0.7, 0.06, 0.13, 0.58, 0.13, -0.12, 0.28],
+      [-0.3, 0.56, -0.06, 0.12, 0.5, 0.12, -0.42, -0.55],
+      [0.3, 0.56, -0.06, 0.12, 0.5, 0.12, -0.42, 0.55, true],
+      [-0.2, 0.62, -0.18, 0.11, 0.44, 0.11, -0.75, -0.3],
+      [0.2, 0.62, -0.18, 0.11, 0.44, 0.11, -0.75, 0.3],
+      [0, 0.52, -0.34, 0.18, 0.56, 0.18, -1.12, 0, true],
+      [-0.12, 0.58, -0.24, 0.1, 0.38, 0.1, -0.92, -0.22],
+      [0.12, 0.58, -0.24, 0.1, 0.38, 0.1, -0.92, 0.22]
     ].forEach((t) => spike(t[0], t[1], t[2], t[3], t[4], t[5], t[6], t[7], !!t[8]));
     return;
   }
@@ -429,9 +458,10 @@ function buildHair(head, color, style) {
 function buildFace(head, v, s) {
   const headTex = makeHeadTexture(v);
   const headMat = mat(v.skin, { map: headTex, toon: true });
-  part(head, sphereGeo, headMat, 0, 0.1, 0, 0.38 * s.head, 0.42 * s.head, 0.38 * s.head, 0, 0, 0, {
+  // Slightly oversized anime head for silhouette read at fight distance
+  part(head, sphereGeo, headMat, 0, 0.12, 0, 0.42 * s.head, 0.46 * s.head, 0.42 * s.head, 0, 0, 0, {
     outline: true,
-    outlinePad: 1.055
+    outlinePad: 1.05
   });
 
   if (v.kit === 'piccolo' || v.kit === 'cell') {
@@ -660,7 +690,7 @@ export function buildFighterModel(fighterDef) {
   const hips = new THREE.Group();
   hips.position.y = 0.95 * heightScale;
   root.add(hips);
-  root.scale.setScalar(1.35);
+  root.scale.setScalar(1.48);
 
   const torso = new THREE.Group();
   torso.position.y = 0.22 * s.torso;
@@ -765,85 +795,204 @@ export function buildFighterModel(fighterDef) {
     const attack = state.attack || null;
     const hurt = !!state.hurt;
     const charging = !!state.charging;
+    const baseHipsY = 0.95 * heightScale;
 
-    const damp = (obj, prop, target, rate = 12) => {
+    // Ease-out punch timeline: wind-up → snap → hold → recover
+    const attackPhase = (duration) => {
+      const p = Math.min(1, t / duration);
+      if (p < 0.22) return { stage: 'wind', u: p / 0.22 };
+      if (p < 0.48) return { stage: 'snap', u: (p - 0.22) / 0.26 };
+      if (p < 0.72) return { stage: 'hold', u: (p - 0.48) / 0.24 };
+      return { stage: 'recover', u: (p - 0.72) / 0.28 };
+    };
+
+    const pose = {
+      lShoulderX: 0, rShoulderX: 0,
+      lShoulderZ: 0.18, rShoulderZ: -0.18,
+      lElbowX: 0.25, rElbowX: 0.25,
+      lThighX: 0, rThighX: 0,
+      lKneeX: 0.15, rKneeX: 0.15,
+      torsoX: 0.08, torsoY: 0, torsoZ: 0,
+      hipsY: baseHipsY, hipsYRot: 0,
+      headX: -0.04, headY: 0,
+      torsoPosY: 0.22 * s.torso
+    };
+
+    if (hurt) {
+      pose.torsoX = -0.42;
+      pose.lShoulderX = -1.05;
+      pose.rShoulderX = -1.05;
+      pose.lElbowX = -0.4;
+      pose.rElbowX = -0.4;
+      pose.headX = 0.25;
+      pose.hipsY = baseHipsY - 0.08;
+    } else if (guarding) {
+      // High martial-arts guard — elbows in, fists by cheeks
+      pose.lShoulderX = -1.55;
+      pose.rShoulderX = -1.55;
+      pose.lShoulderZ = 0.55;
+      pose.rShoulderZ = -0.55;
+      pose.lElbowX = -1.25;
+      pose.rElbowX = -1.25;
+      pose.torsoX = 0.22;
+      pose.lThighX = 0.35;
+      pose.rThighX = -0.2;
+      pose.hipsY = baseHipsY - 0.04;
+    } else if (attack === 'punch' || attack === 'uppercut') {
+      const leadRight = facing > 0;
+      const ap = attackPhase(attack === 'uppercut' ? 0.42 : 0.36);
+      const wind = ap.stage === 'wind' ? ap.u : 1;
+      const snap = ap.stage === 'snap' ? ap.u : (ap.stage === 'wind' ? 0 : 1);
+      const recover = ap.stage === 'recover' ? ap.u : 0;
+      const strike = Math.max(0, snap - recover);
+
+      if (leadRight) {
+        pose.rShoulderX = -0.55 * wind - 1.85 * strike;
+        pose.rElbowX = -0.9 * wind + 0.15 * strike;
+        pose.rShoulderZ = -0.35 - 0.25 * strike;
+        pose.lShoulderX = -0.85;
+        pose.lElbowX = -0.95;
+        pose.lShoulderZ = 0.45;
+      } else {
+        pose.lShoulderX = -0.55 * wind - 1.85 * strike;
+        pose.lElbowX = -0.9 * wind + 0.15 * strike;
+        pose.lShoulderZ = 0.35 + 0.25 * strike;
+        pose.rShoulderX = -0.85;
+        pose.rElbowX = -0.95;
+        pose.rShoulderZ = -0.45;
+      }
+      pose.torsoY = (leadRight ? -1 : 1) * (0.35 * wind + 0.55 * strike);
+      pose.hipsYRot = -pose.torsoY * 0.55;
+      pose.torsoX = 0.12 - 0.18 * strike;
+      if (attack === 'uppercut') {
+        if (leadRight) pose.rShoulderX = -0.4 * wind - 2.4 * strike;
+        else pose.lShoulderX = -0.4 * wind - 2.4 * strike;
+        pose.torsoX = -0.35 * strike;
+        pose.hipsY = baseHipsY + 0.14 * strike;
+        pose.lThighX = 0.25;
+        pose.rThighX = -0.15;
+      } else {
+        pose.lThighX = leadRight ? 0.28 : -0.1;
+        pose.rThighX = leadRight ? -0.12 : 0.28;
+      }
+    } else if (attack === 'kick' || attack === 'dash') {
+      const leadRight = facing > 0;
+      const ap = attackPhase(attack === 'dash' ? 0.45 : 0.4);
+      const wind = ap.stage === 'wind' ? ap.u : 1;
+      const snap = ap.stage === 'snap' ? ap.u : (ap.stage === 'wind' ? 0 : 1);
+      const strike = Math.max(0, snap - (ap.stage === 'recover' ? ap.u : 0));
+      if (leadRight) {
+        pose.rThighX = -0.6 * wind - 1.55 * strike;
+        pose.rKneeX = 1.1 * wind - 0.85 * strike;
+        pose.lThighX = 0.35;
+        pose.lKneeX = 0.4;
+      } else {
+        pose.lThighX = -0.6 * wind - 1.55 * strike;
+        pose.lKneeX = 1.1 * wind - 0.85 * strike;
+        pose.rThighX = 0.35;
+        pose.rKneeX = 0.4;
+      }
+      pose.torsoX = 0.28 + (attack === 'dash' ? 0.35 * strike : 0.15 * strike);
+      pose.torsoY = (leadRight ? -0.25 : 0.25) * strike;
+      pose.lShoulderX = -0.7;
+      pose.rShoulderX = -0.7;
+      pose.hipsY = baseHipsY + 0.06 * strike;
+      if (attack === 'dash') {
+        pose.lShoulderX = -1.1;
+        pose.rShoulderX = -1.1;
+        pose.torsoX = 0.55 * Math.max(wind, strike);
+      }
+    } else if (charging) {
+      // Kamehameha / blast charge crouch
+      pose.lShoulderX = -1.35;
+      pose.rShoulderX = -1.35;
+      pose.lShoulderZ = 0.7;
+      pose.rShoulderZ = -0.7;
+      pose.lElbowX = -1.15;
+      pose.rElbowX = -1.15;
+      pose.torsoX = 0.32;
+      pose.lThighX = 0.55;
+      pose.rThighX = 0.55;
+      pose.lKneeX = 0.85;
+      pose.rKneeX = 0.85;
+      pose.hipsY = baseHipsY - 0.1;
+      pose.torsoZ = Math.sin(t * 20) * 0.06;
+      aura.material.opacity = 0.5 + Math.sin(t * 14) * 0.2;
+      aura.scale.setScalar(1.15 + Math.sin(t * 9) * 0.14);
+    } else if (airborne) {
+      pose.lShoulderX = -0.85;
+      pose.rShoulderX = -0.85;
+      pose.lShoulderZ = 0.45;
+      pose.rShoulderZ = -0.45;
+      pose.lThighX = 0.55;
+      pose.rThighX = -0.4;
+      pose.lKneeX = 0.7;
+      pose.rKneeX = 0.55;
+      pose.torsoX = -0.08;
+    } else if (moving) {
+      // Martial bounce step — knees drive, arms counter, slight lean
+      const cadence = t * 9.5;
+      const swing = Math.sin(cadence);
+      const bounce = Math.abs(Math.sin(cadence));
+      pose.lShoulderX = -0.35 + swing * 0.7;
+      pose.rShoulderX = -0.35 - swing * 0.7;
+      pose.lElbowX = -0.55 + bounce * 0.2;
+      pose.rElbowX = -0.55 + bounce * 0.2;
+      pose.lThighX = -swing * 0.72;
+      pose.rThighX = swing * 0.72;
+      pose.lKneeX = 0.25 + Math.max(0, -swing) * 0.55;
+      pose.rKneeX = 0.25 + Math.max(0, swing) * 0.55;
+      pose.hipsY = baseHipsY + bounce * 0.06;
+      pose.torsoX = 0.16;
+      pose.torsoY = swing * 0.08;
+      pose.headY = -swing * 0.06;
+    } else {
+      // Fighting idle — weight on back foot, hands up, breathing bounce
+      const breath = Math.sin(t * 2.6);
+      const sway = Math.sin(t * 1.7);
+      pose.torsoPosY = 0.22 * s.torso + breath * 0.018;
+      pose.hipsY = baseHipsY + Math.abs(breath) * 0.012;
+      pose.lShoulderX = -0.95 + breath * 0.04;
+      pose.rShoulderX = -1.05 - breath * 0.04;
+      pose.lShoulderZ = 0.48;
+      pose.rShoulderZ = -0.52;
+      pose.lElbowX = -1.05;
+      pose.rElbowX = -1.15;
+      pose.lThighX = 0.32 + sway * 0.04;
+      pose.rThighX = -0.22 - sway * 0.03;
+      pose.lKneeX = 0.45;
+      pose.rKneeX = 0.28;
+      pose.torsoX = 0.14;
+      pose.torsoY = sway * 0.05;
+      pose.hipsYRot = -sway * 0.04;
+      pose.headY = sway * 0.03;
+    }
+
+    const damp = (obj, prop, target, rate = 14) => {
       obj[prop] += (target - obj[prop]) * Math.min(1, rate * dt);
     };
 
-    damp(leftArm.upper.rotation, 'x', 0);
-    damp(rightArm.upper.rotation, 'x', 0);
-    damp(leftArm.elbow.rotation, 'x', 0.2);
-    damp(rightArm.elbow.rotation, 'x', 0.2);
-    damp(leftLeg.thigh.rotation, 'x', 0);
-    damp(rightLeg.thigh.rotation, 'x', 0);
-    damp(torso.rotation, 'x', 0);
-    damp(torso.rotation, 'z', 0);
-    damp(hips.position, 'y', 0.95 * heightScale);
-    damp(head.rotation, 'y', 0);
+    damp(leftArm.shoulder.rotation, 'x', pose.lShoulderX);
+    damp(rightArm.shoulder.rotation, 'x', pose.rShoulderX);
+    damp(leftArm.shoulder.rotation, 'z', pose.lShoulderZ);
+    damp(rightArm.shoulder.rotation, 'z', pose.rShoulderZ);
+    damp(leftArm.elbow.rotation, 'x', pose.lElbowX);
+    damp(rightArm.elbow.rotation, 'x', pose.rElbowX);
+    damp(leftLeg.thigh.rotation, 'x', pose.lThighX);
+    damp(rightLeg.thigh.rotation, 'x', pose.rThighX);
+    damp(leftLeg.knee.rotation, 'x', pose.lKneeX);
+    damp(rightLeg.knee.rotation, 'x', pose.rKneeX);
+    damp(torso.rotation, 'x', pose.torsoX);
+    damp(torso.rotation, 'y', pose.torsoY);
+    damp(torso.rotation, 'z', pose.torsoZ);
+    damp(hips.rotation, 'y', pose.hipsYRot);
+    damp(hips.position, 'y', pose.hipsY);
+    damp(torso.position, 'y', pose.torsoPosY);
+    damp(head.rotation, 'x', pose.headX);
+    damp(head.rotation, 'y', pose.headY);
 
-    // Pulse rim with energy
     const energyGlow = 0.55 + (state.aura || 0) * 2.5 + (charging ? 0.8 : 0);
     rim.intensity += (energyGlow - rim.intensity) * Math.min(1, 6 * dt);
-
-    if (hurt) {
-      torso.rotation.x = -0.35;
-      leftArm.upper.rotation.x = -0.8;
-      rightArm.upper.rotation.x = -0.8;
-    } else if (guarding) {
-      leftArm.upper.rotation.x = -1.5;
-      rightArm.upper.rotation.x = -1.5;
-      leftArm.elbow.rotation.x = -1.1;
-      rightArm.elbow.rotation.x = -1.1;
-      torso.rotation.x = 0.14;
-    } else if (attack === 'punch' || attack === 'uppercut') {
-      const lead = facing > 0 ? rightArm : leftArm;
-      const other = facing > 0 ? leftArm : rightArm;
-      const phase = Math.min(1, t / 0.18);
-      lead.upper.rotation.x = -1.75 * phase;
-      lead.elbow.rotation.x = -0.12;
-      other.upper.rotation.x = -0.5;
-      if (attack === 'uppercut') {
-        lead.upper.rotation.x = -2.35 * phase;
-        torso.rotation.x = -0.3 * phase;
-        hips.position.y += 0.1 * phase;
-      }
-    } else if (attack === 'kick' || attack === 'dash') {
-      const lead = facing > 0 ? rightLeg : leftLeg;
-      const phase = Math.min(1, t / 0.2);
-      lead.thigh.rotation.x = -1.5 * phase;
-      torso.rotation.x = 0.24;
-      if (attack === 'dash') torso.rotation.x = 0.5;
-    } else if (charging) {
-      leftArm.upper.rotation.x = -1.2;
-      rightArm.upper.rotation.x = -1.2;
-      leftArm.elbow.rotation.x = -0.9;
-      rightArm.elbow.rotation.x = -0.9;
-      torso.rotation.z = Math.sin(t * 18) * 0.05;
-      aura.material.opacity = 0.45 + Math.sin(t * 12) * 0.18;
-      aura.scale.setScalar(1.1 + Math.sin(t * 8) * 0.12);
-    } else if (airborne) {
-      leftArm.upper.rotation.x = -0.7;
-      rightArm.upper.rotation.x = -0.7;
-      leftLeg.thigh.rotation.x = 0.42;
-      rightLeg.thigh.rotation.x = -0.32;
-    } else if (moving) {
-      const swing = Math.sin(t * 10) * 0.58;
-      leftArm.upper.rotation.x = swing;
-      rightArm.upper.rotation.x = -swing;
-      leftLeg.thigh.rotation.x = -swing;
-      rightLeg.thigh.rotation.x = swing;
-      hips.position.y = 0.95 * heightScale + Math.abs(Math.sin(t * 10)) * 0.045;
-    } else {
-      const breath = Math.sin(t * 2.4) * 0.025;
-      torso.position.y = 0.22 * s.torso + breath;
-      leftArm.upper.rotation.x = -0.42 + breath;
-      rightArm.upper.rotation.x = -0.42 - breath;
-      leftArm.elbow.rotation.x = -0.62;
-      rightArm.elbow.rotation.x = -0.62;
-      leftLeg.thigh.rotation.x = 0.22;
-      rightLeg.thigh.rotation.x = -0.14;
-      torso.rotation.x = 0.1;
-    }
 
     if (!charging) {
       aura.material.opacity += ((state.aura || 0) - aura.material.opacity) * Math.min(1, 6 * dt);
