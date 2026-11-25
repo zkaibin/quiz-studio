@@ -7,7 +7,7 @@ const DEG = Math.PI / 180;
 const latLon = (lat, lon, r = 1) => new THREE.Vector3(Math.cos(lat * DEG) * Math.cos(lon * DEG) * r, Math.sin(lat * DEG) * r, -Math.cos(lat * DEG) * Math.sin(lon * DEG) * r);
 const googleEarthUrl = (c) => `https://earth.google.com/web/@${c.lat},${c.lon},40a,2500d,35y,0h,60t,0r`;
 const fmt = (v, pos, neg) => `${Math.abs(v).toFixed(3)}° ${v >= 0 ? pos : neg}`;
-const lapKm = (city) => ((city.grid * 140) / 1000).toFixed(0);
+const lapKm = (city) => ((city.grid * 140) / 1000).toFixed(1).replace(/\.0$/, '');
 
 export function createGlobe({ stage, labels, card, worlds, onDrive, getCurrentId }) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -227,7 +227,7 @@ export function createGlobe({ stage, labels, card, worlds, onDrive, getCurrentId
       hud.querySelector('.eyebrow').textContent = isAurelia ? 'PLANET AURELIA · POCKET WORLD' : 'EARTH · LIVE VIEW';
       hud.querySelector('h2').textContent = isAurelia ? 'One city, no edge' : 'Pick your city';
       hud.querySelector('p:last-of-type').textContent = isAurelia
-        ? 'Circadia wraps the whole tiny planet. Drive a lap in about an hour, or minutes in a flying car at max speed.'
+        ? 'Circadia wraps a pocket planet (~2 km around). Climb a flying car past 1 km and the whole world shape fills the sky.'
         : 'Drag to spin, scroll to zoom, tap a beacon. Yellow arcs show flights from the selected city.';
     }
   }

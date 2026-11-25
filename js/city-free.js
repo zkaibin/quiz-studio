@@ -7,8 +7,12 @@ const WALK_OUTER = FACE + 2.5;
 import { createEffects, createCars } from './city-smash.js';
 import { createStyles } from './city-styles.js';
 
-const LOAD = 270;
-const UNLOAD = 340;
+// Stream well beyond fog so blocks never pop in at the horizon. Altitude scales the radius further.
+const BASE_LOAD = 850;
+const LOAD_CAP = 1250;
+const UNLOAD_PAD = 200;
+const loadRadius = (alt = 0) => Math.min(LOAD_CAP, Math.max(BASE_LOAD, 520 + Math.max(0, alt) * 2.8));
+const unloadRadius = (alt = 0) => loadRadius(alt) + UNLOAD_PAD;
 const SIDEWALK_Y = 0.125;
 const TINTS = {
   glass: [0xffffff, 0xd9f0ee, 0xe3e9f7], hdb: [0xf3e6c8, 0xdfeaf2, 0xf2d8d0, 0xe6efd6], concrete: [0xffffff, 0xece6da, 0xdfe6e8]
@@ -44,6 +48,8 @@ export function createFreeCity({ scene, kit }) {
   const broken = new Set();
   const styles = createStyles(kit, FACE);
   let style = { lowrise: 'shophouse', residential: 'tower', downtownBoost: 24 };
+  let planetReady = false;
+  let lastLoad = BASE_LOAD;
   const effects = createEffects(root);
   const cars = createCars({ root, effects, stats });
 
@@ -326,18 +332,65 @@ export function createFreeCity({ scene, kit }) {
     chunks.delete(key);
   }
 
+  const worldSize = () => GRID * P;
+  const wrapDelta = (a, b) => {
+    let d = a - b;
+    if (currentCity().wrap) {
+      const size = worldSize();
+      d -= size * Math.round(d / size);
+    }
+    return d;
+  };
   const distanceTo = (i, j, px, pz) => {
     const x0 = i * P - 8; const z0 = j * P - 8;
-    return Math.hypot(Math.max(x0 - px, 0, px - x0 - P), Math.max(z0 - pz, 0, pz - z0 - P));
+    if (!currentCity().wrap) {
+      return Math.hypot(Math.max(x0 - px, 0, px - x0 - P), Math.max(z0 - pz, 0, pz - z0 - P));
+    }
+    // Treat the pocket planet as a torus so edge blocks stay near when the car wraps.
+    const size = worldSize();
+    let best = Infinity;
+    for (const ox of [-size, 0, size]) {
+      for (const oz of [-size, 0, size]) {
+        const d = Math.hypot(
+          Math.max(x0 + ox - px, 0, px - x0 - ox - P),
+          Math.max(z0 + oz - pz, 0, pz - z0 - oz - P)
+        );
+        if (d < best) best = d;
+      }
+    }
+    return best;
   };
 
-  function update(px, pz, time, budget = 1) {
-    const wrap = !!currentCity().wrap;
+  // Pocket planet: build every block once up front and keep it resident (no streaming pop-in).
+  function buildPlanet() {
+    if (planetReady) return;
+    for (let i = 0; i < GRID; i++) {
+      for (let j = 0; j < GRID; j++) {
+        const key = `${i},${j}`;
+        if (!chunks.has(key)) chunks.set(key, buildChunk(i, j));
+      }
+    }
+    planetReady = true;
+    lastLoad = Math.max(worldSize(), BASE_LOAD);
+  }
+
+  function update(px, pz, time, budget = 1, alt = 0) {
+    const city = currentCity();
+    if (city.planet || city.wrap) {
+      buildPlanet();
+      sea.visible = false;
+      animatePeds(px, pz, time);
+      return;
+    }
+
+    const LOAD = loadRadius(alt);
+    const UNLOAD = unloadRadius(alt);
+    lastLoad = LOAD;
     const wanted = [];
-    const iMin = wrap ? Math.floor((px - LOAD + 8) / P) : Math.max(0, Math.floor((px - LOAD + 8) / P));
-    const iMax = wrap ? Math.floor((px + LOAD + 8) / P) : Math.min(GRID, Math.floor((px + LOAD + 8) / P));
-    const jMin = wrap ? Math.floor((pz - LOAD + 8) / P) : Math.max(0, Math.floor((pz - LOAD + 8) / P));
-    const jMax = wrap ? Math.floor((pz + LOAD + 8) / P) : Math.min(GRID, Math.floor((pz + LOAD + 8) / P));
+    const iMin = Math.max(0, Math.floor((px - LOAD + 8) / P));
+    const iMax = Math.min(GRID, Math.floor((px + LOAD + 8) / P));
+    const jMin = Math.max(0, Math.floor((pz - LOAD + 8) / P));
+    const jMax = Math.min(GRID, Math.floor((pz + LOAD + 8) / P));
     for (let i = iMin; i <= iMax; i++) {
       for (let j = jMin; j <= jMax; j++) {
         const key = `${i},${j}`;
@@ -346,15 +399,15 @@ export function createFreeCity({ scene, kit }) {
       }
     }
     wanted.sort((a, b) => a.dist - b.dist);
-    for (let n = 0; n < wanted.length && n < budget; n++) chunks.set(wanted[n].key, buildChunk(wanted[n].i, wanted[n].j));
+    // Catch up faster while climbing so the larger sky view never outruns construction.
+    const buildN = budget === Infinity ? Infinity : Math.max(budget, alt > 40 ? 6 : 2);
+    for (let n = 0; n < wanted.length && n < buildN; n++) chunks.set(wanted[n].key, buildChunk(wanted[n].i, wanted[n].j));
     for (const [key, chunk] of [...chunks]) if (distanceTo(chunk.i, chunk.j, px, pz) > UNLOAD) dropChunk(key);
 
-    sea.visible = !wrap;
-    if (!wrap) {
-      seaTex.offset.set(px / 10 + time * 0.01, -pz / 10);
-      sea.position.x = px;
-      sea.position.z = pz;
-    }
+    sea.visible = true;
+    seaTex.offset.set(px / 10 + time * 0.01, -pz / 10);
+    sea.position.x = px;
+    sea.position.z = pz;
     animatePeds(px, pz, time);
   }
 
@@ -374,7 +427,12 @@ export function createFreeCity({ scene, kit }) {
   }
 
   function prefill(px, pz, time) {
-    update(px, pz, time, Infinity);
+    if (currentCity().planet || currentCity().wrap) {
+      buildPlanet();
+      animatePeds(px, pz, time);
+      return;
+    }
+    update(px, pz, time, Infinity, 0);
   }
 
   function clear() {
@@ -382,6 +440,8 @@ export function createFreeCity({ scene, kit }) {
     effects.clear();
     cars.clear();
     broken.clear();
+    planetReady = false;
+    lastLoad = BASE_LOAD;
     stats.props = 0; stats.peds = 0; stats.cars = 0;
   }
 
@@ -423,11 +483,11 @@ export function createFreeCity({ scene, kit }) {
     for (const chunk of chunks.values()) {
       if (distanceTo(chunk.i, chunk.j, p.x, p.z) > 8) continue;
       for (const prop of chunk.props) {
-        if (prop.broken || Math.abs(prop.x - p.x) > 7 || Math.abs(prop.z - p.z) > 7) continue;
+        if (prop.broken || Math.abs(wrapDelta(prop.x, p.x)) > 7 || Math.abs(wrapDelta(prop.z, p.z)) > 7) continue;
         const { spec } = prop;
         const cos = Math.cos(prop.yaw); const sin = Math.sin(prop.yaw);
         for (const c of centres) {
-          const rx = c.x - prop.x; const rz = c.z - prop.z;
+          const rx = wrapDelta(c.x, prop.x); const rz = wrapDelta(c.z, prop.z);
           const a = rx * cos - rz * sin; const b = rx * sin + rz * cos;
           const ex = a - Math.max(-spec.hx, Math.min(spec.hx, a));
           const ez = b - Math.max(-spec.hz, Math.min(spec.hz, b));
@@ -451,7 +511,7 @@ export function createFreeCity({ scene, kit }) {
         for (let k = chunk.peds.length - 1; k >= 0; k--) {
           const ped = chunk.peds[k];
           ped.getWorldPosition(pedPos);
-          if (!centres.some((c) => Math.hypot(c.x - pedPos.x, c.z - pedPos.z) < radius + 0.4)) continue;
+          if (!centres.some((c) => Math.hypot(wrapDelta(c.x, pedPos.x), wrapDelta(c.z, pedPos.z)) < radius + 0.4)) continue;
           chunk.peds.splice(k, 1);
           broken.add(ped.userData.id);
           stats.peds++;
@@ -472,5 +532,16 @@ export function createFreeCity({ scene, kit }) {
     cars.update(delta, player);
   }
 
-  return { update, prefill, clear, setVisible, setStyle, interact, animate, stats, get loaded() { return chunks.size; } };
+  return {
+    update,
+    prefill,
+    clear,
+    setVisible,
+    setStyle,
+    interact,
+    animate,
+    stats,
+    get loaded() { return chunks.size; },
+    get loadHorizon() { return lastLoad; }
+  };
 }
