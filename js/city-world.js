@@ -757,6 +757,46 @@ export function createWorld({ scene, renderer }) {
     clouds.position.set(sky[0], 0, sky[1]);
     sun.position.set(x + SUN_OFFSET.x, SUN_OFFSET.y, z + SUN_OFFSET.z);
     sun.target.position.set(x, 0, z);
+    sun.target.updateMatrixWorld();
+  }
+
+  // Pocket planet: keep the sky glued to the camera, light the globe from a fixed sun,
+  // and reveal stars once the flyer leaves the atmosphere.
+  function followPlanetPlayer(position, { altitude = 0, cameraPosition = null } = {}) {
+    const anchor = cameraPosition || position;
+    skyDome.position.copy(anchor);
+    stars.position.copy(anchor);
+    clouds.position.copy(anchor);
+    const space = THREE.MathUtils.clamp((altitude - 250) / 900, 0, 1);
+    skyDome.visible = space < 0.92;
+    clouds.visible = space < 0.55;
+    stars.visible = space > 0.35;
+    stars.material.opacity = 0.25 + space * 0.7;
+    // Fixed sun aimed at the default Circadia spawn hemisphere (map centre → -Z).
+    sun.position.set(500, 1600, -2400);
+    sun.target.position.set(0, 0, 0);
+    sun.target.updateMatrixWorld();
+    sun.intensity = THREE.MathUtils.lerp(2.6, 1.7, space);
+    hemi.intensity = THREE.MathUtils.lerp(1.55, 0.65, space);
+    hemi.color.set(0xe8f4ff);
+    hemi.groundColor.set(0x3a4550);
+    skyUniforms.uSunDir.value.copy(sun.position).normalize();
+    skyUniforms.uGlow.value = THREE.MathUtils.lerp(0.35, 0.12, space);
+    skyUniforms.uHorizon.value.set(space > 0.6 ? 0x070b14 : 0x8ec4e0);
+    skyUniforms.uZenith.value.set(space > 0.6 ? 0x02040a : 0x2f6fb8);
+  }
+
+  function setPlanetSky(on) {
+    if (!on) {
+      skyDome.visible = true;
+      clouds.visible = true;
+      stars.visible = false;
+      skyDome.scale.set(1, 1, 1);
+      return;
+    }
+    // Huge sky shell so orbital cameras never see its outside surface as a "blue ball".
+    skyDome.scale.setScalar(40);
+    clouds.scale.setScalar(8);
   }
 
   const freeTexture = (tex) => {
@@ -773,5 +813,8 @@ export function createWorld({ scene, renderer }) {
     addShophouse, addTower, addLamp, addPalm, addRainTree, addHedge, addPedestrian, addBusStop, addTrafficSignals, addSignPost, addBin, addHydrant
   };
 
-  return { buildBlock, disposeBlock, setRoute, scroll, animatePedestrians, createFinishGate, setFreeMode, followPlayer, kit, sun, hemi };
+  return {
+    buildBlock, disposeBlock, setRoute, scroll, animatePedestrians, createFinishGate, setFreeMode,
+    followPlayer, followPlanetPlayer, setPlanetSky, kit, sun, hemi
+  };
 }

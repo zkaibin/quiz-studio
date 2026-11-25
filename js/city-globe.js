@@ -227,7 +227,7 @@ export function createGlobe({ stage, labels, card, worlds, onDrive, getCurrentId
       hud.querySelector('.eyebrow').textContent = isAurelia ? 'PLANET AURELIA · POCKET WORLD' : 'EARTH · LIVE VIEW';
       hud.querySelector('h2').textContent = isAurelia ? 'One city, no edge' : 'Pick your city';
       hud.querySelector('p:last-of-type').textContent = isAurelia
-        ? 'Circadia wraps a pocket planet (~2 km around). Climb a flying car past 1 km and the whole world shape fills the sky.'
+        ? 'Circadia wraps a tiny spherical planet (~2 km around). Fly with no edge — from 1 km up the globe fills the sky.'
         : 'Drag to spin, scroll to zoom, tap a beacon. Yellow arcs show flights from the selected city.';
     }
   }

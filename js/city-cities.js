@@ -170,11 +170,11 @@ export const CITIES = [
     streets: (line) => ['Al Safa St', 'Al Satwa Rd', 'Financial Centre Rd', 'Mohammed Bin Rashid Blvd', 'Al Asayel St', 'Umm Suqeim St', 'Al Quoz St', 'Oud Metha Rd', 'Za’abeel Rd'][line % 9],
     spawns: { 'db-downtown': [13, 10], 'db-coast': [5, 1] }
   },
-  // Pocket Planet Aurelia: one city wraps the whole surface (~2.2 km lap). From ~1 km up the whole world reads as a tiny planet.
+  // Pocket Planet Aurelia: one city wraps a true sphere (~2.2 km equator). From ~1 km up the globe fills the sky.
   {
     id: 'circadia', name: 'Circadia', country: 'Planet Aurelia', lat: 18, lon: 42, drive: 'right', grid: 16,
     planet: true, wrap: true, world: 'aurelia',
-    blurb: 'The only city on tiny Planet Aurelia — streets wrap the whole world with no edge',
+    blurb: 'The only city on tiny spherical Planet Aurelia — drive or fly with no edge',
     style: {
       lowrise: 'tokyo', residential: 'tower', downtownBoost: 48,
       sea: 0x1a2740, park: 0x5f9a72, pond: 0x3d7a9c, minimapSea: '#1a2740'
