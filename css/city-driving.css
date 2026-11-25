@@ -330,6 +330,75 @@ html:-webkit-full-screen body {
   .hud-stats .road-name { max-width: 53px; font-size: 7px; }
 }
 
+/* Landscape: keep the racing/status HUD compact — phone landscape is wide enough
+   that the portrait max-width:700 rules never fire, so the bar otherwise spans most of the screen. */
+@media (orientation: landscape) {
+  .hud {
+    top: max(8px, env(safe-area-inset-top, 0px));
+    right: max(10px, env(safe-area-inset-right, 0px));
+    gap: 8px;
+    padding: 5px 8px;
+    border-radius: 12px;
+    max-width: min(420px, calc(100% - 56px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+  }
+  .city-game.is-playing .hud {
+    max-width: min(420px, calc(100% - 56px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+  }
+  .hud-brand { min-width: 0; font-size: 7px; letter-spacing: .8px; }
+  .hud-brand strong { font-size: 11px; letter-spacing: 0; }
+  .speed-cluster { padding: 0 8px; column-gap: 6px; row-gap: 2px; }
+  .gear-badge { width: 24px; height: 28px; font-size: 13px; border-radius: 6px; }
+  .speed-readout strong { font-size: 18px; letter-spacing: -.5px; }
+  .speed-readout small { font-size: 8px; }
+  .rpm-meter { height: 3px; }
+  .hud-stats { gap: 8px; flex: 0 1 auto; }
+  .stat-label { font-size: 7px; }
+  .hud-stats strong { font-size: 12px; }
+  .hud-stats small { font-size: 8px; }
+  .hud-stats .road-name { max-width: 72px; font-size: 7px; white-space: normal; }
+  .hud-icon, .pause-button { width: 28px; height: 28px; border-radius: 7px; font-size: 12px; }
+  .hud-actions { gap: 4px; }
+  .trip-bar {
+    top: max(52px, calc(env(safe-area-inset-top, 0px) + 44px));
+    right: max(10px, env(safe-area-inset-right, 0px));
+    width: min(220px, 34vw);
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+  .race-panel {
+    top: max(108px, calc(env(safe-area-inset-top, 0px) + 100px));
+    right: max(10px, env(safe-area-inset-right, 0px));
+    width: min(160px, 28vw);
+    padding: 7px 9px;
+    gap: 4px 8px;
+  }
+  .race-panel strong { font-size: 18px; }
+  .race-panel small { font-size: 10px; }
+  .race-time strong { font-size: 14px; padding-top: 2px; }
+}
+/* Short landscape phones: drop brand + ROAD so the bar stays a slim instrument strip */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hud-brand { display: none; }
+  .road-stat { display: none; }
+  .hud {
+    gap: 6px;
+    padding: 4px 7px;
+    max-width: min(340px, calc(100% - 56px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+  }
+  .city-game.is-playing .hud {
+    max-width: min(340px, calc(100% - 56px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+  }
+  .speed-cluster { padding: 0 6px 0 0; border-left: 0; }
+  .gear-badge { width: 22px; height: 26px; font-size: 12px; }
+  .speed-readout strong { font-size: 16px; }
+  .hud-stats { gap: 6px; }
+  .hud-stats strong { font-size: 11px; }
+  .hud-icon, .pause-button { width: 26px; height: 26px; }
+  .trip-bar { top: max(44px, calc(env(safe-area-inset-top, 0px) + 36px)); width: min(200px, 32vw); }
+  .race-panel { top: max(96px, calc(env(safe-area-inset-top, 0px) + 88px)); width: min(150px, 26vw); }
+  .race-board { display: none; }
+}
+
 /* Garage, car selection and mobile controls */
 .car-pill { display: inline-flex; gap: 9px; align-items: center; margin: 0 0 22px 8px; padding: 9px 11px; border-radius: 7px; background: #f4ece6; color: #7a4a3a; font-size: 11px; font-weight: 650; }
 .car-pill span { color: #b08c7d; font-size: 9px; font-weight: 800; letter-spacing: .9px; }
