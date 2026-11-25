@@ -760,30 +760,30 @@ export function createWorld({ scene, renderer }) {
     sun.target.updateMatrixWorld();
   }
 
-  // Pocket planet: keep the sky glued to the camera, light the globe from a fixed sun,
-  // and reveal stars once the flyer leaves the atmosphere.
+  // Pocket planet: sky follows the camera, fixed sun lights the globe, stars emerge in orbit.
   function followPlanetPlayer(position, { altitude = 0, cameraPosition = null } = {}) {
     const anchor = cameraPosition || position;
     skyDome.position.copy(anchor);
     stars.position.copy(anchor);
     clouds.position.copy(anchor);
-    const space = THREE.MathUtils.clamp((altitude - 250) / 900, 0, 1);
-    skyDome.visible = space < 0.92;
-    clouds.visible = space < 0.55;
-    stars.visible = space > 0.35;
-    stars.material.opacity = 0.25 + space * 0.7;
-    // Fixed sun aimed at the default Circadia spawn hemisphere (map centre → -Z).
+    const space = THREE.MathUtils.clamp((altitude - 220) / 1000, 0, 1);
+    // Local sky fades out in orbit so the planet atmosphere + starfield read as the real backdrop.
+    skyDome.visible = space < 0.88;
+    clouds.visible = false;
+    stars.visible = space > 0.25;
+    stars.material.opacity = 0.2 + space * 0.8;
     sun.position.set(500, 1600, -2400);
     sun.target.position.set(0, 0, 0);
     sun.target.updateMatrixWorld();
-    sun.intensity = THREE.MathUtils.lerp(2.6, 1.7, space);
-    hemi.intensity = THREE.MathUtils.lerp(1.55, 0.65, space);
-    hemi.color.set(0xe8f4ff);
-    hemi.groundColor.set(0x3a4550);
+    sun.intensity = THREE.MathUtils.lerp(2.4, 1.7, space);
+    // Neutral fill so asphalt stays charcoal and oceans keep their teal — not cyan-washed.
+    hemi.intensity = THREE.MathUtils.lerp(0.95, 0.35, space);
+    hemi.color.set(0xf3efe6);
+    hemi.groundColor.set(0x243028);
     skyUniforms.uSunDir.value.copy(sun.position).normalize();
-    skyUniforms.uGlow.value = THREE.MathUtils.lerp(0.35, 0.12, space);
-    skyUniforms.uHorizon.value.set(space > 0.6 ? 0x070b14 : 0x8ec4e0);
-    skyUniforms.uZenith.value.set(space > 0.6 ? 0x02040a : 0x2f6fb8);
+    skyUniforms.uGlow.value = THREE.MathUtils.lerp(0.4, 0.08, space);
+    skyUniforms.uHorizon.value.set(space > 0.55 ? 0x04060d : 0x9fd0ea);
+    skyUniforms.uZenith.value.set(space > 0.55 ? 0x010208 : 0x3a7ec4);
   }
 
   function setPlanetSky(on) {
@@ -792,11 +792,15 @@ export function createWorld({ scene, renderer }) {
       clouds.visible = true;
       stars.visible = false;
       skyDome.scale.set(1, 1, 1);
+      clouds.scale.set(1, 1, 1);
+      sun.intensity = 2.3;
+      hemi.intensity = 1.2;
       return;
     }
-    // Huge sky shell so orbital cameras never see its outside surface as a "blue ball".
-    skyDome.scale.setScalar(40);
-    clouds.scale.setScalar(8);
+    // Huge sky shell so orbital cameras never see its outside as a solid blue ball.
+    skyDome.scale.setScalar(48);
+    clouds.scale.setScalar(1);
+    clouds.visible = false;
   }
 
   const freeTexture = (tex) => {
