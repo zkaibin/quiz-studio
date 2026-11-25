@@ -148,13 +148,43 @@ html:-webkit-full-screen body {
   box-shadow: 0 12px 35px rgba(34,63,67,.12);
   backdrop-filter: blur(14px);
   max-width: calc(100% - 24px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px));
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
 }
-.hud-brand { display: grid; grid-template-columns: 10px auto; column-gap: 7px; align-items: center; min-width: 108px; color: #75868b; font-size: 9px; font-weight: 800; letter-spacing: 1.1px; }
+/* Leave room for the exit button while playing so the HUD cannot shove pause off-screen */
+.city-game.is-playing .hud {
+  max-width: calc(100% - 56px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px));
+}
+.hud-brand {
+  display: grid;
+  grid-template-columns: 10px auto;
+  column-gap: 7px;
+  align-items: center;
+  min-width: 0;
+  flex: 0 1 auto;
+  color: #75868b;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+}
 .hud-brand strong { grid-column: 1 / -1; color: #19333b; font-family: Syne, "DM Sans", sans-serif; font-size: 13px; letter-spacing: .5px; }
 .hud-brand strong span { color: #da634e; }
 .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #e3a652; }
 .hud.active .live-dot { background: #51aa79; box-shadow: 0 0 0 4px rgba(81,170,121,.15); }
-.speed-cluster { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 10px; row-gap: 4px; align-items: center; min-width: 118px; padding: 0 14px; border-left: 1px solid #dfe6e4; border-right: 1px solid #dfe6e4; }
+.speed-cluster {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  row-gap: 4px;
+  align-items: center;
+  min-width: 0;
+  flex: 0 0 auto;
+  padding: 0 14px;
+  border-left: 1px solid #dfe6e4;
+  border-right: 1px solid #dfe6e4;
+}
 .gear-badge { grid-row: 1 / 3; display: grid; place-items: center; width: 34px; height: 42px; border-radius: 8px; background: #183940; color: #fff; font-family: Syne, sans-serif; font-size: 18px; font-weight: 800; }
 .gear-badge.rev { background: #b8553c; }
 .gear-badge.drive { background: #1f6b55; }
@@ -163,15 +193,29 @@ html:-webkit-full-screen body {
 .speed-readout small { color: #809094; font-size: 10px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; }
 .rpm-meter { grid-column: 2; height: 4px; border-radius: 99px; background: #dfe6e4; overflow: hidden; }
 .rpm-meter i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #51aa79, #e3a652 70%, #d96f50); transition: width .08s linear; }
-.hud-stats { display: flex; align-items: center; gap: 16px; }
-.hud-stats > div { display: grid; gap: 3px; }
+.hud-stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+}
+.hud-stats > div { display: grid; gap: 3px; flex: 0 0 auto; }
 .hud-stats > div[hidden] { display: none; }
 .stat-label { color: #839397; font-size: 8px; font-weight: 800; letter-spacing: 1px; }
 .hud-stats strong { color: #19333b; font-size: 17px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .hud-stats small { color: #809094; font-size: 10px; font-weight: 600; }
 .hud-stats .road-name { font-size: 9px; letter-spacing: .2px; }
-.hud-actions { display: flex; align-items: center; gap: 6px; }
-.hud-icon, .pause-button { display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 9px; background: #183940; color: white; font-size: 14px; cursor: pointer; }
+/* Mute / camera / pause must never be pushed off the right edge */
+.hud-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+.hud-icon, .pause-button { display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 9px; background: #183940; color: white; font-size: 14px; cursor: pointer; flex: 0 0 auto; }
 .hud-icon { background: #2a4b52; font-size: 13px; }
 .hud-icon.muted, .hud-icon.hood, .hud-icon.aerial { background: #d96f50; }
 .pause-button:disabled { opacity: .4; cursor: default; }
@@ -249,9 +293,10 @@ html:-webkit-full-screen body {
   .back-link.home-link { right: max(10px, env(safe-area-inset-right, 0px)); }
   .exit-game { width: 32px; height: 32px; font-size: 13px; }
   .hud { top: max(10px, env(safe-area-inset-top, 0px)); right: max(10px, env(safe-area-inset-right, 0px)); gap: 8px; padding: 8px 10px; }
-  .hud-brand { min-width: 72px; font-size: 8px; }
-  .hud-brand strong { font-size: 11px; }
-  .speed-cluster { min-width: 96px; padding: 0 8px; column-gap: 7px; }
+  /* Brand + ROAD eat the width free-roam needs for SMASHED + pause */
+  .hud-brand { display: none; }
+  .road-stat { display: none; }
+  .speed-cluster { min-width: 0; padding: 0 8px 0 0; column-gap: 7px; border-left: 0; }
   .gear-badge { width: 28px; height: 36px; font-size: 15px; }
   .speed-readout strong { font-size: 22px; }
   .hud-stats { gap: 8px; }
@@ -263,15 +308,95 @@ html:-webkit-full-screen body {
   .location-tag { left: max(10px, env(safe-area-inset-left, 0px)); padding: 8px 10px; font-size: 8px; }
   .driving-hint { display: none; }
 }
+/* Free-roam SMASHED (and fly) make the bar wider — tighten further so pause stays on-screen */
+@media (max-width: 700px) {
+  .hud:has(#smash-stat:not([hidden])),
+  .hud:has(#fly-stat:not([hidden])) {
+    gap: 6px;
+    padding: 7px 8px;
+  }
+  .hud:has(#smash-stat:not([hidden])) .hud-stats,
+  .hud:has(#fly-stat:not([hidden])) .hud-stats {
+    gap: 6px;
+  }
+}
 @media (max-width: 420px) {
   .hud { gap: 6px; padding: 7px; }
-  .hud-brand { display: none; }
-  .speed-cluster { min-width: 88px; border-left: 0; }
-  .hud-stats { gap: 7px; }
+  .speed-cluster { min-width: 0; }
+  .hud-stats { gap: 6px; }
   .stat-label { font-size: 7px; }
   .hud-stats strong { font-size: 12px; }
   .hud-stats small { font-size: 8px; }
   .hud-stats .road-name { max-width: 53px; font-size: 7px; }
+}
+
+/* Landscape: keep the racing/status HUD compact — phone landscape is wide enough
+   that the portrait max-width:700 rules never fire, so the bar otherwise spans most of the screen. */
+@media (orientation: landscape) {
+  .hud {
+    top: max(8px, env(safe-area-inset-top, 0px));
+    right: max(10px, env(safe-area-inset-right, 0px));
+    gap: 8px;
+    padding: 5px 8px;
+    border-radius: 12px;
+    max-width: min(420px, calc(100% - 56px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+  }
+  .city-game.is-playing .hud {
+    max-width: min(420px, calc(100% - 56px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+  }
+  .hud-brand { min-width: 0; font-size: 7px; letter-spacing: .8px; }
+  .hud-brand strong { font-size: 11px; letter-spacing: 0; }
+  .speed-cluster { padding: 0 8px; column-gap: 6px; row-gap: 2px; }
+  .gear-badge { width: 24px; height: 28px; font-size: 13px; border-radius: 6px; }
+  .speed-readout strong { font-size: 18px; letter-spacing: -.5px; }
+  .speed-readout small { font-size: 8px; }
+  .rpm-meter { height: 3px; }
+  .hud-stats { gap: 8px; flex: 0 1 auto; }
+  .stat-label { font-size: 7px; }
+  .hud-stats strong { font-size: 12px; }
+  .hud-stats small { font-size: 8px; }
+  .hud-stats .road-name { max-width: 72px; font-size: 7px; white-space: normal; }
+  .hud-icon, .pause-button { width: 28px; height: 28px; border-radius: 7px; font-size: 12px; }
+  .hud-actions { gap: 4px; }
+  .trip-bar {
+    top: max(52px, calc(env(safe-area-inset-top, 0px) + 44px));
+    right: max(10px, env(safe-area-inset-right, 0px));
+    width: min(220px, 34vw);
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+  .race-panel {
+    top: max(108px, calc(env(safe-area-inset-top, 0px) + 100px));
+    right: max(10px, env(safe-area-inset-right, 0px));
+    width: min(160px, 28vw);
+    padding: 7px 9px;
+    gap: 4px 8px;
+  }
+  .race-panel strong { font-size: 18px; }
+  .race-panel small { font-size: 10px; }
+  .race-time strong { font-size: 14px; padding-top: 2px; }
+}
+/* Short landscape phones: drop brand + ROAD so the bar stays a slim instrument strip */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hud-brand { display: none; }
+  .road-stat { display: none; }
+  .hud {
+    gap: 6px;
+    padding: 4px 7px;
+    max-width: min(340px, calc(100% - 56px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+  }
+  .city-game.is-playing .hud {
+    max-width: min(340px, calc(100% - 56px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+  }
+  .speed-cluster { padding: 0 6px 0 0; border-left: 0; }
+  .gear-badge { width: 22px; height: 26px; font-size: 12px; }
+  .speed-readout strong { font-size: 16px; }
+  .hud-stats { gap: 6px; }
+  .hud-stats strong { font-size: 11px; }
+  .hud-icon, .pause-button { width: 26px; height: 26px; }
+  .trip-bar { top: max(44px, calc(env(safe-area-inset-top, 0px) + 36px)); width: min(200px, 32vw); }
+  .race-panel { top: max(96px, calc(env(safe-area-inset-top, 0px) + 88px)); width: min(150px, 26vw); }
+  .race-board { display: none; }
 }
 
 /* Garage, car selection and mobile controls */
