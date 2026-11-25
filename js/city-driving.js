@@ -12,6 +12,9 @@ import { createRealCity } from './city-real.js';
 import { createCityAudio } from './city-audio.js';
 import { createCityFx, createSpeedOverlay } from './city-fx.js';
 import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOffset, spawnFor, DISTRICT_COLORS, wrapCoord, wraps } from './city-map.js';
+import {
+  planetRadius, moveOnSphere, placeObjectOnSphere, cameraOnSphere, poseOnSphere
+} from './city-planet.js';
 
 (() => {
   const mount = document.getElementById('city-scene');
@@ -50,8 +53,16 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   } catch (error) { /* storage unavailable */ }
   const camPos = new THREE.Vector3().copy(camera.position);
   const camLook = new THREE.Vector3(0, 1.1, -16);
+  const camUp = new THREE.Vector3(0, 1, 0);
+  const _planetCamPos = new THREE.Vector3();
+  const _planetCamLook = new THREE.Vector3();
+  const _planetCamUp = new THREE.Vector3(0, 1, 0);
   const camShake = new THREE.Vector3();
   let camShakeMag = 0;
+  // Logical surface coords for the spherical pocket planet (player.position is world 3D there).
+  let mapX = 0;
+  let mapZ = 0;
+  const isPlanet = () => !!currentCity().planet;
   let savedCity = null;
   try { savedCity = localStorage.getItem('cityDrivingCity'); } catch (error) { /* storage unavailable */ }
   setCity(CITY_BY_ID[savedCity] ? savedCity : DEFAULT_CITY_ID);
@@ -186,7 +197,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     mount.setAttribute('aria-label', `Three-dimensional ${city.name} city driving game`);
     const lapKm = ((city.grid * PITCH) / 1000).toFixed(1).replace(/\.0$/, '');
     cityIntro.textContent = city.planet
-      ? `Take the wheel in ${city.name}, the only city on pocket-sized ${city.country}. Streets wrap the whole world (~${lapKm} km) with no edge — climb a flying car past 1 km and the planet shape fills the sky.`
+      ? `Take the wheel in ${city.name}, the only city wrapping tiny spherical ${city.country} (~${lapKm} km around). Drive or fly with no edge — from 1 km up the whole planet fills the sky.`
       : `Take the wheel in ${city.name}. Keep ${city.drive} and roam the wider city streets, or jump onto a racing circuit with only AI racers — clear asphalt, open lanes and room to hit your car’s top speed.`;
     roadName.textContent = trafficLabel();
     roadName.dataset.default = roadName.textContent;
@@ -412,7 +423,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     const flyBlend = THREE.MathUtils.clamp((carY - 6) / 50, 0, 1);
     // High-sky blend: pull the lens farther so a pocket planet reads as a whole world from ~1 km up.
     const skyBlend = THREE.MathUtils.clamp((carY - 180) / 820, 0, 1);
-    const planetSky = free && wraps() ? skyBlend : skyBlend * 0.45;
+    const planetSky = free && isPlanet() ? skyBlend : skyBlend * 0.45;
     const roof = currentCar.build?.roofH || 1.4;
     const belt = currentCar.build?.belt || roof * 0.7;
     // Raised windshield perch: high enough to read as a driver's seat, even on low hypercars.
@@ -420,57 +431,110 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     let back;
     let height;
     let lookAhead;
-    let lookY;
+    let lookDown = 0;
     let followRate;
     let fovBase;
     let fovSpeed;
     let tremorScale;
     if (hood) {
       back = THREE.MathUtils.lerp(1.15, 1.7, flyBlend);
-      height = carY + eyeHeight + speedRatio * 0.06;
-      lookAhead = THREE.MathUtils.lerp(40, 120, planetSky);
-      lookY = carY + eyeHeight * 0.72 - planetSky * carY * 0.08;
+      height = eyeHeight + speedRatio * 0.06 + (isPlanet() ? carY * 0 : carY);
+      lookAhead = THREE.MathUtils.lerp(40, 80, planetSky);
+      lookDown = planetSky * carY * 0.05;
       followRate = 12;
       fovBase = THREE.MathUtils.lerp(64, 72, planetSky);
       fovSpeed = 8;
       tremorScale = 0.01;
     } else if (aerial) {
-      // High orbit that climbs with the car so you can watch it from above while flying.
-      const skyBack = wraps() ? Math.min(SIZE * 0.55, 180 + carY * 0.08) : 48 + carY * 0.035;
-      back = THREE.MathUtils.lerp(THREE.MathUtils.lerp(14, 28, flyBlend), skyBack, planetSky);
-      height = carY + THREE.MathUtils.lerp(THREE.MathUtils.lerp(24, 40 + carY * 0.1, flyBlend), 90 + carY * 0.15, planetSky);
+      const skyBack = isPlanet()
+        ? THREE.MathUtils.lerp(28, Math.max(120, planetRadius() * 0.55 + carY * 0.35), planetSky)
+        : 48 + carY * 0.035;
+      back = THREE.MathUtils.lerp(THREE.MathUtils.lerp(14, 28, flyBlend), skyBack, isPlanet() ? planetSky : flyBlend * 0.3);
+      height = isPlanet()
+        ? THREE.MathUtils.lerp(THREE.MathUtils.lerp(24, 40, flyBlend), 80 + carY * 0.25, planetSky)
+        : carY + THREE.MathUtils.lerp(THREE.MathUtils.lerp(24, 40 + carY * 0.1, flyBlend), 90 + carY * 0.15, planetSky);
       lookAhead = THREE.MathUtils.lerp(THREE.MathUtils.lerp(3, 8, flyBlend), 2, planetSky);
-      lookY = carY + 0.5 - planetSky * carY * 0.35;
+      lookDown = isPlanet() ? THREE.MathUtils.lerp(0, Math.min(40 + carY * 0.04, planetRadius() * 0.2), planetSky) : 0;
       followRate = THREE.MathUtils.lerp(4.5, 3.2, planetSky);
-      fovBase = THREE.MathUtils.lerp(56, 68, planetSky);
+      fovBase = THREE.MathUtils.lerp(56, 70, planetSky);
       fovSpeed = 10;
       tremorScale = 0.006;
     } else {
-      // Chase stays clearly above the car; extra lift + pull-back kicks in once airborne.
-      const skyBack = wraps() ? Math.min(SIZE * 0.45, 140 + carY * 0.06) : 40 + carY * 0.03;
-      back = THREE.MathUtils.lerp(THREE.MathUtils.lerp(11.8, 22, flyBlend), skyBack, planetSky);
-      height = carY + THREE.MathUtils.lerp(THREE.MathUtils.lerp(5.2 - speedRatio * 0.45, 16 + flyBlend * 10, flyBlend), 60 + carY * 0.1, planetSky);
+      const skyBack = isPlanet()
+        ? THREE.MathUtils.lerp(22, Math.max(90, planetRadius() * 0.4 + carY * 0.28), planetSky)
+        : 40 + carY * 0.03;
+      back = THREE.MathUtils.lerp(THREE.MathUtils.lerp(11.8, 22, flyBlend), skyBack, isPlanet() ? planetSky : flyBlend * 0.25);
+      height = isPlanet()
+        ? THREE.MathUtils.lerp(THREE.MathUtils.lerp(5.2, 16, flyBlend), 50 + carY * 0.18, planetSky)
+        : carY + THREE.MathUtils.lerp(THREE.MathUtils.lerp(5.2 - speedRatio * 0.45, 16 + flyBlend * 10, flyBlend), 60 + carY * 0.1, planetSky);
       lookAhead = THREE.MathUtils.lerp(THREE.MathUtils.lerp(16, 7, flyBlend), 4, planetSky);
-      lookY = carY + THREE.MathUtils.lerp(THREE.MathUtils.lerp(1.2, 0.35, flyBlend), -carY * 0.25, planetSky);
+      lookDown = isPlanet() ? THREE.MathUtils.lerp(0, Math.min(24 + carY * 0.03, planetRadius() * 0.12), planetSky) : 0;
       followRate = THREE.MathUtils.lerp(5.5, 3.6, planetSky);
-      fovBase = THREE.MathUtils.lerp(baseFov, 66, planetSky);
+      fovBase = THREE.MathUtils.lerp(baseFov, 68, planetSky);
       fovSpeed = 16;
       tremorScale = 0.01;
     }
-    const sx = Math.sin(free ? camHeading : face);
-    const cz = Math.cos(free ? camHeading : face);
-    const targetX = free ? (px - sx * back) : (px * (hood ? 0.05 : aerial ? 0.18 : 0.34));
-    const targetY = height;
-    // Race mode keeps the car pinned at PLAYER_Z; place cabin/aerial rigs relative to that rail.
-    const targetZ = free
-      ? (pz + cz * back)
-      : (hood ? PLAYER_Z + back : aerial ? PLAYER_Z + back : 11.8);
-    const lookX = free
-      ? (px + sx * lookAhead)
-      : (px * (hood ? 0.04 : aerial ? 0.1 : 0.2) + face * (hood ? 10 : aerial ? 4 : 14));
-    const lookZ = free ? (pz - cz * lookAhead) : (hood ? -lookAhead : aerial ? PLAYER_Z - lookAhead : -16);
+
+    let targetX;
+    let targetY;
+    let targetZ;
+    let lookX;
+    let lookY;
+    let lookZ;
+    if (free && isPlanet()) {
+      const faceHeading = camHeading;
+      const rigHeight = hood ? eyeHeight : height;
+      cameraOnSphere({
+        x: mapX,
+        y: carY,
+        z: mapZ,
+        heading: faceHeading,
+        back,
+        height: rigHeight,
+        lookAhead,
+        lookDown,
+        camPos: _planetCamPos,
+        camLook: _planetCamLook,
+        camUp: _planetCamUp
+      });
+      // From orbit, bias the look target toward the planet centre so the globe stays framed.
+      if (planetSky > 0.2) {
+        _planetCamLook.multiplyScalar(1 - planetSky * 0.65);
+      }
+      targetX = _planetCamPos.x;
+      targetY = _planetCamPos.y;
+      targetZ = _planetCamPos.z;
+      lookX = _planetCamLook.x;
+      lookY = _planetCamLook.y;
+      lookZ = _planetCamLook.z;
+      camUp.lerp(_planetCamUp, Math.min(1, delta * followRate));
+    } else {
+      camUp.set(0, 1, 0);
+      const sx = Math.sin(free ? camHeading : face);
+      const cz = Math.cos(free ? camHeading : face);
+      targetX = free ? (px - sx * back) : (px * (hood ? 0.05 : aerial ? 0.18 : 0.34));
+      targetY = isPlanet() ? height : (hood ? height : height);
+      // Race mode keeps the car pinned at PLAYER_Z; place cabin/aerial rigs relative to that rail.
+      targetZ = free
+        ? (pz + cz * back)
+        : (hood ? PLAYER_Z + back : aerial ? PLAYER_Z + back : 11.8);
+      lookX = free
+        ? (px + sx * lookAhead)
+        : (px * (hood ? 0.04 : aerial ? 0.1 : 0.2) + face * (hood ? 10 : aerial ? 4 : 14));
+      lookY = hood
+        ? carY + eyeHeight * 0.72
+        : (aerial ? carY + 0.5 : carY + THREE.MathUtils.lerp(1.2, 0.35, flyBlend));
+      lookZ = free ? (pz - cz * lookAhead) : (hood ? -lookAhead : aerial ? PLAYER_Z - lookAhead : -16);
+      if (!free) {
+        if (hood) targetY = carY + eyeHeight + speedRatio * 0.06;
+        else if (aerial) targetY = carY + THREE.MathUtils.lerp(24, 40 + carY * 0.1, flyBlend);
+        else targetY = carY + THREE.MathUtils.lerp(5.2 - speedRatio * 0.45, 16 + flyBlend * 10, flyBlend);
+      } else if (!isPlanet()) {
+        if (hood) targetY = carY + eyeHeight + speedRatio * 0.06;
+      }
+    }
     // Catch up fast on big altitude jumps so flying never leaves the lens near the ground.
-    const liftGap = Math.abs(targetY - camPos.y);
+    const liftGap = Math.hypot(targetX - camPos.x, targetY - camPos.y, targetZ - camPos.z);
     const follow = Math.min(1, delta * followRate * (liftGap > 12 ? 4.5 : 1));
     camPos.x += (targetX - camPos.x) * follow;
     camPos.y += (targetY - camPos.y) * follow;
@@ -485,24 +549,36 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
       (Math.random() - 0.5) * (camShakeMag * 0.7 + tremor * 0.5),
       (Math.random() - 0.5) * (camShakeMag + tremor)
     );
+    camera.up.copy(camUp);
     camera.position.set(camPos.x + camShake.x, camPos.y + camShake.y, camPos.z + camShake.z);
     camera.lookAt(camLook.x, camLook.y, camLook.z);
     cameraButton.dataset.camY = camPos.y.toFixed(1);
     cameraButton.dataset.carY = carY.toFixed(1);
     // Stretch clip/fog when high so the city below stays visible from the air.
-    // Keep fog inside the streamed build radius so empty chunks never read as "under construction".
     const horizon = freeActive ? (freeCity.loadHorizon || 900) : 700;
-    const far = Math.max(700 + carY * 3.5, wraps() ? SIZE * 1.6 + carY * 2.2 : 700 + carY * 3.5);
+    const R = isPlanet() ? planetRadius() : 0;
+    const far = isPlanet()
+      ? Math.max(1500, R * 6 + carY * 4)
+      : Math.max(700 + carY * 3.5, wraps() ? SIZE * 1.6 + carY * 2.2 : 700 + carY * 3.5);
     if (Math.abs(camera.far - far) > 8) {
       camera.far = far;
       camera.updateProjectionMatrix();
     }
     if (freeActive) {
-      const fogFar = wraps()
-        ? Math.max(SIZE * 1.35, 900 + carY * 2.4)
-        : Math.min(320 + carY * 2.8, horizon * 0.82);
-      scene.fog.near = Math.min(70 + carY * 0.35, fogFar * 0.35);
-      scene.fog.far = fogFar;
+      if (isPlanet()) {
+        // Thin atmosphere near the surface; clear dark sky once you leave the planet.
+        const fogFar = THREE.MathUtils.lerp(R * 1.8, R * 8 + carY * 2, planetSky);
+        scene.fog.color.set(planetSky > 0.55 ? 0x070b14 : 0x8ec4e0);
+        scene.background = scene.fog.color.clone();
+        scene.fog.near = THREE.MathUtils.lerp(R * 0.35, R * 1.2, planetSky);
+        scene.fog.far = fogFar;
+      } else {
+        const fogFar = wraps()
+          ? Math.max(SIZE * 1.35, 900 + carY * 2.4)
+          : Math.min(320 + carY * 2.8, horizon * 0.82);
+        scene.fog.near = Math.min(70 + carY * 0.35, fogFar * 0.35);
+        scene.fog.far = fogFar;
+      }
     }
     const fov = fovBase + speedRatio * fovSpeed + nitroFx * 4;
     if (Math.abs(camera.fov - fov) > 0.05) {
@@ -752,9 +828,13 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     const offset = realActive ? realCity.half : 0;
     minimapCtx.drawImage(realActive ? realCity.mapLayer(minimap.width) : mapLayer, 0, 0);
     minimapCtx.save();
-    const mapX = realActive ? player.position.x : (wraps() ? wrapCoord(player.position.x) : player.position.x);
-    const mapZ = realActive ? player.position.z : (wraps() ? wrapCoord(player.position.z) : player.position.z);
-    minimapCtx.translate((mapX + offset) * k, (mapZ + offset) * k);
+    const mapDrawX = realActive
+      ? player.position.x
+      : (isPlanet() ? wrapCoord(mapX) : (wraps() ? wrapCoord(player.position.x) : player.position.x));
+    const mapDrawZ = realActive
+      ? player.position.z
+      : (isPlanet() ? THREE.MathUtils.clamp(mapZ, 0, SIZE) : (wraps() ? wrapCoord(player.position.z) : player.position.z));
+    minimapCtx.translate((mapDrawX + offset) * k, (mapDrawZ + offset) * k);
     minimapCtx.rotate(heading);
     minimapCtx.fillStyle = '#d9482b';
     minimapCtx.strokeStyle = '#fff';
@@ -783,11 +863,31 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     smashStat.hidden = realActive;
     impactShake = 0;
     const spawn = realActive ? realCity.spawn() : spawnFor(route.id);
-    player.position.set(spawn.x, 0, spawn.z);
+    mapX = spawn.x;
+    mapZ = spawn.z;
     heading = spawn.heading;
     camHeading = heading;
-    world.followPlayer(spawn.x, spawn.z);
-    if (!realActive) freeCity.prefill(spawn.x, spawn.z, Date.now() / 1000);
+    if (isPlanet()) {
+      scene.fog.color.set(0x8ec4e0);
+      scene.background = new THREE.Color(0x8ec4e0);
+      world.setPlanetSky(true);
+      if (!realActive) freeCity.prefill(mapX, mapZ, Date.now() / 1000);
+      placeObjectOnSphere(player, mapX, 0, mapZ, heading);
+      const pose = poseOnSphere(mapX, 40, mapZ, heading);
+      camPos.copy(pose.position).addScaledVector(pose.up, 8).addScaledVector(pose.north, -18);
+      camLook.copy(pose.position);
+      camUp.copy(pose.up);
+      camera.up.copy(camUp);
+      camera.position.copy(camPos);
+      camera.lookAt(camLook);
+      world.followPlanetPlayer(player.position, { altitude: 0, cameraPosition: camPos });
+    } else {
+      world.setPlanetSky(false);
+      player.position.set(spawn.x, 0, spawn.z);
+      player.rotation.set(0, -heading, 0);
+      world.followPlayer(spawn.x, spawn.z);
+      if (!realActive) freeCity.prefill(spawn.x, spawn.z, Date.now() / 1000);
+    }
     minimap.hidden = false;
     mapTimer = 0;
   }
@@ -812,8 +912,13 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     locationName.textContent = areaLabel;
     camPos.set(0, 5.0, 11.8);
     camLook.set(0, 1.1, -16);
+    camUp.set(0, 1, 0);
+    camera.up.copy(camUp);
     camera.position.copy(camPos);
     camera.lookAt(camLook);
+    world.setPlanetSky(false);
+    scene.fog.color.set(0xa9d5e5);
+    scene.background = new THREE.Color(0xa9d5e5);
     camShakeMag = 0;
     fx.clear();
     trafficSystem.populate(16);
@@ -821,10 +926,11 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   }
 
   function updateFree(delta, forward) {
-    const px = player.position.x;
-    const pz = player.position.z;
+    const px = isPlanet() ? mapX : player.position.x;
+    const pz = isPlanet() ? mapZ : player.position.z;
     distance += Math.abs(forward) * delta;
-    world.followPlayer(px, pz);
+    if (!isPlanet()) world.followPlayer(px, pz);
+    else world.followPlanetPlayer(player.position, { altitude, cameraPosition: camPos });
     impactShake = Math.max(0, impactShake - delta * 1.2);
     if (realActive) {
       if (locationName.textContent !== 'REAL MAP') locationName.textContent = 'REAL MAP';
@@ -839,8 +945,8 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
         const lx = info.landmark.i * PITCH + PITCH * 0.5;
         const lz = info.landmark.j * PITCH + PITCH * 0.5;
         const wrapDelta = (a, b) => { let d = a - b; d -= SIZE * Math.round(d / SIZE); return d; };
-        const dx = wraps() ? wrapDelta(px, lx) : px - lx;
-        const dz = wraps() ? wrapDelta(pz, lz) : pz - lz;
+        const dx = wraps() || isPlanet() ? wrapDelta(px, lx) : px - lx;
+        const dz = wraps() || isPlanet() ? wrapDelta(pz, lz) : pz - lz;
         nearLandmark = Math.hypot(dx, dz) < 90;
       }
       const place = nearLandmark
@@ -856,7 +962,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
       pulseImpact(impactShake);
       impactShake *= 0.35;
     }
-    updateCamera(delta, { px, py: player.position.y, pz, heading, speedRatio, free: true });
+    updateCamera(delta, { px, py: altitude, pz, heading, speedRatio, free: true });
     speedOutput.textContent = String(Math.round(Math.abs(speed) * 3.6));
     distanceOutput.textContent = (distance / 1000).toFixed(1);
     mapTimer -= delta;
@@ -1141,49 +1247,61 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     let forward;
     if (free) {
       // Open city: the heading is unbounded and the car moves in world x/z; leaving the road surface scrapes and slides.
-      heading += turnRate * delta;
-      const step = speed * delta;
-      const nx = player.position.x + Math.sin(heading) * step;
-      const nz = player.position.z - Math.cos(heading) * step;
       const airborne = altitude > 1.5;
       const canDrive = realActive ? realCity.isDrivable : isFreeDrivable;
-      if (airborne || canDrive(nx, nz)) {
-        player.position.x = nx;
-        player.position.z = nz;
-      } else if (canDrive(nx, player.position.z)) {
-        player.position.x = nx;
-        speed *= 1 - Math.min(0.9, delta * 3);
-      } else if (canDrive(player.position.x, nz)) {
-        player.position.z = nz;
-        speed *= 1 - Math.min(0.9, delta * 3);
-      } else {
-        speed *= 1 - Math.min(0.9, delta * 6);
-      }
-      // Crash into fixtures, pedestrians and traffic; the push-out is only applied when it keeps the car on drivable ground
-      const crash = airborne || realActive ? { dx: 0, dz: 0, speed, shake: 0 } : freeCity.interact({ x: player.position.x, z: player.position.z, heading, speed });
-      if (canDrive(player.position.x + crash.dx, player.position.z + crash.dz)) {
-        player.position.x += crash.dx;
-        player.position.z += crash.dz;
-      }
-      speed = crash.speed;
-      impactShake = Math.max(impactShake, crash.shake);
-      // Pocket planet: keep the car on the single fully-built tile and slide the camera with the wrap.
-      if (wraps()) {
-        const beforeX = player.position.x;
-        const beforeZ = player.position.z;
-        player.position.x = wrapCoord(player.position.x);
-        player.position.z = wrapCoord(player.position.z);
-        const dx = player.position.x - beforeX;
-        const dz = player.position.z - beforeZ;
-        if (dx || dz) {
-          camPos.x += dx;
-          camPos.z += dz;
-          camLook.x += dx;
-          camLook.z += dz;
+      const step = speed * delta;
+      if (isPlanet() && !realActive) {
+        heading += turnRate * delta;
+        const moved = moveOnSphere(mapX, mapZ, heading, step);
+        if (airborne || canDrive(moved.x, moved.z)) {
+          mapX = moved.x;
+          mapZ = moved.z;
+          heading = moved.heading;
+        } else {
+          // Try east/north slides in surface space before stopping.
+          const east = moveOnSphere(mapX, mapZ, Math.PI / 2, step * Math.sin(heading));
+          const north = moveOnSphere(mapX, mapZ, 0, step * Math.cos(heading));
+          if (canDrive(east.x, mapZ)) { mapX = east.x; heading = east.heading; speed *= 1 - Math.min(0.9, delta * 3); }
+          else if (canDrive(mapX, north.z)) { mapZ = north.z; heading = north.heading; speed *= 1 - Math.min(0.9, delta * 3); }
+          else speed *= 1 - Math.min(0.9, delta * 6);
         }
+        const crash = airborne ? { dx: 0, dz: 0, speed, shake: 0 } : freeCity.interact({ x: mapX, z: mapZ, heading, speed });
+        if ((crash.dx || crash.dz) && Math.hypot(crash.dx, crash.dz) > 1e-4) {
+          const pushed = moveOnSphere(mapX, mapZ, Math.atan2(crash.dx, -crash.dz), Math.hypot(crash.dx, crash.dz));
+          if (canDrive(pushed.x, pushed.z)) { mapX = pushed.x; mapZ = pushed.z; }
+        }
+        speed = crash.speed;
+        impactShake = Math.max(impactShake, crash.shake);
+      } else {
+        heading += turnRate * delta;
+        const nx = player.position.x + Math.sin(heading) * step;
+        const nz = player.position.z - Math.cos(heading) * step;
+        if (airborne || canDrive(nx, nz)) {
+          player.position.x = nx;
+          player.position.z = nz;
+        } else if (canDrive(nx, player.position.z)) {
+          player.position.x = nx;
+          speed *= 1 - Math.min(0.9, delta * 3);
+        } else if (canDrive(player.position.x, nz)) {
+          player.position.z = nz;
+          speed *= 1 - Math.min(0.9, delta * 3);
+        } else {
+          speed *= 1 - Math.min(0.9, delta * 6);
+        }
+        const crash = airborne || realActive ? { dx: 0, dz: 0, speed, shake: 0 } : freeCity.interact({ x: player.position.x, z: player.position.z, heading, speed });
+        if (canDrive(player.position.x + crash.dx, player.position.z + crash.dz)) {
+          player.position.x += crash.dx;
+          player.position.z += crash.dz;
+        }
+        speed = crash.speed;
+        impactShake = Math.max(impactShake, crash.shake);
+        mapX = player.position.x;
+        mapZ = player.position.z;
       }
       // Pavement and park lawn sit slightly above the asphalt
-      const lift = realActive || isDrivable(player.position.x, player.position.z) ? 0 : 0.13;
+      const groundX = isPlanet() ? mapX : player.position.x;
+      const groundZ = isPlanet() ? mapZ : player.position.z;
+      const lift = realActive || isDrivable(groundX, groundZ) ? 0 : 0.13;
       if (currentCar.fly) {
         const maxAlt = currentCar.maxAlt || 30;
         const thrusting = driving && isPressed('nitro') && nitro > 0;
@@ -1194,7 +1312,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
         else nitro = Math.min(1, nitro + delta * (altitude < 0.2 ? 0.3 : 0.045));
         altitude += climb * delta;
         // Never touch down on buildings or water: hover just above them until over a road again
-        const floor = (realActive ? canDrive(player.position.x, player.position.z) : isDrivable(player.position.x, player.position.z) || isFreeDrivable(player.position.x, player.position.z)) ? 0 : (altitude > 0.5 ? 3 : 0);
+        const floor = (realActive ? canDrive(groundX, groundZ) : isDrivable(groundX, groundZ) || isFreeDrivable(groundX, groundZ)) ? 0 : (altitude > 0.5 ? 3 : 0);
         if (altitude >= maxAlt) { altitude = maxAlt; climb = Math.min(climb, 0); }
         if (altitude <= floor) {
           if (floor === 0 && altitude < -climb * delta - 0.01 && climb < -9) {
@@ -1209,9 +1327,15 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
         carModel.userData.setThrust(nitroFx, clock);
         nitroBar.style.width = `${Math.round(nitro * 100)}%`;
         altOutput.textContent = String(Math.round(altitude));
-        player.position.y = Math.max(altitude, lift);
-      } else {
+      } else if (!isPlanet()) {
         player.position.y = THREE.MathUtils.lerp(player.position.y, lift, Math.min(1, delta * 14));
+      } else {
+        altitude = THREE.MathUtils.lerp(altitude, lift, Math.min(1, delta * 14));
+      }
+      if (isPlanet()) {
+        placeObjectOnSphere(player, mapX, Math.max(altitude, lift), mapZ, heading);
+      } else if (currentCar.fly) {
+        player.position.y = Math.max(altitude, lift);
       }
       forward = speed;
     } else {
@@ -1235,9 +1359,18 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     prevSpeed = speed;
     accelSmooth = THREE.MathUtils.lerp(accelSmooth, THREE.MathUtils.clamp(accel, -25, 12), Math.min(1, delta * 5));
     rollSmooth = THREE.MathUtils.lerp(rollSmooth, THREE.MathUtils.clamp(turnRate * speed * 0.0016, -0.05, 0.05), Math.min(1, delta * 6));
-    player.rotation.y = -heading;
-    player.rotation.z = -rollSmooth;
-    player.rotation.x = THREE.MathUtils.clamp(accelSmooth * 0.0016, -0.04, 0.02);
+    if (freeActive && isPlanet()) {
+      // Orientation already comes from the sphere tangent frame; keep a little chassis lean in model space.
+      if (carModel) {
+        carModel.rotation.z = -rollSmooth;
+        carModel.rotation.x = THREE.MathUtils.clamp(accelSmooth * 0.0016, -0.04, 0.02);
+      }
+    } else {
+      if (carModel) { carModel.rotation.z = 0; carModel.rotation.x = 0; }
+      player.rotation.y = -heading;
+      player.rotation.z = -rollSmooth;
+      player.rotation.x = THREE.MathUtils.clamp(accelSmooth * 0.0016, -0.04, 0.02);
+    }
     if (carModel.userData.tail) carModel.userData.tail.emissiveIntensity = (driving ? (isPressed('brake') || (isPressed('reverse') && speed > 0.4)) : true) ? 3.2 : (route.night ? 1.3 : 0.8);
     if (tiltNeedle) tiltNeedle.style.left = `${50 + steerInput * 45}%`;
 
@@ -1427,7 +1560,8 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     setAltitude: (value) => {
       altitude = Math.max(0, Number(value) || 0);
       climb = 0;
-      player.position.y = altitude;
+      if (freeActive && isPlanet()) placeObjectOnSphere(player, mapX, altitude, mapZ, heading);
+      else player.position.y = altitude;
       return altitude;
     },
     cycleCamera,

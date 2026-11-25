@@ -1,7 +1,8 @@
 // Free-roam destruction: flying debris, toppled props, knocked-down pedestrians and traffic the player can crash into.
 import * as THREE from './vendor/three/three.module.min.js';
 import { buildVehicle, disposeVehicle, VEHICLE_TYPES } from './city-vehicles.js';
-import { PITCH, GRID, SIZE, isFreeDrivable, wraps, wrapCoord } from './city-map.js';
+import { PITCH, GRID, SIZE, isFreeDrivable, wraps, wrapCoord, currentCity } from './city-map.js';
+import { placeObjectOnSphere, planetRadius } from './city-planet.js';
 
 const GRAVITY = 18;
 const MAX_BITS = 180;
@@ -201,8 +202,21 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
   }
 
   function place(car) {
+    if (currentCity().planet) {
+      placeObjectOnSphere(car.model, car.x, 0, car.z, car.heading, planetRadius());
+      return;
+    }
     car.model.position.set(car.x, 0, car.z);
     car.model.rotation.y = -car.heading;
+  }
+
+  function markPlanetSkip(on = true) {
+    for (const car of cars) car.model.userData.planetSkipBend = !!on;
+  }
+
+  function projectToPlanet(radius = planetRadius()) {
+    markPlanetSkip(true);
+    for (const car of cars) placeObjectOnSphere(car.model, car.x, 0, car.z, car.heading, radius);
   }
 
   function resetVisual(car) {
@@ -412,5 +426,5 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
     pool.clear();
   }
 
-  return { addParked, removeChunk, update, collidePlayer, clear };
+  return { addParked, removeChunk, update, collidePlayer, clear, projectToPlanet, markPlanetSkip };
 }

@@ -6,6 +6,7 @@ import { PITCH as P, GRID, FACE, ROAD_HALF, cellInfo, seedOf, currentCity, wrapI
 const WALK_OUTER = FACE + 2.5;
 import { createEffects, createCars } from './city-smash.js';
 import { createStyles } from './city-styles.js';
+import { planetRadius, projectCityToSphere, placeObjectOnSphere } from './city-planet.js';
 
 // Stream well beyond fog so blocks never pop in at the horizon. Altitude scales the radius further.
 const BASE_LOAD = 850;
@@ -49,9 +50,11 @@ export function createFreeCity({ scene, kit }) {
   const styles = createStyles(kit, FACE);
   let style = { lowrise: 'shophouse', residential: 'tower', downtownBoost: 24 };
   let planetReady = false;
+  let planetMode = false;
   let lastLoad = BASE_LOAD;
   const effects = createEffects(root);
   const cars = createCars({ root, effects, stats });
+  const planetPeds = [];
 
   const asphaltMat = new THREE.MeshStandardMaterial({ map: freeTexture(kit.asphalt), roughness: 0.88, metalness: 0.02 });
   const walkMat = new THREE.MeshStandardMaterial({ map: freeTexture(kit.pavers), color: 0xd9d3c3, roughness: 0.9 });
@@ -361,17 +364,47 @@ export function createFreeCity({ scene, kit }) {
     return best;
   };
 
-  // Pocket planet: build every block once up front and keep it resident (no streaming pop-in).
+  // Pocket planet: build every block once, bend onto a true sphere, keep it resident.
   function buildPlanet() {
     if (planetReady) return;
+    planetMode = true;
     for (let i = 0; i < GRID; i++) {
       for (let j = 0; j < GRID; j++) {
         const key = `${i},${j}`;
         if (!chunks.has(key)) chunks.set(key, buildChunk(i, j));
       }
     }
+    // Capture pedestrian flat paths before mesh reparenting destroys frames.
+    planetPeds.length = 0;
+    const tmp = new THREE.Vector3();
+    for (const chunk of chunks.values()) {
+      for (const ped of chunk.peds) {
+        ped.updateWorldMatrix(true, false);
+        ped.getWorldPosition(tmp);
+        const data = ped.userData.ped;
+        planetPeds.push({
+          ped,
+          x: tmp.x,
+          z0: data.z0,
+          dir: data.dir,
+          speed: data.speed,
+          phase: data.phase,
+          legs: data.legs,
+          arms: data.arms
+        });
+        ped.userData.planetSkipBend = true;
+        if (ped.parent) ped.parent.remove(ped);
+        root.add(ped);
+      }
+      chunk.peds.length = 0;
+    }
+    // Keep dynamic smash vehicles out of the static bake; pose them on the globe afterward.
+    cars.markPlanetSkip?.(true);
+    const styleSea = style.sea ?? currentCity().style?.sea ?? 0x1a2740;
+    projectCityToSphere(root, { radius: planetRadius(), coreColor: styleSea });
+    cars.projectToPlanet?.(planetRadius());
     planetReady = true;
-    lastLoad = Math.max(worldSize(), BASE_LOAD);
+    lastLoad = Math.max(worldSize(), planetRadius() * 2.5);
   }
 
   function update(px, pz, time, budget = 1, alt = 0) {
@@ -413,6 +446,18 @@ export function createFreeCity({ scene, kit }) {
 
   // Pedestrians walk as a pure function of the shared clock, so everyone sees them in the same place.
   function animatePeds(px, pz, time) {
+    if (planetMode) {
+      const zMin = 24; const span = P - 48;
+      for (const entry of planetPeds) {
+        const z = zMin + ((((entry.z0 - zMin + entry.dir * entry.speed * time) % span) + span) % span);
+        // Keep a simple local heading along the road (+z in the original frame ≈ north).
+        placeObjectOnSphere(entry.ped, entry.x, 0, z, entry.dir > 0 ? 0 : Math.PI);
+        const swing = Math.sin(time * entry.speed * 4.5 + entry.phase) * 0.7;
+        entry.legs[0].rotation.x = swing; entry.legs[1].rotation.x = -swing;
+        entry.arms[0].rotation.x = -swing * 0.8; entry.arms[1].rotation.x = swing * 0.8;
+      }
+      return;
+    }
     for (const chunk of chunks.values()) {
       if (distanceTo(chunk.i, chunk.j, px, pz) > 150) continue;
       for (const ped of chunk.peds) {
@@ -437,10 +482,29 @@ export function createFreeCity({ scene, kit }) {
 
   function clear() {
     for (const key of [...chunks.keys()]) dropChunk(key);
+    for (const entry of planetPeds) {
+      if (entry.ped.parent) entry.ped.parent.remove(entry.ped);
+    }
+    planetPeds.length = 0;
+    if (root.userData.planetCoreMesh) {
+      root.remove(root.userData.planetCoreMesh);
+      root.userData.planetCoreMesh.geometry.dispose();
+      root.userData.planetCoreMesh = null;
+    }
+    // Bent meshes were reparented to root — dispose leftovers.
+    for (const child of [...root.children]) {
+      if (child === sea || child.userData?.planetCore) continue;
+      root.remove(child);
+      child.traverse((o) => {
+        if (o.userData?.merged && o.geometry) o.geometry.dispose();
+        else if (o.geometry && o.userData?.sphereBent) o.geometry.dispose();
+      });
+    }
     effects.clear();
     cars.clear();
     broken.clear();
     planetReady = false;
+    planetMode = false;
     lastLoad = BASE_LOAD;
     stats.props = 0; stats.peds = 0; stats.cars = 0;
   }
@@ -542,6 +606,8 @@ export function createFreeCity({ scene, kit }) {
     animate,
     stats,
     get loaded() { return chunks.size; },
-    get loadHorizon() { return lastLoad; }
+    get loadHorizon() { return lastLoad; },
+    get isPlanet() { return planetMode; },
+    get radius() { return planetMode ? planetRadius() : 0; }
   };
 }
