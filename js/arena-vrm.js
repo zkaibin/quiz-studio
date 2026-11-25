@@ -71,8 +71,7 @@ async function loadVrmInstance(url) {
   const vrm = gltf.userData.vrm;
   if (!vrm) throw new Error('VRM plugin did not produce userData.vrm');
 
-  VRMUtils.removeUnnecessaryVertices(gltf.scene);
-  try { VRMUtils.removeUnnecessaryJoints(gltf.scene); } catch { /* ok */ }
+  // Avoid VRMUtils mesh/joint stripping — it can break skinning on Seed-san.
 
   vrm.scene.traverse((obj) => {
     obj.frustumCulled = false;
@@ -256,8 +255,8 @@ function applyKitMaterials(vrm, visual) {
 
 /** Cone-spike hair on the head bone. Keep scalp hair; spikes add silhouette. */
 function attachSignatureHair(vrm, visual) {
-  const head = vrm.humanoid?.getNormalizedBoneNode(VRMHumanBoneName.Head)
-    || vrm.humanoid?.getNormalizedBoneNode('head');
+  const head = rawBone(vrm, VRMHumanBoneName.Head)
+    || bone(vrm, VRMHumanBoneName.Head);
   if (!head) return null;
 
   const style = visual.hairStyle || 'goku';
@@ -304,14 +303,17 @@ function attachSignatureHair(vrm, visual) {
       spike(Math.cos(a) * 0.09, 0.14 + (i % 3) * 0.04, Math.sin(a) * 0.07, 0.05, 0.28, 0.05, -0.25, Math.cos(a) * 0.3, i % 2 === 0);
     }
   } else {
-    spike(0, 0.24, 0.03, 0.06, 0.4, 0.06, -0.12, 0, true);
-    spike(-0.08, 0.2, 0.05, 0.05, 0.34, 0.05, -0.22, -0.4, true);
-    spike(0.09, 0.21, 0.04, 0.05, 0.36, 0.05, -0.2, 0.4);
-    spike(-0.14, 0.14, 0.0, 0.045, 0.28, 0.045, -0.35, -0.75);
-    spike(0.15, 0.15, -0.01, 0.045, 0.3, 0.045, -0.32, 0.75, true);
-    spike(0, 0.16, -0.1, 0.06, 0.32, 0.06, -0.85, 0, true);
-    spike(-0.05, 0.02, 0.12, 0.04, 0.14, 0.04, 0.95, -0.12);
-    spike(0.06, 0.03, 0.12, 0.04, 0.14, 0.04, 0.9, 0.15, true);
+    // Goku-like fan — several tall spikes, short forehead spikes (not one witch-hat)
+    spike(0, 0.22, 0.02, 0.05, 0.36, 0.05, -0.08, 0, true);
+    spike(-0.07, 0.2, 0.04, 0.045, 0.32, 0.045, -0.18, -0.32, true);
+    spike(0.08, 0.2, 0.03, 0.045, 0.33, 0.045, -0.16, 0.32);
+    spike(-0.12, 0.15, 0.01, 0.04, 0.26, 0.04, -0.28, -0.65);
+    spike(0.13, 0.16, 0.0, 0.04, 0.28, 0.04, -0.26, 0.65, true);
+    spike(-0.05, 0.18, -0.08, 0.042, 0.28, 0.042, -0.7, -0.2, true);
+    spike(0.05, 0.18, -0.08, 0.042, 0.28, 0.042, -0.7, 0.2);
+    spike(0, 0.14, -0.11, 0.05, 0.24, 0.05, -0.95, 0, true);
+    spike(-0.04, 0.02, 0.11, 0.032, 0.1, 0.03, 0.85, -0.1);
+    spike(0.045, 0.025, 0.11, 0.032, 0.1, 0.03, 0.8, 0.12, true);
   }
 
   head.add(group);
@@ -322,134 +324,295 @@ function bone(vrm, name) {
   return vrm.humanoid?.getNormalizedBoneNode(name) || null;
 }
 
-function poseOffsets(pose, facing) {
-  // VRM normalized T-pose: arms along ±X.
-  // Empirically on Seed-san: −Z left / +Z right lowers arms ( +Z left raises them overhead ).
-  const lead = facing >= 0 ? 1 : -1;
-  const base = {
-    hips: { x: 0.02, y: 0, z: 0 },
-    spine: { x: 0.02, y: 0, z: 0 },
-    chest: { x: 0, y: 0, z: 0 },
-    neck: { x: -0.02, y: 0, z: 0 },
-    head: { x: -0.02, y: 0, z: 0 },
-    leftUpperArm: { x: 0.25, y: 0.2, z: -1.25 },
-    rightUpperArm: { x: 0.25, y: -0.2, z: 1.25 },
-    leftLowerArm: { x: 0.4, y: 0, z: 0.15 },
-    rightLowerArm: { x: 0.4, y: 0, z: -0.15 },
-    leftUpperLeg: { x: 0.08, y: 0, z: 0.05 },
-    rightUpperLeg: { x: 0.08, y: 0, z: -0.05 },
-    leftLowerLeg: { x: 0.14, y: 0, z: 0 },
-    rightLowerLeg: { x: 0.14, y: 0, z: 0 }
-  };
-
-  if (pose === 'idle') {
-    // Fighting ready: arms nearly at sides (π/2 from T-pose), fists slightly forward
-    base.leftUpperArm = { x: 0.45, y: 0.4, z: -1.45 };
-    base.rightUpperArm = { x: 0.45, y: -0.4, z: 1.45 };
-    base.leftLowerArm = { x: 1.05, y: 0.12, z: 0.25 };
-    base.rightLowerArm = { x: 1.05, y: -0.12, z: -0.25 };
-    base.leftUpperLeg = { x: 0.22, y: 0, z: 0.08 };
-    base.rightUpperLeg = { x: 0.16, y: 0, z: -0.08 };
-    base.leftLowerLeg = { x: 0.4, y: 0, z: 0 };
-    base.rightLowerLeg = { x: 0.32, y: 0, z: 0 };
-    base.hips.y = lead * -0.08;
-    base.spine.y = lead * -0.1;
-  } else if (pose === 'punch') {
-    const strikeRight = lead > 0;
-    if (strikeRight) {
-      base.rightUpperArm = { x: -1.15, y: -0.5, z: 0.35 };
-      base.rightLowerArm = { x: 0.15, y: 0, z: 0 };
-      base.leftUpperArm = { x: 0.5, y: 0.35, z: -1.2 };
-      base.leftLowerArm = { x: 1.15, y: 0, z: 0.15 };
-    } else {
-      base.leftUpperArm = { x: -1.15, y: 0.5, z: -0.35 };
-      base.leftLowerArm = { x: 0.15, y: 0, z: 0 };
-      base.rightUpperArm = { x: 0.5, y: -0.35, z: 1.2 };
-      base.rightLowerArm = { x: 1.15, y: 0, z: -0.15 };
-    }
-    base.spine.y = lead * -0.35;
-    base.hips.y = lead * 0.18;
-  } else if (pose === 'kick') {
-    if (lead > 0) {
-      base.rightUpperLeg = { x: -1.4, y: 0, z: -0.12 };
-      base.rightLowerLeg = { x: 0.2, y: 0, z: 0 };
-      base.leftUpperLeg = { x: 0.4, y: 0, z: 0.1 };
-      base.leftLowerLeg = { x: 0.7, y: 0, z: 0 };
-    } else {
-      base.leftUpperLeg = { x: -1.4, y: 0, z: 0.12 };
-      base.leftLowerLeg = { x: 0.2, y: 0, z: 0 };
-      base.rightUpperLeg = { x: 0.4, y: 0, z: -0.1 };
-      base.rightLowerLeg = { x: 0.7, y: 0, z: 0 };
-    }
-    base.leftUpperArm = { x: 0.35, y: 0.25, z: -1.1 };
-    base.rightUpperArm = { x: 0.35, y: -0.25, z: 1.1 };
-    base.spine.x = 0.1;
-  } else if (pose === 'guard') {
-    base.leftUpperArm = { x: -0.9, y: 0.5, z: -0.55 };
-    base.rightUpperArm = { x: -0.9, y: -0.5, z: 0.55 };
-    base.leftLowerArm = { x: 1.45, y: 0.15, z: 0 };
-    base.rightLowerArm = { x: 1.45, y: -0.15, z: 0 };
-    base.leftUpperLeg.x = 0.35;
-    base.rightUpperLeg.x = 0.3;
-    base.leftLowerLeg.x = 0.7;
-    base.rightLowerLeg.x = 0.65;
-    base.hips.x = 0.08;
-  } else if (pose === 'hurt') {
-    base.spine.x = -0.28;
-    base.spine.y = lead * 0.3;
-    base.head.x = 0.2;
-    base.leftUpperArm = { x: -0.35, y: 0.15, z: -0.85 };
-    base.rightUpperArm = { x: -0.4, y: -0.15, z: 0.85 };
-  } else if (pose === 'charge') {
-    base.leftUpperArm = { x: -0.7, y: 0.45, z: -0.65 };
-    base.rightUpperArm = { x: -0.7, y: -0.45, z: 0.65 };
-    base.leftLowerArm = { x: 1.05, y: 0, z: 0 };
-    base.rightLowerArm = { x: 1.05, y: 0, z: 0 };
-    base.hips.x = 0.1;
-    base.leftUpperLeg.x = 0.4;
-    base.rightUpperLeg.x = 0.4;
-    base.leftLowerLeg.x = 0.85;
-    base.rightLowerLeg.x = 0.85;
-  }
-  return base;
+function rawBone(vrm, name) {
+  return vrm.humanoid?.getRawBoneNode?.(name) || null;
 }
 
-function applyPose(vrm, poseMap, t = 1) {
-  const map = {
-    hips: VRMHumanBoneName.Hips,
-    spine: VRMHumanBoneName.Spine,
-    chest: VRMHumanBoneName.Chest,
-    neck: VRMHumanBoneName.Neck,
-    head: VRMHumanBoneName.Head,
-    leftUpperArm: VRMHumanBoneName.LeftUpperArm,
-    rightUpperArm: VRMHumanBoneName.RightUpperArm,
-    leftLowerArm: VRMHumanBoneName.LeftLowerArm,
-    rightLowerArm: VRMHumanBoneName.RightLowerArm,
-    leftUpperLeg: VRMHumanBoneName.LeftUpperLeg,
-    rightUpperLeg: VRMHumanBoneName.RightUpperLeg,
-    leftLowerLeg: VRMHumanBoneName.LeftLowerLeg,
-    rightLowerLeg: VRMHumanBoneName.RightLowerLeg
-  };
-  Object.entries(poseMap).forEach(([key, rot]) => {
-    const node = bone(vrm, map[key] || key);
-    if (!node || !rot) return;
-    // Absolute targets from T-pose rest (normalized humanoid)
-    node.rotation.x += (rot.x - node.rotation.x) * t;
-    node.rotation.y += (rot.y - node.rotation.y) * t;
-    node.rotation.z += (rot.z - node.rotation.z) * t;
+const BONE_MAP = {
+  hips: VRMHumanBoneName.Hips,
+  spine: VRMHumanBoneName.Spine,
+  chest: VRMHumanBoneName.Chest,
+  neck: VRMHumanBoneName.Neck,
+  head: VRMHumanBoneName.Head,
+  leftUpperArm: VRMHumanBoneName.LeftUpperArm,
+  rightUpperArm: VRMHumanBoneName.RightUpperArm,
+  leftLowerArm: VRMHumanBoneName.LeftLowerArm,
+  rightLowerArm: VRMHumanBoneName.RightLowerArm,
+  leftUpperLeg: VRMHumanBoneName.LeftUpperLeg,
+  rightUpperLeg: VRMHumanBoneName.RightUpperLeg,
+  leftLowerLeg: VRMHumanBoneName.LeftLowerLeg,
+  rightLowerLeg: VRMHumanBoneName.RightLowerLeg
+};
+
+function rot(x = 0, y = 0, z = 0) {
+  return { x, y, z };
+}
+
+function lerpPose(a, b, t) {
+  const out = {};
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  keys.forEach((k) => {
+    const A = a[k] || rot();
+    const B = b[k] || rot();
+    out[k] = rot(
+      A.x + (B.x - A.x) * t,
+      A.y + (B.y - A.y) * t,
+      A.z + (B.z - A.z) * t
+    );
   });
+  return out;
+}
+
+/** Idle / ready stance shared as the blend base for attacks. */
+function idlePose(facing) {
+  const lead = facing >= 0 ? 1 : -1;
+  return {
+    hips: rot(0.04, lead * -0.1, 0),
+    spine: rot(0.06, lead * -0.12, 0),
+    chest: rot(0.04, lead * -0.08, 0),
+    neck: rot(-0.05, 0, 0),
+    head: rot(-0.04, lead * 0.06, 0),
+    // Arms down at sides — keep Y twist small so the far arm doesn't contort
+    leftUpperArm: rot(0.35, 0.12, -1.35),
+    rightUpperArm: rot(0.35, -0.12, 1.35),
+    leftLowerArm: rot(0.55, 0.05, 0.1),
+    rightLowerArm: rot(0.55, -0.05, -0.1),
+    leftUpperLeg: rot(0.22, 0, 0.1),
+    rightUpperLeg: rot(0.16, 0, -0.1),
+    leftLowerLeg: rot(0.42, 0, 0),
+    rightLowerLeg: rot(0.34, 0, 0)
+  };
+}
+
+/**
+ * Exaggerated combat poses that read at fight-cam distance.
+ * phase: 0 = windup, 1 = full strike / held pose.
+ */
+function poseOffsets(pose, facing, phase = 1, hand = 'lead') {
+  const lead = facing >= 0 ? 1 : -1;
+  // Fight cam sits on +Z with a yaw bias — the camera-side arm is opposite the
+  // world facing axis. Prefer that arm so punches aren't hidden behind the torso.
+  // facing+ (look +X) → left arm toward camera; facing− → right arm toward camera.
+  const useRight = hand === 'rear' ? lead > 0 : lead < 0;
+  const idle = idlePose(facing);
+
+  if (pose === 'idle') return idle;
+
+  if (pose === 'punch') {
+    // Side-view readable: striking arm HIGH then out (screen up + toward foe).
+    // Matches the silhouette that reads on arena-vrm-debug with the fight builder.
+    const windup = { ...idle };
+    const strike = { ...idle };
+    if (useRight) {
+      windup.rightUpperArm = rot(-0.2, -0.6, 1.35);
+      windup.rightLowerArm = rot(1.8, 0, 0);
+      windup.leftUpperArm = rot(-1.0, 0.5, -0.9);
+      windup.leftLowerArm = rot(1.4, 0, 0);
+      strike.rightUpperArm = rot(-1.4, -0.35, 0.55);
+      strike.rightLowerArm = rot(0.1, 0, 0);
+      strike.leftUpperArm = rot(-0.6, 0.7, -1.1);
+      strike.leftLowerArm = rot(1.5, 0.2, 0);
+    } else {
+      windup.leftUpperArm = rot(-0.2, 0.6, -1.35);
+      windup.leftLowerArm = rot(1.8, 0, 0);
+      windup.rightUpperArm = rot(-1.0, -0.5, 0.9);
+      windup.rightLowerArm = rot(1.4, 0, 0);
+      strike.leftUpperArm = rot(-1.4, 0.35, -0.55);
+      strike.leftLowerArm = rot(0.1, 0, 0);
+      strike.rightUpperArm = rot(-0.6, -0.7, 1.1);
+      strike.rightLowerArm = rot(1.5, -0.2, 0);
+    }
+    windup.spine = rot(0.2, lead * 0.35, 0);
+    windup.chest = rot(0.1, lead * 0.25, 0);
+    strike.spine = rot(0.05, lead * -0.45, 0);
+    strike.chest = rot(0.05, lead * -0.35, 0);
+    strike.hips = rot(0.05, lead * 0.2, 0);
+    strike.head = rot(-0.1, lead * -0.15, 0);
+    return lerpPose(windup, strike, phase);
+  }
+
+  if (pose === 'uppercut') {
+    const windup = { ...idle };
+    const strike = { ...idle };
+    if (useRight) {
+      windup.rightUpperArm = rot(0.6, -0.4, 1.2);
+      windup.rightLowerArm = rot(1.7, 0, 0);
+      strike.rightUpperArm = rot(-2.2, -0.35, 0.4); // fist skyward
+      strike.rightLowerArm = rot(0.2, 0, 0);
+      strike.leftUpperArm = rot(0.5, 0.4, -1.3);
+    } else {
+      windup.leftUpperArm = rot(0.6, 0.4, -1.2);
+      windup.leftLowerArm = rot(1.7, 0, 0);
+      strike.leftUpperArm = rot(-2.2, 0.35, -0.4);
+      strike.leftLowerArm = rot(0.2, 0, 0);
+      strike.rightUpperArm = rot(0.5, -0.4, 1.3);
+    }
+    windup.spine = rot(0.35, lead * 0.1, 0);
+    windup.hips = rot(0.25, 0, 0);
+    strike.spine = rot(-0.35, lead * -0.2, 0);
+    strike.chest = rot(-0.25, 0, 0);
+    strike.hips = rot(-0.15, lead * 0.1, 0);
+    strike.head = rot(-0.3, 0, 0);
+    return lerpPose(windup, strike, phase);
+  }
+
+  if (pose === 'dash') {
+    const windup = { ...idle };
+    const strike = { ...idle };
+    // Shoulder-first lunge — both arms drive forward
+    windup.leftUpperArm = rot(0.2, 0.6, -0.9);
+    windup.rightUpperArm = rot(0.2, -0.6, 0.9);
+    windup.spine = rot(0.25, lead * 0.15, 0);
+    strike.leftUpperArm = rot(-1.1, 0.5, -0.35);
+    strike.rightUpperArm = rot(-1.1, -0.5, 0.35);
+    strike.leftLowerArm = rot(0.4, 0, 0);
+    strike.rightLowerArm = rot(0.4, 0, 0);
+    strike.spine = rot(0.35, lead * -0.35, 0);
+    strike.chest = rot(0.2, lead * -0.25, 0);
+    strike.hips = rot(0.15, lead * 0.2, 0);
+    strike.head = rot(0.15, lead * -0.1, 0);
+    strike.leftUpperLeg = rot(-0.3, 0, 0.1);
+    strike.rightUpperLeg = rot(0.5, 0, -0.1);
+    strike.leftLowerLeg = rot(0.5, 0, 0);
+    strike.rightLowerLeg = rot(0.2, 0, 0);
+    return lerpPose(windup, strike, phase);
+  }
+
+  if (pose === 'kick') {
+    const windup = { ...idle };
+    const strike = { ...idle };
+    // Camera-side leg (same rule as punch arms)
+    const kickRight = lead < 0;
+    if (kickRight) {
+      windup.rightUpperLeg = rot(-0.6, 0, -0.2);
+      windup.rightLowerLeg = rot(1.2, 0, 0);
+      strike.rightUpperLeg = rot(-1.75, -0.2, -0.25);
+      strike.rightLowerLeg = rot(0.1, 0, 0);
+      strike.leftUpperLeg = rot(0.6, 0, 0.15);
+      strike.leftLowerLeg = rot(0.9, 0, 0);
+    } else {
+      windup.leftUpperLeg = rot(-0.6, 0, 0.2);
+      windup.leftLowerLeg = rot(1.2, 0, 0);
+      strike.leftUpperLeg = rot(-1.75, 0.2, 0.25);
+      strike.leftLowerLeg = rot(0.1, 0, 0);
+      strike.rightUpperLeg = rot(0.6, 0, -0.15);
+      strike.rightLowerLeg = rot(0.9, 0, 0);
+    }
+    windup.spine = rot(0.2, lead * 0.1, 0);
+    strike.spine = rot(0.15, lead * -0.25, 0);
+    strike.chest = rot(0.1, lead * -0.15, 0);
+    strike.leftUpperArm = rot(0.3, 0.35, -1.15);
+    strike.rightUpperArm = rot(0.3, -0.35, 1.15);
+    return lerpPose(windup, strike, phase);
+  }
+
+  if (pose === 'guard') {
+    return {
+      ...idle,
+      hips: rot(0.18, 0, 0),
+      spine: rot(0.15, lead * -0.08, 0),
+      chest: rot(0.12, 0, 0),
+      head: rot(-0.2, 0, 0),
+      // Elbows high, fists by temples (classic boxing guard)
+      leftUpperArm: rot(-1.55, 1.0, 0.15),
+      rightUpperArm: rot(-1.55, -1.0, -0.15),
+      leftLowerArm: rot(2.0, 0.5, 0.2),
+      rightLowerArm: rot(2.0, -0.5, -0.2),
+      leftUpperLeg: rot(0.5, 0, 0.14),
+      rightUpperLeg: rot(0.45, 0, -0.14),
+      leftLowerLeg: rot(0.85, 0, 0),
+      rightLowerLeg: rot(0.8, 0, 0)
+    };
+  }
+
+  if (pose === 'hurt') {
+    return {
+      ...idle,
+      hips: rot(-0.1, lead * 0.35, 0),
+      spine: rot(-0.4, lead * 0.4, 0),
+      chest: rot(-0.2, lead * 0.2, 0),
+      head: rot(0.35, lead * 0.25, 0),
+      leftUpperArm: rot(-0.5, 0.2, -0.7),
+      rightUpperArm: rot(-0.55, -0.2, 0.7),
+      leftLowerArm: rot(0.8, 0, 0),
+      rightLowerArm: rot(0.8, 0, 0),
+      leftUpperLeg: rot(0.35, 0, 0.15),
+      rightUpperLeg: rot(0.2, 0, -0.15)
+    };
+  }
+
+  if (pose === 'charge') {
+    return {
+      ...idle,
+      hips: rot(0.2, 0, 0),
+      spine: rot(0.25, 0, 0),
+      chest: rot(0.15, 0, 0),
+      head: rot(0.2, 0, 0),
+      // Hands cupped at side for ki blast
+      leftUpperArm: rot(-0.85, 0.75, -0.5),
+      rightUpperArm: rot(-0.85, -0.75, 0.5),
+      leftLowerArm: rot(1.35, 0.3, 0.15),
+      rightLowerArm: rot(1.35, -0.3, -0.15),
+      leftUpperLeg: rot(0.45, 0, 0.12),
+      rightUpperLeg: rot(0.45, 0, -0.12),
+      leftLowerLeg: rot(0.9, 0, 0),
+      rightLowerLeg: rot(0.9, 0, 0)
+    };
+  }
+
+  return idle;
+}
+
+function rememberRawRest(vrm) {
+  // Touch raw bones once at bind pose so later humanoid updates stay stable
+  Object.values(BONE_MAP).forEach((boneName) => { rawBone(vrm, boneName); });
+}
+
+/**
+ * Write pose using normalized humanoid bones (same space as the working debug page),
+ * then push to the skinned raw skeleton via humanoid.update().
+ */
+function applyPose(vrm, poseMap, t = 1) {
+  Object.entries(poseMap).forEach(([key, target]) => {
+    if (!target) return;
+    const node = bone(vrm, BONE_MAP[key] || key);
+    if (!node) return;
+    if (t >= 0.999) {
+      node.rotation.set(target.x, target.y, target.z);
+    } else {
+      node.rotation.x += (target.x - node.rotation.x) * t;
+      node.rotation.y += (target.y - node.rotation.y) * t;
+      node.rotation.z += (target.z - node.rotation.z) * t;
+    }
+  });
+  try { vrm.humanoid?.update?.(); } catch { /* ok */ }
 }
 
 function resolvePose(anim, state = {}) {
   if (state.hurt) return 'hurt';
   if (state.guarding) return 'guard';
   if (state.charging) return 'charge';
-  // Drive melee from live attackId so the pose ends with attackTimer
-  if (state.attack === 'punch' || state.attack === 'uppercut' || state.attack === 'dash') return 'punch';
+  if (state.attack === 'punch') return 'punch';
+  if (state.attack === 'uppercut') return 'uppercut';
+  if (state.attack === 'dash') return 'dash';
   if (state.attack === 'kick') return 'kick';
+  // Beam/orb specials share the charge silhouette while firing
+  if (state.attack) return 'charge';
   if (anim === 'guard') return 'guard';
   if (anim === 'hurt') return 'hurt';
   return 'idle';
+}
+
+/**
+ * Map attack progress → pose blend.
+ * Reach full strike almost immediately and HOLD it until the attack ends —
+ * no early recover (laggy frames were skipping the readable silhouette).
+ */
+function strikePhase(progress, animT = 0) {
+  // Time-based ramp wins over progress so the first frames always read
+  const byTime = Math.min(1, animT / 0.05);
+  if (progress <= 0) return byTime;
+  return Math.max(byTime, Math.min(1, progress / 0.12));
 }
 
 /**
@@ -481,6 +644,7 @@ export async function buildVrmFighterModel(fighterDef) {
   const v = fighterDef.visual;
   try {
     const { vrm } = await loadVrmInstance();
+    rememberRawRest(vrm);
     applyKitMaterials(vrm, v);
     attachSignatureHair(vrm, v);
 
@@ -492,18 +656,55 @@ export async function buildVrmFighterModel(fighterDef) {
     // Seed-san / samples are ~1.4–1.6m; scale up for fight-cam read
     root.scale.setScalar(1.7 * heightScale);
 
-    // Simple boots on foot bones (Seed-san is barefoot)
+    // Kit props parented to raw bones (normalized nodes can sit at origin → floating props)
     const bootMat = new THREE.MeshToonMaterial({ color: v.boots || v.accent || 0x1e3a8a });
-    const bootGeo = new THREE.CapsuleGeometry(0.055, 0.08, 3, 6);
-    ['LeftFoot', 'RightFoot'].forEach((boneName) => {
-      const foot = bone(vrm, VRMHumanBoneName[boneName] || boneName);
+    const bandMat = new THREE.MeshToonMaterial({
+      color: v.kit === 'saiyanArmor' ? (v.accent || 0xf8fafc) : (v.undershirt || v.accent || 0x1e3a8a)
+    });
+    const sashMat = new THREE.MeshToonMaterial({
+      color: v.kit === 'saiyanArmor' ? (v.gold || 0xeab308) : (v.undershirt || 0x1e3a8a)
+    });
+    const armorMat = new THREE.MeshToonMaterial({ color: 0xf8fafc });
+    const raw = (name) => vrm.humanoid?.getRawBoneNode?.(name) || bone(vrm, name);
+    const bootGeo = new THREE.CapsuleGeometry(0.05, 0.07, 3, 6);
+    [['LeftFoot', VRMHumanBoneName.LeftFoot], ['RightFoot', VRMHumanBoneName.RightFoot]].forEach(([, name]) => {
+      const foot = raw(name);
       if (!foot) return;
       const boot = new THREE.Mesh(bootGeo, bootMat);
-      boot.position.set(0, -0.02, 0.04);
-      boot.rotation.x = 0.35;
-      boot.scale.set(1.1, 0.9, 1.6);
+      boot.position.set(0, -0.04, 0.05);
+      boot.rotation.x = 0.4;
+      boot.scale.set(1.2, 1, 1.7);
       foot.add(boot);
     });
+    [['LeftHand', VRMHumanBoneName.LeftHand], ['RightHand', VRMHumanBoneName.RightHand]].forEach(([, name]) => {
+      const hand = raw(name);
+      if (!hand) return;
+      const band = new THREE.Mesh(new THREE.CylinderGeometry(0.038, 0.042, 0.055, 10), bandMat);
+      band.position.set(0, 0.06, 0);
+      hand.add(band);
+    });
+    const spine = raw(VRMHumanBoneName.Spine) || raw(VRMHumanBoneName.Hips);
+    if (spine) {
+      const sash = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.16, 0.05, 14), sashMat);
+      sash.position.set(0, 0.02, 0);
+      spine.add(sash);
+    }
+    if (v.kit === 'saiyanArmor') {
+      const chest = raw(VRMHumanBoneName.UpperChest) || raw(VRMHumanBoneName.Chest);
+      if (chest) {
+        const plate = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.2, 0.07), armorMat);
+        plate.position.set(0, 0.04, 0.09);
+        chest.add(plate);
+        const strapL = new THREE.Mesh(new THREE.BoxGeometry(0.035, 0.18, 0.025), sashMat);
+        strapL.position.set(-0.09, 0.1, 0.07);
+        strapL.rotation.z = 0.4;
+        chest.add(strapL);
+        const strapR = new THREE.Mesh(new THREE.BoxGeometry(0.035, 0.18, 0.025), sashMat);
+        strapR.position.set(0.09, 0.1, 0.07);
+        strapR.rotation.z = -0.4;
+        chest.add(strapR);
+      }
+    }
 
     const aura = new THREE.Mesh(
       new THREE.SphereGeometry(0.9, 16, 12),
@@ -547,11 +748,14 @@ export async function buildVrmFighterModel(fighterDef) {
     let animT = 0;
     let pose = 'idle';
     const CAM_BIAS = 0.4;
+    const STRIKE_BIAS = 0.85; // pull more toward camera during melee so arms read
 
     function setFacing(dir) {
       facing = dir >= 0 ? 1 : -1;
-      // Same camera-biased facing as procedural mesh fighters (arena-characters.js)
-      root.rotation.y = facing >= 0 ? Math.PI / 2 - CAM_BIAS : -Math.PI / 2 + CAM_BIAS;
+      const bias = (pose === 'punch' || pose === 'kick' || pose === 'uppercut' || pose === 'dash' || pose === 'guard')
+        ? STRIKE_BIAS
+        : CAM_BIAS;
+      root.rotation.y = facing >= 0 ? Math.PI / 2 - bias : -Math.PI / 2 + bias;
     }
 
     function setAnim(name) {
@@ -563,37 +767,56 @@ export async function buildVrmFighterModel(fighterDef) {
 
     function setCamera() { /* VRM uses world facing, not billboards */ }
 
+    let strikeLunge = 0;
+
     function animate(dt, state = {}) {
       animT += dt;
       const next = resolvePose(anim, state);
-      const poseChanged = next !== pose;
       pose = next;
-      const targets = poseOffsets(pose, facing);
-      // Snap into attack poses so short melee windows read at fight-cam distance
-      const rate = state.hurt ? 16
-        : (pose === 'punch' || pose === 'kick' ? 28 : 14);
-      const blend = poseChanged && (pose === 'punch' || pose === 'kick')
-        ? 1
-        : Math.min(1, rate * Math.max(dt, 1 / 30));
-      applyPose(vrm, targets, blend);
+      const isStrike = pose === 'punch' || pose === 'kick' || pose === 'uppercut' || pose === 'dash';
+      const progress = typeof state.attackProgress === 'number' ? state.attackProgress : 0;
+      const phase = isStrike ? Math.max(0.9, strikePhase(progress, animT)) : 1;
+      const targets = poseOffsets(pose, facing, phase, state.attackHand || 'lead');
 
-      // Idle breath
+      // Forward lunge in model space toward opponent
+      const wantLunge = isStrike && (pose === 'punch' || pose === 'dash') ? 0.32 : 0;
+      strikeLunge += (wantLunge - strikeLunge) * Math.min(1, 20 * dt);
+      vrm.scene.position.z = strikeLunge;
+
+      const blend = (pose === 'idle') ? Math.min(1, 12 * Math.max(dt, 1 / 30)) : 1;
+      if (vrm.lookAt) vrm.lookAt.autoUpdate = false;
+      vrm.update(dt);
+      applyPose(vrm, targets, blend);
+      // Keep facing bias in sync when entering/leaving strikes
+      setFacing(facing);
+
       if (pose === 'idle') {
-        const breath = Math.sin(animT * 2.2) * 0.015;
+        const breath = Math.sin(animT * 2.2) * 0.012;
         const chest = bone(vrm, VRMHumanBoneName.Chest);
         if (chest) chest.position.y = breath;
       }
 
-      vrm.update(dt);
-
-      const energyGlow = 0.5 + (state.aura || 0) * 2.2 + (state.charging ? 0.7 : 0);
-      rim.intensity += (energyGlow - rim.intensity) * Math.min(1, 6 * dt);
-      if (state.charging) {
-        aura.material.opacity = 0.45 + Math.sin(animT * 12) * 0.15;
-        aura.scale.setScalar(1.1 + Math.sin(animT * 8) * 0.12);
+      if (pose === 'punch' || pose === 'uppercut' || pose === 'dash') {
+        aura.material.color.setHex(0xff8a4c);
+        aura.material.opacity = 0.28;
+        aura.scale.setScalar(1.15);
+      } else if (pose === 'kick') {
+        aura.material.color.setHex(0x38bdf8);
+        aura.material.opacity = 0.28;
+        aura.scale.setScalar(1.12);
+      } else if (pose === 'guard') {
+        aura.material.color.setHex(0xeab308);
+        aura.material.opacity = 0.22;
+      } else if (state.charging || pose === 'charge') {
+        aura.material.color.setHex(v.aura || 0x60a5fa);
+        aura.material.opacity = 0.4 + Math.sin(animT * 12) * 0.12;
+        aura.scale.setScalar(1.1 + Math.sin(animT * 8) * 0.1);
       } else {
+        aura.material.color.setHex(v.aura || 0x60a5fa);
         aura.material.opacity += ((state.aura || 0) * 0.65 - aura.material.opacity) * Math.min(1, 6 * dt);
       }
+      const energyGlow = 0.5 + (state.aura || 0) * 2.2 + (state.charging ? 0.7 : 0);
+      rim.intensity += (energyGlow - rim.intensity) * Math.min(1, 6 * dt);
       shadow.material.opacity = state.airborne ? 0.12 : 0.28;
       shadow.scale.setScalar(state.airborne ? 0.55 : 1);
     }
