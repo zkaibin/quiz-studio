@@ -1,0 +1,26 @@
+{
+  "name": "City Driving",
+  "short_name": "City Drive",
+  "description": "Drive free-roam or race through city streets.",
+  "start_url": "./city-driving.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#0f242b",
+  "theme_color": "#0f242b",
+  "icons": [
+    {
+      "src": "./icons/city-driving-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/city-driving-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
