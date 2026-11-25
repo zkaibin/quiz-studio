@@ -229,25 +229,111 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   const hint = document.getElementById('hint');
   const gameRoot = document.querySelector('.city-game');
   const exitGameButton = document.getElementById('exit-game');
+  const fsRetryButton = document.getElementById('fs-retry');
+  let immersiveWanted = false;
 
+  function isDisplayStandalone() {
+    return window.matchMedia('(display-mode: fullscreen)').matches
+      || window.matchMedia('(display-mode: standalone)').matches
+      || window.navigator.standalone === true;
+  }
+  function isNativeFullscreen() {
+    return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+  }
+  function syncAppViewport() {
+    const vv = window.visualViewport;
+    // Prefer visualViewport (excludes browser chrome); fall back to layout viewport.
+    const width = Math.round(vv?.width || window.innerWidth || document.documentElement.clientWidth);
+    const height = Math.round(vv?.height || window.innerHeight || document.documentElement.clientHeight);
+    if (width > 0) document.documentElement.style.setProperty('--app-width', `${width}px`);
+    if (height > 0) document.documentElement.style.setProperty('--app-height', `${height}px`);
+    // Keep the immersive layer pinned to the visible viewport origin (iOS rubber-band / URL-bar shift).
+    if (vv && immersiveWanted) {
+      gameRoot.style.top = `${Math.round(vv.offsetTop)}px`;
+      gameRoot.style.left = `${Math.round(vv.offsetLeft)}px`;
+    } else {
+      gameRoot.style.top = '0px';
+      gameRoot.style.left = '0px';
+    }
+  }
+  function canRequestFullscreen(el) {
+    return !!(el && (el.requestFullscreen || el.webkitRequestFullscreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen));
+  }
+  async function requestFsOn(el) {
+    if (!el || isNativeFullscreen()) return true;
+    const attempts = [];
+    if (el.requestFullscreen) {
+      attempts.push(() => el.requestFullscreen({ navigationUI: 'hide' }));
+      attempts.push(() => el.requestFullscreen());
+    }
+    if (el.webkitRequestFullscreen) attempts.push(() => el.webkitRequestFullscreen());
+    if (el.webkitRequestFullScreen) attempts.push(() => el.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT || 0));
+    if (el.mozRequestFullScreen) attempts.push(() => el.mozRequestFullScreen());
+    if (el.msRequestFullscreen) attempts.push(() => el.msRequestFullscreen());
+    for (const attempt of attempts) {
+      try {
+        await attempt();
+        if (isNativeFullscreen()) return true;
+      } catch (error) { /* try next strategy */ }
+    }
+    return isNativeFullscreen();
+  }
   async function enterFullscreen() {
-    const target = document.documentElement;
-    if (document.fullscreenElement || document.webkitFullscreenElement) return;
-    try {
-      if (target.requestFullscreen) await target.requestFullscreen({ navigationUI: 'hide' });
-      else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
-    } catch (error) { /* browsers may block without a fresh gesture */ }
+    if (isDisplayStandalone() || isNativeFullscreen()) {
+      updateFsRetryUi(false);
+      return true;
+    }
+    // Prefer the game shell, then the document — some mobile browsers are picky.
+    const ok = await requestFsOn(gameRoot) || await requestFsOn(document.documentElement) || await requestFsOn(document.body);
+    updateFsRetryUi(!ok && canRequestFullscreen(document.documentElement));
+    return ok;
   }
   async function leaveFullscreen() {
+    updateFsRetryUi(false);
     try {
-      if (document.fullscreenElement && document.exitFullscreen) await document.exitFullscreen();
-      else if (document.webkitFullscreenElement && document.webkitExitFullscreen) document.webkitExitFullscreen();
+      if (document.exitFullscreen && document.fullscreenElement) await document.exitFullscreen();
+      else if (document.webkitExitFullscreen && document.webkitFullscreenElement) document.webkitExitFullscreen();
+      else if (document.mozCancelFullScreen && document.mozFullScreenElement) document.mozCancelFullScreen();
+      else if (document.msExitFullscreen && document.msFullscreenElement) document.msExitFullscreen();
     } catch (error) { /* ignore */ }
   }
+  function updateFsRetryUi(show) {
+    if (!fsRetryButton) return;
+    // Only offer a retry when Fullscreen API exists but is not active (typical on Android if the first call was blocked).
+    fsRetryButton.hidden = !show || isDisplayStandalone() || isNativeFullscreen();
+  }
+  function tryHideMobileBrowserChrome() {
+    // Best-effort: nudge mobile browsers to collapse the URL bar by briefly allowing overflow scroll.
+    if (isDisplayStandalone() || isNativeFullscreen()) return;
+    const html = document.documentElement;
+    const prev = html.style.height;
+    html.style.height = `${Math.max(window.innerHeight, screen.height || 0) + 1}px`;
+    window.scrollTo(0, 1);
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+      html.style.height = prev;
+      syncAppViewport();
+      resize();
+    });
+  }
   function setPlayChrome(active) {
+    immersiveWanted = active;
     gameRoot.classList.toggle('is-playing', active);
-    if (active) enterFullscreen();
-    else leaveFullscreen();
+    document.documentElement.classList.toggle('is-immersive', active);
+    if (active) {
+      syncAppViewport();
+      tryHideMobileBrowserChrome();
+      // Fire Fullscreen API immediately while still in the user-gesture stack when possible.
+      enterFullscreen().then(() => {
+        syncAppViewport();
+        resize();
+      });
+    } else {
+      leaveFullscreen();
+      gameRoot.style.top = '0px';
+      gameRoot.style.left = '0px';
+    }
+    syncAppViewport();
     resize();
   }
   function exitToGames() {
@@ -255,6 +341,20 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     window.location.href = 'games.html';
   }
   exitGameButton.addEventListener('click', exitToGames);
+  fsRetryButton.addEventListener('click', async () => {
+    const ok = await enterFullscreen();
+    if (ok) {
+      syncAppViewport();
+      resize();
+    } else {
+      tryHideMobileBrowserChrome();
+    }
+  });
+  // Keep the layout glued to the visible viewport while playing (address bar show/hide).
+  syncAppViewport();
+  const fsTip = document.getElementById('fs-tip');
+  const touchLikely = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+  if (fsTip && touchLikely && !isDisplayStandalone()) fsTip.hidden = false;
 
   function syncMuteUi() {
     muteButton.classList.toggle('muted', audio.muted);
@@ -768,6 +868,13 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   }
 
   function startDrive() {
+    // Request immersive / Fullscreen API first so the call stays inside the tap gesture.
+    immersiveWanted = true;
+    document.documentElement.classList.add('is-immersive');
+    gameRoot.classList.add('is-playing');
+    syncAppViewport();
+    tryHideMobileBrowserChrome();
+    enterFullscreen();
     if (isTouchDevice && !tilt.asked && 'DeviceOrientationEvent' in window) {
       tilt.asked = true;
       setTilt(true);
@@ -850,6 +957,8 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
 
   document.getElementById('start-drive').addEventListener('click', startDrive);
   document.getElementById('resume-drive').addEventListener('click', () => {
+    // Re-request fullscreen on resume — also a fresh user gesture.
+    enterFullscreen();
     pausePanel.classList.add('hidden');
     setRunning(true);
   });
@@ -902,6 +1011,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   });
 
   function resize() {
+    syncAppViewport();
     const width = mount.clientWidth || window.visualViewport?.width || window.innerWidth;
     const height = mount.clientHeight || window.visualViewport?.height || window.innerHeight;
     if (!width || !height) return;
@@ -911,17 +1021,28 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
   }
+  function onFullscreenChange() {
+    updateFsRetryUi(immersiveWanted && !isNativeFullscreen() && !isDisplayStandalone() && canRequestFullscreen(document.documentElement));
+    syncAppViewport();
+    resize();
+  }
   window.addEventListener('resize', resize);
   window.addEventListener('orientationchange', () => {
     tilt.neutral = null;
+    if (immersiveWanted) {
+      tryHideMobileBrowserChrome();
+      enterFullscreen();
+    }
     requestAnimationFrame(() => requestAnimationFrame(resize));
   });
   if (window.visualViewport) {
-    window.visualViewport.addEventListener('resize', resize);
-    window.visualViewport.addEventListener('scroll', resize);
+    window.visualViewport.addEventListener('resize', () => { syncAppViewport(); resize(); });
+    window.visualViewport.addEventListener('scroll', () => { syncAppViewport(); resize(); });
   }
-  document.addEventListener('fullscreenchange', resize);
-  document.addEventListener('webkitfullscreenchange', resize);
+  document.addEventListener('fullscreenchange', onFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+  document.addEventListener('mozfullscreenchange', onFullscreenChange);
+  document.addEventListener('MSFullscreenChange', onFullscreenChange);
 
 
   function animate(now) {
