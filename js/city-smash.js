@@ -1,7 +1,7 @@
 // Free-roam destruction: flying debris, toppled props, knocked-down pedestrians and traffic the player can crash into.
 import * as THREE from './vendor/three/three.module.min.js';
 import { buildVehicle, disposeVehicle, VEHICLE_TYPES } from './city-vehicles.js';
-import { PITCH, GRID, SIZE, isFreeDrivable } from './city-map.js';
+import { PITCH, GRID, SIZE, isFreeDrivable, wraps, wrapCoord } from './city-map.js';
 
 const GRAVITY = 18;
 const MAX_BITS = 180;
@@ -228,7 +228,15 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
   }
 
   function crowded(x, z, except) {
-    return cars.some((c) => c !== except && Math.hypot(c.x - x, c.z - z) < 18);
+    return cars.some((c) => {
+      if (c === except) return false;
+      let ddx = c.x - x; let ddz = c.z - z;
+      if (wraps()) {
+        ddx -= SIZE * Math.round(ddx / SIZE);
+        ddz -= SIZE * Math.round(ddz / SIZE);
+      }
+      return Math.hypot(ddx, ddz) < 18;
+    });
   }
 
   // Traffic runs along the four lanes of the road grid; left-hand drive puts northbound cars on the west side.
@@ -237,9 +245,12 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
       const alongZ = rand() < 0.5;
       const forward = rand() < 0.5;
       const sign = rand() < 0.5 ? -1 : 1;
-      const index = Math.max(0, Math.min(GRID, Math.round(((alongZ ? px : pz) + (rand() - 0.5) * 360) / PITCH)));
+      const span = wraps() ? 220 : 360;
+      const rawIndex = Math.round(((alongZ ? px : pz) + (rand() - 0.5) * span) / PITCH);
+      const index = wraps() ? ((rawIndex % GRID) + GRID) % GRID : Math.max(0, Math.min(GRID, rawIndex));
       const line = index * PITCH + (forward ? -3.55 : 3.55);
-      const along = Math.max(10, Math.min(SIZE - 10, (alongZ ? pz : px) + sign * (90 + rand() * 170)));
+      const alongRaw = (alongZ ? pz : px) + sign * (90 + rand() * 170);
+      const along = wraps() ? wrapCoord(alongRaw) : Math.max(10, Math.min(SIZE - 10, alongRaw));
       const x = alongZ ? line : along; const z = alongZ ? along : line;
       if (Math.hypot(x - px, z - pz) < 70 || crowded(x, z, car)) continue;
       resetVisual(car);
@@ -280,10 +291,17 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
       car.state = 'idle';
       cars.push(car);
     }
+    const toroidal = (ax, az, bx, bz) => {
+      let ddx = ax - bx; let ddz = az - bz;
+      if (wraps()) {
+        ddx -= SIZE * Math.round(ddx / SIZE);
+        ddz -= SIZE * Math.round(ddz / SIZE);
+      }
+      return Math.hypot(ddx, ddz);
+    };
     for (let k = cars.length - 1; k >= 0; k--) {
       const car = cars[k];
       car.cd = Math.max(0, car.cd - dt);
-      const dist = Math.hypot(car.x - player.x, car.z - player.z);
       if (car.state === 'idle') { respawn(car, player.x, player.z); continue; }
       if (car.wrecked) {
         car.smokeT -= dt;
@@ -293,7 +311,11 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
         const dx = Math.sin(car.heading); const dz = -Math.cos(car.heading);
         let target = car.cruise;
         const probe = (ox, oz, ohl, ohw) => {
-          const rx = ox - car.x; const rz = oz - car.z;
+          let rx = ox - car.x; let rz = oz - car.z;
+          if (wraps()) {
+            rx -= SIZE * Math.round(rx / SIZE);
+            rz -= SIZE * Math.round(rz / SIZE);
+          }
           const along = rx * dx + rz * dz; const lat = rx * -dz + rz * dx;
           if (along > 0 && along < car.hl + 22 && Math.abs(lat) < car.hw + ohw + 0.6) target = Math.min(target, Math.max(0, (along - car.hl - ohl - 3.5) * 1.1));
         };
@@ -302,13 +324,18 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
         car.speed += THREE.MathUtils.clamp(target - car.speed, -14 * dt, 4 * dt);
         car.x += dx * car.speed * dt;
         car.z += dz * car.speed * dt;
+        if (wraps()) {
+          car.x = wrapCoord(car.x);
+          car.z = wrapCoord(car.z);
+        }
         car.wheelAngle += car.speed * dt / 0.35;
         for (const w of car.model.userData.wheels || []) w.rotation.x = -car.wheelAngle;
-        const outside = car.x < -10 || car.z < -10 || car.x > SIZE + 10 || car.z > SIZE + 10;
-        if (dist > 340 || outside) respawn(car, player.x, player.z);
+        const outside = !wraps() && (car.x < -10 || car.z < -10 || car.x > SIZE + 10 || car.z > SIZE + 10);
+        if (toroidal(car.x, car.z, player.x, player.z) > 340 || outside) respawn(car, player.x, player.z);
         else place(car);
       } else if (car.state === 'knocked') {
-        const nx = car.x + car.vx * dt; const nz = car.z + car.vz * dt;
+        let nx = car.x + car.vx * dt; let nz = car.z + car.vz * dt;
+        if (wraps()) { nx = wrapCoord(nx); nz = wrapCoord(nz); }
         if (isFreeDrivable(nx, nz)) { car.x = nx; car.z = nz; } else { car.vx = 0; car.vz = 0; }
         car.heading += car.omega * dt;
         const slow = 1 - Math.min(1, 1.8 * dt);
@@ -330,9 +357,17 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
   function collidePlayer(p) {
     const dirx = Math.sin(p.heading); const dirz = -Math.cos(p.heading);
     const centres = [-1.5, 0, 1.5].map((o) => ({ x: p.x + dirx * o, z: p.z + dirz * o }));
+    const delta = (ax, az, bx, bz) => {
+      let ddx = ax - bx; let ddz = az - bz;
+      if (wraps()) {
+        ddx -= SIZE * Math.round(ddx / SIZE);
+        ddz -= SIZE * Math.round(ddz / SIZE);
+      }
+      return { ddx, ddz, dist: Math.hypot(ddx, ddz) };
+    };
     let dx = 0; let dz = 0; let speed = p.speed; let shake = 0;
     for (const car of cars) {
-      if (car.state === 'idle' || Math.hypot(car.x - p.x, car.z - p.z) > car.hl + 4.5) continue;
+      if (car.state === 'idle' || delta(car.x, car.z, p.x, p.z).dist > car.hl + 4.5) continue;
       const cdx = Math.sin(car.heading); const cdz = -Math.cos(car.heading);
       const n = Math.max(2, Math.ceil((car.hl * 2) / 1.8));
       let best = null;
@@ -340,9 +375,10 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
         const off = (k / (n - 1) - 0.5) * (car.hl * 2 - car.hw * 2);
         const cx = car.x + cdx * off; const cz = car.z + cdz * off;
         for (const c of centres) {
-          const d = Math.hypot(c.x - cx, c.z - cz) || 1e-3;
-          const pen = car.hw * 0.95 + 0.95 - d;
-          if (pen > 0 && (!best || pen > best.pen)) best = { pen, nx: (c.x - cx) / d, nz: (c.z - cz) / d, cx, cz };
+          const { ddx, ddz, dist: d } = delta(c.x, c.z, cx, cz);
+          const den = d || 1e-3;
+          const pen = car.hw * 0.95 + 0.95 - den;
+          if (pen > 0 && (!best || pen > best.pen)) best = { pen, nx: ddx / den, nz: ddz / den, cx, cz };
         }
       }
       if (!best) continue;

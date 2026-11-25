@@ -184,9 +184,9 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     cityNameOutput.textContent = `${city.name}, ${city.country}`;
     document.title = `City Driving · ${city.name}`;
     mount.setAttribute('aria-label', `Three-dimensional ${city.name} city driving game`);
-    const lapKm = ((city.grid * PITCH) / 1000).toFixed(0);
+    const lapKm = ((city.grid * PITCH) / 1000).toFixed(1).replace(/\.0$/, '');
     cityIntro.textContent = city.planet
-      ? `Take the wheel in ${city.name}, the only city on tiny ${city.country}. Streets wrap the whole world (~${lapKm} km) with no edge — a leisurely lap is about an hour, and a flying car at max speed can circle in minutes.`
+      ? `Take the wheel in ${city.name}, the only city on pocket-sized ${city.country}. Streets wrap the whole world (~${lapKm} km) with no edge — climb a flying car past 1 km and the planet shape fills the sky.`
       : `Take the wheel in ${city.name}. Keep ${city.drive} and roam the wider city streets, or jump onto a racing circuit with only AI racers — clear asphalt, open lanes and room to hit your car’s top speed.`;
     roadName.textContent = trafficLabel();
     roadName.dataset.default = roadName.textContent;
@@ -410,6 +410,9 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     // Keep every rig locked to the car's actual height so flying never leaves the lens on the ground.
     const carY = Number.isFinite(py) ? py : altitude;
     const flyBlend = THREE.MathUtils.clamp((carY - 6) / 50, 0, 1);
+    // High-sky blend: pull the lens farther so a pocket planet reads as a whole world from ~1 km up.
+    const skyBlend = THREE.MathUtils.clamp((carY - 180) / 820, 0, 1);
+    const planetSky = free && wraps() ? skyBlend : skyBlend * 0.45;
     const roof = currentCar.build?.roofH || 1.4;
     const belt = currentCar.build?.belt || roof * 0.7;
     // Raised windshield perch: high enough to read as a driver's seat, even on low hypercars.
@@ -425,30 +428,32 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     if (hood) {
       back = THREE.MathUtils.lerp(1.15, 1.7, flyBlend);
       height = carY + eyeHeight + speedRatio * 0.06;
-      lookAhead = 40;
-      lookY = carY + eyeHeight * 0.72;
+      lookAhead = THREE.MathUtils.lerp(40, 120, planetSky);
+      lookY = carY + eyeHeight * 0.72 - planetSky * carY * 0.08;
       followRate = 12;
-      fovBase = 64;
+      fovBase = THREE.MathUtils.lerp(64, 72, planetSky);
       fovSpeed = 8;
       tremorScale = 0.01;
     } else if (aerial) {
       // High orbit that climbs with the car so you can watch it from above while flying.
-      back = THREE.MathUtils.lerp(14, 28, flyBlend);
-      height = carY + THREE.MathUtils.lerp(24, 40 + carY * 0.1, flyBlend);
-      lookAhead = THREE.MathUtils.lerp(3, 8, flyBlend);
-      lookY = carY + 0.5;
-      followRate = 4.5;
-      fovBase = 56;
+      const skyBack = wraps() ? Math.min(SIZE * 0.55, 180 + carY * 0.08) : 48 + carY * 0.035;
+      back = THREE.MathUtils.lerp(THREE.MathUtils.lerp(14, 28, flyBlend), skyBack, planetSky);
+      height = carY + THREE.MathUtils.lerp(THREE.MathUtils.lerp(24, 40 + carY * 0.1, flyBlend), 90 + carY * 0.15, planetSky);
+      lookAhead = THREE.MathUtils.lerp(THREE.MathUtils.lerp(3, 8, flyBlend), 2, planetSky);
+      lookY = carY + 0.5 - planetSky * carY * 0.35;
+      followRate = THREE.MathUtils.lerp(4.5, 3.2, planetSky);
+      fovBase = THREE.MathUtils.lerp(56, 68, planetSky);
       fovSpeed = 10;
       tremorScale = 0.006;
     } else {
       // Chase stays clearly above the car; extra lift + pull-back kicks in once airborne.
-      back = THREE.MathUtils.lerp(11.8, 22, flyBlend);
-      height = carY + THREE.MathUtils.lerp(5.2 - speedRatio * 0.45, 16 + flyBlend * 10, flyBlend);
-      lookAhead = THREE.MathUtils.lerp(16, 7, flyBlend);
-      lookY = carY + THREE.MathUtils.lerp(1.2, 0.35, flyBlend);
-      followRate = 5.5;
-      fovBase = baseFov;
+      const skyBack = wraps() ? Math.min(SIZE * 0.45, 140 + carY * 0.06) : 40 + carY * 0.03;
+      back = THREE.MathUtils.lerp(THREE.MathUtils.lerp(11.8, 22, flyBlend), skyBack, planetSky);
+      height = carY + THREE.MathUtils.lerp(THREE.MathUtils.lerp(5.2 - speedRatio * 0.45, 16 + flyBlend * 10, flyBlend), 60 + carY * 0.1, planetSky);
+      lookAhead = THREE.MathUtils.lerp(THREE.MathUtils.lerp(16, 7, flyBlend), 4, planetSky);
+      lookY = carY + THREE.MathUtils.lerp(THREE.MathUtils.lerp(1.2, 0.35, flyBlend), -carY * 0.25, planetSky);
+      followRate = THREE.MathUtils.lerp(5.5, 3.6, planetSky);
+      fovBase = THREE.MathUtils.lerp(baseFov, 66, planetSky);
       fovSpeed = 16;
       tremorScale = 0.01;
     }
@@ -485,14 +490,19 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     cameraButton.dataset.camY = camPos.y.toFixed(1);
     cameraButton.dataset.carY = carY.toFixed(1);
     // Stretch clip/fog when high so the city below stays visible from the air.
-    const far = 700 + carY * 3.5;
+    // Keep fog inside the streamed build radius so empty chunks never read as "under construction".
+    const horizon = freeActive ? (freeCity.loadHorizon || 900) : 700;
+    const far = Math.max(700 + carY * 3.5, wraps() ? SIZE * 1.6 + carY * 2.2 : 700 + carY * 3.5);
     if (Math.abs(camera.far - far) > 8) {
       camera.far = far;
       camera.updateProjectionMatrix();
     }
     if (freeActive) {
-      scene.fog.near = 70 + carY * 0.35;
-      scene.fog.far = 320 + carY * 2.8;
+      const fogFar = wraps()
+        ? Math.max(SIZE * 1.35, 900 + carY * 2.4)
+        : Math.min(320 + carY * 2.8, horizon * 0.82);
+      scene.fog.near = Math.min(70 + carY * 0.35, fogFar * 0.35);
+      scene.fog.far = fogFar;
     }
     const fov = fovBase + speedRatio * fovSpeed + nitroFx * 4;
     if (Math.abs(camera.fov - fov) > 0.05) {
@@ -819,7 +829,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     if (realActive) {
       if (locationName.textContent !== 'REAL MAP') locationName.textContent = 'REAL MAP';
     } else {
-      freeCity.update(px, pz, Date.now() / 1000);
+      freeCity.update(px, pz, Date.now() / 1000, 1, altitude);
       freeCity.animate(delta, { x: px, z: pz, heading, speed });
       const { props, peds, cars } = freeCity.stats;
       smashOutput.textContent = String(props + peds + cars);
@@ -1157,16 +1167,31 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
       }
       speed = crash.speed;
       impactShake = Math.max(impactShake, crash.shake);
+      // Pocket planet: keep the car on the single fully-built tile and slide the camera with the wrap.
+      if (wraps()) {
+        const beforeX = player.position.x;
+        const beforeZ = player.position.z;
+        player.position.x = wrapCoord(player.position.x);
+        player.position.z = wrapCoord(player.position.z);
+        const dx = player.position.x - beforeX;
+        const dz = player.position.z - beforeZ;
+        if (dx || dz) {
+          camPos.x += dx;
+          camPos.z += dz;
+          camLook.x += dx;
+          camLook.z += dz;
+        }
+      }
       // Pavement and park lawn sit slightly above the asphalt
       const lift = realActive || isDrivable(player.position.x, player.position.z) ? 0 : 0.13;
       if (currentCar.fly) {
         const maxAlt = currentCar.maxAlt || 30;
         const thrusting = driving && isPressed('nitro') && nitro > 0;
         // Hold Shift / E (or NITRO) to burn nitrogen and climb; release to glide down and recharge on landing
-        climb += (thrusting ? 28 : -8.8) * delta;
-        climb = THREE.MathUtils.clamp(climb, -14, 14);
-        if (thrusting) nitro = Math.max(0, nitro - delta * 0.035);
-        else nitro = Math.min(1, nitro + delta * (altitude < 0.2 ? 0.3 : 0.02));
+        climb += (thrusting ? 34 : -7.2) * delta;
+        climb = THREE.MathUtils.clamp(climb, -16, 22);
+        if (thrusting) nitro = Math.max(0, nitro - delta * 0.028);
+        else nitro = Math.min(1, nitro + delta * (altitude < 0.2 ? 0.3 : 0.045));
         altitude += climb * delta;
         // Never touch down on buildings or water: hover just above them until over a road again
         const floor = (realActive ? canDrive(player.position.x, player.position.z) : isDrivable(player.position.x, player.position.z) || isFreeDrivable(player.position.x, player.position.z)) ? 0 : (altitude > 0.5 ? 3 : 0);

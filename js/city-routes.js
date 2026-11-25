@@ -473,19 +473,19 @@ const NEW_ROUTES = [
     id: 'au-helix', city: 'circadia', name: 'Helix Core Loop', area: 'HELIX CORE', blurb: 'Downtown Circadia under the Orbital Spire',
     sky: 0x6a8fb8, ground: 0x5f7a68, hemi: 1.9, sun: 2.3, sunColor: 0xffe6c8,
     landmarks: ['helixcore', 'spire', 'crystal', 'unityplaza'],
-    trip: ['Helix Core', 'Orbital Spire', 3600]
+    trip: ['Helix Core', 'Orbital Spire', 1800]
   },
   {
     id: 'au-ring', city: 'circadia', name: 'Ring Gate Run', area: 'RING GATE', blurb: 'Through the Ring Gate toward Crystal Forum',
     night: true, sky: 0x1a2048, ground: 0x3d4a58, hemi: 1.5, sun: 1.2, sunColor: 0xa8b4ff,
     landmarks: ['ringgate', 'crystal', 'helixcore', 'spire'],
-    trip: ['Ring Gate', 'Crystal Forum', 3200]
+    trip: ['Ring Gate', 'Crystal Forum', 1600]
   },
   {
     id: 'au-polar', city: 'circadia', name: 'Polar Beacon Trail', area: 'POLAR GARDENS', blurb: 'Gardens at the pole with the beacon in sight',
     sky: 0x8ec4e0, ground: 0x6f9a62, hemi: 2.0, sun: 2.4, sunColor: 0xfff2dc,
     landmarks: ['polarbeacon', 'observatory', 'antipodolite', 'unityplaza'],
-    trip: ['Polar Gardens', 'Horizon Observatory', 4000]
+    trip: ['Polar Gardens', 'Horizon Observatory', 2000]
   }
 ];
 

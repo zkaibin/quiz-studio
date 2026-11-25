@@ -57,15 +57,15 @@ export const CARS = [
     top: 84, accel: 10, brake: 32, handling: 1.1, build: { L: 5.12, W: 2.02, nose: 0.98, hood: 1.06, belt: 1.1, cowlU: 0.9, deckH: 1.14, tailH: 1.04, rf: 0.2, rr: -1.35, rearBase: -2.35, roofH: 1.62, suv: true, taper: 0.03, radius: 0.42, bottom: 0.38, wf: 1.0, wr: 1.0, wing: 'lip', grille: 'urus' }
   },
   {
-    id: 'volt', name: 'Volt Roadster X', tag: 'Flying hypercar · 200 m', price: 320, fly: true, maxAlt: 200, colors: [0xd7dde3, 0x1d4e9c, 0xc8102e, 0x1b1d22],
+    id: 'volt', name: 'Volt Roadster X', tag: 'Flying hypercar · 2 km', price: 320, fly: true, maxAlt: 2000, colors: [0xd7dde3, 0x1d4e9c, 0xc8102e, 0x1b1d22],
     top: 92, accel: 11.5, brake: 34, handling: 1.2, build: { L: 4.26, W: 1.92, nose: 0.46, hood: 0.78, belt: 0.84, cowlU: 0.7, deckH: 0.96, tailH: 0.88, rf: 0.15, rr: -0.95, rearBase: -1.7, roofH: 1.2, wing: 'lip', grille: 'ev' }
   },
   {
-    id: 'amalfi', name: 'Ferrari Amalfi Spider', tag: 'Flying racing spider · 200 m', price: 420, fly: true, maxAlt: 200, colors: [0xc8102e, 0xf2f2f2, 0x1b1d22, 0xffc20e],
+    id: 'amalfi', name: 'Ferrari Amalfi Spider', tag: 'Flying racing spider · 2 km', price: 420, fly: true, maxAlt: 2000, colors: [0xc8102e, 0xf2f2f2, 0x1b1d22, 0xffc20e],
     top: 98, accel: 12.4, brake: 35, handling: 1.3, build: { L: 4.66, W: 1.97, nose: 0.44, hood: 0.76, belt: 0.82, cowlU: 0.95, deckH: 0.9, tailH: 0.78, rf: 0.35, rr: -0.85, rearBase: -1.55, roofH: 1.08, wing: 'lip', grille: 'ferrari', taper: 0.16, tumble: 0.12 }
   },
   {
-    id: 'aether', name: 'Aether Nova GT', tag: 'Flying hypercar · 200 m', price: 500, fly: true, maxAlt: 200, colors: [0x1b1d22, 0x7a5cff, 0xd7dde3, 0x00b3a4],
+    id: 'aether', name: 'Aether Nova GT', tag: 'Flying hypercar · 2 km', price: 500, fly: true, maxAlt: 2000, colors: [0x1b1d22, 0x7a5cff, 0xd7dde3, 0x00b3a4],
     top: 100, accel: 13, brake: 36, handling: 1.25, build: { L: 4.5, W: 1.98, nose: 0.4, hood: 0.7, belt: 0.78, cowlU: 0.9, deckH: 0.9, tailH: 0.8, rf: 0.3, rr: -0.75, rearBase: -1.6, roofH: 1.12, wing: 'high', grille: 'ev' }
   }
 ];
