@@ -567,10 +567,16 @@ import {
     if (freeActive) {
       if (isPlanet()) {
         // Thin atmosphere near the surface; clear dark sky once you leave the planet.
-        const fogFar = THREE.MathUtils.lerp(R * 1.8, R * 8 + carY * 2, planetSky);
-        scene.fog.color.set(planetSky > 0.55 ? 0x070b14 : 0x8ec4e0);
-        scene.background = scene.fog.color.clone();
-        scene.fog.near = THREE.MathUtils.lerp(R * 0.35, R * 1.2, planetSky);
+        // Soft atmospheric haze near the surface; clear to space black once you leave the limb.
+        const fogFar = THREE.MathUtils.lerp(R * 2.2, R * 10 + carY * 2.5, planetSky);
+        const fogCol = new THREE.Color().setHSL(
+          THREE.MathUtils.lerp(0.58, 0.64, planetSky),
+          THREE.MathUtils.lerp(0.18, 0.06, planetSky),
+          THREE.MathUtils.lerp(0.58, 0.025, planetSky)
+        );
+        scene.fog.color.copy(fogCol);
+        scene.background = fogCol.clone();
+        scene.fog.near = THREE.MathUtils.lerp(R * 0.45, R * 1.6, planetSky);
         scene.fog.far = fogFar;
       } else {
         const fogFar = wraps()
@@ -1546,6 +1552,40 @@ import {
       phase,
       nitro
     }),
+    planetDecor: () => {
+      const d = freeCity.root?.userData?.planetDecor;
+      if (!d) return null;
+      return {
+        hasCore: !!d.core,
+        hasAtmo: !!d.atmosphere,
+        hasClouds: !!d.clouds,
+        cloudOpacity: d.clouds?.material?.opacity,
+        atmoIntensity: d.atmosphere?.material?.uniforms?.uIntensity?.value
+      };
+    },
+    surveyGround: () => {
+      const root = freeCity.root;
+      if (!root) return null;
+      let ground = 0; let bent = 0; const samples = [];
+      root.traverse((o) => {
+        if (!o.isMesh || !o.material) return;
+        const mat = o.material;
+        const isGround = !!(mat.userData?.planetGround || o.userData?.planetGround);
+        if (!isGround) return;
+        ground++;
+        if (o.userData.sphereBent) bent++;
+        if (samples.length < 8) {
+          samples.push({
+            verts: o.geometry?.attributes?.position?.count || 0,
+            color: mat.color?.getHexString?.() || null,
+            map: !!mat.map,
+            visible: o.visible,
+            bent: !!o.userData.sphereBent
+          });
+        }
+      });
+      return { ground, bent, samples, children: root.children.length };
+    },
     setControls: (partial = {}) => {
       Object.assign(controls, partial);
       // Keep the key set in sync so blur/keydown races do not drop forced QA input.

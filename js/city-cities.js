@@ -177,7 +177,7 @@ export const CITIES = [
     blurb: 'The only city on tiny spherical Planet Aurelia — drive or fly with no edge',
     style: {
       lowrise: 'tokyo', residential: 'tower', downtownBoost: 48,
-      sea: 0x1a2740, park: 0x5f9a72, pond: 0x3d7a9c, minimapSea: '#1a2740'
+      sea: 0x1a5a8a, park: 0x5f9a72, pond: 0x3d7a9c, minimapSea: '#1a5a8a'
     },
     regions: [
       { name: 'Helix Core', i: 8, j: 8, kind: 'downtown' }, { name: 'Meridian Plaza', i: 7, j: 8, kind: 'downtown' },

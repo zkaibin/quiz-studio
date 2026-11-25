@@ -6,7 +6,7 @@ import { PITCH as P, GRID, FACE, ROAD_HALF, cellInfo, seedOf, currentCity, wrapI
 const WALK_OUTER = FACE + 2.5;
 import { createEffects, createCars } from './city-smash.js';
 import { createStyles } from './city-styles.js';
-import { planetRadius, projectCityToSphere, placeObjectOnSphere } from './city-planet.js';
+import { planetRadius, projectCityToSphere, placeObjectOnSphere, updatePlanetVisuals, disposePlanet } from './city-planet.js';
 
 // Stream well beyond fog so blocks never pop in at the horizon. Altitude scales the radius further.
 const BASE_LOAD = 850;
@@ -56,27 +56,47 @@ export function createFreeCity({ scene, kit }) {
   const cars = createCars({ root, effects, stats });
   const planetPeds = [];
 
-  const asphaltMat = new THREE.MeshStandardMaterial({ map: freeTexture(kit.asphalt), roughness: 0.88, metalness: 0.02 });
+  // Warm charcoal tint — sky fog is blue; an untinted map washes out to cyan on the globe.
+  const asphaltMat = new THREE.MeshStandardMaterial({
+    map: freeTexture(kit.asphalt), color: 0x5a5e60, roughness: 0.92, metalness: 0
+  });
   const walkMat = new THREE.MeshStandardMaterial({ map: freeTexture(kit.pavers), color: 0xd9d3c3, roughness: 0.9 });
   const parkMat = new THREE.MeshStandardMaterial({ map: freeTexture(kit.grass), color: 0x86a97d, roughness: 0.95 });
   const pondMat = new THREE.MeshStandardMaterial({ map: freeTexture(kit.waterTex), color: 0x4c93b5, roughness: 0.18, metalness: 0.25 });
+  // Survives mergeStatics so the sphere bend can densify roads/parks only.
+  asphaltMat.userData.planetGround = true;
+  walkMat.userData.planetGround = true;
+  parkMat.userData.planetGround = true;
+  pondMat.userData.planetGround = true;
+  // Sphere bend can flip winding vs radial normals — keep ground visible from the street camera.
+  asphaltMat.side = THREE.DoubleSide;
+  walkMat.side = THREE.DoubleSide;
+  parkMat.side = THREE.DoubleSide;
+  pondMat.side = THREE.DoubleSide;
   const seaTex = freeTexture(kit.waterTex);
   const seaMat = new THREE.MeshStandardMaterial({ map: seaTex, color: 0x4c93b5, roughness: 0.18, metalness: 0.25, envMapIntensity: 1.4 });
   const sea = new THREE.Mesh(new THREE.PlaneGeometry(1500, 1500), seaMat);
   sea.geometry.attributes.uv.array.forEach((v, k, arr) => { arr[k] = v * 150; });
   sea.rotation.x = -Math.PI / 2;
   sea.position.y = -0.3;
+  // Never bend this flat ocean disc onto the globe — it would become two huge blue chords.
+  sea.userData.planetSkipBend = true;
   root.add(sea);
 
   function plane(parent, mat, x0, x1, z0, z1, y, tile) {
     const w = x1 - x0; const d = z1 - z0;
-    const geo = new THREE.PlaneGeometry(w, d);
+    // Pocket planet: dense grids so bent roads follow the globe instead of flat chords.
+    const planet = !!currentCity().planet;
+    const segW = planet ? Math.max(1, Math.ceil(Math.abs(w) / 3.5)) : 1;
+    const segD = planet ? Math.max(1, Math.ceil(Math.abs(d) / 3.5)) : 1;
+    const geo = new THREE.PlaneGeometry(w, d, segW, segD);
     const uv = geo.attributes.uv;
     for (let k = 0; k < uv.count; k++) uv.setXY(k, uv.getX(k) * w / tile, uv.getY(k) * d / tile);
     const m = new THREE.Mesh(geo, mat);
     m.rotation.x = -Math.PI / 2;
     m.position.set((x0 + x1) / 2, y, (z0 + z1) / 2);
     m.receiveShadow = true;
+    if (planet) m.userData.planetGround = true;
     parent.add(m);
     return m;
   }
@@ -136,12 +156,26 @@ export function createFreeCity({ scene, kit }) {
     }
   }
 
+  // Long road markings: short segments on the pocket planet so they follow the globe.
+  function stripe(parent, mat, x, y, z0, z1, w, h) {
+    const planet = planetMode || !!currentCity().planet;
+    if (!planet || Math.abs(z1 - z0) < 12) {
+      box(parent, mat, x, y, (z0 + z1) / 2, w, h, Math.abs(z1 - z0));
+      return;
+    }
+    const step = 6;
+    for (let z = Math.min(z0, z1); z < Math.max(z0, z1) - 0.01; z += step) {
+      const zEnd = Math.min(z + step, Math.max(z0, z1));
+      box(parent, mat, x, y, (z + zEnd) / 2, w, h, zEnd - z);
+    }
+  }
+
   // Lamps, trees, bus stops and pedestrians along a road leaving the intersection; local +z runs down the road.
   function decorateArm(chunk, g, yaw, rand) {
     const f = frame(g, 0, 0, yaw);
     addParkedCars(chunk, f, rand);
-    box(f, lineMat, 0, 0.005, P / 2, 0.12, 0.01, P - 40);
-    for (const x of [-(ROAD_HALF - 0.65), ROAD_HALF - 0.65]) box(f, lineMat, x, 0.004, P / 2, 0.14, 0.01, P - 16);
+    stripe(f, lineMat, 0, 0.005, 20, P - 20, 0.12, 0.01);
+    for (const x of [-(ROAD_HALF - 0.65), ROAD_HALF - 0.65]) stripe(f, lineMat, x, 0.004, 8, P - 8, 0.14, 0.01);
     for (let z = 24; z < P - 20; z += 8) for (const x of [-4.9, 4.9]) box(f, lineMat, x, 0.004, z + 1.6, 0.14, 0.01, 3.2);
     for (let k = 0; k < 5; k++) {
       const za = 22 + k * 16; const zb = 30 + k * 16;
@@ -400,7 +434,9 @@ export function createFreeCity({ scene, kit }) {
     }
     // Keep dynamic smash vehicles out of the static bake; pose them on the globe afterward.
     cars.markPlanetSkip?.(true);
-    const styleSea = style.sea ?? currentCity().style?.sea ?? 0x1a2740;
+    sea.visible = false;
+    if (sea.parent) sea.parent.remove(sea);
+    const styleSea = style.sea ?? currentCity().style?.sea ?? 0x1a5a8a;
     projectCityToSphere(root, { radius: planetRadius(), coreColor: styleSea });
     cars.projectToPlanet?.(planetRadius());
     planetReady = true;
@@ -412,6 +448,7 @@ export function createFreeCity({ scene, kit }) {
     if (city.planet || city.wrap) {
       buildPlanet();
       sea.visible = false;
+      updatePlanetVisuals(root, { time, altitude: alt });
       animatePeds(px, pz, time);
       return;
     }
@@ -486,11 +523,7 @@ export function createFreeCity({ scene, kit }) {
       if (entry.ped.parent) entry.ped.parent.remove(entry.ped);
     }
     planetPeds.length = 0;
-    if (root.userData.planetCoreMesh) {
-      root.remove(root.userData.planetCoreMesh);
-      root.userData.planetCoreMesh.geometry.dispose();
-      root.userData.planetCoreMesh = null;
-    }
+    disposePlanet(root);
     // Bent meshes were reparented to root — dispose leftovers.
     for (const child of [...root.children]) {
       if (child === sea || child.userData?.planetCore) continue;
@@ -605,6 +638,7 @@ export function createFreeCity({ scene, kit }) {
     interact,
     animate,
     stats,
+    root,
     get loaded() { return chunks.size; },
     get loadHorizon() { return lastLoad; },
     get isPlanet() { return planetMode; },
