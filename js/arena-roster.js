@@ -10,17 +10,17 @@ export const UNIVERSES = [
 export const SKILLS = {
   punch: {
     id: 'punch', label: 'Punch', kind: 'melee', unlockCost: 0, tier: 0,
-    damage: 8, energyGain: 6, cooldown: 0.38, reach: 2.15, duration: 0.4,
+    damage: 8, energyGain: 6, cooldown: 0.38, reach: 2.15, duration: 0.7,
     knockback: 3.2, blurb: 'Quick jab. Always ready.'
   },
   kick: {
     id: 'kick', label: 'Kick', kind: 'melee', unlockCost: 0, tier: 0,
-    damage: 12, energyGain: 8, cooldown: 0.52, reach: 2.45, duration: 0.52,
+    damage: 12, energyGain: 8, cooldown: 0.52, reach: 2.45, duration: 0.65,
     knockback: 4.4, blurb: 'Solid mid kick with more push.'
   },
   uppercut: {
     id: 'uppercut', label: 'Uppercut', kind: 'melee', unlockCost: 12, tier: 1,
-    damage: 16, energyGain: 10, cooldown: 0.7, reach: 2.2, duration: 0.45,
+    damage: 16, energyGain: 10, cooldown: 0.7, reach: 2.2, duration: 0.6,
     knockback: 3.8, lift: 6.5, blurb: 'Launch foes upward.'
   },
   dash: {

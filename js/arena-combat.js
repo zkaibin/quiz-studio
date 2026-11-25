@@ -163,18 +163,21 @@ export function updateFighter(f, dt, bounds, keysActive) {
     return;
   }
 
+  // Cap per-frame gameplay step so a lagged frame cannot eat a whole melee window
+  const step = Math.min(dt, 1 / 20);
+
   // Cooldowns
   for (const k of Object.keys(f.cooldown)) {
-    f.cooldown[k] = Math.max(0, f.cooldown[k] - dt);
+    f.cooldown[k] = Math.max(0, f.cooldown[k] - step);
   }
-  f.stun = Math.max(0, f.stun - dt);
-  f.invuln = Math.max(0, f.invuln - dt);
+  f.stun = Math.max(0, f.stun - step);
+  f.invuln = Math.max(0, f.invuln - step);
 
   const regen = 7 * (f.loadout.energyRegenMul || 1);
-  f.energy = Math.min(MAX_ENERGY, f.energy + regen * dt);
+  f.energy = Math.min(MAX_ENERGY, f.energy + regen * step);
 
   if (f.charge) {
-    f.charge.t -= dt;
+    f.charge.t -= step;
     if (f.charge.t <= 0) {
       const done = f.charge.skillId;
       f.charge = null;
@@ -183,7 +186,7 @@ export function updateFighter(f, dt, bounds, keysActive) {
   }
 
   if (f.attackTimer > 0) {
-    f.attackTimer -= dt;
+    f.attackTimer -= step;
     if (f.attackTimer <= 0) {
       f.attackTimer = 0;
       f.attackId = null;
@@ -278,12 +281,17 @@ export function updateFighter(f, dt, bounds, keysActive) {
   }
 
   syncRoot(f);
+  const atkSkill = f.attackId ? getSkill(f.attackId) : null;
+  const attackProgress = atkSkill && f.attackTimer > 0
+    ? 1 - (f.attackTimer / Math.max(0.05, atkSkill.duration || 0.4))
+    : 0;
   f.model.animate(dt, {
     moving: Math.hypot(wishX, wishZ) > 0.08 && !f.airborne,
     airborne: f.airborne,
     guarding: f.guarding,
     attack: f.attackId,
     attackHand: f.attackHand || 'lead',
+    attackProgress,
     hurt: f.stun > 0.1,
     charging: !!f.charge,
     aura: f.charge ? 0.4 : 0
