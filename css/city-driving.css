@@ -1,9 +1,37 @@
 * { box-sizing: border-box; }
-html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #b7dcea; color: #152b36; font-family: "DM Sans", "Segoe UI", sans-serif; }
+html, body {
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  margin: 0;
+  overflow: hidden;
+  background: #b7dcea;
+  color: #152b36;
+  font-family: "DM Sans", "Segoe UI", sans-serif;
+  position: fixed;
+  inset: 0;
+  overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
+}
 button { font: inherit; }
-.city-game { position: relative; width: 100%; height: 100%; min-height: 420px; overflow: hidden; isolation: isolate; }
+.city-game {
+  --ctrl-gap: clamp(6px, 1.6vmin, 12px);
+  --btn-steer: clamp(56px, 14vmin, 84px);
+  --btn-gas: clamp(64px, 17vmin, 96px);
+  --btn-brake: clamp(56px, 14vmin, 80px);
+  --btn-rev: clamp(48px, 12vmin, 64px);
+  --btn-nitro: clamp(48px, 12vmin, 72px);
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  isolation: isolate;
+}
 .scene { position: absolute; inset: 0; z-index: -1; }
-.scene canvas { display: block; width: 100%; height: 100%; }
+.scene canvas { display: block; width: 100%; height: 100%; touch-action: none; }
 .speed-vignette, .speed-lines, .impact-flash { position: absolute; inset: 0; pointer-events: none; z-index: 1; opacity: 0; transition: opacity .08s linear; }
 .speed-vignette { background: radial-gradient(ellipse at center, transparent 42%, rgba(8, 22, 28, .55) 100%); }
 .speed-lines { background:
@@ -16,9 +44,65 @@ button { font: inherit; }
 .speed-lines.air { filter: saturate(1.15); }
 .impact-flash { background: radial-gradient(circle at center, rgba(255, 220, 180, .35), rgba(180, 40, 20, .28) 45%, transparent 70%); }
 @keyframes speedRush { from { transform: scale(1.02); } to { transform: scale(1.08); } }
-.back-link { position: absolute; z-index: 3; top: 20px; left: 22px; padding: 10px 15px; border: 1px solid rgba(255,255,255,.55); border-radius: 999px; background: rgba(15,35,43,.48); color: #fff; text-decoration: none; font-size: 13px; font-weight: 650; backdrop-filter: blur(12px); }
+.back-link {
+  position: absolute;
+  z-index: 3;
+  top: max(12px, env(safe-area-inset-top, 0px));
+  left: max(12px, env(safe-area-inset-left, 0px));
+  padding: 10px 15px;
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: 999px;
+  background: rgba(15,35,43,.48);
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 650;
+  backdrop-filter: blur(12px);
+}
+.back-link.home-link { left: auto; right: max(12px, env(safe-area-inset-right, 0px)); }
 .back-link:hover { background: rgba(15,35,43,.72); }
-.hud { position: absolute; z-index: 2; top: 18px; right: 22px; display: flex; align-items: center; gap: 16px; padding: 12px 14px 12px 18px; border: 1px solid rgba(255,255,255,.6); border-radius: 16px; background: rgba(250,253,252,.88); box-shadow: 0 12px 35px rgba(34,63,67,.12); backdrop-filter: blur(14px); }
+.exit-game {
+  position: absolute;
+  z-index: 5;
+  top: max(10px, env(safe-area-inset-top, 0px));
+  left: max(10px, env(safe-area-inset-left, 0px));
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: 50%;
+  background: rgba(15,35,43,.62);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  display: none;
+}
+.exit-game:hover, .exit-game:active { background: rgba(217,111,80,.9); }
+.city-game.is-playing .menu-link { display: none; }
+.city-game.is-playing .exit-game { display: grid; place-items: center; }
+.city-game.is-playing .minimap {
+  top: max(56px, calc(env(safe-area-inset-top, 0px) + 48px));
+  left: max(10px, env(safe-area-inset-left, 0px));
+}
+.hud {
+  position: absolute;
+  z-index: 2;
+  top: max(12px, env(safe-area-inset-top, 0px));
+  right: max(12px, env(safe-area-inset-right, 0px));
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px 12px 18px;
+  border: 1px solid rgba(255,255,255,.6);
+  border-radius: 16px;
+  background: rgba(250,253,252,.88);
+  box-shadow: 0 12px 35px rgba(34,63,67,.12);
+  backdrop-filter: blur(14px);
+  max-width: calc(100% - 24px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px));
+}
 .hud-brand { display: grid; grid-template-columns: 10px auto; column-gap: 7px; align-items: center; min-width: 108px; color: #75868b; font-size: 9px; font-weight: 800; letter-spacing: 1.1px; }
 .hud-brand strong { grid-column: 1 / -1; color: #19333b; font-family: Syne, "DM Sans", sans-serif; font-size: 13px; letter-spacing: .5px; }
 .hud-brand strong span { color: #da634e; }
@@ -65,7 +149,7 @@ button { font: inherit; }
 .route-list button:hover { background: #f1f6f4; }
 .route-list button.on { border-color: #d96f50; background: #d96f50; color: #fff; }
 .location-tag em { font-style: normal; text-transform: uppercase; }
-.welcome-card { max-height: calc(100vh - 48px); overflow-y: auto; }
+.welcome-card { max-height: calc(100dvh - 48px); overflow-y: auto; }
 .route-pill span { color: #8b9b93; font-size: 9px; font-weight: 800; letter-spacing: .9px; }
 .primary-button { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 15px 18px; border: 0; border-radius: 10px; background: #d96f50; color: #fff; font-size: 14px; font-weight: 750; cursor: pointer; box-shadow: 0 8px 18px rgba(217,111,80,.22); }
 .primary-button:hover { background: #c85f43; transform: translateY(-1px); }
@@ -73,15 +157,51 @@ button { font: inherit; }
 .welcome-note { margin: 13px 0 0; color: #97a3a0; font-size: 10px; text-align: center; }
 .pause-card { margin: 0; }
 .text-button { display: block; margin: 16px auto 0; border: 0; background: transparent; color: #758681; font-size: 12px; font-weight: 700; cursor: pointer; }
-.touch-controls { position: absolute; z-index: 3; right: 16px; bottom: 15px; left: 16px; display: none; justify-content: space-between; pointer-events: none; }
+.touch-controls {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  display: none;
+  pointer-events: none;
+}
 .touch-row { display: flex; gap: 10px; pointer-events: auto; }
-.touch-controls button { min-width: 62px; height: 58px; padding: 0 15px; border: 1px solid rgba(255,255,255,.65); border-radius: 16px; background: rgba(23,51,55,.62); color: white; font-size: 20px; font-weight: 800; touch-action: none; backdrop-filter: blur(8px); }
-.touch-controls [data-control="gas"], .touch-controls [data-control="brake"] { font-size: 11px; letter-spacing: .5px; }
+.touch-controls button {
+  min-width: 0;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.65);
+  border-radius: 16px;
+  background: rgba(23,51,55,.62);
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+  touch-action: none;
+  backdrop-filter: blur(8px);
+  -webkit-user-select: none;
+  user-select: none;
+}
+.touch-controls [data-control="gas"],
+.touch-controls [data-control="brake"],
+.touch-controls [data-control="reverse"],
+.touch-controls [data-control="nitro"] { font-size: clamp(9px, 2.4vmin, 11px); letter-spacing: .5px; }
 .touch-controls button.down { background: rgba(217,111,80,.9); }
-@media (pointer: coarse), (hover: none) { .touch-controls { display: flex; } .driving-hint { bottom: 88px; } .location-tag { bottom: 88px; } }
+@media (pointer: coarse), (hover: none) {
+  .touch-controls { display: block; }
+  .driving-hint { display: none; }
+  .location-tag {
+    bottom: calc(var(--btn-steer) + 58px + env(safe-area-inset-bottom, 0px));
+    left: max(10px, env(safe-area-inset-left, 0px));
+    max-width: min(46vw, 200px);
+  }
+  .touch-controls.tilt-on ~ .location-tag,
+  .city-game:has(.touch-controls.tilt-on) .location-tag {
+    bottom: calc(var(--btn-gas) + 28px + env(safe-area-inset-bottom, 0px));
+  }
+}
 @media (max-width: 700px) {
-  .back-link { top: 12px; left: 12px; padding: 9px 12px; font-size: 11px; }
-  .hud { top: 12px; right: 12px; gap: 8px; padding: 8px 10px; }
+  .back-link { top: max(10px, env(safe-area-inset-top, 0px)); left: max(10px, env(safe-area-inset-left, 0px)); padding: 9px 12px; font-size: 11px; }
+  .back-link.home-link { right: max(10px, env(safe-area-inset-right, 0px)); }
+  .exit-game { width: 32px; height: 32px; font-size: 13px; }
+  .hud { top: max(10px, env(safe-area-inset-top, 0px)); right: max(10px, env(safe-area-inset-right, 0px)); gap: 8px; padding: 8px 10px; }
   .hud-brand { min-width: 72px; font-size: 8px; }
   .hud-brand strong { font-size: 11px; }
   .speed-cluster { min-width: 96px; padding: 0 8px; column-gap: 7px; }
@@ -93,7 +213,7 @@ button { font: inherit; }
   .hud-icon, .pause-button { width: 30px; height: 30px; }
   .overlay { background: rgba(15,36,43,.42); }
   .welcome-card { margin: 70px 0 0; padding: 26px; }
-  .location-tag { bottom: 16px; left: 12px; padding: 8px 10px; font-size: 8px; }
+  .location-tag { left: max(10px, env(safe-area-inset-left, 0px)); padding: 8px 10px; font-size: 8px; }
   .driving-hint { display: none; }
 }
 @media (max-width: 420px) {
@@ -139,20 +259,160 @@ button { font: inherit; }
 .buy-car { width: 100%; padding: 11px; font-size: 12px; background: #d96f50; }
 .upgrade-title { margin: 12px 0 2px; color: #839397; font-size: 9px; font-weight: 800; letter-spacing: 1px; }
 
-.touch-controls { align-items: flex-end; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: none; }
-.touch-steer, .touch-pedals { display: flex; gap: 12px; pointer-events: auto; }
-.touch-pedals button[data-control="gas"] { min-width: 96px; height: 96px; background: rgba(60,150,100,.72); border-radius: 50%; }
-.touch-pedals button[data-control="reverse"] { min-width: 64px; height: 64px; background: rgba(90,100,120,.72); border-radius: 50%; }
-.touch-pedals button[data-control="brake"] { min-width: 80px; height: 80px; background: rgba(190,70,60,.72); border-radius: 50%; }
-.touch-steer button { min-width: 84px; height: 84px; border-radius: 50%; font-size: 30px; }
-.tilt-meter { display: none; position: relative; width: 130px; height: 8px; margin-bottom: 30px; border-radius: 4px; background: rgba(255,255,255,.4); }
-.tilt-meter i { position: absolute; top: -4px; left: 50%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: #d96f50; }
+.touch-controls {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: none;
+}
+.touch-steer,
+.touch-pedals,
+.tilt-meter {
+  position: absolute;
+  pointer-events: auto;
+}
+.touch-steer {
+  left: max(12px, env(safe-area-inset-left, 0px));
+  bottom: max(16px, calc(env(safe-area-inset-bottom, 0px) + 10px));
+  display: flex;
+  gap: var(--ctrl-gap);
+  align-items: flex-end;
+}
+.touch-pedals {
+  right: max(12px, env(safe-area-inset-right, 0px));
+  bottom: max(16px, calc(env(safe-area-inset-bottom, 0px) + 10px));
+  display: grid;
+  grid-template-columns: auto auto;
+  /* Two rows only: keeps GAS fully on-screen even with steer visible */
+  grid-template-areas:
+    "nitro rev"
+    "brake gas";
+  gap: var(--ctrl-gap);
+  align-items: end;
+  justify-items: end;
+}
+.touch-pedals button[data-control="nitro"] { grid-area: nitro; justify-self: end; }
+.touch-pedals button[data-control="reverse"] { grid-area: rev; }
+.touch-pedals button[data-control="brake"] { grid-area: brake; }
+.touch-pedals button[data-control="gas"] { grid-area: gas; }
+.touch-pedals button[data-control="gas"] {
+  width: var(--btn-gas);
+  height: var(--btn-gas);
+  min-width: var(--btn-gas);
+  background: rgba(60,150,100,.72);
+  border-radius: 50%;
+}
+.touch-pedals button[data-control="reverse"] {
+  width: var(--btn-rev);
+  height: var(--btn-rev);
+  min-width: var(--btn-rev);
+  background: rgba(90,100,120,.72);
+  border-radius: 50%;
+}
+.touch-pedals button[data-control="brake"] {
+  width: var(--btn-brake);
+  height: var(--btn-brake);
+  min-width: var(--btn-brake);
+  background: rgba(190,70,60,.72);
+  border-radius: 50%;
+}
+.touch-pedals button[data-control="nitro"] {
+  width: var(--btn-nitro);
+  height: var(--btn-nitro);
+  min-width: var(--btn-nitro);
+  background: rgba(60,140,230,.78);
+  border-radius: 50%;
+}
+.touch-steer button {
+  width: var(--btn-steer);
+  height: var(--btn-steer);
+  min-width: var(--btn-steer);
+  border-radius: 50%;
+  font-size: clamp(22px, 6vmin, 30px);
+}
+.tilt-meter {
+  display: none;
+  left: max(14px, env(safe-area-inset-left, 0px));
+  bottom: max(28px, calc(env(safe-area-inset-bottom, 0px) + 18px));
+  width: min(130px, 36vw);
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,.4);
+}
+.tilt-meter i {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  border-radius: 50%;
+  background: #d96f50;
+}
 .touch-controls.tilt-on .touch-steer { display: none; }
 .touch-controls.tilt-on .tilt-meter { display: block; }
-.tilt-toggle { position: absolute; z-index: 3; top: 68px; left: 22px; padding: 8px 12px; border: 1px solid rgba(255,255,255,.55); border-radius: 999px; background: rgba(15,35,43,.55); color: #fff; font-size: 11px; font-weight: 750; }
+.tilt-toggle {
+  position: absolute;
+  z-index: 3;
+  top: auto;
+  left: max(10px, env(safe-area-inset-left, 0px));
+  bottom: calc(var(--btn-steer, 72px) + 24px + env(safe-area-inset-bottom, 0px));
+  padding: 8px 12px;
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: 999px;
+  background: rgba(15,35,43,.55);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 750;
+}
+.touch-controls.tilt-on ~ .tilt-toggle,
+.city-game:has(.touch-controls.tilt-on) .tilt-toggle {
+  bottom: max(48px, calc(env(safe-area-inset-bottom, 0px) + 40px));
+}
 .tilt-toggle.on { background: rgba(60,150,100,.85); }
 .tilt-toggle[hidden] { display: none; }
-@media (max-width: 700px) { .tilt-toggle { top: 56px; left: 12px; } .garage-card { margin: 56px 0 0; } }
+
+/* Portrait: compact 2-row pedal pad so GAS stays fully on-screen when steer is visible */
+@media (orientation: portrait) {
+  .city-game {
+    --ctrl-gap: clamp(6px, 1.8vw, 10px);
+    --btn-steer: clamp(48px, 12vw, 70px);
+    --btn-gas: clamp(56px, 15vw, 78px);
+    --btn-brake: clamp(52px, 13vw, 70px);
+    --btn-rev: clamp(42px, 11vw, 54px);
+    --btn-nitro: clamp(42px, 11vw, 54px);
+  }
+}
+
+/* Landscape: roomier horizontal pedal strip; shrink if the screen is short */
+@media (orientation: landscape) {
+  .city-game {
+    --btn-steer: clamp(48px, 12vmin, 78px);
+    --btn-gas: clamp(56px, 14vmin, 88px);
+    --btn-brake: clamp(50px, 12vmin, 72px);
+    --btn-rev: clamp(44px, 11vmin, 60px);
+    --btn-nitro: clamp(44px, 11vmin, 64px);
+  }
+  .touch-pedals {
+    grid-template-columns: auto auto auto auto;
+    grid-template-areas: "nitro rev brake gas";
+    align-items: end;
+  }
+  .touch-pedals button[data-control="nitro"] { justify-self: stretch; }
+}
+@media (orientation: landscape) and (max-height: 420px) {
+  .city-game {
+    --ctrl-gap: 6px;
+    --btn-steer: clamp(44px, 18vh, 64px);
+    --btn-gas: clamp(48px, 20vh, 70px);
+    --btn-brake: clamp(44px, 18vh, 60px);
+    --btn-rev: clamp(40px, 16vh, 52px);
+    --btn-nitro: clamp(40px, 16vh, 52px);
+  }
+  .location-tag { display: none; }
+  .city-game.is-playing .minimap { width: 96px; height: 96px; }
+}
+@media (max-width: 700px) { .garage-card { margin: 56px 0 0; } }
 @media (max-height: 520px) { .garage-card, .welcome-card { margin-top: 0; padding: 16px; } }
 
 .trip-bar { position: absolute; z-index: 2; top: 86px; right: 22px; width: 280px; padding: 10px 14px; border: 1px solid rgba(255,255,255,.6); border-radius: 12px; background: rgba(250,253,252,.86); backdrop-filter: blur(14px); color: #19333b; font-size: 11px; font-weight: 700; }
@@ -193,8 +453,19 @@ button { font: inherit; }
 
 .nitro-meter { width: 100%; height: 5px; margin-top: 4px; border-radius: 3px; background: rgba(255,255,255,.2); overflow: hidden; }
 .nitro-meter i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, #4fc3ff, #b8ecff); }
-.touch-pedals button[data-control="nitro"] { min-width: 72px; height: 72px; background: rgba(60,140,230,.78); border-radius: 50%; }
 .touch-pedals button[hidden] { display: none; }
+/* When nitro is hidden, keep the remaining pedals tightly packed */
+.touch-pedals:not(:has([data-control="nitro"]:not([hidden]))) {
+  grid-template-areas:
+    "rev rev"
+    "brake gas";
+}
+@media (orientation: landscape) {
+  .touch-pedals:not(:has([data-control="nitro"]:not([hidden]))) {
+    grid-template-columns: auto auto auto;
+    grid-template-areas: "rev brake gas";
+  }
+}
 
 .globe-button { display: flex; align-items: center; gap: 12px; width: 100%; margin: 0 0 16px; padding: 11px 14px; border: 1px solid #cfdad6; border-radius: 12px; background: linear-gradient(120deg, #f4faf8, #e6f1f6); color: #234; text-align: left; cursor: pointer; }
 .globe-button:hover { border-color: #7fb2c9; background: #eef7fb; }

@@ -227,6 +227,34 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   const pausePanel = document.getElementById('paused');
   const pauseButton = document.getElementById('pause-drive');
   const hint = document.getElementById('hint');
+  const gameRoot = document.querySelector('.city-game');
+  const exitGameButton = document.getElementById('exit-game');
+
+  async function enterFullscreen() {
+    const target = document.documentElement;
+    if (document.fullscreenElement || document.webkitFullscreenElement) return;
+    try {
+      if (target.requestFullscreen) await target.requestFullscreen({ navigationUI: 'hide' });
+      else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
+    } catch (error) { /* browsers may block without a fresh gesture */ }
+  }
+  async function leaveFullscreen() {
+    try {
+      if (document.fullscreenElement && document.exitFullscreen) await document.exitFullscreen();
+      else if (document.webkitFullscreenElement && document.webkitExitFullscreen) document.webkitExitFullscreen();
+    } catch (error) { /* ignore */ }
+  }
+  function setPlayChrome(active) {
+    gameRoot.classList.toggle('is-playing', active);
+    if (active) enterFullscreen();
+    else leaveFullscreen();
+    resize();
+  }
+  function exitToGames() {
+    setPlayChrome(false);
+    window.location.href = 'games.html';
+  }
+  exitGameButton.addEventListener('click', exitToGames);
 
   function syncMuteUi() {
     muteButton.classList.toggle('muted', audio.muted);
@@ -497,7 +525,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     tiltToggle.hidden = false;
     tiltToggle.addEventListener('click', () => setTilt(!tilt.enabled));
   }
-  window.addEventListener('orientationchange', () => { tilt.neutral = null; });
+  // orientationchange also resets tilt in resize handlers below
 
   function steerAxis() {
     const buttons = (isPressed('right') ? 1 : 0) - (isPressed('left') ? 1 : 0);
@@ -522,7 +550,10 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     startPanel.classList.toggle('hidden', value);
     pausePanel.classList.toggle('hidden', value || !hasStarted);
     hint.style.display = value ? '' : 'none';
-    if (value) lastTime = performance.now();
+    if (value) {
+      setPlayChrome(true);
+      lastTime = performance.now();
+    }
   }
 
   const formatTime = (t) => `${Math.floor(t / 60)}:${(t % 60).toFixed(1).padStart(4, '0')}`;
@@ -830,6 +861,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     stateOutput.textContent = 'READY';
     hud.classList.remove('active');
     pauseButton.disabled = true;
+    setPlayChrome(false);
     clearSession();
     trafficSystem.populate(16);
   });
@@ -870,14 +902,26 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
   });
 
   function resize() {
-    const width = mount.clientWidth;
-    const height = mount.clientHeight;
+    const width = mount.clientWidth || window.visualViewport?.width || window.innerWidth;
+    const height = mount.clientHeight || window.visualViewport?.height || window.innerHeight;
     if (!width || !height) return;
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
-    renderer.setSize(width, height);
+    renderer.setSize(width, height, false);
+    renderer.domElement.style.width = '100%';
+    renderer.domElement.style.height = '100%';
   }
   window.addEventListener('resize', resize);
+  window.addEventListener('orientationchange', () => {
+    tilt.neutral = null;
+    requestAnimationFrame(() => requestAnimationFrame(resize));
+  });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', resize);
+    window.visualViewport.addEventListener('scroll', resize);
+  }
+  document.addEventListener('fullscreenchange', resize);
+  document.addEventListener('webkitfullscreenchange', resize);
 
 
   function animate(now) {
@@ -1180,6 +1224,7 @@ import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, 
     tripPanelDone.classList.add('hidden');
     startPanel.classList.remove('hidden');
     stateOutput.textContent = 'READY';
+    setPlayChrome(false);
   });
 
   // ----- Garage -----
