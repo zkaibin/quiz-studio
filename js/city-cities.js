@@ -172,7 +172,7 @@ export const CITIES = [
   },
   // Sphere-net Planet Aurelia: no geographic poles, artificial sun satellites, city streams as you drive.
   {
-    id: 'circadia', name: 'Circadia', country: 'Planet Aurelia', lat: 18, lon: 42, drive: 'right', grid: 16,
+    id: 'circadia', name: 'Circadia', country: 'Planet Aurelia', lat: 18, lon: 42, drive: 'right', grid: 28,
     planet: true, wrap: true, world: 'aurelia',
     blurb: 'Alien sphere-net city on Planet Aurelia — crystal towers, twin sunsats, fly the whole globe',
     style: {
@@ -181,24 +181,24 @@ export const CITIES = [
       minimapSea: '#14283a', minimapLand: '#2a3348'
     },
     regions: [
-      { name: 'Helix Core', i: 8, j: 8, kind: 'downtown' }, { name: 'Meridian Plaza', i: 7, j: 8, kind: 'downtown' },
-      { name: 'Orbital Spire', i: 9, j: 8, kind: 'downtown' }, { name: 'Ring Gate', i: 6, j: 6, kind: 'civic' },
-      { name: 'Crystal Forum', i: 10, j: 7, kind: 'civic' }, { name: 'Aurora Quarters', i: 5, j: 9, kind: 'residential' },
-      { name: 'Solstice Ward', i: 11, j: 10, kind: 'residential' }, { name: 'Equinox Docks', i: 3, j: 5, kind: 'mixed' },
-      { name: 'Zenith Market', i: 12, j: 4, kind: 'shophouse' }, { name: 'Nadir Lanes', i: 2, j: 12, kind: 'shophouse' },
-      { name: 'Crystal Gardens', i: 8, j: 2, kind: 'park' }, { name: 'Far Arc Park', i: 8, j: 14, kind: 'park' },
-      { name: 'Dawn Reach', i: 1, j: 8, kind: 'mixed' }, { name: 'Dusk Reach', i: 15, j: 8, kind: 'mixed' },
-      { name: 'Horizon Observatory', i: 13, j: 13, kind: 'civic' }, { name: 'Unity Circle', i: 4, j: 3, kind: 'downtown' },
-      { name: 'Loom District', i: 10, j: 2, kind: 'shophouse' }, { name: 'Vault Heights', i: 2, j: 10, kind: 'residential' },
-      { name: 'Cascade Green', i: 14, j: 6, kind: 'park' }, { name: 'Echo Yards', i: 6, j: 14, kind: 'mixed' },
-      { name: 'Inner Meridian', i: 8, j: 3, kind: 'downtown' }, { name: 'Outer Meridian', i: 8, j: 13, kind: 'downtown' },
-      { name: 'West Belt', i: 2, j: 8, kind: 'residential' }, { name: 'East Belt', i: 14, j: 8, kind: 'residential' }
+      { name: 'Helix Core', i: 14, j: 14, kind: 'downtown' }, { name: 'Meridian Plaza', i: 13, j: 14, kind: 'downtown' },
+      { name: 'Orbital Spire', i: 15, j: 14, kind: 'downtown' }, { name: 'Ring Gate', i: 10, j: 10, kind: 'civic' },
+      { name: 'Crystal Forum', i: 18, j: 12, kind: 'civic' }, { name: 'Aurora Quarters', i: 8, j: 16, kind: 'residential' },
+      { name: 'Solstice Ward', i: 19, j: 17, kind: 'residential' }, { name: 'Equinox Docks', i: 5, j: 9, kind: 'mixed' },
+      { name: 'Zenith Market', i: 21, j: 7, kind: 'shophouse' }, { name: 'Nadir Lanes', i: 4, j: 21, kind: 'shophouse' },
+      { name: 'Crystal Gardens', i: 14, j: 4, kind: 'park' }, { name: 'Far Arc Park', i: 14, j: 24, kind: 'park' },
+      { name: 'Dawn Reach', i: 2, j: 14, kind: 'mixed' }, { name: 'Dusk Reach', i: 26, j: 14, kind: 'mixed' },
+      { name: 'Horizon Observatory', i: 22, j: 22, kind: 'civic' }, { name: 'Unity Circle', i: 7, j: 5, kind: 'downtown' },
+      { name: 'Loom District', i: 18, j: 4, kind: 'shophouse' }, { name: 'Vault Heights', i: 4, j: 18, kind: 'residential' },
+      { name: 'Cascade Green', i: 24, j: 10, kind: 'park' }, { name: 'Echo Yards', i: 10, j: 24, kind: 'mixed' },
+      { name: 'Inner Meridian', i: 14, j: 6, kind: 'downtown' }, { name: 'Outer Meridian', i: 14, j: 22, kind: 'downtown' },
+      { name: 'West Belt', i: 4, j: 14, kind: 'residential' }, { name: 'East Belt', i: 24, j: 14, kind: 'residential' }
     ],
     landmarks: [
-      { id: 'spire', i: 9, j: 8, face: 'W' }, { id: 'ringgate', i: 6, j: 6, face: 'N' },
-      { id: 'crystal', i: 10, j: 7, face: 'E' }, { id: 'observatory', i: 13, j: 13, face: 'S' },
-      { id: 'unityplaza', i: 4, j: 3, face: 'E' }, { id: 'polarbeacon', i: 8, j: 2, face: 'N' },
-      { id: 'antipodolite', i: 8, j: 14, face: 'S' }, { id: 'helixcore', i: 8, j: 8, face: 'W' }
+      { id: 'spire', i: 15, j: 14, face: 'W' }, { id: 'ringgate', i: 10, j: 10, face: 'N' },
+      { id: 'crystal', i: 18, j: 12, face: 'E' }, { id: 'observatory', i: 22, j: 22, face: 'S' },
+      { id: 'unityplaza', i: 7, j: 5, face: 'E' }, { id: 'polarbeacon', i: 14, j: 4, face: 'N' },
+      { id: 'antipodolite', i: 14, j: 24, face: 'S' }, { id: 'helixcore', i: 14, j: 14, face: 'W' }
     ],
     avenues: (line) => [
       'Meridian Loop', 'Helix Avenue', 'Aurora Belt', 'Solstice Way', 'Equinox Road', 'Zenith Drive',
@@ -210,7 +210,7 @@ export const CITIES = [
       'Sunsat Blvd', 'Horizon Path', 'Beacon Street', 'Cascade Road', 'Echo Lane', 'Vault Street',
       'Vein Road', 'Shell Road', 'West Seam', 'East Seam'
     ][line % 16],
-    spawns: { 'au-helix': [8, 8], 'au-ring': [6, 6], 'au-polar': [8, 2] }
+    spawns: { 'au-helix': [14, 14], 'au-ring': [10, 10], 'au-polar': [14, 4] }
   }
 ];
 
