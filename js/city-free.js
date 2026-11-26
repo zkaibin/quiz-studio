@@ -17,6 +17,18 @@ const LOAD_CAP = 1250;
 const UNLOAD_PAD = 200;
 const loadRadius = (alt = 0) => Math.min(LOAD_CAP, Math.max(BASE_LOAD, 520 + Math.max(0, alt) * 2.8));
 const unloadRadius = (alt = 0) => loadRadius(alt) + UNLOAD_PAD;
+// Planet: near the surface stream a wide city ring. Climbing used to grow LOAD forever
+// (600+alt*3.2 → ~16k bent meshes) and crash the tab around 300–500 m. Above ~80 m the
+// globe shell owns the horizon — shrink the city stream so orbit stays light.
+const PLANET_ORBIT_LOAD = 400;
+const PLANET_CHUNK_CAP = 64;
+const planetLoadRadius = (alt = 0) => {
+  const a = Math.max(0, alt);
+  const near = Math.min(LOAD_CAP, Math.max(BASE_LOAD, 600 + Math.min(a, 80) * 2.5));
+  if (a <= 80) return near;
+  const t = Math.min(1, (a - 80) / 240); // fully tapered by ~320 m
+  return Math.round(THREE.MathUtils.lerp(near, PLANET_ORBIT_LOAD, t));
+};
 const SIDEWALK_Y = 0.125;
 const TINTS = {
   glass: [0xffffff, 0xd9f0ee, 0xe3e9f7], hdb: [0xf3e6c8, 0xdfeaf2, 0xf2d8d0, 0xe6efd6], concrete: [0xffffff, 0xece6da, 0xdfe6e8]
@@ -489,10 +501,9 @@ export function createFreeCity({ scene, kit }) {
     const wrap = !!(city.planet || city.wrap);
     if (city.planet) ensurePlanetShell();
 
-    const LOAD = city.planet
-      ? Math.min(LOAD_CAP + 200, Math.max(BASE_LOAD, 600 + Math.max(0, alt) * 3.2))
-      : loadRadius(alt);
-    const UNLOAD = LOAD + UNLOAD_PAD;
+    const LOAD = city.planet ? planetLoadRadius(alt) : loadRadius(alt);
+    // Climbing shrinks LOAD — unload sooner so bent meshes are freed before orbit.
+    const UNLOAD = LOAD + (city.planet && alt > 120 ? UNLOAD_PAD * 0.45 : UNLOAD_PAD);
     lastLoad = LOAD;
     const wanted = [];
     const i0 = Math.floor(px / P);
@@ -512,14 +523,33 @@ export function createFreeCity({ scene, kit }) {
       }
     }
     wanted.sort((a, b) => a.dist - b.dist);
-    const buildN = budget === Infinity ? Infinity : Math.max(budget, alt > 40 ? 8 : (city.planet ? 4 : 2));
+    // High flight: build slowly — the shell already fills the view; flooding bend kills WebGL.
+    const buildN = budget === Infinity
+      ? Infinity
+      : Math.max(
+        budget,
+        city.planet
+          ? (alt > 180 ? 1 : alt > 80 ? 2 : 4)
+          : (alt > 40 ? 8 : 2)
+      );
     for (let n = 0; n < wanted.length && n < buildN; n++) {
+      if (city.planet && chunks.size >= PLANET_CHUNK_CAP) break;
       const chunk = buildChunk(wanted[n].i, wanted[n].j);
       chunks.set(wanted[n].key, chunk);
       if (city.planet) bendChunk(chunk);
     }
     for (const [key, chunk] of [...chunks]) {
       if (distanceTo(chunk.i, chunk.j, px, pz) > UNLOAD) dropChunk(key);
+    }
+    // Safety: if climb left us over budget, drop the farthest bent tiles first.
+    if (city.planet && chunks.size > PLANET_CHUNK_CAP) {
+      const ranked = [...chunks.entries()]
+        .map(([key, chunk]) => ({ key, dist: distanceTo(chunk.i, chunk.j, px, pz) }))
+        .sort((a, b) => b.dist - a.dist);
+      for (const entry of ranked) {
+        if (chunks.size <= PLANET_CHUNK_CAP) break;
+        dropChunk(entry.key);
+      }
     }
 
     if (city.planet) {
