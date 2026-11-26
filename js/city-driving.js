@@ -417,8 +417,11 @@ import {
     audio.setMuted(!audio.muted);
     syncMuteUi();
   });
+  let camSnapT = 0;
   function cycleCamera() {
     camMode = CAM_MODES[(CAM_MODES.indexOf(camMode) + 1) % CAM_MODES.length];
+    // Snap briefly so Chase→Driver never lerps through a rear-facing pose.
+    camSnapT = 0.22;
     try { localStorage.setItem('cityDrivingCam', camMode); } catch (error) { /* storage unavailable */ }
     syncCameraUi();
   }
@@ -458,9 +461,10 @@ import {
     const belt = currentCar.build?.belt || roof * 0.7;
     // Raised windshield perch: high enough to read as a driver's seat, even on low hypercars.
     const eyeHeight = Math.max(1.62, Math.min(roof + 0.28, belt + 0.7));
-    // Racing pins the car at PLAYER_Z so the chase rig never lags. Free roam chases a
-    // moving car — above ~200 km/h that lag reads as bounce. Snap the free chase instead.
-    const hyperChase = free && Math.abs(speed) > 55;
+    // Free roam: tighten follow smoothly with speed (no hard snap at ~200 km/h).
+    // 35→70 m/s ≈ 126→252 km/h. Race highway stays on the pinned rail so blend stays 0.
+    const absSpeed = Math.abs(speed);
+    const hyperBlend = free ? THREE.MathUtils.smoothstep(absSpeed, 35, 70) : 0;
     let back;
     let height;
     let lookAhead;
@@ -470,28 +474,31 @@ import {
     let fovSpeed;
     let tremorScale;
     if (hood) {
-      back = THREE.MathUtils.lerp(1.15, 1.7, flyBlend);
-      height = eyeHeight + speedRatio * 0.06 + (isPlanet() ? carY * 0 : carY);
-      lookAhead = THREE.MathUtils.lerp(40, 80, planetSky);
+      // Hood / driver: sit on the windshield (well forward of centre).
+      // Old +1.15 put the lens behind the cabin and framed the rear of the car / seats.
+      back = THREE.MathUtils.lerp(-1.05, -0.7, flyBlend);
+      height = eyeHeight + 0.12 + speedRatio * 0.06 + (isPlanet() ? carY * 0 : carY);
+      lookAhead = THREE.MathUtils.lerp(32, 70, planetSky);
       lookDown = planetSky * carY * 0.05;
-      followRate = hyperChase ? 28 : 12;
-      fovBase = THREE.MathUtils.lerp(64, 72, planetSky);
+      followRate = THREE.MathUtils.lerp(14, 26, hyperBlend);
+      fovBase = THREE.MathUtils.lerp(66, 74, planetSky);
       fovSpeed = 8;
-      tremorScale = hyperChase ? 0 : 0.01;
+      tremorScale = THREE.MathUtils.lerp(0.008, 0, hyperBlend);
     } else if (aerial) {
       const skyBack = isPlanet()
         ? THREE.MathUtils.lerp(28, Math.max(120, planetRadius() * 0.55 + carY * 0.35), planetSky)
         : 48 + carY * 0.035;
-      back = THREE.MathUtils.lerp(THREE.MathUtils.lerp(14, 28, flyBlend), skyBack, isPlanet() ? planetSky : flyBlend * 0.3);
+      back = THREE.MathUtils.lerp(THREE.MathUtils.lerp(16, 30, flyBlend), skyBack, isPlanet() ? planetSky : flyBlend * 0.3);
       height = isPlanet()
-        ? THREE.MathUtils.lerp(THREE.MathUtils.lerp(24, 40, flyBlend), 80 + carY * 0.25, planetSky)
-        : carY + THREE.MathUtils.lerp(THREE.MathUtils.lerp(24, 40 + carY * 0.1, flyBlend), 90 + carY * 0.15, planetSky);
-      lookAhead = THREE.MathUtils.lerp(THREE.MathUtils.lerp(3, 8, flyBlend), 2, planetSky);
+        ? THREE.MathUtils.lerp(THREE.MathUtils.lerp(26, 42, flyBlend), 80 + carY * 0.25, planetSky)
+        : carY + THREE.MathUtils.lerp(THREE.MathUtils.lerp(26, 42 + carY * 0.1, flyBlend), 90 + carY * 0.15, planetSky);
+      // Look well ahead of the car so aerial is a map view, not a stare at the rear bumper.
+      lookAhead = THREE.MathUtils.lerp(THREE.MathUtils.lerp(12, 18, flyBlend), 6, planetSky);
       lookDown = isPlanet() ? THREE.MathUtils.lerp(0, Math.min(40 + carY * 0.04, planetRadius() * 0.2), planetSky) : 0;
-      followRate = hyperChase ? 22 : THREE.MathUtils.lerp(4.5, 3.2, planetSky);
+      followRate = THREE.MathUtils.lerp(THREE.MathUtils.lerp(5.0, 3.6, planetSky), 18, hyperBlend);
       fovBase = THREE.MathUtils.lerp(56, 70, planetSky);
       fovSpeed = 10;
-      tremorScale = hyperChase ? 0 : 0.006;
+      tremorScale = THREE.MathUtils.lerp(0.005, 0, hyperBlend);
     } else {
       const skyBack = isPlanet()
         ? THREE.MathUtils.lerp(22, Math.max(90, planetRadius() * 0.4 + carY * 0.28), planetSky)
@@ -499,16 +506,19 @@ import {
       // Equator orbit race: pull back a touch so the whole car stays framed on the curved deck.
       const chaseBack = (isPlanet() && circuitActive) ? 14.5 : 11.8;
       const chaseHeight = (isPlanet() && circuitActive) ? 6.4 : 5.2;
-      back = THREE.MathUtils.lerp(THREE.MathUtils.lerp(chaseBack, 22, flyBlend), skyBack, isPlanet() ? planetSky : flyBlend * 0.25);
+      // Ease the chase rig slightly farther/lower as speed rises — continuous, not a mode switch.
+      const speedBack = THREE.MathUtils.lerp(0, 2.4, hyperBlend);
+      const speedDrop = THREE.MathUtils.lerp(0, 0.55, hyperBlend);
+      back = THREE.MathUtils.lerp(THREE.MathUtils.lerp(chaseBack, 22, flyBlend), skyBack, isPlanet() ? planetSky : flyBlend * 0.25) + speedBack;
       height = isPlanet()
         ? THREE.MathUtils.lerp(THREE.MathUtils.lerp(chaseHeight, 16, flyBlend), 50 + carY * 0.18, planetSky)
-        : carY + THREE.MathUtils.lerp(THREE.MathUtils.lerp(5.2 - speedRatio * 0.45, 16 + flyBlend * 10, flyBlend), 60 + carY * 0.1, planetSky);
-      lookAhead = THREE.MathUtils.lerp(THREE.MathUtils.lerp(16, 7, flyBlend), 4, planetSky);
+        : carY + THREE.MathUtils.lerp(THREE.MathUtils.lerp(5.2 - speedRatio * 0.35 - speedDrop, 16 + flyBlend * 10, flyBlend), 60 + carY * 0.1, planetSky);
+      lookAhead = THREE.MathUtils.lerp(THREE.MathUtils.lerp(16, 7, flyBlend), 4, planetSky) + THREE.MathUtils.lerp(0, 4, hyperBlend);
       lookDown = isPlanet() ? THREE.MathUtils.lerp(0, Math.min(24 + carY * 0.03, planetRadius() * 0.12), planetSky) : 0;
-      followRate = hyperChase ? 28 : THREE.MathUtils.lerp(5.5, 3.6, planetSky);
+      followRate = THREE.MathUtils.lerp(THREE.MathUtils.lerp(6.2, 4.0, planetSky), 22, hyperBlend);
       fovBase = THREE.MathUtils.lerp(baseFov, 68, planetSky);
       fovSpeed = 16;
-      tremorScale = hyperChase ? 0 : 0.01;
+      tremorScale = THREE.MathUtils.lerp(0.01, 0, hyperBlend);
     }
 
     let targetX;
@@ -518,9 +528,10 @@ import {
     let lookY;
     let lookZ;
     if (free && isPlanet()) {
-      // Hyper speed: aim with the car's heading (no camHeading lag) — same stability as race face.
-      const faceHeading = hyperChase ? face : camHeading;
-      const rigHeight = hood ? eyeHeight : height;
+      // Always aim with camHeading (catch-up rate scales with speed elsewhere) — no hard face snap.
+      const faceHeading = camHeading;
+      // Hood uses the same absolute eye height as flat; chase/aerial use the blended rig height.
+      const rigHeight = hood ? (eyeHeight + 0.12 + speedRatio * 0.06) : height;
       cameraOnSphere({
         x: mapX,
         y: carY,
@@ -547,37 +558,40 @@ import {
       camUp.lerp(_planetCamUp, Math.min(1, delta * followRate));
     } else {
       camUp.set(0, 1, 0);
-      // Hyper free: lock offset to car heading like race uses `face` — lagged camHeading sways the rig.
-      const aim = free ? (hyperChase ? face : camHeading) : face;
+      // Free uses lagged camHeading; race highway uses the car's face. Never hard-swap mid-frame.
+      const aim = free ? camHeading : face;
       const sx = Math.sin(aim);
       const cz = Math.cos(aim);
       targetX = free ? (px - sx * back) : (px * (hood ? 0.05 : aerial ? 0.18 : 0.34));
       targetY = isPlanet() ? height : (hood ? height : height);
-      // Race mode keeps the car pinned at PLAYER_Z; place cabin/aerial rigs relative to that rail.
+      // Race mode keeps the car pinned at PLAYER_Z; place cabin/aerial/chase relative to that rail.
       targetZ = free
         ? (pz + cz * back)
-        : (hood ? PLAYER_Z + back : aerial ? PLAYER_Z + back : 11.8);
+        : (hood || aerial ? PLAYER_Z + back : 11.8);
       lookX = free
         ? (px + sx * lookAhead)
         : (px * (hood ? 0.04 : aerial ? 0.1 : 0.2) + face * (hood ? 10 : aerial ? 4 : 14));
       lookY = hood
-        ? carY + eyeHeight * 0.72
-        : (aerial ? carY + 0.5 : carY + THREE.MathUtils.lerp(1.2, 0.35, flyBlend));
-      lookZ = free ? (pz - cz * lookAhead) : (hood ? -lookAhead : aerial ? PLAYER_Z - lookAhead : -16);
+        ? carY + eyeHeight * 0.42
+        : (aerial ? carY + 1.2 : carY + THREE.MathUtils.lerp(1.2, 0.35, flyBlend));
+      lookZ = free
+        ? (pz - cz * lookAhead)
+        : (hood ? -lookAhead : aerial ? PLAYER_Z - lookAhead : -16);
       if (!free) {
-        if (hood) targetY = carY + eyeHeight + speedRatio * 0.06;
-        else if (aerial) targetY = carY + THREE.MathUtils.lerp(24, 40 + carY * 0.1, flyBlend);
-        else targetY = carY + THREE.MathUtils.lerp(5.2 - speedRatio * 0.45, 16 + flyBlend * 10, flyBlend);
+        if (hood) targetY = carY + eyeHeight + 0.12 + speedRatio * 0.06;
+        else if (aerial) targetY = carY + THREE.MathUtils.lerp(26, 42 + carY * 0.1, flyBlend);
+        else targetY = carY + THREE.MathUtils.lerp(5.2 - speedRatio * 0.35, 16 + flyBlend * 10, flyBlend);
       } else if (!isPlanet()) {
-        if (hood) targetY = carY + eyeHeight + speedRatio * 0.06;
+        if (hood) targetY = carY + eyeHeight + 0.12 + speedRatio * 0.06;
       }
     }
     // Catch up fast on big altitude jumps so flying never leaves the lens near the ground.
-    // Hyper chase already snaps — skip the liftGap ×4.5 boost (it oscillates into bounce).
+    // High-speed free: raise followRate via hyperBlend — never hard-snap follow to 1 (that was the ~200 km/h pop).
+    // Mode switches still snap so C never shows a mid-lerp rear view.
+    camSnapT = Math.max(0, camSnapT - delta);
     const liftGap = Math.hypot(targetX - camPos.x, targetY - camPos.y, targetZ - camPos.z);
-    const follow = hyperChase
-      ? 1
-      : Math.min(1, delta * followRate * (liftGap > 12 ? 4.5 : 1));
+    const liftBoost = hyperBlend > 0.85 ? 1.6 : (liftGap > 12 ? 4.5 : 1);
+    const follow = camSnapT > 0 ? 1 : Math.min(1, delta * followRate * liftBoost);
     camPos.x += (targetX - camPos.x) * follow;
     camPos.y += (targetY - camPos.y) * follow;
     camPos.z += (targetZ - camPos.z) * follow;
@@ -585,9 +599,9 @@ import {
     camLook.y += (lookY - camLook.y) * follow;
     camLook.z += (lookZ - camLook.z) * follow;
     camShakeMag = Math.max(0, camShakeMag - delta * 2.8);
-    // Free-roam high speed: kill tremor entirely — racing has none of this mid-straight.
-    if (hyperChase) camShakeMag = 0;
-    const tremorMul = freeActive && Math.abs(speed) > 50 ? 0 : 1;
+    // Fade smash shake out as speed climbs so mid-straight stays calm.
+    if (hyperBlend > 0.5) camShakeMag *= 1 - (hyperBlend - 0.5) * 1.6;
+    const tremorMul = freeActive && absSpeed > 50 ? 0 : 1;
     const tremor = speedRatio * tremorScale * tremorMul;
     camShake.set(
       (Math.random() - 0.5) * (camShakeMag + tremor),
@@ -1187,8 +1201,12 @@ import {
     }
 
     const speedRatio = Math.min(1, Math.abs(speed) / 60);
-    if (Math.abs(speed) > 55) camHeading = heading;
-    else camHeading += Math.atan2(Math.sin(heading - camHeading), Math.cos(heading - camHeading)) * Math.min(1, delta * 4);
+    // Smooth catch-up: faster at high speed, never a hard lock (that snapped the chase rig).
+    {
+      const hb = THREE.MathUtils.smoothstep(Math.abs(speed), 35, 70);
+      const catchUp = THREE.MathUtils.lerp(4.5, 16, hb);
+      camHeading += Math.atan2(Math.sin(heading - camHeading), Math.cos(heading - camHeading)) * Math.min(1, delta * catchUp);
+    }
     // Planet cameras must use altitude (not world Y) or the lens flies into orbit.
     updateCamera(delta, {
       px, py: onPlanet ? altitude : player.position.y, pz, heading, speedRatio, free: true
@@ -1279,20 +1297,22 @@ import {
     }
 
     const speedRatio = Math.min(1, Math.abs(speed) / 60);
-    // Chase camera trails the car's heading with a little lag so turns feel natural.
-    // Above ~200 km/h, lock to heading — lag + speed is the free-vs-race bounce.
-    if (Math.abs(speed) > 55) {
-      camHeading = heading;
-    } else {
-      camHeading += Math.atan2(Math.sin(heading - camHeading), Math.cos(heading - camHeading)) * Math.min(1, delta * 4);
+    // Chase camera trails heading with lag that tightens smoothly as speed rises — no hard lock at ~200 km/h.
+    {
+      const hb = THREE.MathUtils.smoothstep(Math.abs(speed), 35, 70);
+      const catchUp = THREE.MathUtils.lerp(4.5, 16, hb);
+      camHeading += Math.atan2(Math.sin(heading - camHeading), Math.cos(heading - camHeading)) * Math.min(1, delta * catchUp);
     }
-    // At hypercar speed, ignore smash micro-shakes — they stack into a fake bounce.
-    if (impactShake > 0.1 && Math.abs(speed) <= 55) {
-      pulseImpact(impactShake);
-      impactShake *= 0.35;
-    } else if (Math.abs(speed) > 55) {
-      impactShake = 0;
-      camShakeMag = 0;
+    // Fade smash micro-shakes as speed climbs so they don't stack into a fake bounce.
+    {
+      const hb = THREE.MathUtils.smoothstep(Math.abs(speed), 35, 70);
+      if (impactShake > 0.1 && hb < 0.85) {
+        pulseImpact(impactShake * (1 - hb));
+        impactShake *= 0.35;
+      } else if (hb >= 0.85) {
+        impactShake = 0;
+        camShakeMag *= 0.5;
+      }
     }
     updateCamera(delta, {
       px,
@@ -2048,6 +2068,8 @@ import {
       mode: camMode,
       camY: camPos.y,
       lookY: camLook.y,
+      lookX: camLook.x,
+      lookZ: camLook.z,
       carY: player.position.y,
       alt: altitude,
       phase,
@@ -2067,7 +2089,8 @@ import {
       circuit: circuitActive,
       planet: isPlanet(),
       racePlanet: !!(raceTrack && raceTrack.planet),
-      shake: camShakeMag
+      shake: camShakeMag,
+      hyperBlend: freeActive ? THREE.MathUtils.smoothstep(Math.abs(speed), 35, 70) : 0
     }),
     selectCityById: (id) => {
       const city = CITY_BY_ID[id];
