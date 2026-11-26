@@ -13,12 +13,17 @@ const _up = new THREE.Vector3();
 const _north = new THREE.Vector3();
 const _m = new THREE.Matrix4();
 const _q = new THREE.Quaternion();
+const _basisQ = new THREE.Quaternion();
+const _headingQ = new THREE.Quaternion();
 const _look = new THREE.Matrix4();
 
 export function planetRadius() {
   // Equatorial circumference matches one map lap (SIZE metres).
   return SIZE / (Math.PI * 2);
 }
+
+// Flat-space Y of the asphalt deck — keep in sync with free-city road planes.
+export const PLANET_ROAD_Y = -0.04;
 
 export function flatToLonLat(x, z) {
   const fx = wrapCoord(x);
@@ -84,11 +89,15 @@ export function poseOnSphere(x, y, z, heading = 0, radius = planetRadius(), out 
   const { lon, lat } = flatToLonLat(x, z);
   const pos = out.position || new THREE.Vector3();
   pos.copy(spherePoint(lon, lat, radius + y));
-  const frame = tangentFrame(lon, lat, { up: out.up, east: out.east, north: out.north, quat: out.basisQuat });
+  // Never alias basisQuat with the heading scratch quat — that wiped the tangent frame.
+  const frame = tangentFrame(lon, lat, {
+    up: out.up, east: out.east, north: out.north,
+    quat: out.basisQuat || _basisQ
+  });
   const quat = out.quaternion || new THREE.Quaternion();
   // Heading: 0 = north, positive turns right (toward east), matching flat sin/cos heading.
-  _q.setFromAxisAngle(frame.up, -heading);
-  quat.copy(frame.quat).premultiply(_q);
+  _headingQ.setFromAxisAngle(frame.up, -heading);
+  quat.copy(frame.quat).premultiply(_headingQ);
   return {
     position: pos,
     quaternion: quat,
@@ -575,14 +584,16 @@ function buildNaturalPlanet(radius, oceanHex) {
 }
 
 export function placeObjectOnSphere(object, x, y, z, heading = 0, radius = planetRadius()) {
-  // Tiny radial lift so wheels sit on the bent road surface instead of clipping chords.
-  const pose = poseOnSphere(x, y + 0.04, z, heading, radius, {
+  // `y` is height above the asphalt deck. Car models put tyre contact at local y=0.
+  // Sink a hair into the bent road so all four wheels read as planted (not hovering).
+  const plant = y < 0.08 ? -0.03 : 0;
+  const pose = poseOnSphere(x, PLANET_ROAD_Y + y + plant, z, heading, radius, {
     position: object.position,
     quaternion: object.quaternion,
     up: object.userData._planetUp || (object.userData._planetUp = new THREE.Vector3()),
     east: _east,
     north: _north,
-    basisQuat: _q
+    basisQuat: _basisQ
   });
   object.position.copy(pose.position);
   object.quaternion.copy(pose.quaternion);

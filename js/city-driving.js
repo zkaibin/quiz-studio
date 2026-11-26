@@ -1366,11 +1366,8 @@ import {
     accelSmooth = THREE.MathUtils.lerp(accelSmooth, THREE.MathUtils.clamp(accel, -25, 12), Math.min(1, delta * 5));
     rollSmooth = THREE.MathUtils.lerp(rollSmooth, THREE.MathUtils.clamp(turnRate * speed * 0.0016, -0.05, 0.05), Math.min(1, delta * 6));
     if (freeActive && isPlanet()) {
-      // Orientation already comes from the sphere tangent frame; keep a little chassis lean in model space.
-      if (carModel) {
-        carModel.rotation.z = -rollSmooth;
-        carModel.rotation.x = THREE.MathUtils.clamp(accelSmooth * 0.0016, -0.04, 0.02);
-      }
+      // No chassis pitch/roll on the globe — leaning around the origin lifts two wheels off the road.
+      if (carModel) { carModel.rotation.z = 0; carModel.rotation.x = 0; }
     } else {
       if (carModel) { carModel.rotation.z = 0; carModel.rotation.x = 0; }
       player.rotation.y = -heading;
