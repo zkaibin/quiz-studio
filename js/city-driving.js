@@ -127,13 +127,14 @@ import {
       return;
     }
     if (mode === 'free') {
-      routeNameOutput.textContent = `${route.area} · bent roads & hills · drive anywhere`;
+      routeNameOutput.textContent = `${route.area} · mostly straight avenues · drive anywhere`;
       return;
     }
     const circuit = circuitById(route.circuit);
     const lapM = Math.round(circuitTrack.length || route.length);
+    const tier = circuit.difficulty === 'easy' ? 'Beginner' : (circuit.difficulty === 'challenge' ? 'Challenge' : 'Standard');
     const bonus = ` · race +${RACE_BONUS[0]} pts`;
-    routeNameOutput.textContent = `${circuit.name} · ${(lapM / 1000).toFixed(1)} km lap · ${tripReward(route)} pts${bonus}`;
+    routeNameOutput.textContent = `${circuit.name} (${tier}) · ${(lapM / 1000).toFixed(1)} km · ${tripReward(route)} pts${bonus}`;
   }
 
   function setMode(next) {
@@ -215,15 +216,19 @@ import {
     const lapKm = ((city.grid * PITCH) / 1000).toFixed(1).replace(/\.0$/, '');
     cityIntro.textContent = city.planet
       ? `Take the wheel in ${city.name} on alien ${city.country} (~${lapKm} km sphere-net). Twin sun satellites light the crystal city — drive or fly anywhere; districts stream in as you explore.`
-      : `Take the wheel in ${city.name}. Keep ${city.drive} on bent city roads and rolling hills, or jump a closed racing circuit — hairpins, elevation and AI rivals that test your line.`;
+      : `Take the wheel in ${city.name}. Keep ${city.drive} on wide 4-lane avenues (mostly straight, a few gentle bends), or pick a racing circuit — beginner ovals through challenge tracks.`;
     roadName.textContent = trafficLabel();
     roadName.dataset.default = roadName.textContent;
   }
 
   function renderRoutes() {
     routeList.innerHTML = routesFor(currentCity().id).map((r) => {
-      const label = mode === 'race' && r.circuit ? circuitById(r.circuit).name : r.name;
-      return `<button type="button" data-route="${r.id}">${label}</button>`;
+      if (mode === 'race' && r.circuit) {
+        const c = circuitById(r.circuit);
+        const tag = c.difficulty === 'easy' ? ' · easy' : (c.difficulty === 'challenge' ? ' · hard' : '');
+        return `<button type="button" data-route="${r.id}">${c.name}${tag}</button>`;
+      }
+      return `<button type="button" data-route="${r.id}">${r.name}</button>`;
     }).join('');
   }
   renderRoutes();
@@ -976,7 +981,7 @@ import {
     const circuit = circuitById(route.circuit);
     areaLabel = circuit.area;
     locationName.textContent = circuit.name;
-    const spawn = circuitTrack.spawn(-3.2);
+    const spawn = circuitTrack.spawn(-4.5);
     mapX = spawn.x;
     mapZ = spawn.z;
     heading = spawn.heading;

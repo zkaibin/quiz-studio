@@ -9,9 +9,9 @@ import {
 
 export const BLOCK_COUNT = 8;
 export const BLOCK_LENGTH = 64;
-export const LANES = [-7.4, -2.5, 2.5, 7.4];
-export const ROAD_HALF = 11;
-const FACE = 15.5;
+export const LANES = [-9.5, -3.5, 3.5, 9.5];
+export const ROAD_HALF = 14;
+const FACE = 18.5;
 const LENGTH = 510;
 const CENTER_Z = -215;
 

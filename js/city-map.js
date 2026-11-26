@@ -6,12 +6,12 @@ import {
 export const PITCH = 140;
 export let GRID = 20;
 export let SIZE = PITCH * GRID;
-export const ROAD_HALF = 11;
-export const FACE = 15.5;
+export const ROAD_HALF = 14;
+export const FACE = 18.5;
 // Organic Earth cities push frontages further in so bent roads don't clip buildings.
-export const FACE_ORGANIC = 32;
+export const FACE_ORGANIC = 34;
 // Furthest a car centre may stray from a road centre line (road + kerb); anything beyond is building or park.
-export const DRIVE_LIMIT = 11.4;
+export const DRIVE_LIMIT = 14.5;
 
 export function hash(i, j, salt = 0) {
   let h = Math.imul(i + 1013, 73856093) ^ Math.imul(j + 7919, 19349663) ^ Math.imul(salt + 1, 83492791);

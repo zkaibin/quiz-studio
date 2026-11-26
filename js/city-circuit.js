@@ -3,15 +3,54 @@ import * as THREE from './vendor/three/three.module.min.js';
 import { asphaltTexture, grassTexture, checkerTexture, signTexture } from './city-gfx.js';
 import { stdMat } from './city-vehicles.js';
 
-const HALF = 12.5;
+// Wide 4-lane deck so beginners can hold a clear line.
+const HALF = 16;
+const HALF_EASY = 17;
 
 // Control points are [x, y, z]. Loops are closed Catmull–Rom ribbons.
 const CIRCUITS = [
   {
+    id: 'boulevard',
+    name: 'City Boulevard',
+    area: 'BEGINNER',
+    blurb: 'Wide 4-lane oval with long straights — easy for new drivers',
+    difficulty: 'easy',
+    sky: 0xa9d5e5,
+    ground: 0x91ad89,
+    hemi: 2.0,
+    sun: 2.4,
+    sunColor: 0xffefd2,
+    width: HALF_EASY,
+    points: [
+      [0, 0, 0], [90, 0.2, -40], [160, 0.4, -20], [180, 0.5, 40],
+      [140, 0.4, 100], [60, 0.2, 120], [-40, 0.1, 100], [-100, 0, 40],
+      [-90, 0, -20], [-30, 0, -50]
+    ]
+  },
+  {
+    id: 'park-loop',
+    name: 'Park Loop',
+    area: 'BEGINNER',
+    blurb: 'Gentle park circuit — soft corners and clear lane marks',
+    difficulty: 'easy',
+    sky: 0xb7d8ea,
+    ground: 0x8fc079,
+    hemi: 2.0,
+    sun: 2.3,
+    sunColor: 0xfff1d6,
+    width: HALF_EASY,
+    points: [
+      [0, 0, 0], [70, 0.3, -50], [120, 0.6, -30], [130, 0.8, 30],
+      [90, 1.0, 80], [20, 0.6, 100], [-50, 0.3, 70], [-80, 0.1, 10],
+      [-50, 0, -40]
+    ]
+  },
+  {
     id: 'harbor-gp',
     name: 'Harbor Grand Prix',
     area: 'HARBOR RING',
-    blurb: 'Fast sweeping coastal ring with a blind crest',
+    blurb: 'Sweeping coastal ring with a mild crest — open 4-lane asphalt',
+    difficulty: 'medium',
     sky: 0x8ec8e4,
     ground: 0x6f9a62,
     hemi: 2.0,
@@ -19,87 +58,91 @@ const CIRCUITS = [
     sunColor: 0xffefd2,
     width: HALF,
     points: [
-      [0, 0, 0], [40, 1.2, -90], [110, 3.5, -150], [180, 6.5, -120],
-      [210, 9.5, -40], [190, 12.0, 50], [120, 8.5, 110], [40, 4.0, 140],
-      [-40, 2.0, 120], [-110, 1.0, 60], [-140, 0.4, -20], [-90, 0, -70]
-    ]
-  },
-  {
-    id: 'ridge-switch',
-    name: 'Ridge Switchbacks',
-    area: 'HILL CLIMB',
-    blurb: 'Tight hairpins climbing a ridge — brake hard, then power out',
-    sky: 0xb7d4e8,
-    ground: 0x7a8f6a,
-    hemi: 1.9,
-    sun: 2.2,
-    sunColor: 0xffe8c8,
-    width: HALF - 1,
-    points: [
-      [0, 0, 0], [30, 3.0, -70], [20, 8.0, -130], [-40, 14.0, -160],
-      [-100, 18.5, -120], [-90, 20.0, -50], [-30, 17.0, -10], [40, 12.0, 30],
-      [90, 8.0, 80], [70, 5.0, 140], [0, 2.5, 160], [-60, 1.0, 110],
-      [-40, 0.3, 40]
-    ]
-  },
-  {
-    id: 'arena-tech',
-    name: 'Arena Technical',
-    area: 'STADIUM',
-    blurb: 'Chicanes and esses that punish early throttle',
-    sky: 0xc5d0d8,
-    ground: 0x8a9278,
-    hemi: 1.85,
-    sun: 2.1,
-    sunColor: 0xfff0d8,
-    width: HALF - 1.5,
-    points: [
-      [0, 0, 0], [50, 0.2, -60], [90, 0.4, -50], [100, 0.5, 10],
-      [70, 0.8, 50], [20, 1.0, 40], [-10, 1.2, 80], [-50, 1.0, 100],
-      [-100, 0.6, 70], [-120, 0.3, 10], [-80, 0.2, -40], [-30, 0.1, -70],
-      [20, 0, -40]
+      [0, 0, 0], [50, 0.8, -100], [130, 2.0, -140], [200, 3.5, -100],
+      [220, 5.0, -20], [180, 4.0, 70], [100, 2.5, 120], [20, 1.2, 130],
+      [-60, 0.6, 90], [-120, 0.2, 20], [-100, 0, -50]
     ]
   },
   {
     id: 'coastal-ring',
     name: 'Coastal Ring',
     area: 'SEASIDE',
-    blurb: 'Long straights, a carousel sweeper and a downhill kink',
+    blurb: 'Long straights and one big sweeper — great for learning pace',
+    difficulty: 'easy',
     sky: 0xf0b890,
     ground: 0xc4b894,
     hemi: 1.8,
     sun: 2.5,
     sunColor: 0xffb878,
+    width: HALF_EASY,
+    points: [
+      [0, 0, 0], [100, 0.3, -50], [200, 0.8, -40], [260, 1.5, 40],
+      [230, 2.5, 130], [140, 2.0, 180], [40, 1.0, 180], [-60, 0.4, 130],
+      [-140, 0.1, 50], [-140, 0, -20], [-60, 0, -50]
+    ]
+  },
+  {
+    id: 'ridge-switch',
+    name: 'Ridge Switchbacks',
+    area: 'HILL CLIMB',
+    blurb: 'Climbing hairpins that test braking — still a wide 4-lane deck',
+    difficulty: 'challenge',
+    sky: 0xb7d4e8,
+    ground: 0x7a8f6a,
+    hemi: 1.9,
+    sun: 2.2,
+    sunColor: 0xffe8c8,
     width: HALF,
     points: [
-      [0, 0, 0], [80, 0.5, -40], [180, 1.5, -30], [240, 3.5, 40],
-      [220, 5.5, 130], [140, 4.0, 190], [40, 2.0, 200], [-60, 0.8, 160],
-      [-140, 0.2, 80], [-160, 0, 0], [-100, 0.3, -60], [-20, 0.1, -50]
+      [0, 0, 0], [40, 2.0, -80], [30, 5.0, -140], [-30, 9.0, -160],
+      [-90, 12.0, -110], [-80, 13.0, -40], [-20, 11.0, 0], [50, 8.0, 40],
+      [90, 5.0, 90], [60, 3.0, 140], [0, 1.5, 150], [-50, 0.5, 90],
+      [-30, 0.2, 30]
+    ]
+  },
+  {
+    id: 'arena-tech',
+    name: 'Arena Technical',
+    area: 'STADIUM',
+    blurb: 'Chicanes and esses — wider lanes so you can correct mid-corner',
+    difficulty: 'challenge',
+    sky: 0xc5d0d8,
+    ground: 0x8a9278,
+    hemi: 1.85,
+    sun: 2.1,
+    sunColor: 0xfff0d8,
+    width: HALF,
+    points: [
+      [0, 0, 0], [60, 0.2, -70], [110, 0.3, -40], [120, 0.4, 20],
+      [80, 0.6, 60], [20, 0.7, 50], [-20, 0.8, 90], [-70, 0.6, 110],
+      [-120, 0.4, 60], [-130, 0.2, 0], [-80, 0.1, -50], [-20, 0, -70]
     ]
   },
   {
     id: 'night-helix',
     name: 'Helix Night Run',
     area: 'FLOODLIT',
-    blurb: 'Banked spiral into a double-apex — lights and elevation',
+    blurb: 'Floodlit elevation and a double-apex — for confident drivers',
+    difficulty: 'challenge',
     night: true,
     sky: 0x1a2248,
     ground: 0x3a4a52,
     hemi: 1.5,
     sun: 1.2,
     sunColor: 0x9fb4ff,
-    width: HALF - 0.5,
+    width: HALF,
     points: [
-      [0, 0, 0], [60, 1.0, -50], [110, 2.5, -20], [100, 4.5, 50],
-      [40, 6.5, 90], [-40, 7.5, 80], [-90, 6.0, 30], [-80, 4.0, -40],
-      [-20, 2.0, -80], [40, 1.0, -100], [80, 0.5, -60]
+      [0, 0, 0], [70, 0.8, -60], [120, 2.0, -20], [110, 3.5, 50],
+      [40, 5.0, 90], [-40, 5.5, 70], [-90, 4.0, 20], [-70, 2.5, -50],
+      [-10, 1.0, -80], [50, 0.4, -70]
     ]
   },
   {
     id: 'desert-dunes',
     name: 'Desert Dunes',
     area: 'DUNE CIRCUIT',
-    blurb: 'Crests and hollows that unload the car mid-corner',
+    blurb: 'Crests and hollows on a wide desert highway',
+    difficulty: 'medium',
     sky: 0xe9d7b4,
     ground: 0xc8b787,
     hemi: 2.1,
@@ -107,9 +150,9 @@ const CIRCUITS = [
     sunColor: 0xfff0cc,
     width: HALF,
     points: [
-      [0, 0, 0], [70, 2.5, -50], [140, 5.5, -20], [160, 3.0, 50],
-      [110, 1.0, 110], [40, 4.5, 140], [-40, 7.0, 100], [-100, 4.0, 40],
-      [-120, 1.5, -30], [-60, 0.5, -80], [10, 0.2, -60]
+      [0, 0, 0], [80, 1.5, -60], [150, 3.5, -30], [170, 2.0, 50],
+      [110, 0.8, 110], [30, 2.5, 140], [-50, 4.0, 90], [-110, 2.0, 30],
+      [-120, 0.8, -40], [-50, 0.3, -70]
     ]
   }
 ];
@@ -312,10 +355,43 @@ export function createCircuitTrack({ scene, renderer, circuit }) {
     const curbR = new THREE.Mesh(curbGeoR, curbB);
     decor.add(curbL, curbR);
 
-    // Centre dashed line + edge lines via thin ribbons.
-    const center = new THREE.Mesh(ribbonFromCurve(curve, 0.08, 200), lineMat);
-    center.position.y = 0.03;
-    decor.add(center);
+    // Clear 4-lane markings: centre divider + mid separators + edge lines.
+    // Width splits into four equal lanes (boundaries at 0, ±halfW/2, ±halfW).
+    const mark = (w, yLift = 0.05) => {
+      const m = new THREE.Mesh(ribbonFromCurve(curve, w, 220, yLift), lineMat);
+      decor.add(m);
+    };
+    mark(0.12, 0.06); // centre
+    const mid = halfW * 0.5;
+    for (const lat of [-mid, mid, -halfW + 0.75, halfW - 0.75]) {
+      const pts = samplePath(curve, 200);
+      const positions = [];
+      const indices = [];
+      const hw = 0.09;
+      for (let i = 0; i < pts.length; i++) {
+        const p = pts[i];
+        const prev = pts[Math.max(0, i - 1)];
+        const next = pts[Math.min(pts.length - 1, i + 1)];
+        const tx = next.x - prev.x;
+        const tz = next.z - prev.z;
+        const len = Math.hypot(tx, tz) || 1;
+        const sx = (-tz / len);
+        const sz = (tx / len);
+        const cx = p.x + sx * lat;
+        const cz = p.z + sz * lat;
+        const y = p.y + 0.055;
+        positions.push(cx + sx * hw, y, cz + sz * hw, cx - sx * hw, y, cz - sz * hw);
+        if (i > 0) {
+          const a = (i - 1) * 2;
+          indices.push(a, a + 2, a + 1, a + 1, a + 2, a + 3);
+        }
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(positions), 3));
+      geo.setIndex(indices);
+      geo.computeVertexNormals();
+      decor.add(new THREE.Mesh(geo, lineMat));
+    }
 
     // Continuous barrier walls outside the racing line.
     for (const s of [-1, 1]) {

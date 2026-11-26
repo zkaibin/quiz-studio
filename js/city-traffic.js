@@ -144,7 +144,7 @@ export function createTraffic({ scene, rand }) {
     const t = (r.dist / Math.max(1, circuitApi.length)) % 1;
     const s = circuitApi.sample(t);
     let side = new THREE.Vector3(-s.tangent.z, 0, s.tangent.x).normalize();
-    const lane = (r.lane === 0 ? -3.4 : 3.4);
+    const lane = (r.lane === 0 ? -4.5 : 4.5);
     r.x = s.point.x + side.x * lane;
     r.z = s.point.z + side.z * lane;
     r.y = s.point.y + 0.05;
