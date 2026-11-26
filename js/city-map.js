@@ -80,6 +80,8 @@ export function infoAt(x, z) {
 
 export function isDrivable(x, z) {
   if (!city.wrap && (x < -DRIVE_LIMIT || z < -DRIVE_LIMIT || x > SIZE + DRIVE_LIMIT || z > SIZE + DRIVE_LIMIT)) return false;
+  // Wrap cities: normalize into the map so seam / pole-adjacent coords stay consistent.
+  if (city.wrap) { x = wrapCoord(x); z = wrapCoord(z); }
   const offX = Math.abs(x - Math.round(x / PITCH) * PITCH);
   const offZ = Math.abs(z - Math.round(z / PITCH) * PITCH);
   return offX <= DRIVE_LIMIT || offZ <= DRIVE_LIMIT;
@@ -97,6 +99,8 @@ export function isFreeDrivable(x, z) {
     const lx = x - i * PITCH; const lz = z - j * PITCH;
     return Math.min(lx, PITCH - lx, lz, PITCH - lz) < FACE - 0.6;
   }
+  x = wrapCoord(x);
+  z = wrapCoord(z);
   if (isDrivable(x, z)) return true;
   const i = Math.floor(x / PITCH);
   const j = Math.floor(z / PITCH);

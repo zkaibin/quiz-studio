@@ -110,28 +110,19 @@ export function poseOnSphere(x, y, z, heading = 0, radius = planetRadius(), out 
   };
 }
 
-// Move along the sphere surface by a flat-metre step; returns updated flat x/z/heading.
+// Sphere-net motion: advance in the wrapped flat map (both axes), then pose onto the globe.
+// Do NOT integrate in 3D lon/lat — near the equirectangular poles longitude blows up and
+// heading flips every frame, which felt like the flying car "bouncing" with force in the sky.
 export function moveOnSphere(x, z, heading, step, radius = planetRadius()) {
-  if (Math.abs(step) < 1e-8) return { x: wrapCoord(x), z: wrapCoord(z), heading };
-  const { lon, lat } = flatToLonLat(x, z);
-  const frame = tangentFrame(lon, lat);
-  const forward = new THREE.Vector3()
-    .copy(frame.north).multiplyScalar(Math.cos(heading))
-    .addScaledVector(frame.east, Math.sin(heading));
-  const pos = spherePoint(lon, lat, radius);
-  pos.addScaledVector(forward, step);
-  // Keep on the surface; pole crossing is handled by asin/atan2 on the new point.
-  pos.setLength(radius);
-  const next = sphereToFlat(pos, radius);
-  let nextHeading = heading;
-  const nextFrame = tangentFrame(next.lon, next.lat);
-  const radial = forward.dot(nextFrame.up);
-  const tang = forward.addScaledVector(nextFrame.up, -radial);
-  if (tang.lengthSq() > 1e-10) {
-    tang.normalize();
-    nextHeading = Math.atan2(tang.dot(nextFrame.east), tang.dot(nextFrame.north));
+  if (Math.abs(step) < 1e-8) {
+    const { lon, lat } = flatToLonLat(x, z);
+    return { x: wrapCoord(x), z: wrapCoord(z), heading, lon, lat };
   }
-  return { x: wrapCoord(next.x), z: wrapCoord(next.z), heading: nextHeading, lon: next.lon, lat: next.lat };
+  // Match flat free-roam: +heading turns right, forward is −Z / north on the map.
+  const nx = wrapCoord(x + Math.sin(heading) * step);
+  const nz = wrapCoord(z - Math.cos(heading) * step);
+  const { lon, lat } = flatToLonLat(nx, nz);
+  return { x: nx, z: nz, heading, lon, lat };
 }
 
 // Split long flat triangles before bending so roads/parks don't become sharp sphere chords.
@@ -537,14 +528,15 @@ function buildNaturalPlanet(radius, oceanHex) {
 
   const maps = makePlanetTerrainMaps(oceanHex);
   const core = new THREE.Mesh(
-    new THREE.SphereGeometry(Math.max(8, radius - 0.55), 128, 96),
+    new THREE.SphereGeometry(Math.max(8, radius - 0.55), 160, 112),
     new THREE.MeshStandardMaterial({
       map: maps.color,
       roughnessMap: maps.roughness,
-      roughness: 1,
-      metalness: 0.05,
-      emissive: new THREE.Color(0x0a1520),
-      emissiveIntensity: 0.25,
+      roughness: 0.72,
+      metalness: 0.18,
+      emissive: new THREE.Color(0x14203a),
+      emissiveIntensity: 0.32,
+      envMapIntensity: 1.15,
       flatShading: false
     })
   );
@@ -552,31 +544,32 @@ function buildNaturalPlanet(radius, oceanHex) {
   core.receiveShadow = true;
   group.add(core);
 
-  // Alien teal–violet atmosphere rim.
+  // Crystal-clear teal–violet atmosphere rim (sharp Fresnel, not milky haze).
   const atmosphereInner = new THREE.Mesh(
-    new THREE.SphereGeometry(radius * 1.04, 64, 48),
-    makeAtmosphereMaterial(0x9ef0ff, 0.4)
+    new THREE.SphereGeometry(radius * 1.035, 72, 56),
+    makeAtmosphereMaterial(0xa8f6ff, 0.55)
   );
-  atmosphereInner.material.uniforms.uPower.value = 1.8;
+  atmosphereInner.material.uniforms.uPower.value = 2.4;
   atmosphereInner.userData.planetCore = true;
   atmosphereInner.renderOrder = 2;
   group.add(atmosphereInner);
 
   const atmosphere = new THREE.Mesh(
-    new THREE.SphereGeometry(radius * 1.12, 64, 48),
-    makeAtmosphereMaterial(0xc59bff, 1.05)
+    new THREE.SphereGeometry(radius * 1.1, 72, 56),
+    makeAtmosphereMaterial(0xc4a6ff, 1.25)
   );
+  atmosphere.material.uniforms.uPower.value = 3.1;
   atmosphere.userData.planetCore = true;
   atmosphere.renderOrder = 3;
   group.add(atmosphere);
 
   const cloudMap = makeCloudTexture();
   const clouds = new THREE.Mesh(
-    new THREE.SphereGeometry(radius * 1.032, 80, 56),
+    new THREE.SphereGeometry(radius * 1.028, 96, 64),
     new THREE.MeshBasicMaterial({
       map: cloudMap,
       transparent: true,
-      opacity: 0.55,
+      opacity: 0.28,
       depthWrite: false,
       side: THREE.DoubleSide
     })
@@ -588,23 +581,27 @@ function buildNaturalPlanet(radius, oceanHex) {
   // Man-made sun satellites — Aurelia does not spin; these provide daylight.
   const sunSats = [];
   const satSpecs = [
-    { color: 0xffe6a8, orbit: radius * 1.85, speed: 0.09, phase: 0.15, size: 14, elev: 0.72 },
-    { color: 0xffc878, orbit: radius * 2.15, speed: 0.06, phase: Math.PI * 1.05, size: 11, elev: 0.48 }
+    { color: 0xfff0c4, orbit: radius * 1.85, speed: 0.09, phase: 0.15, size: 16, elev: 0.72 },
+    { color: 0xffd29a, orbit: radius * 2.15, speed: 0.06, phase: Math.PI * 1.05, size: 12, elev: 0.48 }
   ];
   for (const spec of satSpecs) {
     const sat = new THREE.Group();
     sat.userData.planetCore = true;
     const glow = new THREE.Mesh(
-      new THREE.SphereGeometry(spec.size, 20, 16),
+      new THREE.SphereGeometry(spec.size, 24, 18),
       new THREE.MeshBasicMaterial({ color: spec.color })
     );
     const halo = new THREE.Mesh(
-      new THREE.SphereGeometry(spec.size * 1.7, 16, 12),
-      new THREE.MeshBasicMaterial({ color: spec.color, transparent: true, opacity: 0.32, depthWrite: false })
+      new THREE.SphereGeometry(spec.size * 2.1, 20, 14),
+      new THREE.MeshBasicMaterial({ color: spec.color, transparent: true, opacity: 0.38, depthWrite: false })
+    );
+    const bloom = new THREE.Mesh(
+      new THREE.SphereGeometry(spec.size * 3.2, 16, 12),
+      new THREE.MeshBasicMaterial({ color: 0xfff6e0, transparent: true, opacity: 0.12, depthWrite: false })
     );
     // Local glow only — surface daylight comes from DirectionalLights aimed at these sats.
-    const light = new THREE.PointLight(spec.color, 8, radius * 0.85, 1.4);
-    sat.add(glow, halo, light);
+    const light = new THREE.PointLight(spec.color, 10, radius * 0.9, 1.35);
+    sat.add(glow, halo, bloom, light);
     group.add(sat);
     sunSats.push({ sat, light, ...spec });
   }
@@ -635,13 +632,13 @@ export function updatePlanetVisuals(root, { time = 0, altitude = 0 } = {}) {
   decor.clouds.rotation.y = time * 0.012;
   const space = THREE.MathUtils.clamp((altitude - 180) / 1100, 0, 1);
   const atmo = THREE.MathUtils.smoothstep(space, 0.12, 0.55);
-  decor.atmosphere.material.uniforms.uIntensity.value = THREE.MathUtils.lerp(0, 1.85, atmo);
+  decor.atmosphere.material.uniforms.uIntensity.value = THREE.MathUtils.lerp(0.08, 1.55, atmo);
   if (decor.atmosphereInner) {
-    decor.atmosphereInner.material.uniforms.uIntensity.value = THREE.MathUtils.lerp(0, 0.75, atmo);
-    decor.atmosphereInner.visible = atmo > 0.02;
+    decor.atmosphereInner.material.uniforms.uIntensity.value = THREE.MathUtils.lerp(0.05, 0.7, atmo);
+    decor.atmosphereInner.visible = true;
   }
-  decor.atmosphere.visible = atmo > 0.02;
-  decor.clouds.material.opacity = THREE.MathUtils.lerp(0.15, 0.72, Math.min(1, space + 0.2));
+  decor.atmosphere.visible = true;
+  decor.clouds.material.opacity = THREE.MathUtils.lerp(0.12, 0.42, Math.min(1, space + 0.15));
   decor.clouds.visible = true;
 
   // Orbit the artificial suns; planet itself does not spin.
