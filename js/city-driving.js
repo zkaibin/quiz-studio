@@ -1167,19 +1167,21 @@ import {
     if (roadName.textContent !== 'RACING LINE') roadName.textContent = onPlanet ? 'EQUATOR BELT' : 'RACING LINE';
 
     const length = tripLength();
+    const laneHit = raceTrack.project(px, pz);
     trafficSystem.update(delta, {
-      playerForward: speed, playerX: px, playerSpeed: speed, distance, time: raceTime,
-      go: phase === 'drive', playerTop: stats.top, playerAccel: stats.accel, length
+      playerForward: speed, playerX: px, playerZ: pz, playerSpeed: speed, distance, time: raceTime,
+      go: phase === 'drive', playerTop: stats.top, playerAccel: stats.accel, length,
+      playerLaneOffset: laneHit.lateral ?? 0
     });
     collisionCooldown = Math.max(0, collisionCooldown - delta);
     if (collisionCooldown === 0 && phase === 'drive') {
       const crash = trafficSystem.findCollision(px, pz);
       if (crash) {
-        collisionCooldown = 0.85;
+        collisionCooldown = 0.55;
         crashes++;
         speed *= 0.72;
         heading += Math.sign(px - crash.x || 1) * -0.03;
-        trafficSystem.resolveCollision(crash, px);
+        trafficSystem.resolveCollision(crash, px, pz);
         pulseImpact(0.28, { force: true });
       }
     }
@@ -1552,6 +1554,8 @@ import {
         phase = 'drive';
         stateOutput.textContent = 'RACING';
         showCountdown('GO!');
+        // Brief grace so the grid launch does not register a false bumper scrape.
+        collisionCooldown = Math.max(collisionCooldown, 0.9);
         audio.go();
         setTimeout(() => { if (phase === 'drive') countdownOut.hidden = true; }, 900);
       } else if (countdownOut.textContent !== String(shown)) {
@@ -2084,13 +2088,15 @@ import {
       return speed;
     },
     // QA: advance physics + render N fixed steps (swiftshader rAF is too starved for real-time 230 km/h demos).
-    pump: (frames = 30, dt = 1 / 60) => {
-      const n = Math.max(1, Math.min(240, frames | 0));
+    // Pass render:false to step physics only (fast metrics / teleport checks).
+    pump: (frames = 30, dt = 1 / 60, opts = {}) => {
+      const n = Math.max(1, Math.min(600, frames | 0));
       const step = Math.min(0.05, Math.max(1 / 120, dt));
+      const doRender = opts.render !== false;
       for (let i = 0; i < n; i++) {
         lastTime = performance.now();
         if (running) update(step);
-        renderer.render(scene, camera);
+        if (doRender) renderer.render(scene, camera);
       }
       return { frames: n, speed, x: player.position.x, z: player.position.z };
     },
@@ -2151,7 +2157,30 @@ import {
     top: () => stats.top,
     mode: () => mode,
     trafficCount: () => trafficSystem.traffic.length,
-    racerCount: () => trafficSystem.racers.length
+    racerCount: () => trafficSystem.racers.length,
+    // Race QA: skip countdown and sample AI bodies for teleport / overlap checks.
+    skipCountdown: () => {
+      if (phase !== 'countdown') return phase;
+      countdownT = 0;
+      phase = 'drive';
+      stateOutput.textContent = 'RACING';
+      countdownOut.hidden = true;
+      collisionCooldown = Math.max(collisionCooldown, 0.9);
+      return phase;
+    },
+    racerSnapshot: () => trafficSystem.racers.map((r) => ({
+      name: r.name,
+      x: +r.x.toFixed(3),
+      y: +(r.y || 0).toFixed(3),
+      z: +r.z.toFixed(3),
+      dist: +r.dist.toFixed(3),
+      laneOffset: +(r.laneOffset ?? 0).toFixed(3),
+      speed: +r.speed.toFixed(3),
+      halfLen: r.halfLen,
+      halfWidth: r.halfWidth,
+      circuit: !!r.circuit
+    })),
+    crashes: () => crashes
   };
   if (demoFlyer) applyDriveCar(demoFlyer);
 
