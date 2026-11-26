@@ -6,7 +6,10 @@ import { PITCH as P, GRID, FACE, ROAD_HALF, cellInfo, seedOf, currentCity, wrapI
 const WALK_OUTER = FACE + 2.5;
 import { createEffects, createCars } from './city-smash.js';
 import { createStyles } from './city-styles.js';
-import { planetRadius, projectCityToSphere, placeObjectOnSphere, updatePlanetVisuals, disposePlanet } from './city-planet.js';
+import {
+  planetRadius, ensurePlanetDecor, projectChunkToSphere, placeObjectOnSphere,
+  updatePlanetVisuals, disposePlanet, planetSunDirs
+} from './city-planet.js';
 
 // Stream well beyond fog so blocks never pop in at the horizon. Altitude scales the radius further.
 const BASE_LOAD = 850;
@@ -217,9 +220,17 @@ export function createFreeCity({ scene, kit }) {
     return (f, side, rand) => kit.addTower(f, side, 0, rand, plaza ? rand() > 0.4 : false, { kind: typeof kind === 'function' ? kind(rand) : kind, boost });
   }
   const shopBuilder = (f, side, rand) => (style.lowrise === 'shophouse' ? kit.addShophouse(f, side, 0, rand) : styles.build(style.lowrise, f, side, 0, rand));
-  const residentialBuilder = (f, side, rand) => (style.residential === 'tower' ? towerBuilder('hdb', -4, false)(f, side, rand) : shopBuilder(f, side, rand));
+  const residentialBuilder = (f, side, rand) => {
+    if (style.residential === 'aurelia' || style.lowrise === 'aurelia') return shopBuilder(f, side, rand);
+    if (style.residential === 'tower') return towerBuilder('hdb', -4, false)(f, side, rand);
+    return shopBuilder(f, side, rand);
+  };
 
   function styleFor(kind, edge, rand) {
+    if (style.lowrise === 'aurelia') {
+      if (kind === 'downtown' || kind === 'civic') return (f, side, r) => styles.build('aureliaSpire', f, side, 0, r);
+      return shopBuilder;
+    }
     switch (kind) {
       case 'downtown': return towerBuilder((r) => (r() < 0.65 ? 'glass' : 'concrete'), style.downtownBoost, true);
       case 'shophouse': return shopBuilder;
@@ -230,6 +241,27 @@ export function createFreeCity({ scene, kit }) {
   }
 
   function centreTowers(g, kind, rand) {
+    if (style.lowrise === 'aurelia') {
+      const crystal = [0x6ec8c0, 0x8a6ad4, 0x4aa8d8, 0xb07cff];
+      const two = rand() > 0.35;
+      for (const dx of two ? [-16, 16] : [0]) {
+        const w = two ? 18 + rand() * 8 : 28 + rand() * 10;
+        const d = 20 + rand() * 16;
+        const h = 55 + style.downtownBoost + rand() * 70;
+        const tint = crystal[Math.floor(rand() * crystal.length)];
+        walls(g, 'glass', tint, P / 2 + dx, h / 2, P / 2, w, h, d);
+        box(g, M.metal, P / 2 + dx, h + 0.4, P / 2, w * 0.55, 0.8, d * 0.55);
+        // Floating ring crown
+        const ring = new THREE.Mesh(
+          new THREE.TorusGeometry(Math.min(w, d) * 0.28, 0.45, 8, 24),
+          new THREE.MeshStandardMaterial({ color: 0xc9f6ff, emissive: 0x4fe0ff, emissiveIntensity: 0.7, roughness: 0.35, metalness: 0.6 })
+        );
+        ring.rotation.x = Math.PI / 2;
+        ring.position.set(P / 2 + dx, h + 3.2, P / 2);
+        g.add(ring);
+      }
+      return;
+    }
     const profile = {
       downtown: ['glass', 50 + style.downtownBoost, 80], civic: ['concrete', 26, 36], mixed: ['concrete', 34, 44], shophouse: ['concrete', 12, 10], residential: style.residential === 'tower' ? ['hdb', 30, 34] : ['concrete', 12, 10]
     }[kind];
@@ -361,11 +393,23 @@ export function createFreeCity({ scene, kit }) {
   }
 
   function dropChunk(key) {
-    const { g } = chunks.get(key);
+    const chunk = chunks.get(key);
     cars.removeChunk(key);
-    root.remove(g);
-    g.traverse((o) => { if (o.userData.merged && o.geometry) o.geometry.dispose(); });
-    disposeLandmarks(g);
+    if (chunk.bentMeshes) {
+      for (const mesh of chunk.bentMeshes) {
+        if (mesh.parent) mesh.parent.remove(mesh);
+        mesh.geometry?.dispose?.();
+      }
+    }
+    if (chunk.g?.parent) root.remove(chunk.g);
+    chunk.g?.traverse((o) => { if (o.userData.merged && o.geometry) o.geometry.dispose(); });
+    disposeLandmarks(chunk.g);
+    for (let k = planetPeds.length - 1; k >= 0; k--) {
+      if (planetPeds[k].chunkKey !== key) continue;
+      const ped = planetPeds[k].ped;
+      if (ped.parent) ped.parent.remove(ped);
+      planetPeds.splice(k, 1);
+    }
     chunks.delete(key);
   }
 
@@ -398,86 +442,95 @@ export function createFreeCity({ scene, kit }) {
     return best;
   };
 
-  // Pocket planet: build every block once, bend onto a true sphere, keep it resident.
-  function buildPlanet() {
+  // Sphere-net: keep the globe shell resident; stream + bend city tiles as you drive/fly.
+  function ensurePlanetShell() {
     if (planetReady) return;
     planetMode = true;
-    for (let i = 0; i < GRID; i++) {
-      for (let j = 0; j < GRID; j++) {
-        const key = `${i},${j}`;
-        if (!chunks.has(key)) chunks.set(key, buildChunk(i, j));
-      }
-    }
-    // Capture pedestrian flat paths before mesh reparenting destroys frames.
-    planetPeds.length = 0;
-    const tmp = new THREE.Vector3();
-    for (const chunk of chunks.values()) {
-      for (const ped of chunk.peds) {
-        ped.updateWorldMatrix(true, false);
-        ped.getWorldPosition(tmp);
-        const data = ped.userData.ped;
-        planetPeds.push({
-          ped,
-          x: tmp.x,
-          z0: data.z0,
-          dir: data.dir,
-          speed: data.speed,
-          phase: data.phase,
-          legs: data.legs,
-          arms: data.arms
-        });
-        ped.userData.planetSkipBend = true;
-        if (ped.parent) ped.parent.remove(ped);
-        root.add(ped);
-      }
-      chunk.peds.length = 0;
-    }
-    // Keep dynamic smash vehicles out of the static bake; pose them on the globe afterward.
     cars.markPlanetSkip?.(true);
     sea.visible = false;
     if (sea.parent) sea.parent.remove(sea);
-    const styleSea = style.sea ?? currentCity().style?.sea ?? 0x1a5a8a;
-    projectCityToSphere(root, { radius: planetRadius(), coreColor: styleSea });
-    cars.projectToPlanet?.(planetRadius());
+    const styleSea = style.sea ?? currentCity().style?.sea ?? 0x14283a;
+    ensurePlanetDecor(root, { radius: planetRadius(), coreColor: styleSea });
+    updatePlanetVisuals(root, { time: Date.now() / 1000, altitude: 0 });
     planetReady = true;
-    lastLoad = Math.max(worldSize(), planetRadius() * 2.5);
+  }
+
+  function bendChunk(chunk) {
+    if (chunk.bent) return;
+    const tmp = new THREE.Vector3();
+    for (const ped of chunk.peds) {
+      ped.updateWorldMatrix(true, false);
+      ped.getWorldPosition(tmp);
+      const data = ped.userData.ped;
+      planetPeds.push({
+        ped,
+        x: tmp.x,
+        z0: data.z0,
+        dir: data.dir,
+        speed: data.speed,
+        phase: data.phase,
+        legs: data.legs,
+        arms: data.arms,
+        chunkKey: chunk.key
+      });
+      ped.userData.planetSkipBend = true;
+      if (ped.parent) ped.parent.remove(ped);
+      root.add(ped);
+    }
+    chunk.peds.length = 0;
+    chunk.bentMeshes = projectChunkToSphere(root, chunk.g, planetRadius());
+    chunk.bent = true;
+    // Empty transform group can go; meshes live on root.
+    if (chunk.g.parent) chunk.g.parent.remove(chunk.g);
   }
 
   function update(px, pz, time, budget = 1, alt = 0) {
     const city = currentCity();
-    if (city.planet || city.wrap) {
-      buildPlanet();
-      sea.visible = false;
-      updatePlanetVisuals(root, { time, altitude: alt });
-      animatePeds(px, pz, time);
-      return;
-    }
+    const wrap = !!(city.planet || city.wrap);
+    if (city.planet) ensurePlanetShell();
 
-    const LOAD = loadRadius(alt);
-    const UNLOAD = unloadRadius(alt);
+    const LOAD = city.planet
+      ? Math.min(LOAD_CAP + 200, Math.max(BASE_LOAD, 600 + Math.max(0, alt) * 3.2))
+      : loadRadius(alt);
+    const UNLOAD = LOAD + UNLOAD_PAD;
     lastLoad = LOAD;
     const wanted = [];
-    const iMin = Math.max(0, Math.floor((px - LOAD + 8) / P));
-    const iMax = Math.min(GRID, Math.floor((px + LOAD + 8) / P));
-    const jMin = Math.max(0, Math.floor((pz - LOAD + 8) / P));
-    const jMax = Math.min(GRID, Math.floor((pz + LOAD + 8) / P));
-    for (let i = iMin; i <= iMax; i++) {
-      for (let j = jMin; j <= jMax; j++) {
+    const i0 = Math.floor(px / P);
+    const j0 = Math.floor(pz / P);
+    const span = Math.ceil(LOAD / P) + 1;
+    for (let di = -span; di <= span; di++) {
+      for (let dj = -span; dj <= span; dj++) {
+        let i = i0 + di;
+        let j = j0 + dj;
+        if (wrap) {
+          i = wrapIndex(i);
+          j = wrapIndex(j);
+        } else if (i < 0 || j < 0 || i > GRID || j > GRID) continue;
         const key = `${i},${j}`;
         const dist = distanceTo(i, j, px, pz);
         if (!chunks.has(key) && dist < LOAD) wanted.push({ i, j, key, dist });
       }
     }
     wanted.sort((a, b) => a.dist - b.dist);
-    // Catch up faster while climbing so the larger sky view never outruns construction.
-    const buildN = budget === Infinity ? Infinity : Math.max(budget, alt > 40 ? 6 : 2);
-    for (let n = 0; n < wanted.length && n < buildN; n++) chunks.set(wanted[n].key, buildChunk(wanted[n].i, wanted[n].j));
-    for (const [key, chunk] of [...chunks]) if (distanceTo(chunk.i, chunk.j, px, pz) > UNLOAD) dropChunk(key);
+    const buildN = budget === Infinity ? Infinity : Math.max(budget, alt > 40 ? 8 : (city.planet ? 4 : 2));
+    for (let n = 0; n < wanted.length && n < buildN; n++) {
+      const chunk = buildChunk(wanted[n].i, wanted[n].j);
+      chunks.set(wanted[n].key, chunk);
+      if (city.planet) bendChunk(chunk);
+    }
+    for (const [key, chunk] of [...chunks]) {
+      if (distanceTo(chunk.i, chunk.j, px, pz) > UNLOAD) dropChunk(key);
+    }
 
-    sea.visible = true;
-    seaTex.offset.set(px / 10 + time * 0.01, -pz / 10);
-    sea.position.x = px;
-    sea.position.z = pz;
+    if (city.planet) {
+      sea.visible = false;
+      updatePlanetVisuals(root, { time, altitude: alt });
+    } else {
+      sea.visible = true;
+      seaTex.offset.set(px / 10 + time * 0.01, -pz / 10);
+      sea.position.x = px;
+      sea.position.z = pz;
+    }
     animatePeds(px, pz, time);
   }
 
@@ -509,12 +562,8 @@ export function createFreeCity({ scene, kit }) {
   }
 
   function prefill(px, pz, time) {
-    if (currentCity().planet || currentCity().wrap) {
-      buildPlanet();
-      animatePeds(px, pz, time);
-      return;
-    }
     update(px, pz, time, Infinity, 0);
+    animatePeds(px, pz, time);
   }
 
   function clear() {
@@ -547,6 +596,8 @@ export function createFreeCity({ scene, kit }) {
     seaMat.color.setHex(style.sea ?? 0x4c93b5);
     pondMat.color.setHex(style.pond ?? 0x4c93b5);
     parkMat.color.setHex(style.park ?? 0x86a97d);
+    if (style.asphalt != null) asphaltMat.color.setHex(style.asphalt);
+    if (style.walk != null) walkMat.color.setHex(style.walk);
     sea.visible = !currentCity().wrap;
   }
 
@@ -642,6 +693,8 @@ export function createFreeCity({ scene, kit }) {
     get loaded() { return chunks.size; },
     get loadHorizon() { return lastLoad; },
     get isPlanet() { return planetMode; },
-    get radius() { return planetMode ? planetRadius() : 0; }
+    get radius() { return planetMode ? planetRadius() : 0; },
+    get constructionRadius() { return lastLoad; },
+    sunDirs: () => planetSunDirs(root)
   };
 }

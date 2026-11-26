@@ -1,11 +1,11 @@
-// True spherical pocket planet: bend a fully-built wrap city onto a globe and
-// move/fly in the local tangent frame so there is never a city "edge".
+// Sphere-net planet: stream city tiles onto a globe, move/fly in the local
+// tangent frame. No geographic poles — the world does not spin on an axis.
 import * as THREE from './vendor/three/three.module.min.js';
 import { SIZE, wrapCoord } from './city-map.js';
 
-// Keep a small polar cap of bare globe so equirectangular rows are not crushed to a point.
-// Larger polar band of bare globe so ice caps / oceans read from orbit.
-const LAT_PAD = 0.12;
+// Sphere-net: city wraps both map axes. Tiny epsilon avoids singular verts at the
+// mathematical poles — there is no geographic polar cap (planet does not spin).
+const LAT_EPS = 0.018;
 const _v = new THREE.Vector3();
 const _n = new THREE.Vector3();
 const _east = new THREE.Vector3();
@@ -27,20 +27,20 @@ export const PLANET_ROAD_Y = -0.04;
 
 export function flatToLonLat(x, z) {
   const fx = wrapCoord(x);
-  const fz = THREE.MathUtils.clamp(z, 0, SIZE);
+  const fz = wrapCoord(z);
   const lon = (fx / SIZE) * Math.PI * 2;
-  const t = LAT_PAD + (fz / SIZE) * (1 - 2 * LAT_PAD);
+  const t = LAT_EPS + (fz / SIZE) * (1 - 2 * LAT_EPS);
   const lat = t * Math.PI - Math.PI / 2;
   return { lon, lat, fx, fz };
 }
 
 export function lonLatToFlat(lon, lat) {
   const wrappedLon = ((lon % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
-  const clampedLat = THREE.MathUtils.clamp(lat, -Math.PI / 2 + 1e-4, Math.PI / 2 - 1e-4);
+  const clampedLat = THREE.MathUtils.clamp(lat, -Math.PI / 2 + LAT_EPS * Math.PI, Math.PI / 2 - LAT_EPS * Math.PI);
   const x = (wrappedLon / (Math.PI * 2)) * SIZE;
   const t = (clampedLat + Math.PI / 2) / Math.PI;
-  const z = ((t - LAT_PAD) / (1 - 2 * LAT_PAD)) * SIZE;
-  return { x, z: THREE.MathUtils.clamp(z, 0, SIZE), lon: wrappedLon, lat: clampedLat };
+  const z = ((t - LAT_EPS) / (1 - 2 * LAT_EPS)) * SIZE;
+  return { x, z: wrapCoord(z), lon: wrappedLon, lat: clampedLat };
 }
 
 export function spherePoint(lon, lat, radius) {
@@ -112,7 +112,7 @@ export function poseOnSphere(x, y, z, heading = 0, radius = planetRadius(), out 
 
 // Move along the sphere surface by a flat-metre step; returns updated flat x/z/heading.
 export function moveOnSphere(x, z, heading, step, radius = planetRadius()) {
-  if (Math.abs(step) < 1e-8) return { x: wrapCoord(x), z: THREE.MathUtils.clamp(z, 0, SIZE), heading };
+  if (Math.abs(step) < 1e-8) return { x: wrapCoord(x), z: wrapCoord(z), heading };
   const { lon, lat } = flatToLonLat(x, z);
   const frame = tangentFrame(lon, lat);
   const forward = new THREE.Vector3()
@@ -131,7 +131,7 @@ export function moveOnSphere(x, z, heading, step, radius = planetRadius()) {
     tang.normalize();
     nextHeading = Math.atan2(tang.dot(nextFrame.east), tang.dot(nextFrame.north));
   }
-  return { x: next.x, z: next.z, heading: nextHeading, lon: next.lon, lat: next.lat };
+  return { x: wrapCoord(next.x), z: wrapCoord(next.z), heading: nextHeading, lon: next.lon, lat: next.lat };
 }
 
 // Split long flat triangles before bending so roads/parks don't become sharp sphere chords.
@@ -271,26 +271,18 @@ function bakeMeshToSphere(mesh, radius, invRoot) {
   geo.computeBoundingBox();
 }
 
-// Bend every static mesh under `root` onto the globe and leave a solid core underneath.
-export function projectCityToSphere(root, {
-  radius = planetRadius(),
-  coreColor = 0x1a2740
-} = {}) {
-  root.updateMatrixWorld(true);
-  const invRoot = new THREE.Matrix4().copy(root.matrixWorld).invert();
+function collectAndBake(scope, root, radius, invRoot) {
   const bent = [];
-  root.traverse((obj) => {
+  scope.traverse((obj) => {
     if (!obj.isMesh || !obj.geometry) return;
     let cur = obj;
-    while (cur) {
+    while (cur && cur !== scope.parent) {
       if (cur.userData?.planetCore || cur.userData?.planetSkipBend) return;
       cur = cur.parent;
     }
     bakeMeshToSphere(obj, radius, invRoot);
     bent.push(obj);
   });
-
-  // Reparent baked meshes to root with identity transforms — verts are already root-local.
   for (const mesh of bent) {
     if (mesh.parent && mesh.parent !== root) mesh.parent.remove(mesh);
     if (mesh.parent !== root) root.add(mesh);
@@ -299,12 +291,39 @@ export function projectCityToSphere(root, {
     mesh.scale.set(1, 1, 1);
     mesh.updateMatrix();
   }
+  return bent;
+}
 
-  disposePlanetDecor(root);
+// Resident globe shell + artificial sun satellites (no one-shot city bake).
+export function ensurePlanetDecor(root, {
+  radius = planetRadius(),
+  coreColor = 0x1a3a55
+} = {}) {
+  if (root.userData.planetDecor) return root.userData.planetDecor;
   const decor = buildNaturalPlanet(radius, coreColor);
   root.add(decor.group);
   root.userData.planetDecor = decor;
-  return { radius, core: decor.core, atmosphere: decor.atmosphere, clouds: decor.clouds };
+  return decor;
+}
+
+// Bend one streamed city chunk onto the sphere and reparent meshes under root.
+export function projectChunkToSphere(root, chunkGroup, radius = planetRadius()) {
+  root.updateMatrixWorld(true);
+  chunkGroup.updateMatrixWorld(true);
+  const invRoot = new THREE.Matrix4().copy(root.matrixWorld).invert();
+  return collectAndBake(chunkGroup, root, radius, invRoot);
+}
+
+// Legacy full bake (tests / fallback): decor + every mesh under root.
+export function projectCityToSphere(root, {
+  radius = planetRadius(),
+  coreColor = 0x1a3a55
+} = {}) {
+  ensurePlanetDecor(root, { radius, coreColor });
+  root.updateMatrixWorld(true);
+  const invRoot = new THREE.Matrix4().copy(root.matrixWorld).invert();
+  const bent = collectAndBake(root, root, radius, invRoot);
+  return { radius, bent, core: root.userData.planetDecor?.core };
 }
 
 function disposePlanetDecor(root) {
@@ -373,59 +392,46 @@ function makePlanetTerrainMaps(oceanHex = 0x1a5080) {
 
   for (let y = 0; y < size; y++) {
     const v = y / (size - 1);
-    const lat = (0.5 - v) * Math.PI;
-    const ice = Math.pow(Math.max(0, Math.abs(Math.sin(lat)) - 0.78) / 0.22, 1.4);
     for (let x = 0; x < size; x++) {
       const u = x / size;
-      // Wrap-friendly noise so the seam at lon 0 stays continuous.
-      const n1 = fbm2(u * 4.2, v * 2.4 + 1.7, 5);
-      const n2 = fbm2(u * 8.5 + 20, v * 4.8 + 3.1, 4);
+      // Wrap-friendly noise on both axes (sphere-net has no ice caps).
+      const n1 = fbm2(u * 4.2, v * 4.2 + 1.7, 5);
+      const n2 = fbm2(u * 8.5 + 20, v * 8.5 + 3.1, 4);
       const ridge = 1 - Math.abs(n2 * 2 - 1);
-      // Continental shelf + island freckles.
-      let h = n1 * 0.72 + ridge * 0.22 + fbm2(u * 14, v * 8, 3) * 0.08;
+      let h = n1 * 0.72 + ridge * 0.22 + fbm2(u * 14, v * 14, 3) * 0.08;
       h += Math.sin((u + 0.13) * Math.PI * 2) * 0.03;
       const shore = THREE.MathUtils.smoothstep(0.42, 0.48, h);
       const land = THREE.MathUtils.smoothstep(0.45, 0.54, h);
       const mountain = THREE.MathUtils.smoothstep(0.62, 0.78, h + ridge * 0.08);
 
-      // Deep → shallow ocean, then beach → forest → highland → rock.
+      // Alien seas → teal shallows → violet flats → crystal highlands.
       let r; let g; let b; let roughV;
       if (land < 0.01) {
         const depth = THREE.MathUtils.clamp((0.5 - h) * 1.6, 0, 1);
-        r = or_ * (0.55 + (1 - depth) * 0.35);
-        g = og * (0.6 + (1 - depth) * 0.45);
-        b = Math.min(255, ob * (0.85 + (1 - depth) * 0.35) + depth * 18);
-        roughV = 0.18 + depth * 0.35;
+        r = or_ * (0.45 + (1 - depth) * 0.4);
+        g = og * (0.55 + (1 - depth) * 0.5);
+        b = Math.min(255, ob * (0.9 + (1 - depth) * 0.35) + depth * 28);
+        roughV = 0.16 + depth * 0.35;
       } else {
-        const beachR = 194; const beachG = 178; const beachB = 128;
-        const grassR = 62; const grassG = 118; const grassB = 58;
-        const highR = 92; const highG = 118; const highB = 72;
-        const rockR = 118; const rockG = 112; const rockB = 98;
-        const tBeach = 1 - shore;
-        const tGrass = shore * (1 - mountain);
-        const tHigh = land * mountain * (1 - mountain * 0.4);
-        const tRock = mountain;
-        const wSum = tBeach + tGrass + tHigh + tRock + 1e-6;
-        r = (beachR * tBeach + grassR * tGrass + highR * tHigh + rockR * tRock) / wSum;
-        g = (beachG * tBeach + grassG * tGrass + highG * tHigh + rockG * tRock) / wSum;
-        b = (beachB * tBeach + grassB * tGrass + highB * tHigh + rockB * tRock) / wSum;
-        // Blend from ocean into land at the coastline.
+        const flatR = 72; const flatG = 48; const flatB = 118;
+        const midR = 42; const midG = 128; const midB = 110;
+        const highR = 168; const highG = 92; const highB = 196;
+        const crystalR = 210; const crystalG = 230; const crystalB = 255;
+        const tFlat = 1 - shore;
+        const tMid = shore * (1 - mountain);
+        const tHigh = land * mountain * (1 - mountain * 0.35);
+        const tCry = mountain;
+        const wSum = tFlat + tMid + tHigh + tCry + 1e-6;
+        r = (flatR * tFlat + midR * tMid + highR * tHigh + crystalR * tCry) / wSum;
+        g = (flatG * tFlat + midG * tMid + highG * tHigh + crystalG * tCry) / wSum;
+        b = (flatB * tFlat + midB * tMid + highB * tHigh + crystalB * tCry) / wSum;
         const landMix = land;
         r = or_ * (1 - landMix) + r * landMix;
         g = og * (1 - landMix) + g * landMix;
         b = ob * (1 - landMix) + b * landMix;
-        roughV = 0.72 + mountain * 0.22;
+        roughV = 0.55 + mountain * 0.35;
       }
 
-      // Polar ice over both ocean and land.
-      if (ice > 0.01) {
-        r = r * (1 - ice) + 236 * ice;
-        g = g * (1 - ice) + 244 * ice;
-        b = b * (1 - ice) + 255 * ice;
-        roughV = roughV * (1 - ice) + 0.55 * ice;
-      }
-
-      // Fine grain so the surface reads as natural terrain, not plastic.
       const grain = (hash2(x * 0.37, y * 0.71) - 0.5) * 10;
       const i = (y * size + x) * 4;
       color.data[i] = Math.max(0, Math.min(255, r + grain));
@@ -443,7 +449,7 @@ function makePlanetTerrainMaps(oceanHex = 0x1a5080) {
   const colorTex = new THREE.CanvasTexture(canvas);
   colorTex.colorSpace = THREE.SRGBColorSpace;
   colorTex.wrapS = THREE.RepeatWrapping;
-  colorTex.wrapT = THREE.ClampToEdgeWrapping;
+  colorTex.wrapT = THREE.RepeatWrapping;
   colorTex.anisotropy = 8;
 
   const roughCanvas = document.createElement('canvas');
@@ -452,7 +458,7 @@ function makePlanetTerrainMaps(oceanHex = 0x1a5080) {
   roughCanvas.getContext('2d').putImageData(rough, 0, 0);
   const roughTex = new THREE.CanvasTexture(roughCanvas);
   roughTex.wrapS = THREE.RepeatWrapping;
-  roughTex.wrapT = THREE.ClampToEdgeWrapping;
+  roughTex.wrapT = THREE.RepeatWrapping;
   return { color: colorTex, roughness: roughTex };
 }
 
@@ -546,10 +552,10 @@ function buildNaturalPlanet(radius, oceanHex) {
   core.receiveShadow = true;
   group.add(core);
 
-  // Soft inner haze + brighter outer rim — reads as a real atmosphere from orbit.
+  // Alien teal–violet atmosphere rim.
   const atmosphereInner = new THREE.Mesh(
     new THREE.SphereGeometry(radius * 1.04, 64, 48),
-    makeAtmosphereMaterial(0xa8d8ff, 0.35)
+    makeAtmosphereMaterial(0x9ef0ff, 0.4)
   );
   atmosphereInner.material.uniforms.uPower.value = 1.8;
   atmosphereInner.userData.planetCore = true;
@@ -558,14 +564,13 @@ function buildNaturalPlanet(radius, oceanHex) {
 
   const atmosphere = new THREE.Mesh(
     new THREE.SphereGeometry(radius * 1.12, 64, 48),
-    makeAtmosphereMaterial(0x6eb8ff, 0.95)
+    makeAtmosphereMaterial(0xc59bff, 1.05)
   );
   atmosphere.userData.planetCore = true;
   atmosphere.renderOrder = 3;
   group.add(atmosphere);
 
   const cloudMap = makeCloudTexture();
-  // Unlit so orbital clouds stay visible even when the sun glances the limb.
   const clouds = new THREE.Mesh(
     new THREE.SphereGeometry(radius * 1.032, 80, 56),
     new THREE.MeshBasicMaterial({
@@ -580,7 +585,31 @@ function buildNaturalPlanet(radius, oceanHex) {
   clouds.renderOrder = 1;
   group.add(clouds);
 
-  return { group, core, atmosphere, atmosphereInner, clouds, spin: 0 };
+  // Man-made sun satellites — Aurelia does not spin; these provide daylight.
+  const sunSats = [];
+  const satSpecs = [
+    { color: 0xffe6a8, orbit: radius * 1.85, speed: 0.09, phase: 0.15, size: 14, elev: 0.72 },
+    { color: 0xffc878, orbit: radius * 2.15, speed: 0.06, phase: Math.PI * 1.05, size: 11, elev: 0.48 }
+  ];
+  for (const spec of satSpecs) {
+    const sat = new THREE.Group();
+    sat.userData.planetCore = true;
+    const glow = new THREE.Mesh(
+      new THREE.SphereGeometry(spec.size, 20, 16),
+      new THREE.MeshBasicMaterial({ color: spec.color })
+    );
+    const halo = new THREE.Mesh(
+      new THREE.SphereGeometry(spec.size * 1.7, 16, 12),
+      new THREE.MeshBasicMaterial({ color: spec.color, transparent: true, opacity: 0.32, depthWrite: false })
+    );
+    // Local glow only — surface daylight comes from DirectionalLights aimed at these sats.
+    const light = new THREE.PointLight(spec.color, 8, radius * 0.85, 1.4);
+    sat.add(glow, halo, light);
+    group.add(sat);
+    sunSats.push({ sat, light, ...spec });
+  }
+
+  return { group, core, atmosphere, atmosphereInner, clouds, sunSats, spin: 0 };
 }
 
 export function placeObjectOnSphere(object, x, y, z, heading = 0, radius = planetRadius()) {
@@ -604,10 +633,7 @@ export function updatePlanetVisuals(root, { time = 0, altitude = 0 } = {}) {
   const decor = root?.userData?.planetDecor;
   if (!decor) return;
   decor.clouds.rotation.y = time * 0.012;
-  // Keep the painted continents locked under the city; only clouds drift.
   const space = THREE.MathUtils.clamp((altitude - 180) / 1100, 0, 1);
-  // Atmosphere shells are larger than the city: from street level the camera sits
-  // inside them and BackSide Fresnel washes the whole frame blue. Only light them in the sky.
   const atmo = THREE.MathUtils.smoothstep(space, 0.12, 0.55);
   decor.atmosphere.material.uniforms.uIntensity.value = THREE.MathUtils.lerp(0, 1.85, atmo);
   if (decor.atmosphereInner) {
@@ -617,6 +643,27 @@ export function updatePlanetVisuals(root, { time = 0, altitude = 0 } = {}) {
   decor.atmosphere.visible = atmo > 0.02;
   decor.clouds.material.opacity = THREE.MathUtils.lerp(0.15, 0.72, Math.min(1, space + 0.2));
   decor.clouds.visible = true;
+
+  // Orbit the artificial suns; planet itself does not spin.
+  const dirs = [];
+  for (const s of decor.sunSats || []) {
+    const ang = s.phase + time * s.speed;
+    const baseElev = s.elev ?? 0.55;
+    const elev = baseElev + 0.12 * Math.sin(ang * 0.65 + s.phase);
+    const cl = Math.cos(elev);
+    s.sat.position.set(
+      s.orbit * cl * Math.sin(ang),
+      s.orbit * Math.sin(elev),
+      s.orbit * cl * Math.cos(ang)
+    );
+    s.light.intensity = THREE.MathUtils.lerp(10, 4, space);
+    dirs.push(s.sat.position.clone().normalize());
+  }
+  decor.sunDirs = dirs;
+}
+
+export function planetSunDirs(root) {
+  return root?.userData?.planetDecor?.sunDirs || [];
 }
 
 export function disposePlanet(root) {

@@ -14,7 +14,11 @@ const MATS = {
   gold: stdMat(0xc9a24b, { metalness: 0.5, roughness: 0.4 }),
   chimney: stdMat(0x8a4a38),
   fireEscape: stdMat(0x23282b, { roughness: 0.5, metalness: 0.4 }),
-  neon: [0xff3b6b, 0x2bd4ff, 0xffd23b, 0x8f5bff, 0x38e07b, 0xff8a2b].map(glow)
+  neon: [0xff3b6b, 0x2bd4ff, 0xffd23b, 0x8f5bff, 0x38e07b, 0xff8a2b].map(glow),
+  // Aurelia: iridescent shell + luminous veins
+  crystal: stdMat(0xb8f0ff, { metalness: 0.55, roughness: 0.22, emissive: 0x3ad4ff, emissiveIntensity: 0.35 }),
+  vein: stdMat(0x7a5cff, { metalness: 0.4, roughness: 0.35, emissive: 0x6a4dff, emissiveIntensity: 0.85 }),
+  shell: stdMat(0x2a3348, { metalness: 0.3, roughness: 0.55 })
 };
 
 const TINTS = {
@@ -22,7 +26,8 @@ const TINTS = {
   terrace: [0xc77b5a, 0xb86a4a, 0xe3d4b2, 0xd8c7a0, 0x9fa6a8],
   tokyo: [0xe9e6df, 0xd8dde3, 0xf0e2cf, 0xcfd6d9, 0xe7ddd3],
   lilong: [0xb9b1a3, 0xa39a8c, 0xc8c0b0, 0x9b948a],
-  villa: [0xeadbb8, 0xe0cda0, 0xf0e4c8, 0xd9c391]
+  villa: [0xeadbb8, 0xe0cda0, 0xf0e4c8, 0xd9c391],
+  aurelia: [0x6ec8c0, 0x8a6ad4, 0x4aa8d8, 0xb07cff, 0x5ee0c8, 0x9b8cff]
 };
 
 export function createStyles(kit, FACE) {
@@ -116,6 +121,49 @@ export function createStyles(kit, FACE) {
       box(g, MATS.sand, cx + side * 1.2, H + 2.4, d * 0.28, 1.4, 3, 1.4);
       box(g, MATS.sand, side * (FACE + 1.8), 1.2, 0, 3.4, 0.2, d);
       for (const dz of [-d * 0.35, 0, d * 0.35]) box(g, MATS.gold, side * (FACE + 2.2), 1.2, dz, 0.35, 2.4, 0.35);
+      g.userData.d = d;
+    },
+    // Planet Aurelia: stacked crystal pods with glowing vein bands — not Earth architecture.
+    aurelia(g, side, rand) {
+      const w = 6.5 + rand() * 4; const d = 3.6 * Math.round((10 + rand() * 6) / 3.6);
+      const pods = 2 + Math.floor(rand() * 3);
+      const cx = side * (FACE + w / 2);
+      let y = 0;
+      for (let p = 0; p < pods; p++) {
+        const ph = 3.4 + rand() * 2.8;
+        const pw = w * (0.72 + rand() * 0.28);
+        const pd = d * (0.7 + rand() * 0.3);
+        const tint = pick(rand, TINTS.aurelia);
+        walls(g, 'glass', tint, cx + side * (rand() - 0.5) * 1.2, y + ph / 2, (rand() - 0.5) * 1.4, pw, ph, pd);
+        box(g, MATS.vein, cx, y + ph - 0.12, 0, pw * 0.92, 0.22, pd * 0.92);
+        y += ph + 0.35;
+      }
+      // Cantilevered light fin
+      box(g, MATS.crystal, side * (FACE - 0.4), y * 0.55, 0, 0.18, y * 0.7, 0.55);
+      const crown = box(g, MATS.vein, cx, y + 0.6, 0, w * 0.35, 1.2, d * 0.35);
+      crown.userData.glowSign = true;
+      g.userData.d = d;
+    },
+    // Tall Aurelia street spire: twisted glass shaft with floating ring.
+    aureliaSpire(g, side, rand) {
+      const w = 7 + rand() * 3; const d = 3.8 * Math.round((12 + rand() * 5) / 3.8);
+      const H = 28 + rand() * 36;
+      const cx = side * (FACE + w / 2);
+      const tint = pick(rand, TINTS.aurelia);
+      walls(g, 'glass', tint, cx, H / 2, 0, w * 0.85, H, d * 0.85);
+      box(g, MATS.dark, cx, H / 2, 0, w * 0.22, H, d * 0.22);
+      for (let k = 0; k < 4; k++) {
+        const yy = 6 + k * (H / 5);
+        box(g, MATS.vein, cx, yy, 0, w * 0.95, 0.18, d * 0.95);
+      }
+      const ring = new THREE.Mesh(
+        new THREE.TorusGeometry(Math.min(w, d) * 0.42, 0.28, 8, 20),
+        MATS.crystal
+      );
+      ring.rotation.x = Math.PI / 2;
+      ring.position.set(cx, H + 2.4, 0);
+      g.add(ring);
+      box(g, MATS.crystal, cx, H + 5.2, 0, 1.1, 4.5, 1.1);
       g.userData.d = d;
     }
   };

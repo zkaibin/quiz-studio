@@ -92,6 +92,10 @@ export function createWorld({ scene, renderer }) {
   sun.shadow.bias = -0.0004;
   sun.shadow.normalBias = 0.06;
   scene.add(sun, sun.target);
+  // Second key light for Aurelia's twin sun satellites (unused on Earth routes).
+  const sunB = new THREE.DirectionalLight(0xffc878, 0);
+  sunB.target.position.set(0, 0, 0);
+  scene.add(sunB, sunB.target);
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
@@ -760,8 +764,8 @@ export function createWorld({ scene, renderer }) {
     sun.target.updateMatrixWorld();
   }
 
-  // Pocket planet: sky follows the camera, fixed sun lights the globe, stars emerge in orbit.
-  function followPlanetPlayer(position, { altitude = 0, cameraPosition = null } = {}) {
+  // Sphere-net planet: sky follows the camera; artificial sun satellites drive the key lights.
+  function followPlanetPlayer(position, { altitude = 0, cameraPosition = null, sunDirs = null } = {}) {
     const anchor = cameraPosition || position;
     skyDome.position.copy(anchor);
     stars.position.copy(anchor);
@@ -772,18 +776,35 @@ export function createWorld({ scene, renderer }) {
     clouds.visible = false;
     stars.visible = space > 0.25;
     stars.material.opacity = 0.2 + space * 0.8;
-    sun.position.set(500, 1600, -2400);
+    const primary = sunDirs && sunDirs[0];
+    const secondary = sunDirs && sunDirs[1];
+    if (primary && primary.lengthSq() > 1e-6) {
+      sun.position.copy(primary).normalize().multiplyScalar(2800);
+    } else {
+      sun.position.set(900, 1400, -2200);
+    }
     sun.target.position.set(0, 0, 0);
     sun.target.updateMatrixWorld();
-    sun.intensity = THREE.MathUtils.lerp(2.4, 1.7, space);
-    // Neutral fill so asphalt stays charcoal and oceans keep their teal — not cyan-washed.
-    hemi.intensity = THREE.MathUtils.lerp(0.95, 0.35, space);
-    hemi.color.set(0xf3efe6);
-    hemi.groundColor.set(0x243028);
+    sun.intensity = THREE.MathUtils.lerp(2.55, 1.55, space);
+    sun.color.set(0xffe6a8);
+    sun.castShadow = false; // globe-scale shadows fight the tiny earth-route frustum
+    if (secondary && secondary.lengthSq() > 1e-6) {
+      sunB.position.copy(secondary).normalize().multiplyScalar(2600);
+      sunB.target.position.set(0, 0, 0);
+      sunB.target.updateMatrixWorld();
+      sunB.intensity = THREE.MathUtils.lerp(1.7, 0.9, space);
+      sunB.color.set(0xffc878);
+    } else {
+      sunB.intensity = 0;
+    }
+    // Cool alien fill — keep streets readable under satellite daylight.
+    hemi.intensity = THREE.MathUtils.lerp(1.25, 0.35, space);
+    hemi.color.set(0xe4f2ff);
+    hemi.groundColor.set(0x2a2040);
     skyUniforms.uSunDir.value.copy(sun.position).normalize();
-    skyUniforms.uGlow.value = THREE.MathUtils.lerp(0.4, 0.08, space);
-    skyUniforms.uHorizon.value.set(space > 0.55 ? 0x04060d : 0x9fd0ea);
-    skyUniforms.uZenith.value.set(space > 0.55 ? 0x010208 : 0x3a7ec4);
+    skyUniforms.uGlow.value = THREE.MathUtils.lerp(0.45, 0.08, space);
+    skyUniforms.uHorizon.value.set(space > 0.55 ? 0x06040e : 0x7eb8d4);
+    skyUniforms.uZenith.value.set(space > 0.55 ? 0x02010a : 0x3a5a9a);
   }
 
   function setPlanetSky(on) {
@@ -794,6 +815,8 @@ export function createWorld({ scene, renderer }) {
       skyDome.scale.set(1, 1, 1);
       clouds.scale.set(1, 1, 1);
       sun.intensity = 2.3;
+      sun.castShadow = true;
+      sunB.intensity = 0;
       hemi.intensity = 1.2;
       return;
     }
