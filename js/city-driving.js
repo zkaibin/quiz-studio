@@ -1793,6 +1793,17 @@ import {
       prevSpeed = speed;
       return speed;
     },
+    // QA: advance physics + render N fixed steps (swiftshader rAF is too starved for real-time 230 km/h demos).
+    pump: (frames = 30, dt = 1 / 60) => {
+      const n = Math.max(1, Math.min(240, frames | 0));
+      const step = Math.min(0.05, Math.max(1 / 120, dt));
+      for (let i = 0; i < n; i++) {
+        lastTime = performance.now();
+        if (running) update(step);
+        renderer.render(scene, camera);
+      }
+      return { frames: n, speed, x: player.position.x, z: player.position.z };
+    },
     planetDecor: () => {
       const d = freeCity.root?.userData?.planetDecor;
       if (!d) return null;
