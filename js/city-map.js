@@ -1,10 +1,15 @@
 import { CITY_BY_ID, DEFAULT_CITY_ID } from './city-cities.js';
+import {
+  usesOrganicLayout, nearestRoad, avenueX, streetZ, groundHeight as terrainHeight
+} from './city-terrain.js';
 // The fixed city map for free roam; `setCity` swaps which city the pure functions below describe. Everything here is a pure function of grid coordinates, so every player sees the same city.
 export const PITCH = 140;
 export let GRID = 20;
 export let SIZE = PITCH * GRID;
 export const ROAD_HALF = 11;
 export const FACE = 15.5;
+// Organic Earth cities push frontages further in so bent roads don't clip buildings.
+export const FACE_ORGANIC = 32;
 // Furthest a car centre may stray from a road centre line (road + kerb); anything beyond is building or park.
 export const DRIVE_LIMIT = 11.4;
 
@@ -68,6 +73,11 @@ export function cellInfo(i, j) {
 export function infoAt(x, z) {
   const i = Math.floor(x / PITCH); const j = Math.floor(z / PITCH);
   const cell = cellInfo(i, j);
+  if (usesOrganicLayout(city)) {
+    const road = nearestRoad(x, z, city);
+    const street = road.axis === 'ns' ? city.avenues(road.line) : city.streets(road.line);
+    return { district: cell.district, street, landmark: cell.landmark };
+  }
   const lineX = Math.round(x / PITCH);
   const lineZ = Math.round(z / PITCH);
   const offX = Math.abs(x - lineX * PITCH);
@@ -82,10 +92,13 @@ export function isDrivable(x, z) {
   if (!city.wrap && (x < -DRIVE_LIMIT || z < -DRIVE_LIMIT || x > SIZE + DRIVE_LIMIT || z > SIZE + DRIVE_LIMIT)) return false;
   // Wrap cities: normalize into the map so seam / pole-adjacent coords stay consistent.
   if (city.wrap) { x = wrapCoord(x); z = wrapCoord(z); }
+  if (usesOrganicLayout(city)) return nearestRoad(x, z, city).dist <= DRIVE_LIMIT;
   const offX = Math.abs(x - Math.round(x / PITCH) * PITCH);
   const offZ = Math.abs(z - Math.round(z / PITCH) * PITCH);
   return offX <= DRIVE_LIMIT || offZ <= DRIVE_LIMIT;
 }
+
+const faceLimit = () => (usesOrganicLayout(city) ? FACE_ORGANIC : FACE);
 
 // Free roam: roads, the pavement strip in front of buildings and the open park blocks are drivable; building interiors are not.
 export function isFreeDrivable(x, z) {
@@ -97,7 +110,8 @@ export function isFreeDrivable(x, z) {
     const j = Math.min(GRID - 1, Math.floor(z / PITCH));
     if (cellInfo(i, j).kind === 'park') return true;
     const lx = x - i * PITCH; const lz = z - j * PITCH;
-    return Math.min(lx, PITCH - lx, lz, PITCH - lz) < FACE - 0.6;
+    const face = faceLimit();
+    return Math.min(lx, PITCH - lx, lz, PITCH - lz) < face - 0.6;
   }
   x = wrapCoord(x);
   z = wrapCoord(z);
@@ -112,18 +126,31 @@ export function isFreeDrivable(x, z) {
 
 // Distance from the nearest road centre line on the axis the car is driving along; used for kerb scraping.
 export function kerbOffset(x, z) {
+  if (usesOrganicLayout(city)) return nearestRoad(x, z, city).dist;
   const offX = Math.abs(x - Math.round(x / PITCH) * PITCH);
   const offZ = Math.abs(z - Math.round(z / PITCH) * PITCH);
   return Math.min(offX, offZ);
 }
 
-// Start in the driving-side lane heading north.
+export function groundHeight(x, z) {
+  return terrainHeight(x, z, city);
+}
+
+// Start in the driving-side lane heading north (along the bent avenue when organic).
 export function spawnFor(routeId) {
   const spawns = city.spawns;
   const [i, j] = spawns[routeId] || Object.values(spawns)[0];
   const lane = city.drive === 'left' ? -4.9 : 4.9;
-  return { x: i * PITCH + lane, z: j * PITCH + 40, heading: 0 };
+  const z = j * PITCH + 40;
+  if (usesOrganicLayout(city)) {
+    const x = avenueX(i, z, city) + lane;
+    const road = nearestRoad(x, z, city);
+    return { x, z, y: terrainHeight(x, z, city), heading: road.heading };
+  }
+  return { x: i * PITCH + lane, z, y: 0, heading: 0 };
 }
+
+export { usesOrganicLayout, nearestRoad, avenueX, streetZ };
 
 export const DISTRICT_COLORS = {
   downtown: '#8fa6b8', civic: '#c9bfa3', shophouse: '#e2b9a0', mixed: '#b9b7a8', residential: '#cfd6b4', park: '#8dbb8a', landmark: '#d8a64f'
