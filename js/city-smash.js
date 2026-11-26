@@ -403,8 +403,10 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
       }
       if (!best) continue;
       // At hypercar speeds, keep separation tiny so parked/traffic cars don't shove the player into a bounce.
-      const fast = Math.abs(speed) > 40;
-      const sep = fast ? 0.15 : 0.6;
+      const absSp = Math.abs(speed);
+      const fast = absSp > 40;
+      const hyper = absSp > 55;
+      const sep = hyper ? 0.05 : (fast ? 0.15 : 0.6);
       dx += best.nx * best.pen * sep; dz += best.nz * best.pen * sep;
       if (isFreeDrivable(car.x - best.nx * best.pen * 0.4, car.z - best.nz * best.pen * 0.4)) { car.x -= best.nx * best.pen * 0.4; car.z -= best.nz * best.pen * 0.4; }
       const carSpeed = car.state === 'drive' ? car.speed : 0;
@@ -420,9 +422,10 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
         car.damage += closing;
         // Never reverse the player at high speed — knock the NPC away instead.
         const along = (best.nx * dirx + best.nz * dirz) * (j / mp);
-        if (fast) speed *= 0.92;
+        if (hyper) { /* keep player speed; wreck the NPC */ }
+        else if (fast) speed *= 0.92;
         else speed += along;
-        shake = Math.max(shake, Math.min(0.5, closing * (fast ? 0.012 : 0.03)));
+        if (!hyper) shake = Math.max(shake, Math.min(0.5, closing * (fast ? 0.012 : 0.03)));
         effects.burst(best.cx, 0.7, best.cz, SPARK, 8, 6, -best.nx, -best.nz);
         if (closing > WRECK_IMPACT || car.damage > WRECK_DAMAGE || fast) wreckCar(car, -best.nx, -best.nz);
       }
