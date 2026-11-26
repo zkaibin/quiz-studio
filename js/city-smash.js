@@ -402,11 +402,12 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
         }
       }
       if (!best) continue;
-      // At hypercar speeds, keep separation tiny so parked/traffic cars don't shove the player into a bounce.
+      // At hypercar speeds, zero separation — any shove stacks with the chase cam into a mid-road bounce.
+      // Racing never resolves street traffic against the player this way.
       const absSp = Math.abs(speed);
       const fast = absSp > 40;
       const hyper = absSp > 55;
-      const sep = hyper ? 0.05 : (fast ? 0.15 : 0.6);
+      const sep = hyper ? 0 : (fast ? 0.15 : 0.6);
       dx += best.nx * best.pen * sep; dz += best.nz * best.pen * sep;
       if (isFreeDrivable(car.x - best.nx * best.pen * 0.4, car.z - best.nz * best.pen * 0.4)) { car.x -= best.nx * best.pen * 0.4; car.z -= best.nz * best.pen * 0.4; }
       const carSpeed = car.state === 'drive' ? car.speed : 0;
