@@ -197,7 +197,7 @@ import {
     mount.setAttribute('aria-label', `Three-dimensional ${city.name} city driving game`);
     const lapKm = ((city.grid * PITCH) / 1000).toFixed(1).replace(/\.0$/, '');
     cityIntro.textContent = city.planet
-      ? `Take the wheel in ${city.name}, the only city wrapping tiny spherical ${city.country} (~${lapKm} km around). Drive or fly with no edge — from 1 km up the whole planet fills the sky.`
+      ? `Take the wheel in ${city.name} on alien ${city.country} (~${lapKm} km sphere-net). Twin sun satellites light the crystal city — drive or fly anywhere; districts stream in as you explore.`
       : `Take the wheel in ${city.name}. Keep ${city.drive} and roam the wider city streets, or jump onto a racing circuit with only AI racers — clear asphalt, open lanes and room to hit your car’s top speed.`;
     roadName.textContent = trafficLabel();
     roadName.dataset.default = roadName.textContent;
@@ -570,9 +570,9 @@ import {
         // Soft atmospheric haze near the surface; clear to space black once you leave the limb.
         const fogFar = THREE.MathUtils.lerp(R * 2.2, R * 10 + carY * 2.5, planetSky);
         const fogCol = new THREE.Color().setHSL(
-          THREE.MathUtils.lerp(0.58, 0.64, planetSky),
-          THREE.MathUtils.lerp(0.18, 0.06, planetSky),
-          THREE.MathUtils.lerp(0.58, 0.025, planetSky)
+          THREE.MathUtils.lerp(0.55, 0.72, planetSky),
+          THREE.MathUtils.lerp(0.22, 0.08, planetSky),
+          THREE.MathUtils.lerp(0.52, 0.02, planetSky)
         );
         scene.fog.color.copy(fogCol);
         scene.background = fogCol.clone();
@@ -830,16 +830,79 @@ import {
   document.getElementById('close-globe').addEventListener('click', closeGlobe);
 
   function drawMinimap() {
-    const k = minimap.width / (realActive ? realCity.half * 2 : SIZE);
+    const size = minimap.width;
+    // Sphere-net: local visible patch, rotated so the car always faces up.
+    if (isPlanet() && !realActive) {
+      const style = currentCity().style || {};
+      const viewR = Math.min(SIZE * 0.22, Math.max(260, (freeCity.constructionRadius || 600) * 0.42));
+      const mx = wrapCoord(mapX);
+      const mz = wrapCoord(mapZ);
+      const k = size / (viewR * 2);
+      minimapCtx.save();
+      minimapCtx.clearRect(0, 0, size, size);
+      minimapCtx.beginPath();
+      minimapCtx.arc(size / 2, size / 2, size / 2 - 1, 0, Math.PI * 2);
+      minimapCtx.clip();
+      minimapCtx.fillStyle = style.minimapSea || '#14283a';
+      minimapCtx.fillRect(0, 0, size, size);
+      minimapCtx.translate(size / 2, size / 2);
+      minimapCtx.rotate(-heading);
+      const i0 = Math.floor((mx - viewR) / PITCH) - 1;
+      const i1 = Math.ceil((mx + viewR) / PITCH) + 1;
+      const j0 = Math.floor((mz - viewR) / PITCH) - 1;
+      const j1 = Math.ceil((mz + viewR) / PITCH) + 1;
+      for (let i = i0; i <= i1; i++) {
+        for (let j = j0; j <= j1; j++) {
+          const cell = cellInfo(i, j);
+          let cx = i * PITCH + PITCH / 2 - mx;
+          let cz = j * PITCH + PITCH / 2 - mz;
+          // Shortest wrap delta on both axes (no geographic poles).
+          if (cx > SIZE / 2) cx -= SIZE; else if (cx < -SIZE / 2) cx += SIZE;
+          if (cz > SIZE / 2) cz -= SIZE; else if (cz < -SIZE / 2) cz += SIZE;
+          if (Math.hypot(cx, cz) > viewR + PITCH) continue;
+          minimapCtx.fillStyle = DISTRICT_COLORS[cell.kind] || style.minimapLand || '#2a3348';
+          minimapCtx.fillRect(cx * k - PITCH * k / 2, cz * k - PITCH * k / 2, PITCH * k + 0.5, PITCH * k + 0.5);
+        }
+      }
+      minimapCtx.strokeStyle = 'rgba(251,250,243,0.35)';
+      minimapCtx.lineWidth = 1;
+      minimapCtx.beginPath();
+      for (let n = i0; n <= i1 + 1; n++) {
+        let gx = n * PITCH - mx;
+        if (gx > SIZE / 2) gx -= SIZE; else if (gx < -SIZE / 2) gx += SIZE;
+        minimapCtx.moveTo(gx * k, -viewR * k); minimapCtx.lineTo(gx * k, viewR * k);
+      }
+      for (let n = j0; n <= j1 + 1; n++) {
+        let gz = n * PITCH - mz;
+        if (gz > SIZE / 2) gz -= SIZE; else if (gz < -SIZE / 2) gz += SIZE;
+        minimapCtx.moveTo(-viewR * k, gz * k); minimapCtx.lineTo(viewR * k, gz * k);
+      }
+      minimapCtx.stroke();
+      minimapCtx.restore();
+      // Car glyph stays upright at centre.
+      minimapCtx.save();
+      minimapCtx.translate(size / 2, size / 2);
+      minimapCtx.fillStyle = '#d9482b';
+      minimapCtx.strokeStyle = '#fff';
+      minimapCtx.lineWidth = 1.5;
+      minimapCtx.beginPath();
+      minimapCtx.moveTo(0, -7); minimapCtx.lineTo(5, 6); minimapCtx.lineTo(0, 3); minimapCtx.lineTo(-5, 6);
+      minimapCtx.closePath();
+      minimapCtx.fill();
+      minimapCtx.stroke();
+      minimapCtx.restore();
+      return;
+    }
+    const k = size / (realActive ? realCity.half * 2 : SIZE);
     const offset = realActive ? realCity.half : 0;
-    minimapCtx.drawImage(realActive ? realCity.mapLayer(minimap.width) : mapLayer, 0, 0);
+    minimapCtx.drawImage(realActive ? realCity.mapLayer(size) : mapLayer, 0, 0);
     minimapCtx.save();
     const mapDrawX = realActive
       ? player.position.x
-      : (isPlanet() ? wrapCoord(mapX) : (wraps() ? wrapCoord(player.position.x) : player.position.x));
+      : (wraps() ? wrapCoord(player.position.x) : player.position.x);
     const mapDrawZ = realActive
       ? player.position.z
-      : (isPlanet() ? THREE.MathUtils.clamp(mapZ, 0, SIZE) : (wraps() ? wrapCoord(player.position.z) : player.position.z));
+      : (wraps() ? wrapCoord(player.position.z) : player.position.z);
     minimapCtx.translate((mapDrawX + offset) * k, (mapDrawZ + offset) * k);
     minimapCtx.rotate(heading);
     minimapCtx.fillStyle = '#d9482b';
@@ -874,8 +937,8 @@ import {
     heading = spawn.heading;
     camHeading = heading;
     if (isPlanet()) {
-      scene.fog.color.set(0x8ec4e0);
-      scene.background = new THREE.Color(0x8ec4e0);
+      scene.fog.color.set(0x6a98b8);
+      scene.background = new THREE.Color(0x6a98b8);
       world.setPlanetSky(true);
       if (!realActive) freeCity.prefill(mapX, mapZ, Date.now() / 1000);
       placeObjectOnSphere(player, mapX, 0, mapZ, heading);
@@ -886,7 +949,9 @@ import {
       camera.up.copy(camUp);
       camera.position.copy(camPos);
       camera.lookAt(camLook);
-      world.followPlanetPlayer(player.position, { altitude: 0, cameraPosition: camPos });
+      world.followPlanetPlayer(player.position, {
+        altitude: 0, cameraPosition: camPos, sunDirs: freeCity.sunDirs()
+      });
     } else {
       world.setPlanetSky(false);
       player.position.set(spawn.x, 0, spawn.z);
@@ -936,7 +1001,9 @@ import {
     const pz = isPlanet() ? mapZ : player.position.z;
     distance += Math.abs(forward) * delta;
     if (!isPlanet()) world.followPlayer(px, pz);
-    else world.followPlanetPlayer(player.position, { altitude, cameraPosition: camPos });
+    else world.followPlanetPlayer(player.position, {
+      altitude, cameraPosition: camPos, sunDirs: freeCity.sunDirs()
+    });
     impactShake = Math.max(0, impactShake - delta * 1.2);
     if (realActive) {
       if (locationName.textContent !== 'REAL MAP') locationName.textContent = 'REAL MAP';

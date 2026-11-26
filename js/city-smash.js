@@ -203,6 +203,7 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
 
   function place(car) {
     if (currentCity().planet) {
+      car.model.userData.planetSkipBend = true;
       placeObjectOnSphere(car.model, car.x, 0, car.z, car.heading, planetRadius());
       return;
     }

@@ -96,7 +96,7 @@ export function createGlobe({ stage, labels, card, worlds, onDrive, getCurrentId
   const aureliaAtmo = new THREE.Mesh(new THREE.SphereGeometry(0.52, 48, 32), new THREE.ShaderMaterial({
     transparent: true, side: THREE.BackSide, blending: THREE.AdditiveBlending, depthWrite: false,
     vertexShader: 'varying vec3 n; void main(){ n = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
-    fragmentShader: 'varying vec3 n; void main(){ float i = pow(0.7 - dot(n, vec3(0.0,0.0,1.0)), 2.8); gl_FragColor = vec4(1.0,0.72,0.35,1.0) * i * 1.4; }'
+    fragmentShader: 'varying vec3 n; void main(){ float i = pow(0.7 - dot(n, vec3(0.0,0.0,1.0)), 2.8); gl_FragColor = vec4(0.55,0.85,1.0,1.0) * i * 1.35 + vec4(0.55,0.35,0.95,0.0) * i * 0.55; }'
   }));
   aureliaRoot.add(aureliaAtmo);
   // Tiny orbit ring to sell the "pocket planet" scale next to Earth memories.
@@ -224,10 +224,10 @@ export function createGlobe({ stage, labels, card, worlds, onDrive, getCurrentId
       worlds.querySelectorAll('[data-world]').forEach((btn) => btn.classList.toggle('on', btn.dataset.world === worldId));
     }
     if (hud) {
-      hud.querySelector('.eyebrow').textContent = isAurelia ? 'PLANET AURELIA · POCKET WORLD' : 'EARTH · LIVE VIEW';
-      hud.querySelector('h2').textContent = isAurelia ? 'One city, no edge' : 'Pick your city';
+      hud.querySelector('.eyebrow').textContent = isAurelia ? 'PLANET AURELIA · SPHERE-NET' : 'EARTH · LIVE VIEW';
+      hud.querySelector('h2').textContent = isAurelia ? 'Alien city, no poles' : 'Pick your city';
       hud.querySelector('p:last-of-type').textContent = isAurelia
-        ? 'Circadia wraps a tiny spherical planet (~2 km around). Fly with no edge — from 1 km up the globe fills the sky.'
+        ? 'Circadia spans a sphere-net world lit by twin sun satellites. Fly anywhere — districts stream in as you explore.'
         : 'Drag to spin, scroll to zoom, tap a beacon. Yellow arcs show flights from the selected city.';
     }
   }

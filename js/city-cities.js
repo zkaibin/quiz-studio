@@ -170,14 +170,15 @@ export const CITIES = [
     streets: (line) => ['Al Safa St', 'Al Satwa Rd', 'Financial Centre Rd', 'Mohammed Bin Rashid Blvd', 'Al Asayel St', 'Umm Suqeim St', 'Al Quoz St', 'Oud Metha Rd', 'Za’abeel Rd'][line % 9],
     spawns: { 'db-downtown': [13, 10], 'db-coast': [5, 1] }
   },
-  // Pocket Planet Aurelia: one city wraps a true sphere (~2.2 km equator). From ~1 km up the globe fills the sky.
+  // Sphere-net Planet Aurelia: no geographic poles, artificial sun satellites, city streams as you drive.
   {
     id: 'circadia', name: 'Circadia', country: 'Planet Aurelia', lat: 18, lon: 42, drive: 'right', grid: 16,
     planet: true, wrap: true, world: 'aurelia',
-    blurb: 'The only city on tiny spherical Planet Aurelia — drive or fly with no edge',
+    blurb: 'Alien sphere-net city on Planet Aurelia — crystal towers, twin sunsats, fly the whole globe',
     style: {
-      lowrise: 'tokyo', residential: 'tower', downtownBoost: 48,
-      sea: 0x1a5a8a, park: 0x5f9a72, pond: 0x3d7a9c, minimapSea: '#1a5a8a'
+      lowrise: 'aurelia', residential: 'aurelia', downtownBoost: 56,
+      sea: 0x14283a, park: 0x2f8a78, pond: 0x5a3d9c, asphalt: 0x52586a, walk: 0xc2ccd8,
+      minimapSea: '#14283a', minimapLand: '#2a3348'
     },
     regions: [
       { name: 'Helix Core', i: 8, j: 8, kind: 'downtown' }, { name: 'Meridian Plaza', i: 7, j: 8, kind: 'downtown' },
@@ -185,12 +186,12 @@ export const CITIES = [
       { name: 'Crystal Forum', i: 10, j: 7, kind: 'civic' }, { name: 'Aurora Quarters', i: 5, j: 9, kind: 'residential' },
       { name: 'Solstice Ward', i: 11, j: 10, kind: 'residential' }, { name: 'Equinox Docks', i: 3, j: 5, kind: 'mixed' },
       { name: 'Zenith Market', i: 12, j: 4, kind: 'shophouse' }, { name: 'Nadir Lanes', i: 2, j: 12, kind: 'shophouse' },
-      { name: 'Polar Gardens', i: 8, j: 2, kind: 'park' }, { name: 'Antipode Park', i: 8, j: 14, kind: 'park' },
+      { name: 'Crystal Gardens', i: 8, j: 2, kind: 'park' }, { name: 'Far Arc Park', i: 8, j: 14, kind: 'park' },
       { name: 'Dawn Reach', i: 1, j: 8, kind: 'mixed' }, { name: 'Dusk Reach', i: 15, j: 8, kind: 'mixed' },
       { name: 'Horizon Observatory', i: 13, j: 13, kind: 'civic' }, { name: 'Unity Circle', i: 4, j: 3, kind: 'downtown' },
       { name: 'Loom District', i: 10, j: 2, kind: 'shophouse' }, { name: 'Vault Heights', i: 2, j: 10, kind: 'residential' },
       { name: 'Cascade Green', i: 14, j: 6, kind: 'park' }, { name: 'Echo Yards', i: 6, j: 14, kind: 'mixed' },
-      { name: 'North Meridian', i: 8, j: 3, kind: 'downtown' }, { name: 'South Meridian', i: 8, j: 13, kind: 'downtown' },
+      { name: 'Inner Meridian', i: 8, j: 3, kind: 'downtown' }, { name: 'Outer Meridian', i: 8, j: 13, kind: 'downtown' },
       { name: 'West Belt', i: 2, j: 8, kind: 'residential' }, { name: 'East Belt', i: 14, j: 8, kind: 'residential' }
     ],
     landmarks: [
@@ -202,12 +203,12 @@ export const CITIES = [
     avenues: (line) => [
       'Meridian Loop', 'Helix Avenue', 'Aurora Belt', 'Solstice Way', 'Equinox Road', 'Zenith Drive',
       'Nadir Crescent', 'Orbit Lane', 'Ring Road', 'Spire Boulevard', 'Crystal Way', 'Forum Avenue',
-      'Dawn Highway', 'Dusk Expressway', 'Polar Arc', 'Antipode Street', 'Unity Parade', 'Loom Street'
+      'Dawn Highway', 'Dusk Expressway', 'Lattice Arc', 'Far Arc Street', 'Unity Parade', 'Loom Street'
     ][line % 18],
     streets: (line) => [
-      'Circadia Ring', 'Aurelia Causeway', 'Pocket World Rd', 'No-Edge Lane', 'Full-Circle St', 'Wraparound Way',
-      'Tinyterra Blvd', 'Horizon Path', 'Beacon Street', 'Cascade Road', 'Echo Lane', 'Vault Street',
-      'North Cap Rd', 'South Cap Rd', 'West Seam', 'East Seam'
+      'Circadia Ring', 'Aurelia Causeway', 'Sphere-Net Rd', 'No-Edge Lane', 'Full-Circle St', 'Wraparound Way',
+      'Sunsat Blvd', 'Horizon Path', 'Beacon Street', 'Cascade Road', 'Echo Lane', 'Vault Street',
+      'Vein Road', 'Shell Road', 'West Seam', 'East Seam'
     ][line % 16],
     spawns: { 'au-helix': [8, 8], 'au-ring': [6, 6], 'au-polar': [8, 2] }
   }
