@@ -645,8 +645,10 @@ export function createFreeCity({ scene, kit }) {
           if (d >= radius) continue;
           if (Math.abs(speed) >= spec.min) {
             breakProp(prop, dirx * sign, dirz * sign, Math.abs(speed));
-            speed *= spec.drag;
-            shake = Math.max(shake, Math.min(0.45, Math.abs(speed) * 0.02));
+            // At 200–300+ km/h, don't let a row of lamps/trees stack drag into a bounce.
+            const drag = Math.abs(speed) > 40 ? Math.max(spec.drag, 0.97) : spec.drag;
+            speed *= drag;
+            shake = Math.max(shake, Math.min(0.45, Math.abs(speed) * (Math.abs(speed) > 40 ? 0.008 : 0.02)));
           } else {
             // Too slow to knock it over: it acts as a solid obstacle and the car is pushed back out
             const nx = d > 1e-4 ? (ex * cos + ez * sin) / d : -dirx * sign;

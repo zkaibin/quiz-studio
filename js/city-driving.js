@@ -1325,9 +1325,9 @@ import {
       const airborne = altitude > 1.5;
       const canDrive = realActive ? realCity.isDrivable : isFreeDrivable;
       const step = speed * delta;
-      // Substep long moves so high speed (~200+ km/h) doesn't tunnel into buildings and "bounce".
-      const FREE_SUB_STEP = 0.9;
-      const subCount = Math.max(1, Math.min(12, Math.ceil(Math.abs(step) / FREE_SUB_STEP)));
+      // Substep long moves so high speed (~300 km/h) doesn't tunnel into buildings and "bounce".
+      const FREE_SUB_STEP = 0.75;
+      const subCount = Math.max(1, Math.min(24, Math.ceil(Math.abs(step) / FREE_SUB_STEP)));
       const subStep = step / subCount;
       if (isPlanet() && !realActive) {
         heading += turnRate * delta;
@@ -1353,12 +1353,16 @@ import {
         mapZ = wrapCoord(mapZ);
         const crash = airborne ? { dx: 0, dz: 0, speed, shake: 0 } : freeCity.interact({ x: mapX, z: mapZ, heading, speed });
         if (!airborne && (crash.dx || crash.dz) && Math.hypot(crash.dx, crash.dz) > 1e-4) {
-          const pushLen = Math.min(Math.hypot(crash.dx, crash.dz), 1.25);
+          const pushLen = Math.min(Math.hypot(crash.dx, crash.dz), Math.abs(speed) > 40 ? 0.45 : 1.25);
           // Planet forward is +Z for heading 0 — push heading uses atan2(dx, dz).
           const pushed = moveOnSphere(mapX, mapZ, Math.atan2(crash.dx, crash.dz), pushLen);
           if (canDrive(pushed.x, pushed.z)) { mapX = pushed.x; mapZ = pushed.z; }
         }
-        speed = crash.speed;
+        if (Math.abs(speed) > 40 && crash.speed * Math.sign(speed || 1) < Math.abs(speed) * 0.55) {
+          speed *= 0.9;
+        } else {
+          speed = crash.speed;
+        }
         impactShake = Math.max(impactShake, crash.shake);
       } else {
         heading += turnRate * delta;
@@ -1381,13 +1385,19 @@ import {
         }
         const crash = airborne || realActive ? { dx: 0, dz: 0, speed, shake: 0 } : freeCity.interact({ x: player.position.x, z: player.position.z, heading, speed });
         // Cap separation so a deep overlap can't yeet the car backward at high speed.
-        const pushX = THREE.MathUtils.clamp(crash.dx, -1.25, 1.25);
-        const pushZ = THREE.MathUtils.clamp(crash.dz, -1.25, 1.25);
+        const pushCap = Math.abs(speed) > 40 ? 0.45 : 1.25;
+        const pushX = THREE.MathUtils.clamp(crash.dx, -pushCap, pushCap);
+        const pushZ = THREE.MathUtils.clamp(crash.dz, -pushCap, pushCap);
         if (canDrive(player.position.x + pushX, player.position.z + pushZ)) {
           player.position.x += pushX;
           player.position.z += pushZ;
         }
-        speed = crash.speed;
+        // Don't let smash resolution reverse a hypercar mid-straight.
+        if (Math.abs(speed) > 40 && crash.speed * Math.sign(speed || 1) < Math.abs(speed) * 0.55) {
+          speed *= 0.9;
+        } else {
+          speed = crash.speed;
+        }
         impactShake = Math.max(impactShake, crash.shake);
         mapX = player.position.x;
         mapZ = player.position.z;
@@ -1405,11 +1415,12 @@ import {
         if (thrusting) nitro = Math.max(0, nitro - delta * 0.028);
         else nitro = Math.min(1, nitro + delta * (altitude < 0.2 ? 0.3 : 0.045));
         altitude += climb * delta;
-        // Building hover only near the deck — high flight must never fight a "floor" and bounce.
+        // Hover above buildings only while already airborne. A grounded car (alt≈0) that
+        // briefly clips a non-road cell must NOT snap up to 3 m — that was the 300 km/h trampoline.
         const onPad = realActive
           ? canDrive(groundX, groundZ)
           : (isDrivable(groundX, groundZ) || isFreeDrivable(groundX, groundZ));
-        const floor = onPad ? 0 : (altitude < 18 ? 3 : 0);
+        const floor = onPad ? 0 : (altitude > 0.5 ? 3 : 0);
         if (altitude >= maxAlt) { altitude = maxAlt; climb = Math.min(climb, 0); }
         if (altitude <= floor) {
           if (floor === 0 && altitude < -climb * delta - 0.01 && climb < -9) {
