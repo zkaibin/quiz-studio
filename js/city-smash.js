@@ -402,7 +402,10 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
         }
       }
       if (!best) continue;
-      dx += best.nx * best.pen * 0.6; dz += best.nz * best.pen * 0.6;
+      // At hypercar speeds, keep separation tiny so parked/traffic cars don't shove the player into a bounce.
+      const fast = Math.abs(speed) > 40;
+      const sep = fast ? 0.15 : 0.6;
+      dx += best.nx * best.pen * sep; dz += best.nz * best.pen * sep;
       if (isFreeDrivable(car.x - best.nx * best.pen * 0.4, car.z - best.nz * best.pen * 0.4)) { car.x -= best.nx * best.pen * 0.4; car.z -= best.nz * best.pen * 0.4; }
       const carSpeed = car.state === 'drive' ? car.speed : 0;
       const cvx = car.state === 'drive' ? cdx * carSpeed : car.vx; const cvz = car.state === 'drive' ? cdz * carSpeed : car.vz;
@@ -415,10 +418,13 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
         car.state = 'knocked';
         car.cd = 0.35;
         car.damage += closing;
-        speed += (best.nx * dirx + best.nz * dirz) * (j / mp);
-        shake = Math.max(shake, Math.min(0.5, closing * 0.03));
+        // Never reverse the player at high speed — knock the NPC away instead.
+        const along = (best.nx * dirx + best.nz * dirz) * (j / mp);
+        if (fast) speed *= 0.92;
+        else speed += along;
+        shake = Math.max(shake, Math.min(0.5, closing * (fast ? 0.012 : 0.03)));
         effects.burst(best.cx, 0.7, best.cz, SPARK, 8, 6, -best.nx, -best.nz);
-        if (closing > WRECK_IMPACT || car.damage > WRECK_DAMAGE) wreckCar(car, -best.nx, -best.nz);
+        if (closing > WRECK_IMPACT || car.damage > WRECK_DAMAGE || fast) wreckCar(car, -best.nx, -best.nz);
       }
     }
     return { dx, dz, speed, shake };
