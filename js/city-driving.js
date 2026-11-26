@@ -861,8 +861,9 @@ import {
           if (cx > SIZE / 2) cx -= SIZE; else if (cx < -SIZE / 2) cx += SIZE;
           if (cz > SIZE / 2) cz -= SIZE; else if (cz < -SIZE / 2) cz += SIZE;
           if (Math.hypot(cx, cz) > viewR + PITCH) continue;
+          // Flip Z: planet heading 0 advances +Z, but canvas Y grows downward.
           minimapCtx.fillStyle = DISTRICT_COLORS[cell.kind] || style.minimapLand || '#2a3348';
-          minimapCtx.fillRect(cx * k - PITCH * k / 2, cz * k - PITCH * k / 2, PITCH * k + 0.5, PITCH * k + 0.5);
+          minimapCtx.fillRect(cx * k - PITCH * k / 2, -cz * k - PITCH * k / 2, PITCH * k + 0.5, PITCH * k + 0.5);
         }
       }
       minimapCtx.strokeStyle = 'rgba(251,250,243,0.35)';
@@ -876,7 +877,7 @@ import {
       for (let n = j0; n <= j1 + 1; n++) {
         let gz = n * PITCH - mz;
         if (gz > SIZE / 2) gz -= SIZE; else if (gz < -SIZE / 2) gz += SIZE;
-        minimapCtx.moveTo(-viewR * k, gz * k); minimapCtx.lineTo(viewR * k, gz * k);
+        minimapCtx.moveTo(-viewR * k, -gz * k); minimapCtx.lineTo(viewR * k, -gz * k);
       }
       minimapCtx.stroke();
       minimapCtx.restore();
@@ -1324,54 +1325,67 @@ import {
       const airborne = altitude > 1.5;
       const canDrive = realActive ? realCity.isDrivable : isFreeDrivable;
       const step = speed * delta;
+      // Substep long moves so high speed (~200+ km/h) doesn't tunnel into buildings and "bounce".
+      const FREE_SUB_STEP = 0.9;
+      const subCount = Math.max(1, Math.min(12, Math.ceil(Math.abs(step) / FREE_SUB_STEP)));
+      const subStep = step / subCount;
       if (isPlanet() && !realActive) {
         heading += turnRate * delta;
         // Keep heading finite; wrap seams must never accumulate NaN/∞ and fling the car.
         if (!Number.isFinite(heading)) heading = 0;
         heading = ((heading % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
-        const moved = moveOnSphere(mapX, mapZ, heading, step);
-        // In the air: free flight over the whole sphere-net — no road / building walls.
-        if (airborne || canDrive(moved.x, moved.z)) {
-          mapX = moved.x;
-          mapZ = moved.z;
-        } else {
-          // Ground only: try axis slides before stopping (flat wrap, heading unchanged).
-          const east = moveOnSphere(mapX, mapZ, Math.PI / 2, step * Math.sin(heading));
-          const north = moveOnSphere(mapX, mapZ, 0, step * Math.cos(heading));
-          if (canDrive(east.x, mapZ)) { mapX = east.x; speed *= 1 - Math.min(0.9, delta * 3); }
-          else if (canDrive(mapX, north.z)) { mapZ = north.z; speed *= 1 - Math.min(0.9, delta * 3); }
-          else speed *= 1 - Math.min(0.9, delta * 6);
+        for (let s = 0; s < subCount; s++) {
+          const moved = moveOnSphere(mapX, mapZ, heading, subStep);
+          // In the air: free flight over the whole sphere-net — no road / building walls.
+          if (airborne || canDrive(moved.x, moved.z)) {
+            mapX = moved.x;
+            mapZ = moved.z;
+          } else {
+            // Ground only: try axis slides before stopping (flat wrap, heading unchanged).
+            const east = moveOnSphere(mapX, mapZ, Math.PI / 2, subStep * Math.sin(heading));
+            const north = moveOnSphere(mapX, mapZ, 0, subStep * Math.cos(heading));
+            if (canDrive(east.x, mapZ)) { mapX = east.x; speed *= 1 - Math.min(0.9, delta * 3 / subCount); }
+            else if (canDrive(mapX, north.z)) { mapZ = north.z; speed *= 1 - Math.min(0.9, delta * 3 / subCount); }
+            else { speed *= 1 - Math.min(0.9, delta * 6 / subCount); break; }
+          }
         }
         mapX = wrapCoord(mapX);
         mapZ = wrapCoord(mapZ);
         const crash = airborne ? { dx: 0, dz: 0, speed, shake: 0 } : freeCity.interact({ x: mapX, z: mapZ, heading, speed });
         if (!airborne && (crash.dx || crash.dz) && Math.hypot(crash.dx, crash.dz) > 1e-4) {
-          const pushLen = Math.hypot(crash.dx, crash.dz);
-          const pushed = moveOnSphere(mapX, mapZ, Math.atan2(crash.dx, -crash.dz), pushLen);
+          const pushLen = Math.min(Math.hypot(crash.dx, crash.dz), 1.25);
+          // Planet forward is +Z for heading 0 — push heading uses atan2(dx, dz).
+          const pushed = moveOnSphere(mapX, mapZ, Math.atan2(crash.dx, crash.dz), pushLen);
           if (canDrive(pushed.x, pushed.z)) { mapX = pushed.x; mapZ = pushed.z; }
         }
         speed = crash.speed;
         impactShake = Math.max(impactShake, crash.shake);
       } else {
         heading += turnRate * delta;
-        const nx = player.position.x + Math.sin(heading) * step;
-        const nz = player.position.z - Math.cos(heading) * step;
-        if (airborne || canDrive(nx, nz)) {
-          player.position.x = nx;
-          player.position.z = nz;
-        } else if (canDrive(nx, player.position.z)) {
-          player.position.x = nx;
-          speed *= 1 - Math.min(0.9, delta * 3);
-        } else if (canDrive(player.position.x, nz)) {
-          player.position.z = nz;
-          speed *= 1 - Math.min(0.9, delta * 3);
-        } else {
-          speed *= 1 - Math.min(0.9, delta * 6);
+        for (let s = 0; s < subCount; s++) {
+          const nx = player.position.x + Math.sin(heading) * subStep;
+          const nz = player.position.z - Math.cos(heading) * subStep;
+          if (airborne || canDrive(nx, nz)) {
+            player.position.x = nx;
+            player.position.z = nz;
+          } else if (canDrive(nx, player.position.z)) {
+            player.position.x = nx;
+            speed *= 1 - Math.min(0.9, delta * 3 / subCount);
+          } else if (canDrive(player.position.x, nz)) {
+            player.position.z = nz;
+            speed *= 1 - Math.min(0.9, delta * 3 / subCount);
+          } else {
+            speed *= 1 - Math.min(0.9, delta * 6 / subCount);
+            break;
+          }
         }
         const crash = airborne || realActive ? { dx: 0, dz: 0, speed, shake: 0 } : freeCity.interact({ x: player.position.x, z: player.position.z, heading, speed });
-        if (canDrive(player.position.x + crash.dx, player.position.z + crash.dz)) {
-          player.position.x += crash.dx;
-          player.position.z += crash.dz;
+        // Cap separation so a deep overlap can't yeet the car backward at high speed.
+        const pushX = THREE.MathUtils.clamp(crash.dx, -1.25, 1.25);
+        const pushZ = THREE.MathUtils.clamp(crash.dz, -1.25, 1.25);
+        if (canDrive(player.position.x + pushX, player.position.z + pushZ)) {
+          player.position.x += pushX;
+          player.position.z += pushZ;
         }
         speed = crash.speed;
         impactShake = Math.max(impactShake, crash.shake);

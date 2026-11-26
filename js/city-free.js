@@ -623,7 +623,9 @@ export function createFreeCity({ scene, kit }) {
 
   // Checks the player's car (three circles along its length) against fixtures, pedestrians and traffic; returns a push-out, new speed and shake.
   function interact(p) {
-    const dirx = Math.sin(p.heading); const dirz = -Math.cos(p.heading);
+    const onPlanet = !!currentCity().planet;
+    const dirx = Math.sin(p.heading);
+    const dirz = onPlanet ? Math.cos(p.heading) : -Math.cos(p.heading);
     const sign = p.speed >= 0 ? 1 : -1;
     const radius = 0.95;
     const centres = [-1.5, 0, 1.5].map((o) => ({ x: p.x + dirx * o, z: p.z + dirz * o }));

@@ -323,7 +323,9 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
         if (car.smokeT <= 0 && car.life > 3) { car.smokeT = 0.14; effects.puff(car.x, 1.0, car.z, 0.55); }
       }
       if (car.state === 'drive') {
-        const dx = Math.sin(car.heading); const dz = -Math.cos(car.heading);
+        // Planet pose faces +Z for heading 0; Earth free-roam faces −Z.
+        const dx = Math.sin(car.heading);
+        const dz = currentCity().planet ? Math.cos(car.heading) : -Math.cos(car.heading);
         let target = car.cruise;
         const probe = (ox, oz, ohl, ohw) => {
           let rx = ox - car.x; let rz = oz - car.z;
@@ -370,7 +372,9 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
 
   // Player body is three circles along its length; each car is a short row of circles.
   function collidePlayer(p) {
-    const dirx = Math.sin(p.heading); const dirz = -Math.cos(p.heading);
+    const onPlanet = !!currentCity().planet;
+    const dirx = Math.sin(p.heading);
+    const dirz = onPlanet ? Math.cos(p.heading) : -Math.cos(p.heading);
     const centres = [-1.5, 0, 1.5].map((o) => ({ x: p.x + dirx * o, z: p.z + dirz * o }));
     const delta = (ax, az, bx, bz) => {
       let ddx = ax - bx; let ddz = az - bz;
@@ -383,7 +387,8 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
     let dx = 0; let dz = 0; let speed = p.speed; let shake = 0;
     for (const car of cars) {
       if (car.state === 'idle' || delta(car.x, car.z, p.x, p.z).dist > car.hl + 4.5) continue;
-      const cdx = Math.sin(car.heading); const cdz = -Math.cos(car.heading);
+      const cdx = Math.sin(car.heading);
+      const cdz = onPlanet ? Math.cos(car.heading) : -Math.cos(car.heading);
       const n = Math.max(2, Math.ceil((car.hl * 2) / 1.8));
       let best = null;
       for (let k = 0; k < n; k++) {
