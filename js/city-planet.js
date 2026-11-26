@@ -113,14 +113,17 @@ export function poseOnSphere(x, y, z, heading = 0, radius = planetRadius(), out 
 // Sphere-net motion: advance in the wrapped flat map (both axes), then pose onto the globe.
 // Do NOT integrate in 3D lon/lat — near the equirectangular poles longitude blows up and
 // heading flips every frame, which felt like the flying car "bouncing" with force in the sky.
+//
+// Heading 0 must advance +Z: flatToLonLat maps +Z → +lat, and poseOnSphere aims the nose
+// at geographic north. (Flat Earth free-roam uses −Z for heading 0; that sign is intentional
+// there and must NOT be copied here or GAS drives the car backward on Aurelia.)
 export function moveOnSphere(x, z, heading, step, radius = planetRadius()) {
   if (Math.abs(step) < 1e-8) {
     const { lon, lat } = flatToLonLat(x, z);
     return { x: wrapCoord(x), z: wrapCoord(z), heading, lon, lat };
   }
-  // Match flat free-roam: +heading turns right, forward is −Z / north on the map.
   const nx = wrapCoord(x + Math.sin(heading) * step);
-  const nz = wrapCoord(z - Math.cos(heading) * step);
+  const nz = wrapCoord(z + Math.cos(heading) * step);
   const { lon, lat } = flatToLonLat(nx, nz);
   return { x: nx, z: nz, heading, lon, lat };
 }
