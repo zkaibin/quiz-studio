@@ -234,9 +234,14 @@ export function createFreeCity({ scene, kit }) {
   function decorateArm(chunk, g, yaw, rand) {
     const f = frame(g, 0, 0, yaw);
     addParkedCars(chunk, f, rand);
-    stripe(f, lineMat, 0, 0.005, 20, P - 20, 0.12, 0.01);
-    for (const x of [-(ROAD_HALF - 0.65), ROAD_HALF - 0.65]) stripe(f, lineMat, x, 0.004, 8, P - 8, 0.14, 0.01);
-    for (let z = 24; z < P - 20; z += 8) for (const x of [-4.9, 4.9]) box(f, lineMat, x, 0.004, z + 1.6, 0.14, 0.01, 3.2);
+    // Clear 4-lane marks: double centre + edge lines + dashed lane separators.
+    stripe(f, lineMat, -0.14, 0.006, 16, P - 16, 0.1, 0.01);
+    stripe(f, lineMat, 0.14, 0.006, 16, P - 16, 0.1, 0.01);
+    for (const x of [-(ROAD_HALF - 0.7), ROAD_HALF - 0.7]) stripe(f, lineMat, x, 0.005, 6, P - 6, 0.16, 0.01);
+    // Dashes between inner/outer lanes (centre is solid double line above).
+    for (let z = 20; z < P - 16; z += 9) {
+      for (const x of [-6.3, 6.3]) box(f, lineMat, x, 0.005, z + 1.8, 0.14, 0.01, 3.6);
+    }
     for (let k = 0; k < 5; k++) {
       const za = 22 + k * 16; const zb = 30 + k * 16;
       addProp(chunk, f, 'lamp', -11.9, za, rand, (parent) => kit.addLamp(parent, -11.9, za));
@@ -445,22 +450,42 @@ export function createFreeCity({ scene, kit }) {
 
     if (organic) {
       // Underlay extends past max road bend so the sea never shows through.
-      const pad = ROAD_HALF + 30;
+      const pad = ROAD_HALF + 16;
       plane(g, parkMat, -pad, east ? P + pad : pad, -pad, south ? P + pad : pad, -0.18, 12);
       const toLocal = (pts) => pts.map((p) => ({ x: p.x - i * P, y: p.y, z: p.z - j * P }));
-      const cross = new THREE.Mesh(new THREE.CircleGeometry(ROAD_HALF + 1.2, 24), asphaltMat);
+      const cross = new THREE.Mesh(new THREE.CircleGeometry(ROAD_HALF + 1.4, 24), asphaltMat);
       cross.rotation.x = -Math.PI / 2;
       cross.position.set(avenueX(i, j * P, city) - i * P, crossY + 0.02, streetZ(j, i * P, city) - j * P);
       cross.receiveShadow = true;
       cross.userData.organicRoad = true;
       g.add(cross);
+      const paintLaneMarks = (pts) => {
+        // Centre + mid separators + edges so bent stretches stay easy to follow.
+        const mids = ROAD_HALF * 0.5;
+        for (const lat of [0, -mids, mids, -(ROAD_HALF - 0.75), ROAD_HALF - 0.75]) {
+          const offset = pts.map((p, idx) => {
+            const prev = pts[Math.max(0, idx - 1)];
+            const next = pts[Math.min(pts.length - 1, idx + 1)];
+            const tx = next.x - prev.x; const tz = next.z - prev.z;
+            const len = Math.hypot(tx, tz) || 1;
+            const sx = -tz / len; const sz = tx / len;
+            return { x: p.x + sx * lat, y: p.y, z: p.z + sz * lat };
+          });
+          const mark = addRibbon(g, lineMat, offset, lat === 0 ? 0.1 : 0.11, 0.04);
+          mark.userData.organicRoad = true;
+        }
+      };
       if (south) {
-        const ribbon = addRibbon(g, asphaltMat, toLocal(sampleAvenueRibbon(i, j * P, (j + 1) * P, 16, city)), ROAD_HALF, 0.02);
+        const pts = toLocal(sampleAvenueRibbon(i, j * P, (j + 1) * P, 16, city));
+        const ribbon = addRibbon(g, asphaltMat, pts, ROAD_HALF, 0.02);
         ribbon.userData.organicRoad = true;
+        paintLaneMarks(pts);
       }
       if (east) {
-        const ribbon = addRibbon(g, asphaltMat, toLocal(sampleStreetRibbon(j, i * P, (i + 1) * P, 16, city)), ROAD_HALF, 0.02);
+        const pts = toLocal(sampleStreetRibbon(j, i * P, (i + 1) * P, 16, city));
+        const ribbon = addRibbon(g, asphaltMat, pts, ROAD_HALF, 0.02);
         ribbon.userData.organicRoad = true;
+        paintLaneMarks(pts);
       }
     } else {
       plane(g, asphaltMat, -ROAD_HALF, east ? P - ROAD_HALF : ROAD_HALF, -ROAD_HALF, ROAD_HALF, -0.04, 8);

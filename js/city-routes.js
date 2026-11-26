@@ -501,11 +501,11 @@ const TRIPS = {
   changi: ['East Coast Park', 'Changi Airport', 4200],
   sentosa: ['VivoCity', 'Sentosa Merlion', 3400]
 };
-// Closed racing circuits paired with each scenic route (see city-circuit.js).
+// Mix of beginner / medium / challenge circuits so new drivers still have easy laps.
 const CIRCUIT_IDS = [
-  'harbor-gp', 'coastal-ring', 'night-helix', 'arena-tech', 'ridge-switch', 'desert-dunes', 'harbor-gp',
-  'arena-tech', 'coastal-ring', 'harbor-gp', 'night-helix', 'ridge-switch', 'desert-dunes',
-  'arena-tech', 'coastal-ring', 'desert-dunes', 'coastal-ring', 'night-helix', 'ridge-switch', 'harbor-gp'
+  'boulevard', 'park-loop', 'coastal-ring', 'harbor-gp', 'boulevard', 'desert-dunes', 'park-loop',
+  'coastal-ring', 'harbor-gp', 'boulevard', 'park-loop', 'ridge-switch', 'arena-tech',
+  'coastal-ring', 'boulevard', 'desert-dunes', 'park-loop', 'night-helix', 'harbor-gp', 'boulevard'
 ];
 for (const r of ROUTES) {
   [r.from, r.to, r.length] = r.trip || TRIPS[r.id];

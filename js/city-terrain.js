@@ -1,12 +1,16 @@
 // Organic Earth-city roads and gentle hills. Planet / wrap cities stay on a regular grid.
 // Kept free of imports from city-map.js to avoid a circular dependency.
+// Most roads stay straight (~70%); only selected lines take a gentle bend for variety.
 
 export const TERRAIN_PITCH = 140;
-export const TERRAIN_ROAD_HALF = 11;
-export const TERRAIN_DRIVE_LIMIT = 11.4;
+// Wider carriageway so bent stretches stay easy to follow (4 clear lanes).
+export const TERRAIN_ROAD_HALF = 14;
+export const TERRAIN_DRIVE_LIMIT = 14.5;
 
-const BEND_AMP = 24;
-const HILL_PEAK = 9;
+const BEND_AMP = 10;
+const HILL_PEAK = 5;
+// Roughly 30% of avenues/streets bend; the rest stay arrow-straight.
+const BEND_CHANCE = 3; // out of 10
 
 function hash(i, j, salt = 0) {
   let h = Math.imul(i + 1013, 73856093) ^ Math.imul(j + 7919, 19349663) ^ Math.imul(salt + 1, 83492791);
@@ -26,10 +30,8 @@ function fadeEdge(line, grid) {
 }
 
 function wave(seed, t) {
-  const a = Math.sin(t * 0.011 + seed) * 0.55;
-  const b = Math.sin(t * 0.023 + seed * 1.7) * 0.3;
-  const c = Math.sin(t * 0.041 + seed * 0.4) * 0.15;
-  return a + b + c;
+  // Slow, gentle S-curve — one soft bend per few blocks, not a wriggle.
+  return Math.sin(t * 0.008 + seed) * 0.7 + Math.sin(t * 0.018 + seed * 1.4) * 0.3;
 }
 
 function citySalt(city) {
@@ -39,16 +41,23 @@ function citySalt(city) {
   return (s % 97) + 1;
 }
 
+/** Only some lines bend so most of the city stays straight for beginners. */
+export function lineBends(kind, line, city) {
+  if (!usesOrganicLayout(city)) return false;
+  const salt = kind === 'avenue' ? 11 : 29;
+  return (hash(line, salt, citySalt(city)) % 10) < BEND_CHANCE;
+}
+
 // Lateral offset of N–S avenue `line` at world z.
 export function avenueOffset(line, z, city) {
-  if (!usesOrganicLayout(city)) return 0;
+  if (!usesOrganicLayout(city) || !lineBends('avenue', line, city)) return 0;
   const seed = (hash(line, 17, citySalt(city)) % 1000) / 159.0;
   return BEND_AMP * wave(seed, z) * fadeEdge(line, city.grid);
 }
 
 // Lateral offset of E–W street `line` at world x.
 export function streetOffset(line, x, city) {
-  if (!usesOrganicLayout(city)) return 0;
+  if (!usesOrganicLayout(city) || !lineBends('street', line, city)) return 0;
   const seed = (hash(41, line, citySalt(city) + 3) % 1000) / 173.0;
   return BEND_AMP * wave(seed + 2.1, x) * fadeEdge(line, city.grid);
 }
@@ -64,12 +73,10 @@ export function streetZ(line, x, city) {
 export function groundHeight(x, z, city) {
   if (!usesOrganicLayout(city)) return 0;
   const s = (hash(7, 9, citySalt(city)) % 500) / 80;
-  const h1 = Math.sin(x * 0.0042 + s) * Math.cos(z * 0.0036 - s * 0.5);
-  const h2 = Math.sin((x + z) * 0.0024 + s * 1.3) * 0.55;
-  const h3 = Math.sin(x * 0.0091 - z * 0.0073 + s) * 0.28;
-  const ridge = Math.sin(x * 0.0018 + 0.7) * Math.sin(z * 0.0021 - 0.4) * 0.4;
-  const raw = (h1 * 0.55 + h2 + h3 + ridge) * HILL_PEAK;
-  return Math.max(0, raw + HILL_PEAK * 0.35);
+  const h1 = Math.sin(x * 0.0036 + s) * Math.cos(z * 0.0030 - s * 0.5);
+  const h2 = Math.sin((x + z) * 0.0020 + s * 1.3) * 0.45;
+  const raw = (h1 * 0.6 + h2) * HILL_PEAK;
+  return Math.max(0, raw + HILL_PEAK * 0.25);
 }
 
 // Nearest road centre: which axis, centre-line coord, lateral offset, and road heading.
@@ -86,7 +93,6 @@ export function nearestRoad(x, z, city) {
     const dist = Math.abs(x - cx);
     if (dist < best.dist) {
       const dx = avenueX(i, z + 1.5, city) - avenueX(i, z - 1.5, city);
-      // Face −Z (north) along the avenue: velocity (sin h, −cos h) ≈ (−dx, −1).
       best = { dist, axis: 'ns', line: i, centerX: cx, centerZ: z, heading: Math.atan2(-dx / 3, 1) };
     }
   }
@@ -96,7 +102,6 @@ export function nearestRoad(x, z, city) {
     const dist = Math.abs(z - cz);
     if (dist < best.dist) {
       const dz = streetZ(j, x + 1.5, city) - streetZ(j, x - 1.5, city);
-      // Street runs along +X; forward +X ⇒ heading ≈ π/2, adjusted for bend.
       best = {
         dist, axis: 'ew', line: j, centerX: x, centerZ: cz,
         heading: Math.atan2(1, dz / 3)
@@ -162,10 +167,13 @@ export function ribbonGeometry(pts, halfWidth, yBias = 0) {
     uvs.push(0, dist / 8, 1, dist / 8);
     if (i > 0) {
       const a = (i - 1) * 2;
-      indices.push(a, a + 1, a + 2, a + 1, a + 3, a + 2);
+      indices.push(a, a + 2, a + 1, a + 1, a + 2, a + 3);
     }
   }
   return { positions, normals, uvs, indices };
 }
 
-export { BEND_AMP, HILL_PEAK };
+/** Lane offsets from centre for a 4-lane carriageway (clear dashed separators). */
+export const LANE_OFFSETS = [-9.2, -3.4, 3.4, 9.2];
+
+export { BEND_AMP, HILL_PEAK, BEND_CHANCE };
