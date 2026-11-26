@@ -15,10 +15,10 @@ const MATS = {
   chimney: stdMat(0x8a4a38),
   fireEscape: stdMat(0x23282b, { roughness: 0.5, metalness: 0.4 }),
   neon: [0xff3b6b, 0x2bd4ff, 0xffd23b, 0x8f5bff, 0x38e07b, 0xff8a2b].map(glow),
-  // Aurelia: iridescent shell + luminous veins
-  crystal: stdMat(0xb8f0ff, { metalness: 0.55, roughness: 0.22, emissive: 0x3ad4ff, emissiveIntensity: 0.35 }),
-  vein: stdMat(0x7a5cff, { metalness: 0.4, roughness: 0.35, emissive: 0x6a4dff, emissiveIntensity: 0.85 }),
-  shell: stdMat(0x2a3348, { metalness: 0.3, roughness: 0.55 })
+  // Aurelia: glassier crystal + brighter veins for a clear alien look
+  crystal: stdMat(0xd8fbff, { metalness: 0.72, roughness: 0.12, emissive: 0x5ae8ff, emissiveIntensity: 0.55 }),
+  vein: stdMat(0x9b7cff, { metalness: 0.55, roughness: 0.22, emissive: 0x8a6dff, emissiveIntensity: 1.15 }),
+  shell: stdMat(0x243048, { metalness: 0.45, roughness: 0.4 })
 };
 
 const TINTS = {

@@ -568,15 +568,16 @@ import {
       if (isPlanet()) {
         // Thin atmosphere near the surface; clear dark sky once you leave the planet.
         // Soft atmospheric haze near the surface; clear to space black once you leave the limb.
-        const fogFar = THREE.MathUtils.lerp(R * 2.2, R * 10 + carY * 2.5, planetSky);
+        // Crystal-clear near the surface (long fog), then open to space black in orbit.
+        const fogFar = THREE.MathUtils.lerp(R * 3.4, R * 12 + carY * 2.8, planetSky);
         const fogCol = new THREE.Color().setHSL(
-          THREE.MathUtils.lerp(0.55, 0.72, planetSky),
-          THREE.MathUtils.lerp(0.22, 0.08, planetSky),
-          THREE.MathUtils.lerp(0.52, 0.02, planetSky)
+          THREE.MathUtils.lerp(0.56, 0.72, planetSky),
+          THREE.MathUtils.lerp(0.16, 0.06, planetSky),
+          THREE.MathUtils.lerp(0.62, 0.015, planetSky)
         );
         scene.fog.color.copy(fogCol);
         scene.background = fogCol.clone();
-        scene.fog.near = THREE.MathUtils.lerp(R * 0.45, R * 1.6, planetSky);
+        scene.fog.near = THREE.MathUtils.lerp(R * 0.85, R * 2.0, planetSky);
         scene.fog.far = fogFar;
       } else {
         const fogFar = wraps()
@@ -1325,22 +1326,28 @@ import {
       const step = speed * delta;
       if (isPlanet() && !realActive) {
         heading += turnRate * delta;
+        // Keep heading finite; wrap seams must never accumulate NaN/∞ and fling the car.
+        if (!Number.isFinite(heading)) heading = 0;
+        heading = ((heading % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
         const moved = moveOnSphere(mapX, mapZ, heading, step);
+        // In the air: free flight over the whole sphere-net — no road / building walls.
         if (airborne || canDrive(moved.x, moved.z)) {
           mapX = moved.x;
           mapZ = moved.z;
-          heading = moved.heading;
         } else {
-          // Try east/north slides in surface space before stopping.
+          // Ground only: try axis slides before stopping (flat wrap, heading unchanged).
           const east = moveOnSphere(mapX, mapZ, Math.PI / 2, step * Math.sin(heading));
           const north = moveOnSphere(mapX, mapZ, 0, step * Math.cos(heading));
-          if (canDrive(east.x, mapZ)) { mapX = east.x; heading = east.heading; speed *= 1 - Math.min(0.9, delta * 3); }
-          else if (canDrive(mapX, north.z)) { mapZ = north.z; heading = north.heading; speed *= 1 - Math.min(0.9, delta * 3); }
+          if (canDrive(east.x, mapZ)) { mapX = east.x; speed *= 1 - Math.min(0.9, delta * 3); }
+          else if (canDrive(mapX, north.z)) { mapZ = north.z; speed *= 1 - Math.min(0.9, delta * 3); }
           else speed *= 1 - Math.min(0.9, delta * 6);
         }
+        mapX = wrapCoord(mapX);
+        mapZ = wrapCoord(mapZ);
         const crash = airborne ? { dx: 0, dz: 0, speed, shake: 0 } : freeCity.interact({ x: mapX, z: mapZ, heading, speed });
-        if ((crash.dx || crash.dz) && Math.hypot(crash.dx, crash.dz) > 1e-4) {
-          const pushed = moveOnSphere(mapX, mapZ, Math.atan2(crash.dx, -crash.dz), Math.hypot(crash.dx, crash.dz));
+        if (!airborne && (crash.dx || crash.dz) && Math.hypot(crash.dx, crash.dz) > 1e-4) {
+          const pushLen = Math.hypot(crash.dx, crash.dz);
+          const pushed = moveOnSphere(mapX, mapZ, Math.atan2(crash.dx, -crash.dz), pushLen);
           if (canDrive(pushed.x, pushed.z)) { mapX = pushed.x; mapZ = pushed.z; }
         }
         speed = crash.speed;
@@ -1384,8 +1391,11 @@ import {
         if (thrusting) nitro = Math.max(0, nitro - delta * 0.028);
         else nitro = Math.min(1, nitro + delta * (altitude < 0.2 ? 0.3 : 0.045));
         altitude += climb * delta;
-        // Never touch down on buildings or water: hover just above them until over a road again
-        const floor = (realActive ? canDrive(groundX, groundZ) : isDrivable(groundX, groundZ) || isFreeDrivable(groundX, groundZ)) ? 0 : (altitude > 0.5 ? 3 : 0);
+        // Building hover only near the deck — high flight must never fight a "floor" and bounce.
+        const onPad = realActive
+          ? canDrive(groundX, groundZ)
+          : (isDrivable(groundX, groundZ) || isFreeDrivable(groundX, groundZ));
+        const floor = onPad ? 0 : (altitude < 18 ? 3 : 0);
         if (altitude >= maxAlt) { altitude = maxAlt; climb = Math.min(climb, 0); }
         if (altitude <= floor) {
           if (floor === 0 && altitude < -climb * delta - 0.01 && climb < -9) {
