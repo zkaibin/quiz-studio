@@ -441,13 +441,14 @@ export function createWorld({ scene, renderer }) {
       box(parent, M.tlGreen, x - side * 0.2, 2.4, z + 0.46, 0.18, 0.18, 0.02);
       box(parent, M.signGreen, x - side * 0.2, 1.4, z - 0.25, 0.14, 0.2, 0.12);
     }
+    // Keep zebra / stop lines flush with asphalt (parent may already sit on a hill).
     const stripes = new THREE.Mesh(new THREE.PlaneGeometry(ROAD_HALF * 2 - 0.6, 3.4), zebraMat);
     stripes.rotation.x = -Math.PI / 2;
-    stripes.position.set(0, 0.006, z - 3.2);
+    stripes.position.set(0, 0.02, z - 3.2);
     stripes.receiveShadow = true;
     parent.add(stripes);
     for (const lane of [LANES[0] / 2 + LANES[1] / 2, LANES[2] / 2 + LANES[3] / 2]) {
-      box(parent, lineMat, lane, 0.005, z + 0.9, ROAD_HALF - 0.5, 0.01, 0.4);
+      box(parent, lineMat, lane, 0.02, z + 0.9, ROAD_HALF - 0.5, 0.008, 0.4);
     }
   }
 

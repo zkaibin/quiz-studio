@@ -2001,6 +2001,7 @@ import {
       free: freeActive,
       shake: camShakeMag
     }),
+    trafficHeights: () => freeCity.trafficHeights?.() || [],
     setCarById: (id) => {
       const car = CARS.find((c) => c.id === id);
       if (!car) return null;
