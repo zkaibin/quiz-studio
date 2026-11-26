@@ -1,7 +1,10 @@
 // Free-roam destruction: flying debris, toppled props, knocked-down pedestrians and traffic the player can crash into.
 import * as THREE from './vendor/three/three.module.min.js';
 import { buildVehicle, disposeVehicle, VEHICLE_TYPES } from './city-vehicles.js';
-import { PITCH, GRID, SIZE, isFreeDrivable, wraps, wrapCoord, currentCity } from './city-map.js';
+import {
+  PITCH, GRID, SIZE, isFreeDrivable, wraps, wrapCoord, currentCity, groundHeight, usesOrganicLayout
+} from './city-map.js';
+import { avenueX, streetZ, LANE_OFFSETS } from './city-terrain.js';
 import { placeObjectOnSphere, planetRadius } from './city-planet.js';
 
 const GRAVITY = 18;
@@ -201,14 +204,32 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
     return car;
   }
 
+  function deckY(x, z) {
+    const city = currentCity();
+    // Match player lift: sit on the heightmapped asphalt (tyre bottoms are authored at y=0).
+    return (!city.planet && usesOrganicLayout(city)) ? groundHeight(x, z) : 0;
+  }
+
   function place(car) {
     if (currentCity().planet) {
       car.model.userData.planetSkipBend = true;
-      placeObjectOnSphere(car.model, car.x, 0, car.z, car.heading, planetRadius());
+      placeObjectOnSphere(car.model, car.x, deckY(car.x, car.z), car.z, car.heading, planetRadius());
       return;
     }
-    car.model.position.set(car.x, 0, car.z);
+    car.model.position.set(car.x, deckY(car.x, car.z), car.z);
     car.model.rotation.y = -car.heading;
+  }
+
+  /** Debug/test helper: live traffic seating vs road height. */
+  function debugHeights() {
+    const counts = {};
+    for (const c of cars) counts[c.state] = (counts[c.state] || 0) + 1;
+    const rows = [...cars.filter((c) => c.state === 'drive'), ...cars.filter((c) => c.state === 'parked')].slice(0, 12).map((c) => ({
+      state: c.state, x: +c.x.toFixed(1), z: +c.z.toFixed(1),
+      y: +c.model.position.y.toFixed(3), deck: +deckY(c.x, c.z).toFixed(3),
+      match: Math.abs(c.model.position.y - deckY(c.x, c.z)) < 0.02
+    }));
+    return { counts, total: cars.length, rows };
   }
 
   function markPlanetSkip(on = true) {
@@ -256,6 +277,8 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
 
   // Traffic runs along the four lanes of the road grid; left-hand drive puts northbound cars on the west side.
   function respawn(car, px, pz) {
+    const city = currentCity();
+    const organic = usesOrganicLayout(city);
     for (let attempt = 0; attempt < 6; attempt++) {
       const alongZ = rand() < 0.5;
       const forward = rand() < 0.5;
@@ -263,13 +286,24 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
       const span = wraps() ? 220 : 360;
       const rawIndex = Math.round(((alongZ ? px : pz) + (rand() - 0.5) * span) / PITCH);
       const index = wraps() ? ((rawIndex % GRID) + GRID) % GRID : Math.max(0, Math.min(GRID, rawIndex));
-      const line = index * PITCH + (forward ? -3.55 : 3.55);
+      // Pick an inner or outer lane on the travel side (wider 4-lane deck).
+      const sideLanes = forward ? LANE_OFFSETS.filter((v) => v < 0) : LANE_OFFSETS.filter((v) => v > 0);
+      const lat = sideLanes[Math.floor(rand() * sideLanes.length)] || (forward ? -3.4 : 3.4);
       const alongRaw = (alongZ ? pz : px) + sign * (90 + rand() * 170);
       const along = wraps() ? wrapCoord(alongRaw) : Math.max(10, Math.min(SIZE - 10, alongRaw));
-      const x = alongZ ? line : along; const z = alongZ ? along : line;
+      let x; let z;
+      if (alongZ) {
+        const centre = organic ? avenueX(index, along, city) : index * PITCH;
+        x = centre + lat;
+        z = along;
+      } else {
+        const centre = organic ? streetZ(index, along, city) : index * PITCH;
+        x = along;
+        z = centre + lat;
+      }
       if (Math.hypot(x - px, z - pz) < 70 || crowded(x, z, car)) continue;
       resetVisual(car);
-      car.lane = { alongZ, line };
+      car.lane = { alongZ, index, lat };
       car.heading = alongZ ? (forward ? 0 : Math.PI) : (forward ? Math.PI / 2 : -Math.PI / 2);
       car.x = x; car.z = z;
       const spec = VEHICLE_TYPES[car.type];
@@ -344,6 +378,12 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
         if (wraps()) {
           car.x = wrapCoord(car.x);
           car.z = wrapCoord(car.z);
+        }
+        // Hold the chosen lane on organic (bent / hilled) roads so traffic stays on asphalt.
+        if (car.lane && usesOrganicLayout(currentCity())) {
+          const { alongZ, index, lat } = car.lane;
+          if (alongZ) car.x = avenueX(index, car.z, currentCity()) + lat;
+          else car.z = streetZ(index, car.x, currentCity()) + lat;
         }
         car.wheelAngle += car.speed * dt / 0.35;
         for (const w of car.model.userData.wheels || []) w.rotation.x = -car.wheelAngle;
@@ -442,5 +482,5 @@ export function createCars({ root, effects, stats, rand = Math.random }) {
     pool.clear();
   }
 
-  return { addParked, removeChunk, update, collidePlayer, clear, projectToPlanet, markPlanetSkip };
+  return { addParked, removeChunk, update, collidePlayer, clear, projectToPlanet, markPlanetSkip, debugHeights };
 }

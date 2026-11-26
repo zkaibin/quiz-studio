@@ -234,13 +234,15 @@ export function createFreeCity({ scene, kit }) {
   function decorateArm(chunk, g, yaw, rand) {
     const f = frame(g, 0, 0, yaw);
     addParkedCars(chunk, f, rand);
-    // Clear 4-lane marks: double centre + edge lines + dashed lane separators.
-    stripe(f, lineMat, -0.14, 0.006, 16, P - 16, 0.1, 0.01);
-    stripe(f, lineMat, 0.14, 0.006, 16, P - 16, 0.1, 0.01);
-    for (const x of [-(ROAD_HALF - 0.7), ROAD_HALF - 0.7]) stripe(f, lineMat, x, 0.005, 6, P - 6, 0.16, 0.01);
-    // Dashes between inner/outer lanes (centre is solid double line above).
-    for (let z = 20; z < P - 16; z += 9) {
-      for (const x of [-6.3, 6.3]) box(f, lineMat, x, 0.005, z + 1.8, 0.14, 0.01, 3.6);
+    // Organic layouts paint lane marks on heightmapped ribbons (see paintLaneMarks) —
+    // flat stripe boxes here would float above hills / miss bent asphalt.
+    if (!usesOrganicLayout(currentCity())) {
+      stripe(f, lineMat, -0.14, 0.006, 16, P - 16, 0.1, 0.01);
+      stripe(f, lineMat, 0.14, 0.006, 16, P - 16, 0.1, 0.01);
+      for (const x of [-(ROAD_HALF - 0.7), ROAD_HALF - 0.7]) stripe(f, lineMat, x, 0.005, 6, P - 6, 0.16, 0.01);
+      for (let z = 20; z < P - 16; z += 9) {
+        for (const x of [-6.3, 6.3]) box(f, lineMat, x, 0.005, z + 1.8, 0.14, 0.01, 3.6);
+      }
     }
     for (let k = 0; k < 5; k++) {
       const za = 22 + k * 16; const zb = 30 + k * 16;
@@ -460,8 +462,9 @@ export function createFreeCity({ scene, kit }) {
       cross.userData.organicRoad = true;
       g.add(cross);
       const paintLaneMarks = (pts) => {
-        // Centre + mid separators + edges so bent stretches stay easy to follow.
+        // Paint just above the asphalt ribbon (yBias 0.02) so marks sit on the deck, not in the air.
         const mids = ROAD_HALF * 0.5;
+        const markBias = 0.022;
         for (const lat of [0, -mids, mids, -(ROAD_HALF - 0.75), ROAD_HALF - 0.75]) {
           const offset = pts.map((p, idx) => {
             const prev = pts[Math.max(0, idx - 1)];
@@ -471,7 +474,7 @@ export function createFreeCity({ scene, kit }) {
             const sx = -tz / len; const sz = tx / len;
             return { x: p.x + sx * lat, y: p.y, z: p.z + sz * lat };
           });
-          const mark = addRibbon(g, lineMat, offset, lat === 0 ? 0.1 : 0.11, 0.04);
+          const mark = addRibbon(g, lineMat, offset, lat === 0 ? 0.1 : 0.11, markBias);
           mark.userData.organicRoad = true;
         }
       };
@@ -496,8 +499,9 @@ export function createFreeCity({ scene, kit }) {
     for (const [exists, yaw] of arms) {
       if (!exists) continue;
       if (organic) {
+        // Seat on the hill once via the lift pass below — do not also set y=crossY or zebra/stop
+        // lines float a full hill-height above the asphalt.
         const f = frame(g, avenueX(i, j * P, city) - i * P, 0, yaw);
-        f.position.y = crossY;
         kit.addTrafficSignals(f, face - 0.8);
       } else {
         kit.addTrafficSignals(frame(g, 0, 0, yaw), FACE - 0.8);
@@ -853,6 +857,7 @@ export function createFreeCity({ scene, kit }) {
     interact,
     animate,
     stats,
+    trafficHeights: () => cars.debugHeights(),
     root,
     get loaded() { return chunks.size; },
     get loadHorizon() { return lastLoad; },
