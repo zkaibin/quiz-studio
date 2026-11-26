@@ -509,7 +509,8 @@ const CIRCUIT_IDS = [
 ];
 for (const r of ROUTES) {
   [r.from, r.to, r.length] = r.trip || TRIPS[r.id];
-  r.circuit = CIRCUIT_IDS[ROUTES.indexOf(r) % CIRCUIT_IDS.length];
+  // Planet Aurelia races the straight equatorial belt; Earth cities keep the oval catalogue.
+  r.circuit = r.city === 'circadia' ? 'orbit-ring' : CIRCUIT_IDS[ROUTES.indexOf(r) % CIRCUIT_IDS.length];
 }
 
 export const DEFAULT_ROUTE_ID = ROUTES[0].id;

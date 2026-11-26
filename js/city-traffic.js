@@ -3,6 +3,7 @@ import * as THREE from './vendor/three/three.module.min.js';
 import { buildVehicle, disposeVehicle, VEHICLE_TYPES } from './city-vehicles.js';
 import { CARS, buildCarModel } from './city-cars.js';
 import { LANES } from './city-world.js';
+import { placeObjectOnSphere } from './city-planet.js';
 
 export const PLAYER_Z = 2.6;
 const PLAYER_HALF_LEN = 2.3;
@@ -143,14 +144,19 @@ export function createTraffic({ scene, rand }) {
     if (!circuitApi) return;
     const t = (r.dist / Math.max(1, circuitApi.length)) % 1;
     const s = circuitApi.sample(t);
-    let side = new THREE.Vector3(-s.tangent.z, 0, s.tangent.x).normalize();
+    const side = new THREE.Vector3(-s.tangent.z, 0, s.tangent.x).normalize();
     const lane = (r.lane === 0 ? -4.5 : 4.5);
     r.x = s.point.x + side.x * lane;
     r.z = s.point.z + side.z * lane;
-    r.y = s.point.y + 0.05;
+    r.y = (s.point.y || 0) + 0.05;
     r.yaw = s.heading;
-    r.model.position.set(r.x, r.y, r.z);
-    r.model.rotation.y = -r.yaw;
+    if (circuitApi.planet) {
+      // Map x/z stay logical; mesh sits on the sphere surface.
+      placeObjectOnSphere(r.model, r.x, 0, r.z, r.yaw);
+    } else {
+      r.model.position.set(r.x, r.y, r.z);
+      r.model.rotation.y = -r.yaw;
+    }
   }
 
   const sameDir = () => [...traffic.filter((v) => v.dir > 0), ...racers];
@@ -292,8 +298,14 @@ export function createTraffic({ scene, rand }) {
       r.wheelAngle += (r.speed * dt) / (r.model.userData.wheelRadius || 0.35);
       for (const w of r.model.userData.wheels) w.rotation.x = -r.wheelAngle;
       for (const p of r.model.userData.frontPivots || []) p.rotation.y = -r.steer;
-      r.model.position.set(r.x, 0, r.z);
-      r.model.rotation.y = -r.yaw;
+      // Circuit racers already posed in placeOnCircuit (flat or sphere).
+      if (!(r.circuit && circuitApi)) {
+        r.model.position.set(r.x, 0, r.z);
+        r.model.rotation.y = -r.yaw;
+      } else if (!circuitApi.planet) {
+        r.model.position.set(r.x, r.y || 0, r.z);
+        r.model.rotation.y = -r.yaw;
+      }
       const tailGlow = r.speed < r.targetSpeed - 0.5 || r.targetSpeed < r.speed - 1 ? 1.8 : 0.5;
       if (r.model.userData.tail) r.model.userData.tail.emissiveIntensity = tailGlow;
     }
@@ -301,10 +313,18 @@ export function createTraffic({ scene, rand }) {
 
   // Returns the first vehicle overlapping the player's box (heading is small enough to ignore).
   function findCollision(playerX, playerZ = PLAYER_Z) {
+    const wrapAware = !!(circuitApi && circuitApi.planet);
+    const wrapD = (a, b) => {
+      if (!wrapAware) return a - b;
+      let d = a - b;
+      const span = circuitApi.length || 1;
+      d -= span * Math.round(d / span);
+      return d;
+    };
     for (const v of [...traffic, ...racers]) {
       if (v.cooldown > 0 || !v.model.visible) continue;
       if (v.circuit) {
-        if (Math.hypot(v.x - playerX, v.z - playerZ) < PLAYER_HALF_LEN + v.halfLen - 0.2) return v;
+        if (Math.hypot(wrapD(v.x, playerX), wrapD(v.z, playerZ)) < PLAYER_HALF_LEN + v.halfLen - 0.2) return v;
         continue;
       }
       if (Math.abs(v.z - playerZ) < PLAYER_HALF_LEN + v.halfLen - 0.35 && Math.abs(v.x - playerX) < PLAYER_HALF_WIDTH + v.halfWidth - 0.1) return v;

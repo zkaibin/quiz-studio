@@ -1,13 +1,16 @@
 // Closed racing circuits with elevation, hairpins and chicanes — used by Racing circuit mode.
+// Planet cities use createPlanetOrbitTrack: a straight equatorial belt around the sphere-net.
 import * as THREE from './vendor/three/three.module.min.js';
 import { asphaltTexture, grassTexture, checkerTexture, signTexture } from './city-gfx.js';
 import { stdMat } from './city-vehicles.js';
+import { SIZE, wrapCoord } from './city-map.js';
 
 // Wide 4-lane deck so beginners can hold a clear line.
-const HALF = 16;
-const HALF_EASY = 17;
+const HALF = 17;
+const HALF_EASY = 18;
 
 // Control points are [x, y, z]. Loops are closed Catmull–Rom ribbons.
+// Sized large with long straights — soft corners instead of tight hairpins.
 const CIRCUITS = [
   {
     id: 'boulevard',
@@ -22,9 +25,9 @@ const CIRCUITS = [
     sunColor: 0xffefd2,
     width: HALF_EASY,
     points: [
-      [0, 0, 0], [90, 0.2, -40], [160, 0.4, -20], [180, 0.5, 40],
-      [140, 0.4, 100], [60, 0.2, 120], [-40, 0.1, 100], [-100, 0, 40],
-      [-90, 0, -20], [-30, 0, -50]
+      [0, 0, 0], [160, 0.2, -60], [300, 0.3, -40], [360, 0.4, 40],
+      [300, 0.3, 160], [140, 0.2, 220], [-60, 0.1, 180], [-200, 0, 60],
+      [-180, 0, -40], [-60, 0, -80]
     ]
   },
   {
@@ -40,9 +43,9 @@ const CIRCUITS = [
     sunColor: 0xfff1d6,
     width: HALF_EASY,
     points: [
-      [0, 0, 0], [70, 0.3, -50], [120, 0.6, -30], [130, 0.8, 30],
-      [90, 1.0, 80], [20, 0.6, 100], [-50, 0.3, 70], [-80, 0.1, 10],
-      [-50, 0, -40]
+      [0, 0, 0], [140, 0.3, -90], [240, 0.5, -50], [260, 0.6, 60],
+      [180, 0.8, 160], [40, 0.5, 200], [-100, 0.3, 140], [-160, 0.1, 20],
+      [-100, 0, -80]
     ]
   },
   {
@@ -58,9 +61,9 @@ const CIRCUITS = [
     sunColor: 0xffefd2,
     width: HALF,
     points: [
-      [0, 0, 0], [50, 0.8, -100], [130, 2.0, -140], [200, 3.5, -100],
-      [220, 5.0, -20], [180, 4.0, 70], [100, 2.5, 120], [20, 1.2, 130],
-      [-60, 0.6, 90], [-120, 0.2, 20], [-100, 0, -50]
+      [0, 0, 0], [100, 0.6, -180], [260, 1.5, -260], [400, 2.8, -180],
+      [440, 4.0, -20], [360, 3.2, 140], [200, 2.0, 240], [40, 1.0, 260],
+      [-120, 0.5, 180], [-240, 0.2, 40], [-200, 0, -100]
     ]
   },
   {
@@ -76,16 +79,16 @@ const CIRCUITS = [
     sunColor: 0xffb878,
     width: HALF_EASY,
     points: [
-      [0, 0, 0], [100, 0.3, -50], [200, 0.8, -40], [260, 1.5, 40],
-      [230, 2.5, 130], [140, 2.0, 180], [40, 1.0, 180], [-60, 0.4, 130],
-      [-140, 0.1, 50], [-140, 0, -20], [-60, 0, -50]
+      [0, 0, 0], [200, 0.3, -80], [400, 0.6, -60], [520, 1.2, 80],
+      [460, 2.0, 260], [280, 1.6, 360], [80, 0.8, 360], [-120, 0.3, 260],
+      [-280, 0.1, 100], [-280, 0, -40], [-120, 0, -100]
     ]
   },
   {
     id: 'ridge-switch',
     name: 'Ridge Switchbacks',
     area: 'HILL CLIMB',
-    blurb: 'Climbing hairpins that test braking — still a wide 4-lane deck',
+    blurb: 'Climbing sweeps with room to brake — wide 4-lane deck',
     difficulty: 'challenge',
     sky: 0xb7d4e8,
     ground: 0x7a8f6a,
@@ -94,17 +97,17 @@ const CIRCUITS = [
     sunColor: 0xffe8c8,
     width: HALF,
     points: [
-      [0, 0, 0], [40, 2.0, -80], [30, 5.0, -140], [-30, 9.0, -160],
-      [-90, 12.0, -110], [-80, 13.0, -40], [-20, 11.0, 0], [50, 8.0, 40],
-      [90, 5.0, 90], [60, 3.0, 140], [0, 1.5, 150], [-50, 0.5, 90],
-      [-30, 0.2, 30]
+      [0, 0, 0], [100, 1.5, -160], [80, 4.0, -280], [-40, 7.0, -340],
+      [-200, 10.0, -240], [-180, 11.0, -80], [-40, 9.0, 20], [120, 6.5, 100],
+      [200, 4.0, 200], [140, 2.5, 300], [0, 1.2, 320], [-120, 0.4, 200],
+      [-60, 0.2, 60]
     ]
   },
   {
     id: 'arena-tech',
     name: 'Arena Technical',
     area: 'STADIUM',
-    blurb: 'Chicanes and esses — wider lanes so you can correct mid-corner',
+    blurb: 'Flowing esses on a big stadium ring — room to correct mid-corner',
     difficulty: 'challenge',
     sky: 0xc5d0d8,
     ground: 0x8a9278,
@@ -113,16 +116,16 @@ const CIRCUITS = [
     sunColor: 0xfff0d8,
     width: HALF,
     points: [
-      [0, 0, 0], [60, 0.2, -70], [110, 0.3, -40], [120, 0.4, 20],
-      [80, 0.6, 60], [20, 0.7, 50], [-20, 0.8, 90], [-70, 0.6, 110],
-      [-120, 0.4, 60], [-130, 0.2, 0], [-80, 0.1, -50], [-20, 0, -70]
+      [0, 0, 0], [140, 0.2, -160], [260, 0.3, -100], [280, 0.4, 60],
+      [180, 0.5, 140], [40, 0.6, 120], [-60, 0.6, 200], [-180, 0.5, 240],
+      [-280, 0.3, 120], [-300, 0.2, -20], [-180, 0.1, -120], [-40, 0, -160]
     ]
   },
   {
     id: 'night-helix',
     name: 'Helix Night Run',
     area: 'FLOODLIT',
-    blurb: 'Floodlit elevation and a double-apex — for confident drivers',
+    blurb: 'Floodlit elevation on a long oval — for confident drivers',
     difficulty: 'challenge',
     night: true,
     sky: 0x1a2248,
@@ -132,9 +135,9 @@ const CIRCUITS = [
     sunColor: 0x9fb4ff,
     width: HALF,
     points: [
-      [0, 0, 0], [70, 0.8, -60], [120, 2.0, -20], [110, 3.5, 50],
-      [40, 5.0, 90], [-40, 5.5, 70], [-90, 4.0, 20], [-70, 2.5, -50],
-      [-10, 1.0, -80], [50, 0.4, -70]
+      [0, 0, 0], [160, 0.6, -140], [280, 1.8, -60], [260, 3.2, 120],
+      [80, 4.5, 200], [-100, 4.8, 160], [-220, 3.5, 40], [-180, 2.0, -120],
+      [-20, 0.8, -180], [120, 0.3, -160]
     ]
   },
   {
@@ -150,16 +153,33 @@ const CIRCUITS = [
     sunColor: 0xfff0cc,
     width: HALF,
     points: [
-      [0, 0, 0], [80, 1.5, -60], [150, 3.5, -30], [170, 2.0, 50],
-      [110, 0.8, 110], [30, 2.5, 140], [-50, 4.0, 90], [-110, 2.0, 30],
-      [-120, 0.8, -40], [-50, 0.3, -70]
+      [0, 0, 0], [180, 1.2, -140], [320, 3.0, -80], [360, 1.8, 100],
+      [240, 0.6, 240], [60, 2.0, 300], [-120, 3.5, 200], [-240, 1.6, 60],
+      [-260, 0.6, -100], [-120, 0.2, -160]
     ]
+  },
+  // Planet-only catalogue entry (visuals come from the sphere-net street, not a flat ribbon).
+  {
+    id: 'orbit-ring',
+    name: 'Equator Orbit',
+    area: 'SPHERE BELT',
+    blurb: 'Straight equatorial highway — one full lap around the planet',
+    difficulty: 'easy',
+    planet: true,
+    sky: 0x6a98b8,
+    ground: 0x2a3348,
+    hemi: 1.7,
+    sun: 2.0,
+    sunColor: 0xffe6a8,
+    width: HALF_EASY,
+    points: [[0, 0, 0], [100, 0, 0], [200, 0, 0], [300, 0, 0]]
   }
 ];
 
 function buildCurve(points) {
   const pts = points.map(([x, y, z]) => new THREE.Vector3(x, y, z));
-  return new THREE.CatmullRomCurve3(pts, true, 'catmullrom', 0.45);
+  // Lower tension = softer, wider corners on the enlarged circuits.
+  return new THREE.CatmullRomCurve3(pts, true, 'catmullrom', 0.32);
 }
 
 // Horizontal sideways unit from the XZ tangent.
@@ -201,7 +221,6 @@ function ribbonFromCurve(curve, halfW, samples = 280, yBias = 0.05) {
     uvs.push(0, dist / 8, 1, dist / 8);
     if (i > 0) {
       const a = (i - 1) * 2;
-      // Winding so normals face up with standard right-hand rule after computeVertexNormals.
       indices.push(a, a + 2, a + 1, a + 1, a + 2, a + 3);
     }
   }
@@ -255,7 +274,6 @@ function nearestOnCurve(curve, x, y, z, samples = 240) {
     const d = (p.x - x) ** 2 + (p.z - z) ** 2;
     if (d < bestD) { bestD = d; bestT = t; }
   }
-  // Refine locally.
   let lo = bestT - 2 / samples;
   let hi = bestT + 2 / samples;
   for (let k = 0; k < 8; k++) {
@@ -272,19 +290,107 @@ function nearestOnCurve(curve, x, y, z, samples = 240) {
   const t = (((lo + hi) / 2) % 1 + 1) % 1;
   curve.getPointAt(t, p);
   const tangent = curve.getTangentAt(t).normalize();
-  const heading = Math.atan2(tangent.x, -tangent.z);
   const side = Math.sign((x - p.x) * (-tangent.z) - (z - p.z) * tangent.x) || 1;
   const lat = side * Math.hypot(x - p.x, z - p.z);
   return { t, point: p.clone(), tangent, heading: Math.atan2(tangent.x, -tangent.z), lateral: lat, dist: Math.hypot(x - p.x, z - p.z) };
 }
 
 export function circuitsFor(_cityId) {
-  // Shared catalogue for every city — each route picks one by index.
   return CIRCUITS;
 }
 
 export function circuitById(id) {
   return CIRCUITS.find((c) => c.id === id) || CIRCUITS[0];
+}
+
+/**
+ * Straight equatorial race belt for sphere-net planets.
+ * Uses flat map coords (x wraps 0..SIZE, z fixed at equator); the driving layer
+ * places cars on the globe via placeObjectOnSphere.
+ */
+export function createPlanetOrbitTrack() {
+  const halfW = HALF_EASY;
+  const active = circuitById('orbit-ring');
+  const equatorZ = () => SIZE * 0.5;
+  const wrapD = (a, b) => {
+    let d = a - b;
+    d -= SIZE * Math.round(d / SIZE);
+    return d;
+  };
+
+  function sample(t) {
+    const u = ((t % 1) + 1) % 1;
+    const x = wrapCoord(u * SIZE);
+    const z = equatorZ();
+    const point = new THREE.Vector3(x, 0, z);
+    const tangent = new THREE.Vector3(1, 0, 0);
+    return { t: u, point, tangent, heading: Math.PI / 2 };
+  }
+
+  function project(x, z) {
+    const z0 = equatorZ();
+    let lat = z - z0;
+    lat -= SIZE * Math.round(lat / SIZE);
+    const t = ((wrapCoord(x) / SIZE) % 1 + 1) % 1;
+    const point = new THREE.Vector3(wrapCoord(x), 0, z0);
+    const tangent = new THREE.Vector3(1, 0, 0);
+    return {
+      t,
+      point,
+      tangent,
+      heading: Math.PI / 2,
+      lateral: lat,
+      dist: Math.abs(lat)
+    };
+  }
+
+  function isOnTrack(x, z, margin = 0.6) {
+    return project(x, z).dist <= halfW + margin;
+  }
+
+  function heightAt() {
+    return 0;
+  }
+
+  function clampToTrack(x, z) {
+    const hit = project(x, z);
+    if (hit.dist <= halfW - 0.35) return { x: wrapCoord(x), z, hit };
+    const sign = Math.sign(hit.lateral) || 1;
+    const lim = halfW - 0.35;
+    return { x: wrapCoord(x), z: wrapCoord(equatorZ() + lim * sign), hit };
+  }
+
+  function progressOf(x) {
+    return wrapCoord(x);
+  }
+
+  function spawn(laneOffset = 0) {
+    const lat = THREE.MathUtils.clamp(laneOffset, -halfW * 0.55, halfW * 0.55);
+    // Right-hand planet drive eastbound → keep right (south = +z).
+    const z = equatorZ() + Math.abs(lat);
+    return { x: 40, y: 0, z, heading: Math.PI / 2 };
+  }
+
+  return {
+    root: null,
+    planet: true,
+    get length() { return SIZE; },
+    get halfWidth() { return halfW; },
+    get circuit() { return active; },
+    sample,
+    project,
+    isOnTrack,
+    heightAt,
+    clampToTrack,
+    progressOf,
+    spawn,
+    setCircuit() {},
+    setVisible() {},
+    followLights() {},
+    dispose() {},
+    wrapDelta: wrapD,
+    list: CIRCUITS
+  };
 }
 
 export function createCircuitTrack({ scene, renderer, circuit }) {
@@ -309,7 +415,6 @@ export function createCircuitTrack({ scene, renderer, circuit }) {
   const roadMat = new THREE.MeshStandardMaterial({
     map: asphalt, color: 0x555a60, roughness: 0.92, metalness: 0.02, side: THREE.DoubleSide
   });
-  // Slight emissive so software/low-light GL still reads a solid deck.
   roadMat.emissive = new THREE.Color(0x1a1c1e);
   roadMat.emissiveIntensity = 0.15;
   const grassMat = new THREE.MeshStandardMaterial({ map: grass, color: active.ground, roughness: 0.95 });
@@ -338,33 +443,28 @@ export function createCircuitTrack({ scene, renderer, circuit }) {
       c.traverse((o) => { if (o.geometry) o.geometry.dispose(); });
     }
 
-    const ground = new THREE.Mesh(new THREE.CircleGeometry(420, 48), grassMat);
+    const ground = new THREE.Mesh(new THREE.CircleGeometry(720, 48), grassMat);
     ground.rotation.x = -Math.PI / 2;
     ground.position.y = -0.2;
     ground.receiveShadow = true;
     decor.add(ground);
 
-    roadMesh = new THREE.Mesh(ribbonFromCurve(curve, halfW, 320), roadMat);
+    roadMesh = new THREE.Mesh(ribbonFromCurve(curve, halfW, 360), roadMat);
     roadMesh.receiveShadow = true;
     roadMesh.castShadow = false;
     root.add(roadMesh);
 
-    const curbGeoL = curbRibbon(curve, halfW, 1, 220);
-    const curbGeoR = curbRibbon(curve, halfW, -1, 220);
-    const curbL = new THREE.Mesh(curbGeoL, curbA);
-    const curbR = new THREE.Mesh(curbGeoR, curbB);
-    decor.add(curbL, curbR);
+    const curbGeoL = curbRibbon(curve, halfW, 1, 240);
+    const curbGeoR = curbRibbon(curve, halfW, -1, 240);
+    decor.add(new THREE.Mesh(curbGeoL, curbA), new THREE.Mesh(curbGeoR, curbB));
 
-    // Clear 4-lane markings: centre divider + mid separators + edge lines.
-    // Width splits into four equal lanes (boundaries at 0, ±halfW/2, ±halfW).
     const mark = (w, yLift = 0.05) => {
-      const m = new THREE.Mesh(ribbonFromCurve(curve, w, 220, yLift), lineMat);
-      decor.add(m);
+      decor.add(new THREE.Mesh(ribbonFromCurve(curve, w, 240, yLift), lineMat));
     };
-    mark(0.12, 0.06); // centre
+    mark(0.12, 0.06);
     const mid = halfW * 0.5;
     for (const lat of [-mid, mid, -halfW + 0.75, halfW - 0.75]) {
-      const pts = samplePath(curve, 200);
+      const pts = samplePath(curve, 220);
       const positions = [];
       const indices = [];
       const hw = 0.09;
@@ -393,9 +493,8 @@ export function createCircuitTrack({ scene, renderer, circuit }) {
       decor.add(new THREE.Mesh(geo, lineMat));
     }
 
-    // Continuous barrier walls outside the racing line.
     for (const s of [-1, 1]) {
-      const pts = samplePath(curve, 160);
+      const pts = samplePath(curve, 180);
       const positions = [];
       const indices = [];
       for (let i = 0; i < pts.length; i++) {
@@ -453,7 +552,6 @@ export function createCircuitTrack({ scene, renderer, circuit }) {
     gate.add(finishLine);
     decor.add(gate);
 
-    // Tire stacks at hairpin cues (high curvature samples).
     for (let i = 0; i < 36; i++) {
       const t = i / 36;
       const tan0 = curve.getTangentAt(t);
@@ -461,7 +559,7 @@ export function createCircuitTrack({ scene, renderer, circuit }) {
       const bend = 1 - Math.max(-1, Math.min(1, tan0.dot(tan1)));
       if (bend < 0.08) continue;
       const p = curve.getPointAt(t);
-      let sideN = new THREE.Vector3(-tan0.z, 0, tan0.x).normalize();
+      const sideN = new THREE.Vector3(-tan0.z, 0, tan0.x).normalize();
       const stack = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 0.9, 10), stdMat(0x1a1a1a, { rough: 0.9 }));
       stack.position.set(p.x + sideN.x * (halfW + 2.2), p.y + 0.45, p.z + sideN.z * (halfW + 2.2));
       decor.add(stack);
@@ -474,8 +572,7 @@ export function createCircuitTrack({ scene, renderer, circuit }) {
     const u = ((t % 1) + 1) % 1;
     const point = curve.getPointAt(u);
     const tangent = curve.getTangentAt(u).normalize();
-    const heading = Math.atan2(tangent.x, -tangent.z);
-    return { point, tangent, heading, t: u };
+    return { t: u, point, tangent, heading: Math.atan2(tangent.x, -tangent.z) };
   }
 
   function project(x, z) {
@@ -483,8 +580,7 @@ export function createCircuitTrack({ scene, renderer, circuit }) {
   }
 
   function isOnTrack(x, z, margin = 0.6) {
-    const hit = project(x, z);
-    return hit.dist <= halfW + margin;
+    return project(x, z).dist <= halfW + margin;
   }
 
   function heightAt(x, z) {
@@ -495,7 +591,7 @@ export function createCircuitTrack({ scene, renderer, circuit }) {
     const hit = project(x, z);
     if (hit.dist <= halfW - 0.35) return { x, z, hit };
     const tan = hit.tangent;
-    let side = new THREE.Vector3(-tan.z, 0, tan.x).normalize();
+    const side = new THREE.Vector3(-tan.z, 0, tan.x).normalize();
     const sign = Math.sign((x - hit.point.x) * side.x + (z - hit.point.z) * side.z) || 1;
     const lim = halfW - 0.35;
     return {
@@ -512,7 +608,6 @@ export function createCircuitTrack({ scene, renderer, circuit }) {
   function spawn(laneOffset = 0) {
     const s = sample(0.018);
     const side = horizontalSide(s.tangent);
-    // Keep starting grid well inside the asphalt deck.
     const lat = THREE.MathUtils.clamp(laneOffset, -halfW * 0.55, halfW * 0.55);
     return {
       x: s.point.x + side.x * lat,
@@ -531,7 +626,6 @@ export function createCircuitTrack({ scene, renderer, circuit }) {
   }
 
   function followLights(followPlayer) {
-    // Optional hook — circuit uses world lighting from createWorld.
     if (followPlayer) followPlayer(sample(0).point.x, sample(0).point.z);
   }
 
@@ -546,6 +640,7 @@ export function createCircuitTrack({ scene, renderer, circuit }) {
 
   return {
     root,
+    planet: false,
     get length() { return length; },
     get halfWidth() { return halfW; },
     get circuit() { return active; },

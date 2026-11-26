@@ -11,7 +11,7 @@ import { createFreeCity } from './city-free.js';
 import { createRealCity } from './city-real.js';
 import { createCityAudio } from './city-audio.js';
 import { createCityFx, createSpeedOverlay } from './city-fx.js';
-import { createCircuitTrack, circuitById } from './city-circuit.js';
+import { createCircuitTrack, createPlanetOrbitTrack, circuitById } from './city-circuit.js';
 import {
   PITCH, GRID, SIZE, DRIVE_LIMIT, setCity, currentCity, cellInfo, infoAt, isDrivable, isFreeDrivable,
   kerbOffset, spawnFor, DISTRICT_COLORS, wrapCoord, wraps, groundHeight, usesOrganicLayout, avenueX, streetZ
@@ -46,10 +46,13 @@ import {
   const freeCity = createFreeCity({ scene, kit: world.kit });
   const realCity = createRealCity({ scene });
   const circuitTrack = createCircuitTrack({ scene, renderer, circuit: circuitById('harbor-gp') });
+  const planetOrbitTrack = createPlanetOrbitTrack();
+  let raceTrack = circuitTrack;
   trafficSystem.bindCircuit(null);
   let circuitActive = false;
   let circuitT = 0;
-  const tripLength = () => (circuitActive ? Math.round(circuitTrack.length) : route.length);
+  let orbitLastX = 0;
+  const tripLength = () => (circuitActive ? Math.round(raceTrack.length) : route.length);
   const audio = createCityAudio();
   const fx = createCityFx({ scene });
   const overlay = createSpeedOverlay(document.querySelector('.city-game'));
@@ -96,7 +99,7 @@ import {
   function applyRoute(next) {
     route = next;
     rand = lcg(28 + ROUTES.indexOf(route) * 97);
-    if (route.circuit) circuitTrack.setCircuit(circuitById(route.circuit));
+    if (route.circuit && !circuitById(route.circuit).planet) circuitTrack.setCircuit(circuitById(route.circuit));
     while (blocks.length) {
       const old = blocks.pop();
       scene.remove(old);
@@ -131,7 +134,9 @@ import {
       return;
     }
     const circuit = circuitById(route.circuit);
-    const lapM = Math.round(circuitTrack.length || route.length);
+    const lapM = circuit.planet
+      ? Math.round(SIZE)
+      : Math.round(circuitTrack.length || route.length);
     const tier = circuit.difficulty === 'easy' ? 'Beginner' : (circuit.difficulty === 'challenge' ? 'Challenge' : 'Standard');
     const bonus = ` · race +${RACE_BONUS[0]} pts`;
     routeNameOutput.textContent = `${circuit.name} (${tier}) · ${(lapM / 1000).toFixed(1)} km · ${tripReward(route)} pts${bonus}`;
@@ -491,9 +496,12 @@ import {
       const skyBack = isPlanet()
         ? THREE.MathUtils.lerp(22, Math.max(90, planetRadius() * 0.4 + carY * 0.28), planetSky)
         : 40 + carY * 0.03;
-      back = THREE.MathUtils.lerp(THREE.MathUtils.lerp(11.8, 22, flyBlend), skyBack, isPlanet() ? planetSky : flyBlend * 0.25);
+      // Equator orbit race: pull back a touch so the whole car stays framed on the curved deck.
+      const chaseBack = (isPlanet() && circuitActive) ? 14.5 : 11.8;
+      const chaseHeight = (isPlanet() && circuitActive) ? 6.4 : 5.2;
+      back = THREE.MathUtils.lerp(THREE.MathUtils.lerp(chaseBack, 22, flyBlend), skyBack, isPlanet() ? planetSky : flyBlend * 0.25);
       height = isPlanet()
-        ? THREE.MathUtils.lerp(THREE.MathUtils.lerp(5.2, 16, flyBlend), 50 + carY * 0.18, planetSky)
+        ? THREE.MathUtils.lerp(THREE.MathUtils.lerp(chaseHeight, 16, flyBlend), 50 + carY * 0.18, planetSky)
         : carY + THREE.MathUtils.lerp(THREE.MathUtils.lerp(5.2 - speedRatio * 0.45, 16 + flyBlend * 10, flyBlend), 60 + carY * 0.1, planetSky);
       lookAhead = THREE.MathUtils.lerp(THREE.MathUtils.lerp(16, 7, flyBlend), 4, planetSky);
       lookDown = isPlanet() ? THREE.MathUtils.lerp(0, Math.min(24 + carY * 0.03, planetRadius() * 0.12), planetSky) : 0;
@@ -972,25 +980,53 @@ import {
     freeActive = true; // reuse free-style steering / heading
     world.setFreeMode(true);
     blocks.forEach((block) => { block.visible = false; });
-    freeCity.setVisible(false);
     realCity.setVisible(false);
-    circuitTrack.setVisible(true);
-    trafficSystem.bindCircuit(circuitTrack);
     finishGate.visible = false;
     smashStat.hidden = true;
     const circuit = circuitById(route.circuit);
     areaLabel = circuit.area;
     locationName.textContent = circuit.name;
-    const spawn = circuitTrack.spawn(-4.5);
+    const onPlanet = isPlanet();
+    // Planet races the straight equatorial belt on the live sphere-net city.
+    // Earth races a flat oval ribbon (hide free city).
+    raceTrack = onPlanet ? planetOrbitTrack : circuitTrack;
+    freeCity.setVisible(onPlanet);
+    circuitTrack.setVisible(!onPlanet);
+    if (!onPlanet) circuitTrack.setCircuit(circuit);
+    trafficSystem.bindCircuit(raceTrack);
+    const spawn = raceTrack.spawn(onPlanet ? 4.5 : -4.5);
     mapX = spawn.x;
     mapZ = spawn.z;
     heading = spawn.heading;
     camHeading = heading;
     circuitT = 0.02;
-    player.position.set(spawn.x, spawn.y, spawn.z);
-    player.rotation.set(0, -heading, 0);
-    world.setPlanetSky(false);
-    world.followPlayer(spawn.x, spawn.z, true);
+    orbitLastX = mapX;
+    altitude = 0;
+    climb = 0;
+    if (onPlanet) {
+      freeCity.prefill(mapX, mapZ, Date.now() / 1000);
+      placeObjectOnSphere(player, mapX, 0, mapZ, heading);
+      const pose = poseOnSphere(mapX, 40, mapZ, heading);
+      camPos.copy(pose.position).addScaledVector(pose.up, 8).addScaledVector(pose.north, -18);
+      camLook.copy(pose.position);
+      camUp.copy(pose.up);
+      camera.up.copy(camUp);
+      camera.position.copy(camPos);
+      camera.lookAt(camLook);
+      world.setPlanetSky(true);
+      world.followPlanetPlayer(player.position, {
+        altitude: 0, cameraPosition: camPos, sunDirs: freeCity.sunDirs()
+      });
+      scene.fog.near = 70;
+      scene.fog.far = Math.max(420, planetRadius() * 1.4);
+    } else {
+      player.position.set(spawn.x, spawn.y, spawn.z);
+      player.rotation.set(0, -heading, 0);
+      world.setPlanetSky(false);
+      world.followPlayer(spawn.x, spawn.z, true);
+      scene.fog.near = 90;
+      scene.fog.far = 520;
+    }
     world.setRoute({
       ...route,
       sky: circuit.sky,
@@ -1002,8 +1038,6 @@ import {
       water: 0,
       area: circuit.area
     });
-    scene.fog.near = 90;
-    scene.fog.far = 380;
     minimap.hidden = false;
     mapTimer = 0;
   }
@@ -1013,6 +1047,7 @@ import {
     circuitActive = false;
     circuitTrack.setVisible(false);
     trafficSystem.bindCircuit(null);
+    raceTrack = circuitTrack;
   }
 
   function enterFree() {
@@ -1098,22 +1133,38 @@ import {
   }
 
   function updateCircuitDrive(delta) {
-    const px = player.position.x;
-    const pz = player.position.z;
-    const hit = circuitTrack.project(px, pz);
-    let dT = hit.t - circuitT;
-    if (dT < -0.5) dT += 1;
-    if (dT > 0.5) dT -= 1;
-    if (dT > 0) distance += dT * circuitTrack.length;
-    circuitT = hit.t;
-    mapX = px;
-    mapZ = pz;
-    world.followPlayer(px, pz);
+    const onPlanet = isPlanet() && raceTrack.planet;
+    // Planet: keep logical mapX/mapZ from sphere physics. Earth: project world XZ onto the ribbon.
+    const px = onPlanet ? mapX : player.position.x;
+    const pz = onPlanet ? mapZ : player.position.z;
+    if (onPlanet) {
+      // Progress along the equatorial belt from wrapped +X travel.
+      let dX = px - orbitLastX;
+      dX -= SIZE * Math.round(dX / SIZE);
+      if (dX > 0) distance += dX;
+      orbitLastX = px;
+      circuitT = ((wrapCoord(px) / SIZE) % 1 + 1) % 1;
+      freeCity.update(px, pz, Date.now() / 1000, 1, altitude);
+      freeCity.animate(delta, { x: px, z: pz, heading, speed });
+      world.followPlanetPlayer(player.position, {
+        altitude, cameraPosition: camPos, sunDirs: freeCity.sunDirs()
+      });
+    } else {
+      const hit = raceTrack.project(px, pz);
+      let dT = hit.t - circuitT;
+      if (dT < -0.5) dT += 1;
+      if (dT > 0.5) dT -= 1;
+      if (dT > 0) distance += dT * raceTrack.length;
+      circuitT = hit.t;
+      mapX = px;
+      mapZ = pz;
+      world.followPlayer(px, pz);
+    }
     impactShake = Math.max(0, impactShake - delta * 1.2);
 
     const circuit = circuitById(route.circuit);
     if (locationName.textContent !== circuit.name) locationName.textContent = circuit.name;
-    if (roadName.textContent !== 'RACING LINE') roadName.textContent = 'RACING LINE';
+    if (roadName.textContent !== 'RACING LINE') roadName.textContent = onPlanet ? 'EQUATOR BELT' : 'RACING LINE';
 
     const length = tripLength();
     trafficSystem.update(delta, {
@@ -1136,7 +1187,10 @@ import {
     const speedRatio = Math.min(1, Math.abs(speed) / 60);
     if (Math.abs(speed) > 55) camHeading = heading;
     else camHeading += Math.atan2(Math.sin(heading - camHeading), Math.cos(heading - camHeading)) * Math.min(1, delta * 4);
-    updateCamera(delta, { px, py: player.position.y, pz, heading, speedRatio, free: true });
+    // Planet cameras must use altitude (not world Y) or the lens flies into orbit.
+    updateCamera(delta, {
+      px, py: onPlanet ? altitude : player.position.y, pz, heading, speedRatio, free: true
+    });
     speedOutput.textContent = String(Math.round(Math.abs(speed) * 3.6));
     distanceOutput.textContent = (distance / 1000).toFixed(1);
     updateTrip();
@@ -1148,14 +1202,16 @@ import {
     mapTimer -= delta;
     if (mapTimer <= 0) {
       mapTimer = 0.12;
-      drawCircuitMinimap();
+      if (onPlanet) drawMinimap();
+      else drawCircuitMinimap();
     }
     if (distance >= length && !tripDone) finishTrip();
   }
 
   function drawCircuitMinimap() {
     const size = minimap.width;
-    const k = size / 520;
+    // Larger Earth circuits need a wider minimap scale.
+    const k = size / 900;
     minimapCtx.clearRect(0, 0, size, size);
     minimapCtx.fillStyle = '#1a2430';
     minimapCtx.beginPath();
@@ -1170,7 +1226,7 @@ import {
     minimapCtx.lineWidth = 5;
     minimapCtx.beginPath();
     for (let i = 0; i <= 120; i++) {
-      const p = circuitTrack.sample(i / 120).point;
+      const p = raceTrack.sample(i / 120).point;
       if (i === 0) minimapCtx.moveTo(p.x * k, p.z * k);
       else minimapCtx.lineTo(p.x * k, p.z * k);
     }
@@ -1332,7 +1388,7 @@ import {
     } else if (isRace()) {
       // Closed circuit: only AI racers on the racing line.
       trafficSystem.clearTraffic();
-      trafficSystem.bindCircuit(circuitTrack);
+      trafficSystem.bindCircuit(raceTrack);
       trafficSystem.setupRace({ playerCar: currentCar, playerColor: colorOf(currentCar), count: 5 });
       racePanel.hidden = false;
       raceTotal.textContent = `/${trafficSystem.racers.length + 1}`;
@@ -1557,7 +1613,9 @@ import {
     }
     // Circuits: gently help the nose follow the racing line when the stick is neutral.
     if (circuitActive && Math.abs(input) < 0.08 && Math.abs(speed) > 8) {
-      const hit = circuitTrack.project(player.position.x, player.position.z);
+      const hx = raceTrack.planet ? mapX : player.position.x;
+      const hz = raceTrack.planet ? mapZ : player.position.z;
+      const hit = raceTrack.project(hx, hz);
       const align = Math.atan2(Math.sin(hit.heading - heading), Math.cos(hit.heading - heading));
       steerTarget = THREE.MathUtils.clamp(align * 0.7, -maxSteer * 1.5, maxSteer * 1.5);
     }
@@ -1569,7 +1627,7 @@ import {
       // Open city: the heading is unbounded and the car moves in world x/z; leaving the road surface scrapes and slides.
       const airborne = altitude > 1.5 && !circuitActive;
       const canDrive = circuitActive
-        ? (x, z) => circuitTrack.isOnTrack(x, z)
+        ? (x, z) => raceTrack.isOnTrack(x, z)
         : (realActive ? realCity.isDrivable : isFreeDrivable);
       const step = speed * delta;
       // Substep long moves so high speed (~300 km/h) doesn't tunnel into buildings and "bounce".
@@ -1619,8 +1677,10 @@ import {
         }
         mapX = wrapCoord(mapX);
         mapZ = wrapCoord(mapZ);
-        // Hyper: still smash props/NPCs for feedback, but ignore push/shake/speed — racing has no street furniture.
-        const crash = airborne ? { dx: 0, dz: 0, speed, shake: 0 } : freeCity.interact({ x: mapX, z: mapZ, heading, speed });
+        // Orbit race (and hyper flight) skip street-furniture smash — keep the equatorial line clean.
+        const crash = (airborne || circuitActive)
+          ? { dx: 0, dz: 0, speed, shake: 0 }
+          : freeCity.interact({ x: mapX, z: mapZ, heading, speed });
         if (Math.abs(speed) <= 55 && !airborne && (crash.dx || crash.dz) && Math.hypot(crash.dx, crash.dz) > 1e-4) {
           const pushLen = Math.min(Math.hypot(crash.dx, crash.dz), Math.abs(speed) > 40 ? 0.45 : 1.25);
           // Planet forward is +Z for heading 0 — push heading uses atan2(dx, dz).
@@ -1650,7 +1710,7 @@ import {
             let sx = nx;
             let sz = nz;
             if (circuitActive) {
-              const clamped = circuitTrack.clampToTrack(nx, nz);
+              const clamped = raceTrack.clampToTrack(nx, nz);
               sx = clamped.x; sz = clamped.z;
             } else if (usesOrganicLayout(currentCity())) {
               const clamped = softKerbClamp(nx, nz, currentCity());
@@ -1717,12 +1777,12 @@ import {
       const groundX = isPlanet() ? mapX : player.position.x;
       const groundZ = isPlanet() ? mapZ : player.position.z;
       const onDrivePad = circuitActive
-        ? circuitTrack.isOnTrack(groundX, groundZ)
+        ? raceTrack.isOnTrack(groundX, groundZ)
         : realActive
           ? canDrive(groundX, groundZ)
           : (isDrivable(groundX, groundZ) || isFreeDrivable(groundX, groundZ));
       const deck = circuitActive
-        ? circuitTrack.heightAt(groundX, groundZ)
+        ? raceTrack.heightAt(groundX, groundZ)
         : (!isPlanet() && !realActive && usesOrganicLayout(currentCity()) ? groundHeight(groundX, groundZ) : 0);
       const lift = deck + (onDrivePad ? 0 : 0.13);
       if (currentCar.fly) {
@@ -1991,16 +2051,26 @@ import {
       // Bounce QA: chase lag + chassis pitch at high free-roam speed.
       camX: camPos.x,
       camZ: camPos.z,
-      px: player.position.x,
-      pz: player.position.z,
+      px: isPlanet() ? mapX : player.position.x,
+      pz: isPlanet() ? mapZ : player.position.z,
+      worldY: player.position.y,
       heading,
       camHeading,
       pitch: player.rotation.x,
       roll: player.rotation.z,
       speed,
       free: freeActive,
+      circuit: circuitActive,
+      planet: isPlanet(),
+      racePlanet: !!(raceTrack && raceTrack.planet),
       shake: camShakeMag
     }),
+    selectCityById: (id) => {
+      const city = CITY_BY_ID[id];
+      if (!city) return null;
+      selectCity(city);
+      return currentCity().id;
+    },
     trafficHeights: () => freeCity.trafficHeights?.() || [],
     setCarById: (id) => {
       const car = CARS.find((c) => c.id === id);
