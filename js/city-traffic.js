@@ -102,10 +102,19 @@ export function createTraffic({ scene, rand }) {
         model, car, name: names[i], color, lane: slot.lane, x: LANES[slot.lane], z: slot.z, dist: PLAYER_Z - slot.z,
         speed: 0, wheelAngle: 0, yaw: 0, steer: 0, phase: rand() * 6.28, laneTimer: 0, thinkTimer: rand() * 0.3,
         pace: 0.8 + rand() * 0.14 + difficulty * 0.012, accel: 0.85 + rand() * 0.2, finished: false, finishTime: 0,
-        halfLen: model.userData.halfLen, halfWidth: model.userData.halfWidth, kind: 'racer', cooldown: 0, targetSpeed: 0, boxed: false
+        halfLen: model.userData.halfLen, halfWidth: model.userData.halfWidth, kind: 'racer', cooldown: 0, targetSpeed: 0, boxed: false,
+        circuit: !!circuitApi, y: 0
       });
     }
-    layoutRacers(0);
+    if (circuitApi) {
+      // Stage rivals ahead along the lap so the circuit opens for a clean launch.
+      for (let i = 0; i < racers.length; i++) {
+        racers[i].dist = 18 + i * 16;
+        placeOnCircuit(racers[i]);
+      }
+    } else {
+      layoutRacers(0);
+    }
   }
 
   function clearRacers() {
@@ -115,10 +124,33 @@ export function createTraffic({ scene, rand }) {
 
   function layoutRacers(distance) {
     for (const r of racers) {
+      if (r.circuit) {
+        placeOnCircuit(r);
+        continue;
+      }
       r.z = PLAYER_Z - (r.dist - distance);
       r.model.position.set(r.x, 0, r.z);
       r.model.rotation.y = -r.yaw;
     }
+  }
+
+  let circuitApi = null;
+  function bindCircuit(api) {
+    circuitApi = api;
+  }
+
+  function placeOnCircuit(r) {
+    if (!circuitApi) return;
+    const t = (r.dist / Math.max(1, circuitApi.length)) % 1;
+    const s = circuitApi.sample(t);
+    let side = new THREE.Vector3(-s.tangent.z, 0, s.tangent.x).normalize();
+    const lane = (r.lane === 0 ? -3.4 : 3.4);
+    r.x = s.point.x + side.x * lane;
+    r.z = s.point.z + side.z * lane;
+    r.y = s.point.y + 0.05;
+    r.yaw = s.heading;
+    r.model.position.set(r.x, r.y, r.z);
+    r.model.rotation.y = -r.yaw;
   }
 
   const sameDir = () => [...traffic.filter((v) => v.dir > 0), ...racers];
@@ -152,45 +184,76 @@ export function createTraffic({ scene, rand }) {
     r.cooldown = Math.max(0, r.cooldown - dt);
     r.laneTimer = Math.max(0, r.laneTimer - dt);
     r.thinkTimer -= dt;
+    const onCircuit = !!(r.circuit && circuitApi);
     // Hold the grid still until the countdown releases the field.
     if (!ctx.go) {
       r.targetSpeed = 0;
       r.speed = 0;
       r.steer = 0;
-      r.yaw = 0;
-      r.z = PLAYER_Z - (r.dist - ctx.distance);
-      r.model.position.set(r.x, 0, r.z);
-      r.model.rotation.y = 0;
+      if (onCircuit) {
+        placeOnCircuit(r);
+      } else {
+        r.yaw = 0;
+        r.z = PLAYER_Z - (r.dist - ctx.distance);
+        r.model.position.set(r.x, 0, r.z);
+        r.model.rotation.y = 0;
+      }
       return;
     }
     const gapToPlayer = r.dist - ctx.distance;
     let rubber = 1;
     if (gapToPlayer > 160) rubber = 0.9;
     else if (gapToPlayer < -110) rubber = 1.06;
-    r.targetSpeed = ctx.playerTop * r.pace * rubber * (1 + 0.035 * Math.sin(ctx.time * 0.45 + r.phase));
+    // Circuits: slow for corners using upcoming curvature.
+    let cornerFactor = 1;
+    if (onCircuit) {
+      const t = (r.dist / Math.max(1, circuitApi.length)) % 1;
+      const a = circuitApi.sample(t).tangent;
+      const b = circuitApi.sample((t + 0.04) % 1).tangent;
+      const bend = 1 - Math.max(-1, Math.min(1, a.dot(b)));
+      cornerFactor = THREE.MathUtils.clamp(1.05 - bend * 2.8, 0.42, 1);
+    }
+    r.targetSpeed = ctx.playerTop * r.pace * rubber * cornerFactor * (1 + 0.035 * Math.sin(ctx.time * 0.45 + r.phase));
 
     if (r.thinkTimer <= 0) {
       r.thinkTimer = 0.25;
-      const lead = leaderOf(r, r.x);
-      r.boxed = false;
-      if (lead) {
-        const closing = r.speed - lead.vehicle.speed;
-        if (lead.gap < 26 + Math.max(0, closing) * 1.6 && closing > -1) {
-          const options = r.lane === 0 ? [1] : [0];
-          const next = options.find((l) => r.laneTimer === 0 && laneIsFree(r, LANES[l], ctx));
-          if (next !== undefined) { r.lane = next; r.laneTimer = 2.8; } else r.boxed = true;
+      if (!onCircuit) {
+        const lead = leaderOf(r, r.x);
+        r.boxed = false;
+        if (lead) {
+          const closing = r.speed - lead.vehicle.speed;
+          if (lead.gap < 26 + Math.max(0, closing) * 1.6 && closing > -1) {
+            const options = r.lane === 0 ? [1] : [0];
+            const next = options.find((l) => r.laneTimer === 0 && laneIsFree(r, LANES[l], ctx));
+            if (next !== undefined) { r.lane = next; r.laneTimer = 2.8; } else r.boxed = true;
+          }
         }
+      } else if (r.laneTimer === 0 && Math.random() < 0.2) {
+        r.lane = r.lane === 0 ? 1 : 0;
+        r.laneTimer = 2.4;
       }
     }
-    const lead = leaderOf(r, r.x);
-    if (lead && r.boxed && lead.gap < 18) r.targetSpeed = Math.min(r.targetSpeed, lead.vehicle.speed * (lead.gap < 7 ? 0.9 : 1.0));
-    if (lead && lead.gap < 3.5) r.speed = Math.min(r.speed, lead.vehicle.speed);
+    if (!onCircuit) {
+      const lead = leaderOf(r, r.x);
+      if (lead && r.boxed && lead.gap < 18) r.targetSpeed = Math.min(r.targetSpeed, lead.vehicle.speed * (lead.gap < 7 ? 0.9 : 1.0));
+      if (lead && lead.gap < 3.5) r.speed = Math.min(r.speed, lead.vehicle.speed);
+    }
 
     if (r.speed < r.targetSpeed) {
       const ratio = Math.min(1, r.speed / Math.max(1, r.targetSpeed));
       r.speed += ctx.playerAccel * r.accel * (1 - ratio * ratio * 0.9) * dt;
     } else {
       r.speed = Math.max(r.targetSpeed, r.speed - 9 * dt);
+    }
+    if (onCircuit) {
+      r.dist += r.speed * dt;
+      if (!r.finished && r.dist >= ctx.length) {
+        r.finished = true;
+        r.finishTime = ctx.time - (r.dist - ctx.length) / Math.max(1, r.speed);
+      }
+      placeOnCircuit(r);
+      r.steer = THREE.MathUtils.lerp(r.steer, 0, Math.min(1, dt * 6));
+      return;
     }
     const maxLateral = Math.min(3.4, r.speed * 0.16);
     const vx = THREE.MathUtils.clamp((LANES[r.lane] - r.x) * 2.0, -maxLateral, maxLateral);
@@ -237,10 +300,14 @@ export function createTraffic({ scene, rand }) {
   }
 
   // Returns the first vehicle overlapping the player's box (heading is small enough to ignore).
-  function findCollision(playerX) {
+  function findCollision(playerX, playerZ = PLAYER_Z) {
     for (const v of [...traffic, ...racers]) {
       if (v.cooldown > 0 || !v.model.visible) continue;
-      if (Math.abs(v.z - PLAYER_Z) < PLAYER_HALF_LEN + v.halfLen - 0.35 && Math.abs(v.x - playerX) < PLAYER_HALF_WIDTH + v.halfWidth - 0.1) return v;
+      if (v.circuit) {
+        if (Math.hypot(v.x - playerX, v.z - playerZ) < PLAYER_HALF_LEN + v.halfLen - 0.2) return v;
+        continue;
+      }
+      if (Math.abs(v.z - playerZ) < PLAYER_HALF_LEN + v.halfLen - 0.35 && Math.abs(v.x - playerX) < PLAYER_HALF_WIDTH + v.halfWidth - 0.1) return v;
     }
     return null;
   }
@@ -271,6 +338,6 @@ export function createTraffic({ scene, rand }) {
 
   return {
     traffic, racers, populate, clearTraffic, setupRace, clearRacers, layoutRacers, update, findCollision, resolveCollision,
-    standings, rankPlayer, finishedCount: () => racers.filter((r) => r.finished).length
+    standings, rankPlayer, bindCircuit, finishedCount: () => racers.filter((r) => r.finished).length
   };
 }

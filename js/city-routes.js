@@ -501,7 +501,16 @@ const TRIPS = {
   changi: ['East Coast Park', 'Changi Airport', 4200],
   sentosa: ['VivoCity', 'Sentosa Merlion', 3400]
 };
-for (const r of ROUTES) [r.from, r.to, r.length] = r.trip || TRIPS[r.id];
+// Closed racing circuits paired with each scenic route (see city-circuit.js).
+const CIRCUIT_IDS = [
+  'harbor-gp', 'coastal-ring', 'night-helix', 'arena-tech', 'ridge-switch', 'desert-dunes', 'harbor-gp',
+  'arena-tech', 'coastal-ring', 'harbor-gp', 'night-helix', 'ridge-switch', 'desert-dunes',
+  'arena-tech', 'coastal-ring', 'desert-dunes', 'coastal-ring', 'night-helix', 'ridge-switch', 'harbor-gp'
+];
+for (const r of ROUTES) {
+  [r.from, r.to, r.length] = r.trip || TRIPS[r.id];
+  r.circuit = CIRCUIT_IDS[ROUTES.indexOf(r) % CIRCUIT_IDS.length];
+}
 
 export const DEFAULT_ROUTE_ID = ROUTES[0].id;
 export const routesFor = (cityId) => ROUTES.filter((r) => r.city === cityId);

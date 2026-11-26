@@ -2,7 +2,13 @@
 import * as THREE from './vendor/three/three.module.min.js';
 import { lcg } from './city-gfx.js';
 import { buildLandmark, disposeLandmarks } from './city-routes.js';
-import { PITCH as P, GRID, FACE, ROAD_HALF, cellInfo, seedOf, currentCity, wrapIndex } from './city-map.js';
+import {
+  PITCH as P, GRID, FACE, FACE_ORGANIC, ROAD_HALF, cellInfo, seedOf, currentCity, wrapIndex,
+  usesOrganicLayout, groundHeight, avenueX, streetZ
+} from './city-map.js';
+import {
+  sampleAvenueRibbon, sampleStreetRibbon, ribbonGeometry
+} from './city-terrain.js';
 const WALK_OUTER = FACE + 2.5;
 import { createEffects, createCars } from './city-smash.js';
 import { createStyles } from './city-styles.js';
@@ -98,12 +104,19 @@ export function createFreeCity({ scene, kit }) {
   sea.userData.planetSkipBend = true;
   root.add(sea);
 
+  function blockFace() {
+    return usesOrganicLayout(currentCity()) ? FACE_ORGANIC : FACE;
+  }
+
   function plane(parent, mat, x0, x1, z0, z1, y, tile) {
     const w = x1 - x0; const d = z1 - z0;
     // Pocket planet: dense grids so bent roads follow the globe instead of flat chords.
-    const planet = !!currentCity().planet;
-    const segW = planet ? Math.max(1, Math.ceil(Math.abs(w) / 3.5)) : 1;
-    const segD = planet ? Math.max(1, Math.ceil(Math.abs(d) / 3.5)) : 1;
+    // Earth hills: tessellate so we can lift vertices to the height field.
+    const city = currentCity();
+    const planet = !!city.planet;
+    const hills = usesOrganicLayout(city);
+    const segW = planet || hills ? Math.max(1, Math.ceil(Math.abs(w) / (hills ? 8 : 3.5))) : 1;
+    const segD = planet || hills ? Math.max(1, Math.ceil(Math.abs(d) / (hills ? 8 : 3.5))) : 1;
     const geo = new THREE.PlaneGeometry(w, d, segW, segD);
     const uv = geo.attributes.uv;
     for (let k = 0; k < uv.count; k++) uv.setXY(k, uv.getX(k) * w / tile, uv.getY(k) * d / tile);
@@ -112,6 +125,38 @@ export function createFreeCity({ scene, kit }) {
     m.position.set((x0 + x1) / 2, y, (z0 + z1) / 2);
     m.receiveShadow = true;
     if (planet) m.userData.planetGround = true;
+    // Already height-mapped — never also lift this mesh as a whole.
+    if (hills) m.userData.hillLifted = true;
+    if (hills) {
+      // PlaneGeometry lies in XY before rotation; after rotX(-π/2), local Y → world -Z, local Z → world Y.
+      const pos = geo.attributes.position;
+      const ox = (x0 + x1) / 2;
+      const oz = (z0 + z1) / 2;
+      // Parent chunk origin is applied later; bake world XZ using the parent's eventual world offset via userData.
+      const chunkOrigin = parent.userData.chunkOrigin || { x: 0, z: 0 };
+      for (let k = 0; k < pos.count; k++) {
+        const lx = pos.getX(k);
+        const ly = pos.getY(k);
+        const wx = chunkOrigin.x + ox + lx;
+        const wz = chunkOrigin.z + oz - ly;
+        pos.setZ(k, groundHeight(wx, wz) - y);
+      }
+      pos.needsUpdate = true;
+      geo.computeVertexNormals();
+    }
+    parent.add(m);
+    return m;
+  }
+
+  function addRibbon(parent, mat, pts, halfW, yBias = 0) {
+    const { positions, normals, uvs, indices } = ribbonGeometry(pts, halfW, yBias);
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geo.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+    geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+    geo.setIndex(indices);
+    const m = new THREE.Mesh(geo, mat);
+    m.receiveShadow = true;
     parent.add(m);
     return m;
   }
@@ -315,11 +360,15 @@ export function createFreeCity({ scene, kit }) {
 
   function buildBlock(chunk, g, cell, rand) {
     const { kind } = cell;
-    plane(g, walkMat, ROAD_HALF + 0.03, P - ROAD_HALF - 0.03, ROAD_HALF + 0.03, P - ROAD_HALF - 0.03, SIDEWALK_Y, 2);
-    box(g, curbMat, 7.78, 0.02, P / 2, 0.5, 0.2, P - 15.5);
-    box(g, curbMat, P - 7.78, 0.02, P / 2, 0.5, 0.2, P - 15.5);
-    box(g, curbMat, P / 2, 0.02, 7.78, P - 15.5, 0.2, 0.5);
-    box(g, curbMat, P / 2, 0.02, P - 7.78, P - 15.5, 0.2, 0.5);
+    const face = blockFace();
+    plane(g, walkMat, face * 0.75, P - face * 0.75, face * 0.75, P - face * 0.75, SIDEWALK_Y, 2);
+    // Keep kerbs near the road; on organic layouts the asphalt ribbon already reads the bend.
+    if (!usesOrganicLayout(currentCity())) {
+      box(g, curbMat, 7.78, 0.02, P / 2, 0.5, 0.2, P - 15.5);
+      box(g, curbMat, P - 7.78, 0.02, P / 2, 0.5, 0.2, P - 15.5);
+      box(g, curbMat, P / 2, 0.02, 7.78, P - 15.5, 0.2, 0.5);
+      box(g, curbMat, P / 2, 0.02, P - 7.78, P - 15.5, 0.2, 0.5);
+    }
     if (kind === 'park') {
       parkInterior(chunk, g, rand);
       hedgeRing(chunk, g, rand);
@@ -329,13 +378,13 @@ export function createFreeCity({ scene, kit }) {
       const lm = cell.landmark;
       const e = EDGES[lm.face];
       const f = frame(g, e.x, e.z, e.yaw);
-      plane(g, walkMat, FACE, P - FACE, FACE, P - FACE, SIDEWALK_Y + 0.01, 2);
+      plane(g, walkMat, face, P - face, face, P - face, SIDEWALK_Y + 0.01, 2);
       const model = buildLandmark(lm.id);
-      model.position.set(e.side * 12, 0, P / 2);
+      model.position.set(e.side * (face - 3.5), 0, P / 2);
       if (e.side > 0) model.rotation.y = Math.PI;
       f.add(model);
       for (const [a, b] of [[0, 0], [0, 1], [1, 0], [1, 1]]) {
-        const x = 18 + a * (P - 36); const z = 18 + b * (P - 36);
+        const x = face + 4 + a * (P - face * 2 - 8); const z = face + 4 + b * (P - face * 2 - 8);
         treeOrPalm(chunk, g, x, z, rand);
       }
       hedgeRing(chunk, g, rand);
@@ -345,7 +394,8 @@ export function createFreeCity({ scene, kit }) {
       const f = frame(g, e.x, e.z, e.yaw);
       const alongNS = name === 'N' || name === 'S';
       // East and west fronts keep clear of the corners the north and south fronts occupy
-      frontage(f, e.side, alongNS ? FACE : 34, alongNS ? P - FACE : P - 34, rand, styleFor(kind, name, rand));
+      const pad = Math.max(face, 34);
+      frontage(f, e.side, alongNS ? face : pad, alongNS ? P - face : P - pad, rand, styleFor(kind, name, rand));
     }
     centreTowers(g, kind, rand);
   }
@@ -376,27 +426,73 @@ export function createFreeCity({ scene, kit }) {
   }
 
   function buildChunk(i, j) {
-    const wrap = !!currentCity().wrap;
+    const city = currentCity();
+    const wrap = !!city.wrap;
+    const organic = usesOrganicLayout(city);
     const ci = wrap ? wrapIndex(i) : i;
     const cj = wrap ? wrapIndex(j) : j;
     const g = new THREE.Group();
     g.position.set(i * P, 0, j * P);
+    g.userData.chunkOrigin = { x: i * P, z: j * P };
     const rand = lcg(seedOf(ci, cj));
     const chunk = { g, i, j, peds: [], props: [], ranges: new Map(), n: 0, key: `${i},${j}` };
     const east = wrap || i < GRID;
     const south = wrap || j < GRID;
     const north = wrap || j > 0;
     const west = wrap || i > 0;
-    plane(g, asphaltMat, -ROAD_HALF, east ? P - ROAD_HALF : ROAD_HALF, -ROAD_HALF, ROAD_HALF, -0.04, 8);
-    if (south) plane(g, asphaltMat, -ROAD_HALF, ROAD_HALF, ROAD_HALF, P - ROAD_HALF, -0.04, 8);
+    const crossY = organic ? groundHeight(avenueX(i, j * P, city), j * P) : 0;
+    const face = blockFace();
+
+    if (organic) {
+      // Underlay extends past max road bend so the sea never shows through.
+      const pad = ROAD_HALF + 30;
+      plane(g, parkMat, -pad, east ? P + pad : pad, -pad, south ? P + pad : pad, -0.18, 12);
+      const toLocal = (pts) => pts.map((p) => ({ x: p.x - i * P, y: p.y, z: p.z - j * P }));
+      const cross = new THREE.Mesh(new THREE.CircleGeometry(ROAD_HALF + 1.2, 24), asphaltMat);
+      cross.rotation.x = -Math.PI / 2;
+      cross.position.set(avenueX(i, j * P, city) - i * P, crossY + 0.02, streetZ(j, i * P, city) - j * P);
+      cross.receiveShadow = true;
+      cross.userData.organicRoad = true;
+      g.add(cross);
+      if (south) {
+        const ribbon = addRibbon(g, asphaltMat, toLocal(sampleAvenueRibbon(i, j * P, (j + 1) * P, 16, city)), ROAD_HALF, 0.02);
+        ribbon.userData.organicRoad = true;
+      }
+      if (east) {
+        const ribbon = addRibbon(g, asphaltMat, toLocal(sampleStreetRibbon(j, i * P, (i + 1) * P, 16, city)), ROAD_HALF, 0.02);
+        ribbon.userData.organicRoad = true;
+      }
+    } else {
+      plane(g, asphaltMat, -ROAD_HALF, east ? P - ROAD_HALF : ROAD_HALF, -ROAD_HALF, ROAD_HALF, -0.04, 8);
+      if (south) plane(g, asphaltMat, -ROAD_HALF, ROAD_HALF, ROAD_HALF, P - ROAD_HALF, -0.04, 8);
+    }
+
     const arms = [[south, 0], [north, Math.PI], [east, Math.PI / 2], [west, -Math.PI / 2]];
     for (const [exists, yaw] of arms) {
       if (!exists) continue;
-      kit.addTrafficSignals(frame(g, 0, 0, yaw), FACE - 0.8);
+      if (organic) {
+        const f = frame(g, avenueX(i, j * P, city) - i * P, 0, yaw);
+        f.position.y = crossY;
+        kit.addTrafficSignals(f, face - 0.8);
+      } else {
+        kit.addTrafficSignals(frame(g, 0, 0, yaw), FACE - 0.8);
+      }
     }
     if (south) decorateArm(chunk, g, 0, rand);
     if (east) decorateArm(chunk, g, Math.PI / 2, rand);
-    if (east && south) buildBlock(chunk, g, cellInfo(ci, cj), rand);
+    if (east && south) {
+      buildBlock(chunk, g, cellInfo(ci, cj), rand);
+      if (organic) {
+        // Seat buildings / props on the hill. Ground planes and road ribbons already bake height.
+        for (const child of [...g.children]) {
+          if (child.userData?.organicRoad || child.userData?.hillLifted) continue;
+          const wx = i * P + child.position.x;
+          const wz = j * P + child.position.z;
+          child.position.y += groundHeight(wx, wz);
+          child.userData.hillLifted = true;
+        }
+      }
+    }
     if (!wrap) buildQuay(g, i, j);
     mergeStatics(g, chunk.ranges);
     g.updateMatrixWorld(true);

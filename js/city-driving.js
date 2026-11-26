@@ -11,7 +11,12 @@ import { createFreeCity } from './city-free.js';
 import { createRealCity } from './city-real.js';
 import { createCityAudio } from './city-audio.js';
 import { createCityFx, createSpeedOverlay } from './city-fx.js';
-import { PITCH, GRID, SIZE, DRIVE_LIMIT, setCity, currentCity, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOffset, spawnFor, DISTRICT_COLORS, wrapCoord, wraps } from './city-map.js';
+import { createCircuitTrack, circuitById } from './city-circuit.js';
+import {
+  PITCH, GRID, SIZE, DRIVE_LIMIT, setCity, currentCity, cellInfo, infoAt, isDrivable, isFreeDrivable,
+  kerbOffset, spawnFor, DISTRICT_COLORS, wrapCoord, wraps, groundHeight, usesOrganicLayout, avenueX, streetZ
+} from './city-map.js';
+import { softKerbClamp } from './city-terrain.js';
 import {
   planetRadius, moveOnSphere, placeObjectOnSphere, cameraOnSphere, poseOnSphere
 } from './city-planet.js';
@@ -40,6 +45,11 @@ import {
   const finishGate = world.createFinishGate();
   const freeCity = createFreeCity({ scene, kit: world.kit });
   const realCity = createRealCity({ scene });
+  const circuitTrack = createCircuitTrack({ scene, renderer, circuit: circuitById('harbor-gp') });
+  trafficSystem.bindCircuit(null);
+  let circuitActive = false;
+  let circuitT = 0;
+  const tripLength = () => (circuitActive ? Math.round(circuitTrack.length) : route.length);
   const audio = createCityAudio();
   const fx = createCityFx({ scene });
   const overlay = createSpeedOverlay(document.querySelector('.city-game'));
@@ -86,6 +96,7 @@ import {
   function applyRoute(next) {
     route = next;
     rand = lcg(28 + ROUTES.indexOf(route) * 97);
+    if (route.circuit) circuitTrack.setCircuit(circuitById(route.circuit));
     while (blocks.length) {
       const old = blocks.pop();
       scene.remove(old);
@@ -110,22 +121,28 @@ import {
   }
 
   function updateRouteLabel() {
-    routeLabelOutput.textContent = mode === 'race' ? 'ROUTE' : 'START';
+    routeLabelOutput.textContent = mode === 'race' ? 'CIRCUIT' : 'START';
     if (mode === 'real') {
       routeNameOutput.textContent = `Real ${currentCity().name} streets from OpenStreetMap`;
       return;
     }
     if (mode === 'free') {
-      routeNameOutput.textContent = `${route.area} · drive anywhere in the city`;
+      routeNameOutput.textContent = `${route.area} · bent roads & hills · drive anywhere`;
       return;
     }
-    const bonus = mode === 'race' ? ` · race +${RACE_BONUS[0]} pts` : '';
-    routeNameOutput.textContent = `${route.from} → ${route.to} · ${(route.length / 1000).toFixed(1)} km · ${tripReward(route)} pts${bonus}`;
+    const circuit = circuitById(route.circuit);
+    const lapM = Math.round(circuitTrack.length || route.length);
+    const bonus = ` · race +${RACE_BONUS[0]} pts`;
+    routeNameOutput.textContent = `${circuit.name} · ${(lapM / 1000).toFixed(1)} km lap · ${tripReward(route)} pts${bonus}`;
   }
 
   function setMode(next) {
     mode = next === 'race' || next === 'real' ? next : 'free';
     modeList.querySelectorAll('button').forEach((button) => button.classList.toggle('on', button.dataset.mode === mode));
+    renderRoutes();
+    routeList.querySelectorAll('button').forEach((button) => {
+      button.classList.toggle('on', button.dataset.route === route.id);
+    });
     updateRouteLabel();
     try { localStorage.setItem('cityDrivingMode', mode); } catch (error) { /* storage unavailable */ }
   }
@@ -198,13 +215,16 @@ import {
     const lapKm = ((city.grid * PITCH) / 1000).toFixed(1).replace(/\.0$/, '');
     cityIntro.textContent = city.planet
       ? `Take the wheel in ${city.name} on alien ${city.country} (~${lapKm} km sphere-net). Twin sun satellites light the crystal city — drive or fly anywhere; districts stream in as you explore.`
-      : `Take the wheel in ${city.name}. Keep ${city.drive} and roam the wider city streets, or jump onto a racing circuit with only AI racers — clear asphalt, open lanes and room to hit your car’s top speed.`;
+      : `Take the wheel in ${city.name}. Keep ${city.drive} on bent city roads and rolling hills, or jump a closed racing circuit — hairpins, elevation and AI rivals that test your line.`;
     roadName.textContent = trafficLabel();
     roadName.dataset.default = roadName.textContent;
   }
 
   function renderRoutes() {
-    routeList.innerHTML = routesFor(currentCity().id).map((r) => `<button type="button" data-route="${r.id}">${r.name}</button>`).join('');
+    routeList.innerHTML = routesFor(currentCity().id).map((r) => {
+      const label = mode === 'race' && r.circuit ? circuitById(r.circuit).name : r.name;
+      return `<button type="button" data-route="${r.id}">${label}</button>`;
+    }).join('');
   }
   renderRoutes();
   updateCityText();
@@ -787,7 +807,8 @@ import {
   function buildMapLayer() {
     const c = mapLayer.getContext('2d');
     const k = mapLayer.width / SIZE;
-    c.fillStyle = currentCity().style.minimapSea || '#7fb2c9';
+    const city = currentCity();
+    c.fillStyle = city.style.minimapSea || '#7fb2c9';
     c.fillRect(0, 0, mapLayer.width, mapLayer.height);
     for (let i = 0; i < GRID; i++) {
       for (let j = 0; j < GRID; j++) {
@@ -798,9 +819,20 @@ import {
     c.strokeStyle = '#fbfaf3';
     c.lineWidth = 1.2;
     c.beginPath();
-    for (let n = 0; n <= GRID; n++) {
-      c.moveTo(n * PITCH * k, 0); c.lineTo(n * PITCH * k, SIZE * k);
-      c.moveTo(0, n * PITCH * k); c.lineTo(SIZE * k, n * PITCH * k);
+    if (usesOrganicLayout(city)) {
+      for (let i = 0; i <= GRID; i++) {
+        c.moveTo(avenueX(i, 0, city) * k, 0);
+        for (let j = 1; j <= GRID; j++) c.lineTo(avenueX(i, j * PITCH, city) * k, j * PITCH * k);
+      }
+      for (let j = 0; j <= GRID; j++) {
+        c.moveTo(0, streetZ(j, 0, city) * k);
+        for (let i = 1; i <= GRID; i++) c.lineTo(i * PITCH * k, streetZ(j, i * PITCH, city) * k);
+      }
+    } else {
+      for (let n = 0; n <= GRID; n++) {
+        c.moveTo(n * PITCH * k, 0); c.lineTo(n * PITCH * k, SIZE * k);
+        c.moveTo(0, n * PITCH * k); c.lineTo(SIZE * k, n * PITCH * k);
+      }
     }
     c.stroke();
   }
@@ -930,7 +962,56 @@ import {
     minimapCtx.restore();
   }
 
+  function enterCircuit() {
+    circuitActive = true;
+    freeActive = true; // reuse free-style steering / heading
+    world.setFreeMode(true);
+    blocks.forEach((block) => { block.visible = false; });
+    freeCity.setVisible(false);
+    realCity.setVisible(false);
+    circuitTrack.setVisible(true);
+    trafficSystem.bindCircuit(circuitTrack);
+    finishGate.visible = false;
+    smashStat.hidden = true;
+    const circuit = circuitById(route.circuit);
+    areaLabel = circuit.area;
+    locationName.textContent = circuit.name;
+    const spawn = circuitTrack.spawn(-3.2);
+    mapX = spawn.x;
+    mapZ = spawn.z;
+    heading = spawn.heading;
+    camHeading = heading;
+    circuitT = 0.02;
+    player.position.set(spawn.x, spawn.y, spawn.z);
+    player.rotation.set(0, -heading, 0);
+    world.setPlanetSky(false);
+    world.followPlayer(spawn.x, spawn.z, true);
+    world.setRoute({
+      ...route,
+      sky: circuit.sky,
+      ground: circuit.ground,
+      hemi: circuit.hemi,
+      sun: circuit.sun,
+      sunColor: circuit.sunColor,
+      night: !!circuit.night,
+      water: 0,
+      area: circuit.area
+    });
+    scene.fog.near = 90;
+    scene.fog.far = 380;
+    minimap.hidden = false;
+    mapTimer = 0;
+  }
+
+  function leaveCircuit() {
+    if (!circuitActive) return;
+    circuitActive = false;
+    circuitTrack.setVisible(false);
+    trafficSystem.bindCircuit(null);
+  }
+
   function enterFree() {
+    leaveCircuit();
     if (!freeActive) roadName.dataset.default = roadName.textContent;
     freeActive = true;
     world.setFreeMode(true);
@@ -968,7 +1049,7 @@ import {
       });
     } else {
       world.setPlanetSky(false);
-      player.position.set(spawn.x, 0, spawn.z);
+      player.position.set(spawn.x, spawn.y || groundHeight(spawn.x, spawn.z), spawn.z);
       player.rotation.set(0, -heading, 0);
       world.followPlayer(spawn.x, spawn.z);
       if (!realActive) freeCity.prefill(spawn.x, spawn.z, Date.now() / 1000);
@@ -978,7 +1059,8 @@ import {
   }
 
   function leaveFree() {
-    if (!freeActive) return;
+    if (!freeActive && !circuitActive) return;
+    leaveCircuit();
     freeActive = false;
     realActive = false;
     freeCity.setVisible(false);
@@ -1008,6 +1090,97 @@ import {
     fx.clear();
     trafficSystem.populate(16);
     resetCarPose();
+  }
+
+  function updateCircuitDrive(delta) {
+    const px = player.position.x;
+    const pz = player.position.z;
+    const hit = circuitTrack.project(px, pz);
+    let dT = hit.t - circuitT;
+    if (dT < -0.5) dT += 1;
+    if (dT > 0.5) dT -= 1;
+    if (dT > 0) distance += dT * circuitTrack.length;
+    circuitT = hit.t;
+    mapX = px;
+    mapZ = pz;
+    world.followPlayer(px, pz);
+    impactShake = Math.max(0, impactShake - delta * 1.2);
+
+    const circuit = circuitById(route.circuit);
+    if (locationName.textContent !== circuit.name) locationName.textContent = circuit.name;
+    if (roadName.textContent !== 'RACING LINE') roadName.textContent = 'RACING LINE';
+
+    const length = tripLength();
+    trafficSystem.update(delta, {
+      playerForward: speed, playerX: px, playerSpeed: speed, distance, time: raceTime,
+      go: phase === 'drive', playerTop: stats.top, playerAccel: stats.accel, length
+    });
+    collisionCooldown = Math.max(0, collisionCooldown - delta);
+    if (collisionCooldown === 0 && phase === 'drive') {
+      const crash = trafficSystem.findCollision(px, pz);
+      if (crash) {
+        collisionCooldown = 0.85;
+        crashes++;
+        speed *= 0.72;
+        heading += Math.sign(px - crash.x || 1) * -0.03;
+        trafficSystem.resolveCollision(crash, px);
+        pulseImpact(0.28, { force: true });
+      }
+    }
+
+    const speedRatio = Math.min(1, Math.abs(speed) / 60);
+    if (Math.abs(speed) > 55) camHeading = heading;
+    else camHeading += Math.atan2(Math.sin(heading - camHeading), Math.cos(heading - camHeading)) * Math.min(1, delta * 4);
+    updateCamera(delta, { px, py: player.position.y, pz, heading, speedRatio, free: true });
+    speedOutput.textContent = String(Math.round(Math.abs(speed) * 3.6));
+    distanceOutput.textContent = (distance / 1000).toFixed(1);
+    updateTrip();
+    boardTimer -= delta;
+    if (boardTimer <= 0) {
+      boardTimer = 0.2;
+      updateRaceBoard();
+    }
+    mapTimer -= delta;
+    if (mapTimer <= 0) {
+      mapTimer = 0.12;
+      drawCircuitMinimap();
+    }
+    if (distance >= length && !tripDone) finishTrip();
+  }
+
+  function drawCircuitMinimap() {
+    const size = minimap.width;
+    const k = size / 520;
+    minimapCtx.clearRect(0, 0, size, size);
+    minimapCtx.fillStyle = '#1a2430';
+    minimapCtx.beginPath();
+    minimapCtx.arc(size / 2, size / 2, size / 2 - 1, 0, Math.PI * 2);
+    minimapCtx.fill();
+    minimapCtx.save();
+    minimapCtx.beginPath();
+    minimapCtx.arc(size / 2, size / 2, size / 2 - 1, 0, Math.PI * 2);
+    minimapCtx.clip();
+    minimapCtx.translate(size / 2 - player.position.x * k, size / 2 - player.position.z * k);
+    minimapCtx.strokeStyle = '#d0d4d8';
+    minimapCtx.lineWidth = 5;
+    minimapCtx.beginPath();
+    for (let i = 0; i <= 120; i++) {
+      const p = circuitTrack.sample(i / 120).point;
+      if (i === 0) minimapCtx.moveTo(p.x * k, p.z * k);
+      else minimapCtx.lineTo(p.x * k, p.z * k);
+    }
+    minimapCtx.closePath();
+    minimapCtx.stroke();
+    minimapCtx.restore();
+    minimapCtx.save();
+    minimapCtx.translate(size / 2, size / 2);
+    minimapCtx.rotate(heading);
+    minimapCtx.fillStyle = '#d9482b';
+    minimapCtx.beginPath();
+    minimapCtx.moveTo(0, -7); minimapCtx.lineTo(5, 6); minimapCtx.lineTo(0, 3); minimapCtx.lineTo(-5, 6);
+    minimapCtx.closePath();
+    minimapCtx.fill();
+    minimapCtx.restore();
   }
 
   function updateFree(delta, forward) {
@@ -1131,10 +1304,20 @@ import {
     camShakeMag = 0;
     fx.clear();
     resetCarPose();
-    if (isFree()) enterFree(); else leaveFree();
+    if (isFree()) enterFree();
+    else if (isRace()) {
+      leaveFree();
+      enterCircuit();
+    } else leaveFree();
     tripPanel.hidden = isFree();
-    tripFrom.textContent = `● ${route.from}`;
-    tripTo.textContent = `${route.to} ⚑`;
+    if (isRace()) {
+      const circuit = circuitById(route.circuit);
+      tripFrom.textContent = `● ${circuit.name}`;
+      tripTo.textContent = 'Finish line ⚑';
+    } else {
+      tripFrom.textContent = `● ${route.from}`;
+      tripTo.textContent = `${route.to} ⚑`;
+    }
     tripRewardOut.textContent = signedIn() ? `Up to ${tripReward(route) + CLEAN_BONUS + (isRace() ? RACE_BONUS[0] : 0)} pts` : 'Sign in to earn pts';
     updateTrip();
     if (isFree()) {
@@ -1142,8 +1325,9 @@ import {
       countdownOut.hidden = true;
       phase = 'drive';
     } else if (isRace()) {
-      // Racing circuit: only the grid of AI racers — no ambient city traffic.
+      // Closed circuit: only AI racers on the racing line.
       trafficSystem.clearTraffic();
+      trafficSystem.bindCircuit(circuitTrack);
       trafficSystem.setupRace({ playerCar: currentCar, playerColor: colorOf(currentCar), count: 5 });
       racePanel.hidden = false;
       raceTotal.textContent = `/${trafficSystem.racers.length + 1}`;
@@ -1353,7 +1537,7 @@ import {
     // Racing auto-centres the nose with no input. Free roam at hyper speed does the same toward
     // the nearest road axis so the car doesn't drift into pads and soft-kerb bounce.
     if (!free && Math.abs(input) < 0.05) steerTarget = THREE.MathUtils.clamp(-heading * 0.9, -maxSteer * 1.6, maxSteer * 1.6);
-    if (free && Math.abs(speed) > 50 && Math.abs(input) < 0.1) {
+    if (free && !circuitActive && Math.abs(speed) > 50 && Math.abs(input) < 0.1) {
       const axes = [0, Math.PI / 2, Math.PI, -Math.PI / 2];
       let best = axes[0];
       let bestDiff = Infinity;
@@ -1366,14 +1550,22 @@ import {
         steerTarget = THREE.MathUtils.clamp(align * 0.85, -maxSteer * 1.4, maxSteer * 1.4);
       }
     }
+    // Circuits: gently help the nose follow the racing line when the stick is neutral.
+    if (circuitActive && Math.abs(input) < 0.08 && Math.abs(speed) > 8) {
+      const hit = circuitTrack.project(player.position.x, player.position.z);
+      const align = Math.atan2(Math.sin(hit.heading - heading), Math.cos(hit.heading - heading));
+      steerTarget = THREE.MathUtils.clamp(align * 0.7, -maxSteer * 1.5, maxSteer * 1.5);
+    }
     steer = THREE.MathUtils.lerp(steer, steerTarget, Math.min(1, delta * (Math.abs(input) > 0.05 ? 9 : 6)));
     if (!free && ((heading >= headingLimit && steer > 0) || (heading <= -headingLimit && steer < 0))) steer *= 0.5;
     const turnRate = (speed / wheelbase) * Math.tan(steer);
     let forward;
     if (free) {
       // Open city: the heading is unbounded and the car moves in world x/z; leaving the road surface scrapes and slides.
-      const airborne = altitude > 1.5;
-      const canDrive = realActive ? realCity.isDrivable : isFreeDrivable;
+      const airborne = altitude > 1.5 && !circuitActive;
+      const canDrive = circuitActive
+        ? (x, z) => circuitTrack.isOnTrack(x, z)
+        : (realActive ? realCity.isDrivable : isFreeDrivable);
       const step = speed * delta;
       // Substep long moves so high speed (~300 km/h) doesn't tunnel into buildings and "bounce".
       const FREE_SUB_STEP = 0.75;
@@ -1448,15 +1640,23 @@ import {
             player.position.x = nx;
             player.position.z = nz;
           } else if (Math.abs(speed) > 50) {
-            // Soft kerb: clamp onto the nearest road centre instead of stop-slide bounce.
-            const lineX = Math.round(player.position.x / PITCH) * PITCH;
-            const lineZ = Math.round(player.position.z / PITCH) * PITCH;
-            const onNS = Math.abs(player.position.x - lineX) <= Math.abs(player.position.z - lineZ);
+            // Soft kerb: clamp onto the nearest road / circuit centre instead of stop-slide bounce.
+            const hyper = Math.abs(speed) > 55;
             let sx = nx;
             let sz = nz;
-            if (onNS) sx = THREE.MathUtils.clamp(nx, lineX - DRIVE_LIMIT + 0.4, lineX + DRIVE_LIMIT - 0.4);
-            else sz = THREE.MathUtils.clamp(nz, lineZ - DRIVE_LIMIT + 0.4, lineZ + DRIVE_LIMIT - 0.4);
-            const hyper = Math.abs(speed) > 55;
+            if (circuitActive) {
+              const clamped = circuitTrack.clampToTrack(nx, nz);
+              sx = clamped.x; sz = clamped.z;
+            } else if (usesOrganicLayout(currentCity())) {
+              const clamped = softKerbClamp(nx, nz, currentCity());
+              sx = clamped.x; sz = clamped.z;
+            } else {
+              const lineX = Math.round(player.position.x / PITCH) * PITCH;
+              const lineZ = Math.round(player.position.z / PITCH) * PITCH;
+              const onNS = Math.abs(player.position.x - lineX) <= Math.abs(player.position.z - lineZ);
+              if (onNS) sx = THREE.MathUtils.clamp(nx, lineX - DRIVE_LIMIT + 0.4, lineX + DRIVE_LIMIT - 0.4);
+              else sz = THREE.MathUtils.clamp(nz, lineZ - DRIVE_LIMIT + 0.4, lineZ + DRIVE_LIMIT - 0.4);
+            }
             if (canDrive(sx, sz)) {
               player.position.x = sx;
               player.position.z = sz;
@@ -1482,7 +1682,9 @@ import {
             break;
           }
         }
-        const crash = airborne || realActive ? { dx: 0, dz: 0, speed, shake: 0 } : freeCity.interact({ x: player.position.x, z: player.position.z, heading, speed });
+        const crash = airborne || realActive || circuitActive
+          ? { dx: 0, dz: 0, speed, shake: 0 }
+          : freeCity.interact({ x: player.position.x, z: player.position.z, heading, speed });
         // Cap separation so a deep overlap can't yeet the car backward at high speed.
         // Hyper: ignore smash separation entirely (racing never shoves the car mid-straight).
         if (Math.abs(speed) <= 55) {
@@ -1505,14 +1707,19 @@ import {
         mapX = player.position.x;
         mapZ = player.position.z;
       }
-      // Pavement and park lawn sit slightly above the asphalt.
+      // Pavement and park lawn sit slightly above the asphalt; hills / circuits set the deck height.
       // Use the same pad test as driving so sidewalk edges don't bob Y every frame at speed.
       const groundX = isPlanet() ? mapX : player.position.x;
       const groundZ = isPlanet() ? mapZ : player.position.z;
-      const onDrivePad = realActive
-        ? canDrive(groundX, groundZ)
-        : (isDrivable(groundX, groundZ) || isFreeDrivable(groundX, groundZ));
-      const lift = onDrivePad ? 0 : 0.13;
+      const onDrivePad = circuitActive
+        ? circuitTrack.isOnTrack(groundX, groundZ)
+        : realActive
+          ? canDrive(groundX, groundZ)
+          : (isDrivable(groundX, groundZ) || isFreeDrivable(groundX, groundZ));
+      const deck = circuitActive
+        ? circuitTrack.heightAt(groundX, groundZ)
+        : (!isPlanet() && !realActive && usesOrganicLayout(currentCity()) ? groundHeight(groundX, groundZ) : 0);
+      const lift = deck + (onDrivePad ? 0 : 0.13);
       if (currentCar.fly) {
         const maxAlt = currentCar.maxAlt || 30;
         const thrusting = driving && isPressed('nitro') && nitro > 0;
@@ -1598,12 +1805,13 @@ import {
     if (carModel.userData.tail) carModel.userData.tail.emissiveIntensity = (driving ? (isPressed('brake') || (isPressed('reverse') && speed > 0.4)) : true) ? 3.2 : (route.night ? 1.3 : 0.8);
     if (tiltNeedle) tiltNeedle.style.left = `${50 + steerInput * 45}%`;
 
-    distance += forward * delta;
+    if (!circuitActive) distance += forward * delta;
     if (driving) raceTime += delta;
     const speedRatio = Math.min(1, Math.abs(speed) / 60);
     presentDrive(delta, { throttle: gas, braking, free: freeActive, speedRatio });
     if (freeActive) {
-      updateFree(delta, forward);
+      if (circuitActive) updateCircuitDrive(delta);
+      else updateFree(delta, forward);
       return;
     }
     wrapBlocks(forward * delta);
@@ -1669,17 +1877,19 @@ import {
   const tripTitle = document.getElementById('trip-title');
 
   function updateTrip() {
-    const ratio = Math.min(1, distance / route.length);
+    const length = tripLength();
+    const ratio = Math.min(1, distance / Math.max(1, length));
     tripFill.style.width = `${ratio * 100}%`;
-    tripRemaining.textContent = `${Math.max(0, Math.ceil(route.length - distance))} m to go`;
+    tripRemaining.textContent = `${Math.max(0, Math.ceil(length - distance))} m to go`;
   }
 
   function updateRaceBoard() {
     if (!isRace()) return;
-    const rows = trafficSystem.standings(distance, route.length, raceTime).sort((a, b) => b.progress - a.progress);
+    const length = tripLength();
+    const rows = trafficSystem.standings(distance, length, raceTime).sort((a, b) => b.progress - a.progress);
     racePos.textContent = String(rows.findIndex((r) => r.you) + 1);
     raceTimeOut.textContent = formatTime(raceTime);
-    raceBoard.innerHTML = rows.map((r, i) => `<li class="${r.you ? 'you' : ''}"><span>${i + 1}. ${r.you ? 'You' : r.name}</span><span>${r.finished ? 'FIN' : `${Math.max(0, Math.round(route.length - r.progress))} m`}</span></li>`).join('');
+    raceBoard.innerHTML = rows.map((r, i) => `<li class="${r.you ? 'you' : ''}"><span>${i + 1}. ${r.you ? 'You' : r.name}</span><span>${r.finished ? 'FIN' : `${Math.max(0, Math.round(length - r.progress))} m`}</span></li>`).join('');
   }
 
   async function finishTrip() {
@@ -1687,18 +1897,22 @@ import {
     running = false;
     hasStarted = false;
     const racing = isRace();
+    const length = tripLength();
     const place = racing ? trafficSystem.finishedCount() + 1 : 0;
-    const rows = racing ? trafficSystem.standings(distance, route.length, raceTime, raceTime) : [];
+    const rows = racing ? trafficSystem.standings(distance, length, raceTime, raceTime) : [];
     speed = 0;
     hud.classList.remove('active');
     pauseButton.disabled = true;
     stateOutput.textContent = racing ? 'FINISHED' : 'ARRIVED';
+    const circuit = racing ? circuitById(route.circuit) : null;
     clearSession();
     const raceBonus = racing ? (RACE_BONUS[place - 1] || 0) : 0;
     const earned = Math.max(Math.round(tripReward(route) / 2), tripReward(route) - crashes * 2) + (crashes === 0 ? CLEAN_BONUS : 0) + raceBonus;
     const crashText = crashes === 0 ? 'no collisions, clean drive bonus!' : `${crashes} collision${crashes === 1 ? '' : 's'}`;
     tripTitle.textContent = racing ? `You finished ${ordinal(place)}!` : 'You have arrived';
-    tripSummary.textContent = `${route.from} → ${route.to} · ${(route.length / 1000).toFixed(1)} km · ${racing ? `${formatTime(raceTime)} · ` : ''}${crashText}`;
+    tripSummary.textContent = racing
+      ? `${circuit.name} · ${(length / 1000).toFixed(1)} km lap · ${formatTime(raceTime)} · ${crashText}`
+      : `${route.from} → ${route.to} · ${(length / 1000).toFixed(1)} km · ${crashText}`;
     resultsBoard.hidden = !racing;
     if (racing) {
       const ranked = rows;
