@@ -645,10 +645,17 @@ export function createFreeCity({ scene, kit }) {
           if (d >= radius) continue;
           if (Math.abs(speed) >= spec.min) {
             breakProp(prop, dirx * sign, dirz * sign, Math.abs(speed));
-            // At 200–300+ km/h, don't let a row of lamps/trees stack drag into a bounce.
-            const drag = Math.abs(speed) > 40 ? Math.max(spec.drag, 0.97) : spec.drag;
-            speed *= drag;
-            shake = Math.max(shake, Math.min(0.45, Math.abs(speed) * (Math.abs(speed) > 40 ? 0.008 : 0.02)));
+            // Hypercar speeds smash a prop every few metres. Stacked drag + shake reads as a
+            // mid-road "bounce" (racing has no street furniture, so it stays smooth).
+            if (Math.abs(speed) > 55) {
+              // Purely cosmetic — break the prop, keep speed/camera steady.
+            } else if (Math.abs(speed) > 40) {
+              speed *= Math.max(spec.drag, 0.985);
+              shake = Math.max(shake, Math.min(0.12, Math.abs(speed) * 0.004));
+            } else {
+              speed *= spec.drag;
+              shake = Math.max(shake, Math.min(0.45, Math.abs(speed) * 0.02));
+            }
           } else {
             // Too slow to knock it over: it acts as a solid obstacle and the car is pushed back out
             const nx = d > 1e-4 ? (ex * cos + ez * sin) / d : -dirx * sign;
@@ -670,8 +677,10 @@ export function createFreeCity({ scene, kit }) {
           const power = Math.abs(speed);
           effects.knockPed(ped, dirx * sign * power * 0.8 + (Math.random() - 0.5) * 3, dirz * sign * power * 0.8 + (Math.random() - 0.5) * 3, 3 + power * 0.18);
           effects.burst(pedPos.x, 1, pedPos.z, PED_COLORS, 6, 4, dirx * sign, dirz * sign);
-          speed *= 0.97;
-          shake = Math.max(shake, 0.15);
+          if (Math.abs(speed) <= 55) {
+            speed *= 0.97;
+            shake = Math.max(shake, 0.15);
+          }
         }
       }
     }

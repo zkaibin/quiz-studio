@@ -11,7 +11,7 @@ import { createFreeCity } from './city-free.js';
 import { createRealCity } from './city-real.js';
 import { createCityAudio } from './city-audio.js';
 import { createCityFx, createSpeedOverlay } from './city-fx.js';
-import { PITCH, GRID, SIZE, setCity, currentCity, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOffset, spawnFor, DISTRICT_COLORS, wrapCoord, wraps } from './city-map.js';
+import { PITCH, GRID, SIZE, DRIVE_LIMIT, setCity, currentCity, cellInfo, infoAt, isDrivable, isFreeDrivable, kerbOffset, spawnFor, DISTRICT_COLORS, wrapCoord, wraps } from './city-map.js';
 import {
   planetRadius, moveOnSphere, placeObjectOnSphere, cameraOnSphere, poseOnSphere
 } from './city-planet.js';
@@ -543,7 +543,9 @@ import {
     camLook.y += (lookY - camLook.y) * follow;
     camLook.z += (lookZ - camLook.z) * follow;
     camShakeMag = Math.max(0, camShakeMag - delta * 2.8);
-    const tremor = speedRatio * tremorScale;
+    // Free-roam high speed: cut random tremor — stacked with chassis bob it reads as bounce.
+    const tremorMul = freeActive && Math.abs(speed) > 50 ? 0.15 : 1;
+    const tremor = speedRatio * tremorScale * tremorMul;
     camShake.set(
       (Math.random() - 0.5) * (camShakeMag + tremor),
       (Math.random() - 0.5) * (camShakeMag * 0.7 + tremor * 0.5),
@@ -1033,11 +1035,22 @@ import {
     const speedRatio = Math.min(1, Math.abs(speed) / 60);
     // Chase camera trails the car's heading with a little lag so turns feel natural
     camHeading += Math.atan2(Math.sin(heading - camHeading), Math.cos(heading - camHeading)) * Math.min(1, delta * 4);
-    if (impactShake > 0.1) {
+    // At hypercar speed, ignore smash micro-shakes — they stack into a fake bounce.
+    if (impactShake > 0.1 && Math.abs(speed) <= 55) {
       pulseImpact(impactShake);
       impactShake *= 0.35;
+    } else if (Math.abs(speed) > 55) {
+      impactShake = 0;
+      camShakeMag = Math.min(camShakeMag, 0.04);
     }
-    updateCamera(delta, { px, py: altitude, pz, heading, speedRatio, free: true });
+    updateCamera(delta, {
+      px,
+      py: isPlanet() ? altitude : player.position.y,
+      pz,
+      heading,
+      speedRatio,
+      free: true
+    });
     speedOutput.textContent = String(Math.round(Math.abs(speed) * 3.6));
     distanceOutput.textContent = (distance / 1000).toFixed(1);
     mapTimer -= delta;
@@ -1302,17 +1315,24 @@ import {
       speed -= stats.accel * 0.5 * (1 - ratio * ratio) * delta;
     }
     // Under power, only light aero so cars can actually hit their top speed; coast/brake keep full drag.
+    // Free-roam used heavier aero than racing, which hunted around top speed and bobbed the chassis.
+    const aero = isRace() ? 0.00018 : (freeActive && Math.abs(speed) > 50 ? 0.0002 : 0.00028);
     const drag = powered
-      ? (speed * speed * (isRace() ? 0.00018 : 0.00028)) * delta
+      ? (speed * speed * aero) * delta
       : (0.6 + speed * speed * 0.0016) * delta + (braking ? stats.brake * delta : 0);
     speed = speed > 0 ? Math.max(0, speed - drag) : Math.min(0, speed + drag);
     speed = THREE.MathUtils.clamp(speed, freeActive ? -revTop : 0, stats.top * (altitude > 1 ? 1.08 : 1));
 
     // Kinematic bicycle model: the front wheels steer, the body only turns while the wheels roll.
-    const input = driving ? steerAxis() : 0;
+    let input = driving ? steerAxis() : 0;
+    // Free-roam high speed: ignore stick noise so tiny steer doesn't weave into building pads.
+    if (freeActive && Math.abs(speed) > 50 && Math.abs(input) < 0.1) input = 0;
     steerInput = THREE.MathUtils.lerp(steerInput, input, Math.min(1, delta * 10));
     const free = freeActive;
-    const maxSteer = (0.5 / (1 + (speed / 9) ** 2)) * (0.85 + 0.15 * stats.handling) * (free ? 1.35 : 1);
+    const freeSteerBoost = free
+      ? THREE.MathUtils.lerp(1.35, 0.9, THREE.MathUtils.clamp((Math.abs(speed) - 35) / 45, 0, 1))
+      : 1;
+    const maxSteer = (0.5 / (1 + (speed / 9) ** 2)) * (0.85 + 0.15 * stats.handling) * freeSteerBoost;
     const headingLimit = 0.3;
     let steerTarget = steerInput * maxSteer;
     if (!free && Math.abs(input) < 0.05) steerTarget = THREE.MathUtils.clamp(-heading * 0.9, -maxSteer * 1.6, maxSteer * 1.6);
@@ -1340,6 +1360,25 @@ import {
           if (airborne || canDrive(moved.x, moved.z)) {
             mapX = moved.x;
             mapZ = moved.z;
+          } else if (Math.abs(speed) > 50) {
+            const lineX = Math.round(mapX / PITCH) * PITCH;
+            const lineZ = Math.round(mapZ / PITCH) * PITCH;
+            const onNS = Math.abs(mapX - lineX) <= Math.abs(mapZ - lineZ);
+            let sx = moved.x;
+            let sz = moved.z;
+            if (onNS) sx = THREE.MathUtils.clamp(moved.x, lineX - DRIVE_LIMIT + 0.4, lineX + DRIVE_LIMIT - 0.4);
+            else sz = THREE.MathUtils.clamp(moved.z, lineZ - DRIVE_LIMIT + 0.4, lineZ + DRIVE_LIMIT - 0.4);
+            sx = wrapCoord(sx); sz = wrapCoord(sz);
+            if (canDrive(sx, sz)) {
+              mapX = sx; mapZ = sz;
+              speed *= 1 - Math.min(0.15, delta * 0.8 / subCount);
+            } else {
+              const east = moveOnSphere(mapX, mapZ, Math.PI / 2, subStep * Math.sin(heading));
+              const north = moveOnSphere(mapX, mapZ, 0, subStep * Math.cos(heading));
+              if (canDrive(east.x, mapZ)) { mapX = east.x; speed *= 1 - Math.min(0.2, delta * 1.2 / subCount); }
+              else if (canDrive(mapX, north.z)) { mapZ = north.z; speed *= 1 - Math.min(0.2, delta * 1.2 / subCount); }
+              else { speed *= 1 - Math.min(0.35, delta * 2 / subCount); break; }
+            }
           } else {
             // Ground only: try axis slides before stopping (flat wrap, heading unchanged).
             const east = moveOnSphere(mapX, mapZ, Math.PI / 2, subStep * Math.sin(heading));
@@ -1372,6 +1411,29 @@ import {
           if (airborne || canDrive(nx, nz)) {
             player.position.x = nx;
             player.position.z = nz;
+          } else if (Math.abs(speed) > 50) {
+            // Soft kerb: clamp onto the nearest road centre instead of stop-slide bounce.
+            const lineX = Math.round(player.position.x / PITCH) * PITCH;
+            const lineZ = Math.round(player.position.z / PITCH) * PITCH;
+            const onNS = Math.abs(player.position.x - lineX) <= Math.abs(player.position.z - lineZ);
+            let sx = nx;
+            let sz = nz;
+            if (onNS) sx = THREE.MathUtils.clamp(nx, lineX - DRIVE_LIMIT + 0.4, lineX + DRIVE_LIMIT - 0.4);
+            else sz = THREE.MathUtils.clamp(nz, lineZ - DRIVE_LIMIT + 0.4, lineZ + DRIVE_LIMIT - 0.4);
+            if (canDrive(sx, sz)) {
+              player.position.x = sx;
+              player.position.z = sz;
+              speed *= 1 - Math.min(0.15, delta * 0.8 / subCount);
+            } else if (canDrive(nx, player.position.z)) {
+              player.position.x = nx;
+              speed *= 1 - Math.min(0.2, delta * 1.2 / subCount);
+            } else if (canDrive(player.position.x, nz)) {
+              player.position.z = nz;
+              speed *= 1 - Math.min(0.2, delta * 1.2 / subCount);
+            } else {
+              speed *= 1 - Math.min(0.35, delta * 2 / subCount);
+              break;
+            }
           } else if (canDrive(nx, player.position.z)) {
             player.position.x = nx;
             speed *= 1 - Math.min(0.9, delta * 3 / subCount);
@@ -1402,10 +1464,14 @@ import {
         mapX = player.position.x;
         mapZ = player.position.z;
       }
-      // Pavement and park lawn sit slightly above the asphalt
+      // Pavement and park lawn sit slightly above the asphalt.
+      // Use the same pad test as driving so sidewalk edges don't bob Y every frame at speed.
       const groundX = isPlanet() ? mapX : player.position.x;
       const groundZ = isPlanet() ? mapZ : player.position.z;
-      const lift = realActive || isDrivable(groundX, groundZ) ? 0 : 0.13;
+      const onDrivePad = realActive
+        ? canDrive(groundX, groundZ)
+        : (isDrivable(groundX, groundZ) || isFreeDrivable(groundX, groundZ));
+      const lift = onDrivePad ? 0 : 0.13;
       if (currentCar.fly) {
         const maxAlt = currentCar.maxAlt || 30;
         const thrusting = driving && isPressed('nitro') && nitro > 0;
@@ -1417,9 +1483,7 @@ import {
         altitude += climb * delta;
         // Hover above buildings only while already airborne. A grounded car (alt≈0) that
         // briefly clips a non-road cell must NOT snap up to 3 m — that was the 300 km/h trampoline.
-        const onPad = realActive
-          ? canDrive(groundX, groundZ)
-          : (isDrivable(groundX, groundZ) || isFreeDrivable(groundX, groundZ));
+        const onPad = onDrivePad;
         const floor = onPad ? 0 : (altitude > 0.5 ? 3 : 0);
         if (altitude >= maxAlt) { altitude = maxAlt; climb = Math.min(climb, 0); }
         if (altitude <= floor) {
@@ -1465,7 +1529,11 @@ import {
     carModel.userData.frontPivots.forEach((p) => { p.rotation.y = -steer; });
     const accel = (speed - prevSpeed) / Math.max(delta, 1e-3);
     prevSpeed = speed;
-    accelSmooth = THREE.MathUtils.lerp(accelSmooth, THREE.MathUtils.clamp(accel, -25, 12), Math.min(1, delta * 5));
+    // Free-roam near top speed: accel hunts ± as drag/power fight — zero chassis bob (racing hides this).
+    const hyperFree = freeActive && Math.abs(speed) > 50;
+    const accelCap = hyperFree ? 4 : 25;
+    accelSmooth = THREE.MathUtils.lerp(accelSmooth, THREE.MathUtils.clamp(accel, -accelCap, 12), Math.min(1, delta * (hyperFree ? 10 : 5)));
+    if (hyperFree) accelSmooth *= 0.85;
     rollSmooth = THREE.MathUtils.lerp(rollSmooth, THREE.MathUtils.clamp(turnRate * speed * 0.0016, -0.05, 0.05), Math.min(1, delta * 6));
     if (freeActive && isPlanet()) {
       // No chassis pitch/roll on the globe — leaning around the origin lifts two wheels off the road.
@@ -1473,8 +1541,15 @@ import {
     } else {
       if (carModel) { carModel.rotation.z = 0; carModel.rotation.x = 0; }
       player.rotation.y = -heading;
-      player.rotation.z = -rollSmooth;
-      player.rotation.x = THREE.MathUtils.clamp(accelSmooth * 0.0016, -0.04, 0.02);
+      if (hyperFree) {
+        player.rotation.z = THREE.MathUtils.lerp(player.rotation.z, 0, Math.min(1, delta * 8));
+        player.rotation.x = THREE.MathUtils.lerp(player.rotation.x, 0, Math.min(1, delta * 8));
+        rollSmooth = 0;
+        accelSmooth = 0;
+      } else {
+        player.rotation.z = -rollSmooth;
+        player.rotation.x = THREE.MathUtils.clamp(accelSmooth * 0.0016, -0.04, 0.02);
+      }
     }
     if (carModel.userData.tail) carModel.userData.tail.emissiveIntensity = (driving ? (isPressed('brake') || (isPressed('reverse') && speed > 0.4)) : true) ? 3.2 : (route.night ? 1.3 : 0.8);
     if (tiltNeedle) tiltNeedle.style.left = `${50 + steerInput * 45}%`;
