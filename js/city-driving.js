@@ -462,9 +462,10 @@ import {
     // Raised windshield perch: high enough to read as a driver's seat, even on low hypercars.
     const eyeHeight = Math.max(1.62, Math.min(roof + 0.28, belt + 0.7));
     // Free roam: tighten follow smoothly with speed (no hard snap at ~200 km/h).
-    // 35→70 m/s ≈ 126→252 km/h. Race highway stays on the pinned rail so blend stays 0.
-    const absSpeed = Math.abs(speed);
-    const hyperBlend = free ? THREE.MathUtils.smoothstep(absSpeed, 35, 70) : 0;
+    // Blend from a low-pass of speed so tiny throttle hunting doesn't bob the rig.
+    const absSpeed = Math.abs(displaySpeed || speed);
+    camSpeedSmooth = THREE.MathUtils.lerp(camSpeedSmooth, absSpeed, Math.min(1, delta * 2.4));
+    const hyperBlend = free ? THREE.MathUtils.smoothstep(camSpeedSmooth, 35, 70) : 0;
     let back;
     let height;
     let lookAhead;
@@ -506,9 +507,9 @@ import {
       // Equator orbit race: pull back a touch so the whole car stays framed on the curved deck.
       const chaseBack = (isPlanet() && circuitActive) ? 14.5 : 11.8;
       const chaseHeight = (isPlanet() && circuitActive) ? 6.4 : 5.2;
-      // Ease the chase rig slightly farther/lower as speed rises — continuous, not a mode switch.
-      const speedBack = THREE.MathUtils.lerp(0, 2.4, hyperBlend);
-      const speedDrop = THREE.MathUtils.lerp(0, 0.55, hyperBlend);
+      // Mild speed ease only — large offsets read as shake when throttle hunts near redline.
+      const speedBack = THREE.MathUtils.lerp(0, 1.1, hyperBlend);
+      const speedDrop = THREE.MathUtils.lerp(0, 0.25, hyperBlend);
       back = THREE.MathUtils.lerp(THREE.MathUtils.lerp(chaseBack, 22, flyBlend), skyBack, isPlanet() ? planetSky : flyBlend * 0.25) + speedBack;
       height = isPlanet()
         ? THREE.MathUtils.lerp(THREE.MathUtils.lerp(chaseHeight, 16, flyBlend), 50 + carY * 0.18, planetSky)
@@ -598,16 +599,35 @@ import {
     camLook.x += (lookX - camLook.x) * follow;
     camLook.y += (lookY - camLook.y) * follow;
     camLook.z += (lookZ - camLook.z) * follow;
-    camShakeMag = Math.max(0, camShakeMag - delta * 2.8);
-    // Fade smash shake out as speed climbs so mid-straight stays calm.
-    if (hyperBlend > 0.5) camShakeMag *= 1 - (hyperBlend - 0.5) * 1.6;
-    const tremorMul = freeActive && absSpeed > 50 ? 0 : 1;
-    const tremor = speedRatio * tremorScale * tremorMul;
-    camShake.set(
-      (Math.random() - 0.5) * (camShakeMag + tremor),
-      (Math.random() - 0.5) * (camShakeMag * 0.7 + tremor * 0.5),
-      (Math.random() - 0.5) * (camShakeMag + tremor)
-    );
+    // Suspension-like shake: critically damped spring, not per-frame random noise.
+    // Road "bumps" are absorbed — only brief impact impulses move the lens, then settle.
+    camShakeMag = Math.max(0, camShakeMag - delta * 5.5);
+    if (hyperBlend > 0.25) camShakeMag *= 1 - (hyperBlend - 0.25) * 1.1;
+    const tremorMul = absSpeed > 22 ? 0 : (1 - absSpeed / 22);
+    const tremor = speedRatio * tremorScale * tremorMul * 0.35;
+    if (tremor > 1e-4 && camSnapT <= 0) {
+      camShakeVel.x += (Math.random() - 0.5) * tremor;
+      camShakeVel.y += (Math.random() - 0.5) * tremor * 0.45;
+      camShakeVel.z += (Math.random() - 0.5) * tremor;
+    }
+    if (camShakeMag > 0.01) {
+      camShakeVel.x += (Math.random() - 0.5) * camShakeMag * 0.8;
+      camShakeVel.y += (Math.random() - 0.5) * camShakeMag * 0.45;
+      camShakeVel.z += (Math.random() - 0.5) * camShakeMag * 0.8;
+    }
+    // Spring toward 0 with strong damping (reads as soft suspension).
+    const springK = 70;
+    const dampC = 18;
+    camShakeVel.x += (-springK * camShake.x - dampC * camShakeVel.x) * delta;
+    camShakeVel.y += (-springK * camShake.y - dampC * camShakeVel.y) * delta;
+    camShakeVel.z += (-springK * camShake.z - dampC * camShakeVel.z) * delta;
+    camShake.x += camShakeVel.x * delta;
+    camShake.y += camShakeVel.y * delta;
+    camShake.z += camShakeVel.z * delta;
+    if (hyperBlend > 0.55) {
+      camShake.multiplyScalar(0.35);
+      camShakeVel.multiplyScalar(0.35);
+    }
     camera.up.copy(camUp);
     camera.position.set(camPos.x + camShake.x, camPos.y + camShake.y, camPos.z + camShake.z);
     camera.lookAt(camLook.x, camLook.y, camLook.z);
@@ -692,6 +712,8 @@ import {
   let phase = 'idle';
   let countdownT = 0;
   let speed = 0;
+  // Speedometer uses ground-truth motion (m/s), not the uncapped throttle intent.
+  let displaySpeed = 0;
   let distance = 0;
   let heading = 0;
   let steer = 0;
@@ -710,6 +732,9 @@ import {
   let rollSmooth = 0;
   let impactShake = 0;
   let impactCool = 0;
+  // Camera suspension: smoothed speed for blend + spring-damped shake (no high-freq random jitter).
+  let camSpeedSmooth = 0;
+  const camShakeVel = new THREE.Vector3();
   const smashOutput = document.getElementById('smashed');
   const smashStat = document.getElementById('smash-stat');
   const tiltToggle = document.getElementById('tilt-toggle');
@@ -1211,7 +1236,7 @@ import {
     updateCamera(delta, {
       px, py: onPlanet ? altitude : player.position.y, pz, heading, speedRatio, free: true
     });
-    speedOutput.textContent = String(Math.round(Math.abs(speed) * 3.6));
+    speedOutput.textContent = String(Math.round(Math.abs(displaySpeed) * 3.6));
     distanceOutput.textContent = (distance / 1000).toFixed(1);
     updateTrip();
     boardTimer -= delta;
@@ -1322,7 +1347,9 @@ import {
       speedRatio,
       free: true
     });
-    speedOutput.textContent = String(Math.round(Math.abs(speed) * 3.6));
+    // Free-roam meter already synced from ground travel inside the physics step.
+    if (!(freeActive && !circuitActive)) displaySpeed = Math.abs(speed);
+    speedOutput.textContent = String(Math.round(Math.abs(displaySpeed) * 3.6));
     distanceOutput.textContent = (distance / 1000).toFixed(1);
     mapTimer -= delta;
     if (mapTimer <= 0) {
@@ -1377,6 +1404,9 @@ import {
     hasStarted = true;
     audio.resume();
     speed = 0;
+    displaySpeed = 0;
+    camSpeedSmooth = 0;
+    camShakeVel.set(0, 0, 0);
     prevSpeed = 0;
     distance = 0;
     crashes = 0;
@@ -1654,6 +1684,15 @@ import {
         ? (x, z) => raceTrack.isOnTrack(x, z)
         : (realActive ? realCity.isDrivable : isFreeDrivable);
       const step = speed * delta;
+      // Measure ground-truth travel so the speedo matches what the camera sees.
+      const originX = isPlanet() ? mapX : player.position.x;
+      const originZ = isPlanet() ? mapZ : player.position.z;
+      const wrapD = (a, b) => {
+        let d = a - b;
+        // Always unwrap large jumps (city wrap / soft-kerb snaps) so the meter never spikes.
+        if (Math.abs(d) > SIZE * 0.45) d -= SIZE * Math.round(d / SIZE);
+        return d;
+      };
       // Substep long moves so high speed (~300 km/h) doesn't tunnel into buildings and "bounce".
       const FREE_SUB_STEP = 0.75;
       const subCount = Math.max(1, Math.min(24, Math.ceil(Math.abs(step) / FREE_SUB_STEP)));
@@ -1682,13 +1721,13 @@ import {
             const hyper = Math.abs(speed) > 55;
             if (canDrive(sx, sz)) {
               mapX = sx; mapZ = sz;
-              if (!hyper) speed *= 1 - Math.min(0.15, delta * 0.8 / subCount);
+              speed *= 1 - Math.min(hyper ? 0.08 : 0.15, delta * (hyper ? 1.1 : 0.8) / subCount);
             } else {
               const east = moveOnSphere(mapX, mapZ, Math.PI / 2, subStep * Math.sin(heading));
               const north = moveOnSphere(mapX, mapZ, 0, subStep * Math.cos(heading));
-              if (canDrive(east.x, mapZ)) { mapX = east.x; if (!hyper) speed *= 1 - Math.min(0.2, delta * 1.2 / subCount); }
-              else if (canDrive(mapX, north.z)) { mapZ = north.z; if (!hyper) speed *= 1 - Math.min(0.2, delta * 1.2 / subCount); }
-              else { if (!hyper) speed *= 1 - Math.min(0.35, delta * 2 / subCount); break; }
+              if (canDrive(east.x, mapZ)) { mapX = east.x; speed *= 1 - Math.min(hyper ? 0.12 : 0.2, delta * 1.2 / subCount); }
+              else if (canDrive(mapX, north.z)) { mapZ = north.z; speed *= 1 - Math.min(hyper ? 0.12 : 0.2, delta * 1.2 / subCount); }
+              else { speed *= 1 - Math.min(hyper ? 0.55 : 0.35, delta * (hyper ? 8 : 2) / subCount); break; }
             }
           } else {
             // Ground only: try axis slides before stopping (flat wrap, heading unchanged).
@@ -1705,20 +1744,19 @@ import {
         const crash = (airborne || circuitActive)
           ? { dx: 0, dz: 0, speed, shake: 0 }
           : freeCity.interact({ x: mapX, z: mapZ, heading, speed });
-        if (Math.abs(speed) <= 55 && !airborne && (crash.dx || crash.dz) && Math.hypot(crash.dx, crash.dz) > 1e-4) {
+        if (!airborne && (crash.dx || crash.dz) && Math.hypot(crash.dx, crash.dz) > 1e-4) {
           const pushLen = Math.min(Math.hypot(crash.dx, crash.dz), Math.abs(speed) > 40 ? 0.45 : 1.25);
           // Planet forward is +Z for heading 0 — push heading uses atan2(dx, dz).
           const pushed = moveOnSphere(mapX, mapZ, Math.atan2(crash.dx, crash.dz), pushLen);
           if (canDrive(pushed.x, pushed.z)) { mapX = pushed.x; mapZ = pushed.z; }
         }
-        if (Math.abs(speed) > 55) {
-          impactShake = 0;
-        } else if (Math.abs(speed) > 40 && crash.speed * Math.sign(speed || 1) < Math.abs(speed) * 0.55) {
-          speed *= 0.9;
-          impactShake = Math.max(impactShake, crash.shake);
-        } else {
-          speed = crash.speed;
-          impactShake = Math.max(impactShake, crash.shake);
+        if (Number.isFinite(crash.speed) && crash.speed !== speed) {
+          if (Math.abs(speed) > 40 && crash.speed * Math.sign(speed || 1) < Math.abs(speed) * 0.55) {
+            speed *= 0.85;
+          } else {
+            speed = crash.speed;
+          }
+          impactShake = Math.max(impactShake, crash.shake || 0);
         }
       } else {
         heading += turnRate * delta;
@@ -1749,15 +1787,16 @@ import {
             if (canDrive(sx, sz)) {
               player.position.x = sx;
               player.position.z = sz;
-              if (!hyper) speed *= 1 - Math.min(0.15, delta * 0.8 / subCount);
+              speed *= 1 - Math.min(hyper ? 0.08 : 0.15, delta * (hyper ? 1.1 : 0.8) / subCount);
             } else if (canDrive(nx, player.position.z)) {
               player.position.x = nx;
-              if (!hyper) speed *= 1 - Math.min(0.2, delta * 1.2 / subCount);
+              speed *= 1 - Math.min(hyper ? 0.12 : 0.2, delta * 1.2 / subCount);
             } else if (canDrive(player.position.x, nz)) {
               player.position.z = nz;
-              if (!hyper) speed *= 1 - Math.min(0.2, delta * 1.2 / subCount);
+              speed *= 1 - Math.min(hyper ? 0.12 : 0.2, delta * 1.2 / subCount);
             } else {
-              if (!hyper) speed *= 1 - Math.min(0.35, delta * 2 / subCount);
+              // Fully blocked — bleed even at hyper so the meter matches a dead stop.
+              speed *= 1 - Math.min(hyper ? 0.55 : 0.35, delta * (hyper ? 8 : 2) / subCount);
               break;
             }
           } else if (canDrive(nx, player.position.z)) {
@@ -1775,26 +1814,51 @@ import {
           ? { dx: 0, dz: 0, speed, shake: 0 }
           : freeCity.interact({ x: player.position.x, z: player.position.z, heading, speed });
         // Cap separation so a deep overlap can't yeet the car backward at high speed.
-        // Hyper: ignore smash separation entirely (racing never shoves the car mid-straight).
-        if (Math.abs(speed) <= 55) {
-          const pushCap = Math.abs(speed) > 40 ? 0.45 : 1.25;
-          const pushX = THREE.MathUtils.clamp(crash.dx, -pushCap, pushCap);
-          const pushZ = THREE.MathUtils.clamp(crash.dz, -pushCap, pushCap);
-          if (canDrive(player.position.x + pushX, player.position.z + pushZ)) {
-            player.position.x += pushX;
-            player.position.z += pushZ;
-          }
+        const pushCap = Math.abs(speed) > 40 ? 0.45 : 1.25;
+        const pushX = THREE.MathUtils.clamp(crash.dx || 0, -pushCap, pushCap);
+        const pushZ = THREE.MathUtils.clamp(crash.dz || 0, -pushCap, pushCap);
+        if ((pushX || pushZ) && canDrive(player.position.x + pushX, player.position.z + pushZ)) {
+          player.position.x += pushX;
+          player.position.z += pushZ;
+        }
+        if (Number.isFinite(crash.speed) && crash.speed !== speed) {
+          // Building / prop hits always adopt the post-collision speed (including hyper).
           if (Math.abs(speed) > 40 && crash.speed * Math.sign(speed || 1) < Math.abs(speed) * 0.55) {
-            speed *= 0.9;
+            speed *= 0.85;
           } else {
             speed = crash.speed;
           }
-          impactShake = Math.max(impactShake, crash.shake);
-        } else {
-          impactShake = 0;
+          impactShake = Math.max(impactShake, crash.shake || 0);
+        } else if (Math.abs(speed) <= 55) {
+          impactShake = Math.max(impactShake, crash.shake || 0);
         }
         mapX = player.position.x;
         mapZ = player.position.z;
+      }
+      // Sync throttle speed to ground-truth travel — stops the meter floating after a wall hit.
+      {
+        const endX = isPlanet() ? mapX : player.position.x;
+        const endZ = isPlanet() ? mapZ : player.position.z;
+        const moved = Math.hypot(wrapD(endX, originX), wrapD(endZ, originZ));
+        const intended = Math.abs(speed) * delta;
+        const maxSp = stats.top * (altitude > 1 ? 1.08 : 1) * 1.05;
+        let ground = (Math.abs(speed) < 1e-6 && moved < 1e-4)
+          ? 0
+          : Math.sign(speed || 1) * (moved / Math.max(delta, 1e-4));
+        // Reject teleport-sized samples (wrap/snap) — keep last throttle speed for that frame.
+        if (Math.abs(ground) > maxSp * 1.25) ground = speed;
+        if (intended > 0.02 && moved < intended * 0.5 && Math.abs(ground) <= maxSp * 1.25) {
+          speed = ground;
+          if (moved < 0.015) speed = 0;
+        }
+        // Meter tracks actual road motion; snap on hard stops, light-smooth otherwise.
+        const groundAbs = THREE.MathUtils.clamp(Math.abs(ground), 0, maxSp);
+        if (groundAbs < 0.8 || (intended > 0.05 && moved < intended * 0.25)) {
+          displaySpeed = groundAbs;
+        } else {
+          displaySpeed = THREE.MathUtils.lerp(displaySpeed, groundAbs, Math.min(1, delta * 20));
+        }
+        displaySpeed = Math.min(displaySpeed, maxSp);
       }
       // Pavement and park lawn sit slightly above the asphalt; hills / circuits set the deck height.
       // Use the same pad test as driving so sidewalk edges don't bob Y every frame at speed.
@@ -1862,6 +1926,8 @@ import {
       }
       player.position.x = x;
       forward = speed * Math.cos(heading);
+      // Highway scroll speed matches throttle — meter follows the same value.
+      displaySpeed = Math.abs(speed);
     }
 
     wheelAngle += (speed * delta) / (carModel.userData.wheelRadius || 0.35);
@@ -1870,7 +1936,7 @@ import {
     const accel = (speed - prevSpeed) / Math.max(delta, 1e-3);
     prevSpeed = speed;
     // Free-roam near top speed: accel hunts ± as drag/power fight — zero chassis bob (racing hides this).
-    const hyperFree = freeActive && Math.abs(speed) > 50;
+    const hyperFree = freeActive && Math.abs(speed) > 28;
     const accelCap = hyperFree ? 4 : 25;
     accelSmooth = THREE.MathUtils.lerp(accelSmooth, THREE.MathUtils.clamp(accel, -accelCap, 12), Math.min(1, delta * (hyperFree ? 10 : 5)));
     if (hyperFree) accelSmooth *= 0.85;
@@ -1942,7 +2008,7 @@ import {
       speedRatio,
       free: false
     });
-    speedOutput.textContent = String(Math.round(speed * 3.6));
+    speedOutput.textContent = String(Math.round(Math.abs(displaySpeed) * 3.6));
     distanceOutput.textContent = (distance / 1000).toFixed(1);
     updateTrip();
     boardTimer -= delta;
@@ -2107,9 +2173,12 @@ import {
     },
     setSpeed: (v) => {
       speed = Number(v) || 0;
+      displaySpeed = Math.abs(speed);
+      camSpeedSmooth = displaySpeed;
       prevSpeed = speed;
       return speed;
     },
+    displaySpeed: () => displaySpeed,
     // QA: advance physics + render N fixed steps (swiftshader rAF is too starved for real-time 230 km/h demos).
     // Pass render:false to step physics only (fast metrics / teleport checks).
     pump: (frames = 30, dt = 1 / 60, opts = {}) => {
