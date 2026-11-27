@@ -290,6 +290,19 @@ html:-webkit-full-screen body {
   .city-game:has(.touch-controls.tilt-on) .location-tag {
     bottom: calc(var(--btn-gas) + 28px + env(safe-area-inset-bottom, 0px));
   }
+  /* Phones / tablets: keep the welcome card translucent so route previews stay visible. */
+  #welcome.overlay { background: rgba(15,36,43,.06); }
+  #welcome .welcome-card {
+    background: rgba(250,253,252,.36);
+    border-color: rgba(255,255,255,.35);
+    box-shadow: 0 12px 28px rgba(18,44,49,.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  #welcome .intro { color: #2f4549; }
+  #welcome .welcome-note, #welcome .fs-tip { color: #4a5c5a; }
+  /* Touch pads are only for driving — hide them while the welcome menu is up. */
+  .city-game:has(#welcome:not(.hidden)) .touch-controls { display: none; }
 }
 @media (max-width: 700px) {
   .back-link { top: max(10px, env(safe-area-inset-top, 0px)); left: max(10px, env(safe-area-inset-left, 0px)); padding: 9px 12px; font-size: 11px; }
@@ -308,6 +321,17 @@ html:-webkit-full-screen body {
   .hud-icon, .pause-button { width: 30px; height: 30px; }
   .overlay { background: rgba(15,36,43,.42); }
   .welcome-card { margin: 70px 0 0; padding: 26px; }
+  /* Let district / circuit previews read through when the card fills the screen. */
+  #welcome.overlay { background: rgba(15,36,43,.06); }
+  #welcome .welcome-card {
+    background: rgba(250,253,252,.36);
+    border-color: rgba(255,255,255,.35);
+    box-shadow: 0 12px 28px rgba(18,44,49,.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  #welcome .intro { color: #2f4549; }
+  #welcome .welcome-note, #welcome .fs-tip { color: #4a5c5a; }
   .location-tag { left: max(10px, env(safe-area-inset-left, 0px)); padding: 8px 10px; font-size: 8px; }
   .driving-hint { display: none; }
 }
@@ -588,7 +612,15 @@ html:-webkit-full-screen body {
   .city-game.is-playing .minimap { width: 96px; height: 96px; }
 }
 @media (max-width: 700px) { .garage-card { margin: 56px 0 0; } }
-@media (max-height: 520px) { .garage-card, .welcome-card { margin-top: 0; padding: 16px; } }
+@media (max-height: 520px) {
+  .garage-card, .welcome-card { margin-top: 0; padding: 16px; }
+  #welcome.overlay { background: rgba(15,36,43,.05); }
+  #welcome .welcome-card {
+    background: rgba(250,253,252,.32);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+  }
+}
 
 .trip-bar { position: absolute; z-index: 2; top: 86px; right: 22px; width: 280px; padding: 10px 14px; border: 1px solid rgba(255,255,255,.6); border-radius: 12px; background: rgba(250,253,252,.86); backdrop-filter: blur(14px); color: #19333b; font-size: 11px; font-weight: 700; }
 .trip-bar[hidden] { display: none; }
