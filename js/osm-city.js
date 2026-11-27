@@ -1,6 +1,7 @@
 
 // Converts OpenStreetMap data (Overpass JSON with `out geom`) into per-layer triangle meshes plus footprint / road extras.
-// Runs in the browser (City Driving "Real map" mode) and in Node tests; it must stay free of DOM and Node-only APIs.
+// Used by scripts/build-city-maps.mjs to prebuild packs under data/city-maps/; also covered by Node tests.
+// Must stay free of DOM and Node-only APIs so the same converter can run in either environment.
 // Output coordinates are metres around the city centre: +x east, +z south, +y up (matches the game, where north = small z).
 const EARTH = 6378137;
 const ROAD_WIDTH = { motorway: 14, trunk: 12, primary: 11, secondary: 9.5, tertiary: 8, motorway_link: 7, trunk_link: 7, primary_link: 7, secondary_link: 6.5, tertiary_link: 6.5, unclassified: 6.5, residential: 6.5, living_street: 5.5, service: 4, road: 6 };

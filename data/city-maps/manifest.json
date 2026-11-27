@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "format": "city-driving-osm-bin-v1",
+  "radius": 1500,
+  "generatedAt": "2026-11-27T04:36:39.243Z",
+  "attribution": "© OpenStreetMap contributors (ODbL)",
+  "cities": [
+    {
+      "id": "singapore",
+      "name": "Singapore",
+      "file": "singapore.bin.gz",
+      "footprints": 1411,
+      "roads": 2655,
+      "bytes": 1750482
+    },
+    {
+      "id": "newyork",
+      "name": "New York",
+      "file": "newyork.bin.gz",
+      "footprints": 6460,
+      "roads": 2223,
+      "bytes": 4797615
+    },
+    {
+      "id": "shanghai",
+      "name": "Shanghai",
+      "file": "shanghai.bin.gz",
+      "footprints": 1789,
+      "roads": 1416,
+      "bytes": 1998919
+    },
+    {
+      "id": "tokyo",
+      "name": "Tokyo",
+      "file": "tokyo.bin.gz",
+      "footprints": 33696,
+      "roads": 3240,
+      "bytes": 13582889
+    },
+    {
+      "id": "london",
+      "name": "London",
+      "file": "london.bin.gz",
+      "footprints": 8848,
+      "roads": 4598,
+      "bytes": 6588734
+    },
+    {
+      "id": "dubai",
+      "name": "Dubai",
+      "file": "dubai.bin.gz",
+      "footprints": 2369,
+      "roads": 2304,
+      "bytes": 3602405
+    }
+  ]
+}
