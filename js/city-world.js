@@ -812,13 +812,34 @@ export function createWorld({ scene, renderer }) {
     if (!on) {
       skyDome.visible = true;
       clouds.visible = true;
-      stars.visible = false;
       skyDome.scale.set(1, 1, 1);
       clouds.scale.set(1, 1, 1);
-      sun.intensity = 2.3;
       sun.castShadow = true;
       sunB.intensity = 0;
-      hemi.intensity = 1.2;
+      // Restore the active route's sky/lighting so free-roam entry does not wipe night/golden-hour looks.
+      if (currentRoute) {
+        const night = !!currentRoute.night;
+        stars.visible = night;
+        hemi.intensity = currentRoute.hemi * 0.55;
+        sun.intensity = currentRoute.sun;
+        sun.color.set(currentRoute.sunColor);
+        skyUniforms.uSunColor.value.set(currentRoute.sunColor);
+        skyUniforms.uGlow.value = night ? 0.05 : 0.35;
+        const horizon = new THREE.Color(currentRoute.sky);
+        const luminance = horizon.r * 0.3 + horizon.g * 0.59 + horizon.b * 0.11;
+        const zenith = horizon.clone().lerp(new THREE.Color(night ? 0x070b24 : 0x2f6fb8), night ? 0.65 : 0.55);
+        if (!night && luminance < 0.5) zenith.multiplyScalar(0.7);
+        skyUniforms.uHorizon.value.copy(horizon);
+        skyUniforms.uZenith.value.copy(zenith);
+        scene.background = horizon.clone();
+        scene.fog.color.copy(horizon);
+        const cloudTint = new THREE.Color(0xffffff).lerp(horizon, night ? 0.75 : 0.25);
+        cloudMaterials.forEach((m) => { m.color.copy(cloudTint); m.opacity = night ? 0.35 : 0.8; });
+      } else {
+        stars.visible = false;
+        sun.intensity = 2.3;
+        hemi.intensity = 1.2;
+      }
       return;
     }
     // Huge sky shell so orbital cameras never see its outside as a solid blue ball.
