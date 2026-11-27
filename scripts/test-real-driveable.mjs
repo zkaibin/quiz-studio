@@ -3,6 +3,8 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { unpackSceneBinary, gunzipBytes } from '../js/city-map-pack.js';
+import { projector } from '../js/osm-city.js';
+import { REAL_STARTS } from '../js/city-real-starts.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -45,7 +47,7 @@ function distToSeg(x, z, seg) {
 
 const gz = await readFile(path.join(ROOT, 'data/city-maps/singapore.bin.gz'));
 const pack = unpackSceneBinary(await gunzipBytes(gz));
-const { roads, footprints, half } = pack.extras;
+const { roads, footprints, half, center } = pack.extras;
 
 const roadGrid = new Map();
 for (const r of roads) {
@@ -88,18 +90,83 @@ function onRoad(x, z, margin = 1.25) {
   return list.some((seg) => distToSeg(x, z, seg) <= seg.w * 0.5 + margin);
 }
 
+function inBuilding(x, z, useHit = true) {
+  const list = grid.get(`${Math.floor(x / CELL)},${Math.floor(z / CELL)}`);
+  if (!list) return false;
+  for (const f of list) {
+    const poly = useHit ? f.hit : f.p;
+    const b = f.box;
+    const pad = useHit ? 0 : FOOTPRINT_INSET + 0.5;
+    if (x >= b[0] - pad && x <= b[1] + pad && z >= b[2] - pad && z <= b[3] + pad && pointInPolygon(x, z, poly)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function isDrivable(x, z) {
   const r = Math.hypot(x, z);
   if (r > half * 1.02) return false;
   if (onRoad(x, z)) return r <= half * 1.01;
   if (r > half * 0.96) return false;
-  const list = grid.get(`${Math.floor(x / CELL)},${Math.floor(z / CELL)}`);
-  if (!list) return true;
-  for (const f of list) {
-    const b = f.box;
-    if (x >= b[0] && x <= b[1] && z >= b[2] && z <= b[3] && pointInPolygon(x, z, f.hit)) return false;
+  return !inBuilding(x, z);
+}
+
+function isOpenRoad(x, z, margin = 0.75) {
+  return onRoad(x, z, margin) && !inBuilding(x, z, false);
+}
+
+function corridorOpen(x, z, heading, reach = 28, step = 4) {
+  const sx = Math.sin(heading); const cz = Math.cos(heading);
+  for (const dir of [1, -1]) {
+    let clear = 0;
+    for (let d = step; d <= reach; d += step) {
+      const px = x + sx * d * dir; const pz = z - cz * d * dir;
+      if (!isOpenRoad(px, pz, 1.5)) break;
+      clear += step;
+    }
+    if (clear >= Math.min(16, reach * 0.5)) return true;
   }
-  return true;
+  return false;
+}
+
+function nearestRoad(x, z, maxDist = 220, { requireOpen = true } = {}) {
+  let best = null; let bestScore = Infinity;
+  let fallback = null; let fallbackScore = Infinity;
+  for (const r of roads) {
+    for (let i = 0; i + 3 < r.p.length; i += 2) {
+      const x1 = r.p[i]; const z1 = r.p[i + 1]; const x2 = r.p[i + 2]; const z2 = r.p[i + 3];
+      const dx = x2 - x1; const dz = z2 - z1;
+      const len2 = dx * dx + dz * dz;
+      if (len2 < 40) continue;
+      const len = Math.sqrt(len2);
+      let t = ((x - x1) * dx + (z - z1) * dz) / len2;
+      t = Math.max(0, Math.min(1, t));
+      const px = x1 + dx * t; const pz = z1 + dz * t;
+      const dist = Math.hypot(x - px, z - pz);
+      if (dist > maxDist) continue;
+      const heading = Math.atan2(dx, -dz);
+      const open = isOpenRoad(px, pz, 0.5);
+      const corridor = open && corridorOpen(px, pz, heading);
+      const score = dist
+        - r.w * 2.4
+        - (len > 40 ? 8 : 0)
+        + (open ? 0 : 420)
+        + (corridor ? 0 : 160)
+        + (r.w < 5.5 ? 55 : 0);
+      const hit = { x: px, z: pz, heading, w: r.w, dist, open, corridor };
+      if (score < bestScore && (!requireOpen || (open && corridor))) {
+        bestScore = score;
+        best = hit;
+      }
+      if (score < fallbackScore) {
+        fallbackScore = score;
+        fallback = hit;
+      }
+    }
+  }
+  if (best) return best;
+  return requireOpen ? null : fallback;
 }
 
 // Sample midpoints of long road segments near the centre — all must be drivable.
@@ -134,4 +201,28 @@ for (const f of footprints.slice(0, 200)) {
 assert.ok(buildingSamples > 20);
 assert.ok(buildingBlocked / buildingSamples > 0.7, 'most building centres stay blocked');
 
-console.log(`real-driveable tests passed (roads ${checked}, buildings blocked ${buildingBlocked}/${buildingSamples})`);
+// Curated POI starts must snap onto open asphalt (not building cut-throughs).
+const project = projector(center.lat, center.lon);
+const startReport = [];
+for (const poi of REAL_STARTS.singapore) {
+  const [x, z] = project(poi.lat, poi.lon);
+  const road = nearestRoad(x, z, 180, { requireOpen: true })
+    || nearestRoad(x, z, 360, { requireOpen: true });
+  assert.ok(road, `${poi.id} must resolve to an open road`);
+  assert.ok(isOpenRoad(road.x, road.z), `${poi.id} spawn must not sit inside a building`);
+  assert.ok(road.corridor, `${poi.id} spawn needs a clear driving corridor`);
+  assert.ok(isDrivable(road.x, road.z), `${poi.id} spawn must be drivable`);
+  startReport.push(`${poi.id}@${road.w}m`);
+}
+
+// Old Esplanade pin used to land inside the theatre multipolygon — keep that regression locked.
+const oldEsp = project(1.2895, 103.8558);
+const oldSnap = nearestRoad(oldEsp[0], oldEsp[1], 100, { requireOpen: false });
+assert.ok(oldSnap, 'legacy esplanade pin still has a nearby road');
+const fixedEsp = REAL_STARTS.singapore.find((p) => p.id === 'sg-esplanade');
+const [fx, fz] = project(fixedEsp.lat, fixedEsp.lon);
+const fixedSnap = nearestRoad(fx, fz, 180, { requireOpen: true });
+assert.ok(fixedSnap && fixedSnap.open && fixedSnap.corridor, 'updated Esplanade pin stays on open asphalt');
+assert.ok(!inBuilding(fixedSnap.x, fixedSnap.z, false), 'Esplanade spawn is outside building pads');
+
+console.log(`real-driveable tests passed (roads ${checked}, buildings blocked ${buildingBlocked}/${buildingSamples}, starts ${startReport.join(', ')})`);
