@@ -630,7 +630,7 @@ City Driving now layers arcade presentation on top of the existing city systems:
 
 ## City Driving: real map (prebuilt)
 
-Choosing **Real map** loads a prebuilt OpenStreetMap pack from `data/city-maps/<city>.bin.gz` (no Overpass call, no client-side convert). Packs are generated offline:
+Choosing **Real map** loads a prebuilt OpenStreetMap pack from `data/city-maps/<city>.bin.gz` (no Overpass call, no client-side convert). The browser then dresses the pack with street-view detail — asphalt/grass textures, windowed facades, sidewalks, lane paint, lamps and trees (`js/city-real-look.js`). Packs are generated offline:
 
 ```bash
 npm run build:city-maps              # all earth cities
