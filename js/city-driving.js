@@ -2102,7 +2102,9 @@ import {
     // Racing auto-centres the nose with no input. Free roam at hyper speed does the same toward
     // the nearest road axis so the car doesn't drift into pads and soft-kerb bounce.
     if (!free && Math.abs(input) < 0.05) steerTarget = THREE.MathUtils.clamp(-heading * 0.9, -maxSteer * 1.6, maxSteer * 1.6);
-    if (free && !circuitActive && Math.abs(speed) > 50 && Math.abs(input) < 0.1) {
+    // Grid auto-align is for the procedural city only — OSM roads are rarely axis-aligned,
+    // and forcing N/S/E/W at speed steers the car into building pads (invisible walls).
+    if (free && !circuitActive && !realActive && Math.abs(speed) > 50 && Math.abs(input) < 0.1) {
       const axes = [0, Math.PI / 2, Math.PI, -Math.PI / 2];
       let best = axes[0];
       let bestDiff = Infinity;
@@ -2210,20 +2212,31 @@ import {
         }
       } else {
         heading += turnRate * delta;
+        // Unstick if a footprint/edge left the car inside a non-drivable cell while still on asphalt.
+        if (realActive && !airborne && !canDrive(player.position.x, player.position.z)) {
+          const freed = realCity.clampToRoad(player.position.x, player.position.z);
+          if (freed.hit && canDrive(freed.x, freed.z)) {
+            player.position.x = freed.x;
+            player.position.z = freed.z;
+          }
+        }
         for (let s = 0; s < subCount; s++) {
           const nx = player.position.x + Math.sin(heading) * subStep;
           const nz = player.position.z - Math.cos(heading) * subStep;
           if (airborne || canDrive(nx, nz)) {
             player.position.x = nx;
             player.position.z = nz;
-          } else if (Math.abs(speed) > 50) {
-            // Soft kerb: clamp onto the nearest road / circuit centre instead of stop-slide bounce.
-            const hyper = Math.abs(speed) > 55;
+          } else {
+            // Soft kerb: snap onto nearest road / circuit instead of an invisible hard wall.
+            const hyper = Math.abs(speed) > 50;
             let sx = nx;
             let sz = nz;
             if (circuitActive) {
               const clamped = raceTrack.clampToTrack(nx, nz);
               sx = clamped.x; sz = clamped.z;
+            } else if (realActive) {
+              const clamped = realCity.clampToRoad(nx, nz);
+              if (clamped.hit) { sx = clamped.x; sz = clamped.z; }
             } else if (usesOrganicLayout(currentCity())) {
               const clamped = softKerbClamp(nx, nz, currentCity());
               sx = clamped.x; sz = clamped.z;
@@ -2237,27 +2250,17 @@ import {
             if (canDrive(sx, sz)) {
               player.position.x = sx;
               player.position.z = sz;
-              speed *= 1 - Math.min(hyper ? 0.08 : 0.15, delta * (hyper ? 1.1 : 0.8) / subCount);
+              speed *= 1 - Math.min(hyper ? 0.1 : 0.22, delta * (hyper ? 1.2 : 1.4) / subCount);
             } else if (canDrive(nx, player.position.z)) {
               player.position.x = nx;
-              speed *= 1 - Math.min(hyper ? 0.12 : 0.2, delta * 1.2 / subCount);
+              speed *= 1 - Math.min(hyper ? 0.12 : 0.25, delta * 1.4 / subCount);
             } else if (canDrive(player.position.x, nz)) {
               player.position.z = nz;
-              speed *= 1 - Math.min(hyper ? 0.12 : 0.2, delta * 1.2 / subCount);
+              speed *= 1 - Math.min(hyper ? 0.12 : 0.25, delta * 1.4 / subCount);
             } else {
-              // Fully blocked — bleed even at hyper so the meter matches a dead stop.
-              speed *= 1 - Math.min(hyper ? 0.55 : 0.35, delta * (hyper ? 8 : 2) / subCount);
+              speed *= 1 - Math.min(hyper ? 0.55 : 0.45, delta * (hyper ? 8 : 4) / subCount);
               break;
             }
-          } else if (canDrive(nx, player.position.z)) {
-            player.position.x = nx;
-            speed *= 1 - Math.min(0.9, delta * 3 / subCount);
-          } else if (canDrive(player.position.x, nz)) {
-            player.position.z = nz;
-            speed *= 1 - Math.min(0.9, delta * 3 / subCount);
-          } else {
-            speed *= 1 - Math.min(0.9, delta * 6 / subCount);
-            break;
           }
         }
         const crash = airborne || realActive || circuitActive
