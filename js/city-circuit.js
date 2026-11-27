@@ -295,8 +295,9 @@ function nearestOnCurve(curve, x, y, z, samples = 240) {
   return { t, point: p.clone(), tangent, heading: Math.atan2(tangent.x, -tangent.z), lateral: lat, dist: Math.hypot(x - p.x, z - p.z) };
 }
 
-export function circuitsFor(_cityId) {
-  return CIRCUITS;
+export function circuitsFor({ planet = false } = {}) {
+  // Planet cities only race the equatorial belt; Earth cities get the flat oval catalogue.
+  return CIRCUITS.filter((c) => !!c.planet === !!planet);
 }
 
 export function circuitById(id) {
