@@ -148,10 +148,22 @@ import {
   // corridor shown behind the route picker so Start Drive matches the welcome backdrop.
   const usesOpenCity = () => mode === 'real' || (mode === 'free' && isPlanet());
 
+  let selectedRealStartId = null;
+  try {
+    const savedStart = localStorage.getItem('cityDrivingRealStart');
+    if (savedStart) selectedRealStartId = savedStart;
+  } catch (error) { /* storage unavailable */ }
+  let menuRealPreview = false;
+  let realMinimapView = null;
+
   function updateRouteLabel() {
     routeLabelOutput.textContent = mode === 'race' ? 'CIRCUIT' : 'START';
     if (mode === 'real') {
-      routeNameOutput.textContent = `Real ${currentCity().name} streets (OpenStreetMap)`;
+      const starts = realCity.ready ? realCity.getStarts() : [];
+      const hit = starts.find((s) => s.id === selectedRealStartId) || starts[0];
+      routeNameOutput.textContent = hit
+        ? `${hit.name} · ${hit.blurb}`
+        : `Real ${currentCity().name} streets (OpenStreetMap)`;
       return;
     }
     if (mode === 'free') {
@@ -174,8 +186,9 @@ import {
   function setMode(next) {
     mode = next === 'race' || next === 'real' ? next : 'free';
     modeList.querySelectorAll('button').forEach((button) => button.classList.toggle('on', button.dataset.mode === mode));
+    if (mode !== 'real') menuRealPreview = false;
     renderRoutes();
-    if (mode !== 'race') {
+    if (mode === 'free') {
       routeList.querySelectorAll('button').forEach((button) => {
         button.classList.toggle('on', button.dataset.route === route.id);
       });
@@ -255,7 +268,7 @@ import {
     if (freeBtn) freeBtn.textContent = city.planet ? 'Free roam' : 'District drive';
     cityIntro.textContent = city.planet
       ? `Take the wheel in ${city.name} on alien ${city.country} (~${lapKm} km sphere-net). Twin sun satellites light the crystal city — drive or fly anywhere; districts stream in as you explore.`
-      : `Take the wheel in ${city.name}. Pick a district route to cruise the scenic streets behind the menu, or jump onto a racing circuit — beginner ovals through challenge tracks.`;
+      : `Take the wheel in ${city.name}. Pick a district route, a racing circuit, or Real map places of interest — tap the live minimap while driving to jump across town.`;
     roadName.textContent = trafficLabel();
     roadName.dataset.default = roadName.textContent;
   }
@@ -271,6 +284,17 @@ import {
       }).join('');
       return;
     }
+    if (mode === 'real') {
+      const list = realCity.ready && realCity.loadedId === currentCity().id ? realCity.getStarts() : [];
+      if (list.length && !list.some((s) => s.id === selectedRealStartId)) selectedRealStartId = list[0].id;
+      routeList.innerHTML = list.length
+        ? list.map((s) => {
+          const on = s.id === selectedRealStartId ? ' on' : '';
+          return `<button type="button" data-real-start="${s.id}" class="${on.trim()}">${s.name}</button>`;
+        }).join('')
+        : '<button type="button" disabled>Loading places…</button>';
+      return;
+    }
     routeList.innerHTML = routesFor(currentCity().id).map((r) => (
       `<button type="button" data-route="${r.id}">${r.name}</button>`
     )).join('');
@@ -281,6 +305,17 @@ import {
     const circuitButton = event.target.closest('[data-circuit]');
     if (circuitButton) {
       applyCircuit(circuitButton.dataset.circuit);
+      return;
+    }
+    const realButton = event.target.closest('[data-real-start]');
+    if (realButton) {
+      selectedRealStartId = realButton.dataset.realStart;
+      routeList.querySelectorAll('button').forEach((button) => {
+        button.classList.toggle('on', button.dataset.realStart === selectedRealStartId);
+      });
+      updateRouteLabel();
+      try { localStorage.setItem('cityDrivingRealStart', selectedRealStartId); } catch (error) { /* storage unavailable */ }
+      if (menuBackdropReady && !hasStarted && mode === 'real') stageRealMenu();
       return;
     }
     const button = event.target.closest('[data-route]');
@@ -514,7 +549,11 @@ import {
     // Blend from a low-pass of speed so tiny throttle hunting doesn't bob the rig.
     const absSpeed = Math.abs(displaySpeed || speed);
     camSpeedSmooth = THREE.MathUtils.lerp(camSpeedSmooth, absSpeed, Math.min(1, delta * 2.4));
-    const hyperBlend = free ? THREE.MathUtils.smoothstep(camSpeedSmooth, 35, 70) : 0;
+    // Flying cars: keep the chase silky at high speed — hyper-tighten / FOV punch read as shake.
+    const flyCruise = free && currentCar.fly && carY > 1.5 ? THREE.MathUtils.smoothstep(carY, 1.5, 8) : 0;
+    const hyperBlend = free
+      ? THREE.MathUtils.smoothstep(camSpeedSmooth, 35, 70) * (1 - flyCruise * 0.88)
+      : 0;
     let back;
     let height;
     let lookAhead;
@@ -708,16 +747,17 @@ import {
         scene.fog.near = THREE.MathUtils.lerp(R * 0.85, R * 2.0, planetSky);
         scene.fog.far = fogFar;
       } else {
+        const baseFog = realActive ? 400 : 320;
         const fogFar = wraps()
           ? Math.max(SIZE * 1.35, 900 + carY * 2.4)
-          : Math.min(320 + carY * 2.8, horizon * 0.82);
-        scene.fog.near = Math.min(70 + carY * 0.35, fogFar * 0.35);
+          : Math.min(baseFog + carY * 2.8, horizon * 0.82);
+        scene.fog.near = Math.min((realActive ? 55 : 70) + carY * 0.35, fogFar * 0.35);
         scene.fog.far = fogFar;
       }
     }
-    const fov = fovBase + speedRatio * fovSpeed + nitroFx * 4;
+    const fov = fovBase + speedRatio * fovSpeed * (1 - flyCruise * 0.55) + nitroFx * (flyCruise > 0.2 ? 1.1 : 4);
     if (Math.abs(camera.fov - fov) > 0.05) {
-      camera.fov = THREE.MathUtils.lerp(camera.fov, fov, 0.1);
+      camera.fov = THREE.MathUtils.lerp(camera.fov, fov, flyCruise > 0.2 ? 0.06 : 0.1);
       camera.updateProjectionMatrix();
     }
   }
@@ -845,6 +885,7 @@ import {
 
   function showDistrictMenu() {
     menuCircuitPreview = false;
+    menuRealPreview = false;
     circuitTrack.setVisible(false);
     freeCity.setVisible(false);
     realCity.setVisible(false);
@@ -867,9 +908,86 @@ import {
     locationName.textContent = areaLabel;
   }
 
+  function placeRealPreviewCamera(spawn) {
+    const back = 16;
+    const height = 7.2;
+    const lookAhead = 22;
+    const sx = Math.sin(spawn.heading);
+    const cz = Math.cos(spawn.heading);
+    mapX = spawn.x;
+    mapZ = spawn.z;
+    heading = spawn.heading;
+    camHeading = spawn.heading;
+    player.position.set(spawn.x, 0, spawn.z);
+    player.rotation.set(0, -spawn.heading, 0);
+    camPos.set(spawn.x - sx * back, height, spawn.z + cz * back);
+    camLook.set(spawn.x + sx * lookAhead, 1.4, spawn.z - cz * lookAhead);
+    camUp.set(0, 1, 0);
+    camera.up.copy(camUp);
+    camera.position.copy(camPos);
+    camera.lookAt(camLook);
+    world.setPlanetSky(false);
+    world.followPlayer(spawn.x, spawn.z, true);
+    scene.fog.near = 55;
+    scene.fog.far = 380;
+  }
+
+  function stageRealMenu() {
+    if (mode !== 'real' || hasStarted || !realCity.ready) return;
+    menuRealPreview = true;
+    menuCircuitPreview = false;
+    leaveCircuit();
+    freeActive = false;
+    realActive = true;
+    freeCity.setVisible(false);
+    realCity.setVisible(true);
+    world.setFreeMode(true);
+    blocks.forEach((block) => { block.visible = false; });
+    trafficSystem.clearTraffic();
+    trafficSystem.clearRacers();
+    finishGate.visible = false;
+    smashStat.hidden = true;
+    minimap.hidden = false;
+    const starts = realCity.getStarts();
+    if (!starts.some((s) => s.id === selectedRealStartId)) selectedRealStartId = starts[0]?.id || null;
+    renderRoutes();
+    updateRouteLabel();
+    const spawn = realCity.spawnAt(selectedRealStartId);
+    placeRealPreviewCamera(spawn);
+    areaLabel = spawn.name || 'REAL MAP';
+    locationName.textContent = areaLabel.toUpperCase();
+    drawMinimap();
+    welcomeNote.textContent = 'Tap the map while driving to jump across the city.';
+  }
+
+  function showRealMenu() {
+    menuCircuitPreview = false;
+    menuRealPreview = true;
+    const city = currentCity();
+    if (realCity.ready && realCity.loadedId === city.id) {
+      stageRealMenu();
+      return;
+    }
+    // Keep district backdrop until the pack is ready, then swap into the real streets.
+    showDistrictMenu();
+    realCity.setVisible(false);
+    startButton.disabled = true;
+    welcomeNote.textContent = `Loading real ${city.name} streets…`;
+    realCity.load(city, (text) => { welcomeNote.textContent = text; }).then((ok) => {
+      startButton.disabled = false;
+      if (!ok) {
+        welcomeNote.textContent = 'Could not load the real map; using District drive.';
+        setMode('free');
+        return;
+      }
+      if (mode === 'real' && !hasStarted) stageRealMenu();
+    });
+  }
+
   // Race mode welcome: stage the selected circuit so Start Drive matches the backdrop.
   function showCircuitMenu() {
     menuCircuitPreview = true;
+    menuRealPreview = false;
     leaveCircuit();
     freeActive = false;
     realActive = false;
@@ -930,6 +1048,7 @@ import {
   function syncMenuBackdrop() {
     if (hasStarted) return;
     if (mode === 'race') showCircuitMenu();
+    else if (mode === 'real') showRealMenu();
     else showDistrictMenu();
   }
 
@@ -1079,6 +1198,7 @@ import {
     try { localStorage.setItem('cityDrivingCity', city.id); } catch (error) { /* storage unavailable */ }
     const firstCircuit = circuitsFor({ planet: !!city.planet })[0];
     selectedCircuitId = firstCircuit?.id || selectedCircuitId;
+    selectedRealStartId = null;
     renderRoutes();
     updateCityText();
     buildMapLayer();
@@ -1112,6 +1232,67 @@ import {
 
   function drawMinimap() {
     const size = minimap.width;
+    // Real map: live window that follows the car (no fixed city square on the HUD).
+    if (realActive && realCity.ready) {
+      const viewR = 460;
+      const half = realCity.half;
+      const atlas = realCity.mapLayer(1024);
+      const atlasK = atlas.width / (half * 2);
+      const cx = hasStarted ? player.position.x : mapX;
+      const cz = hasStarted ? player.position.z : mapZ;
+      const face = heading;
+      realMinimapView = { cx, cz, heading: face, viewR, size, half };
+      const srcR = viewR * atlasK;
+      const srcX = (cx + half) * atlasK - srcR;
+      const srcY = (cz + half) * atlasK - srcR;
+      minimapCtx.save();
+      minimapCtx.clearRect(0, 0, size, size);
+      minimapCtx.beginPath();
+      minimapCtx.arc(size / 2, size / 2, size / 2 - 1, 0, Math.PI * 2);
+      minimapCtx.clip();
+      minimapCtx.fillStyle = '#9bb089';
+      minimapCtx.fillRect(0, 0, size, size);
+      minimapCtx.translate(size / 2, size / 2);
+      minimapCtx.rotate(-face);
+      // Flip Z: canvas Y grows down while world +Z is south.
+      minimapCtx.scale(1, 1);
+      minimapCtx.drawImage(
+        atlas,
+        srcX, srcY, srcR * 2, srcR * 2,
+        -size / 2, -size / 2, size, size
+      );
+      // POI dots
+      for (const s of realCity.getStarts()) {
+        const dx = s.x - cx;
+        const dz = s.z - cz;
+        if (Math.hypot(dx, dz) > viewR * 0.95) continue;
+        const on = s.id === selectedRealStartId;
+        minimapCtx.fillStyle = on ? '#d9482b' : 'rgba(255,255,255,0.9)';
+        minimapCtx.strokeStyle = on ? '#fff' : 'rgba(30,50,50,0.45)';
+        minimapCtx.lineWidth = 1.2;
+        minimapCtx.beginPath();
+        minimapCtx.arc(dx * (size / (viewR * 2)), dz * (size / (viewR * 2)), on ? 3.4 : 2.4, 0, Math.PI * 2);
+        minimapCtx.fill();
+        minimapCtx.stroke();
+      }
+      minimapCtx.restore();
+      // Car glyph upright at centre
+      minimapCtx.save();
+      minimapCtx.translate(size / 2, size / 2);
+      minimapCtx.fillStyle = '#d9482b';
+      minimapCtx.strokeStyle = '#fff';
+      minimapCtx.lineWidth = 1.5;
+      minimapCtx.beginPath();
+      minimapCtx.moveTo(0, -7); minimapCtx.lineTo(5, 6); minimapCtx.lineTo(0, 3); minimapCtx.lineTo(-5, 6);
+      minimapCtx.closePath();
+      minimapCtx.fill();
+      minimapCtx.stroke();
+      minimapCtx.restore();
+      minimap.style.cursor = hasStarted ? 'crosshair' : 'default';
+      return;
+    }
+    minimap.style.cursor = 'default';
+    realMinimapView = null;
     // Sphere-net: local visible patch, rotated so the car always faces up.
     if (isPlanet() && !realActive) {
       const style = currentCity().style || {};
@@ -1295,13 +1476,18 @@ import {
     trafficSystem.clearRacers();
     finishGate.visible = false;
     realActive = mode === 'real' && realCity.ready;
+    menuRealPreview = false;
     scene.fog.near = realActive ? 55 : 70;
     scene.fog.far = realActive ? 380 : 320;
     freeCity.setVisible(!realActive);
     realCity.setVisible(realActive);
     smashStat.hidden = realActive;
     impactShake = 0;
-    const spawn = realActive ? realCity.spawn() : spawnFor(route.id);
+    const spawn = realActive ? realCity.spawnAt(selectedRealStartId) : spawnFor(route.id);
+    if (realActive && spawn.name) {
+      areaLabel = spawn.name;
+      locationName.textContent = spawn.name.toUpperCase();
+    }
     mapX = spawn.x;
     mapZ = spawn.z;
     heading = spawn.heading;
@@ -1334,7 +1520,7 @@ import {
   }
 
   function leaveFree() {
-    if (!freeActive && !circuitActive && !menuCircuitPreview) return;
+    if (!freeActive && !circuitActive && !menuCircuitPreview && !menuRealPreview) return;
     leaveCircuit();
     freeActive = false;
     realActive = false;
@@ -1525,14 +1711,21 @@ import {
     const speedRatio = Math.min(1, Math.abs(speed) / 60);
     // Chase camera trails heading with lag that tightens smoothly as speed rises — no hard lock at ~200 km/h.
     {
+      const flying = currentCar.fly && altitude > 1.5;
       const hb = THREE.MathUtils.smoothstep(Math.abs(speed), 35, 70);
-      const catchUp = THREE.MathUtils.lerp(4.5, 16, hb);
+      const catchUp = THREE.MathUtils.lerp(4.5, flying ? 7.5 : 16, hb);
       camHeading += Math.atan2(Math.sin(heading - camHeading), Math.cos(heading - camHeading)) * Math.min(1, delta * catchUp);
     }
     // Fade smash micro-shakes as speed climbs so they don't stack into a fake bounce.
     {
+      const flying = currentCar.fly && altitude > 1.5;
       const hb = THREE.MathUtils.smoothstep(Math.abs(speed), 35, 70);
-      if (impactShake > 0.1 && hb < 0.85) {
+      if (flying && Math.abs(speed) > 28) {
+        impactShake = 0;
+        camShakeMag *= 0.25;
+        camShake.multiplyScalar(0.5);
+        camShakeVel.multiplyScalar(0.5);
+      } else if (impactShake > 0.1 && hb < 0.85) {
         pulseImpact(impactShake * (1 - hb));
         impactShake *= 0.35;
       } else if (hb >= 0.85) {
@@ -1571,8 +1764,47 @@ import {
     speedOutput.textContent = '0';
     distanceOutput.textContent = '0.0';
     leaveFree();
-    if (!menuCircuitPreview && mode !== 'race') resetCarPose();
+    // leaveFree already restores the welcome backdrop when hasStarted is false.
+    if (!menuCircuitPreview && !menuRealPreview && mode !== 'race') resetCarPose();
   }
+
+  function teleportReal(x, z) {
+    if (!realCity.ready) return;
+    const target = realCity.teleportTarget(x, z);
+    if (!target) return;
+    speed = 0;
+    displaySpeed = 0;
+    altitude = 0;
+    climb = 0;
+    mapX = target.x;
+    mapZ = target.z;
+    heading = target.heading;
+    camHeading = heading;
+    player.position.set(target.x, 0, target.z);
+    player.rotation.set(0, -heading, 0);
+    camSnapT = 0.4;
+    camShakeMag = 0;
+    camShake.set(0, 0, 0);
+    camShakeVel.set(0, 0, 0);
+    world.followPlayer(target.x, target.z, true);
+    locationName.textContent = 'REAL MAP';
+    drawMinimap();
+  }
+
+  minimap.addEventListener('pointerdown', (event) => {
+    if (!hasStarted || !running || !realActive || !realMinimapView) return;
+    event.preventDefault();
+    const rect = minimap.getBoundingClientRect();
+    const px = ((event.clientX - rect.left) / rect.width) * minimap.width - minimap.width / 2;
+    const py = ((event.clientY - rect.top) / rect.height) * minimap.height - minimap.height / 2;
+    const { cx, cz, heading: face, viewR, size } = realMinimapView;
+    const cos = Math.cos(face);
+    const sin = Math.sin(face);
+    const k = size / (viewR * 2);
+    const ox = (px * cos - py * sin) / k;
+    const oz = (px * sin + py * cos) / k;
+    teleportReal(cx + ox, cz + oz);
+  });
 
   function startDrive() {
     // Request immersive / Fullscreen API first so the call stays inside the tap gesture.
