@@ -628,13 +628,17 @@ City Driving now layers arcade presentation on top of the existing city systems:
 - Tire smoke, skid marks, sparks, speed vignette and impact flash (`js/city-fx.js`)
 - Spring chase camera plus hood camera (`C`), gear/RPM cluster, mute (`M`)
 
-## City Driving: real map (client-side)
+## City Driving: real map (prebuilt)
 
-Choosing **Real map** in City Driving prompts the player to download the city's OpenStreetMap data from Overpass (needs network access). `js/osm-city.js` converts it to meshes in the browser, the result is used in place of the generated city, and the download is cached (Cache API) for next time.
+Choosing **Real map** loads a prebuilt OpenStreetMap pack from `data/city-maps/<city>.bin.gz` (no Overpass call, no client-side convert). Packs are generated offline:
 
 ```bash
+npm run build:city-maps              # all earth cities
+npm run build:city-maps -- singapore # one city
 npm run test:city-osm
 ```
+
+`scripts/build-city-maps.mjs` downloads Overpass JSON, runs `js/osm-city.js`, and writes gzipped binary packs. Re-run that script when cities or the converter change, then commit the updated files under `data/city-maps/`.
 
 Map data © OpenStreetMap contributors (ODbL).
 

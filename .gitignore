@@ -22,6 +22,9 @@ dist/
 build/
 .cache/
 
+# Temporary Overpass downloads from npm run build:city-maps --keep-raw
+scripts/tmp/
+
 # Server files (not needed for GitHub Pages)
 server/
 database/

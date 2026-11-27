@@ -151,7 +151,7 @@ import {
   function updateRouteLabel() {
     routeLabelOutput.textContent = mode === 'race' ? 'CIRCUIT' : 'START';
     if (mode === 'real') {
-      routeNameOutput.textContent = `Real ${currentCity().name} streets from OpenStreetMap`;
+      routeNameOutput.textContent = `Real ${currentCity().name} streets (OpenStreetMap)`;
       return;
     }
     if (mode === 'free') {
@@ -1590,19 +1590,13 @@ import {
     }
     if (mode === 'real' && (!realCity.ready || realCity.loadedId !== currentCity().id)) {
       const city = currentCity();
-      realCity.isCached(city.id).then((cached) => {
-        if (!cached && !window.confirm(`Download the real ${city.name} map from OpenStreetMap (about 10-30 MB)? It will be converted in your browser and saved for next time.`)) {
-          setMode('free');
-          startDrive();
-          return;
-        }
-        startButton.disabled = true;
-        realCity.load(city, (text) => { welcomeNote.textContent = text; }).then((ok) => {
-          startButton.disabled = false;
-          welcomeNote.textContent = ok ? 'No rush. Just enjoy the ride.' : 'Could not load the real map. Check your connection; using Free roam.';
-          if (!ok) setMode('free');
-          startDrive();
-        });
+      startButton.disabled = true;
+      welcomeNote.textContent = `Loading real ${city.name} streets…`;
+      realCity.load(city, (text) => { welcomeNote.textContent = text; }).then((ok) => {
+        startButton.disabled = false;
+        welcomeNote.textContent = ok ? 'No rush. Just enjoy the ride.' : 'Could not load the real map; using Free roam.';
+        if (!ok) setMode('free');
+        startDrive();
       });
       return;
     }
