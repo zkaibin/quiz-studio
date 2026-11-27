@@ -123,6 +123,10 @@ import {
     try { localStorage.setItem('cityDrivingRoute', route.id); } catch (error) { /* storage unavailable */ }
   }
 
+  // Open-world free roam on planets / real maps. Earth "free" drives the scenic district
+  // corridor shown behind the route picker so Start Drive matches the welcome backdrop.
+  const usesOpenCity = () => mode === 'real' || (mode === 'free' && isPlanet());
+
   function updateRouteLabel() {
     routeLabelOutput.textContent = mode === 'race' ? 'CIRCUIT' : 'START';
     if (mode === 'real') {
@@ -130,7 +134,9 @@ import {
       return;
     }
     if (mode === 'free') {
-      routeNameOutput.textContent = `${route.area} · mostly straight avenues · drive anywhere`;
+      routeNameOutput.textContent = isPlanet()
+        ? `${route.area} · drive or fly anywhere on the sphere-net`
+        : `${route.area} · ${route.from} → ${route.to} · ${(route.length / 1000).toFixed(1)} km`;
       return;
     }
     const circuit = circuitById(route.circuit);
@@ -219,9 +225,11 @@ import {
     document.title = `City Driving · ${city.name}`;
     mount.setAttribute('aria-label', `Three-dimensional ${city.name} city driving game`);
     const lapKm = ((city.grid * PITCH) / 1000).toFixed(1).replace(/\.0$/, '');
+    const freeBtn = modeList.querySelector('[data-mode="free"]');
+    if (freeBtn) freeBtn.textContent = city.planet ? 'Free roam' : 'District drive';
     cityIntro.textContent = city.planet
       ? `Take the wheel in ${city.name} on alien ${city.country} (~${lapKm} km sphere-net). Twin sun satellites light the crystal city — drive or fly anywhere; districts stream in as you explore.`
-      : `Take the wheel in ${city.name}. Keep ${city.drive} on wide 4-lane avenues (mostly straight, a few gentle bends), or pick a racing circuit — beginner ovals through challenge tracks.`;
+      : `Take the wheel in ${city.name}. Pick a district route to cruise the scenic streets behind the menu, or jump onto a racing circuit — beginner ovals through challenge tracks.`;
     roadName.textContent = trafficLabel();
     roadName.dataset.default = roadName.textContent;
   }
@@ -1163,8 +1171,7 @@ import {
     camera.position.copy(camPos);
     camera.lookAt(camLook);
     world.setPlanetSky(false);
-    scene.fog.color.set(0xa9d5e5);
-    scene.background = new THREE.Color(0xa9d5e5);
+    world.setRoute(route);
     camShakeMag = 0;
     fx.clear();
     trafficSystem.populate(16);
@@ -1417,12 +1424,12 @@ import {
     camShakeMag = 0;
     fx.clear();
     resetCarPose();
-    if (isFree()) enterFree();
+    if (usesOpenCity()) enterFree();
     else if (isRace()) {
       leaveFree();
       enterCircuit();
-    } else leaveFree();
-    tripPanel.hidden = isFree();
+    } else leaveFree(); // Earth free: scenic district corridor from the welcome backdrop
+    tripPanel.hidden = usesOpenCity();
     if (isRace()) {
       const circuit = circuitById(route.circuit);
       tripFrom.textContent = `● ${circuit.name}`;
@@ -1433,7 +1440,7 @@ import {
     }
     tripRewardOut.textContent = signedIn() ? `Up to ${tripReward(route) + CLEAN_BONUS + (isRace() ? RACE_BONUS[0] : 0)} pts` : 'Sign in to earn pts';
     updateTrip();
-    if (isFree()) {
+    if (usesOpenCity()) {
       racePanel.hidden = true;
       countdownOut.hidden = true;
       phase = 'drive';
@@ -1448,6 +1455,7 @@ import {
       countdownT = 3;
       showCountdown('3');
     } else {
+      // Same streets, landmarks and lighting as the route backdrop behind the welcome card.
       trafficSystem.populate(16);
       trafficSystem.clearRacers();
       racePanel.hidden = true;
