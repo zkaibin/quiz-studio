@@ -57,12 +57,18 @@ export function createRealCity({ scene }) {
     for (const f of footprints) {
       f.hit = insetPolygon(f.p, FOOTPRINT_INSET);
       let x0 = Infinity; let x1 = -Infinity; let z0 = Infinity; let z1 = -Infinity;
+      let rx0 = Infinity; let rx1 = -Infinity; let rz0 = Infinity; let rz1 = -Infinity;
       for (let i = 0; i < f.hit.length; i += 2) {
         x0 = Math.min(x0, f.hit[i]); x1 = Math.max(x1, f.hit[i]); z0 = Math.min(z0, f.hit[i + 1]); z1 = Math.max(z1, f.hit[i + 1]);
       }
+      for (let i = 0; i < f.p.length; i += 2) {
+        rx0 = Math.min(rx0, f.p[i]); rx1 = Math.max(rx1, f.p[i]); rz0 = Math.min(rz0, f.p[i + 1]); rz1 = Math.max(rz1, f.p[i + 1]);
+      }
       f.box = [x0, x1, z0, z1];
-      for (let cx = Math.floor(x0 / CELL); cx <= Math.floor(x1 / CELL); cx++) {
-        for (let cz = Math.floor(z0 / CELL); cz <= Math.floor(z1 / CELL); cz++) {
+      f.rawBox = [rx0, rx1, rz0, rz1];
+      // Index against the raw extent so road-through-building queries still find the pad.
+      for (let cx = Math.floor(rx0 / CELL); cx <= Math.floor(rx1 / CELL); cx++) {
+        for (let cz = Math.floor(rz0 / CELL); cz <= Math.floor(rz1 / CELL); cz++) {
           const key = `${cx},${cz}`;
           if (!grid.has(key)) grid.set(key, []);
           grid.get(key).push(f);
@@ -111,6 +117,39 @@ export function createRealCity({ scene }) {
     return false;
   }
 
+  /** Building pad test. useHit=false checks the raw OSM footprint (for spawn / visual overlap). */
+  function inBuilding(x, z, useHit = true) {
+    if (!data) return false;
+    const list = grid.get(`${Math.floor(x / CELL)},${Math.floor(z / CELL)}`);
+    if (!list) return false;
+    for (const f of list) {
+      const poly = useHit ? (f.hit || f.p) : f.p;
+      const b = useHit ? f.box : (f.rawBox || f.box);
+      if (x >= b[0] && x <= b[1] && z >= b[2] && z <= b[3] && pointInPolygon(x, z, poly)) return true;
+    }
+    return false;
+  }
+
+  /** Open asphalt that does not run through a building pad. */
+  function isOpenRoad(x, z, margin = 0.75) {
+    return onRoad(x, z, margin) && !inBuilding(x, z, false);
+  }
+
+  /** At least `reach` metres of open road along ±heading (needed so Start Drive isn't a dead-end). */
+  function corridorOpen(x, z, heading, reach = 28, step = 4) {
+    const sx = Math.sin(heading); const cz = Math.cos(heading);
+    for (const dir of [1, -1]) {
+      let clear = 0;
+      for (let d = step; d <= reach; d += step) {
+        const px = x + sx * d * dir; const pz = z - cz * d * dir;
+        if (!isOpenRoad(px, pz, 1.5)) break;
+        clear += step;
+      }
+      if (clear >= Math.min(16, reach * 0.5)) return true;
+    }
+    return false;
+  }
+
   const supported = typeof fetch === 'function';
 
   async function fetchPack(id, onStatus) {
@@ -148,9 +187,14 @@ export function createRealCity({ scene }) {
     return group;
   }
 
-  /** Nearest road sample to (x,z); prefers longer segments. */
-  function nearestRoad(x, z, maxDist = 220) {
+  /**
+   * Nearest usable road sample to (x,z).
+   * Rejects thin service lanes that cut through building pads (common OSM plaza/multipolygon mess)
+   * so Start Drive / teleport never drop the car inside a solid footprint.
+   */
+  function nearestRoad(x, z, maxDist = 220, { requireOpen = true } = {}) {
     let best = null; let bestScore = Infinity;
+    let fallback = null; let fallbackScore = Infinity;
     for (const r of data.roads) {
       for (let i = 0; i + 3 < r.p.length; i += 2) {
         const x1 = r.p[i]; const z1 = r.p[i + 1]; const x2 = r.p[i + 2]; const z2 = r.p[i + 3];
@@ -163,24 +207,42 @@ export function createRealCity({ scene }) {
         const px = x1 + dx * t; const pz = z1 + dz * t;
         const dist = Math.hypot(x - px, z - pz);
         if (dist > maxDist) continue;
-        const score = dist - r.w * 0.35;
-        if (score < bestScore) {
+        const heading = Math.atan2(dx, -dz);
+        const open = isOpenRoad(px, pz, 0.5);
+        const corridor = open && corridorOpen(px, pz, heading);
+        // Prefer wide open corridors; penalise service lanes and building cut-throughs.
+        const score = dist
+          - r.w * 2.4
+          - (len > 40 ? 8 : 0)
+          + (open ? 0 : 420)
+          + (corridor ? 0 : 160)
+          + (r.w < 5.5 ? 55 : 0);
+        const hit = { x: px, z: pz, heading, w: r.w, dist, open, corridor };
+        if (score < bestScore && (!requireOpen || (open && corridor))) {
           bestScore = score;
-          best = { x: px, z: pz, heading: Math.atan2(dx, -dz), w: r.w, dist };
+          best = hit;
+        }
+        if (score < fallbackScore) {
+          fallbackScore = score;
+          fallback = hit;
         }
       }
     }
-    return best;
+    if (best) return best;
+    // Only callers that opt out of requireOpen get a through-building fallback.
+    return requireOpen ? null : fallback;
   }
 
   function resolveStarts(city) {
-    const project = projector(city.lat, city.lon);
+    const project = projector(data.center?.lat ?? city.lat, data.center?.lon ?? city.lon);
     const limit = data.half * 0.92;
     const list = [];
     for (const poi of realStartsFor(city.id)) {
       const [x, z] = project(poi.lat, poi.lon);
       if (Math.hypot(x, z) > limit) continue;
-      const road = nearestRoad(x, z, 160) || nearestRoad(x, z, 320);
+      const road = nearestRoad(x, z, 180, { requireOpen: true })
+        || nearestRoad(x, z, 360, { requireOpen: true })
+        || nearestRoad(x, z, 360, { requireOpen: false });
       if (!road) continue;
       list.push({
         id: poi.id,
@@ -274,9 +336,11 @@ export function createRealCity({ scene }) {
     return true;
   }
 
-  /** Soft-kerb helper: snap a blocked step back onto the nearest road. */
+  /** Soft-kerb helper: snap a blocked step back onto the nearest open road. */
   function clampToRoad(x, z) {
-    const hit = nearestRoad(x, z, 80) || nearestRoad(x, z, 180);
+    const hit = nearestRoad(x, z, 80, { requireOpen: true })
+      || nearestRoad(x, z, 180, { requireOpen: true })
+      || nearestRoad(x, z, 180, { requireOpen: false });
     if (!hit) return { x, z, hit: false };
     return { x: hit.x, z: hit.z, heading: hit.heading, hit: true };
   }
@@ -284,15 +348,21 @@ export function createRealCity({ scene }) {
   function spawn() {
     let best = null; let bestScore = Infinity;
     for (const r of data.roads) {
+      if (r.w < 6) continue;
       for (let i = 0; i + 3 < r.p.length; i += 2) {
         const dx = r.p[i + 2] - r.p[i]; const dz = r.p[i + 3] - r.p[i + 1];
-        if (Math.hypot(dx, dz) < 20) continue;
+        const len = Math.hypot(dx, dz);
+        if (len < 30) continue;
         const mx = (r.p[i] + r.p[i + 2]) / 2; const mz = (r.p[i + 1] + r.p[i + 3]) / 2;
+        const heading = Math.atan2(dx, -dz);
+        if (!isOpenRoad(mx, mz, 0.5) || !corridorOpen(mx, mz, heading)) continue;
         const score = Math.hypot(mx, mz) - r.w * 6;
-        if (score < bestScore) { bestScore = score; best = { x: mx, z: mz, heading: Math.atan2(dx, -dz) }; }
+        if (score < bestScore) { bestScore = score; best = { x: mx, z: mz, heading }; }
       }
     }
-    return best || { x: 0, z: 0, heading: 0 };
+    if (best) return best;
+    const near = nearestRoad(0, 0, data.half, { requireOpen: true });
+    return near ? { x: near.x, z: near.z, heading: near.heading } : { x: 0, z: 0, heading: 0 };
   }
 
   function spawnAt(startId) {
@@ -301,17 +371,20 @@ export function createRealCity({ scene }) {
     return spawn();
   }
 
-  /** Snap a world tap to the nearest drivable road sample. */
+  /** Snap a world tap to the nearest open, drivable road sample. */
   function teleportTarget(x, z) {
-    const road = nearestRoad(x, z, 180) || nearestRoad(x, z, 400);
+    const road = nearestRoad(x, z, 180, { requireOpen: true })
+      || nearestRoad(x, z, 400, { requireOpen: true })
+      || nearestRoad(x, z, 400, { requireOpen: false });
     if (!road) return null;
-    if (!isDrivable(road.x, road.z)) {
-      // Nudge along the heading to clear a building footprint.
-      for (const step of [8, -8, 16, -16, 28, -28]) {
-        const sx = Math.sin(road.heading); const cz = Math.cos(road.heading);
-        const nx = road.x + sx * step; const nz = road.z - cz * step;
-        if (isDrivable(nx, nz)) return { x: nx, z: nz, heading: road.heading };
-      }
+    if (isOpenRoad(road.x, road.z) && isDrivable(road.x, road.z)) {
+      return { x: road.x, z: road.z, heading: road.heading };
+    }
+    // Nudge along the heading to clear a building footprint.
+    for (const step of [8, -8, 16, -16, 28, -28, 40, -40]) {
+      const sx = Math.sin(road.heading); const cz = Math.cos(road.heading);
+      const nx = road.x + sx * step; const nz = road.z - cz * step;
+      if (isOpenRoad(nx, nz) && isDrivable(nx, nz)) return { x: nx, z: nz, heading: road.heading };
     }
     return { x: road.x, z: road.z, heading: road.heading };
   }

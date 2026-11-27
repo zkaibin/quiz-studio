@@ -2,12 +2,13 @@
 // around each city's centre. Resolved to pack metres + nearest road on load.
 export const REAL_STARTS = {
   singapore: [
-    { id: 'sg-marina', name: 'Marina Bay', blurb: 'Bayfront skyline drive', lat: 1.2823, lon: 103.8598 },
+    { id: 'sg-marina', name: 'Marina Bay', blurb: 'Bayfront skyline drive', lat: 1.2812, lon: 103.8605 },
     { id: 'sg-raffles', name: 'Raffles Place', blurb: 'Downtown CBD grid', lat: 1.2841, lon: 103.8513 },
     { id: 'sg-merlion', name: 'Merlion Park', blurb: 'Waterfront promenade', lat: 1.2868, lon: 103.8545 },
     { id: 'sg-chinatown', name: 'Chinatown', blurb: 'Temple Street lanes', lat: 1.2830, lon: 103.8455 },
     { id: 'sg-gardens', name: 'Gardens by the Bay', blurb: 'Supertree boulevard', lat: 1.2815, lon: 103.8638 },
-    { id: 'sg-esplanade', name: 'Esplanade', blurb: 'Theatres on the Bay', lat: 1.2895, lon: 103.8558 }
+    // Esplanade Drive — outside the theatre multipolygon (old pin snapped onto a service lane through the building).
+    { id: 'sg-esplanade', name: 'Esplanade', blurb: 'Theatres on the Bay', lat: 1.2908, lon: 103.8556 }
   ],
   newyork: [
     { id: 'ny-times', name: 'Times Square', blurb: 'Midtown neon crossroads', lat: 40.7580, lon: -73.9855 },

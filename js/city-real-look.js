@@ -67,8 +67,12 @@ function toGeo(bucket, hasColor) {
   return g;
 }
 
-/** Split a building mesh into low walls / tower walls / roofs by normals + height. */
-function splitWallsAndRoofs(geometry, towerH = 28) {
+/**
+ * Split a building mesh into low walls / tower walls / roofs by normals + height.
+ * Optional `keepTri(ax,az,bx,bz,cx,cz)` drops triangles whose footprint sits on a road
+ * so asphalt is not buried inside OSM multipolygons that swallow streets.
+ */
+function splitWallsAndRoofs(geometry, towerH = 28, keepTri = null) {
   const pos = geometry.attributes.position;
   const nor = geometry.attributes.normal;
   const col = geometry.attributes.color;
@@ -81,6 +85,9 @@ function splitWallsAndRoofs(geometry, towerH = 28) {
     const a = index ? index.getX(t * 3) : t * 3;
     const b = index ? index.getX(t * 3 + 1) : t * 3 + 1;
     const c = index ? index.getX(t * 3 + 2) : t * 3 + 2;
+    if (keepTri && !keepTri(pos.getX(a), pos.getZ(a), pos.getX(b), pos.getZ(b), pos.getX(c), pos.getZ(c))) {
+      continue;
+    }
     const ny = (nor.getY(a) + nor.getY(b) + nor.getY(c)) / 3;
     if (Math.abs(ny) > 0.55) {
       pushTri(roof, pos, nor, col, a, b, c);
@@ -94,6 +101,44 @@ function splitWallsAndRoofs(geometry, towerH = 28) {
     towers: toGeo(tower, !!col),
     roofs: toGeo(roof, !!col)
   };
+}
+
+/** Spatial index of road segments so building triangles on asphalt can be punched out. */
+function buildRoadIndex(roads, cell = 48) {
+  const map = new Map();
+  for (const r of roads || []) {
+    for (let i = 0; i + 3 < r.p.length; i += 2) {
+      const x1 = r.p[i]; const z1 = r.p[i + 1]; const x2 = r.p[i + 2]; const z2 = r.p[i + 3];
+      const half = r.w * 0.5 + 0.35;
+      const x0 = Math.min(x1, x2) - half; const x1b = Math.max(x1, x2) + half;
+      const z0 = Math.min(z1, z2) - half; const z1b = Math.max(z1, z2) + half;
+      const seg = { x1, z1, x2, z2, half };
+      for (let cx = Math.floor(x0 / cell); cx <= Math.floor(x1b / cell); cx++) {
+        for (let cz = Math.floor(z0 / cell); cz <= Math.floor(z1b / cell); cz++) {
+          const key = `${cx},${cz}`;
+          if (!map.has(key)) map.set(key, []);
+          map.get(key).push(seg);
+        }
+      }
+    }
+  }
+  const distToSeg = (x, z, seg) => {
+    const dx = seg.x2 - seg.x1; const dz = seg.z2 - seg.z1;
+    const len2 = dx * dx + dz * dz;
+    if (len2 < 1e-6) return Math.hypot(x - seg.x1, z - seg.z1);
+    let t = ((x - seg.x1) * dx + (z - seg.z1) * dz) / len2;
+    t = Math.max(0, Math.min(1, t));
+    return Math.hypot(x - (seg.x1 + dx * t), z - (seg.z1 + dz * t));
+  };
+  const onRoad = (x, z) => {
+    const list = map.get(`${Math.floor(x / cell)},${Math.floor(z / cell)}`);
+    if (!list) return false;
+    for (const seg of list) {
+      if (distToSeg(x, z, seg) <= seg.half) return true;
+    }
+    return false;
+  };
+  return onRoad;
 }
 
 const FACADES_SAFE = { shophouse: 'shophouse', glass: 'glass', hdb: 'hdb', concrete: 'concrete' };
@@ -232,13 +277,26 @@ export function dressRealCity(packGroup, extras, { city } = {}) {
     }))
   };
 
+  // Punch building triangles that sit on asphalt so roads never visually cross solid pads.
+  const onAsphalt = buildRoadIndex(extras.roads);
+  const keepBuildingTri = (ax, az, bx, bz, cx, cz) => {
+    const mx = (ax + bx + cx) / 3; const mz = (az + bz + cz) / 3;
+    // Drop if the centroid or a majority of corners sit on a road ribbon.
+    let hits = 0;
+    if (onAsphalt(ax, az)) hits++;
+    if (onAsphalt(bx, bz)) hits++;
+    if (onAsphalt(cx, cz)) hits++;
+    if (onAsphalt(mx, mz)) hits++;
+    return hits < 2;
+  };
+
   // Retexture / rebuild pack layers
   const replace = [];
   for (const child of [...packGroup.children]) {
     if (!child.isMesh) continue;
     const name = child.name;
     if (name === 'buildings') {
-      const split = splitWallsAndRoofs(child.geometry);
+      const split = splitWallsAndRoofs(child.geometry, 28, keepBuildingTri);
       const addBuilding = (geo, material, meshName, tileW, tileH, roof) => {
         if (!geo) return;
         if (roof) projectFlatUVs(geo, tileW);
