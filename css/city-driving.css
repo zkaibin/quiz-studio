@@ -74,7 +74,8 @@ html:-webkit-full-screen body {
 @keyframes speedRush { from { transform: scale(1.02); } to { transform: scale(1.08); } }
 .back-link {
   position: absolute;
-  z-index: 3;
+  /* Above welcome/garage overlays (z4) and globe (z6) so menu nav works before Start. */
+  z-index: 8;
   top: max(12px, env(safe-area-inset-top, 0px));
   left: max(12px, env(safe-area-inset-left, 0px));
   padding: 10px 15px;
@@ -86,9 +87,11 @@ html:-webkit-full-screen body {
   font-size: 13px;
   font-weight: 650;
   backdrop-filter: blur(12px);
+  pointer-events: auto;
 }
 .back-link.home-link { left: auto; right: max(12px, env(safe-area-inset-right, 0px)); }
 .back-link:hover { background: rgba(15,35,43,.72); }
+.menu-link { pointer-events: auto; }
 .exit-game {
   position: absolute;
   z-index: 5;
