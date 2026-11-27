@@ -1294,9 +1294,9 @@ import {
     trafficSystem.clearTraffic();
     trafficSystem.clearRacers();
     finishGate.visible = false;
-    scene.fog.near = 70;
-    scene.fog.far = 320;
     realActive = mode === 'real' && realCity.ready;
+    scene.fog.near = realActive ? 55 : 70;
+    scene.fog.far = realActive ? 380 : 320;
     freeCity.setVisible(!realActive);
     realCity.setVisible(realActive);
     smashStat.hidden = realActive;
