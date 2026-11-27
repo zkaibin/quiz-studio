@@ -291,16 +291,16 @@ html:-webkit-full-screen body {
     bottom: calc(var(--btn-gas) + 28px + env(safe-area-inset-bottom, 0px));
   }
   /* Phones / tablets: keep the welcome card translucent so route previews stay visible. */
-  #welcome.overlay { background: rgba(15,36,43,.06); }
+  #welcome.overlay { background: rgba(15,36,43,.03); }
   #welcome .welcome-card {
-    background: rgba(250,253,252,.36);
-    border-color: rgba(255,255,255,.35);
-    box-shadow: 0 12px 28px rgba(18,44,49,.1);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(250,253,252,.20);
+    border-color: rgba(255,255,255,.28);
+    box-shadow: 0 10px 24px rgba(18,44,49,.08);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
   }
-  #welcome .intro { color: #2f4549; }
-  #welcome .welcome-note, #welcome .fs-tip { color: #4a5c5a; }
+  #welcome .intro { color: #24383c; }
+  #welcome .welcome-note, #welcome .fs-tip { color: #3a4c4a; }
   /* Touch pads are only for driving — hide them while the welcome menu is up. */
   .city-game:has(#welcome:not(.hidden)) .touch-controls { display: none; }
 }
@@ -322,16 +322,16 @@ html:-webkit-full-screen body {
   .overlay { background: rgba(15,36,43,.42); }
   .welcome-card { margin: 70px 0 0; padding: 26px; }
   /* Let district / circuit previews read through when the card fills the screen. */
-  #welcome.overlay { background: rgba(15,36,43,.06); }
+  #welcome.overlay { background: rgba(15,36,43,.03); }
   #welcome .welcome-card {
-    background: rgba(250,253,252,.36);
-    border-color: rgba(255,255,255,.35);
-    box-shadow: 0 12px 28px rgba(18,44,49,.1);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(250,253,252,.20);
+    border-color: rgba(255,255,255,.28);
+    box-shadow: 0 10px 24px rgba(18,44,49,.08);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
   }
-  #welcome .intro { color: #2f4549; }
-  #welcome .welcome-note, #welcome .fs-tip { color: #4a5c5a; }
+  #welcome .intro { color: #24383c; }
+  #welcome .welcome-note, #welcome .fs-tip { color: #3a4c4a; }
   .location-tag { left: max(10px, env(safe-area-inset-left, 0px)); padding: 8px 10px; font-size: 8px; }
   .driving-hint { display: none; }
 }
@@ -614,11 +614,11 @@ html:-webkit-full-screen body {
 @media (max-width: 700px) { .garage-card { margin: 56px 0 0; } }
 @media (max-height: 520px) {
   .garage-card, .welcome-card { margin-top: 0; padding: 16px; }
-  #welcome.overlay { background: rgba(15,36,43,.05); }
+  #welcome.overlay { background: rgba(15,36,43,.02); }
   #welcome .welcome-card {
-    background: rgba(250,253,252,.32);
-    backdrop-filter: blur(7px);
-    -webkit-backdrop-filter: blur(7px);
+    background: rgba(250,253,252,.18);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
 }
 
