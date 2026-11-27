@@ -11,7 +11,7 @@ import { createFreeCity } from './city-free.js';
 import { createRealCity } from './city-real.js';
 import { createCityAudio } from './city-audio.js';
 import { createCityFx, createSpeedOverlay } from './city-fx.js';
-import { createCircuitTrack, createPlanetOrbitTrack, circuitById } from './city-circuit.js';
+import { createCircuitTrack, createPlanetOrbitTrack, circuitById, circuitsFor } from './city-circuit.js';
 import {
   PITCH, GRID, SIZE, DRIVE_LIMIT, setCity, currentCity, cellInfo, infoAt, isDrivable, isFreeDrivable,
   kerbOffset, spawnFor, DISTRICT_COLORS, wrapCoord, wraps, groundHeight, usesOrganicLayout, avenueX, streetZ
@@ -95,6 +95,9 @@ import {
   let areaLabel = route.area;
   let mode = 'free';
   const blocks = [];
+  let selectedCircuitId = route.circuit;
+  let menuCircuitPreview = false;
+  let menuBackdropReady = false;
 
   function applyRoute(next) {
     route = next;
@@ -121,6 +124,24 @@ import {
       button.classList.toggle('on', button.dataset.route === route.id);
     });
     try { localStorage.setItem('cityDrivingRoute', route.id); } catch (error) { /* storage unavailable */ }
+    if (mode === 'race' && route.circuit) selectedCircuitId = route.circuit;
+    if (menuBackdropReady) syncMenuBackdrop();
+  }
+
+  function applyCircuit(circuitId) {
+    const circuit = circuitById(circuitId);
+    selectedCircuitId = circuit.id;
+    // Keep the district `route` untouched so leaving race mode restores the same district pick.
+    if (!circuit.planet) circuitTrack.setCircuit(circuit);
+    if (headlights) headlights.intensity = circuit.night ? 1400 : 0;
+    areaLabel = circuit.area;
+    locationName.textContent = circuit.name;
+    updateRouteLabel();
+    routeList.querySelectorAll('button').forEach((button) => {
+      button.classList.toggle('on', button.dataset.circuit === circuit.id);
+    });
+    try { localStorage.setItem('cityDrivingCircuit', circuit.id); } catch (error) { /* storage unavailable */ }
+    if (menuBackdropReady) syncMenuBackdrop();
   }
 
   // Open-world free roam on planets / real maps. Earth "free" drives the scenic district
@@ -139,24 +160,29 @@ import {
         : `${route.area} · ${route.from} → ${route.to} · ${(route.length / 1000).toFixed(1)} km`;
       return;
     }
-    const circuit = circuitById(route.circuit);
+    const circuit = circuitById(selectedCircuitId || route.circuit);
+    if (!circuit.planet && mode === 'race') circuitTrack.setCircuit(circuit);
     const lapM = circuit.planet
       ? Math.round(SIZE)
       : Math.round(circuitTrack.length || route.length);
     const tier = circuit.difficulty === 'easy' ? 'Beginner' : (circuit.difficulty === 'challenge' ? 'Challenge' : 'Standard');
     const bonus = ` · race +${RACE_BONUS[0]} pts`;
-    routeNameOutput.textContent = `${circuit.name} (${tier}) · ${(lapM / 1000).toFixed(1)} km · ${tripReward(route)} pts${bonus}`;
+    const pts = Math.round(lapM / 100);
+    routeNameOutput.textContent = `${circuit.name} (${tier}) · ${(lapM / 1000).toFixed(1)} km · ${pts} pts${bonus}`;
   }
 
   function setMode(next) {
     mode = next === 'race' || next === 'real' ? next : 'free';
     modeList.querySelectorAll('button').forEach((button) => button.classList.toggle('on', button.dataset.mode === mode));
     renderRoutes();
-    routeList.querySelectorAll('button').forEach((button) => {
-      button.classList.toggle('on', button.dataset.route === route.id);
-    });
+    if (mode !== 'race') {
+      routeList.querySelectorAll('button').forEach((button) => {
+        button.classList.toggle('on', button.dataset.route === route.id);
+      });
+    }
     updateRouteLabel();
     try { localStorage.setItem('cityDrivingMode', mode); } catch (error) { /* storage unavailable */ }
+    if (menuBackdropReady) syncMenuBackdrop();
   }
   const startButton = document.getElementById('start-drive');
   const realButton = modeList.querySelector('[data-mode="real"]');
@@ -235,31 +261,46 @@ import {
   }
 
   function renderRoutes() {
-    routeList.innerHTML = routesFor(currentCity().id).map((r) => {
-      if (mode === 'race' && r.circuit) {
-        const c = circuitById(r.circuit);
+    if (mode === 'race') {
+      const list = circuitsFor({ planet: isPlanet() });
+      if (!list.some((c) => c.id === selectedCircuitId)) selectedCircuitId = list[0]?.id || selectedCircuitId;
+      routeList.innerHTML = list.map((c) => {
         const tag = c.difficulty === 'easy' ? ' · easy' : (c.difficulty === 'challenge' ? ' · hard' : '');
-        return `<button type="button" data-route="${r.id}">${c.name}${tag}</button>`;
-      }
-      return `<button type="button" data-route="${r.id}">${r.name}</button>`;
-    }).join('');
+        const on = c.id === selectedCircuitId ? ' on' : '';
+        return `<button type="button" data-circuit="${c.id}" class="${on.trim()}">${c.name}${tag}</button>`;
+      }).join('');
+      return;
+    }
+    routeList.innerHTML = routesFor(currentCity().id).map((r) => (
+      `<button type="button" data-route="${r.id}">${r.name}</button>`
+    )).join('');
   }
   renderRoutes();
   updateCityText();
   routeList.addEventListener('click', (event) => {
+    const circuitButton = event.target.closest('[data-circuit]');
+    if (circuitButton) {
+      applyCircuit(circuitButton.dataset.circuit);
+      return;
+    }
     const button = event.target.closest('[data-route]');
     if (button) applyRoute(ROUTES.find((r) => r.id === button.dataset.route));
   });
   let savedRoute = null;
   let savedMode = null;
+  let savedCircuit = null;
   try {
     savedRoute = localStorage.getItem('cityDrivingRoute');
     savedMode = localStorage.getItem('cityDrivingMode');
+    savedCircuit = localStorage.getItem('cityDrivingCircuit');
   } catch (error) { /* storage unavailable */ }
   setMode(savedMode);
   applyRoute(routesFor(currentCity().id).find((r) => r.id === savedRoute) || routesFor(currentCity().id)[0]);
-  // Ambient traffic only off the racing circuit.
-  if (mode !== 'race') trafficSystem.populate(16);
+  if (savedCircuit && circuitsFor({ planet: isPlanet() }).some((c) => c.id === savedCircuit)) {
+    selectedCircuitId = savedCircuit;
+  } else {
+    selectedCircuitId = route.circuit;
+  }
   refreshRealMap();
 
   const keys = new Set();
@@ -763,6 +804,138 @@ import {
   let camHeading = 0;
   let mapTimer = 0;
 
+
+  function applyCircuitSky(circuit) {
+    world.setRoute({
+      ...route,
+      sky: circuit.sky,
+      ground: circuit.ground,
+      hemi: circuit.hemi,
+      sun: circuit.sun,
+      sunColor: circuit.sunColor,
+      night: !!circuit.night,
+      water: 0,
+      area: circuit.area
+    });
+  }
+
+  function placeCircuitCamera(spawn) {
+    heading = spawn.heading;
+    camHeading = spawn.heading;
+    const back = 20;
+    const height = 8.5;
+    const look = 48;
+    camPos.set(
+      spawn.x - Math.sin(spawn.heading) * back,
+      (spawn.y || 0) + height,
+      spawn.z + Math.cos(spawn.heading) * back
+    );
+    camLook.set(
+      spawn.x + Math.sin(spawn.heading) * look,
+      (spawn.y || 0) + 1.6,
+      spawn.z - Math.cos(spawn.heading) * look
+    );
+    camUp.set(0, 1, 0);
+    camera.up.copy(camUp);
+    camera.position.copy(camPos);
+    camera.lookAt(camLook);
+    player.position.set(spawn.x, spawn.y || 0, spawn.z);
+    player.rotation.set(0, -spawn.heading, 0);
+  }
+
+  function showDistrictMenu() {
+    menuCircuitPreview = false;
+    circuitTrack.setVisible(false);
+    freeCity.setVisible(false);
+    realCity.setVisible(false);
+    world.setFreeMode(false);
+    world.setPlanetSky(false);
+    blocks.forEach((block) => { block.visible = true; });
+    resetCarPose();
+    camPos.set(0, 5.0, 11.8);
+    camLook.set(0, 1.1, -16);
+    camUp.set(0, 1, 0);
+    camera.up.copy(camUp);
+    camera.position.copy(camPos);
+    camera.lookAt(camLook);
+    world.followPlayer(0, -30, true);
+    world.setRoute(route);
+    scene.fog.near = 110;
+    scene.fog.far = 430;
+    if (mode !== 'race') trafficSystem.populate(16);
+    else trafficSystem.clearTraffic();
+    locationName.textContent = areaLabel;
+  }
+
+  // Race mode welcome: stage the selected circuit so Start Drive matches the backdrop.
+  function showCircuitMenu() {
+    menuCircuitPreview = true;
+    leaveCircuit();
+    freeActive = false;
+    realActive = false;
+    freeCity.setVisible(false);
+    realCity.setVisible(false);
+    world.setFreeMode(true);
+    blocks.forEach((block) => { block.visible = false; });
+    trafficSystem.clearTraffic();
+    trafficSystem.clearRacers();
+    finishGate.visible = false;
+    smashStat.hidden = true;
+    minimap.hidden = true;
+    const circuit = circuitById(selectedCircuitId || route.circuit);
+    selectedCircuitId = circuit.id;
+    areaLabel = circuit.area;
+    locationName.textContent = circuit.name;
+    if (isPlanet() || circuit.planet) {
+      circuitTrack.setVisible(false);
+      freeCity.setVisible(true);
+      raceTrack = planetOrbitTrack;
+      const spawn = planetOrbitTrack.spawn(4.5);
+      mapX = spawn.x;
+      mapZ = spawn.z;
+      heading = spawn.heading;
+      camHeading = heading;
+      freeCity.prefill(mapX, mapZ, Date.now() / 1000);
+      placeObjectOnSphere(player, mapX, 0, mapZ, heading);
+      const pose = poseOnSphere(mapX, 40, mapZ, heading);
+      camPos.copy(pose.position).addScaledVector(pose.up, 8).addScaledVector(pose.north, -18);
+      camLook.copy(pose.position);
+      camUp.copy(pose.up);
+      camera.up.copy(camUp);
+      camera.position.copy(camPos);
+      camera.lookAt(camLook);
+      world.setPlanetSky(true);
+      world.followPlanetPlayer(player.position, {
+        altitude: 0, cameraPosition: camPos, sunDirs: freeCity.sunDirs()
+      });
+      applyCircuitSky(circuit);
+      scene.fog.near = 70;
+      scene.fog.far = Math.max(420, planetRadius() * 1.4);
+    } else {
+      raceTrack = circuitTrack;
+      circuitTrack.setCircuit(circuit);
+      circuitTrack.setVisible(true);
+      const spawn = circuitTrack.spawn(-4.5);
+      mapX = spawn.x;
+      mapZ = spawn.z;
+      placeCircuitCamera(spawn);
+      world.setPlanetSky(false);
+      world.followPlayer(spawn.x, spawn.z, true);
+      applyCircuitSky(circuit);
+      scene.fog.near = 90;
+      scene.fog.far = 520;
+    }
+  }
+
+  function syncMenuBackdrop() {
+    if (hasStarted) return;
+    if (mode === 'race') showCircuitMenu();
+    else showDistrictMenu();
+  }
+
+  menuBackdropReady = true;
+  syncMenuBackdrop();
+
   function screenAngle() {
     return (screen.orientation && typeof screen.orientation.angle === 'number') ? screen.orientation.angle : (window.orientation || 0);
   }
@@ -904,10 +1077,13 @@ import {
     freeCity.clear();
     freeCity.setStyle(city.style);
     try { localStorage.setItem('cityDrivingCity', city.id); } catch (error) { /* storage unavailable */ }
+    const firstCircuit = circuitsFor({ planet: !!city.planet })[0];
+    selectedCircuitId = firstCircuit?.id || selectedCircuitId;
     renderRoutes();
     updateCityText();
     buildMapLayer();
     applyRoute(routesFor(city.id)[0]);
+    if (mode === 'race' && firstCircuit) applyCircuit(firstCircuit.id);
     realCity.unload();
     if (mode === 'real') setMode('free');
     refreshRealMap();
@@ -1030,10 +1206,11 @@ import {
     realCity.setVisible(false);
     finishGate.visible = false;
     smashStat.hidden = true;
-    const circuit = circuitById(route.circuit);
+    const circuit = circuitById(selectedCircuitId || route.circuit);
+    selectedCircuitId = circuit.id;
     areaLabel = circuit.area;
     locationName.textContent = circuit.name;
-    const onPlanet = isPlanet();
+    const onPlanet = isPlanet() || !!circuit.planet;
     // Planet races the straight equatorial belt on the live sphere-net city.
     // Earth races a flat oval ribbon (hide free city).
     raceTrack = onPlanet ? planetOrbitTrack : circuitTrack;
@@ -1041,50 +1218,61 @@ import {
     circuitTrack.setVisible(!onPlanet);
     if (!onPlanet) circuitTrack.setCircuit(circuit);
     trafficSystem.bindCircuit(raceTrack);
-    const spawn = raceTrack.spawn(onPlanet ? 4.5 : -4.5);
-    mapX = spawn.x;
-    mapZ = spawn.z;
-    heading = spawn.heading;
-    camHeading = heading;
+    const reusePreview = menuCircuitPreview;
+    menuCircuitPreview = false;
     circuitT = 0.02;
-    orbitLastX = mapX;
     altitude = 0;
     climb = 0;
-    if (onPlanet) {
-      freeCity.prefill(mapX, mapZ, Date.now() / 1000);
-      placeObjectOnSphere(player, mapX, 0, mapZ, heading);
-      const pose = poseOnSphere(mapX, 40, mapZ, heading);
-      camPos.copy(pose.position).addScaledVector(pose.up, 8).addScaledVector(pose.north, -18);
-      camLook.copy(pose.position);
-      camUp.copy(pose.up);
-      camera.up.copy(camUp);
-      camera.position.copy(camPos);
-      camera.lookAt(camLook);
-      world.setPlanetSky(true);
-      world.followPlanetPlayer(player.position, {
-        altitude: 0, cameraPosition: camPos, sunDirs: freeCity.sunDirs()
-      });
-      scene.fog.near = 70;
-      scene.fog.far = Math.max(420, planetRadius() * 1.4);
+    if (reusePreview) {
+      // Welcome screen already staged this circuit — keep the same camera and car pose.
+      orbitLastX = mapX;
+      if (onPlanet) {
+        world.setPlanetSky(true);
+        world.followPlanetPlayer(player.position, {
+          altitude: 0, cameraPosition: camPos, sunDirs: freeCity.sunDirs()
+        });
+        scene.fog.near = 70;
+        scene.fog.far = Math.max(420, planetRadius() * 1.4);
+      } else {
+        world.setPlanetSky(false);
+        world.followPlayer(mapX, mapZ);
+        scene.fog.near = 90;
+        scene.fog.far = 520;
+      }
+      applyCircuitSky(circuit);
     } else {
-      player.position.set(spawn.x, spawn.y, spawn.z);
-      player.rotation.set(0, -heading, 0);
-      world.setPlanetSky(false);
-      world.followPlayer(spawn.x, spawn.z, true);
-      scene.fog.near = 90;
-      scene.fog.far = 520;
+      const spawn = raceTrack.spawn(onPlanet ? 4.5 : -4.5);
+      mapX = spawn.x;
+      mapZ = spawn.z;
+      heading = spawn.heading;
+      camHeading = heading;
+      orbitLastX = mapX;
+      if (onPlanet) {
+        freeCity.prefill(mapX, mapZ, Date.now() / 1000);
+        placeObjectOnSphere(player, mapX, 0, mapZ, heading);
+        const pose = poseOnSphere(mapX, 40, mapZ, heading);
+        camPos.copy(pose.position).addScaledVector(pose.up, 8).addScaledVector(pose.north, -18);
+        camLook.copy(pose.position);
+        camUp.copy(pose.up);
+        camera.up.copy(camUp);
+        camera.position.copy(camPos);
+        camera.lookAt(camLook);
+        world.setPlanetSky(true);
+        world.followPlanetPlayer(player.position, {
+          altitude: 0, cameraPosition: camPos, sunDirs: freeCity.sunDirs()
+        });
+        scene.fog.near = 70;
+        scene.fog.far = Math.max(420, planetRadius() * 1.4);
+      } else {
+        player.position.set(spawn.x, spawn.y, spawn.z);
+        player.rotation.set(0, -heading, 0);
+        world.setPlanetSky(false);
+        world.followPlayer(spawn.x, spawn.z, true);
+        scene.fog.near = 90;
+        scene.fog.far = 520;
+      }
+      applyCircuitSky(circuit);
     }
-    world.setRoute({
-      ...route,
-      sky: circuit.sky,
-      ground: circuit.ground,
-      hemi: circuit.hemi,
-      sun: circuit.sun,
-      sunColor: circuit.sunColor,
-      night: !!circuit.night,
-      water: 0,
-      area: circuit.area
-    });
     minimap.hidden = false;
     mapTimer = 0;
   }
@@ -1146,24 +1334,32 @@ import {
   }
 
   function leaveFree() {
-    if (!freeActive && !circuitActive) return;
+    if (!freeActive && !circuitActive && !menuCircuitPreview) return;
     leaveCircuit();
     freeActive = false;
     realActive = false;
-    freeCity.setVisible(false);
-    realCity.setVisible(false);
     smashStat.hidden = true;
     player.position.y = 0;
     altitude = 0;
     climb = 0;
     if (carModel.userData.setThrust) carModel.userData.setThrust(0, 0);
+    minimap.hidden = true;
+    roadName.textContent = roadName.dataset.default || trafficLabel();
+    locationName.textContent = areaLabel;
+    camShakeMag = 0;
+    fx.clear();
+    if (!hasStarted) {
+      syncMenuBackdrop();
+      return;
+    }
+    menuCircuitPreview = false;
+    freeCity.setVisible(false);
+    realCity.setVisible(false);
+    circuitTrack.setVisible(false);
     world.setFreeMode(false);
     blocks.forEach((block) => { block.visible = true; });
     scene.fog.near = 110;
     scene.fog.far = 430;
-    minimap.hidden = true;
-    roadName.textContent = roadName.dataset.default || trafficLabel();
-    locationName.textContent = areaLabel;
     camPos.set(0, 5.0, 11.8);
     camLook.set(0, 1.1, -16);
     camUp.set(0, 1, 0);
@@ -1172,8 +1368,6 @@ import {
     camera.lookAt(camLook);
     world.setPlanetSky(false);
     world.setRoute(route);
-    camShakeMag = 0;
-    fx.clear();
     trafficSystem.populate(16);
     resetCarPose();
   }
@@ -1208,7 +1402,7 @@ import {
     }
     impactShake = Math.max(0, impactShake - delta * 1.2);
 
-    const circuit = circuitById(route.circuit);
+    const circuit = circuitById(selectedCircuitId || route.circuit);
     if (locationName.textContent !== circuit.name) locationName.textContent = circuit.name;
     if (roadName.textContent !== 'RACING LINE') roadName.textContent = onPlanet ? 'EQUATOR BELT' : 'RACING LINE';
 
@@ -1372,8 +1566,12 @@ import {
     tripPanel.hidden = true;
     phase = 'idle';
     trafficSystem.clearRacers();
+    speed = 0;
+    displaySpeed = 0;
+    speedOutput.textContent = '0';
+    distanceOutput.textContent = '0.0';
     leaveFree();
-    resetCarPose();
+    if (!menuCircuitPreview && mode !== 'race') resetCarPose();
   }
 
   function startDrive() {
@@ -1423,22 +1621,28 @@ import {
     collisionCooldown = 0;
     camShakeMag = 0;
     fx.clear();
-    resetCarPose();
-    if (usesOpenCity()) enterFree();
-    else if (isRace()) {
-      leaveFree();
+    if (usesOpenCity()) {
+      resetCarPose();
+      enterFree();
+    } else if (isRace()) {
+      // Keep the welcome circuit staging so Start Drive continues the same view.
+      if (!menuCircuitPreview) resetCarPose();
       enterCircuit();
-    } else leaveFree(); // Earth free: scenic district corridor from the welcome backdrop
+    } else {
+      resetCarPose();
+      leaveFree(); // Earth free: scenic district corridor from the welcome backdrop
+    }
     tripPanel.hidden = usesOpenCity();
     if (isRace()) {
-      const circuit = circuitById(route.circuit);
+      const circuit = circuitById(selectedCircuitId || route.circuit);
       tripFrom.textContent = `● ${circuit.name}`;
       tripTo.textContent = 'Finish line ⚑';
     } else {
       tripFrom.textContent = `● ${route.from}`;
       tripTo.textContent = `${route.to} ⚑`;
     }
-    tripRewardOut.textContent = signedIn() ? `Up to ${tripReward(route) + CLEAN_BONUS + (isRace() ? RACE_BONUS[0] : 0)} pts` : 'Sign in to earn pts';
+    const racePts = isRace() ? Math.round(tripLength() / 100) : tripReward(route);
+    tripRewardOut.textContent = signedIn() ? `Up to ${racePts + CLEAN_BONUS + (isRace() ? RACE_BONUS[0] : 0)} pts` : 'Sign in to earn pts';
     updateTrip();
     if (usesOpenCity()) {
       racePanel.hidden = true;
@@ -1584,13 +1788,25 @@ import {
     renderer.render(scene, camera);
   }
 
-  // Menu / garage: the car turns on the spot while the street keeps moving around it.
+  // Menu / garage: district corridor spins the car; circuit preview keeps the staged track view.
   function idle(delta) {
     clock += delta;
     if (!hasStarted) {
-      player.rotation.y += delta * 0.5;
-      world.animatePedestrians(blocks, clock, delta);
-      trafficSystem.update(delta, { playerForward: 0, playerX: player.position.x, playerSpeed: 0, distance: 0, time: 0, go: false, playerTop: stats.top, playerAccel: stats.accel, length: route.length });
+      if (menuCircuitPreview) {
+        const circuit = circuitById(selectedCircuitId || route.circuit);
+        if (isPlanet() || circuit.planet) {
+          const t = Date.now() / 1000;
+          freeCity.update(mapX, mapZ, t, 1, 0);
+          freeCity.animate(delta, { x: mapX, z: mapZ, heading, speed: 0 });
+          world.followPlanetPlayer(player.position, {
+            altitude: 0, cameraPosition: camPos, sunDirs: freeCity.sunDirs()
+          });
+        }
+      } else {
+        player.rotation.y += delta * 0.5;
+        world.animatePedestrians(blocks, clock, delta);
+        trafficSystem.update(delta, { playerForward: 0, playerX: player.position.x, playerSpeed: 0, distance: 0, time: 0, go: false, playerTop: stats.top, playerAccel: stats.accel, length: route.length });
+      }
     }
   }
 
@@ -2067,10 +2283,11 @@ import {
     hud.classList.remove('active');
     pauseButton.disabled = true;
     stateOutput.textContent = racing ? 'FINISHED' : 'ARRIVED';
-    const circuit = racing ? circuitById(route.circuit) : null;
+    const circuit = racing ? circuitById(selectedCircuitId || route.circuit) : null;
     clearSession();
     const raceBonus = racing ? (RACE_BONUS[place - 1] || 0) : 0;
-    const earned = Math.max(Math.round(tripReward(route) / 2), tripReward(route) - crashes * 2) + (crashes === 0 ? CLEAN_BONUS : 0) + raceBonus;
+    const basePts = racing ? Math.round(length / 100) : tripReward(route);
+    const earned = Math.max(Math.round(basePts / 2), basePts - crashes * 2) + (crashes === 0 ? CLEAN_BONUS : 0) + raceBonus;
     const crashText = crashes === 0 ? 'no collisions, clean drive bonus!' : `${crashes} collision${crashes === 1 ? '' : 's'}`;
     tripTitle.textContent = racing ? `You finished ${ordinal(place)}!` : 'You have arrived';
     tripSummary.textContent = racing
