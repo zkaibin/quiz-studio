@@ -2590,7 +2590,16 @@ import {
     const freeSteerBoost = free
       ? THREE.MathUtils.lerp(1.35, 0.9, THREE.MathUtils.clamp((Math.abs(speed) - 35) / 45, 0, 1))
       : 1;
-    const maxSteer = (0.5 / (1 + (speed / 9) ** 2)) * (0.85 + 0.15 * stats.handling) * freeSteerBoost;
+    // Circuits keep usable turn-in at race pace — the old speed^2 / 9 falloff made hairpins undrivable.
+    // Target ~1.2–1.5 rad/s yaw at race speeds (tight but not spinny).
+    const steerDenom = circuitActive
+      ? (1 + (Math.abs(speed) / 14) ** 1.5)
+      : (1 + (Math.abs(speed) / 9) ** 2);
+    const circuitSteerBoost = circuitActive
+      ? THREE.MathUtils.lerp(1.1, 1.35, THREE.MathUtils.clamp(Math.abs(steerInput), 0, 1))
+      : 1;
+    const maxSteer = ((circuitActive ? 0.48 : 0.5) / steerDenom)
+      * (0.85 + 0.15 * stats.handling) * freeSteerBoost * circuitSteerBoost;
     const headingLimit = 0.3;
     let steerTarget = steerInput * maxSteer;
     // Racing auto-centres the nose with no input. Free roam at hyper speed does the same toward
@@ -2619,15 +2628,20 @@ import {
       const align = Math.atan2(Math.sin(hit.heading - heading), Math.cos(hit.heading - heading));
       steerTarget = THREE.MathUtils.clamp(align * 0.7, -maxSteer * 1.5, maxSteer * 1.5);
     }
-    steer = THREE.MathUtils.lerp(steer, steerTarget, Math.min(1, delta * (Math.abs(input) > 0.05 ? 9 : 6)));
+    const steerSnap = circuitActive
+      ? (Math.abs(input) > 0.05 ? 11 : 6)
+      : (Math.abs(input) > 0.05 ? 9 : 6);
+    steer = THREE.MathUtils.lerp(steer, steerTarget, Math.min(1, delta * steerSnap));
     if (!free && ((heading >= headingLimit && steer > 0) || (heading <= -headingLimit && steer < 0))) steer *= 0.5;
     const turnRate = (speed / wheelbase) * Math.tan(steer);
     let forward;
     if (free) {
       // Open city: the heading is unbounded and the car moves in world x/z; leaving the road surface scrapes and slides.
       const airborne = altitude > 1.5 && !circuitActive;
+      // Circuits allow a wide grass runoff — asphalt is preferred, but off-track is not a hard wall.
+      const circuitRunoff = (raceTrack.halfWidth || 17) + 70;
       const canDrive = circuitActive
-        ? (x, z) => raceTrack.isOnTrack(x, z)
+        ? (x, z) => raceTrack.project(x, z).dist <= circuitRunoff
         : (realActive ? realCity.isDrivable : isFreeDrivable);
       const step = speed * delta;
       // Measure ground-truth travel so the speedo matches what the camera sees.
@@ -2654,6 +2668,14 @@ import {
           if (airborne || canDrive(moved.x, moved.z)) {
             mapX = moved.x;
             mapZ = moved.z;
+          } else if (circuitActive) {
+            // Orbit belt runoff: soft pull back toward the equator ribbon, keep rolling.
+            const clamped = raceTrack.clampToTrack(moved.x, moved.z);
+            const hit = raceTrack.project(moved.x, moved.z);
+            const pull = THREE.MathUtils.clamp((hit.dist - circuitRunoff + 8) / 12, 0.2, 0.9);
+            mapX = wrapCoord(THREE.MathUtils.lerp(moved.x, clamped.x, pull));
+            mapZ = wrapCoord(THREE.MathUtils.lerp(moved.z, clamped.z, pull));
+            speed *= 1 - Math.min(0.1, delta * 1.1 / subCount);
           } else if (Math.abs(speed) > 50) {
             // Soft kerb: stay on the road. No speed bleed above hyper — racing kerbs don't pulse drag mid-straight.
             const lineX = Math.round(mapX / PITCH) * PITCH;
@@ -2726,8 +2748,12 @@ import {
             let sx = nx;
             let sz = nz;
             if (circuitActive) {
+              // Far runoff only: pull back toward the ribbon instead of a sticky asphalt wall.
               const clamped = raceTrack.clampToTrack(nx, nz);
-              sx = clamped.x; sz = clamped.z;
+              const hit = raceTrack.project(nx, nz);
+              const pull = THREE.MathUtils.clamp((hit.dist - circuitRunoff + 8) / 12, 0.15, 0.85);
+              sx = THREE.MathUtils.lerp(nx, clamped.x, pull);
+              sz = THREE.MathUtils.lerp(nz, clamped.z, pull);
             } else if (realActive) {
               const clamped = realCity.clampToRoad(nx, nz);
               if (clamped.hit) { sx = clamped.x; sz = clamped.z; }
@@ -2744,7 +2770,11 @@ import {
             if (canDrive(sx, sz)) {
               player.position.x = sx;
               player.position.z = sz;
-              speed *= 1 - Math.min(hyper ? 0.1 : 0.22, delta * (hyper ? 1.2 : 1.4) / subCount);
+              // Circuits: light scrape only — never dump race pace into a sticky curb stop.
+              speed *= 1 - Math.min(
+                circuitActive ? 0.08 : (hyper ? 0.1 : 0.22),
+                delta * (circuitActive ? 0.9 : (hyper ? 1.2 : 1.4)) / subCount
+              );
             } else if (canDrive(nx, player.position.z)) {
               player.position.x = nx;
               speed *= 1 - Math.min(hyper ? 0.12 : 0.25, delta * 1.4 / subCount);
@@ -2752,8 +2782,11 @@ import {
               player.position.z = nz;
               speed *= 1 - Math.min(hyper ? 0.12 : 0.25, delta * 1.4 / subCount);
             } else {
-              speed *= 1 - Math.min(hyper ? 0.55 : 0.45, delta * (hyper ? 8 : 4) / subCount);
-              break;
+              speed *= 1 - Math.min(
+                circuitActive ? 0.18 : (hyper ? 0.55 : 0.45),
+                delta * (circuitActive ? 1.6 : (hyper ? 8 : 4)) / subCount
+              );
+              if (!circuitActive) break;
             }
           }
         }
@@ -2782,6 +2815,62 @@ import {
         mapX = player.position.x;
         mapZ = player.position.z;
       }
+      // Circuit curb / grass: bounce the nose back onto asphalt; allow slow runoff on lawn.
+      if (circuitActive && !airborne) {
+        const cx = isPlanet() ? mapX : player.position.x;
+        const cz = isPlanet() ? mapZ : player.position.z;
+        const hit = raceTrack.project(cx, cz);
+        const half = raceTrack.halfWidth || 17;
+        const over = hit.dist - half;
+        if (over > -0.35) {
+          // Point the nose along the racing line and inward so a curb scrape re-enters the circuit.
+          // Fade once the car is clearly on grass so intentional runoff stays drivable.
+          const sideSign = Math.sign(hit.lateral) || 1;
+          const lip = THREE.MathUtils.smoothstep(over, -0.2, 0.85);
+          const grassCommit = THREE.MathUtils.smoothstep(over, 1.6, 6);
+          const curbBlend = lip * (1 - 0.75 * grassCommit);
+          // Don't fight the stick — curb assist is for accidental scrapes, not locked steering.
+          const assistScale = (1 - 0.85 * Math.min(1, Math.abs(steerInput))) * (1 - 0.8 * grassCommit);
+          const inward = -sideSign * THREE.MathUtils.clamp(over + 0.35, 0, 2.2) * 0.38 * (1 - 0.7 * grassCommit);
+          const targetHeading = hit.heading + inward;
+          const err = Math.atan2(Math.sin(targetHeading - heading), Math.cos(targetHeading - heading));
+          heading += err * Math.min(1, delta * (1.6 + curbBlend * 5.5)) * assistScale;
+          if (!Number.isFinite(heading)) heading = hit.heading;
+          heading = ((heading % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
+
+          // Soft positional nudge at the kerb lip only — never freeze, never vacuum deep grass.
+          if (over > 0.05) {
+            const clamped = raceTrack.clampToTrack(cx, cz);
+            const kerbLip = THREE.MathUtils.smoothstep(over, 0.05, 0.9)
+              * (1 - THREE.MathUtils.smoothstep(over, 1.5, 3.5));
+            const pull = Math.min(1, delta * (2.4 + kerbLip * 3.5)) * kerbLip;
+            if (pull > 1e-4) {
+              const nx = THREE.MathUtils.lerp(cx, clamped.x, pull);
+              const nz = THREE.MathUtils.lerp(cz, clamped.z, pull);
+              if (isPlanet()) {
+                mapX = wrapCoord(nx);
+                mapZ = wrapCoord(nz);
+              } else {
+                player.position.x = nx;
+                player.position.z = nz;
+                mapX = nx;
+                mapZ = nz;
+              }
+            }
+          }
+        }
+        if (over > 0) {
+          // Grass / runoff: keep moving, but cut top speed and add drag (~20–60 km/h usable crawl).
+          const depth = THREE.MathUtils.clamp(over / 22, 0, 1);
+          const grassTop = stats.top * THREE.MathUtils.lerp(0.55, 0.32, depth);
+          if (Math.abs(speed) > grassTop) {
+            const sign = Math.sign(speed) || 1;
+            speed = sign * THREE.MathUtils.lerp(Math.abs(speed), grassTop, Math.min(1, delta * (2.0 + depth * 1.5)));
+          }
+          speed *= 1 - Math.min(0.28, delta * (0.35 + depth * 0.7));
+          if (over > 0.8) impactShake = Math.max(impactShake, Math.min(0.12, over * 0.01));
+        }
+      }
       // Sync throttle speed to ground-truth travel — stops the meter floating after a wall hit.
       {
         const endX = isPlanet() ? mapX : player.position.x;
@@ -2794,9 +2883,13 @@ import {
           : Math.sign(speed || 1) * (moved / Math.max(delta, 1e-4));
         // Reject teleport-sized samples (wrap/snap) — keep last throttle speed for that frame.
         if (Math.abs(ground) > maxSp * 1.25) ground = speed;
-        if (intended > 0.02 && moved < intended * 0.5 && Math.abs(ground) <= maxSp * 1.25) {
+        // Circuits on grass / curb bounce still travel — don't zero throttle from a soft redirect.
+        if (!circuitActive && intended > 0.02 && moved < intended * 0.5 && Math.abs(ground) <= maxSp * 1.25) {
           speed = ground;
           if (moved < 0.015) speed = 0;
+        } else if (circuitActive && intended > 0.05 && moved < intended * 0.15) {
+          // Only bleed toward measured motion when almost fully blocked past the runoff.
+          speed = THREE.MathUtils.lerp(speed, ground, Math.min(1, delta * 4));
         }
         // Meter tracks actual road motion; snap on hard stops, light-smooth otherwise.
         const groundAbs = THREE.MathUtils.clamp(Math.abs(ground), 0, maxSp);
