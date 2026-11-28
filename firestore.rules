@@ -99,6 +99,57 @@ service cloud.firestore {
       allow read, create, update, delete: if isOwner(userId);
     }
 
+    // Idempotent City Drive payouts: create-once claim ledger (no updates/deletes).
+    match /city_driving_claims/{claimId} {
+      allow read: if signedIn()
+        && (resource == null || resource.data.user_id == request.auth.uid);
+      allow create: if signedIn()
+        && request.resource.data.user_id == request.auth.uid
+        && claimId.matches('^' + request.auth.uid + '_.+')
+        && request.resource.data.keys().hasAll(['user_id', 'claim_id', 'kind', 'amount_awarded', 'day'])
+        && request.resource.data.amount_awarded is int
+        && request.resource.data.amount_awarded >= 0
+        && request.resource.data.amount_awarded <= 100
+        && request.resource.data.claim_id is string
+        && request.resource.data.claim_id.size() > 0
+        && request.resource.data.claim_id.size() <= 120
+        && request.resource.data.kind is string
+        && request.resource.data.kind.size() <= 32
+        && request.resource.data.day is string
+        && request.resource.data.day.size() == 10;
+      allow update, delete: if false;
+    }
+
+    // Per-day City Drive earnings counter used with claimDriveReward.
+    match /city_driving_economy/{userId} {
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId)
+        && request.resource.data.keys().hasAll(['day', 'awarded'])
+        && request.resource.data.day is string
+        && request.resource.data.day.size() == 10
+        && request.resource.data.awarded is int
+        && request.resource.data.awarded >= 0
+        && request.resource.data.awarded <= 100;
+      allow update: if isOwner(userId)
+        && request.resource.data.keys().hasAll(['day', 'awarded'])
+        && request.resource.data.day is string
+        && request.resource.data.day.size() == 10
+        && request.resource.data.awarded is int
+        && request.resource.data.awarded >= 0
+        && request.resource.data.awarded <= 400
+        && (
+          // New calendar day: counter may reset, but only by one claim's worth.
+          (request.resource.data.day != resource.data.day
+            && request.resource.data.awarded <= 100)
+          ||
+          // Same day: awarded can only rise, and only by one capped claim.
+          (request.resource.data.day == resource.data.day
+            && request.resource.data.awarded >= resource.data.awarded
+            && request.resource.data.awarded <= resource.data.awarded + 100)
+        );
+      allow delete: if false;
+    }
+
     match /arena_clash_dojo/{userId} {
       allow read, create, update, delete: if isOwner(userId);
     }

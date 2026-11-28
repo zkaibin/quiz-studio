@@ -113,6 +113,13 @@ import {
   let unlockedThisSession = [];
   let ghostMesh = null;
   let ghostSamples = null;
+  /** Unique id for the current drive; used as an idempotent Firestore claim key. */
+  let driveSessionId = '';
+  /** Prevents double showResults / double payout for one completion. */
+  let rewardsSettled = false;
+  let payoutInFlight = false;
+  let pendingResults = null;
+  let lastDailyBonus = 0;
   try {
     const savedMission = localStorage.getItem('cityDrivingMission');
     if (savedMission && missionById(savedMission)) selectedMissionId = savedMission;
@@ -307,6 +314,11 @@ import {
 
   function acceptDailyChallenge() {
     const ch = dailyChallenge;
+    if (progress.dailyDone(ch)) {
+      refreshDailyCard();
+      welcomeNote.textContent = 'Daily Drive already completed today.';
+      return;
+    }
     dailyActive = true;
     const city = CITY_BY_ID[ch.cityId];
     if (city) selectCity(city);
@@ -2049,6 +2061,7 @@ import {
   }
 
   function evaluateDaily(ctx) {
+    lastDailyBonus = 0;
     if (!dailyActive) return 0;
     const ch = dailyChallenge;
     if (progress.dailyDone(ch)) return 0;
@@ -2062,14 +2075,41 @@ import {
       ok = !ch.clean || (ctx.crashes | 0) === 0;
     }
     if (!ok) return 0;
-    progress.markDaily(ch.id);
-    pushMilestone(progress.unlock('daily_done'));
+    // Local mark only after a successful claim in showResults; still stop re-arming this session.
     dailyActive = false;
-    refreshDailyCard();
-    return ch.reward | 0;
+    lastDailyBonus = ch.reward | 0;
+    return lastDailyBonus;
   }
 
-  async function showResults({ title, summary, earned, racing = false, rows = null }) {
+  function newDriveSessionId() {
+    return `run_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
+  }
+
+  async function showResults(payload) {
+    const {
+      title,
+      summary,
+      earned = 0,
+      dailyBonus = 0,
+      racing = false,
+      rows = null
+    } = payload || {};
+
+    // One successful payout per completed drive — blocks double finish / re-entrant UI.
+    if (rewardsSettled) {
+      tripPanelDone.classList.remove('hidden');
+      return;
+    }
+    if (payoutInFlight) return;
+    payoutInFlight = true;
+    pendingResults = {
+      title, summary, earned, dailyBonus, racing, rows
+    };
+
+    const baseEarned = Math.max(0, Math.floor(earned) - Math.max(0, Math.floor(dailyBonus)));
+    const dailyPart = Math.max(0, Math.floor(dailyBonus));
+    const displayTotal = baseEarned + dailyPart;
+
     tripTitle.textContent = title;
     tripSummary.textContent = summary;
     resultsBoard.hidden = !racing;
@@ -2082,28 +2122,66 @@ import {
     } else {
       tripMilestones.hidden = true;
     }
-    tripPointsOut.textContent = signedIn() ? 'Saving points…' : (earned > 0 ? `+${earned} pts (sign in to save)` : 'Sign in on the home page to earn points.');
+    tripPointsOut.textContent = signedIn()
+      ? 'Saving points…'
+      : (displayTotal > 0 ? `+${displayTotal} pts (sign in to save)` : 'Sign in on the home page to earn points.');
     tripPanelDone.classList.remove('hidden');
     hint.style.display = 'none';
     progress.recordDriveDay();
-    await persistProgressCloud();
-    refreshDailyCard();
-    if (!signedIn() || earned <= 0) {
-      if (!signedIn() && earned > 0) tripPointsOut.textContent = `+${earned} pts · sign in to save`;
-      else if (earned <= 0 && signedIn()) tripPointsOut.textContent = 'No points this run';
+
+    if (!signedIn() || displayTotal <= 0) {
+      rewardsSettled = true;
+      payoutInFlight = false;
+      pendingResults = null;
+      await persistProgressCloud();
+      refreshDailyCard();
+      if (!signedIn() && displayTotal > 0) tripPointsOut.textContent = `+${displayTotal} pts · sign in to save`;
+      else if (displayTotal <= 0 && signedIn()) tripPointsOut.textContent = 'No points this run';
       return;
     }
+
     try {
-      await store.awardPoints(earned);
-      tripPointsOut.textContent = `+${earned} points · total ${store.points}`;
+      const claim = await store.claimDriveReward({
+        claimId: driveSessionId || newDriveSessionId(),
+        amount: baseEarned,
+        dailyAmount: dailyPart,
+        dailyId: dailyPart > 0 ? dailyChallenge.id : null,
+        kind: mode
+      });
+      rewardsSettled = true;
+      pendingResults = null;
+      if (dailyPart > 0 && claim.awarded > 0 && claim.reason !== 'duplicate') {
+        progress.markDaily(dailyChallenge.id);
+        pushMilestone(progress.unlock('daily_done'));
+        if (unlockedThisSession.length) {
+          tripMilestones.hidden = false;
+          tripMilestones.textContent = unlockedThisSession.map((m) => `★ ${m.label}`).join(' · ');
+        }
+      }
+      await persistProgressCloud();
+      refreshDailyCard();
+      if (claim.reason === 'duplicate') {
+        tripPointsOut.textContent = 'Rewards already claimed for this drive.';
+      } else if (claim.reason === 'day-cap' || (claim.dayCapHit && claim.awarded === 0)) {
+        tripPointsOut.textContent = 'Daily City Drive point limit reached.';
+      } else if (claim.awarded <= 0) {
+        tripPointsOut.textContent = 'No points this run';
+      } else if (claim.reason === 'partial') {
+        tripPointsOut.textContent = `+${claim.awarded} points (daily cap) · total ${store.points}`;
+      } else {
+        tripPointsOut.textContent = `+${claim.awarded} points · total ${store.points}`;
+      }
     } catch (error) {
       console.warn('Could not save trip points.', error);
-      tripPointsOut.textContent = `+${earned} points could not be saved. Please try again later.`;
+      // Keep unsettled so Drive again can retry the same claimId (idempotent).
+      tripPointsOut.textContent = `+${displayTotal} points could not be saved. Tap Drive again to retry.`;
+    } finally {
+      payoutInFlight = false;
     }
   }
 
   async function finishOpenSession({ reason = 'ended' } = {}) {
-    if (tripDone) return;
+    if (tripDone || rewardsSettled) return;
     tripDone = true;
     running = false;
     hasStarted = false;
@@ -2135,7 +2213,8 @@ import {
     await showResults({
       title: missionState.complete ? 'Mission complete' : 'Drive ended',
       summary: parts.join(' · '),
-      earned
+      earned,
+      dailyBonus
     });
     trafficSystem.populate(16);
   }
@@ -2206,6 +2285,11 @@ import {
     }
     hasStarted = true;
     unlockedThisSession = [];
+    driveSessionId = newDriveSessionId();
+    rewardsSettled = false;
+    payoutInFlight = false;
+    pendingResults = null;
+    lastDailyBonus = 0;
     audio.resume();
     speed = 0;
     displaySpeed = 0;
@@ -2911,6 +2995,7 @@ import {
   }
 
   async function finishTrip() {
+    if (tripDone || rewardsSettled) return;
     tripDone = true;
     running = false;
     hasStarted = false;
@@ -2963,11 +3048,19 @@ import {
       title: racing ? `You finished ${ordinal(place)}!` : 'You have arrived',
       summary,
       earned,
+      dailyBonus,
       racing,
       rows: ranked
     });
   }
-  document.getElementById('trip-again').addEventListener('click', () => {
+  document.getElementById('trip-again').addEventListener('click', async () => {
+    if (payoutInFlight) return;
+    // Network failure: retry the same session claim (Firestore claim doc makes this safe).
+    if (!rewardsSettled && pendingResults) {
+      await showResults(pendingResults);
+      return;
+    }
+    if (!rewardsSettled) return;
     tripPanelDone.classList.add('hidden');
     startDrive();
   });
