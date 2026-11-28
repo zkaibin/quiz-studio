@@ -77,9 +77,25 @@ export function computeStats(car, up = defaultUpgrades()) {
   return {
     top: car.top * (1 + 0.04 * up.engine),
     accel: car.accel * (1 + 0.06 * up.engine),
-    handling: car.handling * (1 + 0.08 * up.tires),
+    handling: car.handling * (1 + 0.1 * up.tires),
     brake: car.brake * (1 + 0.08 * up.brakes)
   };
+}
+
+/**
+ * Shared front-wheel steer lock (radians) for every drive mode.
+ * Same car + upgrades → same feel in district / open / race / real.
+ * Falls off gradually with speed so high-speed driving stays stable while
+ * full lock still clears sharp corners; tire upgrades raise grip.
+ */
+export function maxSteerAngle(speed, handling = 1) {
+  const absSpeed = Math.abs(Number(speed) || 0);
+  const grip = Math.max(0.5, Number(handling) || 1);
+  // Better tires hold a little more lock as pace rises.
+  const speedRef = 12 + 3.5 * Math.max(0, grip - 1);
+  const denom = 1 + (absSpeed / speedRef) ** 1.55;
+  const handlingMul = 0.65 + 0.5 * grip;
+  return (0.46 / denom) * handlingMul;
 }
 
 export function buildCarModel(THREE, car, colorHex) {
