@@ -20,6 +20,11 @@ import { softKerbClamp } from './city-terrain.js';
 import {
   planetRadius, moveOnSphere, placeObjectOnSphere, cameraOnSphere, poseOnSphere
 } from './city-planet.js';
+import {
+  createSmashScorer, createMissionTracker, listMissions, missionById,
+  dailyChallengeFor, formatClock, createGhostRecorder, sampleGhostAt,
+  createProgressStore, cityName
+} from './city-progression.js';
 
 (() => {
   const mount = document.getElementById('city-scene');
@@ -93,11 +98,25 @@ import {
   const RACE_BONUS = [30, 20, 10];
   let route = routesFor(currentCity().id)[0];
   let areaLabel = route.area;
-  let mode = 'free';
+  let mode = 'district';
   const blocks = [];
   let selectedCircuitId = route.circuit;
   let menuCircuitPreview = false;
   let menuBackdropReady = false;
+  const progress = createProgressStore();
+  const smashScorer = createSmashScorer();
+  const ghostRecorder = createGhostRecorder();
+  let missionTracker = createMissionTracker('free_explore');
+  let selectedMissionId = 'free_explore';
+  let dailyChallenge = dailyChallengeFor();
+  let dailyActive = false;
+  let unlockedThisSession = [];
+  let ghostMesh = null;
+  let ghostSamples = null;
+  try {
+    const savedMission = localStorage.getItem('cityDrivingMission');
+    if (savedMission && missionById(savedMission)) selectedMissionId = savedMission;
+  } catch (error) { /* storage unavailable */ }
 
   function applyRoute(next) {
     route = next;
@@ -144,9 +163,17 @@ import {
     if (menuBackdropReady) syncMenuBackdrop();
   }
 
-  // Open-world free roam on planets / real maps. Earth "free" drives the scenic district
-  // corridor shown behind the route picker so Start Drive matches the welcome backdrop.
-  const usesOpenCity = () => mode === 'real' || (mode === 'free' && isPlanet());
+  // Open-world free roam (Earth + planet) and real maps. District mode stays scenic corridor.
+  const usesOpenCity = () => mode === 'real' || mode === 'open';
+  const isOpenMode = () => mode === 'open';
+  const isDistrict = () => mode === 'district';
+
+  function normalizeMode(raw) {
+    if (raw === 'race' || raw === 'real' || raw === 'open' || raw === 'district') return raw;
+    // Legacy "free": planet → open city, Earth → district corridor.
+    if (raw === 'free') return isPlanet() ? 'open' : 'district';
+    return isPlanet() ? 'open' : 'district';
+  }
 
   let selectedRealStartId = null;
   try {
@@ -157,7 +184,7 @@ import {
   let realMinimapView = null;
 
   function updateRouteLabel() {
-    routeLabelOutput.textContent = mode === 'race' ? 'CIRCUIT' : 'START';
+    routeLabelOutput.textContent = mode === 'race' ? 'CIRCUIT' : (mode === 'open' ? 'MISSION' : 'START');
     if (mode === 'real') {
       const starts = realCity.ready ? realCity.getStarts() : [];
       const hit = starts.find((s) => s.id === selectedRealStartId) || starts[0];
@@ -166,10 +193,17 @@ import {
         : `Real ${currentCity().name} streets (OpenStreetMap)`;
       return;
     }
-    if (mode === 'free') {
+    if (mode === 'open') {
+      const mission = missionById(selectedMissionId);
+      const best = progress.progress.bestSmash[currentCity().id];
+      const bestTxt = best ? ` · best ${best.score}` : '';
       routeNameOutput.textContent = isPlanet()
-        ? `${route.area} · drive or fly anywhere on the sphere-net`
-        : `${route.area} · ${route.from} → ${route.to} · ${(route.length / 1000).toFixed(1)} km`;
+        ? `${mission.name} · drive or fly the sphere-net${bestTxt}`
+        : `${mission.name} · open ${currentCity().name}${bestTxt}`;
+      return;
+    }
+    if (mode === 'district') {
+      routeNameOutput.textContent = `${route.area} · ${route.from} → ${route.to} · ${(route.length / 1000).toFixed(1)} km`;
       return;
     }
     const circuit = circuitById(selectedCircuitId || route.circuit);
@@ -178,17 +212,21 @@ import {
       ? Math.round(SIZE)
       : Math.round(circuitTrack.length || route.length);
     const tier = circuit.difficulty === 'easy' ? 'Beginner' : (circuit.difficulty === 'challenge' ? 'Challenge' : 'Standard');
+    const pb = progress.bestLap(circuit.id, currentCar?.id || 'civic');
+    const pbTxt = pb ? ` · PB ${formatClock(pb.time)}` : '';
     const bonus = ` · race +${RACE_BONUS[0]} pts`;
     const pts = Math.round(lapM / 100);
-    routeNameOutput.textContent = `${circuit.name} (${tier}) · ${(lapM / 1000).toFixed(1)} km · ${pts} pts${bonus}`;
+    routeNameOutput.textContent = `${circuit.name} (${tier}) · ${(lapM / 1000).toFixed(1)} km · ${pts} pts${bonus}${pbTxt}`;
   }
 
   function setMode(next) {
-    mode = next === 'race' || next === 'real' ? next : 'free';
+    mode = normalizeMode(next);
+    if (isPlanet() && mode === 'district') mode = 'open';
     modeList.querySelectorAll('button').forEach((button) => button.classList.toggle('on', button.dataset.mode === mode));
     if (mode !== 'real') menuRealPreview = false;
     renderRoutes();
-    if (mode === 'free') {
+    renderMissions();
+    if (mode === 'district') {
       routeList.querySelectorAll('button').forEach((button) => {
         button.classList.toggle('on', button.dataset.route === route.id);
       });
@@ -199,10 +237,95 @@ import {
   }
   const startButton = document.getElementById('start-drive');
   const realButton = modeList.querySelector('[data-mode="real"]');
+  const districtButton = modeList.querySelector('[data-mode="district"]');
+  const openButton = modeList.querySelector('[data-mode="open"]');
   const welcomeNote = document.getElementById('welcome-note');
+  const missionList = document.getElementById('mission-list');
+  const missionBar = document.getElementById('mission-bar');
+  const missionTitle = document.getElementById('mission-title');
+  const missionReward = document.getElementById('mission-reward');
+  const missionFill = document.getElementById('mission-fill');
+  const missionStatus = document.getElementById('mission-status');
+  const missionBest = document.getElementById('mission-best');
+  const smashComboOut = document.getElementById('smash-combo');
+  const smashScoreOut = document.getElementById('smash-score');
+  const smashScoreFill = document.getElementById('smash-score-fill');
+  const dailyCard = document.getElementById('daily-card');
+  const dailyTitle = document.getElementById('daily-title');
+  const dailyBlurb = document.getElementById('daily-blurb');
+  const dailyReward = document.getElementById('daily-reward');
+  const dailyDone = document.getElementById('daily-done');
+  const acceptDaily = document.getElementById('accept-daily');
+  const streakLine = document.getElementById('streak-line');
+  const tripMilestones = document.getElementById('trip-milestones');
+
   function refreshRealMap() {
     realButton.hidden = !realCity.available() || !!currentCity().planet || !!currentCity().wrap;
-    if (realButton.hidden && mode === 'real') setMode('free');
+    if (districtButton) districtButton.hidden = !!currentCity().planet;
+    if (openButton) openButton.textContent = currentCity().planet ? 'Free roam' : 'Open city';
+    if (realButton.hidden && mode === 'real') setMode(isPlanet() ? 'open' : 'district');
+    if (isPlanet() && mode === 'district') setMode('open');
+  }
+
+  function renderMissions() {
+    if (!missionList) return;
+    const show = mode === 'open';
+    missionList.hidden = !show;
+    if (!show) return;
+    missionList.innerHTML = listMissions().map((m) => {
+      const on = m.id === selectedMissionId ? ' on' : '';
+      const tag = m.reward ? ` · +${m.reward}` : '';
+      return `<button type="button" data-mission="${m.id}" class="${on.trim()}" title="${m.blurb}">${m.name}${tag}</button>`;
+    }).join('');
+  }
+
+  function selectMission(id) {
+    selectedMissionId = missionById(id).id;
+    try { localStorage.setItem('cityDrivingMission', selectedMissionId); } catch (error) { /* storage unavailable */ }
+    renderMissions();
+    updateRouteLabel();
+  }
+
+  function refreshDailyCard() {
+    dailyChallenge = dailyChallengeFor();
+    dailyCard.hidden = false;
+    dailyTitle.textContent = dailyChallenge.title;
+    dailyBlurb.textContent = dailyChallenge.blurb;
+    dailyReward.textContent = `+${dailyChallenge.reward} pts`;
+    const done = progress.dailyDone(dailyChallenge);
+    acceptDaily.hidden = done;
+    acceptDaily.disabled = done;
+    dailyDone.hidden = !done;
+    const streak = progress.progress.streak | 0;
+    if (streak > 0) {
+      streakLine.hidden = false;
+      streakLine.textContent = `Drive streak · ${streak} day${streak === 1 ? '' : 's'}`;
+    } else {
+      streakLine.hidden = true;
+    }
+  }
+
+  function acceptDailyChallenge() {
+    const ch = dailyChallenge;
+    dailyActive = true;
+    const city = CITY_BY_ID[ch.cityId];
+    if (city) selectCity(city);
+    if (ch.mode === 'race') {
+      setMode('race');
+      if (ch.circuitId) applyCircuit(ch.circuitId);
+      if (ch.carClass === 'civic') {
+        const civic = CARS.find((c) => c.id === 'civic');
+        if (civic) applyDriveCar(civic);
+      }
+    } else if (ch.mode === 'open') {
+      setMode('open');
+      selectMission(ch.missionId || 'smash_rush');
+    } else {
+      setMode('district');
+      const hit = routesFor(currentCity().id).find((r) => r.id === ch.routeId);
+      if (hit) applyRoute(hit);
+    }
+    welcomeNote.textContent = `Daily Drive armed · ${ch.title}`;
   }
   modeList.addEventListener('click', (event) => {
     const button = event.target.closest('[data-mode]');
@@ -264,11 +387,9 @@ import {
     document.title = `City Driving · ${city.name}`;
     mount.setAttribute('aria-label', `Three-dimensional ${city.name} city driving game`);
     const lapKm = ((city.grid * PITCH) / 1000).toFixed(1).replace(/\.0$/, '');
-    const freeBtn = modeList.querySelector('[data-mode="free"]');
-    if (freeBtn) freeBtn.textContent = city.planet ? 'Free roam' : 'District drive';
     cityIntro.textContent = city.planet
       ? `Take the wheel in ${city.name} on alien ${city.country} (~${lapKm} km sphere-net). Twin sun satellites light the crystal city — drive or fly anywhere; districts stream in as you explore.`
-      : `Take the wheel in ${city.name}. Pick a district route, a racing circuit, or Real map places of interest — tap the live minimap while driving to jump across town.`;
+      : `Take the wheel in ${city.name}. District trips, open-city smash missions, racing circuits, or Real map places — tap the live minimap while driving to jump across town.`;
     roadName.textContent = trafficLabel();
     roadName.dataset.default = roadName.textContent;
   }
@@ -295,11 +416,16 @@ import {
         : '<button type="button" disabled>Loading places…</button>';
       return;
     }
+    if (mode === 'open') {
+      routeList.innerHTML = '';
+      return;
+    }
     routeList.innerHTML = routesFor(currentCity().id).map((r) => (
       `<button type="button" data-route="${r.id}">${r.name}</button>`
     )).join('');
   }
   renderRoutes();
+  renderMissions();
   updateCityText();
   routeList.addEventListener('click', (event) => {
     const circuitButton = event.target.closest('[data-circuit]');
@@ -307,9 +433,9 @@ import {
       applyCircuit(circuitButton.dataset.circuit);
       return;
     }
-    const realButton = event.target.closest('[data-real-start]');
-    if (realButton) {
-      selectedRealStartId = realButton.dataset.realStart;
+    const realStartButton = event.target.closest('[data-real-start]');
+    if (realStartButton) {
+      selectedRealStartId = realStartButton.dataset.realStart;
       routeList.querySelectorAll('button').forEach((button) => {
         button.classList.toggle('on', button.dataset.realStart === selectedRealStartId);
       });
@@ -321,6 +447,11 @@ import {
     const button = event.target.closest('[data-route]');
     if (button) applyRoute(ROUTES.find((r) => r.id === button.dataset.route));
   });
+  missionList?.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-mission]');
+    if (button) selectMission(button.dataset.mission);
+  });
+  acceptDaily?.addEventListener('click', () => acceptDailyChallenge());
   let savedRoute = null;
   let savedMode = null;
   let savedCircuit = null;
@@ -329,7 +460,7 @@ import {
     savedMode = localStorage.getItem('cityDrivingMode');
     savedCircuit = localStorage.getItem('cityDrivingCircuit');
   } catch (error) { /* storage unavailable */ }
-  setMode(savedMode);
+  setMode(normalizeMode(savedMode));
   applyRoute(routesFor(currentCity().id).find((r) => r.id === savedRoute) || routesFor(currentCity().id)[0]);
   if (savedCircuit && circuitsFor({ planet: isPlanet() }).some((c) => c.id === savedCircuit)) {
     selectedCircuitId = savedCircuit;
@@ -337,6 +468,7 @@ import {
     selectedCircuitId = route.circuit;
   }
   refreshRealMap();
+  refreshDailyCard();
 
   const keys = new Set();
   const controls = { left: false, right: false, gas: false, brake: false, reverse: false, nitro: false };
@@ -839,7 +971,7 @@ import {
   const countdownOut = document.getElementById('countdown');
   const resultsBoard = document.getElementById('results-board');
   const isRace = () => mode === 'race';
-  const isFree = () => mode === 'free' || mode === 'real';
+  const isFree = () => mode === 'open' || mode === 'real' || mode === 'district';
   let freeActive = false;
   let camHeading = 0;
   let mapTimer = 0;
@@ -977,7 +1109,7 @@ import {
       startButton.disabled = false;
       if (!ok) {
         welcomeNote.textContent = 'Could not load the real map; using District drive.';
-        setMode('free');
+        setMode('district');
         return;
       }
       if (mode === 'real' && !hasStarted) stageRealMenu();
@@ -1045,10 +1177,70 @@ import {
     }
   }
 
+  function showOpenMenu() {
+    menuCircuitPreview = false;
+    menuRealPreview = false;
+    leaveCircuit();
+    freeActive = false;
+    realActive = false;
+    // Preview the streamed open city behind the welcome card.
+    freeCity.setVisible(true);
+    realCity.setVisible(false);
+    world.setFreeMode(true);
+    blocks.forEach((block) => { block.visible = false; });
+    trafficSystem.clearTraffic();
+    trafficSystem.clearRacers();
+    finishGate.visible = false;
+    smashStat.hidden = false;
+    minimap.hidden = false;
+    const spawn = spawnFor(route.id);
+    mapX = spawn.x;
+    mapZ = spawn.z;
+    heading = spawn.heading;
+    camHeading = heading;
+    areaLabel = route.area;
+    locationName.textContent = areaLabel;
+    if (isPlanet()) {
+      freeCity.prefill(mapX, mapZ, Date.now() / 1000);
+      placeObjectOnSphere(player, mapX, 0, mapZ, heading);
+      const pose = poseOnSphere(mapX, 40, mapZ, heading);
+      camPos.copy(pose.position).addScaledVector(pose.up, 8).addScaledVector(pose.north, -18);
+      camLook.copy(pose.position);
+      camUp.copy(pose.up);
+      camera.up.copy(camUp);
+      camera.position.copy(camPos);
+      camera.lookAt(camLook);
+      world.setPlanetSky(true);
+      world.followPlanetPlayer(player.position, {
+        altitude: 0, cameraPosition: camPos, sunDirs: freeCity.sunDirs()
+      });
+      scene.fog.near = 70;
+      scene.fog.far = Math.max(420, planetRadius() * 1.4);
+    } else {
+      world.setPlanetSky(false);
+      freeCity.prefill(spawn.x, spawn.z, Date.now() / 1000);
+      player.position.set(spawn.x, spawn.y || groundHeight(spawn.x, spawn.z), spawn.z);
+      player.rotation.set(0, -heading, 0);
+      const back = 18;
+      camPos.set(spawn.x - Math.sin(heading) * back, 7.5, spawn.z + Math.cos(heading) * back);
+      camLook.set(spawn.x + Math.sin(heading) * 24, 1.4, spawn.z - Math.cos(heading) * 24);
+      camUp.set(0, 1, 0);
+      camera.up.copy(camUp);
+      camera.position.copy(camPos);
+      camera.lookAt(camLook);
+      world.followPlayer(spawn.x, spawn.z, true);
+      scene.fog.near = 70;
+      scene.fog.far = 320;
+    }
+    drawMinimap();
+    welcomeNote.textContent = missionById(selectedMissionId).blurb;
+  }
+
   function syncMenuBackdrop() {
     if (hasStarted) return;
     if (mode === 'race') showCircuitMenu();
     else if (mode === 'real') showRealMenu();
+    else if (mode === 'open') showOpenMenu();
     else showDistrictMenu();
   }
 
@@ -1205,8 +1397,12 @@ import {
     applyRoute(routesFor(city.id)[0]);
     if (mode === 'race' && firstCircuit) applyCircuit(firstCircuit.id);
     realCity.unload();
-    if (mode === 'real') setMode('free');
+    if (mode === 'real') setMode(city.planet ? 'open' : 'district');
+    else if (city.planet && mode === 'district') setMode('open');
+    else if (!city.planet && mode === 'open') { /* keep open city on Earth */ }
+    renderMissions();
     refreshRealMap();
+    refreshDailyCard();
   }
   const globeOverlay = document.getElementById('globe');
   const globe = createGlobe({
@@ -1637,6 +1833,16 @@ import {
       if (onPlanet) drawMinimap();
       else drawCircuitMinimap();
     }
+    if (phase === 'drive') {
+      ghostRecorder.push(delta, {
+        t: raceTime,
+        x: onPlanet ? mapX : player.position.x,
+        z: onPlanet ? mapZ : player.position.z,
+        y: onPlanet ? 0 : (player.position.y || 0),
+        heading
+      });
+      updateGhost(raceTime);
+    }
     if (distance >= length && !tripDone) finishTrip();
   }
 
@@ -1691,9 +1897,15 @@ import {
       freeCity.update(px, pz, Date.now() / 1000, 1, altitude);
       freeCity.animate(delta, { x: px, z: pz, heading, speed });
       const { props, peds, cars } = freeCity.stats;
-      smashOutput.textContent = String(props + peds + cars);
+      const smashHit = smashScorer.observe({ props, peds, cars }, delta);
+      const totalSmash = props + peds + cars;
+      smashOutput.textContent = String(totalSmash);
+      smashComboOut.textContent = `×${Math.max(1, smashHit.combo || 1)}`;
+      smashScoreOut.textContent = String(smashHit.score);
+      smashScoreFill.style.width = `${Math.min(100, (smashHit.score / 120) * 100)}%`;
       const info = infoAt(px, pz);
       let nearLandmark = false;
+      let landmarkId = null;
       if (info.landmark) {
         const lx = info.landmark.i * PITCH + PITCH * 0.5;
         const lz = info.landmark.j * PITCH + PITCH * 0.5;
@@ -1701,11 +1913,28 @@ import {
         const dx = wraps() || isPlanet() ? wrapDelta(px, lx) : px - lx;
         const dz = wraps() || isPlanet() ? wrapDelta(pz, lz) : pz - lz;
         nearLandmark = Math.hypot(dx, dz) < 90;
+        if (nearLandmark) landmarkId = info.landmark.id;
       }
       const place = nearLandmark
         ? `${info.district} · ${landmarkName(info.landmark.id).toUpperCase()}` : info.district.toUpperCase();
       if (locationName.textContent !== place) locationName.textContent = place;
       if (roadName.textContent !== info.street.toUpperCase()) roadName.textContent = info.street.toUpperCase();
+      if (mode === 'open' && phase === 'drive') {
+        const m = missionTracker.tick(delta, {
+          smashHits: smashHit.totalHits,
+          distance,
+          landmarkId
+        });
+        if (!missionBar.hidden) {
+          missionFill.style.width = `${(m.ratio * 100).toFixed(1)}%`;
+          missionStatus.textContent = m.label;
+        }
+        if (m.complete && !tripDone) finishOpenSession({ reason: 'mission' });
+        else if (m.failed && missionById(selectedMissionId).kind === 'smash' && !tripDone) {
+          // Timed smash missions end when the clock runs out.
+          finishOpenSession({ reason: 'time up' });
+        }
+      }
     }
 
     const speedRatio = Math.min(1, Math.abs(speed) / 60);
@@ -1752,20 +1981,163 @@ import {
     }
   }
 
+  function clearGhost() {
+    ghostSamples = null;
+    if (ghostMesh) {
+      scene.remove(ghostMesh);
+      ghostMesh.traverse((o) => { if (o.geometry) o.geometry.dispose(); });
+      ghostMesh = null;
+    }
+  }
+
+  function prepareGhost() {
+    clearGhost();
+    if (isPlanet()) return;
+    const circuit = circuitById(selectedCircuitId || route.circuit);
+    const best = progress.bestLap(circuit.id, currentCar.id);
+    if (!best?.ghost?.length) return;
+    ghostSamples = best.ghost;
+    ghostMesh = buildCarModel(THREE, currentCar, 0x88c8e8);
+    ghostMesh.traverse((o) => {
+      if (o.isMesh && o.material) {
+        o.material = o.material.clone();
+        o.material.transparent = true;
+        o.material.opacity = 0.38;
+        o.material.depthWrite = false;
+        if (o.material.emissive) o.material.emissive.setHex(0x226688);
+      }
+    });
+    scene.add(ghostMesh);
+  }
+
+  function updateGhost(time) {
+    if (!ghostMesh || !ghostSamples) return;
+    const s = sampleGhostAt(ghostSamples, time);
+    if (!s) return;
+    ghostMesh.position.set(s.x, s.y || 0, s.z);
+    ghostMesh.rotation.set(0, -s.h, 0);
+    ghostMesh.visible = true;
+  }
+
   function clearSession() {
     racePanel.hidden = true;
     countdownOut.hidden = true;
     finishGate.visible = false;
     tripPanel.hidden = true;
+    missionBar.hidden = true;
     phase = 'idle';
     trafficSystem.clearRacers();
+    clearGhost();
     speed = 0;
     displaySpeed = 0;
     speedOutput.textContent = '0';
     distanceOutput.textContent = '0.0';
     leaveFree();
     // leaveFree already restores the welcome backdrop when hasStarted is false.
-    if (!menuCircuitPreview && !menuRealPreview && mode !== 'race') resetCarPose();
+    if (!menuCircuitPreview && !menuRealPreview && mode !== 'race' && mode !== 'open') resetCarPose();
+  }
+
+  function pushMilestone(def) {
+    if (def) unlockedThisSession.push(def);
+  }
+
+  async function persistProgressCloud() {
+    if (!signedIn()) return;
+    try { await store.saveMeta(progress.exportMeta()); } catch (error) {
+      console.warn('Could not sync driving progress.', error);
+    }
+  }
+
+  function evaluateDaily(ctx) {
+    if (!dailyActive) return 0;
+    const ch = dailyChallenge;
+    if (progress.dailyDone(ch)) return 0;
+    let ok = false;
+    if (ch.kind === 'race' && ctx.racing) {
+      ok = ctx.raceTime <= ch.targetSec + 1e-3;
+      if (ch.carClass === 'civic' && currentCar.id !== 'civic') ok = false;
+    } else if (ch.kind === 'smash' && ctx.open) {
+      ok = (ctx.smashHits | 0) >= (ch.smashTarget | 0);
+    } else if (ch.kind === 'district' && ctx.district) {
+      ok = !ch.clean || (ctx.crashes | 0) === 0;
+    }
+    if (!ok) return 0;
+    progress.markDaily(ch.id);
+    pushMilestone(progress.unlock('daily_done'));
+    dailyActive = false;
+    refreshDailyCard();
+    return ch.reward | 0;
+  }
+
+  async function showResults({ title, summary, earned, racing = false, rows = null }) {
+    tripTitle.textContent = title;
+    tripSummary.textContent = summary;
+    resultsBoard.hidden = !racing;
+    if (racing && rows) {
+      resultsBoard.innerHTML = rows.map((r, i) => `<li class="${r.you ? 'you' : ''}"><span>${i + 1}. ${r.you ? 'You' : `${r.name} · ${r.car}`}</span><span>${r.finished ? formatTime(r.time) : 'DNF'}</span></li>`).join('');
+    }
+    if (unlockedThisSession.length) {
+      tripMilestones.hidden = false;
+      tripMilestones.textContent = unlockedThisSession.map((m) => `★ ${m.label}`).join(' · ');
+    } else {
+      tripMilestones.hidden = true;
+    }
+    tripPointsOut.textContent = signedIn() ? 'Saving points…' : (earned > 0 ? `+${earned} pts (sign in to save)` : 'Sign in on the home page to earn points.');
+    tripPanelDone.classList.remove('hidden');
+    hint.style.display = 'none';
+    progress.recordDriveDay();
+    await persistProgressCloud();
+    refreshDailyCard();
+    if (!signedIn() || earned <= 0) {
+      if (!signedIn() && earned > 0) tripPointsOut.textContent = `+${earned} pts · sign in to save`;
+      else if (earned <= 0 && signedIn()) tripPointsOut.textContent = 'No points this run';
+      return;
+    }
+    try {
+      await store.awardPoints(earned);
+      tripPointsOut.textContent = `+${earned} points · total ${store.points}`;
+    } catch (error) {
+      console.warn('Could not save trip points.', error);
+      tripPointsOut.textContent = `+${earned} points could not be saved. Please try again later.`;
+    }
+  }
+
+  async function finishOpenSession({ reason = 'ended' } = {}) {
+    if (tripDone) return;
+    tripDone = true;
+    running = false;
+    hasStarted = false;
+    setPlayChrome(false);
+    const snap = smashScorer.snapshot();
+    const missionState = missionTracker.status();
+    let earned = snap.payout;
+    if (missionState.complete && !missionState.failed) {
+      earned += missionState.mission.reward | 0;
+    }
+    if (snap.maxCombo >= 10) pushMilestone(progress.unlock('combo_10'));
+    if (snap.totalHits >= 50) pushMilestone(progress.unlock('smash_50_session'));
+    progress.recordSmashBest(currentCity().id, snap.score);
+    const dailyBonus = evaluateDaily({ open: true, smashHits: snap.totalHits });
+    earned += dailyBonus;
+    speed = 0;
+    hud.classList.remove('active');
+    pauseButton.disabled = true;
+    stateOutput.textContent = 'SESSION OVER';
+    clearSession();
+    const parts = [
+      `${cityName(currentCity().id)} open city`,
+      `${snap.totalHits} smashed · score ${snap.score} (max ×${snap.maxCombo || 1})`
+    ];
+    if (missionState.mission.kind !== 'none') {
+      parts.push(missionState.complete ? `${missionState.mission.name} complete` : (missionState.failed ? `${missionState.mission.name} failed` : `${missionState.mission.name} · ${reason}`));
+    }
+    if (dailyBonus) parts.push('Daily Drive cleared');
+    await showResults({
+      title: missionState.complete ? 'Mission complete' : 'Drive ended',
+      summary: parts.join(' · '),
+      earned
+    });
+    trafficSystem.populate(16);
   }
 
   function teleportReal(x, z) {
@@ -1827,12 +2199,13 @@ import {
       realCity.load(city, (text) => { welcomeNote.textContent = text; }).then((ok) => {
         startButton.disabled = false;
         welcomeNote.textContent = ok ? 'No rush. Just enjoy the ride.' : 'Could not load the real map; using Free roam.';
-        if (!ok) setMode('free');
+        if (!ok) setMode('district');
         startDrive();
       });
       return;
     }
     hasStarted = true;
+    unlockedThisSession = [];
     audio.resume();
     speed = 0;
     displaySpeed = 0;
@@ -1847,6 +2220,11 @@ import {
     collisionCooldown = 0;
     camShakeMag = 0;
     fx.clear();
+    smashScorer.reset();
+    missionTracker = createMissionTracker(mode === 'open' ? selectedMissionId : 'free_explore');
+    clearGhost();
+    const modeUnlock = progress.noteMode(mode);
+    if (modeUnlock) unlockedThisSession.push(modeUnlock);
     if (usesOpenCity()) {
       resetCarPose();
       enterFree();
@@ -1854,16 +2232,32 @@ import {
       // Keep the welcome circuit staging so Start Drive continues the same view.
       if (!menuCircuitPreview) resetCarPose();
       enterCircuit();
+      prepareGhost();
+      ghostRecorder.reset();
     } else {
       resetCarPose();
-      leaveFree(); // Earth free: scenic district corridor from the welcome backdrop
+      leaveFree(); // District: scenic corridor from the welcome backdrop
     }
     tripPanel.hidden = usesOpenCity();
+    missionBar.hidden = mode !== 'open' || missionById(selectedMissionId).kind === 'none';
+    if (mode === 'open') {
+      const mission = missionById(selectedMissionId);
+      missionTitle.textContent = mission.name;
+      missionReward.textContent = mission.reward ? `+${mission.reward} pts` : 'explore';
+      missionFill.style.width = '0%';
+      missionStatus.textContent = mission.blurb;
+      const best = progress.progress.bestSmash[currentCity().id];
+      missionBest.textContent = best ? `best ${best.score}` : '';
+      smashOutput.textContent = '0';
+      smashComboOut.textContent = '×1';
+      smashScoreOut.textContent = '0';
+      smashScoreFill.style.width = '0%';
+    }
     if (isRace()) {
       const circuit = circuitById(selectedCircuitId || route.circuit);
       tripFrom.textContent = `● ${circuit.name}`;
       tripTo.textContent = 'Finish line ⚑';
-    } else {
+    } else if (isDistrict()) {
       tripFrom.textContent = `● ${route.from}`;
       tripTo.textContent = `${route.to} ⚑`;
     }
@@ -1917,9 +2311,15 @@ import {
     setRunning(true);
   });
   document.getElementById('end-drive').addEventListener('click', () => {
+    pausePanel.classList.add('hidden');
+    if (mode === 'open' && !tripDone && hasStarted) {
+      setPlayChrome(false);
+      startPanel.classList.add('hidden');
+      finishOpenSession({ reason: 'ended' });
+      return;
+    }
     hasStarted = false;
     running = false;
-    pausePanel.classList.add('hidden');
     startPanel.classList.remove('hidden');
     stateOutput.textContent = 'READY';
     hud.classList.remove('active');
@@ -1927,6 +2327,7 @@ import {
     setPlayChrome(false);
     clearSession();
     trafficSystem.populate(16);
+    refreshDailyCard();
   });
 
   pauseButton.addEventListener('click', togglePause);
@@ -2014,7 +2415,7 @@ import {
     renderer.render(scene, camera);
   }
 
-  // Menu / garage: district corridor spins the car; circuit preview keeps the staged track view.
+  // Menu / garage: district corridor spins the car; open/circuit previews keep the staged city view.
   function idle(delta) {
     clock += delta;
     if (!hasStarted) {
@@ -2028,7 +2429,16 @@ import {
             altitude: 0, cameraPosition: camPos, sunDirs: freeCity.sunDirs()
           });
         }
-      } else {
+      } else if (mode === 'open' && freeCity.root?.visible) {
+        const t = Date.now() / 1000;
+        freeCity.update(mapX, mapZ, t, 1, 0);
+        freeCity.animate(delta, { x: mapX, z: mapZ, heading, speed: 0 });
+        if (isPlanet()) {
+          world.followPlanetPlayer(player.position, {
+            altitude: 0, cameraPosition: camPos, sunDirs: freeCity.sunDirs()
+          });
+        }
+      } else if (!menuRealPreview) {
         player.rotation.y += delta * 0.5;
         world.animatePedestrians(blocks, clock, delta);
         trafficSystem.update(delta, { playerForward: 0, playerX: player.position.x, playerSpeed: 0, distance: 0, time: 0, go: false, playerTop: stats.top, playerAccel: stats.accel, length: route.length });
@@ -2513,34 +2923,49 @@ import {
     pauseButton.disabled = true;
     stateOutput.textContent = racing ? 'FINISHED' : 'ARRIVED';
     const circuit = racing ? circuitById(selectedCircuitId || route.circuit) : null;
+    let pbNote = '';
+    if (racing && circuit) {
+      const ghost = ghostRecorder.snapshot();
+      const result = progress.recordLap({
+        circuitId: circuit.id,
+        carId: currentCar.id,
+        time: raceTime,
+        place,
+        ghost
+      });
+      if (result.better) pbNote = result.previous ? ' · new personal best!' : ' · first PB set';
+      if (crashes === 0) pushMilestone(progress.unlock('first_clean_race'));
+    }
     clearSession();
     const raceBonus = racing ? (RACE_BONUS[place - 1] || 0) : 0;
     const basePts = racing ? Math.round(length / 100) : tripReward(route);
-    const earned = Math.max(Math.round(basePts / 2), basePts - crashes * 2) + (crashes === 0 ? CLEAN_BONUS : 0) + raceBonus;
+    let earned = Math.max(Math.round(basePts / 2), basePts - crashes * 2) + (crashes === 0 ? CLEAN_BONUS : 0) + raceBonus;
+    const dailyBonus = evaluateDaily({
+      racing,
+      district: !racing,
+      raceTime,
+      crashes
+    });
+    earned += dailyBonus;
     const crashText = crashes === 0 ? 'no collisions, clean drive bonus!' : `${crashes} collision${crashes === 1 ? '' : 's'}`;
-    tripTitle.textContent = racing ? `You finished ${ordinal(place)}!` : 'You have arrived';
-    tripSummary.textContent = racing
-      ? `${circuit.name} · ${(length / 1000).toFixed(1)} km lap · ${formatTime(raceTime)} · ${crashText}`
+    let summary = racing
+      ? `${circuit.name} · ${(length / 1000).toFixed(1)} km lap · ${formatTime(raceTime)} · ${crashText}${pbNote}`
       : `${route.from} → ${route.to} · ${(length / 1000).toFixed(1)} km · ${crashText}`;
-    resultsBoard.hidden = !racing;
+    if (dailyBonus) summary += ' · Daily Drive cleared';
+    if (raceBonus) summary += ` · place bonus +${raceBonus}`;
+    let ranked = null;
     if (racing) {
-      const ranked = rows;
-      // The player has just crossed the line, so unfinished cars are classified by their remaining distance.
+      ranked = rows;
       ranked.sort((a, b) => (b.finished ? 1 : 0) - (a.finished ? 1 : 0) || (a.finished ? a.time - b.time : b.progress - a.progress));
-      resultsBoard.innerHTML = ranked.map((r, i) => `<li class="${r.you ? 'you' : ''}"><span>${i + 1}. ${r.you ? 'You' : `${r.name} · ${r.car}`}</span><span>${r.finished ? formatTime(r.time) : 'DNF'}</span></li>`).join('');
     }
-    tripPointsOut.textContent = signedIn() ? 'Saving points…' : 'Sign in on the home page to earn points.';
-    tripPanelDone.classList.remove('hidden');
-    hint.style.display = 'none';
     trafficSystem.populate(16);
-    if (!signedIn()) return;
-    try {
-      await store.awardPoints(earned);
-      tripPointsOut.textContent = `+${earned} points${raceBonus ? ` (incl. ${raceBonus} race bonus)` : ''} · total ${store.points}`;
-    } catch (error) {
-      console.warn('Could not save trip points.', error);
-      tripPointsOut.textContent = `+${earned} points could not be saved. Please try again later.`;
-    }
+    await showResults({
+      title: racing ? `You finished ${ordinal(place)}!` : 'You have arrived',
+      summary,
+      earned,
+      racing,
+      rows: ranked
+    });
   }
   document.getElementById('trip-again').addEventListener('click', () => {
     tripPanelDone.classList.add('hidden');
@@ -2842,6 +3267,10 @@ import {
   store.ready.then(() => {
     if (demoFlyer) applyDriveCar(demoFlyer);
     else if (signedIn()) applyDriveCar(CARS.find((c) => c.id === store.garage.selected) || CARS[0]);
+    if (signedIn() && store.garage.meta) progress.mergeCloud(store.garage.meta);
+    pushMilestone(progress.noteOwnedFlyer(signedIn() ? store.garage.owned : []));
+    unlockedThisSession = [];
+    refreshDailyCard();
   });
 
   requestAnimationFrame(animate);
