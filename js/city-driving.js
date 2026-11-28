@@ -1,5 +1,5 @@
 import * as THREE from './vendor/three/three.module.min.js';
-import { CARS, UPGRADES, MAX_UPGRADE_LEVEL, defaultUpgrades, upgradeCost, computeStats, buildCarModel } from './city-cars.js';
+import { CARS, UPGRADES, MAX_UPGRADE_LEVEL, defaultUpgrades, upgradeCost, computeStats, maxSteerAngle, buildCarModel } from './city-cars.js';
 import { createGarageStore } from './city-garage.js';
 import { ROUTES, routesFor, landmarkName } from './city-routes.js';
 import { CITY_BY_ID, DEFAULT_CITY_ID } from './city-cities.js';
@@ -2587,19 +2587,8 @@ import {
     if (freeActive && Math.abs(speed) > 50 && Math.abs(input) < 0.1) input = 0;
     steerInput = THREE.MathUtils.lerp(steerInput, input, Math.min(1, delta * 10));
     const free = freeActive;
-    const freeSteerBoost = free
-      ? THREE.MathUtils.lerp(1.35, 0.9, THREE.MathUtils.clamp((Math.abs(speed) - 35) / 45, 0, 1))
-      : 1;
-    // Circuits keep usable turn-in at race pace — the old speed^2 / 9 falloff made hairpins undrivable.
-    // Target ~1.2–1.5 rad/s yaw at race speeds (tight but not spinny).
-    const steerDenom = circuitActive
-      ? (1 + (Math.abs(speed) / 14) ** 1.5)
-      : (1 + (Math.abs(speed) / 9) ** 2);
-    const circuitSteerBoost = circuitActive
-      ? THREE.MathUtils.lerp(1.1, 1.35, THREE.MathUtils.clamp(Math.abs(steerInput), 0, 1))
-      : 1;
-    const maxSteer = ((circuitActive ? 0.48 : 0.5) / steerDenom)
-      * (0.85 + 0.15 * stats.handling) * freeSteerBoost * circuitSteerBoost;
+    // One steer curve for every mode — same car + tire upgrades → same driving feel.
+    const maxSteer = maxSteerAngle(speed, stats.handling);
     const headingLimit = 0.3;
     let steerTarget = steerInput * maxSteer;
     // Racing auto-centres the nose with no input. Free roam at hyper speed does the same toward
@@ -2628,9 +2617,7 @@ import {
       const align = Math.atan2(Math.sin(hit.heading - heading), Math.cos(hit.heading - heading));
       steerTarget = THREE.MathUtils.clamp(align * 0.7, -maxSteer * 1.5, maxSteer * 1.5);
     }
-    const steerSnap = circuitActive
-      ? (Math.abs(input) > 0.05 ? 11 : 6)
-      : (Math.abs(input) > 0.05 ? 9 : 6);
+    const steerSnap = Math.abs(input) > 0.05 ? 9 : 6;
     steer = THREE.MathUtils.lerp(steer, steerTarget, Math.min(1, delta * steerSnap));
     if (!free && ((heading >= headingLimit && steer > 0) || (heading <= -headingLimit && steer < 0))) steer *= 0.5;
     const turnRate = (speed / wheelbase) * Math.tan(steer);
