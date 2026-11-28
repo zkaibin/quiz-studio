@@ -4,6 +4,11 @@ import { CARS, UPGRADES, MAX_UPGRADE_LEVEL, defaultUpgrades, upgradeCost } from 
 const FS = 'https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js';
 const AUTH = 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
 
+/** Hard ceiling for a single City Drive payout (smash + mission + daily). */
+export const MAX_DRIVE_CLAIM = 100;
+/** Soft daily ceiling for all City Drive payouts combined. */
+export const MAX_DRIVE_POINTS_PER_DAY = 400;
+
 const freshGarage = () => ({ owned: ['civic'], selected: 'civic', colors: {}, upgrades: {}, meta: null });
 
 function sanitize(data) {
@@ -20,6 +25,19 @@ function sanitize(data) {
   }
   garage.meta = data.meta && typeof data.meta === 'object' ? data.meta : null;
   return garage;
+}
+
+function todayKey(d = new Date()) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+function clampClaimAmount(amount) {
+  const n = Math.floor(Number(amount) || 0);
+  if (!Number.isFinite(n) || n <= 0) return 0;
+  return Math.min(MAX_DRIVE_CLAIM, n);
 }
 
 export function createGarageStore() {
@@ -83,18 +101,126 @@ export function createGarageStore() {
     }
   };
 
-  // Adds trip rewards to the shared quiz points total.
-  store.awardPoints = async (amount) => {
-    if (!store.user || amount <= 0) return false;
-    const { doc, runTransaction } = store.fs;
-    const userRef = doc(store.db, 'users', store.user.uid);
-    store.points = await runTransaction(store.db, async (tx) => {
-      const snap = await tx.get(userRef);
-      const total = (snap.exists() ? (snap.data().total_points || 0) : 0) + amount;
-      tx.set(userRef, { total_points: total }, { merge: true });
-      return total;
+  /**
+   * Idempotent City Drive payout.
+   * - Same claimId never credits twice (create-once claim doc).
+   * - Optional dailyId/dailyAmount is create-once (Daily Drive bonus).
+   * - Per-claim and per-day caps clamp the credit.
+   */
+  store.claimDriveReward = async ({
+    claimId,
+    amount = 0,
+    dailyAmount = 0,
+    dailyId = null,
+    kind = 'drive'
+  } = {}) => {
+    if (!store.user) return { ok: false, awarded: 0, reason: 'signed-out', points: store.points };
+    const safeClaim = String(claimId || '').replace(/[^a-zA-Z0-9:_-]/g, '').slice(0, 120);
+    if (!safeClaim) return { ok: false, awarded: 0, reason: 'bad-claim', points: store.points };
+
+    const base = clampClaimAmount(amount);
+    const dailyWanted = dailyId ? clampClaimAmount(dailyAmount) : 0;
+    if (base <= 0 && dailyWanted <= 0) {
+      return { ok: true, awarded: 0, reason: 'zero', points: store.points };
+    }
+
+    const { doc, runTransaction, serverTimestamp } = store.fs;
+    const uid = store.user.uid;
+    const claimRef = doc(store.db, 'city_driving_claims', `${uid}_${safeClaim}`);
+    const dailyRef = dailyId
+      ? doc(store.db, 'city_driving_claims', `${uid}_daily_${String(dailyId).replace(/[^a-zA-Z0-9:_-]/g, '').slice(0, 100)}`)
+      : null;
+    const economyRef = doc(store.db, 'city_driving_economy', uid);
+    const userRef = doc(store.db, 'users', uid);
+    const day = todayKey();
+
+    const result = await runTransaction(store.db, async (tx) => {
+      const claimSnap = await tx.get(claimRef);
+      if (claimSnap.exists()) {
+        const userSnap = await tx.get(userRef);
+        const points = userSnap.exists() ? (userSnap.data().total_points || 0) : 0;
+        return { awarded: 0, reason: 'duplicate', points, dayCapHit: false };
+      }
+
+      let dailyAlready = false;
+      if (dailyRef) {
+        const dailySnap = await tx.get(dailyRef);
+        dailyAlready = dailySnap.exists();
+      }
+      const dailyCredit = dailyAlready ? 0 : dailyWanted;
+      const requested = clampClaimAmount(base + dailyCredit);
+
+      const economySnap = await tx.get(economyRef);
+      const economy = economySnap.exists() ? economySnap.data() : { day, awarded: 0 };
+      const awardedToday = economy.day === day ? (economy.awarded | 0) : 0;
+      const room = Math.max(0, MAX_DRIVE_POINTS_PER_DAY - awardedToday);
+
+      const userSnap = await tx.get(userRef);
+      const currentPoints = userSnap.exists() ? (userSnap.data().total_points || 0) : 0;
+
+      if (room <= 0 || requested <= 0) {
+        // Consume the run claim so this session cannot be retried for points.
+        tx.set(claimRef, {
+          user_id: uid,
+          claim_id: safeClaim,
+          kind,
+          amount_requested: requested,
+          amount_awarded: 0,
+          reason: requested <= 0 ? (dailyAlready ? 'daily-duplicate' : 'zero') : 'day-cap',
+          day,
+          created_at: serverTimestamp()
+        });
+        return {
+          awarded: 0,
+          reason: requested <= 0 ? (dailyAlready ? 'daily-duplicate' : 'zero') : 'day-cap',
+          points: currentPoints,
+          dayCapHit: room <= 0
+        };
+      }
+
+      const awarded = Math.min(requested, room);
+      const points = currentPoints + awarded;
+
+      tx.set(claimRef, {
+        user_id: uid,
+        claim_id: safeClaim,
+        kind,
+        amount_requested: requested,
+        amount_awarded: awarded,
+        daily_id: dailyId || null,
+        day,
+        created_at: serverTimestamp()
+      });
+      // Only burn the daily claim when some points actually land.
+      if (dailyRef && dailyId && !dailyAlready && dailyCredit > 0 && awarded > 0) {
+        tx.set(dailyRef, {
+          user_id: uid,
+          claim_id: `daily_${dailyId}`,
+          kind: 'daily',
+          amount_awarded: Math.min(dailyCredit, awarded),
+          day,
+          created_at: serverTimestamp()
+        });
+      }
+      tx.set(economyRef, { day, awarded: awardedToday + awarded, updated_at: serverTimestamp() }, { merge: true });
+      if (awarded > 0) tx.set(userRef, { total_points: points }, { merge: true });
+
+      return {
+        awarded,
+        reason: awarded < requested ? 'partial' : 'ok',
+        points,
+        dayCapHit: awarded < requested && room < requested
+      };
     });
-    return true;
+
+    store.points = result.points;
+    return { ok: true, ...result };
+  };
+
+  // Deprecated: always mint a unique claim id (not safe against farming). Prefer claimDriveReward.
+  store.awardPoints = async (amount) => {
+    console.warn('City Driving awardPoints is deprecated; use claimDriveReward.');
+    return false;
   };
 
   store.save = async () => {
