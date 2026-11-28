@@ -4,7 +4,7 @@ import { CARS, UPGRADES, MAX_UPGRADE_LEVEL, defaultUpgrades, upgradeCost } from 
 const FS = 'https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js';
 const AUTH = 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
 
-const freshGarage = () => ({ owned: ['civic'], selected: 'civic', colors: {}, upgrades: {} });
+const freshGarage = () => ({ owned: ['civic'], selected: 'civic', colors: {}, upgrades: {}, meta: null });
 
 function sanitize(data) {
   const garage = freshGarage();
@@ -18,6 +18,7 @@ function sanitize(data) {
     garage.upgrades[id] = defaultUpgrades();
     for (const u of UPGRADES) garage.upgrades[id][u.id] = Math.max(0, Math.min(MAX_UPGRADE_LEVEL, saved[u.id] | 0));
   }
+  garage.meta = data.meta && typeof data.meta === 'object' ? data.meta : null;
   return garage;
 }
 
@@ -100,6 +101,14 @@ export function createGarageStore() {
     if (!store.user) return;
     const { doc, setDoc } = store.fs;
     await setDoc(doc(store.db, 'city_driving_garage', store.user.uid), store.garage);
+  };
+
+  // Lightweight progression blob (streaks, best times without ghosts) merged into the garage doc.
+  store.saveMeta = async (meta) => {
+    if (!store.user || !meta) return;
+    store.garage.meta = meta;
+    const { doc, setDoc } = store.fs;
+    await setDoc(doc(store.db, 'city_driving_garage', store.user.uid), { meta }, { merge: true });
   };
 
   // Atomically deducts points and applies the garage change.

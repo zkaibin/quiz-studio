@@ -643,9 +643,44 @@ html:-webkit-full-screen body {
 @media (max-width: 640px) { .trip-bar { top: 76px; right: 10px; width: 200px; } }
 
 /* Race mode */
-.mode-list { display: flex; gap: 6px; margin: 0 0 14px; }
-.mode-list button { flex: 1; padding: 10px; border: 1px solid #cfdad6; border-radius: 10px; background: #fff; color: #3d5a58; font-size: 12px; font-weight: 750; cursor: pointer; }
+.mode-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+.mode-list button { flex: 1 1 22%; min-width: 72px; padding: 10px 8px; border: 1px solid #cfdad6; border-radius: 10px; background: #fff; color: #3d5a58; font-size: 11px; font-weight: 750; cursor: pointer; }
 .mode-list button.on { border-color: #183940; background: #183940; color: #fff; }
+.mode-list button[hidden] { display: none; }
+.mission-list { margin-top: -6px; }
+.mission-list button { max-width: 100%; }
+.daily-card {
+  margin: 0 0 16px; padding: 12px 14px; border: 1px solid #e4d0c4; border-radius: 14px;
+  background: linear-gradient(135deg, #fff8f3, #fff); display: grid; gap: 6px;
+}
+.daily-card[hidden] { display: none; }
+.daily-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.daily-head b { color: #d96f50; font-size: 12px; }
+.daily-card strong { color: #18373d; font-size: 15px; }
+.daily-blurb { margin: 0; color: #5a6e6b; font-size: 12px; line-height: 1.35; }
+.daily-button {
+  justify-self: start; margin-top: 4px; padding: 8px 12px; border: 0; border-radius: 9px;
+  background: #d96f50; color: #fff; font-size: 12px; font-weight: 750; cursor: pointer;
+}
+.daily-button:disabled { opacity: .55; cursor: default; }
+.daily-done { color: #51aa79; font-size: 11px; font-weight: 750; }
+.streak-line { margin: 0 0 10px; color: #5a6e6b; font-size: 11px; font-weight: 700; text-align: center; }
+.streak-line[hidden] { display: none; }
+.mission-bar {
+  position: absolute; z-index: 2; top: 86px; right: 22px; width: 280px; padding: 10px 14px;
+  border: 1px solid rgba(255,255,255,.6); border-radius: 12px; background: rgba(250,253,252,.86);
+  backdrop-filter: blur(14px); color: #19333b; font-size: 11px; font-weight: 700;
+}
+.mission-bar[hidden] { display: none; }
+.mission-ends { display: flex; justify-content: space-between; gap: 10px; }
+.smash-meter { width: 100%; height: 4px; margin-top: 4px; border-radius: 3px; background: rgba(24,57,64,.12); overflow: hidden; }
+.smash-meter i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #d96f50, #f0a070); }
+.smash-score-label { color: #809094; font-size: 10px; font-weight: 600; }
+.trip-milestones { margin: 0 0 12px; color: #51aa79; font-size: 13px; font-weight: 700; }
+.trip-milestones[hidden] { display: none; }
+@media (max-width: 640px) {
+  .mission-bar { top: 76px; right: 10px; width: 200px; }
+}
 .race-panel { position: absolute; z-index: 2; top: 178px; right: 22px; width: 200px; padding: 10px 12px; border: 1px solid rgba(255,255,255,.6); border-radius: 12px; background: rgba(250,253,252,.86); backdrop-filter: blur(14px); color: #19333b; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; }
 .race-panel[hidden] { display: none; }
 .race-panel strong { display: block; font-size: 24px; font-variant-numeric: tabular-nums; }
